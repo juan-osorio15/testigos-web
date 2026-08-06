@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Testigos de la Memoria — Próximamente</title>
   <meta name="description" content="Testigos de la Memoria. Próximamente.">
+  <meta name="theme-color" content="#d45b30">
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,11 +17,9 @@
       box-sizing: border-box;
     }
 
-    html, body {
-      height: 100%;
-    }
-
     body {
+      min-height: 100vh;
+      min-height: 100svh;
       background-color: #d45b30;
       display: flex;
       flex-direction: column;
@@ -57,6 +56,13 @@
       0%       { opacity: 0; }
       30%, 70% { opacity: 1; }
       100%     { opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .dots span {
+        animation: none;
+        opacity: 1;
+      }
     }
   </style>
 </head>
