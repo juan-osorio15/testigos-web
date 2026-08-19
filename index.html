@@ -82,15 +82,16 @@
         min-height: 100svh;
         overscroll-behavior-y: none;
         background-color: #d45b30;
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-rows: 1fr auto;
         font-family: "Gabarito", "Avenir Next", "Trebuchet MS", sans-serif;
         text-align: center;
         color: #fff1c7;
       }
 
       main {
-        margin: auto;
+        place-self: center;
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -151,6 +152,7 @@
       }
 
       .proximamente {
+        position: relative;
         font-weight: 500;
         font-size: clamp(1rem, 2.8vw, 1.2rem);
         letter-spacing: 0.16em;
@@ -196,6 +198,7 @@
       }
 
       .franja {
+        grid-row: 2;
         width: 100%;
         height: clamp(170px, 29vh, 275px);
         object-fit: cover;
