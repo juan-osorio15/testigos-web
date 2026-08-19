@@ -6,7 +6,7 @@
     <title>Testigos de la Memoria — 5 al 8 de noviembre de 2026</title>
     <meta
       name="description"
-      content="Del 5 al 8 de noviembre de 2026. Daniel Samper Pizano, Darío Restrepo, Cecilia Orozco, Yolanda Ruiz, María Elvira Samper y otros grandes del periodismo colombiano repasan los hitos de la historia reciente del país. Un encuentro entre el periodismo y la historia."
+      content="Periodistas en la Historia. Del 5 al 8 de noviembre de 2026. Daniel Samper Pizano, Darío Restrepo, Cecilia Orozco, Yolanda Ruiz, María Elvira Samper y otros grandes del periodismo colombiano repasan los hitos de la historia reciente del país."
     />
     <meta name="theme-color" content="#d45b30" />
     <link rel="canonical" href="https://testigosdelamemoria.com/" />
@@ -18,7 +18,7 @@
     />
     <meta
       property="og:description"
-      content="Los grandes del periodismo colombiano repasan los hitos de la historia reciente del país. Un encuentro entre el periodismo y la historia."
+      content="Periodistas en la Historia. Un recorrido por la historia de Colombia, en la voz de los periodistas que la viven."
     />
     <meta property="og:url" content="https://testigosdelamemoria.com/" />
     <meta property="og:locale" content="es_ES" />
@@ -33,7 +33,7 @@
       {
         "@context": "https://schema.org",
         "@type": "Event",
-        "name": "Testigos de la Memoria",
+        "name": "Testigos de la Memoria: Periodistas en la Historia",
         "startDate": "2026-11-05",
         "endDate": "2026-11-08",
         "eventStatus": "https://schema.org/EventScheduled",
@@ -44,7 +44,7 @@
           "address": { "@type": "PostalAddress", "addressCountry": "CO" }
         },
         "image": "https://testigosdelamemoria.com/assets/og-image.png",
-        "description": "Conversatorios con los reporteros e investigadores que han sido testigos de los hitos de la historia reciente de Colombia. Un encuentro entre el periodismo y la historia.",
+        "description": "Un recorrido por la historia de Colombia, en la voz de los periodistas que la viven. Conversatorios con los reporteros e investigadores testigos de los hitos de la historia reciente del país.",
         "organizer": {
           "@type": "Organization",
           "name": "Testigos de la Memoria",
@@ -72,27 +72,34 @@
         background-color: #d45b30;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 1.75rem;
-        padding: 3rem 2rem;
         font-family: "Gabarito", "Avenir Next", "Trebuchet MS", sans-serif;
         text-align: center;
         color: #fff1c7;
       }
 
       main {
+        margin: auto;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 1.75rem;
+        gap: 1.6rem;
         max-width: 42rem;
+        padding: 3rem 2rem 2.5rem;
       }
 
       .logo {
-        width: min(260px, 62vw);
+        width: min(240px, 58vw);
         height: auto;
         display: block;
+      }
+
+      .tagline {
+        font-weight: 700;
+        font-size: clamp(1.15rem, 3.6vw, 1.6rem);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #210804;
+        margin-top: -0.4rem;
       }
 
       .fecha {
@@ -105,8 +112,8 @@
 
       h1 {
         font-weight: 800;
-        font-size: clamp(1.6rem, 5vw, 2.5rem);
-        line-height: 1.15;
+        font-size: clamp(1.5rem, 4.6vw, 2.3rem);
+        line-height: 1.18;
         letter-spacing: 0.01em;
       }
 
@@ -166,13 +173,25 @@
           opacity: 1;
         }
       }
+
+      .franja {
+        width: 100%;
+        height: clamp(130px, 22vh, 210px);
+        object-fit: cover;
+        object-position: top;
+        display: block;
+      }
     </style>
   </head>
   <body>
     <main>
       <img class="logo" src="assets/logo.svg" alt="Testigos de la Memoria" />
+      <p class="tagline">Periodistas en la Historia</p>
       <p class="fecha">Del 5 al 8 de noviembre · 2026</p>
-      <h1>La historia reciente de Colombia, contada por quienes la vieron de frente.</h1>
+      <h1>
+        Un recorrido por la historia de Colombia, en la voz de los periodistas
+        que la viven.
+      </h1>
       <p class="intro">
         Los reporteros e investigadores que cubrieron los hechos que marcaron al
         país —del Bogotazo a las negociaciones de paz, del narcotráfico a los
@@ -189,5 +208,10 @@
         >
       </p>
     </main>
+    <img
+      class="franja"
+      src="assets/franja.jpg"
+      alt="Calle colonial con muros blancos, piedra y buganvilias"
+    />
   </body>
 </html>
