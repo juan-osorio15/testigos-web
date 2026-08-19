@@ -3,19 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Testigos de la Memoria — Próximamente</title>
+    <title>Testigos de la Memoria — 5 al 8 de noviembre de 2026</title>
     <meta
       name="description"
-      content="Testigos de la Memoria — sitio oficial, próximamente en línea."
+      content="Del 5 al 8 de noviembre de 2026. Daniel Samper Pizano, Darío Restrepo, Cecilia Orozco, Yolanda Ruiz, María Elvira Samper y otros grandes del periodismo colombiano repasan los hitos de la historia reciente del país. Un encuentro entre el periodismo y la historia."
     />
     <meta name="theme-color" content="#d45b30" />
     <link rel="canonical" href="https://testigosdelamemoria.com/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Testigos de la Memoria" />
-    <meta property="og:title" content="Testigos de la Memoria — Próximamente" />
+    <meta
+      property="og:title"
+      content="Testigos de la Memoria — 5 al 8 de noviembre de 2026"
+    />
     <meta
       property="og:description"
-      content="Testigos de la Memoria — sitio oficial, próximamente en línea."
+      content="Los grandes del periodismo colombiano repasan los hitos de la historia reciente del país. Un encuentro entre el periodismo y la historia."
     />
     <meta property="og:url" content="https://testigosdelamemoria.com/" />
     <meta property="og:locale" content="es_ES" />
@@ -29,17 +32,31 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
+        "@type": "Event",
         "name": "Testigos de la Memoria",
-        "url": "https://testigosdelamemoria.com/",
-        "logo": "https://testigosdelamemoria.com/assets/logo.svg"
+        "startDate": "2026-11-05",
+        "endDate": "2026-11-08",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "location": {
+          "@type": "Place",
+          "name": "Colombia",
+          "address": { "@type": "PostalAddress", "addressCountry": "CO" }
+        },
+        "image": "https://testigosdelamemoria.com/assets/og-image.png",
+        "description": "Conversatorios con los reporteros e investigadores que han sido testigos de los hitos de la historia reciente de Colombia. Un encuentro entre el periodismo y la historia.",
+        "organizer": {
+          "@type": "Organization",
+          "name": "Testigos de la Memoria",
+          "url": "https://testigosdelamemoria.com/"
+        }
       }
     </script>
     <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -57,23 +74,59 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 2rem;
-        padding: 2rem;
-        font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+        gap: 1.75rem;
+        padding: 3rem 2rem;
+        font-family: "Gabarito", "Avenir Next", "Trebuchet MS", sans-serif;
         text-align: center;
+        color: #fff1c7;
+      }
+
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.75rem;
+        max-width: 42rem;
       }
 
       .logo {
-        width: min(320px, 70vw);
+        width: min(260px, 62vw);
         height: auto;
         display: block;
       }
 
+      .fecha {
+        font-weight: 600;
+        font-size: clamp(0.85rem, 2.5vw, 1rem);
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+      }
+
       h1 {
+        font-weight: 800;
+        font-size: clamp(1.6rem, 5vw, 2.5rem);
+        line-height: 1.15;
+        letter-spacing: 0.01em;
+      }
+
+      .intro {
+        font-weight: 400;
+        font-size: clamp(1rem, 2.8vw, 1.15rem);
+        line-height: 1.65;
+        color: rgba(255, 241, 199, 0.92);
+      }
+
+      .intro strong {
+        font-weight: 700;
         color: #fff1c7;
-        font-size: clamp(1.5rem, 4vw, 2.5rem);
-        font-weight: normal;
-        letter-spacing: 0.08em;
+      }
+
+      .proximamente {
+        font-weight: 500;
+        font-size: clamp(1rem, 2.8vw, 1.2rem);
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        margin-top: 0.5rem;
       }
 
       /* Fuera del flujo: los puntos no ocupan ancho y la palabra queda centrada sola */
@@ -115,11 +168,25 @@
     </style>
   </head>
   <body>
-    <img class="logo" src="assets/logo.svg" alt="Testigos de la Memoria" />
-    <h1>
-      Próximamente<span class="dots"
-        ><span>.</span><span>.</span><span>.</span></span
-      >
-    </h1>
+    <main>
+      <img class="logo" src="assets/logo.svg" alt="Testigos de la Memoria" />
+      <p class="fecha">Del 5 al 8 de noviembre · 2026</p>
+      <h1>La historia reciente de Colombia, contada por quienes la vieron de frente.</h1>
+      <p class="intro">
+        Los reporteros e investigadores que cubrieron los hechos que marcaron al
+        país —del Bogotazo a las negociaciones de paz, del narcotráfico a los
+        magnicidios— se reúnen en una serie de conversatorios para contarlos
+        como solo los testigos pueden hacerlo.
+        <strong>Daniel Samper Pizano</strong>, <strong>Darío Restrepo</strong>,
+        <strong>Cecilia Orozco</strong>, <strong>Yolanda Ruiz</strong>,
+        <strong>María Elvira Samper</strong> y otros grandes del periodismo
+        colombiano, en un encuentro entre el periodismo y la historia.
+      </p>
+      <p class="proximamente">
+        Próximamente<span class="dots"
+          ><span>.</span><span>.</span><span>.</span></span
+        >
+      </p>
+    </main>
   </body>
 </html>
