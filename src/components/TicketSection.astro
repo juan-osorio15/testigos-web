@@ -7,7 +7,7 @@
  * Pretix es el único dueño de precios/tipos de boleta (FR-008); esta
  * sección implementa el contrato pretix-embed.md al pie de la letra.
  */
-import { PRETIX_EVENT_URL, pretixReady } from '../config';
+import { PRETIX_EVENT_URL, pretixReady, WAITLIST_ENDPOINT, waitlistReady } from '../config';
 import { t } from '../ui';
 import { event } from '../data/event';
 
@@ -38,12 +38,83 @@ const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
             </pretix-widget>
           </>
         ) : (
-          <p class="tickets-soon">{t('tickets.soon')}</p>
+          <>
+            <p class="tickets-soon">{t('tickets.soon')}</p>
+            {/* Lista de interesados (solo mientras no exista la tienda).
+                POST estándar: funciona sin JS; con JS, mensaje inline. */}
+            <form
+              class="waitlist"
+              method="POST"
+              action={waitlistReady ? WAITLIST_ENDPOINT : undefined}
+              data-waitlist
+            >
+              <p class="waitlist-lead">{t('waitlist.lead')}</p>
+              <label>
+                <span>{t('waitlist.name')}</span>
+                <input type="text" name="name" autocomplete="name" />
+              </label>
+              <label>
+                <span>{t('waitlist.email')} *</span>
+                <input type="email" name="email" required autocomplete="email" inputmode="email" />
+              </label>
+              <label>
+                <span>{t('waitlist.phone')}</span>
+                <input type="tel" name="phone" autocomplete="tel" inputmode="tel" />
+              </label>
+              {/* Honeypot antispam: oculto para humanos, tentador para bots */}
+              <input
+                type="text"
+                name="website"
+                tabindex="-1"
+                autocomplete="off"
+                aria-hidden="true"
+                class="waitlist-hp"
+              />
+              <button type="submit" class="waitlist-submit" disabled={!waitlistReady}>
+                {t('waitlist.submit')}
+              </button>
+              <p
+                class="waitlist-note"
+                data-waitlist-note
+                data-success={t('waitlist.success')}
+                data-error={t('waitlist.error')}
+                aria-live="polite"
+              >
+                {waitlistReady ? t('waitlist.privacy') : t('waitlist.pending')}
+              </p>
+            </form>
+          </>
         )
       }
     </div>
   </div>
 </section>
+
+<script>
+  // Mejora progresiva: enviar sin salir de la página. Sin JS, el form
+  // hace POST nativo al endpoint (todos los servicios soportados lo aceptan).
+  const form = document.querySelector<HTMLFormElement>('[data-waitlist]');
+  const note = document.querySelector<HTMLElement>('[data-waitlist-note]');
+  if (form && form.action && note) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      if (data.get('website')) return; // honeypot
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { Accept: 'application/json' },
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        note.textContent = note.dataset.success ?? '';
+      } catch {
+        note.textContent = note.dataset.error ?? '';
+      }
+    });
+  }
+</script>
 
 <style>
   /* Primera capa de la cortina: fondo sólido + z-index sobre el hero fijo */
@@ -90,6 +161,64 @@ const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
     line-height: 1.4;
     color: var(--brick);
     text-wrap: balance;
+  }
+
+  /* --- Formulario de interesados --- */
+  .waitlist {
+    display: grid;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: var(--border) var(--ink);
+  }
+  .waitlist-lead {
+    font-weight: 800;
+  }
+  .waitlist label {
+    display: grid;
+    gap: 0.3rem;
+    font-size: var(--text-small);
+    font-weight: 700;
+  }
+  .waitlist input {
+    font: inherit;
+    padding: 0.6em 0.8em;
+    border: var(--border) var(--ink);
+    border-radius: 0;
+    background-color: var(--cream);
+    color: var(--ink);
+  }
+  .waitlist input:focus-visible {
+    outline: 3px solid var(--terracotta);
+    outline-offset: 0;
+  }
+  .waitlist-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+  }
+  .waitlist-submit {
+    justify-self: start;
+    padding: 0.75em 1.5em;
+    font-weight: 800;
+    background-color: var(--ink);
+    color: var(--cream);
+    border: var(--border) var(--ink);
+    border-radius: 0;
+    transition: background-color 160ms var(--ease-out);
+  }
+  .waitlist-submit:hover:not(:disabled) {
+    background-color: var(--brick);
+    border-color: var(--brick);
+  }
+  .waitlist-submit:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .waitlist-note {
+    font-size: var(--text-small);
+    opacity: 0.8;
   }
 
   .pretix-widget-info-message {

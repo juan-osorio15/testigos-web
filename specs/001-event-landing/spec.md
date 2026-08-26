@@ -34,6 +34,7 @@
 - Q: ¿De dónde salen los assets del logo? → A: Se extraen del PDF de marca a la mejor calidad posible; el usuario provee SVG/fuentes solo si la extracción no alcanza.
 - Q: ¿Existen los componentes de `template-evento` mencionados en el brief? → A: No — esa carpeta no existe en el repo ni en el entorno. Los componentes del sitio se crean desde cero; el listado del brief se toma solo como inventario orientativo de secciones.
 - Q: ¿El coorganizador es "Fernando Restrepo" (como decía el brief)? → A: No: su nombre correcto es **Fernando Cordovez**. Corregido en organizadores y en la bio de Darío Restrepo.
+- Q: ¿Qué se muestra mientras no exista la tienda de Pretix? → A: Además del aviso "la venta abre pronto", un formulario de interesados (nombre, correo obligatorio, teléfono opcional) con nota de privacidad y honeypot antispam, conectable por configuración a un servicio de listas (recomendado: listmonk, open source). Desaparece cuando `pretixReady` pasa a true.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -134,6 +135,7 @@ El dueño del proyecto necesita que el placeholder "Próximamente" que hoy vive 
 - **FR-009**: El header MUST mantener un botón de compra siempre visible durante todo el scroll, en ambos estados visuales del header.
 - **FR-010**: Los CTAs de compra repetidos (cierre de Speakers, cierre de Agenda, cierre final tras FAQs) MUST compartir texto y estilo con el del header, y todos MUST desplazar suavemente a la sección del widget (nunca duplicar el widget).
 - **FR-011**: Si el widget no puede cargar, la sección de compra MUST ofrecer un enlace directo a la tienda de Pretix como vía alterna.
+- **FR-011b**: Mientras la venta no esté activa (`pretixReady: false`), la sección de compra MUST ofrecer un formulario de interesados con correo obligatorio y nombre/teléfono opcionales, funcional sin JavaScript, con honeypot antispam y nota de uso de datos; el formulario desaparece al activarse la venta.
 
 **Identidad visual y experiencia**
 
