@@ -4,8 +4,7 @@
  * Grafía exacta. Nada de horarios aquí: eso vive en agenda.ts.
  *
  * Fuente: agenda parcial entregada el 2026-08-26 (todos los nombres que
- * aparecen en ella están confirmados) + confirmaciones previas del
- * 2026-08-25 (María Jimena Duzán, aún sin franja asignada).
+ * aparecen en ella están confirmados).
  * Pendiente del organizador: credencial/medio y foto de cada panelista.
  */
 
@@ -25,14 +24,6 @@ export const speakers: Speaker[] = [
     name: 'Daniel Samper Pizano',
     credential: 'Periodista y escritor · El Tiempo',
     bio: 'Pionero del periodismo investigativo en Colombia. Abre los conversatorios con el Bogotazo, la dictadura y el Frente Nacional.',
-    photo: null,
-    confirmed: true,
-  },
-  {
-    slug: 'maria-jimena-duzan',
-    name: 'María Jimena Duzán',
-    credential: 'Periodista y columnista',
-    bio: 'Ha cubierto el poder y el conflicto colombiano por más de cuarenta años, de El Espectador a Semana y su pódcast A Fondo.',
     photo: null,
     confirmed: true,
   },
