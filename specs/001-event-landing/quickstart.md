@@ -53,9 +53,41 @@ Gate mecánico: `check` + `build` en verde antes de cualquier commit que toque `
 - [ ] `curl -sI https://testigosdelamemoria.com` → el placeholder sigue en línea, sin cambios.
 - [ ] `.github/workflows/deploy.yml` solo dispara en `push: main` / `workflow_dispatch`.
 
-## Deploy final (SOLO con orden explícita del usuario — no ejecutar)
+## Demo pública en /demo (mientras se aprueba)
 
-1. Merge `dev → main` preservando activos (ya en `public/`).
-2. En GitHub: Settings → Pages → Source: **GitHub Actions**.
-3. Push de `main` → workflow construye y publica; verificar dominio, sitemap, IndexNow.
-4. Smoke test de producción: checklist de idiomas + compra + 404.
+Publicada el 2026-08-26 con autorización del usuario: la raíz sigue sirviendo el
+placeholder y el sitio nuevo vive en https://testigosdelamemoria.com/demo/
+(con `noindex` + `Disallow: /demo/` en robots.txt: no compite en SEO).
+
+**Cómo se publica/actualiza la demo** (desde `dev`):
+
+```bash
+npm run build:demo                       # build con base /demo (noindex automático)
+# limpiar metaarchivos de raíz que no aplican bajo /demo:
+rm -f dist/CNAME dist/robots.txt dist/sitemap.xml dist/1b880322af30410c8832c1e6748dc455.txt
+git checkout main
+rm -rf demo && cp -R dist demo
+git add demo && git commit -m "Actualizar demo"
+git push origin main                     # publica: raíz intacta + /demo actualizado
+git checkout dev
+```
+
+En `main` existen además `.nojekyll` (necesario para que Pages sirva `_astro/`)
+y el `robots.txt` con `Disallow: /demo/`. No tocar ninguno de los dos.
+
+## Promoción a la raíz cuando el sitio quede aprobado (deploy final)
+
+**SOLO con orden explícita del usuario — no ejecutar antes.**
+
+1. Merge `dev → main` (en conflictos modify/delete de `specs/`, `brand/` y
+   `.specify/` — retirados de `main` al publicar la demo — tomar la versión
+   de `dev` o volver a retirarlos: no deben publicarse).
+2. Retirar de `main` lo que ya no aplica: la carpeta `demo/`, los archivos
+   del placeholder (`index.html`, `404.html`, `assets/`) y quitar el
+   `Disallow: /demo/` de `public/robots.txt`.
+3. En GitHub: Settings → Pages → Source: **GitHub Actions** (el workflow
+   `.github/workflows/deploy.yml` ya está listo; construye con `npm run build`,
+   SIN base /demo, y publica `dist/`).
+4. Push de `main` → workflow construye y publica; verificar dominio, sitemap,
+   IndexNow, y que https://testigosdelamemoria.com sirva el sitio nuevo.
+5. Smoke test de producción: checklist completo de este documento + compra + 404.

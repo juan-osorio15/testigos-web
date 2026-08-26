@@ -20,7 +20,7 @@ import LogoSymbol from '../assets/logo/logo-symbol.svg';
       <h1>{t('notfound.title')}</h1>
       <p>{t('notfound.body')}</p>
       <div class="nf-actions">
-        <a class="cta" href="/">{t('notfound.back')}</a>
+        <a class="cta" href={import.meta.env.BASE_URL}>{t('notfound.back')}</a>
       </div>
     </div>
   </main>

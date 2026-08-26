@@ -1,6 +1,6 @@
 # Fórmula visual · Testigos de la Memoria
 
-Gramática de composición destilada de la Propuesta 1 del manual (`Testigos-Brand-01.pdf`, págs. 1-7) y validada en el hero del sitio web. Sirve de referencia para cualquier pieza nueva: posts, afiches, emails, presentaciones, merch.
+Gramática de composición destilada de la Propuesta del manual y validada en el hero del sitio web. Sirve de referencia para cualquier pieza nueva: posts, afiches, emails, presentaciones, merch.
 
 Referencias construidas: la valla y la escarapela del manual (pág. 6) y el hero de testigosdelamemoria.com (rama `dev`).
 
@@ -24,14 +24,14 @@ El marrón `#210804` es **la tinta con la que se escribe sobre los bloques de co
 
 ## 3. Cada bloque tiene un oficio
 
-| Color | Hex | Oficio |
-|---|---|---|
-| Terracota | `#d45b30` | El mensaje: ahí vive el titular |
-| Crema | `#efe8df` | La identidad: logo o comillas, con aire |
-| Azul cielo | `#74b3d6` | Los datos prácticos: fecha, lugar, info, en franja |
-| Oliva | `#757522` | Categorías y acentos (p. ej. lo gratuito) |
-| Ladrillo | `#7d290d` | Categorías y acentos; tinta secundaria sobre crema |
-| Foto | b/n o duotono | El testimonio: documental, en bloque propio a sangre, nunca de fondo con texto encima |
+| Color      | Hex           | Oficio                                                                                |
+| ---------- | ------------- | ------------------------------------------------------------------------------------- |
+| Terracota  | `#d45b30`     | El mensaje: ahí vive el titular                                                       |
+| Crema      | `#efe8df`     | La identidad: logo o comillas, con aire                                               |
+| Azul cielo | `#74b3d6`     | Los datos prácticos: fecha, lugar, info, en franja                                    |
+| Oliva      | `#757522`     | Categorías y acentos (p. ej. lo gratuito)                                             |
+| Ladrillo   | `#7d290d`     | Categorías y acentos; tinta secundaria sobre crema                                    |
+| Foto       | b/n o duotono | El testimonio: documental, en bloque propio a sangre, nunca de fondo con texto encima |
 
 ## 4. Una sola firma: las comillas
 
@@ -59,4 +59,4 @@ Gradientes, glow/neón, parallax, sombras notorias (máx. 0-2px), esquinas redon
 
 ---
 
-*Última actualización: 2026-08-25. Cualquier pieza nueva debería poder señalarse en este documento bloque por bloque.*
+_Última actualización: 2026-08-25. Cualquier pieza nueva debería poder señalarse en este documento bloque por bloque._
