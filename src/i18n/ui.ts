@@ -25,11 +25,7 @@ const dict = {
   'nav.menuClose': { es: 'Cerrar menú', en: 'Close menu' },
 
   // --- Selector de idioma ---
-  'lang.switch': { es: 'English', en: 'Español' },
-  'lang.aria': {
-    es: 'Read this page in English',
-    en: 'Leer esta página en español',
-  },
+  'lang.label': { es: 'Idioma', en: 'Language' },
 
   // --- Hero ---
   'hero.tagline': { es: 'Periodistas en la Historia', en: 'Journalists in History' },

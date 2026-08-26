@@ -45,16 +45,42 @@ const navItems = [
       {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
     </nav>
     <div class="header-actions">
-      <a
-        href={alternateUrl(locale)}
-        hreflang={otherLocale(locale)}
-        lang={otherLocale(locale)}
-        aria-label={t('lang.aria', locale)}
-        class="lang-link"
-        data-lang-link
-      >
-        {t('lang.switch', locale)}
-      </a>
+      <details class="lang">
+        <summary aria-label={t('lang.label', locale)}>
+          <svg
+            class="lang-globe"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="9"></circle>
+            <ellipse cx="12" cy="12" rx="4" ry="9"></ellipse>
+            <path d="M3.6 9h16.8M3.6 15h16.8"></path>
+          </svg>
+          <span class="lang-code">{locale.toUpperCase()}</span>
+          <span class="lang-caret" aria-hidden="true">▾</span>
+        </summary>
+        <ul class="lang-menu" role="list">
+          <li>
+            <span class="lang-option is-current" aria-current="true" lang={locale}>
+              {locale === 'es' ? 'Español' : 'English'}
+            </span>
+          </li>
+          <li>
+            <a
+              class="lang-option"
+              href={alternateUrl(locale)}
+              hreflang={otherLocale(locale)}
+              lang={otherLocale(locale)}
+              data-lang-link
+            >
+              {otherLocale(locale) === 'es' ? 'Español' : 'English'}
+            </a>
+          </li>
+        </ul>
+      </details>
       <CtaButton locale={locale} variant="header" />
     </div>
   </div>
@@ -132,17 +158,79 @@ const navItems = [
   .header-actions {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
+    /* El CTA de compra es el protagonista: el selector de idioma guarda distancia */
+    gap: var(--space-4);
     margin-left: auto;
   }
-  .lang-link {
+
+  .lang {
+    position: relative;
+  }
+  .lang summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    cursor: pointer;
+    list-style: none;
     font-size: 0.875rem;
     font-weight: 700;
     letter-spacing: 0.04em;
+    padding: 0.35em 0.2em;
+  }
+  .lang summary::-webkit-details-marker {
+    display: none;
+  }
+  .lang-globe {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+  .lang-caret {
+    font-size: 0.7em;
+    transition: transform 160ms var(--ease-out);
+  }
+  .lang[open] .lang-caret {
+    transform: rotate(180deg);
+  }
+
+  /* Panel siempre sólido y legible, en ambos estados del header */
+  .lang-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    min-width: 9rem;
+    margin: 0;
+    padding: 0.4rem;
+    list-style: none;
+    display: grid;
+    background-color: var(--cream);
+    color: var(--ink);
+    border: var(--border) var(--ink);
+    border-radius: 12px;
+    box-shadow: var(--shadow-1);
+  }
+  .lang-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.5em 0.7em;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    font-weight: 600;
     text-decoration: none;
-    text-transform: uppercase;
-    border-bottom: 2px solid var(--terracotta);
-    padding-block: 0.15em;
+  }
+  .lang-option.is-current {
+    font-weight: 800;
+  }
+  .lang-option.is-current::after {
+    content: '';
+    width: 0.45em;
+    height: 0.45em;
+    border-radius: 999px;
+    background-color: var(--terracotta);
+  }
+  a.lang-option:hover {
+    background-color: var(--ink);
+    color: var(--cream);
   }
 
   @media (max-width: 47.9rem) {
