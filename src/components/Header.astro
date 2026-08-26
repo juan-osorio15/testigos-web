@@ -109,17 +109,18 @@ const navItems = [
   .nav a:hover {
     border-bottom-color: var(--terracotta);
   }
-  /* Punto de sección actual (scrollspy): sigue el scroll vía IntersectionObserver */
-  .nav a.is-active::after {
+  /* Punto de sección actual (scrollspy): a la izquierda de la palabra,
+     posicionado en absoluto para no agregar espacio, en el color del texto */
+  .nav a.is-active::before {
     content: '';
     position: absolute;
-    left: 50%;
-    bottom: -0.55em;
+    left: -0.7em;
+    top: 50%;
     width: 6px;
     height: 6px;
     border-radius: 999px;
-    background-color: var(--terracotta);
-    transform: translateX(-50%);
+    background-color: currentColor;
+    transform: translateY(-50%);
   }
 
   .header-actions {
