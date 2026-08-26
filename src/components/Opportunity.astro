@@ -4,6 +4,9 @@
  * ni ediciones anteriores. El argumento: escuchar de frente a quienes
  * cubrieron la historia, en Villa de Leyva. Audiencia 1 primero (spec §3).
  */
+import { Image } from 'astro:assets';
+import plazaPhoto from '../assets/photos/pexels-juansegmentado-31342298.jpg';
+
 const copy = {
   eyebrow: 'Primera edición',
   /* Pregunta del banco aprobado (spec §2) */
@@ -19,14 +22,27 @@ const copy = {
 ---
 
 <section id="oportunidad" class="opp" data-reveal>
-  <div class="container opp-inner">
-    <p class="eyebrow">{copy.eyebrow}</p>
-    <h2>{copy.heading}</h2>
-    <p class="opp-lead">{copy.lead}</p>
-    <ul class="opp-points" role="list">
-      {copy.points.map((point) => <li>{point}</li>)}
-    </ul>
-    <p class="opp-closing">{copy.closing}</p>
+  <div class="container opp-grid">
+    <div class="opp-inner">
+      <p class="eyebrow">{copy.eyebrow}</p>
+      <h2>{copy.heading}</h2>
+      <p class="opp-lead">{copy.lead}</p>
+      <ul class="opp-points" role="list">
+        {copy.points.map((point) => <li>{point}</li>)}
+      </ul>
+      <p class="opp-closing">{copy.closing}</p>
+    </div>
+    <div class="duotone opp-photo">
+      <Image
+        src={plazaPhoto}
+        alt="Plaza Mayor de Villa de Leyva: la fuente de piedra sobre el empedrado"
+        width={900}
+        height={1350}
+        widths={[480, 720, 900]}
+        sizes="(max-width: 63.9rem) 100vw, 26rem"
+        loading="lazy"
+      />
+    </div>
   </div>
 </section>
 
@@ -38,10 +54,33 @@ const copy = {
     color: var(--cream);
     padding-block: var(--space-6);
   }
+  .opp-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 24rem);
+    gap: var(--space-5);
+    align-items: center;
+  }
   .opp-inner {
     display: grid;
     gap: var(--space-3);
     max-width: 54rem;
+  }
+  /* La foto en su propio bloque, duotono cálido sobre la sección tinta */
+  .opp-photo {
+    --duotone-tint: var(--terracotta);
+    aspect-ratio: 3 / 4;
+  }
+  .opp-photo :global(img) {
+    height: 100%;
+  }
+  @media (max-width: 63.9rem) {
+    .opp-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+    .opp-photo {
+      aspect-ratio: 4 / 3;
+    }
   }
   .opp .eyebrow {
     color: var(--terracotta);

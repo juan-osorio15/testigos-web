@@ -1,0 +1,73 @@
+---
+/**
+ * Banda intermedia entre Agenda y Lugar: foto documental de Villa de Leyva
+ * junto a un bloque cielo con una pregunta del banco aprobado (spec §2).
+ * Gramática de la valla: la foto en su bloque, el texto en el suyo.
+ * No es una sección del orden FR-004: es un respiro visual.
+ */
+import { Image } from 'astro:assets';
+import streetPhoto from '../assets/photos/pexels-enrique-30266123.jpg';
+---
+
+<aside class="interlude" data-reveal>
+  <div class="duotone interlude-photo">
+    <Image
+      src={streetPhoto}
+      alt="Calle empedrada de Villa de Leyva con las casas blancas y la montaña al fondo"
+      width={1200}
+      height={1600}
+      widths={[640, 900, 1200]}
+      sizes="(max-width: 63.9rem) 100vw, 55vw"
+      loading="lazy"
+    />
+  </div>
+  <div class="interlude-block">
+    <p class="interlude-quote">
+      Villa de Leyva se reúne para conversar sobre el país que hemos vivido.
+    </p>
+  </div>
+</aside>
+
+<style>
+  .interlude {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
+    min-height: 55svh;
+  }
+
+  .interlude-photo {
+    --duotone-tint: var(--cream);
+  }
+  .interlude-photo :global(img) {
+    height: 100%;
+  }
+
+  .interlude-block {
+    background-color: var(--sky);
+    color: var(--ink);
+    display: grid;
+    align-content: center;
+    padding: var(--space-5) var(--gutter);
+  }
+  .interlude-quote {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.5rem, 1rem + 1.8vw, 2.4rem);
+    line-height: 1.3;
+    max-width: 18ch;
+    text-wrap: balance;
+  }
+
+  @media (max-width: 63.9rem) {
+    .interlude {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+    .interlude-photo {
+      aspect-ratio: 4 / 3;
+    }
+  }
+</style>
