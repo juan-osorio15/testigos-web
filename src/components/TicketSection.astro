@@ -128,14 +128,19 @@ const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
 
   .tickets-grid {
     display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
     gap: var(--space-5);
-    align-items: start;
+    /* el texto se centra verticalmente respecto a la tarjeta */
+    align-items: center;
   }
 
   .tickets-intro {
     display: grid;
     gap: var(--space-2);
+    order: 2; /* en desktop: formulario a la izquierda, texto a la derecha */
+  }
+  .tickets-widget {
+    order: 1;
   }
   .tickets-intro .eyebrow {
     color: var(--brick);
@@ -234,6 +239,13 @@ const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
     .tickets-grid {
       grid-template-columns: 1fr;
       gap: var(--space-4);
+    }
+    /* apilado: primero el contexto, luego el formulario */
+    .tickets-intro {
+      order: 1;
+    }
+    .tickets-widget {
+      order: 2;
     }
   }
 </style>
