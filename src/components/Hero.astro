@@ -1,0 +1,161 @@
+---
+/**
+ * Hero fijo con cortina (patrón 8.1): el hero queda anclado y el <main>
+ * opaco sube y lo tapa. CSS puro: fixed + spacer 100svh. Sin imágenes
+ * bloqueantes: bloques de color de marca (R10) — el peso del hero es ~0.
+ *
+ * Firma visual: las comillas del logo — "la mirada del testigo" — observan
+ * desde la esquina, como en las tarjetas del manual (págs. 4-5).
+ */
+import { t, type Locale } from '../i18n/ui';
+import CtaButton from './CtaButton.astro';
+import LogoSymbol from '../assets/logo/logo-symbol.svg';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+/* Slogan aprobado (spec §2); el nombre del evento va en el h1 para SEO/AT
+   y el eslogan es el display visible. */
+const slogan = {
+  es: ['La historia reciente de Colombia,', 'contada por quienes', 'la ven de frente.'],
+  en: ["Colombia's recent history,", 'told by those who', 'saw it up close.'],
+}[locale];
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-fixed">
+    <LogoSymbol class="hero-watch" aria-hidden="true" />
+    <div class="hero-content container">
+      <p class="eyebrow hero-tagline">{t('hero.tagline', locale)}</p>
+      <h1 id="hero-title">
+        <span class="sr-only">Testigos de la Memoria — </span>
+        {slogan.map((line) => <span class="hero-line">{line}</span>)}
+      </h1>
+      <div class="hero-meta">
+        <p class="hero-chip hero-chip--date">{t('hero.dates', locale)}</p>
+        <p class="hero-chip hero-chip--place">{t('hero.place', locale)}</p>
+        <CtaButton locale={locale} />
+      </div>
+    </div>
+    <p class="hero-scroll" aria-hidden="true">{t('hero.scroll', locale)} ↓</p>
+  </div>
+  <div class="hero-spacer"></div>
+  <div data-header-sentinel aria-hidden="true"></div>
+</section>
+
+<style>
+  .hero-fixed {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    display: grid;
+    align-content: center;
+    background-color: var(--ink);
+    color: var(--cream);
+    overflow: hidden;
+    padding-top: var(--header-h);
+  }
+
+  .hero-spacer {
+    height: 100svh;
+  }
+
+  /* Las comillas observan desde arriba a la derecha */
+  .hero-watch {
+    position: absolute;
+    top: clamp(4.5rem, 12vh, 8rem);
+    right: clamp(-2rem, 2vw, 6rem);
+    width: clamp(180px, 28vw, 360px);
+    height: auto;
+    color: var(--terracotta);
+  }
+
+  .hero-content {
+    display: grid;
+    gap: var(--space-3);
+    justify-items: start;
+    position: relative;
+    width: 100%;
+  }
+
+  .hero-tagline {
+    color: var(--terracotta);
+  }
+
+  h1 {
+    font-size: var(--text-display);
+    font-weight: 800;
+    display: grid;
+  }
+  .hero-line {
+    display: block;
+  }
+  /* Acento serif editorial en la última línea — eco del wordmark */
+  .hero-line:last-child {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--terracotta);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+  }
+
+  /* Chips de dato: bloques de color sólidos, lenguaje del manual */
+  .hero-chip {
+    padding: 0.55em 1em;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    border-radius: 6px;
+  }
+  .hero-chip--date {
+    background-color: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-serif);
+    font-weight: 600;
+  }
+  .hero-chip--place {
+    background-color: var(--sky);
+    color: var(--ink);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: var(--text-small);
+    opacity: 0.65;
+  }
+
+  @media (max-width: 47.9rem) {
+    .hero-watch {
+      top: auto;
+      bottom: -4vw;
+      right: -6vw;
+      width: 44vw;
+      opacity: 0.9;
+    }
+    .hero-scroll {
+      display: none;
+    }
+  }
+</style>

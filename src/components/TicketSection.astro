@@ -1,0 +1,115 @@
+---
+/**
+ * Descripción corta + widget de compra (sección 2 del orden fijo, FR-004).
+ * Continuación directa del hero: sin título grande propio. Es la primera
+ * sección de <main>, o sea la "cortina" opaca que tapa el hero al subir.
+ *
+ * Pretix es el único dueño de precios/tipos de boleta (FR-008); esta
+ * sección implementa el contrato pretix-embed.md al pie de la letra.
+ */
+import { PRETIX_EVENT_URL, pretixReady } from '../config';
+import { t, type Locale } from '../i18n/ui';
+import { event } from '../data/event';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const widgetScript = `https://pretix.eu/widget/v1.${locale}.js`;
+const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
+---
+
+<section id="boletas" class="tickets">
+  <div class="container tickets-grid">
+    <div class="tickets-intro">
+      <p class="eyebrow">{t('tickets.heading', locale)}</p>
+      <p class="tickets-lead">{event.description[locale]}</p>
+    </div>
+    <div class="tickets-widget">
+      {
+        pretixReady ? (
+          <>
+            <link rel="stylesheet" href={widgetCss} />
+            <script is:inline async src={widgetScript} />
+            <pretix-widget event={PRETIX_EVENT_URL}>
+              {/* Fallback oficial: esto es lo que se ve sin JS o con el widget bloqueado (FR-011/018) */}
+              <div class="pretix-widget-info-message">
+                <p>{t('tickets.widgetFallback', locale)}</p>
+                <a href={PRETIX_EVENT_URL} target="_blank" rel="noopener">
+                  {t('tickets.widgetLink', locale)} →
+                </a>
+              </div>
+            </pretix-widget>
+          </>
+        ) : (
+          <p class="tickets-soon">{t('tickets.soon', locale)}</p>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Primera capa de la cortina: fondo sólido + z-index sobre el hero fijo */
+  .tickets {
+    position: relative;
+    z-index: 1;
+    background-color: var(--cream);
+    border-top: 10px solid var(--terracotta);
+    padding-block: var(--space-6);
+  }
+
+  .tickets-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: var(--space-5);
+    align-items: start;
+  }
+
+  .tickets-intro {
+    display: grid;
+    gap: var(--space-2);
+  }
+  .tickets-intro .eyebrow {
+    color: var(--brick);
+  }
+  .tickets-lead {
+    font-size: var(--text-lead);
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+
+  .tickets-widget {
+    min-height: 12rem;
+    border: var(--border) var(--ink);
+    border-radius: var(--radius-card);
+    padding: var(--space-4);
+    background-color: #fff;
+  }
+
+  .tickets-soon {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-h3);
+    line-height: 1.4;
+    color: var(--brick);
+    text-wrap: balance;
+  }
+
+  .pretix-widget-info-message {
+    display: grid;
+    gap: var(--space-2);
+  }
+  .pretix-widget-info-message a {
+    font-weight: 800;
+    color: var(--brick);
+  }
+
+  @media (max-width: 63.9rem) {
+    .tickets-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+  }
+</style>

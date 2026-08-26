@@ -55,11 +55,11 @@ Proyecto Astro único en la raíz del repo (ver plan.md · Project Structure).
 
 **Independent Test**: con solo hero + compra publicados, un visitante entiende el evento sin scroll y puede iniciar compra (o ver "venta próximamente" si `pretixReady: false`).
 
-- [ ] T014 [P] [US1] Crear `src/components/Hero.astro`: hero fijo con cortina (fixed + spacer `100svh` + main opaco encima — R7), nombre, `dateDisplay` completo 5-8 nov (FR-001), lugar, tagline, CTA principal (`CtaButton`), fondo en bloques de color de marca sin imagen bloqueante (R10).
-- [ ] T015 [P] [US1] Crear `src/components/TicketSection.astro` con id `#boletas`: dos columnas (párrafo de contexto / widget), estados `pretixReady` false→aviso "venta abre pronto" y true→widget oficial por idioma con fallback de enlace directo dentro de `<pretix-widget>` — implementar exactamente [pretix-embed.md](contracts/pretix-embed.md) (FR-008/011).
-- [ ] T016 [US1] Escribir copy ES de hero y descripción corta en `ui.ts`/`event.ts`: tagline principal, un slogan del banco aprobado, párrafo de contexto con framing "historia de Colombia" (FR-002/003; campos EN quedan con traducción de trabajo para que compile — la revisión editorial EN es T031).
-- [ ] T017 [US1] Ensamblar `src/pages/index.astro`: `EventLayout` + `Header` + `Hero` + `TicketSection` (orden FR-004 parcial), anclas estables del contrato data-schemas.
-- [ ] T018 [US1] Validar US1 con quickstart: info visible sin scroll, CTA header persistente y scroll suave a `#boletas`, sin JS todo legible y fallback visible, `grep` de precios limpio, `check`+`build` verdes.
+- [X] T014 [P] [US1] Crear `src/components/Hero.astro`: hero fijo con cortina (fixed + spacer `100svh` + main opaco encima — R7), nombre, `dateDisplay` completo 5-8 nov (FR-001), lugar, tagline, CTA principal (`CtaButton`), fondo en bloques de color de marca sin imagen bloqueante (R10).
+- [X] T015 [P] [US1] Crear `src/components/TicketSection.astro` con id `#boletas`: dos columnas (párrafo de contexto / widget), estados `pretixReady` false→aviso "venta abre pronto" y true→widget oficial por idioma con fallback de enlace directo dentro de `<pretix-widget>` — implementar exactamente [pretix-embed.md](contracts/pretix-embed.md) (FR-008/011).
+- [X] T016 [US1] Escribir copy ES de hero y descripción corta en `ui.ts`/`event.ts`: tagline principal, un slogan del banco aprobado, párrafo de contexto con framing "historia de Colombia" (FR-002/003; campos EN quedan con traducción de trabajo para que compile — la revisión editorial EN es T031).
+- [X] T017 [US1] Ensamblar `src/pages/index.astro`: `EventLayout` + `Header` + `Hero` + `TicketSection` (orden FR-004 parcial), anclas estables del contrato data-schemas.
+- [X] T018 [US1] Validar US1 con quickstart: info visible sin scroll, CTA header persistente y scroll suave a `#boletas`, sin JS todo legible y fallback visible, `grep` de precios limpio, `check`+`build` verdes.
 
 **Checkpoint**: MVP funcional en `/`.
 
