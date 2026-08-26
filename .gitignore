@@ -1,1 +1,7 @@
-assets/pexels-enzo-renz-424999667-33786545.jpg
+node_modules/
+dist/
+.astro/
+*.log
+.env
+.env.*
+.DS_Store

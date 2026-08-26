@@ -1,0 +1,188 @@
+/* ============================================================
+   Base global — reset mínimo, utilidades de marca, movimiento
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--ink);
+  background-color: var(--cream);
+  overscroll-behavior-y: none;
+  touch-action: manipulation;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+h1, h2, h3 {
+  font-weight: 800;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+:focus-visible {
+  outline: 3px solid var(--terracotta);
+  outline-offset: 2px;
+}
+
+::selection {
+  background-color: var(--terracotta);
+  color: var(--cream);
+}
+
+/* --- Layout helpers ------------------------------------------------ */
+
+.container {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-2);
+  z-index: 100;
+  padding: 0.6em 1em;
+  background: var(--ink);
+  color: var(--cream);
+  font-weight: 700;
+  text-decoration: none;
+}
+.skip-link:focus-visible {
+  top: var(--space-1);
+}
+
+/* Eyebrow: etiqueta de sección, como los rótulos del manual */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  content: '';
+  width: 1.5em;
+  height: 2px;
+  background: currentColor;
+}
+
+/* --- Duotono (R6) — unifica fotos dispares ------------------------- */
+
+.duotone {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--duotone-tint, var(--terracotta));
+}
+.duotone > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.06) brightness(1.02);
+  mix-blend-mode: multiply;
+}
+/* Tinte claro sobre superficie oscura */
+.duotone--on-dark {
+  background-color: var(--duotone-tint, var(--cream));
+}
+.duotone--on-dark > img {
+  mix-blend-mode: screen;
+  filter: grayscale(1) contrast(1.06) invert(0);
+}
+
+/* --- Scroll reveal (R7) -------------------------------------------- */
+/* El HTML llega SIN estado oculto: solo cuando JS marca el <html> con
+   .js-reveal las secciones parten ocultas. Sin JS todo es visible. */
+
+html.js-reveal [data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition:
+    opacity var(--reveal-duration) var(--ease-out),
+    transform var(--reveal-duration) var(--ease-out);
+}
+html.js-reveal [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- Botón CTA (única forma de botón de compra) -------------------- */
+
+.cta {
+  display: inline-block;
+  padding: 0.85em 1.7em;
+  background-color: var(--terracotta);
+  color: var(--cream);
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  border: var(--border) var(--terracotta);
+  border-radius: 999px;
+  transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out),
+    box-shadow 160ms var(--ease-out);
+}
+.cta:hover {
+  background-color: var(--brick);
+  border-color: var(--brick);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-1);
+}
+.cta:active {
+  transform: none;
+}
+.cta--header {
+  padding: 0.55em 1.3em;
+  font-size: 0.9375rem;
+}
+
+/* --- Movimiento reducido (FR-016): sin excepciones ----------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html.js-reveal [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
