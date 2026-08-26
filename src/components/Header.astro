@@ -37,8 +37,9 @@ const navItems = [
 
 <header data-header>
   <div class="header-inner">
-    <a href={localePath(locale)} class="brand" aria-label="Testigos de la Memoria">
+    <a href={localePath(locale)} class="brand">
       <LogoLockup class="brand-logo" width={72} height={44} aria-hidden="true" />
+      <span class="brand-name">Testigos de la Memoria</span>
     </a>
     <nav aria-label={t('nav.aria', locale)} class="nav">
       {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
@@ -100,6 +101,15 @@ const navItems = [
   .brand-logo {
     width: 72px;
     height: auto;
+  }
+  /* Nombre textual del enlace del logo: para lectores y buscadores */
+  .brand-name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   .nav {

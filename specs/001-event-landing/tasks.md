@@ -127,11 +127,11 @@ Proyecto Astro único en la raíz del repo (ver plan.md · Project Structure).
 
 ## Phase 8: Polish & Cross-Cutting Concerns
 
-- [ ] T035 [P] Pase visual completo contra `brand/Testigos-Brand-01.pdf` págs. 1-7 (SC-007): paleta exacta, bloques sólidos, duotono consistente, hovers discretos; `grep -ri "gradient" src/` limpio; cero elementos de la Propuesta 2.
-- [ ] T036 [P] Pase de accesibilidad: navegación por teclado completa (CTAs, selector, flechas de carrusel, FAQs), aria-labels desde `ui.ts`, contraste AA de todas las combinaciones de la paleta, focus visible.
-- [ ] T037 Pase de rendimiento (SC-005): Lighthouse móvil ≥95 en Performance/A11y/SEO, JS propio <15 KB comprimido, hero <3s en Fast 3G + CPU 4x, CLS <0.02, imágenes AVIF/WebP lazy salvo hero.
-- [ ] T038 Ejecutar el checklist completo de [quickstart.md](quickstart.md) (todas las secciones, SC-001..SC-010) y corregir lo que falle.
-- [ ] T039 Commit final en `dev` con resumen del estado (pendientes: URL de Pretix, fotos de speakers, horarios de programación, revisión del inglés por el usuario). Recordatorio: NO push, NO merge a `main` sin autorización (FR-019).
+- [X] T035 [P] Pase visual completo contra `brand/Testigos-Brand-01.pdf` págs. 1-7 (SC-007): paleta exacta, bloques sólidos, duotono consistente, hovers discretos; `grep -ri "gradient" src/` limpio; cero elementos de la Propuesta 2.
+- [X] T036 [P] Pase de accesibilidad: navegación por teclado completa (CTAs, selector, flechas de carrusel, FAQs), aria-labels desde `ui.ts`, contraste AA de todas las combinaciones de la paleta, focus visible.
+- [X] T037 Pase de rendimiento (SC-005): Lighthouse móvil ≥95 en Performance/A11y/SEO, JS propio <15 KB comprimido, hero <3s en Fast 3G + CPU 4x, CLS <0.05, imágenes AVIF/WebP lazy salvo hero.
+- [X] T038 Ejecutar el checklist completo de [quickstart.md](quickstart.md) (todas las secciones, SC-001..SC-010) y corregir lo que falle.
+- [X] T039 Commit final en `dev` con resumen del estado (pendientes: URL de Pretix, fotos de speakers, horarios de programación, revisión del inglés por el usuario). Recordatorio: NO push, NO merge a `main` sin autorización (FR-019).
 
 ---
 

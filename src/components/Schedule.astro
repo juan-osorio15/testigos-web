@@ -141,22 +141,31 @@ const heading = {
     opacity: 0.75;
   }
 
+  /* Etiqueta editorial: texto tinta + bloque de color como marcador (AA-seguro) */
   .slot-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
     font-size: var(--text-label);
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     padding: 0.35em 0.8em;
+    border: var(--border) var(--ink);
     border-radius: 4px;
+    color: var(--ink);
     justify-self: end;
   }
-  .slot-badge--free {
-    background-color: var(--olive);
-    color: var(--cream);
+  .slot-badge::before {
+    content: '';
+    width: 0.65em;
+    height: 0.65em;
   }
-  .slot-badge--ticketed {
+  .slot-badge--free::before {
+    background-color: var(--olive);
+  }
+  .slot-badge--ticketed::before {
     background-color: var(--terracotta);
-    color: var(--cream);
   }
 
   .schedule-cta {

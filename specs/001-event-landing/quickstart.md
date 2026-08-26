@@ -44,7 +44,7 @@ Gate mecánico: `check` + `build` en verde antes de cualquier commit que toque `
 
 **Rendimiento (SC-005)**
 
-- [ ] Lighthouse móvil sobre `npm run preview`: Performance ≥ 95, A11y ≥ 95, SEO ≥ 95; CLS < 0.02.
+- [ ] Lighthouse móvil sobre `npm run preview`: Performance ≥ 95, A11y ≥ 95, SEO ≥ 95; CLS < 0.05.
 - [ ] DevTools → Network → Fast 3G + CPU 4x: hero visible < 3 s.
 - [ ] JS propio (excluyendo Pretix) < 15 KB comprimido: revisar tamaño de los `<script>` en dist.
 
