@@ -24,7 +24,7 @@ const dict = {
   // --- Sección de compra ---
   'tickets.heading': 'Asegura tu lugar',
   'tickets.soon':
-    'La venta de boletas abre pronto. Los talleres del 5 de noviembre son de entrada libre.',
+    'La venta de boletas abre pronto. Los talleres del 5 y 6 de noviembre son de entrada libre.',
   'tickets.widgetFallback':
     'Si el módulo de compra no carga, puedes comprar directamente en la tienda segura de Pretix:',
   'tickets.widgetLink': 'Comprar en Pretix',

@@ -38,7 +38,7 @@ export const venues: Venue[] = [
     id: 'casa-museo',
     name: 'Casa Museo Antonio Nariño',
     address: 'Carrera 9 n.º 10-25, Villa de Leyva, Boyacá',
-    role: 'Talleres de periodismo · entrada libre · 5 de noviembre',
+    role: 'Talleres de periodismo · entrada libre · 5 y 6 de noviembre',
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=Casa+Museo+Antonio+Nari%C3%B1o+Villa+de+Leyva',
   },

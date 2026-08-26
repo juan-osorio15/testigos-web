@@ -13,7 +13,7 @@ export const faqs: Faq[] = [
   {
     question: '¿Qué es gratis y qué requiere boleta?',
     answer:
-      'Los talleres de periodismo del jueves 5 de noviembre, en la Casa Museo Antonio Nariño, son de entrada libre. Los conversatorios del 6 al 8 de noviembre, en la Hospedería Duruelo, requieren boleta.',
+      'Los talleres de periodismo del jueves 5 y el viernes 6 de noviembre, en la Casa Museo Antonio Nariño, son de entrada libre. Los conversatorios, del viernes 6 en la tarde al domingo 8, en la Hospedería Duruelo, requieren boleta.',
   },
   {
     question: '¿Dónde compro las boletas?',
@@ -36,7 +36,7 @@ export const faqs: Faq[] = [
       'No. El encuentro está pensado para cualquier persona interesada en la historia reciente de Colombia y en cómo se ha contado.',
   },
   {
-    question: '¿Los talleres del 5 de noviembre requieren inscripción?',
+    question: '¿Los talleres del 5 y 6 de noviembre requieren inscripción?',
     answer:
       'La entrada es libre. Los detalles de cupos e inscripción se anunciarán junto con la programación completa.',
   },
