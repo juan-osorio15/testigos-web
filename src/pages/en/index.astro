@@ -9,6 +9,8 @@ import TicketSection from '../../components/TicketSection.astro';
 import Opportunity from '../../components/Opportunity.astro';
 import SpeakerGrid from '../../components/SpeakerGrid.astro';
 import Schedule from '../../components/Schedule.astro';
+import VenueMap from '../../components/VenueMap.astro';
+import FAQ from '../../components/FAQ.astro';
 
 const locale = 'en' as const;
 ---
@@ -24,6 +26,8 @@ const locale = 'en' as const;
     <Opportunity locale={locale} />
     <SpeakerGrid locale={locale} />
     <Schedule locale={locale} />
+    <VenueMap locale={locale} />
+    <FAQ locale={locale} />
   </main>
 </EventLayout>
 

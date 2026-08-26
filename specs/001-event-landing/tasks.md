@@ -117,9 +117,9 @@ Proyecto Astro único en la raíz del repo (ver plan.md · Project Structure).
 
 **Independent Test**: direcciones legibles en texto plano, botón "Cómo llegar" abre la app de mapas en la sede correcta desde móvil, FAQs responden gratis-vs-boleta / cómo llegar / reembolsos.
 
-- [ ] T032 [P] [US3] Crear `src/components/VenueMap.astro` (id `#lugar`): las 2 sedes con nombre, rol (talleres gratuitos / conversatorios con boleta), dirección en texto plano, mapa estático liviano (imagen con tratamiento de marca, cero JS — opción por defecto del brief §6) y botón "Cómo llegar" con deep link universal de Google Maps por sede (FR-006).
-- [ ] T033 [P] [US3] Crear `src/data/faqs.ts` (contenido mínimo FR-007: qué es gratis y qué con boleta incl. talleres del 5, cómo llegar a Villa de Leyva desde Bogotá/Tunja, alojamiento, dudas de compra/reembolso → Pretix) y `src/components/FAQ.astro` (id `#faq`, `<details>/<summary>` accesible sin JS, `CtaButton` final tras la lista).
-- [ ] T034 [US3] Integrar VenueMap + FAQ en `index.astro` y `en/index.astro` (cierra el orden FR-004); validar US3 con quickstart (deep links en móvil, FAQs sin JS, CTA final presente).
+- [X] T032 [P] [US3] Crear `src/components/VenueMap.astro` (id `#lugar`): las 2 sedes con nombre, rol (talleres gratuitos / conversatorios con boleta), dirección en texto plano, mapa estático liviano (imagen con tratamiento de marca, cero JS — opción por defecto del brief §6) y botón "Cómo llegar" con deep link universal de Google Maps por sede (FR-006).
+- [X] T033 [P] [US3] Crear `src/data/faqs.ts` (contenido mínimo FR-007: qué es gratis y qué con boleta incl. talleres del 5, cómo llegar a Villa de Leyva desde Bogotá/Tunja, alojamiento, dudas de compra/reembolso → Pretix) y `src/components/FAQ.astro` (id `#faq`, `<details>/<summary>` accesible sin JS, `CtaButton` final tras la lista).
+- [X] T034 [US3] Integrar VenueMap + FAQ en `index.astro` y `en/index.astro` (cierra el orden FR-004); validar US3 con quickstart (deep links en móvil, FAQs sin JS, CTA final presente).
 
 **Checkpoint**: las 7 secciones completas en ambos idiomas.
 

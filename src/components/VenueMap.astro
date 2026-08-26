@@ -1,0 +1,166 @@
+---
+/**
+ * Venue (sección 6): dirección SIEMPRE en texto plano + mapa estático de
+ * cero JS (opción por defecto del brief §6) + botón "Cómo llegar" con deep
+ * link por sede (FR-006). El mapa es un esquema propio del casco de Villa
+ * de Leyva con tratamiento de marca — sin tiles de terceros ni requests.
+ */
+import { t, type Locale } from '../i18n/ui';
+import { venues } from '../data/event';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const heading = {
+  es: 'Dos sedes, a pocas cuadras',
+  en: 'Two venues, a few blocks apart',
+}[locale];
+
+const plazaLabel = { es: 'Plaza Mayor', en: 'Main square' }[locale];
+---
+
+<section id="lugar" class="venue" data-reveal>
+  <div class="container">
+    <p class="eyebrow">{t('nav.venue', locale)}</p>
+    <h2>{heading}</h2>
+    <div class="venue-grid">
+      <figure class="venue-map" role="img" aria-label={t('venue.mapAria', locale)}>
+        <!-- Esquema del casco colonial: retícula, Plaza Mayor y las dos sedes -->
+        <svg viewBox="0 0 600 420" aria-hidden="true">
+          <rect width="600" height="420" fill="#efe8df" />
+          <g stroke="#210804" stroke-opacity="0.18" stroke-width="2">
+            {[70, 150, 230, 310, 390].map((y) => <line x1="30" y1={y} x2="570" y2={y} />)}
+            {[90, 190, 290, 390, 490].map((x) => <line x1={x} y1="30" x2={x} y2="390" />)}
+          </g>
+          <!-- Plaza Mayor -->
+          <rect x="240" y="180" width="100" height="80" fill="#d45b30" opacity="0.25" />
+          <rect x="240" y="180" width="100" height="80" fill="none" stroke="#210804" stroke-width="2" />
+          <text x="290" y="226" text-anchor="middle" font-size="15" font-weight="700" fill="#210804">
+            {plazaLabel}
+          </text>
+          <!-- 1 · Casa Museo Antonio Nariño (noroccidente de la plaza) -->
+          <circle cx="160" cy="120" r="17" fill="#757522" />
+          <text x="160" y="126" text-anchor="middle" font-size="16" font-weight="800" fill="#efe8df">1</text>
+          <!-- 2 · Hospedería Duruelo (oriente, hacia la loma) -->
+          <circle cx="470" cy="290" r="17" fill="#7d290d" />
+          <text x="470" y="296" text-anchor="middle" font-size="16" font-weight="800" fill="#efe8df">2</text>
+        </svg>
+      </figure>
+      <div class="venue-cards">
+        {
+          venues.map((venue, i) => (
+            <article class="venue-card">
+              <p class="venue-num" class:list={['venue-num', i === 0 ? 'venue-num--olive' : 'venue-num--brick']}>
+                {i + 1}
+              </p>
+              <h3>{venue.name}</h3>
+              <p class="venue-role">{venue.role[locale]}</p>
+              <p class="venue-address">{venue.address}</p>
+              <a class="venue-directions" href={venue.mapsUrl} target="_blank" rel="noopener">
+                {t('venue.directions', locale)} →
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .venue {
+    position: relative;
+    z-index: 1;
+    background-color: var(--cream);
+    padding-block: var(--space-6);
+    border-top: var(--border) var(--ink);
+  }
+  .venue .eyebrow {
+    color: var(--brick);
+  }
+  h2 {
+    font-size: var(--text-h2);
+    margin-block: var(--space-1) var(--space-4);
+  }
+
+  .venue-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    gap: var(--space-4);
+    align-items: start;
+  }
+
+  .venue-map {
+    margin: 0;
+    border: var(--border) var(--ink);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+  }
+  .venue-map svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .venue-cards {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .venue-card {
+    display: grid;
+    gap: 0.4rem;
+    padding: var(--space-3);
+    border: var(--border) var(--ink);
+    border-radius: var(--radius-card);
+    background-color: #fff;
+  }
+  .venue-num {
+    width: 2rem;
+    height: 2rem;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    color: var(--cream);
+    font-weight: 800;
+  }
+  .venue-num--olive {
+    background-color: var(--olive);
+  }
+  .venue-num--brick {
+    background-color: var(--brick);
+  }
+  h3 {
+    font-size: var(--text-h3);
+  }
+  .venue-role {
+    font-size: var(--text-small);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--brick);
+  }
+  .venue-address {
+    font-size: var(--text-body);
+  }
+  .venue-directions {
+    justify-self: start;
+    margin-top: var(--space-1);
+    font-weight: 800;
+    color: var(--brick);
+    text-decoration: none;
+    border-bottom: 2px solid var(--terracotta);
+    transition: color 160ms var(--ease-out);
+  }
+  .venue-directions:hover {
+    color: var(--terracotta);
+  }
+
+  @media (max-width: 63.9rem) {
+    .venue-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
