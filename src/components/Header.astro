@@ -100,6 +100,7 @@ const navItems = [
     font-weight: 600;
   }
   .nav a {
+    position: relative;
     text-decoration: none;
     border-bottom: 2px solid transparent;
     padding-block: 0.2em;
@@ -107,6 +108,18 @@ const navItems = [
   }
   .nav a:hover {
     border-bottom-color: var(--terracotta);
+  }
+  /* Punto de sección actual (scrollspy): sigue el scroll vía IntersectionObserver */
+  .nav a.is-active::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -0.55em;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background-color: var(--terracotta);
+    transform: translateX(-50%);
   }
 
   .header-actions {

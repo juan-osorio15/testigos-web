@@ -134,7 +134,30 @@ const jsonLd = {
         header.classList.add('is-solid');
       }
 
-      // 2. Reveal por sección: una sola vez, unobserve tras disparar.
+      // 2. Scrollspy: un punto en el nav marca la sección actual.
+      //    La sección que cruza la banda media del viewport activa su enlace.
+      const navLinks = [...document.querySelectorAll<HTMLAnchorElement>('header nav a[href^="#"]')];
+      const linkById = new Map(navLinks.map((a) => [a.getAttribute('href')!.slice(1), a]));
+      const inView = new Set<string>();
+      const spy = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) inView.add(entry.target.id);
+            else inView.delete(entry.target.id);
+          }
+          const activeId = [...linkById.keys()].find((id) => inView.has(id));
+          navLinks.forEach((a) =>
+            a.classList.toggle('is-active', a.getAttribute('href') === `#${activeId}`)
+          );
+        },
+        { rootMargin: '-40% 0px -55% 0px' }
+      );
+      linkById.forEach((_, id) => {
+        const section = document.getElementById(id);
+        if (section) spy.observe(section);
+      });
+
+      // 3. Reveal por sección: una sola vez, unobserve tras disparar.
       const revealer = new IntersectionObserver(
         (entries) => {
           for (const entry of entries) {
