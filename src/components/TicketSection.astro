@@ -117,12 +117,11 @@ const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
 </script>
 
 <style>
-  /* Primera capa de la cortina: fondo sólido + z-index sobre el hero fijo */
   .tickets {
     position: relative;
     z-index: 1;
     background-color: var(--cream);
-    border-top: 10px solid var(--terracotta);
+    border-top: var(--border) var(--ink);
     padding-block: var(--space-6);
   }
 
