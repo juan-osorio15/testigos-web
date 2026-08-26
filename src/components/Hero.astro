@@ -1,37 +1,59 @@
 ---
 /**
- * Hero fijo con cortina (patrón 8.1): el hero queda anclado y el <main>
- * opaco sube y lo tapa. CSS puro: fixed + spacer 100svh. Sin imágenes
- * bloqueantes: bloques de color de marca (R10) — el peso del hero es ~0.
- *
- * Firma visual: las comillas del logo — "la mirada del testigo" — observan
- * desde la esquina, como en las tarjetas del manual (págs. 4-5).
+ * Hero fijo con cortina (patrón 8.1). Composición: collage de bloques de
+ * color a ángulo recto, calcado de la valla del manual (pág. 6):
+ * terracota con titular en tinta · crema con las comillas · foto
+ * documental en duotono · franja azul cielo con fecha, info y CTA.
+ * Sin bordes redondeados. Sin fondo café.
  */
+import { Image } from 'astro:assets';
 import { t } from '../ui';
 import CtaButton from './CtaButton.astro';
 import LogoSymbol from '../assets/logo/logo-symbol.svg';
+import streetPhoto from '../assets/photos/pexels-enzo-renz-424999667-33786545.jpg';
 
 /* Slogan aprobado (spec §2); el nombre del evento va en el h1 para SEO/AT
    y el eslogan es el display visible. */
-const slogan = ['La historia reciente de Colombia,', 'contada por quienes', 'la ven de frente.'];
+const slogan = ['La historia reciente', 'de Colombia, contada', 'por quienes', 'la ven de frente.'];
 ---
 
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-fixed">
-    <LogoSymbol class="hero-watch" aria-hidden="true" />
-    <div class="hero-content container">
-      <p class="eyebrow hero-tagline">{t('hero.tagline')}</p>
-      <h1 id="hero-title">
-        <span class="sr-only">Testigos de la Memoria — </span>
-        {slogan.map((line) => <span class="hero-line">{line}</span>)}
-      </h1>
-      <div class="hero-meta">
-        <p class="hero-chip hero-chip--date">{t('hero.dates')}</p>
-        <p class="hero-chip hero-chip--place">{t('hero.place')}</p>
-        <CtaButton />
+    <div class="hero-head">
+      <div class="hero-head-inner">
+        <p class="eyebrow hero-tagline">{t('hero.tagline')}</p>
+        <h1 id="hero-title">
+          <span class="sr-only">Testigos de la Memoria — </span>
+          {slogan.map((line) => <span class="hero-line">{line}</span>)}
+        </h1>
       </div>
     </div>
-    <p class="hero-scroll" aria-hidden="true">{t('hero.scroll')} ↓</p>
+    <div class="hero-side">
+      <div class="hero-watch-block">
+        <LogoSymbol class="hero-watch" aria-hidden="true" />
+      </div>
+      <div class="duotone hero-photo">
+        <Image
+          src={streetPhoto}
+          alt="Calle empedrada de Villa de Leyva, con muros blancos y balcones coloniales"
+          width={1280}
+          height={853}
+          widths={[640, 960, 1280]}
+          sizes="(max-width: 63.9rem) 100vw, 42vw"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+    </div>
+    <div class="hero-strip">
+      <p class="hero-date">
+        <span class="hero-date-days">5–8</span>
+        <span class="hero-date-month">noviembre 2026</span>
+      </p>
+      <p class="hero-info">Talleres y conversatorios.</p>
+      <p class="hero-place">{t('hero.place')}</p>
+      <CtaButton />
+    </div>
   </div>
   <div class="hero-spacer"></div>
   <div data-header-sentinel aria-hidden="true"></div>
@@ -43,41 +65,43 @@ const slogan = ['La historia reciente de Colombia,', 'contada por quienes', 'la 
     inset: 0;
     z-index: 0;
     display: grid;
-    align-content: center;
-    background-color: var(--ink);
-    color: var(--cream);
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    grid-template-rows: 1fr auto;
+    grid-template-areas:
+      'head side'
+      'strip strip';
+    background-color: var(--cream);
+    color: var(--ink);
     overflow: hidden;
-    padding-top: var(--header-h);
   }
 
   .hero-spacer {
     height: 100svh;
   }
 
-  /* Las comillas observan desde arriba a la derecha */
-  .hero-watch {
-    position: absolute;
-    top: clamp(4.5rem, 12vh, 8rem);
-    right: clamp(-2rem, 2vw, 6rem);
-    width: clamp(180px, 28vw, 360px);
-    height: auto;
-    color: var(--terracotta);
+  /* Bloque terracota: el titular en tinta, como la valla */
+  .hero-head {
+    grid-area: head;
+    background-color: var(--terracotta);
+    display: grid;
+    align-content: center;
+    padding: calc(var(--header-h) + var(--space-2)) var(--gutter) var(--space-4);
   }
-
-  .hero-content {
+  .hero-head-inner {
     display: grid;
     gap: var(--space-3);
-    justify-items: start;
-    position: relative;
+    max-width: 34rem;
+    margin-left: auto;
+    /* alinear con el container global: mitad del max-width menos gutter */
     width: 100%;
   }
 
   .hero-tagline {
-    color: var(--terracotta);
+    color: var(--ink);
   }
 
   h1 {
-    font-size: var(--text-display);
+    font-size: clamp(2.2rem, 1rem + 4.2vw, 3.9rem);
     font-weight: 800;
     display: grid;
   }
@@ -90,7 +114,7 @@ const slogan = ['La historia reciente de Colombia,', 'contada por quienes', 'la 
     font-style: italic;
     font-weight: 500;
     letter-spacing: 0;
-    color: var(--terracotta);
+    color: var(--cream);
   }
 
   .sr-only {
@@ -102,51 +126,93 @@ const slogan = ['La historia reciente de Colombia,', 'contada por quienes', 'la 
     white-space: nowrap;
   }
 
-  .hero-meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-2);
-    margin-top: var(--space-2);
+  /* Columna derecha: crema con comillas arriba + foto documental abajo */
+  .hero-side {
+    grid-area: side;
+    display: grid;
+    grid-template-rows: minmax(0, 2fr) minmax(0, 3fr);
+  }
+  .hero-watch-block {
+    background-color: var(--cream);
+    display: grid;
+    place-content: end start;
+    padding: var(--space-3) var(--space-4);
+  }
+  .hero-watch {
+    width: clamp(110px, 12vw, 180px);
+    height: auto;
+    color: var(--ink);
+  }
+  .hero-photo {
+    --duotone-tint: var(--cream);
+    min-height: 0;
+  }
+  .hero-photo :global(img) {
+    height: 100%;
   }
 
-  /* Chips de dato: bloques de color sólidos, lenguaje del manual */
-  .hero-chip {
-    padding: 0.55em 1em;
-    font-weight: 700;
-    font-size: 0.9375rem;
-    border-radius: 6px;
+  /* Franja azul cielo: fecha, info, lugar y CTA — texto en tinta */
+  .hero-strip {
+    grid-area: strip;
+    background-color: var(--sky);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    padding: var(--space-2) var(--gutter);
   }
-  .hero-chip--date {
-    background-color: var(--cream);
-    color: var(--ink);
+  .hero-date {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5em;
+  }
+  .hero-date-days {
     font-family: var(--font-serif);
     font-weight: 600;
+    font-size: clamp(1.8rem, 1.2rem + 1.6vw, 2.6rem);
+    line-height: 1;
   }
-  .hero-chip--place {
-    background-color: var(--sky);
-    color: var(--ink);
+  .hero-date-month {
+    font-size: var(--text-label);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .hero-info {
+    font-weight: 600;
+  }
+  .hero-place {
+    font-weight: 800;
+    margin-left: auto;
   }
 
-  .hero-scroll {
-    position: absolute;
-    bottom: 1.25rem;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: var(--text-small);
-    opacity: 0.65;
-  }
-
-  @media (max-width: 47.9rem) {
-    .hero-watch {
-      top: auto;
-      bottom: -4vw;
-      right: -6vw;
-      width: 44vw;
-      opacity: 0.9;
+  @media (max-width: 63.9rem) {
+    .hero-fixed {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr auto auto;
+      grid-template-areas:
+        'head'
+        'side'
+        'strip';
     }
-    .hero-scroll {
-      display: none;
+    .hero-head-inner {
+      max-width: none;
+      margin-left: 0;
+    }
+    h1 {
+      font-size: clamp(2rem, 1rem + 6vw, 3rem);
+    }
+    /* En móvil: comillas y foto lado a lado, como bloques de la escarapela */
+    .hero-side {
+      grid-template-rows: none;
+      grid-template-columns: 2fr 3fr;
+      min-height: 22svh;
+    }
+    .hero-watch-block {
+      padding: var(--space-2);
+    }
+    .hero-place {
+      margin-left: 0;
     }
   }
 </style>

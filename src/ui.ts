@@ -20,7 +20,6 @@ const dict = {
   'hero.tagline': 'Periodistas en la Historia',
   'hero.dates': '5 al 8 de noviembre de 2026',
   'hero.place': 'Villa de Leyva, Colombia',
-  'hero.scroll': 'Desliza para conocer más',
 
   // --- Sección de compra ---
   'tickets.heading': 'Asegura tu lugar',

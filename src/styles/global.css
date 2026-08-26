@@ -150,7 +150,7 @@ html.js-reveal [data-reveal].is-visible {
   letter-spacing: 0.01em;
   text-decoration: none;
   border: var(--border) var(--terracotta);
-  border-radius: 999px;
+  border-radius: 0; /* bloque, no píldora: ángulos rectos del manual */
   transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out),
     box-shadow 160ms var(--ease-out);
 }

@@ -70,7 +70,7 @@
   --space-4: 2.5rem;
   --space-5: 4rem;
   --space-6: clamp(4rem, 3rem + 5vw, 7.5rem); /* ritmo entre secciones */
-  --radius-card: 20px;   /* esquinas de tarjetas, como las piezas del manual */
+  --radius-card: 0;      /* bloques a ángulo recto, como la valla y la escarapela del manual */
   --border: 1px solid;
 
   /* Layout */
