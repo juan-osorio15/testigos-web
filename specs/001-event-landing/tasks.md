@@ -71,9 +71,9 @@ Proyecto Astro único en la raíz del repo (ver plan.md · Project Structure).
 
 **Independent Test**: `curl -sI https://testigosdelamemoria.com` sirve el placeholder; el workflow solo dispara en `push: main`; `dist/` contiene CNAME, IndexNow, robots, sitemap, og-image.
 
-- [ ] T019 [P] [US4] Crear `.github/workflows/deploy.yml`: `on: push: branches: [main]` + `workflow_dispatch`; jobs build (checkout → setup-node 22 → `npm ci` → `npm run build` → `upload-pages-artifact` con `dist/`) y deploy (`deploy-pages` con permisos `pages: write`, `id-token: write`) — R8. NO tocar la configuración de Pages.
-- [ ] T020 [P] [US4] Crear `src/pages/404.astro`: bilingüe (ES principal + EN), `noindex`, diseño de bloques de marca, enlaces a `/` y `/en/` (reemplaza `404.html` preservando su rol — FR-021).
-- [ ] T021 [US4] Validar US4: `git branch --show-current` = dev, `git log main..dev` contiene todo, producción intacta vía curl, `dist/` contiene los 5 activos heredados + `404.html` con noindex, workflow no tiene triggers de `dev`.
+- [X] T019 [P] [US4] Crear `.github/workflows/deploy.yml`: `on: push: branches: [main]` + `workflow_dispatch`; jobs build (checkout → setup-node 22 → `npm ci` → `npm run build` → `upload-pages-artifact` con `dist/`) y deploy (`deploy-pages` con permisos `pages: write`, `id-token: write`) — R8. NO tocar la configuración de Pages.
+- [X] T020 [P] [US4] Crear `src/pages/404.astro`: bilingüe (ES principal + EN), `noindex`, diseño de bloques de marca, enlaces a `/` y `/en/` (reemplaza `404.html` preservando su rol — FR-021).
+- [X] T021 [US4] Validar US4: `git branch --show-current` = dev, `git log main..dev` contiene todo, producción intacta vía curl, `dist/` contiene los 5 activos heredados + `404.html` con noindex, workflow no tiene triggers de `dev`.
 
 **Checkpoint**: protección de producción verificada y deploy futuro listo-pero-apagado.
 
