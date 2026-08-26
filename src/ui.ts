@@ -47,7 +47,7 @@ const dict = {
 
   // --- Footer ---
   'footer.organizedBy': 'Organizan',
-  'footer.rights': 'Testigos de la Memoria — Villa de Leyva, 2026',
+  'footer.rights': 'Testigos de la Memoria · Villa de Leyva, 2026',
 
   // --- 404 ---
   'notfound.title': 'Página no encontrada',
