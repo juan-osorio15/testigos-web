@@ -102,10 +102,10 @@ Proyecto Astro único en la raíz del repo (ver plan.md · Project Structure).
 
 **Independent Test**: desde cualquier sección, el selector lleva a la sección equivalente del otro idioma; `dist/en/index.html` tiene lang/canonical/hreflang correctos y 100% del contenido.
 
-- [ ] T028 [P] [US5] Crear `src/pages/en/index.astro`: mismo árbol de componentes que `index.astro` con `locale: 'en'` (paridad por construcción — contrato data-schemas).
-- [ ] T029 [US5] Verificar el selector de idioma end-to-end (`Header` + `routes.ts`): ES↔EN preservando ancla activa, atributos `hreflang` en los enlaces, funcional sin JS (enlaces reales).
-- [ ] T030 [US5] Revisión editorial del copy EN completo (`ui.ts` + `data/*`): traducción fiel a la voz de marca, sin traducir nombres propios/sedes, mismos vetos de framing (FR-023); dejar el resultado listo para revisión del usuario.
-- [ ] T031 [US5] Validar US5 con quickstart: paridad 100%, `<html lang>`, canonical/hreflang/OG locale por página, sitemap consistente, sin mezcla de idiomas (SC-009).
+- [X] T028 [P] [US5] Crear `src/pages/en/index.astro`: mismo árbol de componentes que `index.astro` con `locale: 'en'` (paridad por construcción — contrato data-schemas).
+- [X] T029 [US5] Verificar el selector de idioma end-to-end (`Header` + `routes.ts`): ES↔EN preservando ancla activa, atributos `hreflang` en los enlaces, funcional sin JS (enlaces reales).
+- [X] T030 [US5] Revisión editorial del copy EN completo (`ui.ts` + `data/*`): traducción fiel a la voz de marca, sin traducir nombres propios/sedes, mismos vetos de framing (FR-023); dejar el resultado listo para revisión del usuario.
+- [X] T031 [US5] Validar US5 con quickstart: paridad 100%, `<html lang>`, canonical/hreflang/OG locale por página, sitemap consistente, sin mezcla de idiomas (SC-009).
 
 **Checkpoint**: sitio bilingüe completo hasta agenda.
 

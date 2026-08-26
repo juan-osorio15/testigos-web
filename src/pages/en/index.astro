@@ -1,0 +1,36 @@
+---
+/**
+ * Página en inglés: MISMO árbol de componentes que la raíz con locale 'en'
+ * (paridad por construcción — contrato data-schemas, SC-009).
+ */
+import EventLayout from '../../layouts/EventLayout.astro';
+import Hero from '../../components/Hero.astro';
+import TicketSection from '../../components/TicketSection.astro';
+import Opportunity from '../../components/Opportunity.astro';
+import SpeakerGrid from '../../components/SpeakerGrid.astro';
+import Schedule from '../../components/Schedule.astro';
+
+const locale = 'en' as const;
+---
+
+<EventLayout
+  locale={locale}
+  title="Testigos de la Memoria — Journalists in History · Villa de Leyva, November 5–8, 2026"
+  description="Colombia's recent history, told by those who saw it up close. Talks and workshops with the journalists who covered the country's last fifty years. Villa de Leyva, November 5–8, 2026."
+>
+  <Hero locale={locale} />
+  <main id="contenido">
+    <TicketSection locale={locale} />
+    <Opportunity locale={locale} />
+    <SpeakerGrid locale={locale} />
+    <Schedule locale={locale} />
+  </main>
+</EventLayout>
+
+<style>
+  main {
+    position: relative;
+    z-index: 1;
+    background-color: var(--cream);
+  }
+</style>
