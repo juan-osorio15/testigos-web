@@ -4,16 +4,15 @@
  * mismo destino (#boletas), en header y cierres de sección.
  * Prohibido pasarle texto: el contrato data-schemas lo fija.
  */
-import { t, type Locale } from '../i18n/ui';
+import { t } from '../ui';
 
 interface Props {
-  locale: Locale;
   variant?: 'header' | 'inline';
 }
 
-const { locale, variant = 'inline' } = Astro.props;
+const { variant = 'inline' } = Astro.props;
 ---
 
 <a href="#boletas" class:list={['cta', { 'cta--header': variant === 'header' }]}>
-  {t('cta.buy', locale)}
+  {t('cta.buy')}
 </a>

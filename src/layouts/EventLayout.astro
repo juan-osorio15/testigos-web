@@ -2,27 +2,21 @@
 import '../styles/tokens.css';
 import '../styles/global.css';
 import { SITE_URL, PRETIX_EVENT_URL, pretixReady } from '../config';
-import { t, type Locale } from '../i18n/ui';
-import { localePath } from '../i18n/routes';
+import { t } from '../ui';
 import { event, venues } from '../data/event';
 import Header from '../components/Header.astro';
 import LogoSymbol from '../assets/logo/logo-symbol.svg';
 
 interface Props {
-  locale: Locale;
   title: string;
   description: string;
   /** noindex para páginas utilitarias (404) */
   noindex?: boolean;
 }
 
-const { locale, title, description, noindex = false } = Astro.props;
+const { title, description, noindex = false } = Astro.props;
 
-const canonical = SITE_URL + localePath(locale);
-const esUrl = SITE_URL + localePath('es');
-const enUrl = SITE_URL + localePath('en');
-const ogLocale = locale === 'es' ? 'es_CO' : 'en_US';
-const ogLocaleAlt = locale === 'es' ? 'en_US' : 'es_CO';
+const canonical = SITE_URL + '/';
 
 /* JSON-LD Event — una sola fuente de verdad (src/data/event.ts).
    `offers` solo cuando la tienda de Pretix exista (contrato pretix-embed). */
@@ -30,12 +24,12 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Event',
   name: event.name,
-  description: event.description[locale],
+  description: event.description,
   startDate: event.startDate,
   endDate: event.endDate,
   eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
   eventStatus: 'https://schema.org/EventScheduled',
-  inLanguage: locale,
+  inLanguage: 'es',
   image: [`${SITE_URL}/og/og-image.png`],
   location: venues.map((v) => ({
     '@type': 'Place',
@@ -62,17 +56,14 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
-    <link rel="canonical" href={noindex ? SITE_URL + '/' : canonical} />
-    <link rel="alternate" hreflang="es" href={esUrl} />
-    <link rel="alternate" hreflang="en" href={enUrl} />
-    <link rel="alternate" hreflang="x-default" href={esUrl} />
+    <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link
       rel="preload"
@@ -101,8 +92,7 @@ const jsonLd = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={`${SITE_URL}/og/og-image.png`} />
-    <meta property="og:locale" content={ogLocale} />
-    <meta property="og:locale:alternate" content={ogLocaleAlt} />
+    <meta property="og:locale" content="es_CO" />
     <meta name="twitter:card" content="summary_large_image" />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <!-- Marca temprana: solo con JS las secciones parten ocultas (R7) -->
@@ -111,17 +101,17 @@ const jsonLd = {
     </script>
   </head>
   <body>
-    <a href="#contenido" class="skip-link">{locale === 'es' ? 'Saltar al contenido' : 'Skip to content'}</a>
-    <Header locale={locale} />
+    <a href="#contenido" class="skip-link">Saltar al contenido</a>
+    <Header />
     <slot />
     <footer class="footer">
       <div class="container footer-inner">
         <LogoSymbol class="footer-symbol" aria-hidden="true" width={94} height={25} />
         <p class="footer-org">
-          <span class="eyebrow">{t('footer.organizedBy', locale)}</span>
+          <span class="eyebrow">{t('footer.organizedBy')}</span>
           {event.organizers.join(' · ')}
         </p>
-        <p class="footer-small">{t('footer.rights', locale)}</p>
+        <p class="footer-small">{t('footer.rights')}</p>
       </div>
     </footer>
 
@@ -157,16 +147,6 @@ const jsonLd = {
         { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
       );
       document.querySelectorAll('[data-reveal]').forEach((el) => revealer.observe(el));
-
-      // 3. Selector de idioma: preservar la sección activa (mejora progresiva).
-      const langLink = document.querySelector<HTMLAnchorElement>('[data-lang-link]');
-      if (langLink) {
-        const base = langLink.getAttribute('href') ?? '/';
-        addEventListener('hashchange', () => {
-          langLink.href = base + location.hash;
-        });
-        if (location.hash) langLink.href = base + location.hash;
-      }
     </script>
   </body>
 </html>

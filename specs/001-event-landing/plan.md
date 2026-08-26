@@ -4,6 +4,8 @@
 
 **Input**: Feature specification from `specs/001-event-landing/spec.md`
 
+> **Actualización 2026-08-25 (post-implementación)**: el usuario revirtió el alcance bilingüe — el evento es todo en español y el sitio se publica SOLO en español. Toda mención a i18n/EN/hreflang en este plan y en `contracts/seo-i18n.md` quedó superada; el código la eliminó por completo.
+
 ## Summary
 
 Landing page bilingüe (ES/EN) del evento Testigos de la Memoria (5-8 nov 2026, Villa de Leyva) construida con Astro como sitio 100% estático en la raíz del repo (rama `dev`). La identidad visual sale de la Propuesta 1 del manual de marca (bloques de color sólidos, duotono, logo ya disponible en `assets/logo.svg`). La compra vive íntegramente en el widget embebido de Pretix. Interacciones limitadas a CSS + `IntersectionObserver` + `scrollBy()` nativos: hero fijo con cortina, header de dos estados, scroll reveal, carrusel con snap. Deploy final preparado como workflow de GitHub Actions (build Astro → Pages) que solo dispara en push a `main` — inerte hasta autorización del usuario.

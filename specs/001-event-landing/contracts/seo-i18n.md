@@ -1,5 +1,7 @@
 # Contrato: SEO, i18n y activos heredados
 
+> **SUPERADO PARCIALMENTE (2026-08-25)**: el sitio es SOLO en español por decisión del usuario. Ignorar todo lo relativo a `/en/`, hreflang y selector de idioma; sigue vigente lo de canonical, OG, JSON-LD, sitemap (1 URL) y activos heredados.
+
 ## URLs
 
 | Página | URL | Notas |

@@ -11,7 +11,7 @@ Guía para levantar, construir y validar la landing contra los criterios del spe
 
 ```bash
 npm install          # primera vez
-npm run dev          # http://localhost:4321  (y /en/)
+npm run dev          # http://localhost:4321
 npm run check        # astro check — tipos: paridad es/en obligatoria
 npm run build        # genera dist/ — debe terminar sin errores ni warnings
 npm run preview      # sirve dist/ como en producción
@@ -29,12 +29,6 @@ Gate mecánico: `check` + `build` en verde antes de cualquier commit que toque `
 - [ ] `grep -ri "samper\|duzán\|restrepo" src/` solo devuelve los 3 confirmados; ningún horario junto a ellos (SC-003, SC-010).
 - [ ] Con `pretixReady: false`: sección de compra muestra "venta próximamente", sin widget ni enlaces rotos.
 - [ ] Ningún precio/tipo de boleta en `src/`: `grep -riE "\\$|COP|precio|price" src/` limpio (FR-008).
-
-**Idiomas**
-
-- [ ] `/en/` existe con el 100% del contenido; selector de idioma en header lleva a la sección equivalente (SC-009).
-- [ ] `<html lang>`, canonical, hreflang (es/en/x-default) correctos en ambas páginas — ver `dist/index.html` y `dist/en/index.html`.
-- [ ] `dist/sitemap.xml` con 2 URLs + alternates; `dist/CNAME`, `dist/robots.txt`, `dist/1b88...txt`, `dist/og/og-image.png` presentes (FR-021).
 
 **Degradación y accesibilidad**
 

@@ -30,7 +30,7 @@
 - Q: ¿Hay panelistas confirmados para publicar? → A: Sí, tres: Daniel Samper Pizano, María Jimena Duzán y Darío Restrepo. Sus horarios/franjas aún no están confirmados — se muestran como speakers, sin horario.
 - Q: ¿El nombre exacto es "María Angélica Duzán" (como se escribió) o "María Jimena Duzán"? → A: María Jimena Duzán.
 - Q: ¿La sección Why Attend lleva testimonios/video de ediciones anteriores? → A: No existen: esta es la primera edición. La sección se reenfoca en comunicar la oportunidad única de escuchar a estos gigantes del periodismo hablar de lo que vieron y de su oficio, en un pueblo tan encantador como Villa de Leyva.
-- Q: ¿En qué idiomas se publica el sitio? → A: Español e inglés.
+- Q: ¿En qué idiomas se publica el sitio? → A: ~~Español e inglés~~ **Revertido más tarde el mismo día**: el evento es todo en español, el sitio se publica SOLO en español. Toda la i18n queda fuera del alcance.
 - Q: ¿De dónde salen los assets del logo? → A: Se extraen del PDF de marca a la mejor calidad posible; el usuario provee SVG/fuentes solo si la extracción no alcanza.
 - Q: ¿Existen los componentes de `template-evento` mencionados en el brief? → A: No — esa carpeta no existe en el repo ni en el entorno. Los componentes del sitio se crean desde cero; el listado del brief se toma solo como inventario orientativo de secciones.
 
@@ -104,22 +104,6 @@ El dueño del proyecto necesita que el placeholder "Próximamente" que hoy vive 
 
 ---
 
-### User Story 5 - Visitante angloparlante (Priority: P2)
-
-Un visitante que no lee español (turista o residente extranjero interesado en Colombia) llega al sitio, cambia a la versión en inglés desde un control visible, y accede a exactamente la misma información y al mismo flujo de compra.
-
-**Why this priority**: Villa de Leyva es destino turístico internacional y el perfil del evento atrae público extranjero; el usuario definió el sitio como bilingüe.
-
-**Independent Test**: Desde cualquier sección, cambiar de idioma lleva a la versión equivalente en el otro idioma con contenido completo (no parcial ni mezclado).
-
-**Acceptance Scenarios**:
-
-1. **Given** un visitante en la versión en español, **When** usa el selector de idioma, **Then** ve la misma página en inglés, en la sección equivalente, con el 100% del contenido traducido.
-2. **Given** la versión en inglés, **When** el visitante llega a la sección de compra, **Then** el flujo de compra funciona igual que en español (el idioma interno del widget de Pretix es dominio de Pretix).
-3. **Given** cualquiera de las dos versiones, **When** un buscador la indexa, **Then** cada idioma tiene su propia URL estable y las versiones se declaran como alternativas entre sí.
-
----
-
 ### Edge Cases
 
 - **Widget de Pretix caído o bloqueado** (adblockers, cookies de terceros): la sección de compra muestra enlace directo al checkout de Pretix; la página nunca depende del widget para informar.
@@ -128,7 +112,6 @@ Un visitante que no lee español (turista o residente extranjero interesado en C
 - **JavaScript deshabilitado**: toda la información del evento (hero, descripción, speakers, agenda, venue, FAQs, direcciones) es legible; solo se pierden los realces de interacción y el widget embebido (queda el enlace directo a Pretix).
 - **Pantallas móviles pequeñas y conexiones lentas** (visitantes buscando el evento desde el celular): la página carga rápido, las imágenes pesadas se cargan de forma diferida y el CTA de compra es alcanzable con el pulgar.
 - **Datos viejos en piezas de marca**: cualquier fecha, sede u horario tomado de los mockups del manual de marca se considera inválido; solo valen los hechos de esta spec (sección Clarifications incluida) y el archivo de programación.
-- **Contenido sin traducir**: si un contenido nuevo llega en un solo idioma, no se publica hasta tener ambas versiones; nunca se muestra una página con mezcla de idiomas o secciones vacías en un idioma.
 
 ## Requirements *(mandatory)*
 
@@ -161,10 +144,9 @@ Un visitante que no lee español (turista o residente extranjero interesado en C
 - **FR-017**: La tipografía MUST limitarse a máximo dos familias coherentes con la marca (serif del wordmark para identidad/titulares donde aplique, sans grotesca para UI/cuerpo), con jerarquía bold en titulares e interlineado cómodo en cuerpo.
 - **FR-018**: Toda la información del evento MUST ser accesible sin JavaScript; el JS se limita a los realces (header, reveals, carrusel) y al widget de Pretix.
 
-**Idiomas**
+**Idioma**
 
-- **FR-022**: El sitio MUST publicarse completo en español e inglés, con paridad total de contenido. El español es el idioma principal; cada idioma tiene URL propia estable, las versiones se declaran como alternativas entre sí para buscadores, y un selector de idioma visible en el header permite cambiar entre ellas manteniendo la sección equivalente.
-- **FR-023**: El copy en inglés MUST ser una traducción editorial fiel a la voz de la marca (no literal palabra a palabra), respetando los mismos vetos de framing y frases prohibidas; los nombres propios, sedes y datos no se traducen ni se adaptan.
+- **FR-022**: El sitio MUST publicarse únicamente en español (decisión del usuario, Clarifications 2026-08-25: el evento es todo en español). Sin selector de idioma, sin rutas alternas ni hreflang.
 
 **Protección de producción y SEO**
 
@@ -193,8 +175,7 @@ Un visitante que no lee español (turista o residente extranjero interesado en C
 - **SC-006**: Durante todo el desarrollo, testigosdelamemoria.com sigue sirviendo el placeholder actual sin ninguna alteración (verificable en cualquier momento).
 - **SC-007**: Una revisión visual contra el manual de marca (páginas 1-7) confirma que colores, logo y lenguaje de bloques corresponden a la Propuesta 1, sin gradientes ni elementos de la Propuesta 2.
 - **SC-008**: Los CTAs de compra aparecen exactamente en los puntos definidos (header persistente + cierres de Speakers, Agenda y FAQs) con texto y estilo idénticos.
-- **SC-009**: El 100% del contenido está disponible en español y en inglés; el cambio de idioma desde cualquier sección lleva a la sección equivalente sin pérdida de contenido, y ninguna página publica mezcla de idiomas.
-- **SC-010**: Los tres panelistas confirmados aparecen publicados con nombre exacto (Daniel Samper Pizano, María Jimena Duzán, Darío Restrepo) y sin horarios inventados mientras la programación no los confirme.
+- **SC-009**: Los tres panelistas confirmados aparecen publicados con nombre exacto (Daniel Samper Pizano, María Jimena Duzán, Darío Restrepo) y sin horarios inventados mientras la programación no los confirme.
 
 ## Assumptions
 
@@ -203,6 +184,6 @@ Un visitante que no lee español (turista o residente extranjero interesado en C
 - **Programación**: el archivo de programación detallado aún no fue entregado; hasta recibirlo, la agenda se construye con estructura real y franjas "por confirmar". Los únicos panelistas publicables hoy son los tres confirmados por el usuario (sin horario).
 - **Asignación de sedes por día**: se asume que los talleres gratuitos del 5 ocurren en Casa Museo Antonio Nariño y los conversatorios del 6-8 en Hospedería Duruelo, según el brief original; si la programación final ubica talleres en otros días o sedes, manda la programación.
 - **Pretix**: el organizador ya cuenta (o contará) con la tienda de Pretix configurada; la URL del evento en Pretix se inyecta como dato de configuración. Mientras no exista, se usa un placeholder claramente marcado que no se publica.
-- **Idiomas**: español como idioma principal (raíz del dominio) e inglés como versión alterna con URL propia; la traducción al inglés la produce el equipo de desarrollo con revisión del usuario antes de publicar.
+- **Idioma**: el sitio se publica solo en español (el evento es íntegramente en español).
 - **Assets de marca**: el logo y el símbolo se extraen del PDF de marca a la mejor calidad posible (idealmente vectorial); el usuario provee archivos fuente (SVG/AI) solo si la extracción no alcanza la calidad necesaria.
 - **Componentes previos**: la carpeta `template-evento/src/components/` mencionada en el brief no existe en el repositorio ni en el entorno; todos los componentes del sitio se crean desde cero y el listado del brief se usa solo como inventario orientativo de secciones.

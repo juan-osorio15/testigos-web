@@ -6,19 +6,18 @@
  * confirmar" para cupos sin nombre (FR-005).
  */
 import { Image } from 'astro:assets';
-import { t, type Locale } from '../i18n/ui';
+import { t } from '../ui';
 import type { Speaker } from '../data/speakers';
 import LogoSymbol from '../assets/logo/logo-symbol.svg';
 
 interface Props {
-  locale: Locale;
   speaker?: Speaker;
   tbd?: boolean;
   /** rota los bloques de color como en las piezas del manual */
   tone: 'olive' | 'sky' | 'brick';
 }
 
-const { locale, speaker, tbd = false, tone } = Astro.props;
+const { speaker, tbd = false, tone } = Astro.props;
 ---
 
 <article class:list={['card', `card--${tone}`, { 'card--tbd': tbd }]}>
@@ -35,16 +34,16 @@ const { locale, speaker, tbd = false, tone } = Astro.props;
           )}
         </div>
         <h3 class="card-name">{speaker.name}</h3>
-        <p class="card-credential">{speaker.credential[locale]}</p>
-        <p class="card-bio">{speaker.bio[locale]}</p>
+        <p class="card-credential">{speaker.credential}</p>
+        <p class="card-bio">{speaker.bio}</p>
       </>
     ) : (
       <>
         <div class="card-media">
           <LogoSymbol class="card-symbol card-symbol--tbd" aria-hidden="true" />
         </div>
-        <h3 class="card-name">{t('speakers.tbd', locale)}</h3>
-        <p class="card-bio">{t('speakers.tbdNote', locale)}</p>
+        <h3 class="card-name">{t('speakers.tbd')}</h3>
+        <p class="card-bio">{t('speakers.tbdNote')}</p>
       </>
     )
   }

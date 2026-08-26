@@ -7,40 +7,31 @@
  * Firma visual: las comillas del logo — "la mirada del testigo" — observan
  * desde la esquina, como en las tarjetas del manual (págs. 4-5).
  */
-import { t, type Locale } from '../i18n/ui';
+import { t } from '../ui';
 import CtaButton from './CtaButton.astro';
 import LogoSymbol from '../assets/logo/logo-symbol.svg';
 
-interface Props {
-  locale: Locale;
-}
-
-const { locale } = Astro.props;
-
 /* Slogan aprobado (spec §2); el nombre del evento va en el h1 para SEO/AT
    y el eslogan es el display visible. */
-const slogan = {
-  es: ['La historia reciente de Colombia,', 'contada por quienes', 'la ven de frente.'],
-  en: ["Colombia's recent history,", 'told by those who', 'saw it up close.'],
-}[locale];
+const slogan = ['La historia reciente de Colombia,', 'contada por quienes', 'la ven de frente.'];
 ---
 
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-fixed">
     <LogoSymbol class="hero-watch" aria-hidden="true" />
     <div class="hero-content container">
-      <p class="eyebrow hero-tagline">{t('hero.tagline', locale)}</p>
+      <p class="eyebrow hero-tagline">{t('hero.tagline')}</p>
       <h1 id="hero-title">
         <span class="sr-only">Testigos de la Memoria — </span>
         {slogan.map((line) => <span class="hero-line">{line}</span>)}
       </h1>
       <div class="hero-meta">
-        <p class="hero-chip hero-chip--date">{t('hero.dates', locale)}</p>
-        <p class="hero-chip hero-chip--place">{t('hero.place', locale)}</p>
-        <CtaButton locale={locale} />
+        <p class="hero-chip hero-chip--date">{t('hero.dates')}</p>
+        <p class="hero-chip hero-chip--place">{t('hero.place')}</p>
+        <CtaButton />
       </div>
     </div>
-    <p class="hero-scroll" aria-hidden="true">{t('hero.scroll', locale)} ↓</p>
+    <p class="hero-scroll" aria-hidden="true">{t('hero.scroll')} ↓</p>
   </div>
   <div class="hero-spacer"></div>
   <div data-header-sentinel aria-hidden="true"></div>

@@ -5,47 +5,36 @@
  * acento sólido en el borde izquierdo (brief §10). "Por confirmar" para
  * todo dato sin fuente (FR-005). Cierra con CTA.
  */
-import { t, type Locale } from '../i18n/ui';
+import { t } from '../ui';
 import { agenda, dayLabels, type EventDay } from '../data/agenda';
 import { venueById } from '../data/event';
 import { speakerBySlug } from '../data/speakers';
 import CtaButton from './CtaButton.astro';
 
-interface Props {
-  locale: Locale;
-}
-
-const { locale } = Astro.props;
-
 const days = Object.keys(dayLabels) as EventDay[];
 const slotsByDay = (day: EventDay) => agenda.filter((s) => s.day === day);
 
-const heading = {
-  es: 'Cuatro días en Villa de Leyva',
-  en: 'Four days in Villa de Leyva',
-}[locale];
+const heading = 'Cuatro días en Villa de Leyva';
 ---
 
 <section id="agenda" class="schedule" data-reveal>
   <div class="container">
-    <p class="eyebrow">{t('nav.schedule', locale)}</p>
+    <p class="eyebrow">{t('nav.schedule')}</p>
     <h2>{heading}</h2>
     <div class="schedule-days">
       {
         days.map((day) => (
           <div class="schedule-day">
-            <h3>{dayLabels[day][locale]}</h3>
+            <h3>{dayLabels[day]}</h3>
             <ul role="list">
               {slotsByDay(day).map((slot) => {
                 const venue = venueById(slot.venueId);
                 const free = slot.type === 'taller';
                 return (
                   <li class:list={['slot', { 'slot--free': free }]}>
-                    <p class="slot-time">{slot.time ?? t('schedule.tbd', locale)}</p>
+                    <p class="slot-time">{slot.time ?? t('schedule.tbd')}</p>
                     <div class="slot-body">
-                      <p class="slot-title">
-                        {slot.title ? slot.title[locale] : t('schedule.titleTbd', locale)}
-                      </p>
+                      <p class="slot-title">{slot.title ?? t('schedule.titleTbd')}</p>
                       {slot.speakerSlugs.length > 0 && (
                         <p class="slot-speakers">
                           {slot.speakerSlugs.map((s) => speakerBySlug(s).name).join(' · ')}
@@ -54,7 +43,7 @@ const heading = {
                       <p class="slot-venue">{venue.name}</p>
                     </div>
                     <p class:list={['slot-badge', free ? 'slot-badge--free' : 'slot-badge--ticketed']}>
-                      {free ? t('schedule.free', locale) : t('schedule.ticketed', locale)}
+                      {free ? t('schedule.free') : t('schedule.ticketed')}
                     </p>
                   </li>
                 );
@@ -65,7 +54,7 @@ const heading = {
       }
     </div>
     <div class="schedule-cta">
-      <CtaButton locale={locale} />
+      <CtaButton />
     </div>
   </div>
 </section>

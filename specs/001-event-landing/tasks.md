@@ -96,7 +96,9 @@ Proyecto Astro único en la raíz del repo (ver plan.md · Project Structure).
 
 ---
 
-## Phase 6: User Story 5 — Visitante angloparlante (Priority: P2)
+## Phase 6: User Story 5 — Visitante angloparlante (CANCELADA 2026-08-25)
+
+> **Cancelada por el usuario**: el evento es todo en español; el sitio se publica solo en español. Las tareas T028-T031 se ejecutaron y luego se revirtieron (i18n eliminada del código y del spec).
 
 **Goal**: `/en/` con paridad total, selector de idioma correcto, señales SEO bilingües.
 

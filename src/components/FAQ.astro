@@ -3,44 +3,31 @@
  * FAQs (sección 7): <details>/<summary> nativo — accesible y funcional
  * sin JS (FR-018). Cierra con el CTA final de la página.
  */
-import { t, type Locale } from '../i18n/ui';
+import { t } from '../ui';
 import { faqs } from '../data/faqs';
 import CtaButton from './CtaButton.astro';
 
-interface Props {
-  locale: Locale;
-}
-
-const { locale } = Astro.props;
-
-const heading = {
-  es: 'Preguntas frecuentes',
-  en: 'Frequently asked questions',
-}[locale];
-
-const closing = {
-  es: 'Nos vemos en Villa de Leyva.',
-  en: 'See you in Villa de Leyva.',
-}[locale];
+const heading = 'Preguntas frecuentes';
+const closing = 'Nos vemos en Villa de Leyva.';
 ---
 
 <section id="faq" class="faq" data-reveal>
   <div class="container faq-inner">
-    <p class="eyebrow">{t('nav.faq', locale)}</p>
+    <p class="eyebrow">{t('nav.faq')}</p>
     <h2>{heading}</h2>
     <div class="faq-list">
       {
         faqs.map((faq) => (
           <details class="faq-item">
-            <summary>{faq.question[locale]}</summary>
-            <p>{faq.answer[locale]}</p>
+            <summary>{faq.question}</summary>
+            <p>{faq.answer}</p>
           </details>
         ))
       }
     </div>
     <div class="faq-cta">
       <p class="faq-closing">{closing}</p>
-      <CtaButton locale={locale} />
+      <CtaButton />
     </div>
   </div>
 </section>

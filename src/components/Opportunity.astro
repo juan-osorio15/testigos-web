@@ -4,39 +4,18 @@
  * ni ediciones anteriores. El argumento: escuchar de frente a quienes
  * cubrieron la historia, en Villa de Leyva. Audiencia 1 primero (spec §3).
  */
-import type { Locale } from '../i18n/ui';
-
-interface Props {
-  locale: Locale;
-}
-
-const { locale } = Astro.props;
-
 const copy = {
-  es: {
-    eyebrow: 'Primera edición',
-    /* Pregunta del banco aprobado (spec §2) */
-    heading: '¿Quiénes han contado la historia reciente de Colombia?',
-    lead: 'Los hechos que marcaron al país tuvieron testigos de primera fila: los reporteros que los cubrieron. Durante cuatro días, algunos de los grandes nombres del periodismo colombiano se sientan a contar lo que vieron, cómo lo contaron y qué callaron — y a discutir qué nos enseña para lo que viene.',
-    points: [
-      'Conversatorios cercanos, sin tarima lejana: preguntas y desacuerdos incluidos.',
-      'Historia y oficio de primera mano, con nombres, fechas y medios sobre la mesa.',
-      'Villa de Leyva: un pueblo que invita a quedarse conversando después de cada sesión.',
-    ],
-    closing: 'Es la primera edición. Nadie te lo va a contar: hay que estar.',
-  },
-  en: {
-    eyebrow: 'First edition',
-    heading: "Who has told the story of Colombia's recent past?",
-    lead: 'The events that shaped this country had front-row witnesses: the reporters who covered them. Over four days, some of the biggest names in Colombian journalism sit down to recount what they saw, how they told it, and what they left unsaid — and to discuss what it teaches us about what comes next.',
-    points: [
-      'Up-close conversations, no distant stage: questions and disagreements included.',
-      'History and craft firsthand, with names, dates, and newsrooms on the table.',
-      'Villa de Leyva: a town that invites you to keep talking after every session.',
-    ],
-    closing: "It's the first edition. No one can tell you about it afterwards: you have to be there.",
-  },
-}[locale];
+  eyebrow: 'Primera edición',
+  /* Pregunta del banco aprobado (spec §2) */
+  heading: '¿Quiénes han contado la historia reciente de Colombia?',
+  lead: 'Los hechos que marcaron al país tuvieron testigos de primera fila: los reporteros que los cubrieron. Durante cuatro días, algunos de los grandes nombres del periodismo colombiano se sientan a contar lo que vieron, cómo lo contaron y qué callaron — y a discutir qué nos enseña para lo que viene.',
+  points: [
+    'Conversatorios cercanos, sin tarima lejana: preguntas y desacuerdos incluidos.',
+    'Historia y oficio de primera mano, con nombres, fechas y medios sobre la mesa.',
+    'Villa de Leyva: un pueblo que invita a quedarse conversando después de cada sesión.',
+  ],
+  closing: 'Es la primera edición. Nadie te lo va a contar: hay que estar.',
+};
 ---
 
 <section id="oportunidad" class="opp" data-reveal>

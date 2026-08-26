@@ -1,4 +1,3 @@
-import type { LocalizedString } from '../i18n/ui';
 import type { VenueId } from './event';
 
 /**
@@ -15,16 +14,16 @@ export interface AgendaSlot {
   time: string | null;
   type: 'taller' | 'conversatorio';
   /** null → "programación por confirmar" */
-  title: LocalizedString | null;
+  title: string | null;
   venueId: VenueId;
   speakerSlugs: string[];
 }
 
-export const dayLabels: Record<EventDay, LocalizedString> = {
-  '2026-11-05': { es: 'Jueves 5 de noviembre', en: 'Thursday, November 5' },
-  '2026-11-06': { es: 'Viernes 6 de noviembre', en: 'Friday, November 6' },
-  '2026-11-07': { es: 'Sábado 7 de noviembre', en: 'Saturday, November 7' },
-  '2026-11-08': { es: 'Domingo 8 de noviembre', en: 'Sunday, November 8' },
+export const dayLabels: Record<EventDay, string> = {
+  '2026-11-05': 'Jueves 5 de noviembre',
+  '2026-11-06': 'Viernes 6 de noviembre',
+  '2026-11-07': 'Sábado 7 de noviembre',
+  '2026-11-08': 'Domingo 8 de noviembre',
 };
 
 export const agenda: AgendaSlot[] = [
@@ -32,7 +31,7 @@ export const agenda: AgendaSlot[] = [
     day: '2026-11-05',
     time: null,
     type: 'taller',
-    title: { es: 'Talleres de periodismo', en: 'Journalism workshops' },
+    title: 'Talleres de periodismo',
     venueId: 'casa-museo',
     speakerSlugs: [],
   },

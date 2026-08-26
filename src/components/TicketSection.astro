@@ -8,23 +8,18 @@
  * sección implementa el contrato pretix-embed.md al pie de la letra.
  */
 import { PRETIX_EVENT_URL, pretixReady } from '../config';
-import { t, type Locale } from '../i18n/ui';
+import { t } from '../ui';
 import { event } from '../data/event';
 
-interface Props {
-  locale: Locale;
-}
-
-const { locale } = Astro.props;
-const widgetScript = `https://pretix.eu/widget/v1.${locale}.js`;
+const widgetScript = 'https://pretix.eu/widget/v1.es.js';
 const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
 ---
 
 <section id="boletas" class="tickets">
   <div class="container tickets-grid">
     <div class="tickets-intro">
-      <p class="eyebrow">{t('tickets.heading', locale)}</p>
-      <p class="tickets-lead">{event.description[locale]}</p>
+      <p class="eyebrow">{t('tickets.heading')}</p>
+      <p class="tickets-lead">{event.description}</p>
     </div>
     <div class="tickets-widget">
       {
@@ -35,15 +30,15 @@ const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
             <pretix-widget event={PRETIX_EVENT_URL}>
               {/* Fallback oficial: esto es lo que se ve sin JS o con el widget bloqueado (FR-011/018) */}
               <div class="pretix-widget-info-message">
-                <p>{t('tickets.widgetFallback', locale)}</p>
+                <p>{t('tickets.widgetFallback')}</p>
                 <a href={PRETIX_EVENT_URL} target="_blank" rel="noopener">
-                  {t('tickets.widgetLink', locale)} →
+                  {t('tickets.widgetLink')} →
                 </a>
               </div>
             </pretix-widget>
           </>
         ) : (
-          <p class="tickets-soon">{t('tickets.soon', locale)}</p>
+          <p class="tickets-soon">{t('tickets.soon')}</p>
         )
       }
     </div>

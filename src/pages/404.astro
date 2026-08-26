@@ -1,15 +1,14 @@
 ---
 /**
- * 404 bilingüe con diseño de marca, noindex (FR-021 — reemplaza y mejora
- * el 404.html del placeholder). GitHub Pages sirve dist/404.html.
+ * 404 con diseño de marca, noindex (FR-021 — reemplaza y mejora el
+ * 404.html del placeholder). GitHub Pages sirve dist/404.html.
  */
 import EventLayout from '../layouts/EventLayout.astro';
-import { t } from '../i18n/ui';
+import { t } from '../ui';
 import LogoSymbol from '../assets/logo/logo-symbol.svg';
 ---
 
 <EventLayout
-  locale="es"
   title="Página no encontrada — Testigos de la Memoria"
   description="Página no encontrada."
   noindex
@@ -18,12 +17,10 @@ import LogoSymbol from '../assets/logo/logo-symbol.svg';
     <div class="container nf-inner">
       <LogoSymbol class="nf-symbol" aria-hidden="true" />
       <p class="nf-code" aria-hidden="true">404</p>
-      <h1>{t('notfound.title', 'es')}</h1>
-      <p>{t('notfound.body', 'es')}</p>
-      <p lang="en" class="nf-en">{t('notfound.title', 'en')} — {t('notfound.body', 'en')}</p>
+      <h1>{t('notfound.title')}</h1>
+      <p>{t('notfound.body')}</p>
       <div class="nf-actions">
-        <a class="cta" href="/">{t('notfound.back', 'es')}</a>
-        <a class="nf-en-link" href="/en/" lang="en" hreflang="en">{t('notfound.back', 'en')} →</a>
+        <a class="cta" href="/">{t('notfound.back')}</a>
       </div>
     </div>
   </main>
@@ -60,16 +57,10 @@ import LogoSymbol from '../assets/logo/logo-symbol.svg';
   h1 {
     font-size: var(--text-h2);
   }
-  .nf-en {
-    opacity: 0.75;
-  }
   .nf-actions {
     display: flex;
     align-items: center;
     gap: var(--space-3);
     margin-top: var(--space-2);
-  }
-  .nf-en-link {
-    font-weight: 700;
   }
 </style>

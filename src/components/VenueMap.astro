@@ -1,66 +1,49 @@
 ---
 /**
- * Venue (sección 6): dirección SIEMPRE en texto plano + mapa estático de
- * cero JS (opción por defecto del brief §6) + botón "Cómo llegar" con deep
- * link por sede (FR-006). El mapa es un esquema propio del casco de Villa
- * de Leyva con tratamiento de marca — sin tiles de terceros ni requests.
+ * Venue (sección 6): dirección SIEMPRE en texto plano + mapa real de
+ * Google embebido con loading="lazy" (opción válida del brief §6; el
+ * embed básico por iframe es gratuito y no requiere API key) + botón
+ * "Cómo llegar" con deep link por sede (FR-006).
  */
-import { t, type Locale } from '../i18n/ui';
+import { t } from '../ui';
 import { venues } from '../data/event';
 
-interface Props {
-  locale: Locale;
-}
+const heading = 'Dos sedes, a pocas cuadras';
 
-const { locale } = Astro.props;
-
-const heading = {
-  es: 'Dos sedes, a pocas cuadras',
-  en: 'Two venues, a few blocks apart',
-}[locale];
-
-const plazaLabel = { es: 'Plaza Mayor', en: 'Main square' }[locale];
+/* Centrado en la sede principal (conversatorios); Casa Museo queda a
+   pocas cuadras y tiene su propio deep link en la tarjeta. */
+const mapSrc =
+  'https://www.google.com/maps?q=' +
+  encodeURIComponent('Hospedería Duruelo, Villa de Leyva, Boyacá') +
+  '&hl=es&z=16&output=embed';
 ---
 
 <section id="lugar" class="venue" data-reveal>
   <div class="container">
-    <p class="eyebrow">{t('nav.venue', locale)}</p>
+    <p class="eyebrow">{t('nav.venue')}</p>
     <h2>{heading}</h2>
     <div class="venue-grid">
-      <figure class="venue-map" role="img" aria-label={t('venue.mapAria', locale)}>
-        <!-- Esquema del casco colonial: retícula, Plaza Mayor y las dos sedes -->
-        <svg viewBox="0 0 600 420" aria-hidden="true">
-          <rect width="600" height="420" fill="#efe8df" />
-          <g stroke="#210804" stroke-opacity="0.18" stroke-width="2">
-            {[70, 150, 230, 310, 390].map((y) => <line x1="30" y1={y} x2="570" y2={y} />)}
-            {[90, 190, 290, 390, 490].map((x) => <line x1={x} y1="30" x2={x} y2="390" />)}
-          </g>
-          <!-- Plaza Mayor -->
-          <rect x="240" y="180" width="100" height="80" fill="#d45b30" opacity="0.25" />
-          <rect x="240" y="180" width="100" height="80" fill="none" stroke="#210804" stroke-width="2" />
-          <text x="290" y="226" text-anchor="middle" font-size="15" font-weight="700" fill="#210804">
-            {plazaLabel}
-          </text>
-          <!-- 1 · Casa Museo Antonio Nariño (noroccidente de la plaza) -->
-          <circle cx="160" cy="120" r="17" fill="#757522" />
-          <text x="160" y="126" text-anchor="middle" font-size="16" font-weight="800" fill="#efe8df">1</text>
-          <!-- 2 · Hospedería Duruelo (oriente, hacia la loma) -->
-          <circle cx="470" cy="290" r="17" fill="#7d290d" />
-          <text x="470" y="296" text-anchor="middle" font-size="16" font-weight="800" fill="#efe8df">2</text>
-        </svg>
-      </figure>
+      <div class="venue-map">
+        <iframe
+          src={mapSrc}
+          title={t('venue.mapTitle')}
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
       <div class="venue-cards">
         {
           venues.map((venue, i) => (
             <article class="venue-card">
-              <p class="venue-num" class:list={['venue-num', i === 0 ? 'venue-num--olive' : 'venue-num--brick']}>
+              <p class:list={['venue-num', i === 0 ? 'venue-num--olive' : 'venue-num--brick']}>
                 {i + 1}
               </p>
               <h3>{venue.name}</h3>
-              <p class="venue-role">{venue.role[locale]}</p>
+              <p class="venue-role">{venue.role}</p>
               <p class="venue-address">{venue.address}</p>
               <a class="venue-directions" href={venue.mapsUrl} target="_blank" rel="noopener">
-                {t('venue.directions', locale)} →
+                {t('venue.directions')} →
               </a>
             </article>
           ))
@@ -94,15 +77,16 @@ const plazaLabel = { es: 'Plaza Mayor', en: 'Main square' }[locale];
   }
 
   .venue-map {
-    margin: 0;
     border: var(--border) var(--ink);
     border-radius: var(--radius-card);
     overflow: hidden;
+    background-color: var(--cream);
   }
-  .venue-map svg {
+  .venue-map iframe {
     display: block;
     width: 100%;
-    height: auto;
+    aspect-ratio: 6 / 5;
+    border: 0;
   }
 
   .venue-cards {
