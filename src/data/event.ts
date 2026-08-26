@@ -24,15 +24,8 @@ export interface Venue {
   mapsUrl: string;
 }
 
+/* Orden de presentación: la sede principal (conversatorios) primero. */
 export const venues: Venue[] = [
-  {
-    id: 'casa-museo',
-    name: 'Casa Museo Antonio Nariño',
-    address: 'Carrera 9 n.º 10-25, Villa de Leyva, Boyacá',
-    role: 'Talleres de periodismo · entrada libre · 5 de noviembre',
-    mapsUrl:
-      'https://www.google.com/maps/search/?api=1&query=Casa+Museo+Antonio+Nari%C3%B1o+Villa+de+Leyva',
-  },
   {
     id: 'duruelo',
     name: 'Hospedería Duruelo',
@@ -40,6 +33,14 @@ export const venues: Venue[] = [
     role: 'Conversatorios · con boleta · 6 al 8 de noviembre',
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=Hospeder%C3%ADa+Duruelo+Villa+de+Leyva',
+  },
+  {
+    id: 'casa-museo',
+    name: 'Casa Museo Antonio Nariño',
+    address: 'Carrera 9 n.º 10-25, Villa de Leyva, Boyacá',
+    role: 'Talleres de periodismo · entrada libre · 5 de noviembre',
+    mapsUrl:
+      'https://www.google.com/maps/search/?api=1&query=Casa+Museo+Antonio+Nari%C3%B1o+Villa+de+Leyva',
   },
 ];
 

@@ -1,21 +1,25 @@
 ---
 /**
  * Venue (sección 6): dirección SIEMPRE en texto plano + mapa real de
- * Google embebido con loading="lazy" (opción válida del brief §6; el
- * embed básico por iframe es gratuito y no requiere API key) + botón
- * "Cómo llegar" con deep link por sede (FR-006).
+ * Google embebido con loading="lazy" (el embed básico por iframe es
+ * gratuito y no requiere API key) + botón "Cómo llegar" por sede (FR-006).
+ *
+ * Un iframe por sede, apilados: se muestra el de la card sobre la que el
+ * visitante pasa el mouse / enfoca / toca (mejora progresiva; sin JS se ve
+ * la sede principal). Sede 1 = Hospedería Duruelo, sede 2 = Casa Museo.
  */
 import { t } from '../ui';
 import { venues } from '../data/event';
 
 const heading = 'Dos sedes, a pocas cuadras';
 
-/* Centrado en la sede principal (conversatorios); Casa Museo queda a
-   pocas cuadras y tiene su propio deep link en la tarjeta. */
-const mapSrc =
-  'https://www.google.com/maps?q=' +
-  encodeURIComponent('Hospedería Duruelo, Villa de Leyva, Boyacá') +
-  '&hl=es&z=16&output=embed';
+const mapQueries: Record<string, string> = {
+  duruelo: 'Hospedería Duruelo, Villa de Leyva, Boyacá',
+  'casa-museo': 'Casa Museo Antonio Nariño, Villa de Leyva, Boyacá',
+};
+
+const mapSrc = (id: string) =>
+  'https://www.google.com/maps?q=' + encodeURIComponent(mapQueries[id]!) + '&hl=es&z=16&output=embed';
 ---
 
 <section id="lugar" class="venue" data-reveal>
@@ -23,20 +27,32 @@ const mapSrc =
     <p class="eyebrow">{t('nav.venue')}</p>
     <h2>{heading}</h2>
     <div class="venue-grid">
-      <div class="venue-map">
-        <iframe
-          src={mapSrc}
-          title={t('venue.mapTitle')}
-          loading="lazy"
-          allowfullscreen
-          referrerpolicy="no-referrer-when-downgrade"
-        ></iframe>
+      <div class="venue-maps">
+        {
+          venues.map((venue, i) => (
+            <div
+              class:list={['venue-map', { 'is-active': i === 0 }]}
+              data-venue-map={venue.id}
+            >
+              <iframe
+                src={mapSrc(venue.id)}
+                title={`Mapa de Google: ${venue.name}`}
+                loading="lazy"
+                allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          ))
+        }
       </div>
       <div class="venue-cards">
         {
           venues.map((venue, i) => (
-            <article class="venue-card">
-              <p class:list={['venue-num', i === 0 ? 'venue-num--olive' : 'venue-num--brick']}>
+            <article
+              class:list={['venue-card', { 'is-active': i === 0 }]}
+              data-venue-card={venue.id}
+            >
+              <p class:list={['venue-num', i === 0 ? 'venue-num--brick' : 'venue-num--olive']}>
                 {i + 1}
               </p>
               <h3>{venue.name}</h3>
@@ -52,6 +68,22 @@ const mapSrc =
     </div>
   </div>
 </section>
+
+<script>
+  // El mapa visible sigue a la card activa: hover, foco de teclado o tap.
+  const maps = document.querySelectorAll<HTMLElement>('[data-venue-map]');
+  const cards = document.querySelectorAll<HTMLElement>('[data-venue-card]');
+  const activate = (id: string) => {
+    maps.forEach((m) => m.classList.toggle('is-active', m.dataset.venueMap === id));
+    cards.forEach((c) => c.classList.toggle('is-active', c.dataset.venueCard === id));
+  };
+  cards.forEach((card) => {
+    const id = card.dataset.venueCard!;
+    card.addEventListener('mouseenter', () => activate(id));
+    card.addEventListener('focusin', () => activate(id));
+    card.addEventListener('click', () => activate(id));
+  });
+</script>
 
 <style>
   .venue {
@@ -76,11 +108,23 @@ const mapSrc =
     align-items: start;
   }
 
-  .venue-map {
+  /* Mapas apilados en la misma celda; solo el activo es visible */
+  .venue-maps {
+    display: grid;
     border: var(--border) var(--ink);
     border-radius: var(--radius-card);
     overflow: hidden;
     background-color: var(--cream);
+  }
+  .venue-map {
+    grid-area: 1 / 1;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 220ms var(--ease-out), visibility 220ms;
+  }
+  .venue-map.is-active {
+    opacity: 1;
+    visibility: visible;
   }
   .venue-map iframe {
     display: block;
@@ -100,6 +144,12 @@ const mapSrc =
     border: var(--border) var(--ink);
     border-radius: var(--radius-card);
     background-color: #fff;
+    transition: border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+  }
+  /* La card activa señala qué mapa se está viendo */
+  .venue-card.is-active {
+    border-color: var(--terracotta);
+    box-shadow: inset 0 0 0 1px var(--terracotta);
   }
   .venue-num {
     width: 2rem;
@@ -110,11 +160,11 @@ const mapSrc =
     color: var(--cream);
     font-weight: 800;
   }
-  .venue-num--olive {
-    background-color: var(--olive);
-  }
   .venue-num--brick {
     background-color: var(--brick);
+  }
+  .venue-num--olive {
+    background-color: var(--olive);
   }
   h3 {
     font-size: var(--text-h3);
