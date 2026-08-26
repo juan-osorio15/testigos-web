@@ -33,6 +33,7 @@
 - Q: ¿En qué idiomas se publica el sitio? → A: ~~Español e inglés~~ **Revertido más tarde el mismo día**: el evento es todo en español, el sitio se publica SOLO en español. Toda la i18n queda fuera del alcance.
 - Q: ¿De dónde salen los assets del logo? → A: Se extraen del PDF de marca a la mejor calidad posible; el usuario provee SVG/fuentes solo si la extracción no alcanza.
 - Q: ¿Existen los componentes de `template-evento` mencionados en el brief? → A: No — esa carpeta no existe en el repo ni en el entorno. Los componentes del sitio se crean desde cero; el listado del brief se toma solo como inventario orientativo de secciones.
+- Q: ¿El coorganizador es "Fernando Restrepo" (como decía el brief)? → A: No: su nombre correcto es **Fernando Cordovez**. Corregido en organizadores y en la bio de Darío Restrepo.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -156,7 +157,7 @@ El dueño del proyecto necesita que el placeholder "Próximamente" que hoy vive 
 
 ### Key Entities
 
-- **Evento**: nombre, fechas (5-8 nov 2026; talleres gratuitos el 5, conversatorios con boleta 6-8), sedes, organizadores (Fernando y Darío Restrepo), framing editorial. Fuente: esta spec.
+- **Evento**: nombre, fechas (5-8 nov 2026; talleres gratuitos el 5, conversatorios con boleta 6-8), sedes, organizadores (Fernando Cordovez y Darío Restrepo), framing editorial. Fuente: esta spec.
 - **Panelista**: nombre, medio/credencial, foto (tratada en duotono), estado de confirmación, franja horaria (opcional — puede estar confirmado sin horario). Confirmados: Daniel Samper Pizano, María Jimena Duzán, Darío Restrepo. Fuente de verdad para nuevos nombres: confirmación explícita del usuario o archivo de programación; "por confirmar" es un valor válido.
 - **Franja de agenda**: día, hora, tipo (taller gratuito / conversatorio con boleta), título, sede, panelistas asociados.
 - **Sede**: nombre, dirección en texto plano, tipo de actividad, enlace de navegación.

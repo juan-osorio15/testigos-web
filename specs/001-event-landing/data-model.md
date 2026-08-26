@@ -23,7 +23,7 @@ Regla dura: ningún componente renderiza texto de contenido que no venga de un `
 | `startDate` / `endDate` | `'2026-11-05'` / `'2026-11-08'` | ISO; el rango completo 5-8 es la fecha de comunicación (FR-001) |
 | `dateDisplay` | `LocalizedString` | p. ej. es: "5 al 8 de noviembre de 2026" |
 | `city` | `LocalizedString` | Villa de Leyva, Colombia |
-| `organizers` | `string[]` | `['Fernando Restrepo', 'Darío Restrepo']` |
+| `organizers` | `string[]` | `['Fernando Cordovez', 'Darío Restrepo']` |
 
 ### Venue (`src/data/event.ts`)
 

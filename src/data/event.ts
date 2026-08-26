@@ -8,7 +8,7 @@ export const event = {
   startDate: '2026-11-05',
   endDate: '2026-11-08',
   city: 'Villa de Leyva, Colombia',
-  organizers: ['Fernando Restrepo', 'Darío Restrepo'],
+  organizers: ['Fernando Cordovez', 'Darío Restrepo'],
   description:
     'Los periodistas que cubrieron los últimos cincuenta años de Colombia cuentan y analizan, en persona, los hechos que vivieron de frente. Conversatorios y talleres en Villa de Leyva, del 5 al 8 de noviembre de 2026.',
 } as const;

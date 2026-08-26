@@ -36,7 +36,7 @@ export const speakers: Speaker[] = [
     slug: 'dario-restrepo',
     name: 'Darío Restrepo',
     credential: 'Periodista · codirector del encuentro',
-    bio: 'Codirige Testigos de la Memoria junto a Fernando Restrepo.',
+    bio: 'Codirige Testigos de la Memoria junto a Fernando Cordovez.',
     photo: null,
     confirmed: true,
   },
