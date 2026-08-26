@@ -1,0 +1,146 @@
+---
+/**
+ * Carrusel de panelistas (patrón 8.5): scroll-snap nativo + flechas con
+ * scrollBy(). Sin librerías. Cierra con CTA (estrategia de CTA del spec).
+ */
+import { t, type Locale } from '../i18n/ui';
+import { speakers, tbdSlots } from '../data/speakers';
+import CtaButton from './CtaButton.astro';
+import SpeakerCard from './SpeakerCard.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const tones = ['olive', 'sky', 'brick'] as const;
+
+const subtitle = {
+  es: 'Escuchar a quienes estuvieron allí también es hacer memoria.',
+  en: 'Listening to those who were there is also an act of memory.',
+}[locale];
+---
+
+<section id="speakers" class="speakers" data-reveal>
+  <div class="container">
+    <div class="speakers-head">
+      <p class="eyebrow">{t('nav.speakers', locale)}</p>
+      <h2>{subtitle}</h2>
+      <div class="speakers-arrows">
+        <button type="button" data-carousel-prev aria-label={t('speakers.prev', locale)}>←</button>
+        <button type="button" data-carousel-next aria-label={t('speakers.next', locale)}>→</button>
+      </div>
+    </div>
+  </div>
+  <div class="speakers-track-wrap">
+    <ul class="speakers-track container" role="list" data-carousel>
+      {
+        speakers.map((speaker, i) => (
+          <li>
+            <SpeakerCard locale={locale} speaker={speaker} tone={tones[i % tones.length]!} />
+          </li>
+        ))
+      }
+      {
+        Array.from({ length: tbdSlots }).map((_, i) => (
+          <li>
+            <SpeakerCard locale={locale} tbd tone={tones[(speakers.length + i) % tones.length]!} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <div class="container speakers-cta">
+    <CtaButton locale={locale} />
+  </div>
+</section>
+
+<script>
+  // Flechas del carrusel: scrollBy nativo; smooth solo si el usuario lo permite.
+  const track = document.querySelector<HTMLElement>('[data-carousel]');
+  if (track) {
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const step = () => {
+      const card = track.querySelector('li');
+      return (card?.getBoundingClientRect().width ?? 320) + 20;
+    };
+    const scroll = (dir: 1 | -1) =>
+      track.scrollBy({ left: dir * step(), behavior: reduced ? 'auto' : 'smooth' });
+    document.querySelector('[data-carousel-prev]')?.addEventListener('click', () => scroll(-1));
+    document.querySelector('[data-carousel-next]')?.addEventListener('click', () => scroll(1));
+  }
+</script>
+
+<style>
+  .speakers {
+    position: relative;
+    z-index: 1;
+    background-color: var(--cream);
+    padding-block: var(--space-6);
+  }
+
+  .speakers-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+  .speakers-head .eyebrow {
+    grid-column: 1 / -1;
+    color: var(--brick);
+  }
+  h2 {
+    font-size: var(--text-h2);
+    max-width: 24ch;
+  }
+
+  .speakers-arrows {
+    display: flex;
+    gap: var(--space-1);
+  }
+  .speakers-arrows button {
+    width: 2.75rem;
+    height: 2.75rem;
+    border: var(--border) var(--ink);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    font-size: 1.1rem;
+    transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out);
+  }
+  .speakers-arrows button:hover {
+    background-color: var(--ink);
+    color: var(--cream);
+  }
+  /* Sin JS las flechas no operan: se ocultan y el track sigue siendo scrolleable */
+  html:not(.js-reveal) .speakers-arrows {
+    display: none;
+  }
+
+  .speakers-track {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    padding-block: 4px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: var(--terracotta) transparent;
+  }
+  .speakers-track li {
+    display: contents;
+  }
+
+  .speakers-cta {
+    margin-top: var(--space-4);
+  }
+
+  @media (max-width: 47.9rem) {
+    .speakers-head {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+  }
+</style>

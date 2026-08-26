@@ -2,6 +2,9 @@
 import EventLayout from '../layouts/EventLayout.astro';
 import Hero from '../components/Hero.astro';
 import TicketSection from '../components/TicketSection.astro';
+import Opportunity from '../components/Opportunity.astro';
+import SpeakerGrid from '../components/SpeakerGrid.astro';
+import Schedule from '../components/Schedule.astro';
 
 const locale = 'es' as const;
 ---
@@ -14,6 +17,9 @@ const locale = 'es' as const;
   <Hero locale={locale} />
   <main id="contenido">
     <TicketSection locale={locale} />
+    <Opportunity locale={locale} />
+    <SpeakerGrid locale={locale} />
+    <Schedule locale={locale} />
   </main>
 </EventLayout>
 

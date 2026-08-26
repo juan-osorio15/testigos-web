@@ -1,0 +1,111 @@
+---
+/**
+ * "La Oportunidad" (sección 3, FR-004): primera edición — sin testimonios
+ * ni ediciones anteriores. El argumento: escuchar de frente a quienes
+ * cubrieron la historia, en Villa de Leyva. Audiencia 1 primero (spec §3).
+ */
+import type { Locale } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const copy = {
+  es: {
+    eyebrow: 'Primera edición',
+    /* Pregunta del banco aprobado (spec §2) */
+    heading: '¿Quiénes han contado la historia reciente de Colombia?',
+    lead: 'Los hechos que marcaron al país tuvieron testigos de primera fila: los reporteros que los cubrieron. Durante cuatro días, algunos de los grandes nombres del periodismo colombiano se sientan a contar lo que vieron, cómo lo contaron y qué callaron — y a discutir qué nos enseña para lo que viene.',
+    points: [
+      'Conversatorios cercanos, sin tarima lejana: preguntas y desacuerdos incluidos.',
+      'Historia y oficio de primera mano, con nombres, fechas y medios sobre la mesa.',
+      'Villa de Leyva: un pueblo que invita a quedarse conversando después de cada sesión.',
+    ],
+    closing: 'Es la primera edición. Nadie te lo va a contar: hay que estar.',
+  },
+  en: {
+    eyebrow: 'First edition',
+    heading: "Who has told the story of Colombia's recent past?",
+    lead: 'The events that shaped this country had front-row witnesses: the reporters who covered them. Over four days, some of the biggest names in Colombian journalism sit down to recount what they saw, how they told it, and what they left unsaid — and to discuss what it teaches us about what comes next.',
+    points: [
+      'Up-close conversations, no distant stage: questions and disagreements included.',
+      'History and craft firsthand, with names, dates, and newsrooms on the table.',
+      'Villa de Leyva: a town that invites you to keep talking after every session.',
+    ],
+    closing: "It's the first edition. No one can tell you about it afterwards: you have to be there.",
+  },
+}[locale];
+---
+
+<section id="oportunidad" class="opp" data-reveal>
+  <div class="container opp-inner">
+    <p class="eyebrow">{copy.eyebrow}</p>
+    <h2>{copy.heading}</h2>
+    <p class="opp-lead">{copy.lead}</p>
+    <ul class="opp-points" role="list">
+      {copy.points.map((point) => <li>{point}</li>)}
+    </ul>
+    <p class="opp-closing">{copy.closing}</p>
+  </div>
+</section>
+
+<style>
+  .opp {
+    position: relative;
+    z-index: 1;
+    background-color: var(--ink);
+    color: var(--cream);
+    padding-block: var(--space-6);
+  }
+  .opp-inner {
+    display: grid;
+    gap: var(--space-3);
+    max-width: 54rem;
+  }
+  .opp .eyebrow {
+    color: var(--terracotta);
+  }
+  h2 {
+    font-size: var(--text-h2);
+  }
+  .opp-lead {
+    font-size: var(--text-lead);
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+  .opp-points {
+    display: grid;
+    gap: var(--space-2);
+    padding: 0;
+    list-style: none;
+  }
+  .opp-points li {
+    padding-left: 1.4rem;
+    position: relative;
+  }
+  /* Marcador: bloque sólido de marca, no bullet genérico */
+  .opp-points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 0.65rem;
+    height: 0.65rem;
+    background-color: var(--terracotta);
+  }
+  .opp-points li:nth-child(2)::before {
+    background-color: var(--sky);
+  }
+  .opp-points li:nth-child(3)::before {
+    background-color: var(--olive);
+  }
+  .opp-closing {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-h3);
+    color: var(--terracotta);
+    margin-top: var(--space-2);
+  }
+</style>

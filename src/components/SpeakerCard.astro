@@ -1,0 +1,123 @@
+---
+/**
+ * Tarjeta de panelista: bloque de color sólido con esquinas redondeadas,
+ * como las tarjetas del manual (pág. 5). Foto en duotono cuando exista;
+ * si `photo: null`, placeholder de marca con el símbolo. Card "por
+ * confirmar" para cupos sin nombre (FR-005).
+ */
+import { Image } from 'astro:assets';
+import { t, type Locale } from '../i18n/ui';
+import type { Speaker } from '../data/speakers';
+import LogoSymbol from '../assets/logo/logo-symbol.svg';
+
+interface Props {
+  locale: Locale;
+  speaker?: Speaker;
+  tbd?: boolean;
+  /** rota los bloques de color como en las piezas del manual */
+  tone: 'olive' | 'sky' | 'brick';
+}
+
+const { locale, speaker, tbd = false, tone } = Astro.props;
+---
+
+<article class:list={['card', `card--${tone}`, { 'card--tbd': tbd }]}>
+  {
+    speaker ? (
+      <>
+        <div class="card-media">
+          {speaker.photo ? (
+            <div class="duotone card-photo">
+              <Image src={speaker.photo} alt={speaker.name} widths={[320, 480]} sizes="(max-width: 48rem) 78vw, 320px" />
+            </div>
+          ) : (
+            <LogoSymbol class="card-symbol" aria-hidden="true" />
+          )}
+        </div>
+        <h3 class="card-name">{speaker.name}</h3>
+        <p class="card-credential">{speaker.credential[locale]}</p>
+        <p class="card-bio">{speaker.bio[locale]}</p>
+      </>
+    ) : (
+      <>
+        <div class="card-media">
+          <LogoSymbol class="card-symbol card-symbol--tbd" aria-hidden="true" />
+        </div>
+        <h3 class="card-name">{t('speakers.tbd', locale)}</h3>
+        <p class="card-bio">{t('speakers.tbdNote', locale)}</p>
+      </>
+    )
+  }
+</article>
+
+<style>
+  .card {
+    scroll-snap-align: start;
+    flex: 0 0 min(78vw, 20rem);
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+    padding: var(--space-3);
+    border-radius: var(--radius-card);
+    color: var(--ink);
+    min-height: 22rem;
+    transition: transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-1);
+  }
+  .card--olive {
+    background-color: var(--olive);
+    color: var(--cream);
+  }
+  .card--sky {
+    background-color: var(--sky);
+  }
+  .card--brick {
+    background-color: var(--brick);
+    color: var(--cream);
+  }
+  .card--tbd {
+    background-color: transparent;
+    border: var(--border) var(--ink);
+    color: var(--ink);
+  }
+
+  .card-media {
+    display: grid;
+    place-items: start end;
+    min-height: 8.5rem;
+    margin-bottom: var(--space-1);
+  }
+  .card-photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: calc(var(--radius-card) - 8px);
+  }
+  .card-symbol {
+    width: 4.5rem;
+    height: auto;
+    opacity: 0.9;
+  }
+  .card-symbol--tbd {
+    opacity: 0.35;
+  }
+
+  .card-name {
+    font-size: var(--text-h3);
+    font-weight: 800;
+    line-height: 1.15;
+  }
+  .card-credential {
+    font-size: var(--text-small);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.85;
+  }
+  .card-bio {
+    font-size: var(--text-small);
+    line-height: 1.5;
+  }
+</style>

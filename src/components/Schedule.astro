@@ -1,0 +1,175 @@
+---
+/**
+ * Agenda (sección 5): tabla editorial — fecha/hora a la izquierda,
+ * contenido a la derecha, líneas horizontales finas; fila destacada con
+ * acento sólido en el borde izquierdo (brief §10). "Por confirmar" para
+ * todo dato sin fuente (FR-005). Cierra con CTA.
+ */
+import { t, type Locale } from '../i18n/ui';
+import { agenda, dayLabels, type EventDay } from '../data/agenda';
+import { venueById } from '../data/event';
+import { speakerBySlug } from '../data/speakers';
+import CtaButton from './CtaButton.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const days = Object.keys(dayLabels) as EventDay[];
+const slotsByDay = (day: EventDay) => agenda.filter((s) => s.day === day);
+
+const heading = {
+  es: 'Cuatro días en Villa de Leyva',
+  en: 'Four days in Villa de Leyva',
+}[locale];
+---
+
+<section id="agenda" class="schedule" data-reveal>
+  <div class="container">
+    <p class="eyebrow">{t('nav.schedule', locale)}</p>
+    <h2>{heading}</h2>
+    <div class="schedule-days">
+      {
+        days.map((day) => (
+          <div class="schedule-day">
+            <h3>{dayLabels[day][locale]}</h3>
+            <ul role="list">
+              {slotsByDay(day).map((slot) => {
+                const venue = venueById(slot.venueId);
+                const free = slot.type === 'taller';
+                return (
+                  <li class:list={['slot', { 'slot--free': free }]}>
+                    <p class="slot-time">{slot.time ?? t('schedule.tbd', locale)}</p>
+                    <div class="slot-body">
+                      <p class="slot-title">
+                        {slot.title ? slot.title[locale] : t('schedule.titleTbd', locale)}
+                      </p>
+                      {slot.speakerSlugs.length > 0 && (
+                        <p class="slot-speakers">
+                          {slot.speakerSlugs.map((s) => speakerBySlug(s).name).join(' · ')}
+                        </p>
+                      )}
+                      <p class="slot-venue">{venue.name}</p>
+                    </div>
+                    <p class:list={['slot-badge', free ? 'slot-badge--free' : 'slot-badge--ticketed']}>
+                      {free ? t('schedule.free', locale) : t('schedule.ticketed', locale)}
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+    <div class="schedule-cta">
+      <CtaButton locale={locale} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .schedule {
+    position: relative;
+    z-index: 1;
+    background-color: var(--cream);
+    padding-block: var(--space-6);
+    border-top: var(--border) var(--ink);
+  }
+  .schedule .eyebrow {
+    color: var(--brick);
+  }
+  h2 {
+    font-size: var(--text-h2);
+    margin-block: var(--space-1) var(--space-4);
+  }
+
+  .schedule-days {
+    display: grid;
+    gap: var(--space-4);
+  }
+  .schedule-day h3 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: var(--text-h3);
+    margin-bottom: var(--space-2);
+  }
+  .schedule-day ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+  }
+
+  .slot {
+    display: grid;
+    grid-template-columns: 11rem 1fr auto;
+    gap: var(--space-2);
+    align-items: baseline;
+    padding: var(--space-2) var(--space-2);
+    border-top: var(--border) rgba(33, 8, 4, 0.25);
+    border-left: 6px solid var(--terracotta); /* acento sólido, nunca gradiente */
+  }
+  .slot--free {
+    border-left-color: var(--olive);
+  }
+  .schedule-day ul .slot:last-child {
+    border-bottom: var(--border) rgba(33, 8, 4, 0.25);
+  }
+
+  .slot-time {
+    font-weight: 700;
+    font-size: var(--text-small);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .slot-body {
+    display: grid;
+    gap: 0.2rem;
+  }
+  .slot-title {
+    font-weight: 800;
+    font-size: var(--text-body);
+  }
+  .slot-speakers {
+    font-family: var(--font-serif);
+    font-style: italic;
+  }
+  .slot-venue {
+    font-size: var(--text-small);
+    opacity: 0.75;
+  }
+
+  .slot-badge {
+    font-size: var(--text-label);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.35em 0.8em;
+    border-radius: 4px;
+    justify-self: end;
+  }
+  .slot-badge--free {
+    background-color: var(--olive);
+    color: var(--cream);
+  }
+  .slot-badge--ticketed {
+    background-color: var(--terracotta);
+    color: var(--cream);
+  }
+
+  .schedule-cta {
+    margin-top: var(--space-4);
+  }
+
+  @media (max-width: 47.9rem) {
+    .slot {
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+    }
+    .slot-badge {
+      justify-self: start;
+    }
+  }
+</style>
