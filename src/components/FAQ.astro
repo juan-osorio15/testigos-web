@@ -66,13 +66,15 @@ const closing = 'Nos vemos en Villa de Leyva.';
     gap: var(--space-2);
     max-width: 54rem;
   }
-  /* El campanario acompaña la columna de preguntas; baño cálido suave */
+  /* El campanario acompaña la columna de preguntas; baño cálido suave.
+     La foto original es oscura (cielo de tormenta): se compensa con brillo. */
   .faq-photo {
-    --duotone-tint: color-mix(in srgb, var(--brick) 20%, var(--cream));
+    --duotone-tint: color-mix(in srgb, var(--brick) 14%, var(--cream));
     aspect-ratio: 2 / 3;
   }
   .faq-photo :global(img) {
     height: 100%;
+    filter: grayscale(1) contrast(0.98) brightness(1.35);
   }
   @media (max-width: 63.9rem) {
     .faq-grid {
