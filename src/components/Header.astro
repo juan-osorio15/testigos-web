@@ -1,0 +1,143 @@
+---
+/**
+ * Header de dos estados (patrón 8.2): una sola franja que cambia como unidad.
+ * Sobre el hero: translúcido, elementos claros. Después: sólido crema, tinta.
+ * La clase `.is-solid` la alterna el IntersectionObserver de EventLayout;
+ * sin JS, el fallback <noscript> lo deja sólido y legible siempre.
+ */
+import { t, type Locale } from '../i18n/ui';
+import { localePath, alternateUrl, otherLocale } from '../i18n/routes';
+import CtaButton from './CtaButton.astro';
+import LogoLockup from '../assets/logo/logo-lockup.svg';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const navItems = [
+  { href: '#oportunidad', label: t('nav.opportunity', locale) },
+  { href: '#speakers', label: t('nav.speakers', locale) },
+  { href: '#agenda', label: t('nav.schedule', locale) },
+  { href: '#lugar', label: t('nav.venue', locale) },
+  { href: '#faq', label: t('nav.faq', locale) },
+];
+---
+
+<noscript>
+  <style>
+    header[data-header] {
+      background-color: var(--cream);
+      color: var(--ink);
+      box-shadow: var(--shadow-1);
+    }
+  </style>
+</noscript>
+
+<header data-header>
+  <div class="header-inner">
+    <a href={localePath(locale)} class="brand" aria-label="Testigos de la Memoria">
+      <LogoLockup class="brand-logo" width={72} height={44} aria-hidden="true" />
+    </a>
+    <nav aria-label={t('nav.aria', locale)} class="nav">
+      {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+    <div class="header-actions">
+      <a
+        href={alternateUrl(locale)}
+        hreflang={otherLocale(locale)}
+        lang={otherLocale(locale)}
+        aria-label={t('lang.aria', locale)}
+        class="lang-link"
+        data-lang-link
+      >
+        {t('lang.switch', locale)}
+      </a>
+      <CtaButton locale={locale} variant="header" />
+    </div>
+  </div>
+</header>
+
+<style>
+  header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    height: var(--header-h);
+    color: var(--cream);
+    background-color: rgba(33, 8, 4, 0.28);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px); /* única excepción del brief §9: legibilidad sobre el hero */
+    transition:
+      background-color 220ms var(--ease-out),
+      color 220ms var(--ease-out),
+      box-shadow 220ms var(--ease-out);
+  }
+  header.is-solid {
+    color: var(--ink);
+    background-color: var(--cream);
+    box-shadow: var(--shadow-1);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    height: 100%;
+    max-width: var(--max-width);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .brand-logo {
+    width: 72px;
+    height: auto;
+  }
+
+  .nav {
+    display: flex;
+    gap: clamp(0.9rem, 2vw, 1.6rem);
+    margin-inline: auto;
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+  .nav a {
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    padding-block: 0.2em;
+    transition: border-color 160ms var(--ease-out);
+  }
+  .nav a:hover {
+    border-bottom-color: var(--terracotta);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-left: auto;
+  }
+  .lang-link {
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--terracotta);
+    padding-block: 0.15em;
+  }
+
+  @media (max-width: 47.9rem) {
+    .nav {
+      display: none; /* móvil: logo + idioma + CTA; las secciones se alcanzan por scroll */
+    }
+  }
+</style>
