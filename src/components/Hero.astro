@@ -196,27 +196,44 @@ const slogan = ['La historia reciente', 'de Colombia, contada', 'por quienes', '
         'side'
         'strip';
     }
+    .hero-head {
+      padding: calc(var(--header-h) + var(--space-1)) var(--gutter) var(--space-3);
+    }
     .hero-head-inner {
       max-width: none;
       margin-left: 0;
+      gap: var(--space-2);
     }
     h1 {
-      font-size: clamp(2rem, 1rem + 6vw, 3rem);
+      font-size: clamp(1.7rem, 0.9rem + 5vw, 2.6rem);
     }
-    /* En móvil: comillas y foto lado a lado, como bloques de la escarapela */
+    /* En móvil el logo del header basta: la foto queda como banda propia */
+    .hero-watch-block {
+      display: none;
+    }
     .hero-side {
       grid-template-rows: none;
-      grid-template-columns: 2fr 3fr;
-      min-height: 22svh;
     }
-    .hero-watch-block {
-      padding: var(--space-2);
+    .hero-photo {
+      height: 18svh;
     }
-    .hero-logo {
-      width: clamp(140px, 34vw, 220px);
+    /* Franja compacta: datos apilados y CTA a lo ancho, siempre visible */
+    .hero-strip {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+      padding: var(--space-2) var(--gutter);
+    }
+    .hero-date-days {
+      font-size: 1.5rem;
     }
     .hero-place {
       margin-left: 0;
+    }
+    .hero-strip :global(.cta) {
+      justify-self: stretch;
+      text-align: center;
+      margin-top: 0.3rem;
     }
   }
 </style>

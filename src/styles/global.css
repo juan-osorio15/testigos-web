@@ -167,6 +167,8 @@ html.js-reveal [data-reveal].is-visible {
 .cta--header {
   padding: 0.55em 1.3em;
   font-size: 0.9375rem;
+  /* Legible también cuando el header translúcido queda sobre terracota */
+  border-color: var(--ink);
 }
 
 /* --- Movimiento reducido (FR-016): sin excepciones ----------------- */
