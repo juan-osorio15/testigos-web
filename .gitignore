@@ -1,1 +1,11 @@
 assets/pexels-enzo-renz-424999667-33786545.jpg
+
+# Artefactos del proyecto Astro (viven en la rama dev; aquí se ignoran
+# para que el working tree no muestre miles de untracked al cambiar de rama)
+node_modules/
+dist/
+.astro/
+*.log
+.env
+.env.*
+.DS_Store
