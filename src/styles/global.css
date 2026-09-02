@@ -170,6 +170,18 @@ html.js-reveal [data-reveal].is-visible {
   /* Legible también cuando el header translúcido queda sobre terracota */
   border-color: var(--ink);
 }
+/* En móvil el header cae sobre el bloque terracota del hero: el botón
+   va en crema para no fundirse con el naranja */
+@media (max-width: 47.9rem) {
+  .cta--header {
+    background-color: var(--cream);
+    color: var(--ink);
+  }
+  .cta--header:hover {
+    background-color: var(--terracotta);
+    color: var(--ink);
+  }
+}
 
 /* --- Movimiento reducido (FR-016): sin excepciones ----------------- */
 
