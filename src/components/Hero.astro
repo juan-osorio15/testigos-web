@@ -132,15 +132,16 @@ const slogan = ['La historia reciente', 'de Colombia, contada', 'por quienes', '
     display: grid;
     grid-template-rows: minmax(0, 2fr) minmax(0, 3fr);
   }
-  /* Bloque crema con el logo completo, como la valla del manual */
+  /* Bloque crema con el logo completo, como la valla del manual.
+     Padding superior = franja del header, para que el CTA nunca lo tape. */
   .hero-watch-block {
     background-color: var(--cream);
     display: grid;
     place-content: center;
-    padding: var(--space-3) var(--space-4);
+    padding: calc(var(--header-h) + var(--space-1)) var(--space-4) var(--space-3);
   }
   .hero-logo {
-    width: clamp(200px, 24vw, 340px);
+    width: clamp(150px, 16vw, 230px);
     height: auto;
     color: var(--ink);
   }

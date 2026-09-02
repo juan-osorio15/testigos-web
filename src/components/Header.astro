@@ -25,10 +25,6 @@ const navItems = [
       color: var(--ink);
       box-shadow: var(--shadow-1);
     }
-    header[data-header] .brand {
-      opacity: 1;
-      pointer-events: auto;
-    }
   </style>
 </noscript>
 
@@ -77,19 +73,10 @@ const navItems = [
     padding-inline: var(--gutter);
   }
 
-  /* Sobre el hero el logo grande vive en el collage; el del header
-     aparece al pasar a estado sólido (y siempre sin JS, vía noscript). */
   .brand {
     display: flex;
     align-items: center;
     flex-shrink: 0;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 220ms var(--ease-out);
-  }
-  header.is-solid .brand {
-    opacity: 1;
-    pointer-events: auto;
   }
   .brand-logo {
     width: 72px;
