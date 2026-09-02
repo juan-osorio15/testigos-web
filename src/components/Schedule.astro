@@ -1,9 +1,10 @@
 ---
 /**
- * Agenda (sección 5): tabla editorial — fecha/hora a la izquierda,
- * contenido a la derecha, líneas horizontales finas; fila destacada con
- * acento sólido en el borde izquierdo (brief §10). "Por confirmar" para
- * todo dato sin fuente (FR-005). Cierra con CTA.
+ * Agenda (FR-004): una tabla por día — hora | sesión | acción.
+ * Talleres: etiqueta "Entrada libre". Conversatorios: botón de compra
+ * en la propia fila (decisión del usuario 2026-09-02; reemplaza al badge
+ * "Con boleta" y al CTA de cierre de la sección). "Por confirmar" para
+ * todo dato sin fuente (FR-005).
  */
 import { t } from '../ui';
 import { agenda, dayLabels, type EventDay } from '../data/agenda';
@@ -26,38 +27,38 @@ const heading = 'Cuatro días en Villa de Leyva';
         days.map((day) => (
           <div class="schedule-day">
             <h3>{dayLabels[day]}</h3>
-            <ul role="list">
-              {slotsByDay(day).map((slot) => {
-                const venue = venueById(slot.venueId);
-                const free = slot.type === 'taller';
-                return (
-                  <li class:list={['slot', { 'slot--free': free }]}>
-                    <p class="slot-time">{slot.time ?? t('schedule.tbd')}</p>
-                    <div class="slot-body">
-                      <p class="slot-title">{slot.title ?? t('schedule.titleTbd')}</p>
-                      {(slot.speakerSlugs.length > 0 || (slot.tbdPanelists ?? 0) > 0) && (
-                        <p class="slot-speakers">
-                          {[
-                            ...slot.speakerSlugs.map((s) => speakerBySlug(s).name),
-                            ...((slot.tbdPanelists ?? 0) > 0 ? [t('speakers.tbd')] : []),
-                          ].join(' · ')}
-                        </p>
-                      )}
-                      <p class="slot-venue">{venue.name}</p>
-                    </div>
-                    <p class:list={['slot-badge', free ? 'slot-badge--free' : 'slot-badge--ticketed']}>
-                      {free ? t('schedule.free') : t('schedule.ticketed')}
-                    </p>
-                  </li>
-                );
-              })}
-            </ul>
+            <table>
+              <tbody>
+                {slotsByDay(day).map((slot) => {
+                  const venue = venueById(slot.venueId);
+                  const free = slot.type === 'taller';
+                  const panelists = [
+                    ...slot.speakerSlugs.map((s) => speakerBySlug(s).name),
+                    ...((slot.tbdPanelists ?? 0) > 0 ? [t('speakers.tbd')] : []),
+                  ];
+                  return (
+                    <tr class:list={['slot', { 'slot--free': free }]}>
+                      <td class="slot-time">{slot.time ?? t('schedule.tbd')}</td>
+                      <td class="slot-body">
+                        <p class="slot-title">{slot.title ?? t('schedule.titleTbd')}</p>
+                        {panelists.length > 0 && <p class="slot-speakers">{panelists.join(' · ')}</p>}
+                        <p class="slot-venue">{venue.name}</p>
+                      </td>
+                      <td class="slot-action">
+                        {free ? (
+                          <p class="slot-badge">{t('schedule.free')}</p>
+                        ) : (
+                          <CtaButton variant="header" />
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         ))
       }
-    </div>
-    <div class="schedule-cta">
-      <CtaButton />
     </div>
   </div>
 </section>
@@ -83,34 +84,33 @@ const heading = 'Cuatro días en Villa de Leyva';
     gap: var(--space-4);
   }
   .schedule-day h3 {
-    font-family: var(--font-serif);
-    font-weight: 600;
+    font-weight: 800;
     font-size: var(--text-h3);
     margin-bottom: var(--space-2);
   }
-  .schedule-day ul {
-    list-style: none;
-    padding: 0;
-    display: grid;
-  }
 
-  .slot {
-    display: grid;
-    grid-template-columns: 11rem 1fr auto;
-    gap: var(--space-2);
-    align-items: baseline;
-    padding: var(--space-2) var(--space-2);
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .slot > td {
+    padding: var(--space-2);
     border-top: var(--border) rgba(33, 8, 4, 0.25);
-    border-left: 6px solid var(--terracotta); /* acento sólido, nunca gradiente */
+    vertical-align: top;
   }
-  .slot--free {
-    border-left-color: var(--olive);
-  }
-  .schedule-day ul .slot:last-child {
+  table tr:last-child > td {
     border-bottom: var(--border) rgba(33, 8, 4, 0.25);
+  }
+  /* Acento sólido por tipo, en la primera celda (nunca gradiente) */
+  .slot > td:first-child {
+    border-left: 6px solid var(--terracotta);
+  }
+  .slot--free > td:first-child {
+    border-left-color: var(--olive);
   }
 
   .slot-time {
+    width: 11rem;
     font-weight: 700;
     font-size: var(--text-small);
     text-transform: uppercase;
@@ -121,19 +121,22 @@ const heading = 'Cuatro días en Villa de Leyva';
     gap: 0.2rem;
   }
   .slot-title {
-    font-weight: 800;
+    font-weight: 700;
     font-size: var(--text-body);
   }
   .slot-speakers {
-    font-family: var(--font-serif);
-    font-style: italic;
+    font-size: var(--text-body);
   }
   .slot-venue {
     font-size: var(--text-small);
     opacity: 0.75;
   }
 
-  /* Etiqueta editorial: texto tinta + bloque de color como marcador (AA-seguro) */
+  .slot-action {
+    width: 1%;
+    white-space: nowrap;
+    text-align: right;
+  }
   .slot-badge {
     display: inline-flex;
     align-items: center;
@@ -145,31 +148,48 @@ const heading = 'Cuatro días en Villa de Leyva';
     padding: 0.35em 0.8em;
     border: var(--border) var(--ink);
     color: var(--ink);
-    justify-self: end;
   }
   .slot-badge::before {
     content: '';
     width: 0.65em;
     height: 0.65em;
-  }
-  .slot-badge--free::before {
     background-color: var(--olive);
-  }
-  .slot-badge--ticketed::before {
-    background-color: var(--terracotta);
-  }
-
-  .schedule-cta {
-    margin-top: var(--space-4);
   }
 
   @media (max-width: 47.9rem) {
-    .slot {
-      grid-template-columns: 1fr;
-      gap: 0.4rem;
+    table,
+    tbody,
+    tr,
+    td {
+      display: block;
+      width: 100%;
     }
-    .slot-badge {
-      justify-self: start;
+    .slot {
+      border-top: var(--border) rgba(33, 8, 4, 0.25);
+      border-left: 6px solid var(--terracotta);
+      padding-block: var(--space-2);
+    }
+    .slot--free {
+      border-left-color: var(--olive);
+    }
+    .slot > td,
+    .slot > td:first-child {
+      border: 0;
+      padding: 0.2rem var(--space-2);
+    }
+    table tr:last-child > td {
+      border: 0;
+    }
+    table tr:last-child {
+      border-bottom: var(--border) rgba(33, 8, 4, 0.25);
+    }
+    .slot-time {
+      width: auto;
+    }
+    .slot-action {
+      text-align: left;
+      padding-top: 0.6rem;
+      padding-bottom: 0.6rem;
     }
   }
 </style>

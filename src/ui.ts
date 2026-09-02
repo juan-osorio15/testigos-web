@@ -28,19 +28,17 @@ const dict = {
   'tickets.widgetFallback':
     'Si el módulo de compra no carga, puedes comprar directamente en la tienda segura de Pretix:',
   'tickets.widgetLink': 'Comprar en Pretix',
-  'waitlist.lead': '¿Quieres que te avisemos cuando abra la venta?',
   'waitlist.name': 'Nombre',
   'waitlist.email': 'Correo electrónico',
   'waitlist.phone': 'Teléfono (opcional)',
   'waitlist.submit': 'Avisarme cuando abra la venta',
   'waitlist.privacy': 'Solo usaremos tus datos para contarte novedades del evento.',
-  'waitlist.pending': 'El registro se activará muy pronto.',
+  'waitlist.pending': 'El registro se activará en los próximos días.',
   'waitlist.success': 'Listo. Te escribiremos en cuanto abra la venta.',
   'waitlist.error': 'No pudimos guardar tus datos. Intenta de nuevo en un momento.',
 
   // --- Agenda ---
   'schedule.free': 'Entrada libre',
-  'schedule.ticketed': 'Con boleta',
   'schedule.tbd': 'Horario por confirmar',
   'schedule.titleTbd': 'Programación por confirmar',
 

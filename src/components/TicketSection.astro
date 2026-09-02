@@ -48,7 +48,10 @@ const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
               action={waitlistReady ? WAITLIST_ENDPOINT : undefined}
               data-waitlist
             >
-              <p class="waitlist-lead">{t('waitlist.lead')}</p>
+              <label>
+                <span>{t('waitlist.phone')}</span>
+                <input type="tel" name="phone" autocomplete="tel" inputmode="tel" />
+              </label>
               <label>
                 <span>{t('waitlist.name')}</span>
                 <input type="text" name="name" autocomplete="name" />
@@ -56,10 +59,6 @@ const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
               <label>
                 <span>{t('waitlist.email')} *</span>
                 <input type="email" name="email" required autocomplete="email" inputmode="email" />
-              </label>
-              <label>
-                <span>{t('waitlist.phone')}</span>
-                <input type="tel" name="phone" autocomplete="tel" inputmode="tel" />
               </label>
               {/* Honeypot antispam: oculto para humanos, tentador para bots */}
               <input
@@ -159,9 +158,8 @@ const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
   }
 
   .tickets-soon {
-    font-family: var(--font-serif);
-    font-style: italic;
     font-size: var(--text-h3);
+    font-weight: 700;
     line-height: 1.4;
     color: var(--brick);
     text-wrap: balance;
@@ -174,9 +172,6 @@ const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
     margin-top: var(--space-4);
     padding-top: var(--space-3);
     border-top: var(--border) var(--ink);
-  }
-  .waitlist-lead {
-    font-weight: 800;
   }
   .waitlist label {
     display: grid;

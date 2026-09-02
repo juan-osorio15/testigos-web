@@ -9,7 +9,7 @@
 import { Image } from 'astro:assets';
 import { t } from '../ui';
 import CtaButton from './CtaButton.astro';
-import LogoSymbol from '../assets/logo/logo-symbol.svg';
+import LogoLockup from '../assets/logo/logo-lockup.svg';
 import streetPhoto from '../assets/photos/pexels-enzo-renz-424999667-33786545.jpg';
 
 /* Slogan aprobado (spec §2); el nombre del evento va en el h1 para SEO/AT
@@ -30,7 +30,7 @@ const slogan = ['La historia reciente', 'de Colombia, contada', 'por quienes', '
     </div>
     <div class="hero-side">
       <div class="hero-watch-block">
-        <LogoSymbol class="hero-watch" aria-hidden="true" />
+        <LogoLockup class="hero-logo" aria-hidden="true" />
       </div>
       <div class="duotone hero-photo">
         <Image
@@ -132,14 +132,15 @@ const slogan = ['La historia reciente', 'de Colombia, contada', 'por quienes', '
     display: grid;
     grid-template-rows: minmax(0, 2fr) minmax(0, 3fr);
   }
+  /* Bloque crema con el logo completo, como la valla del manual */
   .hero-watch-block {
     background-color: var(--cream);
     display: grid;
-    place-content: end start;
+    place-content: center;
     padding: var(--space-3) var(--space-4);
   }
-  .hero-watch {
-    width: clamp(110px, 12vw, 180px);
+  .hero-logo {
+    width: clamp(200px, 24vw, 340px);
     height: auto;
     color: var(--ink);
   }
@@ -167,8 +168,7 @@ const slogan = ['La historia reciente', 'de Colombia, contada', 'por quienes', '
     gap: 0.5em;
   }
   .hero-date-days {
-    font-family: var(--font-serif);
-    font-weight: 600;
+    font-weight: 800;
     font-size: clamp(1.8rem, 1.2rem + 1.6vw, 2.6rem);
     line-height: 1;
   }
@@ -210,6 +210,9 @@ const slogan = ['La historia reciente', 'de Colombia, contada', 'por quienes', '
     }
     .hero-watch-block {
       padding: var(--space-2);
+    }
+    .hero-logo {
+      width: clamp(140px, 34vw, 220px);
     }
     .hero-place {
       margin-left: 0;
