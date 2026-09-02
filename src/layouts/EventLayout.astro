@@ -28,6 +28,9 @@ const isDemo = base !== '/';
 const forceNoindex = noindex || isDemo;
 
 const canonical = SITE_URL + '/';
+/* Imagen OG del despliegue actual: en la demo vive bajo /demo/ (la raíz
+   aún sirve el placeholder); en el deploy final, en la raíz. */
+const ogImage = `${SITE_URL}${base}og/og-image.png`;
 
 /* JSON-LD Event — una sola fuente de verdad (src/data/event.ts).
    `offers` solo cuando la tienda de Pretix exista (contrato pretix-embed). */
@@ -41,7 +44,7 @@ const jsonLd = {
   eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
   eventStatus: 'https://schema.org/EventScheduled',
   inLanguage: 'es',
-  image: [`${SITE_URL}/og/og-image.png`],
+  image: [ogImage],
   location: venues.map((v) => ({
     '@type': 'Place',
     name: v.name,
@@ -84,9 +87,17 @@ const jsonLd = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={`${SITE_URL}/og/og-image.png`} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta
+      property="og:image:alt"
+      content="Testigos de la Memoria: la historia reciente de Colombia, contada por quienes la ven de frente. Villa de Leyva, 5 al 8 de noviembre de 2026."
+    />
     <meta property="og:locale" content="es_CO" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <!-- Marca temprana: solo con JS las secciones parten ocultas (R7) -->
     <script is:inline>

@@ -11,7 +11,21 @@ import towerPhoto from '../assets/photos/pexels-juansegmentado-31342284.jpg';
 
 const heading = 'Preguntas frecuentes';
 const closing = 'Nos vemos en Villa de Leyva.';
+
+/* JSON-LD FAQPage: elegible para resultados enriquecidos en Google.
+   Se genera de los mismos datos que se muestran (nunca contenido oculto). */
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
 ---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
 
 <section id="faq" class="faq" data-reveal>
   <div class="container faq-grid">
