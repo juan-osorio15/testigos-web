@@ -1,7 +1,8 @@
 /**
- * FAQs (FR-007). Contenido mínimo obligatorio: gratis vs. boleta,
- * cómo llegar, dudas de compra/reembolso → Pretix. Sin precios ni tipos
- * de boleta: eso es dominio exclusivo de Pretix (FR-008).
+ * FAQs (FR-007). Contenido mínimo: gratis vs. boleta, cómo llegar,
+ * seguridad del pago (Wompi) y reembolsos. Sin precios ni tipos de
+ * boleta, y sin mencionar infraestructura de boletería (decisión del
+ * usuario 2026-09-02): la venta la procesa el widget (FR-008).
  */
 
 export interface Faq {
@@ -16,9 +17,9 @@ export const faqs: Faq[] = [
       'Los talleres de periodismo del jueves 5 y el viernes 6 de noviembre, en la Casa Museo Antonio Nariño, son de entrada libre. Los conversatorios, del viernes 6 en la tarde al domingo 8, en la Hospedería Duruelo, requieren boleta.',
   },
   {
-    question: '¿Dónde compro las boletas?',
+    question: '¿Es seguro pagar en esta página?',
     answer:
-      'En esta misma página, en la sección de boletas. La compra se procesa en Pretix, una plataforma segura de boletería; ahí verás las opciones disponibles.',
+      'Sí. Los pagos se procesan a través de Wompi, la pasarela de pagos del Grupo Bancolombia, y recibimos todos los medios de pago.',
   },
   {
     question: '¿Cómo llego a Villa de Leyva?',
@@ -43,6 +44,6 @@ export const faqs: Faq[] = [
   {
     question: '¿Puedo pedir un reembolso o cambiar mi boleta?',
     answer:
-      'Las compras se gestionan a través de Pretix: desde el enlace de confirmación de tu pedido puedes consultar las opciones de cambio o reembolso vigentes.',
+      'Sí. Junto con tu boleta recibirás por correo las condiciones de cambio y reembolso y el canal para gestionarlos.',
   },
 ];

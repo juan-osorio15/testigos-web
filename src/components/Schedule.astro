@@ -32,16 +32,21 @@ const heading = 'Cuatro días en Villa de Leyva';
                 {slotsByDay(day).map((slot) => {
                   const venue = venueById(slot.venueId);
                   const free = slot.type === 'taller';
-                  const panelists = [
-                    ...slot.speakerSlugs.map((s) => speakerBySlug(s).name),
-                    ...((slot.tbdPanelists ?? 0) > 0 ? [t('speakers.tbd')] : []),
-                  ];
+                  /* Solo nombres confirmados; "Panelistas por confirmar"
+                     únicamente cuando la franja no tiene ninguno. */
+                  const names = slot.speakerSlugs.map((s) => speakerBySlug(s).name);
+                  const panelistLabel =
+                    names.length > 0
+                      ? names.join(' · ')
+                      : (slot.tbdPanelists ?? 0) > 0
+                        ? t('schedule.panelistsTbd')
+                        : null;
                   return (
                     <tr class:list={['slot', { 'slot--free': free }]}>
                       <td class="slot-time">{slot.time ?? t('schedule.tbd')}</td>
                       <td class="slot-body">
                         <p class="slot-title">{slot.title ?? t('schedule.titleTbd')}</p>
-                        {panelists.length > 0 && <p class="slot-speakers">{panelists.join(' · ')}</p>}
+                        {panelistLabel && <p class="slot-speakers">{panelistLabel}</p>}
                         <p class="slot-venue">{venue.name}</p>
                       </td>
                       <td class="slot-action">

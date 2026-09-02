@@ -41,6 +41,7 @@ const dict = {
   'schedule.free': 'Entrada libre',
   'schedule.tbd': 'Horario por confirmar',
   'schedule.titleTbd': 'Programación por confirmar',
+  'schedule.panelistsTbd': 'Panelistas por confirmar',
 
   // --- Speakers ---
   'speakers.tbd': 'Por confirmar',

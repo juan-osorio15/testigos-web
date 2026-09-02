@@ -49,15 +49,15 @@ const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
               data-waitlist
             >
               <label>
-                <span>{t('waitlist.phone')}</span>
-                <input type="tel" name="phone" autocomplete="tel" inputmode="tel" />
-              </label>
-              <label>
                 <span>{t('waitlist.name')}</span>
                 <input type="text" name="name" autocomplete="name" />
               </label>
               <label>
-                <span>{t('waitlist.email')} *</span>
+                <span>{t('waitlist.phone')}</span>
+                <input type="tel" name="phone" autocomplete="tel" inputmode="tel" />
+              </label>
+              <label>
+                <span>{t('waitlist.email')}</span>
                 <input type="email" name="email" required autocomplete="email" inputmode="email" />
               </label>
               {/* Honeypot antispam: oculto para humanos, tentador para bots */}
