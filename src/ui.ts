@@ -30,7 +30,7 @@ const dict = {
   'tickets.widgetLink': 'Comprar en Pretix',
   'waitlist.name': 'Nombre',
   'waitlist.email': 'Correo electrónico',
-  'waitlist.phone': 'Teléfono (opcional)',
+  'waitlist.phone': 'Teléfono',
   'waitlist.submit': 'Avisarme cuando abra la venta',
   'waitlist.privacy': 'Solo usaremos tus datos para contarte novedades del evento.',
   'waitlist.pending': 'El registro se activará en los próximos días.',
