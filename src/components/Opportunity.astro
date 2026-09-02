@@ -1,0 +1,130 @@
+---
+/**
+ * "La Oportunidad" (sección 3, FR-004): primera edición — sin testimonios
+ * ni ediciones anteriores. El argumento: escuchar de frente a quienes
+ * cubrieron la historia, en Villa de Leyva. Audiencia 1 primero (spec §3).
+ */
+import { Image } from 'astro:assets';
+import plazaPhoto from '../assets/photos/pexels-juansegmentado-31342298.jpg';
+
+const copy = {
+  eyebrow: 'Primera edición',
+  /* Pregunta del banco aprobado (spec §2) */
+  heading: '¿Quiénes han contado la historia reciente de Colombia?',
+  lead: 'Los hechos que marcaron al país tuvieron testigos de primera fila: los reporteros que los cubrieron. Durante cuatro días, algunos de los grandes nombres del periodismo colombiano se sientan a contar lo que vieron, cómo lo contaron y qué callaron. Y a discutir qué nos enseña para lo que viene.',
+  points: [
+    'Conversatorios cercanos, sin tarima lejana: preguntas y desacuerdos incluidos.',
+    'Historia y oficio de primera mano, con nombres, fechas y medios sobre la mesa.',
+    'Villa de Leyva: un pueblo que invita a quedarse conversando después de cada sesión.',
+  ],
+  closing: 'Es la primera edición. Nadie te lo va a contar: hay que estar.',
+};
+---
+
+<section id="oportunidad" class="opp" data-reveal>
+  <div class="container opp-grid">
+    <div class="opp-inner">
+      <p class="eyebrow">{copy.eyebrow}</p>
+      <h2>{copy.heading}</h2>
+      <p class="opp-lead">{copy.lead}</p>
+      <ul class="opp-points" role="list">
+        {copy.points.map((point) => <li>{point}</li>)}
+      </ul>
+      <p class="opp-closing">{copy.closing}</p>
+    </div>
+    <div class="duotone opp-photo">
+      <Image
+        src={plazaPhoto}
+        alt="Plaza Mayor de Villa de Leyva: la fuente de piedra sobre el empedrado"
+        width={900}
+        height={1350}
+        widths={[480, 720, 900]}
+        sizes="(max-width: 63.9rem) 100vw, 26rem"
+        loading="lazy"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Primera capa de la cortina sobre el hero */
+  .opp {
+    position: relative;
+    z-index: 1;
+    background-color: var(--ink);
+    color: var(--cream);
+    padding-block: var(--space-6);
+  }
+  .opp-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 24rem);
+    gap: var(--space-5);
+    align-items: center;
+  }
+  .opp-inner {
+    display: grid;
+    gap: var(--space-3);
+    max-width: 54rem;
+  }
+  /* La foto en su propio bloque; baño cálido apenas perceptible */
+  .opp-photo {
+    --duotone-tint: color-mix(in srgb, var(--terracotta) 14%, var(--cream));
+    aspect-ratio: 3 / 4;
+  }
+  .opp-photo :global(img) {
+    height: 100%;
+  }
+  @media (max-width: 63.9rem) {
+    .opp-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+    .opp-photo {
+      aspect-ratio: 4 / 3;
+    }
+  }
+  .opp .eyebrow {
+    color: var(--terracotta);
+  }
+  h2 {
+    font-size: var(--text-h2);
+  }
+  .opp-lead {
+    font-size: var(--text-lead);
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+  .opp-points {
+    display: grid;
+    gap: var(--space-2);
+    padding: 0;
+    list-style: none;
+  }
+  .opp-points li {
+    padding-left: 1.4rem;
+    position: relative;
+  }
+  /* Marcador: bloque sólido de marca, no bullet genérico */
+  .opp-points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 0.65rem;
+    height: 0.65rem;
+    background-color: var(--terracotta);
+  }
+  .opp-points li:nth-child(2)::before {
+    background-color: var(--sky);
+  }
+  .opp-points li:nth-child(3)::before {
+    background-color: var(--olive);
+  }
+  .opp-closing {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-h3);
+    color: var(--terracotta);
+    margin-top: var(--space-2);
+  }
+</style>

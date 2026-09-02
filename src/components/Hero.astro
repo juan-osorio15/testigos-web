@@ -1,0 +1,239 @@
+---
+/**
+ * Hero fijo con cortina (patrón 8.1). Composición: collage de bloques de
+ * color a ángulo recto, calcado de la valla del manual (pág. 6):
+ * terracota con titular en tinta · crema con las comillas · foto
+ * documental en duotono · franja azul cielo con fecha, info y CTA.
+ * Sin bordes redondeados. Sin fondo café.
+ */
+import { Image } from 'astro:assets';
+import { t } from '../ui';
+import CtaButton from './CtaButton.astro';
+import LogoLockup from '../assets/logo/logo-lockup.svg';
+import streetPhoto from '../assets/photos/pexels-enzo-renz-424999667-33786545.jpg';
+
+/* Slogan aprobado (spec §2); el nombre del evento va en el h1 para SEO/AT
+   y el eslogan es el display visible. */
+const slogan = ['La historia reciente', 'de Colombia, contada', 'por quienes', 'la ven de frente.'];
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-fixed">
+    <div class="hero-head">
+      <div class="hero-head-inner">
+        <p class="eyebrow hero-tagline">{t('hero.tagline')}</p>
+        <h1 id="hero-title">
+          <span class="sr-only">Testigos de la Memoria: </span>
+          {slogan.map((line) => <span class="hero-line">{line}</span>)}
+        </h1>
+      </div>
+    </div>
+    <div class="hero-side">
+      <div class="hero-watch-block">
+        <LogoLockup class="hero-logo" aria-hidden="true" />
+      </div>
+      <div class="duotone hero-photo">
+        <Image
+          src={streetPhoto}
+          alt="Calle empedrada de Villa de Leyva, con muros blancos y balcones coloniales"
+          width={1280}
+          height={853}
+          widths={[640, 960, 1280]}
+          sizes="(max-width: 63.9rem) 100vw, 42vw"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+    </div>
+    <div class="hero-strip">
+      <p class="hero-date">
+        <span class="hero-date-days">5–8</span>
+        <span class="hero-date-month">noviembre 2026</span>
+      </p>
+      <p class="hero-info">Talleres y conversatorios.</p>
+      <p class="hero-place">{t('hero.place')}</p>
+      <CtaButton />
+    </div>
+  </div>
+  <div class="hero-spacer"></div>
+  <div data-header-sentinel aria-hidden="true"></div>
+</section>
+
+<style>
+  .hero-fixed {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    grid-template-rows: 1fr auto;
+    grid-template-areas:
+      'head side'
+      'strip strip';
+    background-color: var(--cream);
+    color: var(--ink);
+    overflow: hidden;
+  }
+
+  .hero-spacer {
+    height: 100svh;
+  }
+
+  /* Bloque terracota: el titular en tinta, como la valla */
+  .hero-head {
+    grid-area: head;
+    background-color: var(--terracotta);
+    display: grid;
+    align-content: center;
+    padding: calc(var(--header-h) + var(--space-2)) var(--gutter) var(--space-4);
+  }
+  .hero-head-inner {
+    display: grid;
+    gap: var(--space-3);
+    max-width: 34rem;
+    margin-left: auto;
+    /* alinear con el container global: mitad del max-width menos gutter */
+    width: 100%;
+  }
+
+  .hero-tagline {
+    color: var(--ink);
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 1rem + 4.2vw, 3.9rem);
+    font-weight: 800;
+    display: grid;
+  }
+  .hero-line {
+    display: block;
+  }
+  /* Acento serif editorial en la última línea — eco del wordmark */
+  .hero-line:last-child {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--cream);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* Columna derecha: crema con comillas arriba + foto documental abajo */
+  .hero-side {
+    grid-area: side;
+    display: grid;
+    grid-template-rows: minmax(0, 2fr) minmax(0, 3fr);
+  }
+  /* Bloque crema con el logo completo, como la valla del manual.
+     Padding superior = franja del header, para que el CTA nunca lo tape. */
+  .hero-watch-block {
+    background-color: var(--cream);
+    display: grid;
+    place-content: center;
+    padding: calc(var(--header-h) + var(--space-1)) var(--space-4) var(--space-3);
+  }
+  .hero-logo {
+    width: clamp(150px, 16vw, 230px);
+    height: auto;
+    color: var(--ink);
+  }
+  .hero-photo {
+    --duotone-tint: var(--cream);
+    min-height: 0;
+  }
+  .hero-photo :global(img) {
+    height: 100%;
+  }
+
+  /* Franja azul cielo: fecha, info, lugar y CTA — texto en tinta */
+  .hero-strip {
+    grid-area: strip;
+    background-color: var(--sky);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    padding: var(--space-2) var(--gutter);
+  }
+  .hero-date {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+  .hero-date-days {
+    font-weight: 800;
+    font-size: clamp(1.8rem, 1.2rem + 1.6vw, 2.6rem);
+    line-height: 1;
+  }
+  .hero-date-month {
+    font-size: var(--text-label);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .hero-info {
+    font-weight: 600;
+  }
+  .hero-place {
+    font-weight: 800;
+    margin-left: auto;
+  }
+
+  @media (max-width: 63.9rem) {
+    .hero-fixed {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr auto auto;
+      grid-template-areas:
+        'head'
+        'side'
+        'strip';
+    }
+    .hero-head {
+      padding: calc(var(--header-h) + var(--space-1)) var(--gutter) var(--space-3);
+    }
+    .hero-head-inner {
+      max-width: none;
+      margin-left: 0;
+      gap: var(--space-2);
+    }
+    h1 {
+      font-size: clamp(1.7rem, 0.9rem + 5vw, 2.6rem);
+    }
+    /* En móvil el logo del header basta: la foto queda como banda propia */
+    .hero-watch-block {
+      display: none;
+    }
+    .hero-side {
+      grid-template-rows: none;
+    }
+    .hero-photo {
+      height: 18svh;
+    }
+    /* Franja compacta: datos apilados y CTA a lo ancho, siempre visible */
+    .hero-strip {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+      padding: var(--space-2) var(--gutter);
+    }
+    .hero-date-days {
+      font-size: 1.5rem;
+    }
+    .hero-place {
+      margin-left: 0;
+    }
+    .hero-strip :global(.cta) {
+      justify-self: stretch;
+      text-align: center;
+      margin-top: 0.3rem;
+    }
+  }
+</style>

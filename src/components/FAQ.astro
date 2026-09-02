@@ -1,0 +1,147 @@
+---
+/**
+ * FAQs (sección 7): <details>/<summary> nativo — accesible y funcional
+ * sin JS (FR-018). Cierra con el CTA final de la página.
+ */
+import { Image } from 'astro:assets';
+import { t } from '../ui';
+import { faqs } from '../data/faqs';
+import CtaButton from './CtaButton.astro';
+import towerPhoto from '../assets/photos/pexels-juansegmentado-31342284.jpg';
+
+const heading = 'Preguntas frecuentes';
+const closing = 'Nos vemos en Villa de Leyva.';
+
+/* JSON-LD FAQPage: elegible para resultados enriquecidos en Google.
+   Se genera de los mismos datos que se muestran (nunca contenido oculto). */
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+
+<section id="faq" class="faq" data-reveal>
+  <div class="container faq-grid">
+    <div class="faq-inner">
+      <p class="eyebrow">{t('nav.faq')}</p>
+      <h2>{heading}</h2>
+      <div class="faq-list">
+        {
+          faqs.map((faq) => (
+            <details class="faq-item">
+              <summary>{faq.question}</summary>
+              <p>{faq.answer}</p>
+            </details>
+          ))
+        }
+      </div>
+      <div class="faq-cta">
+        <p class="faq-closing">{closing}</p>
+        <CtaButton />
+      </div>
+    </div>
+    <div class="duotone faq-photo">
+      <Image
+        src={towerPhoto}
+        alt="Campanario de piedra de la iglesia de Villa de Leyva"
+        width={800}
+        height={1200}
+        widths={[480, 640, 800]}
+        sizes="(max-width: 63.9rem) 0px, 20rem"
+        loading="lazy"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    position: relative;
+    z-index: 1;
+    background-color: var(--cream);
+    padding-block: var(--space-6);
+    border-top: var(--border) var(--ink);
+  }
+  .faq-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
+    gap: var(--space-5);
+    align-items: start;
+  }
+  .faq-inner {
+    display: grid;
+    gap: var(--space-2);
+    max-width: 54rem;
+  }
+  /* El campanario acompaña la columna de preguntas; baño cálido suave.
+     La foto original es oscura (cielo de tormenta): se compensa con brillo. */
+  .faq-photo {
+    --duotone-tint: color-mix(in srgb, var(--brick) 14%, var(--cream));
+    aspect-ratio: 2 / 3;
+  }
+  .faq-photo :global(img) {
+    height: 100%;
+    filter: grayscale(1) contrast(0.98) brightness(1.35);
+  }
+  @media (max-width: 63.9rem) {
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+    .faq-photo {
+      display: none; /* en móvil las preguntas mandan */
+    }
+  }
+  .faq .eyebrow {
+    color: var(--brick);
+  }
+  h2 {
+    font-size: var(--text-h2);
+    margin-bottom: var(--space-3);
+  }
+
+  .faq-list {
+    display: grid;
+  }
+  .faq-item {
+    border-top: var(--border) rgba(33, 8, 4, 0.25);
+  }
+  .faq-item:last-child {
+    border-bottom: var(--border) rgba(33, 8, 4, 0.25);
+  }
+  summary {
+    padding: var(--space-2) 0;
+    font-weight: 800;
+    font-size: var(--text-body);
+    cursor: pointer;
+    list-style-position: outside;
+  }
+  summary::marker {
+    color: var(--terracotta);
+  }
+  .faq-item[open] summary {
+    color: var(--brick);
+  }
+  .faq-item p {
+    padding: 0 0 var(--space-2) 1.1rem;
+    max-width: 65ch;
+  }
+
+  .faq-cta {
+    margin-top: var(--space-4);
+    display: grid;
+    gap: var(--space-2);
+    justify-items: start;
+  }
+  .faq-closing {
+    font-size: var(--text-h3);
+    font-weight: 700;
+    color: var(--brick);
+  }
+</style>

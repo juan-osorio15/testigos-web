@@ -1,0 +1,210 @@
+---
+import '../styles/tokens.css';
+import '../styles/global.css';
+import { SITE_URL, PRETIX_EVENT_URL, pretixReady } from '../config';
+import { t } from '../ui';
+import { event, venues } from '../data/event';
+import Header from '../components/Header.astro';
+import LogoSymbol from '../assets/logo/logo-symbol.svg';
+import archivoUrl from '../assets/fonts/archivo-var.woff2?url';
+import frauncesUrl from '../assets/fonts/fraunces-var.woff2?url';
+import frauncesItalicUrl from '../assets/fonts/fraunces-var-italic.woff2?url';
+
+interface Props {
+  title: string;
+  description: string;
+  /** noindex para páginas utilitarias (404) */
+  noindex?: boolean;
+}
+
+const { title, description, noindex = false } = Astro.props;
+
+/* Base del despliegue: '/' en producción; '/demo/' en el build de demo.
+   El demo va SIEMPRE con noindex y canonical a la raíz (no compite en SEO). */
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : import.meta.env.BASE_URL + '/';
+const isDemo = base !== '/';
+const forceNoindex = noindex || isDemo;
+
+const canonical = SITE_URL + '/';
+/* Imagen OG del despliegue actual: en la demo vive bajo /demo/ (la raíz
+   aún sirve el placeholder); en el deploy final, en la raíz. */
+const ogImage = `${SITE_URL}${base}og/og-image.png`;
+
+/* JSON-LD Event — una sola fuente de verdad (src/data/event.ts).
+   `offers` solo cuando la tienda de Pretix exista (contrato pretix-embed). */
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: event.name,
+  description: event.description,
+  startDate: event.startDate,
+  endDate: event.endDate,
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  eventStatus: 'https://schema.org/EventScheduled',
+  inLanguage: 'es',
+  image: [ogImage],
+  location: venues.map((v) => ({
+    '@type': 'Place',
+    name: v.name,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: v.address,
+      addressLocality: 'Villa de Leyva',
+      addressRegion: 'Boyacá',
+      addressCountry: 'CO',
+    },
+  })),
+  organizer: event.organizers.map((name) => ({ '@type': 'Person', name })),
+  ...(pretixReady
+    ? {
+        offers: {
+          '@type': 'Offer',
+          url: PRETIX_EVENT_URL,
+          availability: 'https://schema.org/InStock',
+        },
+      }
+    : {}),
+};
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {forceNoindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    <link rel="preload" href={archivoUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={frauncesUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={frauncesItalicUrl} as="font" type="font/woff2" crossorigin />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={event.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta
+      property="og:image:alt"
+      content="Testigos de la Memoria: la historia reciente de Colombia, contada por quienes la ven de frente. Villa de Leyva, 5 al 8 de noviembre de 2026."
+    />
+    <meta property="og:locale" content="es_CO" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <!-- Marca temprana: solo con JS las secciones parten ocultas (R7) -->
+    <script is:inline>
+      document.documentElement.classList.add('js-reveal');
+    </script>
+  </head>
+  <body>
+    <a href="#contenido" class="skip-link">Saltar al contenido</a>
+    <Header />
+    <slot />
+    <footer class="footer">
+      <div class="container footer-inner">
+        <LogoSymbol class="footer-symbol" aria-hidden="true" width={94} height={25} />
+        <p class="footer-org">
+          <span class="eyebrow">{t('footer.organizedBy')}</span>
+          {event.organizers.join(' · ')}
+        </p>
+        <p class="footer-small">{t('footer.rights')}</p>
+      </div>
+    </footer>
+
+    <script>
+      /* Header de dos estados + scroll reveal.
+         Un solo archivo, dos IntersectionObserver, cero listeners de scroll (R7). */
+
+      // 1. Header: translúcido sobre el hero, sólido después.
+      const header = document.querySelector('header[data-header]');
+      const sentinel = document.querySelector('[data-header-sentinel]');
+      if (header && sentinel) {
+        new IntersectionObserver(
+          ([entry]) => {
+            header.classList.toggle('is-solid', !entry.isIntersecting);
+          },
+          { rootMargin: '-72px 0px 0px 0px' }
+        ).observe(sentinel);
+      } else if (header) {
+        // Páginas sin hero (404): header siempre sólido.
+        header.classList.add('is-solid');
+      }
+
+      // 2. Scrollspy: un punto en el nav marca la sección actual.
+      //    La sección que cruza la banda media del viewport activa su enlace.
+      const navLinks = [...document.querySelectorAll<HTMLAnchorElement>('header nav a[href^="#"]')];
+      const linkById = new Map(navLinks.map((a) => [a.getAttribute('href')!.slice(1), a]));
+      const inView = new Set<string>();
+      const spy = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) inView.add(entry.target.id);
+            else inView.delete(entry.target.id);
+          }
+          const activeId = [...linkById.keys()].find((id) => inView.has(id));
+          navLinks.forEach((a) =>
+            a.classList.toggle('is-active', a.getAttribute('href') === `#${activeId}`)
+          );
+        },
+        { rootMargin: '-40% 0px -55% 0px' }
+      );
+      linkById.forEach((_, id) => {
+        const section = document.getElementById(id);
+        if (section) spy.observe(section);
+      });
+
+      // 3. Reveal por sección: una sola vez, unobserve tras disparar.
+      const revealer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              revealer.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      );
+      document.querySelectorAll('[data-reveal]').forEach((el) => revealer.observe(el));
+    </script>
+  </body>
+</html>
+
+<style>
+  .footer {
+    /* Sobre el hero fijo (z 0), como el resto de la cortina */
+    position: relative;
+    z-index: 1;
+    background-color: var(--ink);
+    color: var(--cream);
+    padding-block: var(--space-5);
+  }
+  .footer-inner {
+    display: grid;
+    gap: var(--space-2);
+    justify-items: start;
+  }
+  .footer-symbol {
+    width: 94px;
+  }
+  .footer-org {
+    display: grid;
+    gap: 0.35rem;
+    font-weight: 500;
+  }
+  .footer-org .eyebrow {
+    color: var(--terracotta);
+  }
+  .footer-small {
+    font-size: var(--text-small);
+    opacity: 0.7;
+  }
+</style>

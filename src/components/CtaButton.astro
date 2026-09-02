@@ -1,0 +1,18 @@
+---
+/**
+ * ÚNICO botón de compra del sitio (FR-010): mismo texto (ui['cta.buy']),
+ * mismo destino (#boletas), en header y cierres de sección.
+ * Prohibido pasarle texto: el contrato data-schemas lo fija.
+ */
+import { t } from '../ui';
+
+interface Props {
+  variant?: 'header' | 'inline';
+}
+
+const { variant = 'inline' } = Astro.props;
+---
+
+<a href="#boletas" class:list={['cta', { 'cta--header': variant === 'header' }]}>
+  {t('cta.buy')}
+</a>

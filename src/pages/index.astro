@@ -1,0 +1,35 @@
+---
+import EventLayout from '../layouts/EventLayout.astro';
+import Hero from '../components/Hero.astro';
+import TicketSection from '../components/TicketSection.astro';
+import Opportunity from '../components/Opportunity.astro';
+import SpeakerGrid from '../components/SpeakerGrid.astro';
+import Schedule from '../components/Schedule.astro';
+import Interlude from '../components/Interlude.astro';
+import VenueMap from '../components/VenueMap.astro';
+import FAQ from '../components/FAQ.astro';
+---
+
+<EventLayout
+  title="Testigos de la Memoria · Periodistas en la Historia · Villa de Leyva, 5 al 8 de noviembre de 2026"
+  description="La historia reciente de Colombia, contada por quienes la ven de frente. Conversatorios y talleres con los periodistas que cubrieron los últimos cincuenta años del país. Villa de Leyva, 5 al 8 de noviembre de 2026."
+>
+  <Hero />
+  <main id="contenido">
+    <Opportunity />
+    <SpeakerGrid />
+    <Schedule />
+    <VenueMap />
+    <TicketSection />
+    <Interlude />
+    <FAQ />
+  </main>
+</EventLayout>
+
+<style>
+  main {
+    position: relative;
+    z-index: 1;
+    background-color: var(--cream);
+  }
+</style>
