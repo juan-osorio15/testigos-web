@@ -22,7 +22,7 @@ export const speakers: Speaker[] = [
   {
     slug: 'daniel-samper-pizano',
     name: 'Daniel Samper Pizano',
-    credential: 'Periodista y escritor · El Tiempo',
+    credential: 'Periodista y escritor · Los Danieles',
     bio: 'Pionero del periodismo investigativo en Colombia. Abre los conversatorios con el Bogotazo, la dictadura y el Frente Nacional.',
     photo: null,
     confirmed: true,
