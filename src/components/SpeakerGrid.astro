@@ -122,13 +122,41 @@ const subtitle = 'Escuchar a quienes estuvieron allí también es hacer memoria.
 
     for (const btn of toggles) btn.addEventListener('click', () => setExpanded(!expanded));
 
-    // Se encogen solas cuando la sección sale de la pantalla.
-    new IntersectionObserver(
+    // Se encogen solas en cuanto el 20 % de una sección vecina entra en
+    // pantalla (o la propia sección sale del todo). En móvil no: el salto
+    // de altura mientras se desplaza resulta incómodo, así que ahí solo
+    // manda el botón.
+    const mobile = matchMedia('(max-width: 47.9rem)');
+    // Vecinas = las <section> más cercanas a cada lado (Astro intercala
+    // <script> y otros nodos entre secciones, así que no basta con el hermano).
+    const nearestSection = (from: Element, dir: 'previous' | 'next'): Element | null => {
+      let el = dir === 'next' ? from.nextElementSibling : from.previousElementSibling;
+      while (el && el.tagName !== 'SECTION') {
+        el = dir === 'next' ? el.nextElementSibling : el.previousElementSibling;
+      }
+      return el;
+    };
+    const neighbours = [nearestSection(section, 'previous'), nearestSection(section, 'next')].filter(
+      (el): el is Element => el !== null,
+    );
+    const thresholds = Array.from({ length: 21 }, (_, i) => i / 20);
+    const observer = new IntersectionObserver(
       (entries) => {
-        for (const e of entries) if (!e.isIntersecting && expanded) setExpanded(false);
+        if (!expanded || mobile.matches) return;
+        for (const e of entries) {
+          if (e.target === section) {
+            if (!e.isIntersecting) setExpanded(false);
+            continue;
+          }
+          const visible = e.intersectionRect.height;
+          const reference = Math.min(e.boundingClientRect.height, window.innerHeight);
+          if (visible >= 0.2 * reference) setExpanded(false);
+        }
       },
-      { threshold: 0 },
-    ).observe(section);
+      { threshold: thresholds },
+    );
+    observer.observe(section);
+    for (const n of neighbours) observer.observe(n);
   }
 </script>
 
