@@ -32,12 +32,11 @@ const dict = {
   'waitlist.email': 'Correo electrónico',
   'waitlist.phone': 'Teléfono',
   'waitlist.submit': 'Avisarme cuando abra la venta',
-  /* Casilla de autorización (Ley 1581 de 2012 y Ley 2300 de 2023): quién,
-     qué datos, para qué, por qué canales, cómo retirarla y enlace a la
-     política. Se arma en TicketSection con el correo y el enlace. */
-  'waitlist.consent1':
-    'Declaro ser mayor de edad y autorizo a Eventalist a tratar mis datos personales (nombre, correo electrónico y número de teléfono) para enviarme información sobre este encuentro, sus futuras ediciones y otros eventos culturales en Villa de Leyva gestionados por Eventalist, por correo electrónico y WhatsApp. Puedo conocer, actualizar, rectificar y suprimir mis datos y retirar esta autorización en cualquier momento escribiendo a',
-  'waitlist.consent2': 'He leído la',
+  /* Casilla de autorización, corta como es habitual en sitios colombianos:
+     quién, para qué, por qué canales (Ley 2300) y enlace a la política, que
+     detalla datos, derechos y cómo revocar (Ley 1581 y Decreto 1377). */
+  'waitlist.consent':
+    'Soy mayor de edad y autorizo a Eventalist a tratar mis datos para enviarme información del encuentro y de otros eventos por correo electrónico y WhatsApp, según la',
   'waitlist.consentLink': 'política de tratamiento de datos',
   'waitlist.privacy': 'Los datos no se comparten ni se venden a terceros.',
   'waitlist.noscript': 'Para registrarte necesitas activar JavaScript en tu navegador.',
