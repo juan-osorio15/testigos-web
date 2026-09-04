@@ -1,8 +1,8 @@
 ---
 /**
  * Tarjeta de panelista: bloque de color sólido con esquinas redondeadas,
- * como las tarjetas del manual (pág. 5). Foto en duotono cuando exista;
- * si `photo: null`, placeholder de marca con el símbolo. Al pie, iconos
+ * como las tarjetas del manual (pág. 5). Foto en b/n con grano (pág. 6)
+ * cuando exista; si `photo: null`, placeholder de marca con el símbolo. Al pie, iconos
  * con las redes y enlaces públicos del panelista (solo los verificados).
  */
 import { Image } from 'astro:assets';
@@ -29,7 +29,7 @@ const links = linkOrder
   <div class="card-media">
     {
       speaker.photo ? (
-        <div class="duotone card-photo">
+        <div class="grain card-photo">
           <Image
             src={speaker.photo}
             alt={speaker.name}
@@ -130,9 +130,6 @@ const links = linkOrder
     aspect-ratio: 4 / 3;
   }
   .card-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
     object-position: center top;
     display: block;
   }
