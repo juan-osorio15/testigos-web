@@ -32,22 +32,43 @@ const dict = {
   'waitlist.email': 'Correo electrónico',
   'waitlist.phone': 'Teléfono',
   'waitlist.submit': 'Avisarme cuando abra la venta',
-  'waitlist.privacy': 'Solo usaremos tus datos para contarte novedades del evento.',
-  'waitlist.pending': 'El registro se activará en los próximos días.',
+  /* Casilla de autorización (Ley 1581 de 2012 y Ley 2300 de 2023): quién,
+     qué datos, para qué, por qué canales, cómo retirarla y enlace a la
+     política. Se arma en TicketSection con el correo y el enlace. */
+  'waitlist.consent1':
+    'Autorizo a Eventalist a tratar mis datos personales (nombre, correo electrónico y número de teléfono) para enviarme información sobre este evento y otros eventos en Villa de Leyva por correo electrónico y WhatsApp. Puedo retirar esta autorización en cualquier momento escribiendo a',
+  'waitlist.consent2': 'He leído la',
+  'waitlist.consentLink': 'política de tratamiento de datos',
+  'waitlist.privacy': 'No compartimos ni vendemos tus datos a terceros.',
+  'waitlist.noscript': 'Para registrarte necesitas activar JavaScript en tu navegador.',
+  'waitlist.sending': 'Enviando…',
   'waitlist.success': 'Listo. Te escribiremos en cuanto abra la venta.',
-  'waitlist.error': 'No pudimos guardar tus datos. Intenta de nuevo en un momento.',
+  'waitlist.error': 'No pudimos guardar tus datos. Inténtalo de nuevo más tarde.',
+  'waitlist.errorNetwork': 'No pudimos guardar tus datos. Revisa tu conexión e inténtalo de nuevo.',
+  'waitlist.errorTooMany': 'Demasiados intentos. Inténtalo de nuevo en un rato.',
+  'waitlist.errorConsent': 'Necesitamos tu autorización para guardar tus datos.',
+  'waitlist.fieldEmail': 'Correo electrónico',
+  'waitlist.fieldPhone': 'Teléfono',
+  'waitlist.fieldName': 'Nombre',
+  'waitlist.fieldConsent': 'Autorización',
 
   // --- Agenda ---
   'schedule.free': 'Entrada libre',
-  'schedule.tbd': 'Horario por confirmar',
-  'schedule.titleTbd': 'Programación por confirmar',
-  'schedule.panelistsTbd': 'Panelistas por confirmar',
 
   // --- Speakers ---
-  'speakers.tbd': 'Por confirmar',
-  'speakers.tbdNote': 'Más panelistas se anunciarán aquí.',
   'speakers.prev': 'Panelista anterior',
   'speakers.next': 'Panelista siguiente',
+  'speakers.links': 'Redes y enlaces de',
+  'speakers.more': 'Leer más',
+  'speakers.less': 'Leer menos',
+
+  // --- Enlaces de panelistas ---
+  'links.x': 'X',
+  'links.instagram': 'Instagram',
+  'links.linkedin': 'LinkedIn',
+  'links.facebook': 'Facebook',
+  'links.web': 'Sitio web',
+  'links.wikipedia': 'Wikipedia',
 
   // --- Venue ---
   'venue.directions': 'Cómo llegar',
@@ -56,6 +77,7 @@ const dict = {
   // --- Footer ---
   'footer.organizedBy': 'Organizan',
   'footer.rights': 'Testigos de la Memoria · Villa de Leyva, 2026',
+  'footer.privacy': 'Tratamiento de datos personales',
 
   // --- 404 ---
   'notfound.title': 'Página no encontrada',

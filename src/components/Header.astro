@@ -9,12 +9,17 @@ import { t } from '../ui';
 import CtaButton from './CtaButton.astro';
 import LogoLockup from '../assets/logo/logo-lockup.svg';
 
+/* Anclas con la base del despliegue delante ("/#agenda"): así el nav
+   también funciona desde subpáginas como /tratamiento-de-datos/. */
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : import.meta.env.BASE_URL + '/';
 const navItems = [
-  { href: '#oportunidad', label: t('nav.opportunity') },
-  { href: '#speakers', label: t('nav.speakers') },
-  { href: '#agenda', label: t('nav.schedule') },
-  { href: '#lugar', label: t('nav.venue') },
-  { href: '#faq', label: t('nav.faq') },
+  { href: `${base}#oportunidad`, label: t('nav.opportunity') },
+  { href: `${base}#speakers`, label: t('nav.speakers') },
+  { href: `${base}#agenda`, label: t('nav.schedule') },
+  { href: `${base}#lugar`, label: t('nav.venue') },
+  { href: `${base}#faq`, label: t('nav.faq') },
 ];
 ---
 

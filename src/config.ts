@@ -18,12 +18,39 @@ export const PRETIX_EVENT_URL = 'TODO-PRETIX-URL';
 export const pretixReady = false;
 
 /**
- * Endpoint del formulario "avísame cuando abra la venta" (visible solo
- * mientras pretixReady sea false). Acepta un POST estándar con los campos
- * name, email, phone. Compatible con listmonk (open source, recomendado),
- * Formbricks, Formspree o Web3Forms.
- * TODO-WAITLIST-ENDPOINT: mientras tenga este valor, el formulario se
- * muestra con el botón deshabilitado y una nota.
+ * Formulario "avísame cuando abra la venta" (visible solo mientras
+ * pretixReady sea false). Envía los contactos a Eventalist según su guía
+ * de integración: POST JSON a /api/v1/marketing/contacts/submit/ con el
+ * slug de campaña. El origen del sitio debe estar registrado en Eventalist
+ * (si todo devuelve 403, es eso).
  */
-export const WAITLIST_ENDPOINT = 'TODO-WAITLIST-ENDPOINT';
-export const waitlistReady = !WAITLIST_ENDPOINT.startsWith('TODO');
+export const EVENTALIST_BACKEND = 'https://eventalist-backend-production.up.railway.app';
+export const EVENTALIST_CAMPAIGN = 'testigos-memoria';
+export const WAITLIST_ENDPOINT = `${EVENTALIST_BACKEND}/api/v1/marketing/contacts/submit/`;
+export const waitlistReady = EVENTALIST_CAMPAIGN.length > 0;
+
+/**
+ * Correo para retirar la autorización y para consultas y reclamos sobre
+ * datos personales (Ley 1581 de 2012). Es el canal público de Eventalist
+ * según su guía de integración; aparece en el formulario y en
+ * /tratamiento-de-datos/.
+ */
+export const DATA_CONTACT_EMAIL = 'hola@eventalist.co';
+
+/** Fecha de entrada en vigencia de la política de tratamiento de datos (ISO). */
+export const DATA_POLICY_EFFECTIVE = '2026-09-04';
+
+/**
+ * Identificación del responsable del tratamiento (art. 13 del Decreto 1377
+ * de 2013 exige razón social, domicilio, dirección, correo y teléfono).
+ * Los valores que empiecen por TODO no se muestran en la página.
+ * Datos entregados por el usuario el 2026-09-04.
+ */
+export const DATA_CONTROLLER = {
+  name: 'Jorge Andrés Osorio Quiceno',
+  brand: 'Eventalist',
+  nit: 'TODO-NIT',
+  address: 'Carrera 23 # 118-22',
+  city: 'Bogotá, Colombia',
+  phone: '310 867 4510',
+} as const;
