@@ -36,10 +36,10 @@ const dict = {
      qué datos, para qué, por qué canales, cómo retirarla y enlace a la
      política. Se arma en TicketSection con el correo y el enlace. */
   'waitlist.consent1':
-    'Autorizo a Eventalist a tratar mis datos personales (nombre, correo electrónico y número de teléfono) para enviarme información sobre este evento y otros eventos en Villa de Leyva por correo electrónico y WhatsApp. Puedo retirar esta autorización en cualquier momento escribiendo a',
+    'Declaro ser mayor de edad y autorizo a Eventalist a tratar mis datos personales (nombre, correo electrónico y número de teléfono) para enviarme información sobre este encuentro, sus futuras ediciones y otros eventos culturales en Villa de Leyva gestionados por Eventalist, por correo electrónico y WhatsApp. Puedo conocer, actualizar, rectificar y suprimir mis datos y retirar esta autorización en cualquier momento escribiendo a',
   'waitlist.consent2': 'He leído la',
   'waitlist.consentLink': 'política de tratamiento de datos',
-  'waitlist.privacy': 'No compartimos ni vendemos tus datos a terceros.',
+  'waitlist.privacy': 'Los datos no se comparten ni se venden a terceros.',
   'waitlist.noscript': 'Para registrarte necesitas activar JavaScript en tu navegador.',
   'waitlist.sending': 'Enviando…',
   'waitlist.success': 'Listo. Te escribiremos en cuanto abra la venta.',
