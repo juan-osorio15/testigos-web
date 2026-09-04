@@ -115,7 +115,9 @@ const jsonLd = {
           <span class="eyebrow">{t('footer.organizedBy')}</span>
           {event.organizers.join(' · ')}
         </p>
-        <p class="footer-small">{t('footer.rights')}</p>
+        <p class="footer-small">
+          {t('footer.rights')} · <a href={`${base}tratamiento-de-datos/`}>{t('footer.privacy')}</a>
+        </p>
       </div>
     </footer>
 
@@ -140,8 +142,9 @@ const jsonLd = {
 
       // 2. Scrollspy: un punto en el nav marca la sección actual.
       //    La sección que cruza la banda media del viewport activa su enlace.
-      const navLinks = [...document.querySelectorAll<HTMLAnchorElement>('header nav a[href^="#"]')];
-      const linkById = new Map(navLinks.map((a) => [a.getAttribute('href')!.slice(1), a]));
+      const navLinks = [...document.querySelectorAll<HTMLAnchorElement>('header nav a[href*="#"]')];
+      const idOf = (a: HTMLAnchorElement) => a.getAttribute('href')!.split('#')[1] ?? '';
+      const linkById = new Map(navLinks.map((a) => [idOf(a), a]));
       const inView = new Set<string>();
       const spy = new IntersectionObserver(
         (entries) => {
@@ -150,9 +153,7 @@ const jsonLd = {
             else inView.delete(entry.target.id);
           }
           const activeId = [...linkById.keys()].find((id) => inView.has(id));
-          navLinks.forEach((a) =>
-            a.classList.toggle('is-active', a.getAttribute('href') === `#${activeId}`)
-          );
+          navLinks.forEach((a) => a.classList.toggle('is-active', idOf(a) === activeId));
         },
         { rootMargin: '-40% 0px -55% 0px' }
       );
@@ -206,5 +207,11 @@ const jsonLd = {
   .footer-small {
     font-size: var(--text-small);
     opacity: 0.7;
+  }
+  .footer-small a {
+    text-underline-offset: 0.2em;
+  }
+  .footer-small a:hover {
+    color: var(--terracotta);
   }
 </style>
