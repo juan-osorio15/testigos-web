@@ -4,7 +4,7 @@
  * scrollBy(). Sin librerías. Cierra con CTA (estrategia de CTA del spec).
  */
 import { t } from '../ui';
-import { speakers, tbdSlots } from '../data/speakers';
+import { speakers } from '../data/speakers';
 import CtaButton from './CtaButton.astro';
 import SpeakerCard from './SpeakerCard.astro';
 
@@ -31,13 +31,6 @@ const subtitle = 'Escuchar a quienes estuvieron allí también es hacer memoria.
         speakers.map((speaker, i) => (
           <li>
             <SpeakerCard speaker={speaker} tone={tones[i % tones.length]!} />
-          </li>
-        ))
-      }
-      {
-        Array.from({ length: tbdSlots }).map((_, i) => (
-          <li>
-            <SpeakerCard tbd tone={tones[(speakers.length + i) % tones.length]!} />
           </li>
         ))
       }

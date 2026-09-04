@@ -39,7 +39,7 @@ export const faqs: Faq[] = [
   {
     question: '¿Los talleres del 5 y 6 de noviembre requieren inscripción?',
     answer:
-      'La entrada es libre. Los detalles de cupos e inscripción se anunciarán junto con la programación completa.',
+      'La entrada es libre. Los detalles de cupos e inscripción se publicarán en esta página.',
   },
   {
     question: '¿Puedo pedir un reembolso o cambiar mi boleta?',

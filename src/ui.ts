@@ -39,15 +39,19 @@ const dict = {
 
   // --- Agenda ---
   'schedule.free': 'Entrada libre',
-  'schedule.tbd': 'Horario por confirmar',
-  'schedule.titleTbd': 'Programación por confirmar',
-  'schedule.panelistsTbd': 'Panelistas por confirmar',
 
   // --- Speakers ---
-  'speakers.tbd': 'Por confirmar',
-  'speakers.tbdNote': 'Más panelistas se anunciarán aquí.',
   'speakers.prev': 'Panelista anterior',
   'speakers.next': 'Panelista siguiente',
+  'speakers.links': 'Redes y enlaces de',
+
+  // --- Enlaces de panelistas ---
+  'links.x': 'X',
+  'links.instagram': 'Instagram',
+  'links.linkedin': 'LinkedIn',
+  'links.facebook': 'Facebook',
+  'links.web': 'Sitio web',
+  'links.wikipedia': 'Wikipedia',
 
   // --- Venue ---
   'venue.directions': 'Cómo llegar',

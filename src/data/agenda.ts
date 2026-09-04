@@ -2,8 +2,9 @@ import type { VenueId } from './event';
 
 /**
  * Agenda oficial (parcial) entregada el 2026-08-26. REGLA DURA (FR-005):
- * los cupos que el documento marca como XXXX van en `tbdPanelists`
- * ("Por confirmar"); jamás un nombre u horario inventado.
+ * jamás un nombre, horario o sede inventados. Lo que no está confirmado
+ * simplemente se omite (decisión del usuario 2026-09-03: nada de
+ * "por confirmar" visible, la venta ya está en marcha).
  * Talleres: 5 Y 6 de noviembre en Casa Museo Antonio Nariño, entrada libre.
  */
 
@@ -11,14 +12,14 @@ export type EventDay = '2026-11-05' | '2026-11-06' | '2026-11-07' | '2026-11-08'
 
 export interface AgendaSlot {
   day: EventDay;
-  /** Hora en formato de display ("3:00 p.m.", "9:00 – 10:30 a.m."); null → por confirmar */
+  /** Hora en formato de display ("3:00 p.m.", "9:00 – 10:30 a.m."); null → no se muestra */
   time: string | null;
   type: 'taller' | 'conversatorio';
-  title: string | null;
-  venueId: VenueId;
+  title: string;
+  /** null → la sede aún no está confirmada y no se muestra */
+  venueId: VenueId | null;
+  /** Solo nombres confirmados; los cupos sin nombre no se representan */
   speakerSlugs: string[];
-  /** Cupos de panelistas aún sin nombre en esta franja (XXXX del documento) */
-  tbdPanelists?: number;
 }
 
 export const dayLabels: Record<EventDay, string> = {
@@ -69,7 +70,7 @@ export const agenda: AgendaSlot[] = [
     time: '6:00 p.m.',
     type: 'conversatorio',
     title: 'Cóctel de bienvenida',
-    venueId: 'duruelo',
+    venueId: null,
     speakerSlugs: [],
   },
 
@@ -81,7 +82,6 @@ export const agenda: AgendaSlot[] = [
     title: 'Surgimiento de las guerrillas',
     venueId: 'duruelo',
     speakerSlugs: [],
-    tbdPanelists: 1,
   },
   {
     day: '2026-11-07',
@@ -90,7 +90,6 @@ export const agenda: AgendaSlot[] = [
     title: 'Negociaciones de paz, el Caguán y La Habana',
     venueId: 'duruelo',
     speakerSlugs: ['marisol-gomez'],
-    tbdPanelists: 1,
   },
   {
     day: '2026-11-07',
@@ -99,7 +98,6 @@ export const agenda: AgendaSlot[] = [
     title: 'Narcotráfico y paramilitarismo',
     venueId: 'duruelo',
     speakerSlugs: ['luz-maria-sierra'],
-    tbdPanelists: 1,
   },
   {
     day: '2026-11-07',
@@ -108,7 +106,6 @@ export const agenda: AgendaSlot[] = [
     title: 'Reelecciones',
     venueId: 'duruelo',
     speakerSlugs: ['cecilia-orozco'],
-    tbdPanelists: 1,
   },
 
   /* --- Domingo 8: conversatorios y cierre --- */
@@ -118,7 +115,7 @@ export const agenda: AgendaSlot[] = [
     type: 'conversatorio',
     title: 'Magnicidios y víctimas de la violencia',
     venueId: 'duruelo',
-    speakerSlugs: ['martha-ruiz', 'guillermo-gonzalez'],
+    speakerSlugs: ['marta-ruiz', 'guillermo-gonzalez'],
   },
   {
     day: '2026-11-08',

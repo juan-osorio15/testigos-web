@@ -3,8 +3,9 @@
  * Agenda (FR-004): una tabla por día — hora | sesión | acción.
  * Talleres: etiqueta "Entrada libre". Conversatorios: botón de compra
  * en la propia fila (decisión del usuario 2026-09-02; reemplaza al badge
- * "Con boleta" y al CTA de cierre de la sección). "Por confirmar" para
- * todo dato sin fuente (FR-005).
+ * "Con boleta" y al CTA de cierre de la sección). Todo dato sin fuente
+ * (hora, sede, panelistas) se omite en vez de marcarse "por confirmar"
+ * (FR-005 + decisión del usuario 2026-09-03).
  */
 import { t } from '../ui';
 import { agenda, dayLabels, type EventDay } from '../data/agenda';
@@ -30,24 +31,18 @@ const heading = 'Cuatro días en Villa de Leyva';
             <table>
               <tbody>
                 {slotsByDay(day).map((slot) => {
-                  const venue = venueById(slot.venueId);
+                  const venue = slot.venueId ? venueById(slot.venueId) : null;
                   const free = slot.type === 'taller';
-                  /* Solo nombres confirmados; "Panelistas por confirmar"
-                     únicamente cuando la franja no tiene ninguno. */
+                  /* Solo nombres confirmados. */
                   const names = slot.speakerSlugs.map((s) => speakerBySlug(s).name);
-                  const panelistLabel =
-                    names.length > 0
-                      ? names.join(' · ')
-                      : (slot.tbdPanelists ?? 0) > 0
-                        ? t('schedule.panelistsTbd')
-                        : null;
+                  const panelistLabel = names.length > 0 ? names.join(' · ') : null;
                   return (
                     <tr class:list={['slot', { 'slot--free': free }]}>
-                      <td class="slot-time">{slot.time ?? t('schedule.tbd')}</td>
+                      <td class="slot-time">{slot.time}</td>
                       <td class="slot-body">
-                        <p class="slot-title">{slot.title ?? t('schedule.titleTbd')}</p>
+                        <p class="slot-title">{slot.title}</p>
                         {panelistLabel && <p class="slot-speakers">{panelistLabel}</p>}
-                        <p class="slot-venue">{venue.name}</p>
+                        {venue && <p class="slot-venue">{venue.name}</p>}
                       </td>
                       <td class="slot-action">
                         {free ? (
