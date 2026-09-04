@@ -42,7 +42,11 @@ const heading = 'Cuatro días en Villa de Leyva';
                       <td class="slot-body">
                         <p class="slot-title">{slot.title}</p>
                         {panelistLabel && <p class="slot-speakers">{panelistLabel}</p>}
-                        {venue && <p class="slot-venue">{venue.name}</p>}
+                        {/* Siempre se reserva la línea de la sede: si aún no está
+                            confirmada queda en blanco y la fila no cambia de alto. */}
+                        <p class="slot-venue" aria-hidden={venue ? undefined : 'true'}>
+                          {venue ? venue.name : '\u00a0'}
+                        </p>
                       </td>
                       <td class="slot-action">
                         {free ? (
@@ -116,9 +120,10 @@ const heading = 'Cuatro días en Villa de Leyva';
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
-  .slot-body {
-    display: grid;
-    gap: 0.2rem;
+  /* Sigue siendo celda de tabla (un display:grid la desalinearía del resto
+     de la fila); el ritmo interno va por márgenes. */
+  .slot-body > * + * {
+    margin-top: 0.2rem;
   }
   .slot-title {
     font-weight: 700;
