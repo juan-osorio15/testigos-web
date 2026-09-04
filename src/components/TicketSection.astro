@@ -12,7 +12,6 @@ import {
   pretixReady,
   WAITLIST_ENDPOINT,
   EVENTALIST_CAMPAIGN,
-  DATA_CONTACT_EMAIL,
   waitlistReady,
 } from '../config';
 import { t } from '../ui';
@@ -96,11 +95,8 @@ const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
               <label class="waitlist-consent">
                 <input type="checkbox" name="consent_accepted" value="si" required />
                 <span>
-                  {t('waitlist.consent1')} <a href={`mailto:${DATA_CONTACT_EMAIL}`}>{DATA_CONTACT_EMAIL}</a>.{' '}
-                  {t('waitlist.consent2')}{' '}
-                  <a href={`${base}tratamiento-de-datos/`} target="_blank" rel="noopener">
-                    {t('waitlist.consentLink')}
-                  </a>.
+                  {t('waitlist.consent')}{' '}
+                  <a href={`${base}tratamiento-de-datos/`} target="_blank" rel="noopener">{t('waitlist.consentLink')}</a>.
                 </span>
               </label>
               <button type="submit" class="waitlist-submit" disabled>
@@ -130,8 +126,10 @@ const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
   if (form && note && submit && form.dataset.endpoint && form.dataset.campaign) {
     submit.disabled = false; // hay JS: el formulario puede enviarse
     const d = form.dataset;
-    const say = (text: string) => {
+    type State = 'idle' | 'sending' | 'success' | 'error';
+    const say = (text: string, state: State = 'idle') => {
       note.textContent = text;
+      note.dataset.state = state;
     };
     // data-label-email → dataset.labelEmail; data-label-first_name → labelFirst_name
     const labelFor = (field: string) => d[`label${field[0]!.toUpperCase()}${field.slice(1)}`] ?? '';
@@ -141,7 +139,7 @@ const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
         const label = field === 'non_field_errors' ? '' : labelFor(field);
         return label ? `${label}: ${text}` : text;
       });
-      say(lines.join(' ') || d.msgError!);
+      say(lines.join(' ') || d.msgError!, 'error');
     };
 
     form.addEventListener('submit', async (e) => {
@@ -149,7 +147,7 @@ const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
       const data = new FormData(form);
       const consent = form.elements.namedItem('consent_accepted') as HTMLInputElement | null;
       if (!consent?.checked) {
-        say(d.msgConsent!);
+        say(d.msgConsent!, 'error');
         return;
       }
       const payload = {
@@ -163,7 +161,7 @@ const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
       };
 
       submit.disabled = true;
-      say(d.msgSending!);
+      say(d.msgSending!, 'sending');
       try {
         const res = await fetch(d.endpoint!, {
           method: 'POST',
@@ -173,16 +171,16 @@ const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
         const body: unknown = await res.json().catch(() => ({}));
         if (res.status === 200) {
           form.reset();
-          say(d.msgSuccess!);
+          say(d.msgSuccess!, 'success');
         } else if (res.status === 400 && body && typeof body === 'object') {
           showErrors(body as Record<string, unknown>);
         } else if (res.status === 429) {
-          say(d.msgToomany!);
+          say(d.msgToomany!, 'error');
         } else {
-          say(d.msgError!);
+          say(d.msgError!, 'error');
         }
       } catch {
-        say(d.msgNetwork!);
+        say(d.msgNetwork!, 'error');
       } finally {
         submit.disabled = false;
       }
@@ -274,22 +272,25 @@ const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
     height: 1px;
     overflow: hidden;
   }
-  .waitlist-consent {
+  /* Casilla legal: discreta (texto pequeño, sin negrita), pero legible */
+  .waitlist label.waitlist-consent {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 0.6rem;
     align-items: start;
-    font-size: var(--text-small);
+    font-size: var(--text-label);
     font-weight: 400;
+    line-height: 1.5;
+    opacity: 0.85;
   }
   .waitlist-consent input {
     width: 1.1rem;
     height: 1.1rem;
-    margin-top: 0.15rem;
+    margin-top: 0.1rem;
     accent-color: var(--terracotta);
   }
   .waitlist-consent a {
-    font-weight: 700;
+    font-weight: 400;
     text-underline-offset: 0.2em;
   }
   .waitlist-submit {
@@ -310,9 +311,29 @@ const widgetCss = `${PRETIX_EVENT_URL}widget/v1.css`;
     opacity: 0.45;
     cursor: not-allowed;
   }
+  /* Mensaje de estado: en reposo, nota discreta; al enviar, bloque sólido
+     de color (oliva = listo, ladrillo = error) con texto en crema. */
   .waitlist-note {
     font-size: var(--text-small);
-    opacity: 0.8;
+    opacity: 0.75;
+    margin: 0;
+  }
+  .waitlist-note[data-state='sending'] {
+    opacity: 1;
+    font-weight: 700;
+  }
+  .waitlist-note[data-state='success'],
+  .waitlist-note[data-state='error'] {
+    opacity: 1;
+    font-weight: 700;
+    padding: 0.85em 1.1em;
+    color: var(--cream);
+  }
+  .waitlist-note[data-state='success'] {
+    background-color: var(--olive);
+  }
+  .waitlist-note[data-state='error'] {
+    background-color: var(--brick);
   }
 
   .pretix-widget-info-message {
