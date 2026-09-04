@@ -25,7 +25,7 @@ export const pretixReady = false;
  * (si todo devuelve 403, es eso).
  */
 export const EVENTALIST_BACKEND = 'https://eventalist-backend-production.up.railway.app';
-export const EVENTALIST_CAMPAIGN = 'testigos-memoria';
+export const EVENTALIST_CAMPAIGN = 'testigos-de-la-memoria-2026';
 export const WAITLIST_ENDPOINT = `${EVENTALIST_BACKEND}/api/v1/marketing/contacts/submit/`;
 export const waitlistReady = EVENTALIST_CAMPAIGN.length > 0;
 
