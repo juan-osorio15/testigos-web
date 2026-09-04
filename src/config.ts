@@ -47,7 +47,7 @@ export const DATA_POLICY_EFFECTIVE = '2026-09-04';
  * Datos entregados por el usuario el 2026-09-04.
  */
 export const DATA_CONTROLLER = {
-  name: 'Juan Andrés Osorio',
+  name: 'Eventalist S.A.S.',
   brand: 'Eventalist',
   address: 'Calle 111 # 45A-70',
   city: 'Bogotá, Colombia',
