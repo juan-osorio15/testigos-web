@@ -35,7 +35,7 @@ export const waitlistReady = EVENTALIST_CAMPAIGN.length > 0;
  * según su guía de integración; aparece en el formulario y en
  * /tratamiento-de-datos/.
  */
-export const DATA_CONTACT_EMAIL = 'hola@eventalist.com';
+export const DATA_CONTACT_EMAIL = 'hola@eventalist.co';
 
 /** Fecha de entrada en vigencia de la política de tratamiento de datos (ISO). */
 export const DATA_POLICY_EFFECTIVE = '2026-09-04';
@@ -43,13 +43,14 @@ export const DATA_POLICY_EFFECTIVE = '2026-09-04';
 /**
  * Identificación del responsable del tratamiento (art. 13 del Decreto 1377
  * de 2013 exige razón social, domicilio, dirección, correo y teléfono).
- * Los valores que empiecen por TODO no se muestran en la página; hay que
- * completarlos antes de publicar.
+ * Los valores que empiecen por TODO no se muestran en la página.
+ * Datos entregados por el usuario el 2026-09-04.
  */
 export const DATA_CONTROLLER = {
-  name: 'Eventalist',
+  name: 'Jorge Andrés Osorio Quiceno',
+  brand: 'Eventalist',
   nit: 'TODO-NIT',
-  address: 'TODO-DIRECCION',
-  city: 'TODO-CIUDAD',
-  phone: 'TODO-TELEFONO',
+  address: 'Carrera 23 # 118-22',
+  city: 'Bogotá, Colombia',
+  phone: '310 867 4510',
 } as const;

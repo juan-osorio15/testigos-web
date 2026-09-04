@@ -26,7 +26,7 @@ const mail = `mailto:${DATA_CONTACT_EMAIL}`;
 
 <EventLayout
   title="Política de tratamiento de datos personales · Testigos de la Memoria"
-  description="Cómo Eventalist trata los datos personales de quienes se inscriben en el sitio del encuentro Testigos de la Memoria: finalidades, derechos, consultas y reclamos. Ley 1581 de 2012."
+  description="Cómo tratamos los datos personales de quienes se inscriben en el sitio del encuentro Testigos de la Memoria: finalidades, derechos, consultas y reclamos. Ley 1581 de 2012."
 >
   <main id="contenido" class="policy">
     <div class="container policy-inner">
@@ -45,11 +45,14 @@ const mail = `mailto:${DATA_CONTACT_EMAIL}`;
       <section class="policy-section">
         <h2><span>1.</span> Quién es responsable de tus datos</h2>
         <p>
-          La responsable del tratamiento es <strong>{controller.name}</strong>, la empresa que
-          gestiona la comunicación y la boletería del encuentro Testigos de la Memoria, organizado
-          en Villa de Leyva.
+          El responsable del tratamiento es <strong>{controller.name}</strong>, quien opera{' '}
+          <strong>{controller.brand}</strong>, la plataforma que gestiona la comunicación y la
+          boletería del encuentro Testigos de la Memoria, organizado en Villa de Leyva. Cuando en el
+          formulario autorizas a {controller.brand}, autorizas a este responsable.
         </p>
         <dl class="policy-contact">
+          <dt>Responsable</dt>
+          <dd>{controller.name}</dd>
           {known(controller.nit) && (
             <>
               <dt>NIT</dt>
@@ -222,7 +225,7 @@ const mail = `mailto:${DATA_CONTACT_EMAIL}`;
         <p>
           Esta política rige desde el {effective}. La base de datos de personas inscritas se mantiene
           vigente mientras subsistan las finalidades de la sección 3. Si cambia algo sustancial, como la
-          identidad de la responsable o las finalidades, te lo comunicamos por correo antes de
+          identidad del responsable o las finalidades, te lo comunicamos por correo antes de
           aplicarlo y publicamos la nueva versión en esta misma página.
         </p>
       </section>
