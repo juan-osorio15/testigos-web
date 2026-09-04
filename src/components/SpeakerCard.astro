@@ -35,7 +35,7 @@ const links = linkOrder
   <div class="card-media">
     {
       speaker.photo ? (
-        <div class="grain card-photo">
+        <div class:list={['grain', 'card-photo', speaker.photoTreatment && `card-photo--${speaker.photoTreatment}`]}>
           <Image
             src={speaker.photo}
             alt={speaker.name}
@@ -143,6 +143,16 @@ const links = linkOrder
   .card-photo img {
     object-position: center top;
     display: block;
+  }
+  /* Ajustes por original (ver photoTreatment en speakers.ts) */
+  .card-photo--soft :global(img) {
+    filter: grayscale(1) sepia(0.18) contrast(1.02) brightness(0.97);
+  }
+  .card-photo--plain :global(img) {
+    filter: sepia(0.08);
+  }
+  .card-photo--plain::after {
+    opacity: 0.45;
   }
   .card-symbol {
     width: 4.5rem;

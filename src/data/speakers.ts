@@ -32,6 +32,13 @@ export interface Speaker {
   bio: string;
   /** import de astro:assets; null → placeholder de marca con el símbolo */
   photo: ImageMetadata | null;
+  /**
+   * Ajuste del tratamiento b/n con grano según el original:
+   * 'soft' baja el contraste (fotos con blancos muy abiertos);
+   * 'plain' no filtra el color ni el contraste (originales ya en b/n),
+   * solo grano ligero.
+   */
+  photoTreatment?: 'soft' | 'plain';
   links?: SpeakerLinks;
   confirmed: true;
 }
@@ -78,6 +85,7 @@ export const speakers: Speaker[] = [
     credential: 'Columnista · Cambio',
     bio: 'Columnista de la revista Cambio y autora de “Una periodista en las entrañas de la política” (2024), balance de su paso por el Concejo de Bogotá. Durante 25 años fue periodista y editora de paz de El Tiempo, donde cubrió el conflicto armado y las negociaciones con las Farc, del Caguán a La Habana. Escribió “La historia secreta del proceso de paz” y “Desterrados”. Premio Simón Bolívar.',
     photo: photoMarisolGomez,
+    photoTreatment: 'soft',
     links: {
       x: 'https://x.com/Marisol_GomezG',
       linkedin: 'https://www.linkedin.com/in/marisol-g%C3%B3mez-giraldo-0a944b49/',
@@ -142,6 +150,7 @@ export const speakers: Speaker[] = [
     credential: 'Periodista · Simón Bolívar a la Vida y Obra 2025',
     bio: 'Periodista y escritora. Columnista de El Espectador y El País América, corresponsable del Consultorio Ético de la Fundación Gabo y anfitriona del pódcast “El diván del periodismo”. Conduce con María Elvira Samper “Menopáusicas ¡y qué!”. Premio Simón Bolívar a la Vida y Obra 2025. Primera mujer en dirigir las noticias de Caracol Radio y RCN Radio. Autora de “En el filo de la navaja” y “Los que quedan”.',
     photo: photoYolandaRuiz,
+    photoTreatment: 'plain',
     links: {
       x: 'https://x.com/YolandaRuizCe',
       instagram: 'https://www.instagram.com/yolandaruizperiodista/',
