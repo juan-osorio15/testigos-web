@@ -2,6 +2,10 @@
 /**
  * Carrusel de panelistas (patrón 8.5): scroll-snap nativo + flechas con
  * scrollBy(). Sin librerías. Cierra con CTA (estrategia de CTA del spec).
+ *
+ * Tarjetas compactas por defecto; "Leer más" en cualquiera expande todas
+ * (una sola altura de fila) y vuelven a encogerse cuando la sección sale
+ * de la pantalla. Transición corta y lineal, sin rebotes.
  */
 import { t } from '../ui';
 import { speakers } from '../data/speakers';
@@ -42,10 +46,11 @@ const subtitle = 'Escuchar a quienes estuvieron allí también es hacer memoria.
 </section>
 
 <script>
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   // Flechas del carrusel: scrollBy nativo; smooth solo si el usuario lo permite.
   const track = document.querySelector<HTMLElement>('[data-carousel]');
   if (track) {
-    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const step = () => {
       const card = track.querySelector('li');
       return (card?.getBoundingClientRect().width ?? 320) + 20;
@@ -54,6 +59,76 @@ const subtitle = 'Escuchar a quienes estuvieron allí también es hacer memoria.
       track.scrollBy({ left: dir * step(), behavior: reduced ? 'auto' : 'smooth' });
     document.querySelector('[data-carousel-prev]')?.addEventListener('click', () => scroll(-1));
     document.querySelector('[data-carousel-next]')?.addEventListener('click', () => scroll(1));
+  }
+
+  // Tarjetas compactas / expandidas (todas a la vez).
+  const section = document.querySelector<HTMLElement>('#speakers');
+  if (section) {
+    section.dataset.collapsible = '';
+    const bios = Array.from(section.querySelectorAll<HTMLElement>('[data-bio]'));
+    const toggles = Array.from(section.querySelectorAll<HTMLButtonElement>('[data-card-toggle]'));
+    let expanded = false;
+
+    const setExpanded = (open: boolean) => {
+      if (open === expanded) return;
+      expanded = open;
+      section.toggleAttribute('data-expanded', open);
+      for (const bio of bios) {
+        if (open) {
+          bio.classList.add('is-open');
+          bio.style.maxHeight = '4.5em';
+          // dos frames: que el navegador registre el punto de partida antes de animar
+          requestAnimationFrame(() =>
+            requestAnimationFrame(() => {
+              bio.style.maxHeight = `${bio.scrollHeight}px`;
+            }),
+          );
+        } else {
+          bio.style.maxHeight = `${bio.scrollHeight}px`;
+          requestAnimationFrame(() =>
+            requestAnimationFrame(() => {
+              bio.style.maxHeight = '4.5em';
+            }),
+          );
+        }
+      }
+      for (const btn of toggles) {
+        btn.setAttribute('aria-expanded', String(open));
+        btn.textContent = open ? btn.dataset.less! : btn.dataset.more!;
+      }
+    };
+
+    // Al cerrar la transición: soltar la altura fija (abierto) o restaurar
+    // el recorte de tres líneas con puntos suspensivos (cerrado).
+    for (const bio of bios) {
+      bio.addEventListener('transitionend', () => {
+        if (expanded) {
+          bio.style.maxHeight = '';
+        } else {
+          bio.classList.remove('is-open');
+          bio.style.maxHeight = '';
+        }
+      });
+    }
+    if (reduced) {
+      // Sin transición: el transitionend no llega, así que se resuelve de inmediato.
+      for (const bio of bios) {
+        new MutationObserver(() => {
+          if (!expanded) bio.classList.remove('is-open');
+          bio.style.maxHeight = '';
+        }).observe(bio, { attributes: true, attributeFilter: ['style'] });
+      }
+    }
+
+    for (const btn of toggles) btn.addEventListener('click', () => setExpanded(!expanded));
+
+    // Se encogen solas cuando la sección sale de la pantalla.
+    new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (!e.isIntersecting && expanded) setExpanded(false);
+      },
+      { threshold: 0 },
+    ).observe(section);
   }
 </script>
 

@@ -44,6 +44,8 @@ const dict = {
   'speakers.prev': 'Panelista anterior',
   'speakers.next': 'Panelista siguiente',
   'speakers.links': 'Redes y enlaces de',
+  'speakers.more': 'Leer más',
+  'speakers.less': 'Leer menos',
 
   // --- Enlaces de panelistas ---
   'links.x': 'X',

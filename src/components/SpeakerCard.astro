@@ -1,9 +1,14 @@
 ---
 /**
- * Tarjeta de panelista: bloque de color sólido con esquinas redondeadas,
- * como las tarjetas del manual (pág. 5). Foto en b/n con grano (pág. 6)
- * cuando exista; si `photo: null`, placeholder de marca con el símbolo. Al pie, iconos
- * con las redes y enlaces públicos del panelista (solo los verificados).
+ * Tarjeta de panelista: bloque de color sólido, como las tarjetas del
+ * manual (pág. 5). Foto en b/n con grano (pág. 6) cuando exista; si
+ * `photo: null`, placeholder de marca con el símbolo. Al pie, iconos con
+ * las redes públicas del panelista (solo las verificadas).
+ *
+ * Dos modos, gobernados por SpeakerGrid: compacto (tres líneas de bio y
+ * "Leer más") y expandido (bio completa). El botón de cualquier tarjeta
+ * expande o encoge todas a la vez, para que la fila conserve una sola
+ * altura. Sin JS, la bio se muestra completa y el botón no aparece.
  */
 import { Image } from 'astro:assets';
 import { t } from '../ui';
@@ -17,6 +22,7 @@ interface Props {
 }
 
 const { speaker, tone } = Astro.props;
+const bioId = `bio-${speaker.slug}`;
 
 /* Orden fijo de los iconos; solo se pintan los enlaces presentes. */
 const linkOrder: SpeakerLinkKey[] = ['x', 'instagram', 'linkedin', 'facebook', 'web', 'wikipedia'];
@@ -44,7 +50,18 @@ const links = linkOrder
   </div>
   <h3 class="card-name">{speaker.name}</h3>
   <p class="card-credential">{speaker.credential}</p>
-  <p class="card-bio">{speaker.bio}</p>
+  <p class="card-bio" id={bioId} data-bio>{speaker.bio}</p>
+  <button
+    type="button"
+    class="card-more"
+    data-card-toggle
+    aria-expanded="false"
+    aria-controls={bioId}
+    data-more={t('speakers.more')}
+    data-less={t('speakers.less')}
+  >
+    {t('speakers.more')}
+  </button>
   {
     links.length > 0 && (
       <ul class="card-links" aria-label={`${t('speakers.links')} ${speaker.name}`}>
@@ -94,18 +111,12 @@ const links = linkOrder
     scroll-snap-align: start;
     flex: 0 0 min(78vw, 20rem);
     display: grid;
-    grid-template-rows: auto auto auto 1fr auto;
+    grid-template-rows: auto auto auto auto auto 1fr;
     align-content: start;
     gap: 0.5rem;
     padding: var(--space-3);
     border-radius: var(--radius-card);
     color: var(--ink);
-    min-height: 22rem;
-    transition: transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
-  }
-  .card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-1);
   }
   .card--olive {
     background-color: var(--olive);
@@ -151,9 +162,46 @@ const links = linkOrder
     letter-spacing: 0.06em;
     opacity: 0.85;
   }
+
+  /* Bio: en modo compacto, tres líneas con puntos suspensivos. La altura
+     se anima con max-height (JS mide la altura real al expandir). */
   .card-bio {
     font-size: var(--text-small);
     line-height: 1.5;
+    overflow: hidden;
+    transition: max-height 320ms var(--ease-out);
+  }
+  :global(.speakers[data-collapsible]) .card-bio:not(.is-open) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    max-height: 4.5em;
+  }
+
+  /* "Leer más": texto pequeño en caps con subrayado, sin caja */
+  .card-more {
+    justify-self: start;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-size: var(--text-label);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+    text-decoration-thickness: 1px;
+    cursor: pointer;
+    opacity: 0.85;
+  }
+  .card-more:hover,
+  .card-more:focus-visible {
+    opacity: 1;
+  }
+  :global(.speakers:not([data-collapsible])) .card-more {
+    display: none;
   }
 
   /* Iconos de redes: trazo sencillo, color heredado, al pie de la tarjeta */
@@ -161,6 +209,7 @@ const links = linkOrder
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem;
+    align-self: end;
     list-style: none;
     margin-top: var(--space-1);
     padding: 0;
@@ -184,5 +233,11 @@ const links = linkOrder
     width: 1rem;
     height: 1rem;
     fill: currentColor;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-bio {
+      transition: none;
+    }
   }
 </style>
