@@ -1,0 +1,352 @@
+---
+/**
+ * Política de tratamiento de datos personales (Ley 1581 de 2012, Decreto
+ * 1377 de 2013 compilado en el Decreto 1074 de 2015, Ley 2300 de 2023).
+ * Cubre el contenido mínimo del art. 13 del Decreto 1377: responsable,
+ * tratamiento y finalidad, derechos, área de atención, procedimiento de
+ * consultas y reclamos, y vigencia. Fuente: docs/tratamiento-de-datos.md.
+ */
+import EventLayout from '../layouts/EventLayout.astro';
+import { DATA_CONTACT_EMAIL, DATA_CONTROLLER, DATA_POLICY_EFFECTIVE } from '../config';
+
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : import.meta.env.BASE_URL + '/';
+
+const effective = new Date(`${DATA_POLICY_EFFECTIVE}T12:00:00-05:00`).toLocaleDateString('es-CO', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'America/Bogota',
+});
+const known = (v: string) => !v.startsWith('TODO');
+const controller = DATA_CONTROLLER;
+const mail = `mailto:${DATA_CONTACT_EMAIL}`;
+---
+
+<EventLayout
+  title="Política de tratamiento de datos personales · Testigos de la Memoria"
+  description="Cómo Eventalist trata los datos personales de quienes se inscriben en el sitio del encuentro Testigos de la Memoria: finalidades, derechos, consultas y reclamos. Ley 1581 de 2012."
+>
+  <main id="contenido" class="policy">
+    <div class="container policy-inner">
+      <header class="policy-head">
+        <p class="eyebrow">Tratamiento de datos personales</p>
+        <h1>Qué hacemos con tus datos y qué no.</h1>
+        <p class="policy-lead">
+          Si te inscribes en el formulario del sitio, guardamos tu nombre, tu correo electrónico y
+          tu teléfono para contarte novedades del encuentro y de otros eventos. No los compartimos,
+          no los cedemos y no los vendemos a nadie. Aquí está el detalle, en lenguaje claro, como
+          lo exige la ley colombiana.
+        </p>
+        <p class="policy-meta">Vigente desde el {effective} · Ley 1581 de 2012 y Decreto 1377 de 2013</p>
+      </header>
+
+      <section class="policy-section">
+        <h2><span>1.</span> Quién es responsable de tus datos</h2>
+        <p>
+          La responsable del tratamiento es <strong>{controller.name}</strong>, la empresa que
+          gestiona la comunicación y la boletería del encuentro Testigos de la Memoria, organizado
+          en Villa de Leyva.
+        </p>
+        <dl class="policy-contact">
+          {known(controller.nit) && (
+            <>
+              <dt>NIT</dt>
+              <dd>{controller.nit}</dd>
+            </>
+          )}
+          {known(controller.address) && (
+            <>
+              <dt>Dirección</dt>
+              <dd>
+                {controller.address}
+                {known(controller.city) && `, ${controller.city}`}
+              </dd>
+            </>
+          )}
+          {!known(controller.address) && known(controller.city) && (
+            <>
+              <dt>Domicilio</dt>
+              <dd>{controller.city}</dd>
+            </>
+          )}
+          <dt>Correo electrónico</dt>
+          <dd><a href={mail}>{DATA_CONTACT_EMAIL}</a></dd>
+          {known(controller.phone) && (
+            <>
+              <dt>Teléfono</dt>
+              <dd>{controller.phone}</dd>
+            </>
+          )}
+        </dl>
+        <p>
+          Esta política se expide en cumplimiento del artículo 15 de la Constitución Política, la Ley
+          Estatutaria 1581 de 2012, el Decreto 1377 de 2013 (compilado en el Decreto 1074 de 2015) y la
+          Ley 2300 de 2023. Aplica a los datos personales que entregas a través del formulario de este
+          sitio web.
+        </p>
+      </section>
+
+      <section class="policy-section">
+        <h2><span>2.</span> Qué datos recogemos</h2>
+        <p>
+          Solo los que escribes en el formulario: nombre, correo electrónico y número de teléfono. El
+          correo es el único dato obligatorio. No recogemos datos sensibles ni pedimos nada más.
+        </p>
+        <p>
+          El formulario está dirigido a personas mayores de 18 años. Si advertimos que recibimos datos
+          de un menor de edad, los suprimimos.
+        </p>
+      </section>
+
+      <section class="policy-section">
+        <h2><span>3.</span> Para qué los usamos</h2>
+        <p>Usamos tus datos con fines comerciales y de comunicación, únicamente para:</p>
+        <ol>
+          <li>Avisarte cuándo abre la venta de boletas del encuentro.</li>
+          <li>Enviarte información, programación y novedades del encuentro.</li>
+          <li>Contarte sobre futuras ediciones y otros eventos en Villa de Leyva.</li>
+          <li>Atender tus consultas y reclamos sobre tus datos.</li>
+        </ol>
+        <p>
+          Te escribimos por los canales que autorizas en el formulario: correo electrónico y WhatsApp.
+          Los mensajes comerciales se envían dentro del horario que fija la Ley 2300 de 2023 (lunes a
+          viernes de 7:00 a. m. a 7:00 p. m. y sábados de 8:00 a. m. a 3:00 p. m., nunca en domingos ni
+          festivos), y todos incluyen una forma sencilla de dejar de recibirlos.
+        </p>
+        <p>No usamos tus datos para ninguna otra finalidad sin pedirte una nueva autorización.</p>
+      </section>
+
+      <section class="policy-section">
+        <h2><span>4.</span> No los compartimos ni los vendemos</h2>
+        <p>
+          <strong>No compartimos, cedemos, transferimos ni vendemos tus datos personales a terceros.</strong>
+          Ni a patrocinadores, ni a otros organizadores, ni a empresas de publicidad.
+        </p>
+        <p>
+          Para guardar la información y enviar los mensajes nos apoyamos en proveedores tecnológicos
+          (correo electrónico, mensajería y almacenamiento en la nube) que actúan como encargados del
+          tratamiento: siguen nuestras instrucciones, solo pueden usar los datos para las finalidades de
+          esta política y no pueden quedárselos ni usarlos para sus propios fines. Cuando alguno de
+          ellos aloja la información fuera de Colombia, verificamos que ofrezca garantías adecuadas de
+          seguridad y confidencialidad.
+        </p>
+      </section>
+
+      <section class="policy-section">
+        <h2><span>5.</span> Tu autorización</h2>
+        <p>
+          Tratamos tus datos solo con tu autorización previa, expresa e informada. En el formulario la
+          das marcando una casilla que aparece sin marcar por defecto, junto al texto que explica quién
+          trata los datos, cuáles, para qué y por qué canales. Conservamos prueba de esa autorización:
+          la fecha y la hora en que te inscribiste y la versión del texto que aceptaste.
+        </p>
+        <p>
+          Puedes pedir una copia de esa prueba y retirar la autorización en cualquier momento
+          escribiendo a <a href={mail}>{DATA_CONTACT_EMAIL}</a>. Retirarla no tiene costo ni
+          consecuencias, salvo que dejarás de recibir nuestros mensajes.
+        </p>
+      </section>
+
+      <section class="policy-section">
+        <h2><span>6.</span> Cuánto tiempo los guardamos</h2>
+        <p>
+          Mientras se mantenga la finalidad para la que los recogimos, o hasta que pidas su supresión o
+          retires la autorización, lo que ocurra primero. Cumplida la finalidad, los suprimimos, salvo
+          que una obligación legal nos exija conservarlos.
+        </p>
+      </section>
+
+      <section class="policy-section">
+        <h2><span>7.</span> Tus derechos</h2>
+        <p>Según el artículo 8 de la Ley 1581 de 2012, tienes derecho a:</p>
+        <ul>
+          <li>Conocer, actualizar y rectificar tus datos personales.</li>
+          <li>Pedir prueba de la autorización que nos diste.</li>
+          <li>Que te informemos, si lo pides, qué uso les hemos dado.</li>
+          <li>Revocar la autorización y pedir que suprimamos tus datos.</li>
+          <li>Acceder de forma gratuita a tus datos personales.</li>
+          <li>
+            Presentar quejas ante la Superintendencia de Industria y Comercio, una vez agotado el
+            trámite de consulta o reclamo con nosotros.
+          </li>
+        </ul>
+      </section>
+
+      <section class="policy-section">
+        <h2><span>8.</span> Cómo ejercerlos: consultas y reclamos</h2>
+        <p>
+          El canal para peticiones, consultas y reclamos sobre datos personales es el correo{' '}
+          <a href={mail}>{DATA_CONTACT_EMAIL}</a>. Desde ahí se da trámite a todas las solicitudes.
+        </p>
+        <h3>Consultas</h3>
+        <p>
+          Escríbenos con tu nombre completo y el correo con el que te inscribiste. Respondemos en un
+          plazo máximo de diez (10) días hábiles desde que recibimos la consulta. Si no podemos
+          responder en ese tiempo, te informamos el motivo y la fecha en que lo haremos, que no
+          superará los cinco (5) días hábiles siguientes.
+        </p>
+        <h3>Reclamos</h3>
+        <p>
+          Si crees que tus datos deben corregirse, actualizarse o suprimirse, o que hemos incumplido
+          alguno de nuestros deberes, envíanos un reclamo al mismo correo con tu identificación, la
+          descripción de lo ocurrido y los documentos que quieras aportar. Si falta algo, te pedimos
+          completarlo dentro de los cinco (5) días siguientes; si pasan dos (2) meses sin respuesta,
+          entendemos que desististe. Recibido el reclamo completo, anotamos "reclamo en trámite" en la
+          base de datos en un plazo no mayor a dos (2) días hábiles y lo resolvemos en un máximo de
+          quince (15) días hábiles contados desde el día siguiente a su recibo. Si no es posible, te
+          informamos el motivo y la fecha de respuesta, que no superará los ocho (8) días hábiles
+          siguientes.
+        </p>
+        <h3>Autoridad de control</h3>
+        <p>
+          Si no quedas conforme, puedes acudir a la Superintendencia de Industria y Comercio,
+          Delegatura para la Protección de Datos Personales, que es la autoridad que vigila el
+          cumplimiento de la Ley 1581 de 2012.
+        </p>
+      </section>
+
+      <section class="policy-section">
+        <h2><span>9.</span> Seguridad</h2>
+        <p>
+          Adoptamos medidas técnicas y administrativas razonables para evitar la pérdida, el acceso no
+          autorizado o el uso indebido de tus datos, exigimos a nuestros encargados el mismo cuidado y
+          restringimos el acceso a la base de datos a las personas que lo necesitan para cumplir las
+          finalidades descritas.
+        </p>
+      </section>
+
+      <section class="policy-section">
+        <h2><span>10.</span> Vigencia y cambios</h2>
+        <p>
+          Esta política rige desde el {effective}. La base de datos de personas inscritas se mantiene
+          vigente mientras subsistan las finalidades de la sección 3. Si cambia algo sustancial, como la
+          identidad de la responsable o las finalidades, te lo comunicamos por correo antes de
+          aplicarlo y publicamos la nueva versión en esta misma página.
+        </p>
+      </section>
+
+      <p class="policy-back">
+        <a href={base}>← Volver al inicio</a>
+      </p>
+    </div>
+  </main>
+</EventLayout>
+
+<style>
+  .policy {
+    position: relative;
+    z-index: 1;
+    background-color: var(--cream);
+    padding-block: calc(var(--header-h) + var(--space-5)) var(--space-6);
+  }
+  .policy-inner {
+    max-width: 44rem;
+  }
+  .policy-head {
+    display: grid;
+    gap: var(--space-2);
+    padding-bottom: var(--space-4);
+    margin-bottom: var(--space-4);
+    border-bottom: var(--border) var(--ink);
+  }
+  .policy-head .eyebrow {
+    color: var(--brick);
+  }
+  h1 {
+    font-size: var(--text-h2);
+  }
+  .policy-lead {
+    font-size: var(--text-lead);
+    line-height: 1.45;
+    max-width: 38ch;
+    text-wrap: pretty;
+  }
+  .policy-meta {
+    font-size: var(--text-label);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.75;
+  }
+
+  .policy-section {
+    display: grid;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+  .policy-section h2 {
+    font-size: var(--text-h3);
+    display: flex;
+    gap: 0.5em;
+    align-items: baseline;
+  }
+  .policy-section h2 span {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    color: var(--terracotta);
+  }
+  .policy-section h3 {
+    font-size: var(--text-body);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: var(--space-1);
+  }
+  .policy-section p,
+  .policy-section li {
+    max-width: 65ch;
+    text-wrap: pretty;
+  }
+  .policy-section ol,
+  .policy-section ul {
+    display: grid;
+    gap: 0.5rem;
+    padding-left: 1.4em;
+  }
+  .policy-section a {
+    font-weight: 700;
+    text-underline-offset: 0.2em;
+  }
+  .policy-section a:hover {
+    color: var(--brick);
+  }
+
+  .policy-contact {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.35rem var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    background-color: var(--sky);
+    max-width: 65ch;
+  }
+  .policy-contact dt {
+    font-size: var(--text-label);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .policy-contact dd {
+    margin: 0;
+  }
+
+  .policy-back {
+    margin-top: var(--space-5);
+    font-weight: 800;
+  }
+  .policy-back a {
+    text-underline-offset: 0.25em;
+  }
+
+  @media (max-width: 47.9rem) {
+    .policy-contact {
+      grid-template-columns: 1fr;
+      gap: 0.15rem;
+    }
+    .policy-contact dd {
+      margin-bottom: 0.5rem;
+    }
+  }
+</style>

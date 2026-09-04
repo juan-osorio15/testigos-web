@@ -39,3 +39,17 @@ export const DATA_CONTACT_EMAIL = 'hola@eventalist.com';
 
 /** Fecha de entrada en vigencia de la política de tratamiento de datos (ISO). */
 export const DATA_POLICY_EFFECTIVE = '2026-09-04';
+
+/**
+ * Identificación del responsable del tratamiento (art. 13 del Decreto 1377
+ * de 2013 exige razón social, domicilio, dirección, correo y teléfono).
+ * Los valores que empiecen por TODO no se muestran en la página; hay que
+ * completarlos antes de publicar.
+ */
+export const DATA_CONTROLLER = {
+  name: 'Eventalist',
+  nit: 'TODO-NIT',
+  address: 'TODO-DIRECCION',
+  city: 'TODO-CIUDAD',
+  phone: 'TODO-TELEFONO',
+} as const;
