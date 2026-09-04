@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "build:demo": "DEMO_BASE=/demo astro build",
     "preview": "astro preview",
     "check": "astro check"
   },
