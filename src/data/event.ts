@@ -61,7 +61,7 @@ export const venues: Venue[] = [
     summary:
       'Una casona colonial de finales del siglo XVII, con balcón de madera y patio empedrado en torno a una fuente de piedra. Aquí pasó sus últimos meses y murió, en diciembre de 1823, Antonio Nariño, el precursor que tradujo los Derechos del Hombre. Es Monumento Nacional desde 1961 y hoy un museo de cuatro salas sobre la vida de la Colonia y la República.',
     photo: photoCasaMuseo,
-    photoAlt: 'Patio empedrado de la Casa Museo Antonio Nariño, con su fuente de piedra vista desde los arcos',
+    photoAlt: 'Jardín de la Casa Museo Antonio Nariño, con su fuente de piedra y la casa de tejas al fondo',
   },
 ];
 

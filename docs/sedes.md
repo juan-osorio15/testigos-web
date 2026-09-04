@@ -84,3 +84,8 @@ Recomendación: `casa-museo-1.jpg` como imagen principal (es la más bella y res
 - CC BY-SA 3.0 exige nombrar al autor, la licencia (con enlace) y mantener la misma licencia si se modifica la foto (un recorte cuenta como modificación; basta con indicarlo).
 - CC BY 2.0 exige nombrar al autor y la licencia.
 - Las fotos de duruelo.com.co son material con derechos reservados; usarlas solo con permiso del hotel (que como sede seguramente lo dará) o pedirles originales de mayor resolución.
+
+
+## Foto publicada de la Casa Museo (2026-09-04)
+
+La foto final en `src/assets/venues/casa-museo.jpg` (jardín con fuente, 1200 x 1200) la aportó el usuario y reemplaza a las candidatas de Commons; se muestra recortada al centro en 3:2. Origen y licencia: pendientes de anotar por el usuario.
