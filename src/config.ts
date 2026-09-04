@@ -47,10 +47,9 @@ export const DATA_POLICY_EFFECTIVE = '2026-09-04';
  * Datos entregados por el usuario el 2026-09-04.
  */
 export const DATA_CONTROLLER = {
-  name: 'Jorge Andrés Osorio Quiceno',
+  name: 'Juan Andrés Osorio',
   brand: 'Eventalist',
-  nit: 'TODO-NIT',
-  address: 'Carrera 23 # 118-22',
+  address: 'Calle 111 # 45A-70',
   city: 'Bogotá, Colombia',
-  phone: '310 867 4510',
+  phone: '+57 305 840 6091',
 } as const;
