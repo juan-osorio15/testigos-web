@@ -11,9 +11,9 @@
 
 import photoDanielSamperPizano from '../assets/speakers/daniel-samper-pizano.jpg';
 import photoDarioRestrepo from '../assets/speakers/dario-restrepo.jpg';
-import photoJorgeCardona from '../assets/speakers/jorge-cardona.jpg';
 import photoMarisolGomez from '../assets/speakers/marisol-gomez.jpg';
 import photoLuzMariaSierra from '../assets/speakers/luz-maria-sierra.jpg';
+import photoMarthaSoto from '../assets/speakers/martha-soto.jpg';
 import photoCeciliaOrozco from '../assets/speakers/cecilia-orozco.jpg';
 import photoMartaRuiz from '../assets/speakers/marta-ruiz.jpg';
 import photoGuillermoGonzalez from '../assets/speakers/guillermo-gonzalez.jpg';
@@ -48,7 +48,7 @@ export const speakers: Speaker[] = [
     slug: 'daniel-samper-pizano',
     name: 'Daniel Samper Pizano',
     credential: 'Periodista y escritor · Los Danieles',
-    bio: 'Columnista de Los Danieles, la plataforma que fundó en 2020 con Daniel Coronell y Daniel Samper Ospina. En 2026 publicó “Memorias cruzadas”, un diálogo con Enrique Santos Calderón sobre sesenta años de periodismo. Creó la Unidad Investigativa de El Tiempo, donde trabajó medio siglo, y dirigió Cambio 16. Premios Rey de España, Maria Moors Cabot y Simón Bolívar. Miembro de la Academia Colombiana de la Lengua.',
+    bio: 'Columnista de Los Danieles, la plataforma que fundó en 2020 con Daniel Coronell y Daniel Samper Ospina. En 2026 publicó “Memorias cruzadas”, un diálogo con Enrique Santos Calderón sobre sesenta años de periodismo. Creó la Unidad Investigativa de El Tiempo, donde trabajó medio siglo, y fundó Cambio 16 Colombia. Premios Rey de España, Maria Moors Cabot y Simón Bolívar. Miembro de la Academia Colombiana de la Lengua.',
     photo: photoDanielSamperPizano,
     links: {
       x: 'https://x.com/DanielSamperPi',
@@ -65,17 +65,6 @@ export const speakers: Speaker[] = [
     photo: photoDarioRestrepo,
     links: {
       wikipedia: 'https://es.wikipedia.org/wiki/Dar%C3%ADo_Restrepo_V%C3%A9lez',
-    },
-    confirmed: true,
-  },
-  {
-    slug: 'jorge-cardona',
-    name: 'Jorge Cardona',
-    credential: 'Exeditor general · El Espectador',
-    bio: 'Escritor, periodista y columnista de El Espectador, diario del que fue editor general entre 2005 y 2021. Acaba de publicar “Rastros de una pasión” (2026) y “Sin medias tintas” (2025), tres siglos de Colombia contados desde El Espectador. Premio Simón Bolívar a la Vida y Obra de un Periodista (2020). Autor de “Días de memoria” y “Diario del conflicto”. Filósofo y profesor universitario.',
-    photo: photoJorgeCardona,
-    links: {
-      web: 'https://www.elespectador.com/opinion/columnistas/jorge-cardona/',
     },
     confirmed: true,
   },
@@ -103,6 +92,17 @@ export const speakers: Speaker[] = [
     links: {
       x: 'https://x.com/LuzMaSierra',
       linkedin: 'https://www.linkedin.com/in/luz-maria-sierra-4317a338/',
+    },
+    confirmed: true,
+  },
+  {
+    slug: 'martha-soto',
+    name: 'Martha Soto',
+    credential: 'Editora de la Unidad Investigativa · El Tiempo',
+    bio: 'Editora de la Unidad Investigativa de El Tiempo desde 1998, donde ha destapado escándalos de narcotráfico, paramilitarismo y corrupción durante más de tres décadas. Autora de siete libros, entre ellos “El abogado de la mafia”, “Narcojet” y “Velásquez, el retador del poder”. Ha recibido más de treinta premios, incluidos el Simón Bolívar, el CPB y el Global Shining Light. Magíster en Estudios Políticos de la Javeriana.',
+    photo: photoMarthaSoto,
+    links: {
+      web: 'https://www.eltiempo.com/autor/martha-soto',
     },
     confirmed: true,
   },
@@ -135,7 +135,7 @@ export const speakers: Speaker[] = [
     slug: 'guillermo-gonzalez',
     name: 'Guillermo González',
     credential: 'Fundador de Número · columnista de El Espectador',
-    bio: 'Periodista, editor y escritor. Columnista de El Espectador y director de El Ala de Arriba. Fundó y dirigió durante 18 años la revista Número (1993-2011). Antes dirigió Gaceta de Colcultura y el Magazín Dominical de El Espectador, donde empezó como reportero en 1977. Premio Planeta de Periodismo 2002 por “Los niños de la guerra”. Autor de “A pesar de la noche” y “Foto Sady, recuerdos de la realidad”.',
+    bio: 'Periodista, editor y escritor. Columnista de El Espectador y director de El Ala de Arriba. Fundó y dirigió durante 18 años la revista Número (1993-2011). Antes dirigió Gaceta de Colcultura y el Magazín Dominical de El Espectador, donde empezó como reportero en 1977. Premio Planeta de Periodismo 2002 por “Los niños de la guerra” y Premio Media de LASA. Autor de “A pesar de la noche” y “Foto Sady, recuerdos de la realidad”.',
     photo: photoGuillermoGonzalez,
     links: {
       x: 'https://x.com/guillogonzale12',

@@ -8,6 +8,7 @@
  */
 import { Image } from 'astro:assets';
 import { t } from '../ui';
+import { event } from '../data/event';
 import CtaButton from './CtaButton.astro';
 import LogoLockup from '../assets/logo/logo-lockup.svg';
 import streetPhoto from '../assets/photos/pexels-enzo-renz-424999667-33786545.jpg';
@@ -15,6 +16,13 @@ import streetPhoto from '../assets/photos/pexels-enzo-renz-424999667-33786545.jp
 /* Slogan aprobado (spec §2); el nombre del evento va en el h1 para SEO/AT
    y el eslogan es el display visible. */
 const slogan = ['La historia reciente', 'de Colombia, contada', 'por quienes', 'la ven de frente.'];
+
+/* Contador: días hasta el 5 de noviembre. Valor de build como punto de
+   partida; el script lo recalcula en el navegador con hora de Bogotá. */
+const daysToStart = Math.max(
+  0,
+  Math.ceil((Date.parse(`${event.startDate}T00:00:00-05:00`) - Date.now()) / 86_400_000),
+);
 ---
 
 <section class="hero" aria-labelledby="hero-title">
@@ -26,6 +34,8 @@ const slogan = ['La historia reciente', 'de Colombia, contada', 'por quienes', '
           <span class="sr-only">Testigos de la Memoria: </span>
           {slogan.map((line) => <span class="hero-line">{line}</span>)}
         </h1>
+        <p class="hero-pitch">{t('hero.pitch')}</p>
+        <p class="hero-note">{t('hero.note')}</p>
       </div>
     </div>
     <div class="hero-side">
@@ -50,7 +60,19 @@ const slogan = ['La historia reciente', 'de Colombia, contada', 'por quienes', '
         <span class="hero-date-days">5–8</span>
         <span class="hero-date-month">noviembre 2026</span>
       </p>
-      <p class="hero-info">Talleres y conversatorios.</p>
+      <p class="hero-info">{t('hero.info')}</p>
+      <p
+        class="hero-count"
+        data-countdown
+        data-start={event.startDate}
+        data-end={event.endDate}
+        data-label={t('hero.countdown')}
+        data-today={t('hero.countdownToday')}
+        data-live={t('hero.countdownLive')}
+      >
+        <span class="hero-count-num" data-countdown-num>{daysToStart}</span>
+        <span class="hero-count-label">{t('hero.countdown')}</span>
+      </p>
       <p class="hero-place">{t('hero.place')}</p>
       <CtaButton />
     </div>
@@ -58,6 +80,29 @@ const slogan = ['La historia reciente', 'de Colombia, contada', 'por quienes', '
   <div class="hero-spacer"></div>
   <div data-header-sentinel aria-hidden="true"></div>
 </section>
+
+<script>
+  // Contador de días hasta el inicio, con hora de Bogotá. Sin JS queda el
+  // valor calculado en el build.
+  const box = document.querySelector<HTMLElement>('[data-countdown]');
+  const num = box?.querySelector<HTMLElement>('[data-countdown-num]');
+  if (box && num && box.dataset.start && box.dataset.end) {
+    const start = Date.parse(`${box.dataset.start}T00:00:00-05:00`);
+    const end = Date.parse(`${box.dataset.end}T23:59:59-05:00`);
+    const now = Date.now();
+    const days = Math.ceil((start - now) / 86_400_000);
+    if (days > 0) {
+      num.textContent = String(days);
+      box.querySelector('.hero-count-label')!.textContent =
+        days === 1 ? box.dataset.label!.replace('días', 'día') : box.dataset.label!;
+    } else if (now <= end) {
+      box.textContent = days === 0 ? box.dataset.today! : box.dataset.live!;
+      box.classList.add('hero-count--text');
+    } else {
+      box.hidden = true;
+    }
+  }
+</script>
 
 <style>
   .hero-fixed {
@@ -115,6 +160,24 @@ const slogan = ['La historia reciente', 'de Colombia, contada', 'por quienes', '
     font-weight: 500;
     letter-spacing: 0;
     color: var(--cream);
+  }
+
+  /* Remate de venta bajo el eslogan: escasez real, sin súplica */
+  .hero-pitch {
+    margin-top: var(--space-2);
+    font-size: var(--text-lead);
+    font-weight: 600;
+    max-width: 30ch;
+    text-wrap: balance;
+  }
+  .hero-note {
+    margin-top: var(--space-1);
+    font-size: var(--text-label);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    opacity: 0.85;
   }
 
   .sr-only {
@@ -181,6 +244,28 @@ const slogan = ['La historia reciente', 'de Colombia, contada', 'por quienes', '
   }
   .hero-info {
     font-weight: 600;
+  }
+  /* Contador: cifra en serif itálica, eco del "5–8" */
+  .hero-count {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4em;
+  }
+  .hero-count-num {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.6rem, 1.1rem + 1.4vw, 2.3rem);
+    line-height: 1;
+  }
+  .hero-count-label {
+    font-size: var(--text-label);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .hero-count--text {
+    font-weight: 800;
   }
   .hero-place {
     font-weight: 800;

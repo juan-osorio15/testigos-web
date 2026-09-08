@@ -6,14 +6,18 @@
 export const SITE_URL = 'https://testigosdelamemoria.com';
 
 /**
- * URL del evento en Pretix (formato: https://pretix.eu/<organizador>/<evento>/).
- * TODO-PRETIX-URL: reemplazar cuando el organizador entregue la tienda real.
+ * Tienda real del evento en la instancia de Pretix de Eventalist (entregada
+ * el 2026-09-07). Widget v2 en español; el CSS lo sirve el propio evento.
  */
-export const PRETIX_EVENT_URL = 'TODO-PRETIX-URL';
+export const PRETIX_EVENT_URL = 'https://pretix.eventalist.co/eventalist/testigos-memoria/';
+export const PRETIX_WIDGET_SCRIPT = 'https://pretix.eventalist.co/widget/v2.es.js';
+export const PRETIX_WIDGET_CSS = `${PRETIX_EVENT_URL}widget/v2.css`;
 
 /**
- * Mientras sea `false`, la sección de compra muestra "la venta abre pronto"
- * y NO carga widget ni enlaces. Pasar a `true` SOLO junto con la URL real.
+ * Mientras sea `false`, la portada muestra "la venta abre pronto" con el
+ * formulario de interesados y NO carga el widget. La ruta /demo ignora este
+ * valor y muestra la tienda real para probarla; cuando se apruebe, pasar a
+ * `true` y borrar /demo.
  */
 export const pretixReady = false;
 

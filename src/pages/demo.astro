@@ -1,4 +1,10 @@
 ---
+/**
+ * TEMPORAL. La portada con la tienda real de Pretix en lugar del formulario
+ * de interesados, para probar la compra de punta a punta. noindex. Cuando la
+ * prueba se apruebe: `pretixReady = true` en config.ts, borrar este archivo
+ * y la excepción de src/links.ts.
+ */
 import EventLayout from '../layouts/EventLayout.astro';
 import Hero from '../components/Hero.astro';
 import TicketSection from '../components/TicketSection.astro';
@@ -11,6 +17,8 @@ import FAQ from '../components/FAQ.astro';
 ---
 
 <EventLayout
+  noindex
+  pretixLive
   title="Testigos de la Memoria · Periodistas en la Historia · Villa de Leyva, 5 al 8 de noviembre de 2026"
   description="La historia reciente de Colombia, contada por quienes la ven de frente. Conversatorios y charlas abiertas con los periodistas que cubrieron los últimos cincuenta años del país. Villa de Leyva, 5 al 8 de noviembre de 2026."
 >
@@ -20,7 +28,7 @@ import FAQ from '../components/FAQ.astro';
     <SpeakerGrid />
     <Schedule />
     <VenueMap />
-    <TicketSection />
+    <TicketSection live />
     <Interlude />
     <FAQ />
   </main>

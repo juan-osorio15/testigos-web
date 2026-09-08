@@ -6,6 +6,7 @@
  * sin JS, el fallback <noscript> lo deja sólido y legible siempre.
  */
 import { t } from '../ui';
+import { sectionHref } from '../links';
 import CtaButton from './CtaButton.astro';
 import LogoLockup from '../assets/logo/logo-lockup.svg';
 
@@ -15,11 +16,11 @@ const base = import.meta.env.BASE_URL.endsWith('/')
   ? import.meta.env.BASE_URL
   : import.meta.env.BASE_URL + '/';
 const navItems = [
-  { href: `${base}#oportunidad`, label: t('nav.opportunity') },
-  { href: `${base}#speakers`, label: t('nav.speakers') },
-  { href: `${base}#agenda`, label: t('nav.schedule') },
-  { href: `${base}#lugar`, label: t('nav.venue') },
-  { href: `${base}#faq`, label: t('nav.faq') },
+  { href: sectionHref(Astro.url.pathname, 'oportunidad'), label: t('nav.opportunity') },
+  { href: sectionHref(Astro.url.pathname, 'speakers'), label: t('nav.speakers') },
+  { href: sectionHref(Astro.url.pathname, 'agenda'), label: t('nav.schedule') },
+  { href: sectionHref(Astro.url.pathname, 'lugar'), label: t('nav.venue') },
+  { href: sectionHref(Astro.url.pathname, 'faq'), label: t('nav.faq') },
 ];
 ---
 

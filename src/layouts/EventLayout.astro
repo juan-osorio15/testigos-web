@@ -1,7 +1,13 @@
 ---
 import '../styles/tokens.css';
 import '../styles/global.css';
-import { SITE_URL, PRETIX_EVENT_URL, pretixReady } from '../config';
+import {
+  SITE_URL,
+  PRETIX_EVENT_URL,
+  PRETIX_WIDGET_CSS,
+  PRETIX_WIDGET_SCRIPT,
+  pretixReady,
+} from '../config';
 import { t } from '../ui';
 import { event, venues } from '../data/event';
 import Header from '../components/Header.astro';
@@ -15,9 +21,12 @@ interface Props {
   description: string;
   /** noindex para páginas utilitarias (404) */
   noindex?: boolean;
+  /** Fuerza la tienda de Pretix (widget en <head> y oferta en JSON-LD)
+      sin depender de `pretixReady`. Solo la usa /demo. */
+  pretixLive?: boolean;
 }
 
-const { title, description, noindex = false } = Astro.props;
+const { title, description, noindex = false, pretixLive = pretixReady } = Astro.props;
 
 /* Base del despliegue (siempre '/'; se conserva por si cambia el hosting). */
 const base = import.meta.env.BASE_URL.endsWith('/')
@@ -54,7 +63,7 @@ const jsonLd = {
     },
   })),
   organizer: event.organizers.map((name) => ({ '@type': 'Person', name })),
-  ...(pretixReady
+  ...(pretixLive
     ? {
         offers: {
           '@type': 'Offer',
@@ -96,6 +105,15 @@ const jsonLd = {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {/* Widget de Pretix (v2), tal como lo indica la propia tienda: en <head> */}
+    {
+      pretixLive && (
+        <>
+          <link rel="stylesheet" type="text/css" href={PRETIX_WIDGET_CSS} crossorigin="anonymous" />
+          <script is:inline type="text/javascript" src={PRETIX_WIDGET_SCRIPT} async crossorigin="anonymous" />
+        </>
+      )
+    }
     <!-- Marca temprana: solo con JS las secciones parten ocultas (R7) -->
     <script is:inline>
       document.documentElement.classList.add('js-reveal');
