@@ -295,7 +295,10 @@ Requisito para que el texto sea cierto: en la misma página, **Attach ticket
 files** activado (y, opcionalmente, **Attach calendar files**). Sin eso la
 boleta no viaja adjunta. El asunto NO repite "Testigos de la Memoria" porque el
 Subject prefix ya lo antepone entre corchetes. `{name_for_salutation}` cae al
-nombre de pila si existe y, si no, a un saludo neutro.
+nombre de pila si existe y, si no, a un saludo neutro. `{url_button}` se
+pinta como botón en HTML y, en texto plano, como "Ver detalles del pedido:
+<enlace>", así que la frase anterior no debe decir "detalles del pedido" ni
+terminar en dos puntos.
 
 #### Paid order · Subject
 
@@ -310,7 +313,7 @@ Hola {name_for_salutation},
 
 Ya está. Tienes tu lugar en Testigos de la Memoria.
 
-Tu boleta va adjunta a este correo en PDF. También puedes verla, descargarla y revisar los detalles de tu pedido aquí:
+Tu boleta va adjunta a este correo en PDF. Si prefieres verla o descargarla desde la página, usa el enlace de abajo.
 
 {url_button}
 
@@ -334,7 +337,7 @@ Hola {name_for_salutation},
 
 Ya está. Tienes tu lugar en Testigos de la Memoria y no hay nada que pagar.
 
-Tu boleta va adjunta a este correo en PDF. También puedes verla, descargarla y revisar los detalles de tu pedido aquí:
+Tu boleta va adjunta a este correo en PDF. Si prefieres verla o descargarla desde la página, usa el enlace de abajo.
 
 {url_button}
 
