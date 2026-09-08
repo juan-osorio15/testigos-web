@@ -73,7 +73,7 @@ export const agenda: AgendaSlot[] = [
     type: 'conversatorio',
     title: 'Bienvenida y presentación',
     venueId: 'duruelo',
-    speakerSlugs: ['dario-restrepo', 'jorge-cardona'],
+    speakerSlugs: ['dario-restrepo'],
   },
   {
     day: '2026-11-06',

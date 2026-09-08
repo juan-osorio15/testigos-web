@@ -11,7 +11,6 @@
 
 import photoDanielSamperPizano from '../assets/speakers/daniel-samper-pizano.jpg';
 import photoDarioRestrepo from '../assets/speakers/dario-restrepo.jpg';
-import photoJorgeCardona from '../assets/speakers/jorge-cardona.jpg';
 import photoMarisolGomez from '../assets/speakers/marisol-gomez.jpg';
 import photoLuzMariaSierra from '../assets/speakers/luz-maria-sierra.jpg';
 import photoCeciliaOrozco from '../assets/speakers/cecilia-orozco.jpg';
@@ -48,7 +47,7 @@ export const speakers: Speaker[] = [
     slug: 'daniel-samper-pizano',
     name: 'Daniel Samper Pizano',
     credential: 'Periodista y escritor · Los Danieles',
-    bio: 'Columnista de Los Danieles, la plataforma que fundó en 2020 con Daniel Coronell y Daniel Samper Ospina. En 2026 publicó “Memorias cruzadas”, un diálogo con Enrique Santos Calderón sobre sesenta años de periodismo. Creó la Unidad Investigativa de El Tiempo, donde trabajó medio siglo, y dirigió Cambio 16. Premios Rey de España, Maria Moors Cabot y Simón Bolívar. Miembro de la Academia Colombiana de la Lengua.',
+    bio: 'Columnista de Los Danieles, la plataforma que fundó en 2020 con Daniel Coronell y Daniel Samper Ospina. En 2026 publicó “Memorias cruzadas”, un diálogo con Enrique Santos Calderón sobre sesenta años de periodismo. Creó la Unidad Investigativa de El Tiempo, donde trabajó medio siglo, y fundó Cambio 16 Colombia. Premios Rey de España, Maria Moors Cabot y Simón Bolívar. Miembro de la Academia Colombiana de la Lengua.',
     photo: photoDanielSamperPizano,
     links: {
       x: 'https://x.com/DanielSamperPi',
@@ -65,17 +64,6 @@ export const speakers: Speaker[] = [
     photo: photoDarioRestrepo,
     links: {
       wikipedia: 'https://es.wikipedia.org/wiki/Dar%C3%ADo_Restrepo_V%C3%A9lez',
-    },
-    confirmed: true,
-  },
-  {
-    slug: 'jorge-cardona',
-    name: 'Jorge Cardona',
-    credential: 'Exeditor general · El Espectador',
-    bio: 'Escritor, periodista y columnista de El Espectador, diario del que fue editor general entre 2005 y 2021. Acaba de publicar “Rastros de una pasión” (2026) y “Sin medias tintas” (2025), tres siglos de Colombia contados desde El Espectador. Premio Simón Bolívar a la Vida y Obra de un Periodista (2020). Autor de “Días de memoria” y “Diario del conflicto”. Filósofo y profesor universitario.',
-    photo: photoJorgeCardona,
-    links: {
-      web: 'https://www.elespectador.com/opinion/columnistas/jorge-cardona/',
     },
     confirmed: true,
   },

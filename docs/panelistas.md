@@ -17,9 +17,8 @@ Un solo mensaje sirve para todos:
 
 | Panelista | Credencial publicada | Redes enlazadas | Foto usada (crédito) | Pendiente de confirmar |
 |---|---|---|---|---|
-| Daniel Samper Pizano | Periodista y escritor · Los Danieles | X @DanielSamperPi · Los Danieles · Wikipedia | Foto de autor de Cambio (b/n), derechos reservados. Alternativa con licencia libre: Wikimedia Commons, NotimexTV 2018, CC BY 3.0, pero de baja calidad | La cuenta de X fue señalada como parodia en 2020; en 2026 Los Danieles la etiqueta como suya. Confirmar con él. |
+| Daniel Samper Pizano (fundador de Cambio 16 Colombia, no director; corrección de los organizadores 2026-09-07) | Periodista y escritor · Los Danieles | X @DanielSamperPi · Los Danieles · Wikipedia | Foto de autor de Cambio (b/n), derechos reservados. Alternativa con licencia libre: Wikimedia Commons, NotimexTV 2018, CC BY 3.0, pero de baja calidad | La cuenta de X fue señalada como parodia en 2020; en 2026 Los Danieles la etiqueta como suya. Confirmar con él. |
 | Darío Restrepo | Periodista · codirector del encuentro | Wikipedia | El Tiempo 2018, © Casa Editorial El Tiempo | **Identidad**: la bio corresponde a Darío Restrepo Vélez (exdirector de Citytv, n. 1949). Ninguna fuente pública lo vincula con el encuentro. Confirmar con Fernando Cordovez antes de publicar. No tiene redes públicas. |
-| Jorge Cardona | Exeditor general · El Espectador | Columna en El Espectador | Comfama, enero 2025, sin crédito de fotógrafo | Dejó la edición general en diciembre de 2021. Sin redes personales encontradas. |
 | Marisol Gómez | Columnista · Cambio | X @Marisol_GomezG · LinkedIn · Facebook · columna en Cambio | Festival Gabo 2024, sin crédito | Salió de El Tiempo en 2019 y fue concejal de Bogotá 2020-2023. Su LinkedIn está desactualizado. |
 | Luz María Sierra | Directora · El Colombiano | X @LuzMaSierra · LinkedIn (probable) | Forbes Colombia 2026, crédito El Colombiano | Sigue siendo directora (no "exdirectora"). Instagram @luzmariasierra no parece suyo; no se enlazó. |
 | Cecilia Orozco | Columnista · El Espectador | X @CeciliaOrozcoT · columna en El Espectador · Wikipedia | RTVC / Señal Colombia, octubre 2025 | Dejó la dirección de Noticias Uno en marzo de 2024; sigue en la junta. Conduce "Parte y Contraparte" en Señal Colombia. |
@@ -40,3 +39,8 @@ Recortadas a 4:3 y 960 px de ancho en `src/assets/speakers/`. Se muestran en bla
   guerrillas" queda sin panelistas hasta que haya uno confirmado.
 - Cóctel de bienvenida sin sede (no está confirmada).
 - Se eliminaron las dos tarjetas "Por confirmar" del carrusel.
+
+
+## Retirados
+
+- Jorge Cardona: retirado el 2026-09-07 por indicación de los organizadores (aún no han hablado con él). Su investigación queda en la sesión por si vuelve.
