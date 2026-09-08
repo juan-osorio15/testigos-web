@@ -283,6 +283,72 @@ Boletería a cargo de Eventalist. Dudas sobre tu compra: hola@eventalist.co
 La firma ya lleva la web y las fechas, así que los textos de cada correo
 (confirmación, pago, boletas) no deben repetirlos.
 
+### Contenido de los correos automáticos (Settings → E-mail → E-mail content)
+
+Solo se personalizan los dos que marcan la experiencia: **Paid order** (llega
+cuando entra el pago) y **Free order** (pedido sin cobro: cupos de cortesía o
+productos gratuitos). Los demás (Placed order, Resend link, Payment reminder,
+Order canceled, etc.) son informativos y los textos por defecto de pretix
+cumplen.
+
+Requisito para que el texto sea cierto: en la misma página, **Attach ticket
+files** activado (y, opcionalmente, **Attach calendar files**). Sin eso la
+boleta no viaja adjunta. El asunto NO repite "Testigos de la Memoria" porque el
+Subject prefix ya lo antepone entre corchetes. `{name_for_salutation}` cae al
+nombre de pila si existe y, si no, a un saludo neutro.
+
+#### Paid order · Subject
+
+```
+Todo listo: tu lugar en Villa de Leyva está asegurado · Pedido {code}
+```
+
+#### Paid order · Text
+
+```
+Hola {name_for_salutation},
+
+Ya está. Tienes tu lugar en Testigos de la Memoria.
+
+Tu boleta va adjunta a este correo en PDF. También puedes verla, descargarla y revisar los detalles de tu pedido aquí:
+
+{url_button}
+
+Guárdala en el celular: en la entrada de la Hospedería Duruelo escaneamos el código de cada boleta.
+
+Lo que viene: cuatro días en Villa de Leyva escuchando, de frente, a quienes vieron la historia reciente de Colombia. Los conversatorios empiezan el viernes 6 a las 3:00 p. m. Las charlas abiertas del jueves 5 y del viernes en la mañana, en la Casa Museo Antonio Nariño, no necesitan boleta.
+
+Nos vemos en Villa de Leyva.
+```
+
+#### Free order · Subject
+
+```
+Todo listo: tienes tu lugar en Testigos de la Memoria · Pedido {code}
+```
+
+#### Free order · Text
+
+```
+Hola {name_for_salutation},
+
+Ya está. Tienes tu lugar en Testigos de la Memoria y no hay nada que pagar.
+
+Tu boleta va adjunta a este correo en PDF. También puedes verla, descargarla y revisar los detalles de tu pedido aquí:
+
+{url_button}
+
+Guárdala en el celular: en la entrada escaneamos el código de cada boleta.
+
+Lo que viene: cuatro días en Villa de Leyva escuchando, de frente, a quienes vieron la historia reciente de Colombia. Los conversatorios empiezan el viernes 6 a las 3:00 p. m. Las charlas abiertas del jueves 5 y del viernes en la mañana, en la Casa Museo Antonio Nariño, no necesitan boleta.
+
+Nos vemos en Villa de Leyva.
+```
+
+> Ninguno de los dos menciona hola@eventalist.co ni las fechas completas: ya
+> van en la firma que pretix pega al pie. Si más adelante se cambia la firma,
+> revisar que la línea de contacto siga en alguna parte.
+
 ---
 
 ## Facturas (Settings → Invoicing)
