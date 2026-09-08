@@ -15,7 +15,7 @@ import {
   waitlistReady,
 } from '../config';
 import { t } from '../ui';
-import { event } from '../data/event';
+import LogoSymbol from '../assets/logo/logo-symbol.svg';
 
 interface Props {
   /** Muestra la tienda aunque `pretixReady` sea false (solo /demo).
@@ -36,8 +36,12 @@ const base = import.meta.env.BASE_URL.endsWith('/')
 <section id="boletas" class="tickets">
   <div class="container tickets-grid">
     <div class="tickets-intro">
+      {/* Las comillas del logo, en crema y espejadas: "miran" hacia la tienda */}
+      <LogoSymbol class="tickets-eyes" aria-hidden="true" />
       <p class="eyebrow">{t('tickets.heading')}</p>
-      <p class="tickets-lead">{event.description}</p>
+      <h2 class="tickets-title">{t('tickets.title')}</h2>
+      <p class="tickets-lead">{t('tickets.body')}</p>
+      <p class="tickets-free">{t('tickets.freeNote')}</p>
     </div>
     <div class="tickets-widget">
       {
@@ -194,11 +198,13 @@ const base = import.meta.env.BASE_URL.endsWith('/')
 </script>
 
 <style>
+  /* Bloque terracota: el mensaje en tinta, la tienda en su tarjeta blanca
+     y las comillas del logo en crema, mirando la tienda (manual pág. 6). */
   .tickets {
     position: relative;
     z-index: 1;
-    background-color: var(--cream);
-    border-top: var(--border) var(--ink);
+    background-color: var(--terracotta);
+    color: var(--ink);
     padding-block: var(--space-6);
   }
 
@@ -218,13 +224,32 @@ const base = import.meta.env.BASE_URL.endsWith('/')
   .tickets-widget {
     order: 1;
   }
+  .tickets-eyes {
+    width: clamp(7rem, 5rem + 6vw, 11rem);
+    height: auto;
+    color: var(--cream);
+    transform: scaleX(-1); /* miran a la izquierda, donde está la tienda */
+    margin-bottom: var(--space-2);
+  }
   .tickets-intro .eyebrow {
-    color: var(--brick);
+    color: var(--ink);
+  }
+  .tickets-title {
+    font-size: var(--text-h2);
+    max-width: 16ch;
   }
   .tickets-lead {
     font-size: var(--text-lead);
     line-height: 1.55;
+    max-width: 38ch;
     text-wrap: pretty;
+  }
+  .tickets-free {
+    font-size: var(--text-small);
+    font-weight: 600;
+    max-width: 40ch;
+    padding-top: var(--space-2);
+    border-top: var(--border) rgba(33, 8, 4, 0.35);
   }
 
   .tickets-widget {
