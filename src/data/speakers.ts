@@ -13,6 +13,7 @@ import photoDanielSamperPizano from '../assets/speakers/daniel-samper-pizano.jpg
 import photoDarioRestrepo from '../assets/speakers/dario-restrepo.jpg';
 import photoMarisolGomez from '../assets/speakers/marisol-gomez.jpg';
 import photoLuzMariaSierra from '../assets/speakers/luz-maria-sierra.jpg';
+import photoMarthaSoto from '../assets/speakers/martha-soto.jpg';
 import photoCeciliaOrozco from '../assets/speakers/cecilia-orozco.jpg';
 import photoMartaRuiz from '../assets/speakers/marta-ruiz.jpg';
 import photoGuillermoGonzalez from '../assets/speakers/guillermo-gonzalez.jpg';
@@ -91,6 +92,17 @@ export const speakers: Speaker[] = [
     links: {
       x: 'https://x.com/LuzMaSierra',
       linkedin: 'https://www.linkedin.com/in/luz-maria-sierra-4317a338/',
+    },
+    confirmed: true,
+  },
+  {
+    slug: 'martha-soto',
+    name: 'Martha Soto',
+    credential: 'Editora de la Unidad Investigativa · El Tiempo',
+    bio: 'Editora de la Unidad Investigativa de El Tiempo desde 1998, donde ha destapado escándalos de narcotráfico, paramilitarismo y corrupción durante más de tres décadas. Autora de siete libros, entre ellos “El abogado de la mafia”, “Narcojet” y “Velásquez, el retador del poder”. Ha recibido más de treinta premios, incluidos el Simón Bolívar, el CPB y el Global Shining Light. Magíster en Estudios Políticos de la Javeriana.',
+    photo: photoMarthaSoto,
+    links: {
+      web: 'https://www.eltiempo.com/autor/martha-soto',
     },
     confirmed: true,
   },
