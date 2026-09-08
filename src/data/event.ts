@@ -1,6 +1,6 @@
 /**
  * Hechos del evento. Fuente: spec (Clarifications 2026-08-25).
- * Fechas de comunicación: 5 al 8 de noviembre (talleres gratuitos el 5;
+ * Fechas de comunicación: 5 al 8 de noviembre (charlas abiertas el 5 y 6;
  * conversatorios con boleta del 6 al 8). FR-001.
  */
 import photoDuruelo from '../assets/venues/duruelo.jpg';
@@ -13,7 +13,7 @@ export const event = {
   city: 'Villa de Leyva, Colombia',
   organizers: ['Fernando Cordovez', 'Darío Restrepo'],
   description:
-    'Los periodistas que cubrieron los últimos cincuenta años de Colombia cuentan y analizan, en persona, los hechos que vivieron de frente. Conversatorios y talleres en Villa de Leyva, del 5 al 8 de noviembre de 2026.',
+    'Los periodistas que cubrieron los últimos cincuenta años de Colombia cuentan y analizan, en persona, los hechos que vivieron de frente. Conversatorios y charlas abiertas en Villa de Leyva, del 5 al 8 de noviembre de 2026.',
 } as const;
 
 export type VenueId = 'casa-museo' | 'duruelo';
@@ -54,10 +54,10 @@ export const venues: Venue[] = [
     id: 'casa-museo',
     name: 'Casa Museo Antonio Nariño',
     address: 'Carrera 9 n.º 10-25, Villa de Leyva, Boyacá',
-    role: 'Talleres de periodismo · entrada libre · 5 y 6 de noviembre',
+    role: 'Charlas abiertas · entrada libre · 5 y 6 de noviembre',
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=Casa+Museo+Antonio+Nari%C3%B1o+Villa+de+Leyva',
-    kicker: 'Sede de los talleres',
+    kicker: 'Sede de las charlas abiertas',
     summary:
       'Una casona colonial de finales del siglo XVII, con balcón de madera y patio empedrado en torno a una fuente de piedra. Aquí pasó sus últimos meses y murió, en diciembre de 1823, Antonio Nariño, el precursor que tradujo los Derechos del Hombre. Es Monumento Nacional desde 1961 y hoy un museo de cuatro salas sobre la vida de la Colonia y la República.',
     photo: photoCasaMuseo,

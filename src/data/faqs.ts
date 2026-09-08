@@ -14,7 +14,7 @@ export const faqs: Faq[] = [
   {
     question: '¿Qué es gratis y qué requiere boleta?',
     answer:
-      'Los talleres de periodismo del jueves 5 y el viernes 6 de noviembre, en la Casa Museo Antonio Nariño, son de entrada libre. Los conversatorios, del viernes 6 en la tarde al domingo 8, en la Hospedería Duruelo, requieren boleta.',
+      'Las charlas abiertas del jueves 5 y del viernes 6 en la mañana, en la Casa Museo Antonio Nariño, son de entrada libre. Los conversatorios, del viernes 6 en la tarde al domingo 8, en la Hospedería Duruelo, requieren boleta: habrá pase completo y boletas por franja, con aforo limitado.',
   },
   {
     question: '¿Es seguro pagar en esta página?',
@@ -32,12 +32,12 @@ export const faqs: Faq[] = [
       'Villa de Leyva tiene una oferta amplia de hoteles y hospederías a pocas cuadras de ambas sedes. El evento cae en fin de semana, así que conviene reservar con anticipación.',
   },
   {
-    question: '¿Necesito ser periodista para asistir?',
+    question: '¿Por qué debería ir si no soy periodista?',
     answer:
-      'No. El encuentro está pensado para cualquier persona interesada en la historia reciente de Colombia y en cómo se ha contado.',
+      'Porque esta no es una reunión para periodistas. Es una conversación para quienes quieren entender mejor la Colombia que hemos vivido y las historias que ayudaron a construir nuestra memoria colectiva.',
   },
   {
-    question: '¿Los talleres del 5 y 6 de noviembre requieren inscripción?',
+    question: '¿Las charlas abiertas del 5 y 6 de noviembre requieren inscripción?',
     answer:
       'La entrada es libre. Los detalles de cupos e inscripción se publicarán en esta página.',
   },

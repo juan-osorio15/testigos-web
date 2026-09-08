@@ -1,7 +1,7 @@
 ---
 /**
  * Agenda (FR-004): una tabla por día — hora | sesión | acción.
- * Talleres: etiqueta "Entrada libre". Conversatorios: botón de compra
+ * Charlas abiertas: etiqueta "Entrada libre". Conversatorios: botón de compra
  * en la propia fila (decisión del usuario 2026-09-02; reemplaza al badge
  * "Con boleta" y al CTA de cierre de la sección). Todo dato sin fuente
  * (hora, sede, panelistas) se omite en vez de marcarse "por confirmar"
@@ -32,9 +32,12 @@ const heading = 'Cuatro días en Villa de Leyva';
               <tbody>
                 {slotsByDay(day).map((slot) => {
                   const venue = slot.venueId ? venueById(slot.venueId) : null;
-                  const free = slot.type === 'taller';
-                  /* Solo nombres confirmados. */
-                  const names = slot.speakerSlugs.map((s) => speakerBySlug(s).name);
+                  const free = slot.type === 'charla';
+                  /* Solo nombres confirmados: panelistas con tarjeta e invitados. */
+                  const names = [
+                    ...slot.speakerSlugs.map((s) => speakerBySlug(s).name),
+                    ...(slot.guests ?? []),
+                  ];
                   const panelistLabel = names.length > 0 ? names.join(' · ') : null;
                   return (
                     <tr class:list={['slot', { 'slot--free': free }]}>
@@ -42,6 +45,7 @@ const heading = 'Cuatro días en Villa de Leyva';
                       <td class="slot-body">
                         <p class="slot-title">{slot.title}</p>
                         {panelistLabel && <p class="slot-speakers">{panelistLabel}</p>}
+                        {slot.note && <p class="slot-note">{slot.note}</p>}
                         {/* Siempre se reserva la línea de la sede: si aún no está
                             confirmada queda en blanco y la fila no cambia de alto. */}
                         <p class="slot-venue" aria-hidden={venue ? undefined : 'true'}>
@@ -131,6 +135,11 @@ const heading = 'Cuatro días en Villa de Leyva';
   }
   .slot-speakers {
     font-size: var(--text-body);
+  }
+  .slot-note {
+    font-size: var(--text-small);
+    max-width: 62ch;
+    text-wrap: pretty;
   }
   .slot-venue {
     font-size: var(--text-small);

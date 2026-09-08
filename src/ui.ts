@@ -20,11 +20,17 @@ const dict = {
   'hero.tagline': 'Periodistas en la Historia',
   'hero.dates': '5 al 8 de noviembre de 2026',
   'hero.place': 'Villa de Leyva, Colombia',
+  'hero.info': 'Charlas abiertas y conversatorios.',
+  'hero.pitch': 'Cuatro días. Más de diez periodistas. Una conversación que no se repite.',
+  'hero.note': 'Primera edición · Aforo limitado',
+  'hero.countdown': 'días para el encuentro',
+  'hero.countdownToday': 'Hoy empieza el encuentro',
+  'hero.countdownLive': 'El encuentro está en curso',
 
   // --- Sección de compra ---
   'tickets.heading': 'Asegura tu lugar',
   'tickets.soon':
-    'La venta de boletas abre pronto. Los talleres del 5 y 6 de noviembre son de entrada libre.',
+    'La venta de boletas abre pronto. Aforo limitado, con pase completo o boletas por franja. Las charlas abiertas del 5 y 6 de noviembre son de entrada libre.',
   'tickets.widgetFallback':
     'Si el módulo de compra no carga, puedes comprar directamente en la tienda segura de Pretix:',
   'tickets.widgetLink': 'Comprar en Pretix',
