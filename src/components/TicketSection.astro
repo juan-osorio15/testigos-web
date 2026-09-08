@@ -19,7 +19,9 @@ import { event } from '../data/event';
 
 interface Props {
   /** Muestra la tienda aunque `pretixReady` sea false (solo /demo).
-      El <link> y el <script> del widget los pone EventLayout en <head>. */
+      La hoja de estilos y el script del widget los pone EventLayout en
+      la cabecera del documento. (Ojo: no escribir etiquetas literales en
+      este comentario; el escáner de Vite las toma por código.) */
   live?: boolean;
 }
 
