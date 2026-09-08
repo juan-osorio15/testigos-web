@@ -123,7 +123,7 @@ export const speakers: Speaker[] = [
     slug: 'guillermo-gonzalez',
     name: 'Guillermo González',
     credential: 'Fundador de Número · columnista de El Espectador',
-    bio: 'Periodista, editor y escritor. Columnista de El Espectador y director de El Ala de Arriba. Fundó y dirigió durante 18 años la revista Número (1993-2011). Antes dirigió Gaceta de Colcultura y el Magazín Dominical de El Espectador, donde empezó como reportero en 1977. Premio Planeta de Periodismo 2002 por “Los niños de la guerra”. Autor de “A pesar de la noche” y “Foto Sady, recuerdos de la realidad”.',
+    bio: 'Periodista, editor y escritor. Columnista de El Espectador y director de El Ala de Arriba. Fundó y dirigió durante 18 años la revista Número (1993-2011). Antes dirigió Gaceta de Colcultura y el Magazín Dominical de El Espectador, donde empezó como reportero en 1977. Premio Planeta de Periodismo 2002 por “Los niños de la guerra” y Premio Media de LASA. Autor de “A pesar de la noche” y “Foto Sady, recuerdos de la realidad”.',
     photo: photoGuillermoGonzalez,
     links: {
       x: 'https://x.com/guillogonzale12',
