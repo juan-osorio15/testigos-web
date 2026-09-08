@@ -30,8 +30,6 @@ const dict = {
   // --- Sección de compra ---
   'tickets.heading': 'Asegura tu lugar',
   'tickets.title': 'Los tres días de conversatorios, o la franja que no te quieres perder.',
-  'tickets.body':
-    'Pase completo para el viernes, el sábado y el domingo en la Hospedería Duruelo, o boletas por franja para elegir tus mesas. Aforo limitado: las franjas más esperadas se agotan primero.',
   'tickets.freeNote':
     'Las charlas abiertas del jueves y del viernes en la mañana son de entrada libre, sin boleta.',
   'tickets.soon':
