@@ -322,15 +322,30 @@ const daysToStart = Math.max(
   }
 
   @media (max-width: 63.9rem) {
+    /* En móvil el hero fluye con la página en lugar de quedar fijo: así
+       nunca recorta la franja azul con el contador y el CTA en pantallas
+       bajas ni detrás de la barra del navegador. Sigue llenando la
+       primera pantalla cuando cabe. */
     .hero-fixed {
+      position: relative;
+      inset: auto;
+      min-height: 100svh;
+      overflow: visible;
       grid-template-columns: 1fr;
-      grid-template-rows: 1fr auto auto;
+      /* El texto va arriba; la foto absorbe la altura sobrante en
+         celulares altos (más tejado y buganvilias), en vez de dejar
+         aire vacío alrededor del texto */
+      grid-template-rows: auto minmax(0, 1fr) auto;
       grid-template-areas:
         'head'
         'side'
         'strip';
     }
+    .hero-spacer {
+      display: none;
+    }
     .hero-head {
+      align-content: start;
       padding: var(--space-3) var(--gutter);
     }
     .hero-head-inner {
@@ -338,22 +353,30 @@ const daysToStart = Math.max(
       margin-left: 0;
       gap: var(--space-2);
     }
+    /* Logo en crema: contrasta con el texto en tinta del bloque */
     .hero-brand {
       display: block;
       margin-bottom: var(--space-1);
+      color: var(--cream);
     }
     h1 {
-      font-size: clamp(1.7rem, 0.9rem + 5vw, 2.6rem);
+      font-size: min(clamp(1.7rem, 0.9rem + 5vw, 2.6rem), 6svh);
     }
     /* En móvil el logo pequeño del bloque terracota basta: la foto queda como banda propia */
     .hero-watch-block {
       display: none;
     }
     .hero-side {
-      grid-template-rows: none;
+      grid-template-rows: minmax(0, 1fr);
     }
+    /* Banda de foto encuadrada arriba: tejados y buganvilias, no el muro.
+       Altura mínima en celulares bajos; crece con la pantalla. */
     .hero-photo {
-      height: 18svh;
+      height: auto;
+      min-height: clamp(7.5rem, 22svh, 14rem);
+    }
+    .hero-photo :global(img) {
+      object-position: 50% 15%;
     }
     /* Franja compacta: datos apilados y CTA a lo ancho, siempre visible */
     .hero-strip {
