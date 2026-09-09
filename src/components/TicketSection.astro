@@ -214,15 +214,20 @@ const base = import.meta.env.BASE_URL.endsWith('/')
     align-items: start;
   }
 
-  /* La tienda es larga: el texto arranca alineado con su borde superior y
-     se queda pegado bajo el header mientras se recorre la lista, hasta que
-     la propia celda de la cuadrícula lo frena al llegar al fondo. */
+  /* La tienda es larga: la columna del texto se pega bajo el header con la
+     altura de la pantalla y centra su contenido, así el mensaje viaja por
+     la mitad del viewport mientras se recorre la lista, hasta que la
+     propia celda de la cuadrícula lo frena al llegar al fondo. Si la
+     tienda es más corta que la pantalla, la columna mide lo que ella. */
   .tickets-intro {
     display: grid;
     gap: var(--space-2);
+    align-content: center;
     order: 2; /* en desktop: formulario a la izquierda, texto a la derecha */
     position: sticky;
-    top: calc(var(--header-h) + var(--space-3));
+    top: var(--header-h);
+    align-self: stretch;
+    max-height: calc(100vh - var(--header-h));
   }
   .tickets-widget {
     order: 1;
@@ -381,6 +386,9 @@ const base = import.meta.env.BASE_URL.endsWith('/')
     .tickets-intro {
       order: 1;
       position: static;
+      align-self: auto;
+      align-content: start;
+      max-height: none;
     }
     .tickets-widget {
       order: 2;
