@@ -87,7 +87,7 @@ const daysToStart = Math.max(
     </div>
   </div>
   <div class="hero-spacer"></div>
-  <div data-header-sentinel aria-hidden="true"></div>
+  <div class="hero-sentinel" data-header-sentinel aria-hidden="true"></div>
 </section>
 
 <script>
@@ -132,6 +132,19 @@ const daysToStart = Math.max(
   .hero-spacer {
     height: 100svh;
   }
+  /* Centinela del header: ocupa el primer quinto del recorrido del hero.
+     Cuando sale del viewport (scroll ≈ 20 %), el header baja. */
+  .hero {
+    position: relative;
+  }
+  .hero-sentinel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 20svh;
+    pointer-events: none;
+  }
 
   /* Bloque terracota: el titular en tinta, como la valla */
   .hero-head {
@@ -139,15 +152,19 @@ const daysToStart = Math.max(
     background-color: var(--terracotta);
     display: grid;
     align-content: center;
-    padding: var(--space-4) var(--gutter);
+    /* Más aire abajo que arriba: el bloque de texto queda un poco por
+       encima del centro geométrico, como en la valla */
+    padding: var(--space-3) var(--gutter) var(--space-6);
   }
   .hero-head-inner {
     display: grid;
     gap: var(--space-3);
-    max-width: 34rem;
-    margin-left: auto;
-    /* alinear con el container global: mitad del max-width menos gutter */
+    max-width: 36rem;
     width: 100%;
+    /* Mismo borde izquierdo que el .container de las secciones:
+       margen sobrante del max-width global, sin contar el gutter (ya
+       lo pone el padding del bloque) */
+    margin-left: max(0px, calc((100vw - var(--max-width)) / 2));
   }
 
   /* Logo pequeño solo en móvil, donde no hay bloque crema con el lockup */

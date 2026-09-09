@@ -137,7 +137,8 @@ const jsonLd = {
       /* Header de dos estados + scroll reveal.
          Un solo archivo, dos IntersectionObserver, cero listeners de scroll (R7). */
 
-      // 1. Header: recogido sobre el hero, baja cuando el contenido llega arriba.
+      // 1. Header: recogido sobre el hero, baja al pasar el primer quinto
+      //    del recorrido (el centinela mide 20svh desde arriba).
       const header = document.querySelector('header[data-header]');
       const sentinel = document.querySelector('[data-header-sentinel]');
       if (header && sentinel) {
@@ -145,7 +146,7 @@ const jsonLd = {
           ([entry]) => {
             header.classList.toggle('is-solid', !entry.isIntersecting);
           },
-          { rootMargin: '-72px 0px 0px 0px' }
+          { threshold: 0 }
         ).observe(sentinel);
       } else if (header) {
         // Páginas sin hero (404): header siempre sólido.
