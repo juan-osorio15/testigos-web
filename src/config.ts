@@ -14,12 +14,18 @@ export const PRETIX_WIDGET_SCRIPT = 'https://pretix.eventalist.co/widget/v2.es.j
 export const PRETIX_WIDGET_CSS = `${PRETIX_EVENT_URL}widget/v2.css`;
 
 /**
- * Mientras sea `false`, la portada muestra "la venta abre pronto" con el
- * formulario de interesados y NO carga el widget. La ruta /demo ignora este
- * valor y muestra la tienda real para probarla; cuando se apruebe, pasar a
- * `true` y borrar /demo.
+ * INTERRUPTOR DE LA TIENDA. Único punto que decide qué ve el público en la
+ * sección "Asegura tu lugar":
+ *
+ *   true  → tienda real de Pretix (widget en la portada, oferta en JSON-LD).
+ *   false → "la venta abre pronto" con el formulario de interesados; el
+ *           widget ni se carga.
+ *
+ * Si la tienda falla en producción: cambiar a `false`, commit y push a
+ * main. El formulario vuelve sin dejar hueco (todo su código sigue aquí).
+ * Solo se lee en TicketSection.astro y EventLayout.astro.
  */
-export const pretixReady = false;
+export const pretixReady = true;
 
 /**
  * Formulario "avísame cuando abra la venta" (visible solo mientras

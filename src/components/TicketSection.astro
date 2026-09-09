@@ -17,15 +17,9 @@ import {
 import { t } from '../ui';
 import LogoSymbol from '../assets/logo/logo-symbol.svg';
 
-interface Props {
-  /** Muestra la tienda aunque `pretixReady` sea false (solo /demo).
-      La hoja de estilos y el script del widget los pone EventLayout en
-      la cabecera del documento. (Ojo: no escribir etiquetas literales en
-      este comentario; el escáner de Vite las toma por código.) */
-  live?: boolean;
-}
-
-const { live = pretixReady } = Astro.props;
+/* `pretixReady` (config.ts) decide tienda o formulario. La hoja de estilos
+   y el script del widget los pone EventLayout en la cabecera del documento. */
+const live = pretixReady;
 
 /* Base del despliegue: para enlazar la política de datos */
 const base = import.meta.env.BASE_URL.endsWith('/')
@@ -403,7 +397,7 @@ const base = import.meta.env.BASE_URL.endsWith('/')
      Este bloque es global porque Astro no puede scopear lo que inyecta
      el widget. Solo alcanza la lista; el checkout va en un iframe de
      Pretix y se ajusta desde su panel. Todo bajo `.tickets-widget` para
-     no tocar nada más. Estructura verificada en /demo el 2026-09-08. */
+     no tocar nada más. Estructura verificada con la tienda real el 2026-09-08. */
 
   .tickets-widget {
     /* Colores de marca que el widget lee de sus propias variables */

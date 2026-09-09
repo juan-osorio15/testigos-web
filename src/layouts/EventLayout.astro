@@ -20,9 +20,6 @@ interface Props {
   description: string;
   /** noindex para páginas utilitarias (404) */
   noindex?: boolean;
-  /** Fuerza la tienda de Pretix (widget en <head> y oferta en JSON-LD)
-      sin depender de `pretixReady`. Solo la usa /demo. */
-  pretixLive?: boolean;
   /** La página abre con el hero: el header nace recogido y baja al hacer
       scroll. Sin hero (404, política de datos) nace visible y sólido. */
   hero?: boolean;
@@ -32,9 +29,12 @@ const {
   title,
   description,
   noindex = false,
-  pretixLive = pretixReady,
   hero = false,
 } = Astro.props;
+
+/* Tienda de Pretix (widget en la cabecera y oferta en JSON-LD): la decide
+   el interruptor `pretixReady` de config.ts. */
+const pretixLive = pretixReady;
 
 /* Base del despliegue (siempre '/'; se conserva por si cambia el hosting). */
 const base = import.meta.env.BASE_URL.endsWith('/')

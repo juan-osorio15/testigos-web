@@ -5,14 +5,20 @@
  */
 
 const dict = {
-  // --- Compra: ÚNICA fuente del texto del CTA (FR-010) ---
+  // --- Compra: textos del CTA (FR-010, ajuste 2026-09-09). Todos llevan a
+  //     #boletas; el header y la franja del hero usan siempre 'cta.buy'. ---
   'cta.buy': 'Comprar boletas',
+  'cta.beThere': 'Quiero estar ahí',
+  'cta.secure': 'Asegurar mi boleta',
+  'cta.live': 'Vivir Testigos de la Memoria',
 
   // --- Navegación ---
-  'nav.opportunity': 'El encuentro',
-  'nav.speakers': 'Panelistas',
-  'nav.schedule': 'Agenda',
-  'nav.venue': 'Lugar',
+  /* Prueba 2026-09-09 (sugerencia externa): etiquetas en pregunta. Para
+     volver: 'El encuentro', 'Panelistas', 'Agenda', 'Lugar', 'Preguntas'. */
+  'nav.opportunity': '¿Qué voy a vivir?',
+  'nav.speakers': '¿Quiénes estarán?',
+  'nav.schedule': '¿Qué voy a escuchar?',
+  'nav.venue': '¿Dónde?',
   'nav.faq': 'Preguntas',
   'nav.aria': 'Navegación principal',
 
@@ -25,7 +31,16 @@ const dict = {
   'hero.edition': 'Primera edición',
   'hero.format': 'Charlas abiertas y conversatorios',
   'hero.capacity': 'Aforo limitado',
-  'hero.countdown': 'días para el encuentro',
+  /* Contador en vivo: unidad en singular y plural */
+  'hero.unitDay': 'día',
+  'hero.unitDays': 'días',
+  'hero.unitHour': 'hora',
+  'hero.unitHours': 'horas',
+  'hero.unitMinute': 'minuto',
+  'hero.unitMinutes': 'minutos',
+  'hero.unitSecond': 'segundo',
+  'hero.unitSeconds': 'segundos',
+  'hero.countdownAria': 'Tiempo que falta para el encuentro',
   'hero.countdownToday': 'Hoy empieza el encuentro',
   'hero.countdownLive': 'El encuentro está en curso',
 

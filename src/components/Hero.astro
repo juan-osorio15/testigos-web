@@ -18,12 +18,28 @@ import streetPhoto from '../assets/photos/pexels-enzo-renz-424999667-33786545.jp
    y el eslogan es el display visible. */
 const slogan = ['La historia reciente', 'de Colombia, contada', 'por quienes', 'la ven de frente.'];
 
-/* Contador: días hasta el 5 de noviembre. Valor de build como punto de
-   partida; el script lo recalcula en el navegador con hora de Bogotá. */
-const daysToStart = Math.max(
+/* Contador: días, horas, minutos y segundos hasta el 5 de noviembre a las
+   0:00 de Bogotá. Valor de build como punto de partida; el script lo
+   recalcula en el navegador y avanza cada segundo. */
+const secondsToStart = Math.max(
   0,
-  Math.ceil((Date.parse(`${event.startDate}T00:00:00-05:00`) - Date.now()) / 86_400_000),
+  Math.floor((Date.parse(`${event.startDate}T00:00:00-05:00`) - Date.now()) / 1000),
 );
+const initial = {
+  d: Math.floor(secondsToStart / 86_400),
+  h: Math.floor((secondsToStart % 86_400) / 3_600),
+  m: Math.floor((secondsToStart % 3_600) / 60),
+  s: secondsToStart % 60,
+};
+const pad = (n: number) => String(n).padStart(2, '0');
+/* Etiquetas singular|plural por unidad, para el script */
+const units = {
+  d: [t('hero.unitDay'), t('hero.unitDays')],
+  h: [t('hero.unitHour'), t('hero.unitHours')],
+  m: [t('hero.unitMinute'), t('hero.unitMinutes')],
+  s: [t('hero.unitSecond'), t('hero.unitSeconds')],
+};
+const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
 ---
 
 <section class="hero" aria-labelledby="hero-title">
@@ -72,16 +88,31 @@ const daysToStart = Math.max(
         </span>
       </p>
       <p
-        class="hero-fact hero-count"
+        class="hero-count"
         data-countdown
         data-start={event.startDate}
         data-end={event.endDate}
-        data-label={t('hero.countdown')}
+        data-units={JSON.stringify(units)}
         data-today={t('hero.countdownToday')}
         data-live={t('hero.countdownLive')}
+        aria-label={t('hero.countdownAria')}
       >
-        <span class="hero-fact-num" data-countdown-num>{daysToStart}</span>
-        <span class="hero-fact-label" data-countdown-label>{t('hero.countdown')}</span>
+        <span class="hero-fact">
+          <span class="hero-fact-num" data-unit="d">{initial.d}</span>
+          <span class="hero-fact-label" data-unit-label="d">{plural('d', initial.d)}</span>
+        </span>
+        <span class="hero-fact">
+          <span class="hero-fact-num" data-unit="h">{pad(initial.h)}</span>
+          <span class="hero-fact-label" data-unit-label="h">{plural('h', initial.h)}</span>
+        </span>
+        <span class="hero-fact">
+          <span class="hero-fact-num" data-unit="m">{pad(initial.m)}</span>
+          <span class="hero-fact-label" data-unit-label="m">{plural('m', initial.m)}</span>
+        </span>
+        <span class="hero-fact">
+          <span class="hero-fact-num" data-unit="s">{pad(initial.s)}</span>
+          <span class="hero-fact-label" data-unit-label="s">{plural('s', initial.s)}</span>
+        </span>
       </p>
       <CtaButton />
     </div>
@@ -91,24 +122,44 @@ const daysToStart = Math.max(
 </section>
 
 <script>
-  // Contador de días hasta el inicio, con hora de Bogotá. Sin JS queda el
-  // valor calculado en el build.
+  // Contador hasta el inicio, con hora de Bogotá, actualizado cada segundo.
+  // Sin JS queda el valor calculado en el build.
   const box = document.querySelector<HTMLElement>('[data-countdown]');
-  const num = box?.querySelector<HTMLElement>('[data-countdown-num]');
-  if (box && num && box.dataset.start && box.dataset.end) {
+  if (box && box.dataset.start && box.dataset.end && box.dataset.units) {
     const start = Date.parse(`${box.dataset.start}T00:00:00-05:00`);
     const end = Date.parse(`${box.dataset.end}T23:59:59-05:00`);
-    const now = Date.now();
-    const days = Math.ceil((start - now) / 86_400_000);
-    if (days > 0) {
-      num.textContent = String(days);
-      box.querySelector('[data-countdown-label]')!.textContent =
-        days === 1 ? box.dataset.label!.replace('días', 'día') : box.dataset.label!;
-    } else if (now <= end) {
-      box.textContent = days === 0 ? box.dataset.today! : box.dataset.live!;
+    const units = JSON.parse(box.dataset.units) as Record<string, [string, string]>;
+    const nums = new Map<string, HTMLElement>();
+    const labels = new Map<string, HTMLElement>();
+    box.querySelectorAll<HTMLElement>('[data-unit]').forEach((el) => nums.set(el.dataset.unit!, el));
+    box.querySelectorAll<HTMLElement>('[data-unit-label]').forEach((el) => labels.set(el.dataset.unitLabel!, el));
+    const pad = (n: number) => String(n).padStart(2, '0');
+    const set = (u: string, n: number, padded: boolean) => {
+      const num = nums.get(u);
+      const label = labels.get(u);
+      if (num) num.textContent = padded ? pad(n) : String(n);
+      if (label) label.textContent = units[u][n === 1 ? 0 : 1];
+    };
+    /* Devuelve true mientras haya cuenta regresiva que mostrar */
+    const tick = (): boolean => {
+      const now = Date.now();
+      const total = Math.floor((start - now) / 1000);
+      if (total > 0) {
+        set('d', Math.floor(total / 86_400), false);
+        set('h', Math.floor((total % 86_400) / 3_600), true);
+        set('m', Math.floor((total % 3_600) / 60), true);
+        set('s', total % 60, true);
+        return true;
+      }
+      box.textContent = now < start + 86_400_000 ? box.dataset.today! : box.dataset.live!;
       box.classList.add('hero-count--text');
-    } else {
-      box.hidden = true;
+      box.hidden = now > end;
+      return false;
+    };
+    if (tick()) {
+      const id = window.setInterval(() => {
+        if (!tick()) window.clearInterval(id);
+      }, 1000);
     }
   }
 </script>
@@ -310,8 +361,14 @@ const daysToStart = Math.max(
     content: '· ';
     font-weight: 500;
   }
+  /* Contador: cuatro unidades con la misma anatomía de la fecha */
   .hero-count {
     margin-left: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 0.9em;
+    row-gap: 0.3em;
   }
   /* Sin cifra (hoy empieza / en curso): la frase toma el estilo de etiqueta */
   .hero-count--text {
@@ -396,8 +453,23 @@ const daysToStart = Math.max(
     .hero-date .hero-after-sep::before {
       content: none;
     }
+    /* Contador en cuatro columnas, etiqueta bajo cada cifra */
     .hero-count {
       margin-left: 0;
+      display: grid;
+      grid-template-columns: repeat(4, auto);
+      justify-content: start;
+      column-gap: 1.1rem;
+      row-gap: 0;
+    }
+    .hero-count .hero-fact {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.15em;
+    }
+    .hero-count .hero-fact-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
     }
     .hero-strip :global(.cta) {
       justify-self: stretch;

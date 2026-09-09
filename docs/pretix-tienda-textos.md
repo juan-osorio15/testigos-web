@@ -138,42 +138,74 @@ Los talleres de periodismo del jueves 5 y el viernes 6 de noviembre, en la Casa 
 ### Pase completo · 310.000 COP
 
 ```markdown
-Los siete conversatorios, del viernes 6 en la tarde al domingo 8 al mediodía, con la bienvenida, el cóctel del viernes y el cierre. Cuesta menos que las cuatro franjas por separado.
+**Los siete conversatorios, del viernes 6 al domingo 8.**
+No te pierdes de nada y te aseguras el mejor precio.
 ```
+
+> Dos líneas para que quepa en el widget: qué incluye, en negrita, y el
+> argumento de compra sin cifra (el widget ya muestra 360.000 tachado). Sin
+> cóctel, que no se anuncia, y sin horarios, que ya están en cada franja.
+> Variante en el tono del sitio, por si "mejor precio" suena a promoción:
+> `No te pierdes de nada y pagas menos que por franjas.`
 
 ### Franja · Viernes 6, tarde · 90.000 COP
 
 ```markdown
-3:00 p.m. Bienvenida y presentación
-3:30 a 6:00 p.m. Bogotazo, dictadura y Frente Nacional (1958-1974)
-6:00 p.m. Cóctel de bienvenida
+*Viernes 6 de noviembre · 3:00 a 6:00 p.m.*
+
+3:00 p.m. · Bienvenida y presentación
+**Darío Restrepo**
+
+3:30 a 6:00 p.m. · Bogotazo, dictadura y Frente Nacional (1958-1974)
+**Daniel Samper Pizano y Darío Restrepo**
 ```
 
 ### Franja · Sábado 7, mañana · 90.000 COP
 
 ```markdown
-9:00 a 10:30 a.m. Surgimiento de las guerrillas
-11:00 a.m. a 12:30 p.m. Negociaciones de paz, el Caguán y La Habana
+*Sábado 7 de noviembre · 9:00 a.m. a 12:30 p.m.*
+
+9:00 a 10:30 a.m. · Surgimiento de las guerrillas
+
+11:00 a.m. a 12:30 p.m. · Negociaciones de paz, el Caguán y La Habana
+**Marisol Gómez**
 ```
 
 ### Franja · Sábado 7, tarde · 90.000 COP
 
 ```markdown
-3:00 a 4:30 p.m. Narcotráfico y paramilitarismo
-5:00 a 6:30 p.m. Reelecciones
+*Sábado 7 de noviembre · 3:00 a 6:30 p.m.*
+
+3:00 a 4:30 p.m. · Narcotráfico y paramilitarismo
+**Luz María Sierra**
+
+5:00 a 6:30 p.m. · Reelecciones
+**Cecilia Orozco**
 ```
 
 ### Franja · Domingo 8, mañana · 90.000 COP
 
 ```markdown
-9:00 a 10:30 a.m. Magnicidios y víctimas de la violencia
-11:00 a.m. a 12:30 p.m. Mujeres periodistas y conflicto
-12:30 p.m. Cierre
+*Domingo 8 de noviembre · 9:00 a.m. a 1:00 p.m.*
+
+9:00 a 10:30 a.m. · Magnicidios y víctimas de la violencia
+**Marta Ruiz y Guillermo González**
+
+11:00 a.m. a 12:30 p.m. · Mujeres periodistas y conflicto
+**Yolanda Ruiz y María Elvira Samper**
+
+12:30 a 1:00 p.m. · Cierre
 ```
 
-> Las descripciones de franja llevan horarios y temas, no panelistas: si
-> cambia un nombre, solo se corrige el sitio. Para saltos de línea en Markdown
-> hay que terminar cada línea con dos espacios o dejar una línea en blanco.
+> Estructura de cada franja: fecha y rango horario en cursiva, una charla por
+> bloque con su hora y título en texto normal, y los panelistas en negrita
+> debajo (es lo que vende). Sin sede: ya va en la portada y en el mensaje de
+> éxito. Solo nombres confirmados en `src/data/agenda.ts`: "Surgimiento de las
+> guerrillas" no tiene panelista confirmado y queda sin nombre; Marisol Gómez
+> solo está confirmada para "Negociaciones de paz". El cóctel del viernes no se
+> anuncia. Como los nombres viven aquí y en el sitio, un cambio de panelista se
+> corrige en los dos. Pretix convierte cada salto de línea simple en `<br>`
+> (extensión nl2br), así que no hacen falta dos espacios al final de línea.
 
 Nombres cortos para el checkout, el correo y el PDF (campo *Name*):
 `Pase completo`, `Viernes tarde`, `Sábado mañana`, `Sábado tarde`, `Domingo mañana`.

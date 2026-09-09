@@ -1,20 +1,25 @@
 ---
 /**
- * ÚNICO botón de compra del sitio (FR-010): mismo texto (ui['cta.buy']),
- * mismo destino (#boletas), en header y cierres de sección.
- * Prohibido pasarle texto: el contrato data-schemas lo fija.
+ * ÚNICO botón de compra del sitio (FR-010): mismo destino (#boletas) y
+ * mismo estilo en todas partes. El texto sale siempre del diccionario:
+ * 'cta.buy' por defecto (header y franja del hero lo usan siempre); las
+ * variantes de sección se eligen con `label` entre las claves permitidas.
  */
-import { t } from '../ui';
+import { t, type UiKey } from '../ui';
 import { sectionHref } from '../links';
+
+type CtaKey = Extract<UiKey, 'cta.buy' | 'cta.beThere' | 'cta.secure' | 'cta.live'>;
 
 interface Props {
   variant?: 'header' | 'inline';
+  /** Clave del texto; solo las variantes de compra del diccionario. */
+  label?: CtaKey;
 }
 
-const { variant = 'inline' } = Astro.props;
+const { variant = 'inline', label = 'cta.buy' } = Astro.props;
 const href = sectionHref(Astro.url.pathname, 'boletas');
 ---
 
 <a href={href} class:list={['cta', { 'cta--header': variant === 'header' }]}>
-  {t('cta.buy')}
+  {t(label)}
 </a>
