@@ -19,6 +19,7 @@ import photoMartaRuiz from '../assets/speakers/marta-ruiz.jpg';
 import photoGuillermoGonzalez from '../assets/speakers/guillermo-gonzalez.jpg';
 import photoYolandaRuiz from '../assets/speakers/yolanda-ruiz.jpg';
 import photoMariaElviraSamper from '../assets/speakers/maria-elvira-samper.jpg';
+import photoLeonValencia from '../assets/speakers/leon-valencia.jpg';
 
 export type SpeakerLinkKey = 'x' | 'instagram' | 'linkedin' | 'facebook' | 'web' | 'wikipedia';
 
@@ -65,6 +66,19 @@ export const speakers: Speaker[] = [
     photo: photoDarioRestrepo,
     links: {
       wikipedia: 'https://es.wikipedia.org/wiki/Dar%C3%ADo_Restrepo_V%C3%A9lez',
+    },
+    confirmed: true,
+  },
+  {
+    slug: 'leon-valencia',
+    name: 'León Valencia',
+    credential: 'Director · Fundación Paz y Reconciliación',
+    bio: 'Dirige la Fundación Paz y Reconciliación, que fundó en 2013, y escribe columnas en Cambio y en el portal de la fundación. Integró el comando central del ELN en los años ochenta y encabezó la Corriente de Renovación Socialista, la disidencia que dejó las armas en 1994. Contó esa experiencia en “Mis años de guerra” y en “Adiós a la política, bienvenida la guerra”. Desde la Corporación Nuevo Arco Iris impulsó las investigaciones sobre la parapolítica. Premio Simón Bolívar de opinión en 2008.',
+    photo: photoLeonValencia,
+    links: {
+      x: 'https://x.com/LeonVaLenciaA',
+      web: 'https://www.pares.com.co/author/leonvalencia/',
+      wikipedia: 'https://es.wikipedia.org/wiki/Le%C3%B3n_Valencia',
     },
     confirmed: true,
   },

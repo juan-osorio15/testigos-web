@@ -91,7 +91,7 @@ export const agenda: AgendaSlot[] = [
     type: 'conversatorio',
     title: 'Surgimiento de las guerrillas',
     venueId: 'duruelo',
-    speakerSlugs: [],
+    speakerSlugs: ['leon-valencia'],
   },
   {
     day: '2026-11-07',
