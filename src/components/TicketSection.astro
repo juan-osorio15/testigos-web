@@ -532,7 +532,9 @@ const base = import.meta.env.BASE_URL.endsWith('/')
     padding: 0;
     border: var(--border) var(--ink);
     border-radius: 0;
-    background-color: #fff;
+    /* Terracota velada sobre blanco: señala que aquí se suman boletas sin
+       competir con el botón de compra; al pasar el mouse se llena. */
+    background-color: rgba(212, 91, 48, 0.28);
     color: var(--ink);
     font-weight: 800;
     font-size: 1.125rem;
