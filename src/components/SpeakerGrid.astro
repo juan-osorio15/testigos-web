@@ -18,7 +18,9 @@ const tones = ['olive', 'sky', 'brick'] as const;
 const subtitle = '¿Qué pasa cuando quienes contaron la historia vuelven a contarla?';
 const lead =
   'Esta vez no los vas a leer: vas a escucharlos hablar de lo que vieron, lo que no pudieron contar y lo que hoy entienden de otra manera.';
-const ctaNote = 'Aforo limitado. Las franjas más esperadas se agotan primero.';
+/* Remate de urgencia junto al CTA: el dato en negrita, la consecuencia después */
+const ctaLead = 'Aforo limitado.';
+const ctaNote = 'Las franjas más esperadas se agotan primero.';
 ---
 
 <section id="speakers" class="speakers" data-reveal>
@@ -46,7 +48,9 @@ const ctaNote = 'Aforo limitado. Las franjas más esperadas se agotan primero.';
   </div>
   <div class="container speakers-cta">
     <CtaButton label="cta.beThere" />
-    <p class="speakers-cta-note">{ctaNote}</p>
+    <p class="speakers-cta-note">
+      <strong>{ctaLead}</strong> {ctaNote}
+    </p>
   </div>
 </section>
 
@@ -245,9 +249,14 @@ const ctaNote = 'Aforo limitado. Las franjas más esperadas se agotan primero.';
     gap: var(--space-2) var(--space-3);
   }
   .speakers-cta-note {
-    font-size: var(--text-small);
+    font-size: var(--text-lead);
     font-weight: 600;
-    max-width: 34ch;
+    line-height: 1.35;
+    max-width: 30ch;
+    text-wrap: balance;
+  }
+  .speakers-cta-note strong {
+    font-weight: 800;
   }
 
   @media (max-width: 47.9rem) {
