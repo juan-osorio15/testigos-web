@@ -152,19 +152,19 @@ const daysToStart = Math.max(
     background-color: var(--terracotta);
     display: grid;
     align-content: center;
-    /* Más aire abajo que arriba: el bloque de texto queda un poco por
-       encima del centro geométrico, como en la valla */
-    padding: var(--space-3) var(--gutter) var(--space-6);
+    padding: var(--space-4) var(--gutter);
   }
   .hero-head-inner {
     display: grid;
-    gap: var(--space-3);
-    max-width: 36rem;
+    /* Los espacios y el titular escalan también con la altura de la
+       ventana: en pantallas bajas el bloque no se come la franja azul */
+    gap: clamp(1.25rem, 3.6svh, 2.5rem);
+    max-width: 38rem;
     width: 100%;
-    /* Mismo borde izquierdo que el .container de las secciones:
-       margen sobrante del max-width global, sin contar el gutter (ya
+    /* Un poco más a la izquierda que el .container de las secciones:
+       un tercio del margen sobrante del max-width global (el gutter ya
        lo pone el padding del bloque) */
-    margin-left: max(0px, calc((100vw - var(--max-width)) / 2));
+    margin-left: max(0px, calc((100vw - var(--max-width)) / 3));
   }
 
   /* Logo pequeño solo en móvil, donde no hay bloque crema con el lockup */
@@ -180,7 +180,7 @@ const daysToStart = Math.max(
   }
 
   h1 {
-    font-size: clamp(2.2rem, 1rem + 4.2vw, 3.9rem);
+    font-size: min(clamp(2.2rem, 1rem + 4.2vw, 4.5rem), 7svh);
     font-weight: 800;
     display: grid;
   }
@@ -198,8 +198,8 @@ const daysToStart = Math.max(
 
   /* Remate de venta bajo el eslogan: escasez real, sin súplica */
   .hero-pitch {
-    margin-top: var(--space-2);
-    font-size: var(--text-lead);
+    margin-top: var(--space-1);
+    font-size: clamp(1.125rem, 1rem + 0.7vw, 1.5rem);
     font-weight: 600;
     max-width: 30ch;
     text-wrap: balance;
@@ -255,7 +255,7 @@ const daysToStart = Math.max(
     padding: var(--space-3) var(--space-4);
   }
   .hero-logo {
-    width: clamp(150px, 16vw, 230px);
+    width: min(clamp(150px, 18vw, 270px), 26svh);
     height: auto;
     color: var(--ink);
   }
