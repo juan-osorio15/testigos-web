@@ -1,14 +1,23 @@
 ---
 /**
  * Header de dos estados (patrón 8.2): una sola franja que cambia como unidad.
- * Sobre el hero: translúcido, elementos claros. Después: sólido crema, tinta.
+ * Sobre el hero no existe: el logo y el CTA ya viven en el propio hero.
+ * Cuando el contenido llega arriba, baja como una franja crema sólida.
  * La clase `.is-solid` la alterna el IntersectionObserver de EventLayout;
- * sin JS, el fallback <noscript> lo deja sólido y legible siempre.
+ * las páginas sin hero la reciben desde el servidor (`solid`) y sin JS el
+ * fallback <noscript> lo deja visible, sólido y legible siempre.
  */
 import { t } from '../ui';
 import { sectionHref } from '../links';
 import CtaButton from './CtaButton.astro';
 import LogoLockup from '../assets/logo/logo-lockup.svg';
+
+interface Props {
+  /** Página sin hero: el header nace visible y sólido, sin animación de entrada. */
+  solid?: boolean;
+}
+
+const { solid = false } = Astro.props;
 
 /* Anclas con la base del despliegue delante ("/#agenda"): así el nav
    también funciona desde subpáginas como /tratamiento-de-datos/. */
@@ -30,11 +39,13 @@ const navItems = [
       background-color: var(--cream);
       color: var(--ink);
       box-shadow: var(--shadow-1);
+      transform: none;
+      visibility: visible;
     }
   </style>
 </noscript>
 
-<header data-header>
+<header data-header class:list={[{ 'is-solid': solid }]}>
   <div class="header-inner">
     <a href={import.meta.env.BASE_URL} class="brand">
       <LogoLockup class="brand-logo" width={72} height={44} aria-hidden="true" />
@@ -50,23 +61,28 @@ const navItems = [
 </header>
 
 <style>
-  /* El hero es claro (bloques crema/terracota/cielo): tinta en ambos
-     estados; solo cambia el fondo — transparente sobre el hero, crema
-     sólido con sombra sutil al salir de él. */
+  /* Sobre el hero el header está recogido fuera de pantalla (arriba).
+     Al llegar el contenido, baja como una sola franja crema, con la
+     misma curva de salida del resto del sitio. `visibility` evita que
+     el nav oculto reciba foco o clics. */
   header {
     position: fixed;
     inset: 0 0 auto 0;
     z-index: 50;
     height: var(--header-h);
     color: var(--ink);
-    background-color: transparent;
-    transition:
-      background-color 220ms var(--ease-out),
-      box-shadow 220ms var(--ease-out);
-  }
-  header.is-solid {
     background-color: var(--cream);
     box-shadow: var(--shadow-1);
+    transform: translateY(-100%);
+    visibility: hidden;
+    transition:
+      transform 320ms var(--ease-out),
+      visibility 0s linear 320ms;
+  }
+  header.is-solid {
+    transform: none;
+    visibility: visible;
+    transition-delay: 0s;
   }
 
   .header-inner {

@@ -3,8 +3,9 @@
  * Hero fijo con cortina (patrón 8.1). Composición: collage de bloques de
  * color a ángulo recto, calcado de la valla del manual (pág. 6):
  * terracota con titular en tinta · crema con las comillas · foto
- * documental en duotono · franja azul cielo con fecha, info y CTA.
- * Sin bordes redondeados. Sin fondo café.
+ * documental en duotono · franja azul cielo con fecha, lugar, contador y CTA.
+ * Sin bordes redondeados. Sin fondo café. Sin header encima: el logo y el
+ * CTA ya viven aquí; el header baja cuando el contenido llega arriba.
  */
 import { Image } from 'astro:assets';
 import { t } from '../ui';
@@ -29,13 +30,20 @@ const daysToStart = Math.max(
   <div class="hero-fixed">
     <div class="hero-head">
       <div class="hero-head-inner">
+        <LogoLockup class="hero-brand" aria-hidden="true" />
         <p class="eyebrow hero-tagline">{t('hero.tagline')}</p>
         <h1 id="hero-title">
           <span class="sr-only">Testigos de la Memoria: </span>
           {slogan.map((line) => <span class="hero-line">{line}</span>)}
         </h1>
         <p class="hero-pitch">{t('hero.pitch')}</p>
-        <p class="hero-note">{t('hero.note')}</p>
+        <p class="hero-note">
+          <span class="hero-note-line">
+            <span>{t('hero.edition')}</span>
+            <span class="hero-after-sep">{t('hero.capacity')}</span>
+          </span>
+          <span class="hero-note-line">{t('hero.format')}</span>
+        </p>
       </div>
     </div>
     <div class="hero-side">
@@ -56,13 +64,15 @@ const daysToStart = Math.max(
       </div>
     </div>
     <div class="hero-strip">
-      <p class="hero-date">
-        <span class="hero-date-days">5–8</span>
-        <span class="hero-date-month">noviembre 2026</span>
+      <p class="hero-fact hero-date">
+        <span class="hero-fact-num">5–8</span>
+        <span class="hero-fact-label">
+          <span>noviembre 2026</span>
+          <span class="hero-after-sep">{t('hero.place')}</span>
+        </span>
       </p>
-      <p class="hero-info">{t('hero.info')}</p>
       <p
-        class="hero-count"
+        class="hero-fact hero-count"
         data-countdown
         data-start={event.startDate}
         data-end={event.endDate}
@@ -70,10 +80,9 @@ const daysToStart = Math.max(
         data-today={t('hero.countdownToday')}
         data-live={t('hero.countdownLive')}
       >
-        <span class="hero-count-num" data-countdown-num>{daysToStart}</span>
-        <span class="hero-count-label">{t('hero.countdown')}</span>
+        <span class="hero-fact-num" data-countdown-num>{daysToStart}</span>
+        <span class="hero-fact-label" data-countdown-label>{t('hero.countdown')}</span>
       </p>
-      <p class="hero-place">{t('hero.place')}</p>
       <CtaButton />
     </div>
   </div>
@@ -93,7 +102,7 @@ const daysToStart = Math.max(
     const days = Math.ceil((start - now) / 86_400_000);
     if (days > 0) {
       num.textContent = String(days);
-      box.querySelector('.hero-count-label')!.textContent =
+      box.querySelector('[data-countdown-label]')!.textContent =
         days === 1 ? box.dataset.label!.replace('días', 'día') : box.dataset.label!;
     } else if (now <= end) {
       box.textContent = days === 0 ? box.dataset.today! : box.dataset.live!;
@@ -130,7 +139,7 @@ const daysToStart = Math.max(
     background-color: var(--terracotta);
     display: grid;
     align-content: center;
-    padding: calc(var(--header-h) + var(--space-2)) var(--gutter) var(--space-4);
+    padding: var(--space-4) var(--gutter);
   }
   .hero-head-inner {
     display: grid;
@@ -139,6 +148,14 @@ const daysToStart = Math.max(
     margin-left: auto;
     /* alinear con el container global: mitad del max-width menos gutter */
     width: 100%;
+  }
+
+  /* Logo pequeño solo en móvil, donde no hay bloque crema con el lockup */
+  .hero-brand {
+    display: none;
+    width: 72px;
+    height: auto;
+    color: var(--ink);
   }
 
   .hero-tagline {
@@ -170,14 +187,32 @@ const daysToStart = Math.max(
     max-width: 30ch;
     text-wrap: balance;
   }
+  /* Datos en dos líneas de peso parejo: "edición · aforo" y el formato. */
   .hero-note {
     margin-top: var(--space-1);
+    display: grid;
+    gap: 0.25em;
     font-size: var(--text-label);
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--ink);
     opacity: 0.85;
+  }
+  .hero-note-line {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.6em;
+    row-gap: 0.2em;
+  }
+  .hero-note-line > span {
+    white-space: nowrap;
+  }
+  /* El punto viaja con la frase que le sigue: nunca queda colgado al final
+     de una línea si el texto se parte. */
+  .hero-after-sep::before {
+    content: '· ';
+    font-weight: 500;
   }
 
   .sr-only {
@@ -195,13 +230,12 @@ const daysToStart = Math.max(
     display: grid;
     grid-template-rows: minmax(0, 2fr) minmax(0, 3fr);
   }
-  /* Bloque crema con el logo completo, como la valla del manual.
-     Padding superior = franja del header, para que el CTA nunca lo tape. */
+  /* Bloque crema con el logo completo, como la valla del manual. */
   .hero-watch-block {
     background-color: var(--cream);
     display: grid;
     place-content: center;
-    padding: calc(var(--header-h) + var(--space-1)) var(--space-4) var(--space-3);
+    padding: var(--space-3) var(--space-4);
   }
   .hero-logo {
     width: clamp(150px, 16vw, 230px);
@@ -216,7 +250,9 @@ const daysToStart = Math.max(
     height: 100%;
   }
 
-  /* Franja azul cielo: fecha, info, lugar y CTA — texto en tinta */
+  /* Franja azul cielo: a la izquierda fecha y lugar, a la derecha el
+     contador y el CTA. Dos "hechos" con la misma anatomía: cifra grande
+     en Archivo 800 y etiqueta en caps, alineados por la línea base. */
   .hero-strip {
     grid-area: strip;
     background-color: var(--sky);
@@ -226,50 +262,46 @@ const daysToStart = Math.max(
     gap: var(--space-2) var(--space-4);
     padding: var(--space-2) var(--gutter);
   }
-  .hero-date {
+  .hero-fact {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: 0.5em;
   }
-  .hero-date-days {
+  .hero-fact-num {
+    flex-shrink: 0;
+    white-space: nowrap;
     font-weight: 800;
     font-size: clamp(1.8rem, 1.2rem + 1.6vw, 2.6rem);
     line-height: 1;
+    font-variant-numeric: tabular-nums;
   }
-  .hero-date-month {
-    font-size: var(--text-label);
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-  .hero-info {
-    font-weight: 600;
-  }
-  /* Contador: cifra en serif itálica, eco del "5–8" */
-  .hero-count {
+  .hero-fact-label {
     display: flex;
+    flex-wrap: wrap;
     align-items: baseline;
-    gap: 0.4em;
-  }
-  .hero-count-num {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-weight: 500;
-    font-size: clamp(1.6rem, 1.1rem + 1.4vw, 2.3rem);
-    line-height: 1;
-  }
-  .hero-count-label {
+    column-gap: 0.6em;
+    row-gap: 0.2em;
     font-size: var(--text-label);
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.1em;
   }
-  .hero-count--text {
-    font-weight: 800;
+  .hero-fact-label > span {
+    white-space: nowrap;
   }
-  .hero-place {
-    font-weight: 800;
+  .hero-fact-label .hero-after-sep::before {
+    content: '· ';
+    font-weight: 500;
+  }
+  .hero-count {
     margin-left: auto;
+  }
+  /* Sin cifra (hoy empieza / en curso): la frase toma el estilo de etiqueta */
+  .hero-count--text {
+    font-size: var(--text-label);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
 
   @media (max-width: 63.9rem) {
@@ -282,17 +314,21 @@ const daysToStart = Math.max(
         'strip';
     }
     .hero-head {
-      padding: calc(var(--header-h) + var(--space-1)) var(--gutter) var(--space-3);
+      padding: var(--space-3) var(--gutter);
     }
     .hero-head-inner {
       max-width: none;
       margin-left: 0;
       gap: var(--space-2);
     }
+    .hero-brand {
+      display: block;
+      margin-bottom: var(--space-1);
+    }
     h1 {
       font-size: clamp(1.7rem, 0.9rem + 5vw, 2.6rem);
     }
-    /* En móvil el logo del header basta: la foto queda como banda propia */
+    /* En móvil el logo pequeño del bloque terracota basta: la foto queda como banda propia */
     .hero-watch-block {
       display: none;
     }
@@ -309,10 +345,18 @@ const daysToStart = Math.max(
       gap: 0.4rem;
       padding: var(--space-2) var(--gutter);
     }
-    .hero-date-days {
+    .hero-fact-num {
       font-size: 1.5rem;
     }
-    .hero-place {
+    /* Mes y lugar apilados junto a la cifra, sin punto entre líneas */
+    .hero-date .hero-fact-label {
+      flex-direction: column;
+      row-gap: 0.15em;
+    }
+    .hero-date .hero-after-sep::before {
+      content: none;
+    }
+    .hero-count {
       margin-left: 0;
     }
     .hero-strip :global(.cta) {
