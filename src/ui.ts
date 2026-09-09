@@ -13,10 +13,12 @@ const dict = {
   'cta.live': 'Vivir Testigos de la Memoria',
 
   // --- Navegación ---
-  'nav.opportunity': 'El encuentro',
-  'nav.speakers': 'Panelistas',
-  'nav.schedule': 'Agenda',
-  'nav.venue': 'Lugar',
+  /* Prueba 2026-09-09 (sugerencia externa): etiquetas en pregunta. Para
+     volver: 'El encuentro', 'Panelistas', 'Agenda', 'Lugar', 'Preguntas'. */
+  'nav.opportunity': '¿Qué voy a vivir?',
+  'nav.speakers': '¿Quiénes estarán?',
+  'nav.schedule': '¿Qué voy a escuchar?',
+  'nav.venue': '¿Dónde?',
   'nav.faq': 'Preguntas',
   'nav.aria': 'Navegación principal',
 
