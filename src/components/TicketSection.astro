@@ -211,14 +211,18 @@ const base = import.meta.env.BASE_URL.endsWith('/')
     display: grid;
     grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
     gap: var(--space-5);
-    /* el texto se centra verticalmente respecto a la tarjeta */
-    align-items: center;
+    align-items: start;
   }
 
+  /* La tienda es larga: el texto arranca alineado con su borde superior y
+     se queda pegado bajo el header mientras se recorre la lista, hasta que
+     la propia celda de la cuadrícula lo frena al llegar al fondo. */
   .tickets-intro {
     display: grid;
     gap: var(--space-2);
     order: 2; /* en desktop: formulario a la izquierda, texto a la derecha */
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-3));
   }
   .tickets-widget {
     order: 1;
@@ -373,12 +377,245 @@ const base = import.meta.env.BASE_URL.endsWith('/')
       grid-template-columns: 1fr;
       gap: var(--space-4);
     }
-    /* apilado: primero el contexto, luego el formulario */
+    /* apilado: primero el contexto, luego el formulario; sin pegado */
     .tickets-intro {
       order: 1;
+      position: static;
     }
     .tickets-widget {
       order: 2;
+    }
+  }
+</style>
+
+<style is:global>
+  /* --- Widget de Pretix (v2) ----------------------------------------
+     Pretix pinta la lista de productos en el DOM de la página (sin shadow
+     DOM) con clases `pretix-widget-*`, y su guía autoriza sobrescribirlas.
+     Este bloque es global porque Astro no puede scopear lo que inyecta
+     el widget. Solo alcanza la lista; el checkout va en un iframe de
+     Pretix y se ajusta desde su panel. Todo bajo `.tickets-widget` para
+     no tocar nada más. Estructura verificada en /demo el 2026-09-08. */
+
+  .tickets-widget {
+    /* Colores de marca que el widget lee de sus propias variables */
+    --pretix-brand-primary: var(--brick);
+    --pretix-brand-primary-darken-5: var(--ink);
+    --pretix-brand-danger: var(--brick);
+    --pretix-brand-success: var(--olive);
+  }
+
+  /* El widget trae su propio marco gris; la tarjeta blanca ya es el marco */
+  .tickets-widget .pretix-widget {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-height: 0;
+    font-family: inherit;
+    font-size: var(--text-body);
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  /* Categoría como etiqueta (eyebrow), no como título que compite */
+  .tickets-widget .pretix-widget-category {
+    margin: 0;
+  }
+  .tickets-widget .pretix-widget-category + .pretix-widget-category {
+    margin-top: var(--space-4);
+  }
+  .tickets-widget .pretix-widget-category-name {
+    margin: 0 0 var(--space-1);
+    font-size: var(--text-label);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brick);
+  }
+  .tickets-widget .pretix-widget-category-description {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-small);
+  }
+
+  /* Cada producto es un bloque: filete de tinta arriba, aire adentro.
+     El primero cierra contra la etiqueta y el último contra el botón. */
+  .tickets-widget .pretix-widget-item {
+    border-top: var(--border) var(--ink);
+  }
+  .tickets-widget .pretix-widget-category-items > .pretix-widget-item:last-child {
+    border-bottom: var(--border) var(--ink);
+  }
+  .tickets-widget .pretix-widget-item-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: var(--space-1);
+    column-gap: var(--space-2);
+    padding: var(--space-2) 0;
+  }
+  /* Selectores con `>`: pesan más que las reglas de modo móvil del widget
+     (`.pretix-widget.pretix-widget-mobile .pretix-widget-item-price-col`),
+     que si no ganan y parten precio y contador en dos filas. */
+  .tickets-widget .pretix-widget-item-row > .pretix-widget-item-info-col,
+  .tickets-widget .pretix-widget-item-row > .pretix-widget-item-price-col,
+  .tickets-widget .pretix-widget-item-row > .pretix-widget-item-availability-col {
+    float: none;
+    width: auto;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .tickets-widget .pretix-widget-item-row > .pretix-widget-item-info-col {
+    flex: 1 1 100%;
+  }
+  .tickets-widget .pretix-widget-item-title {
+    display: block;
+    font-weight: 800;
+    font-size: var(--text-h3);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .tickets-widget .pretix-widget-item-description {
+    margin-top: 0.35em;
+    font-size: var(--text-small);
+    line-height: 1.45;
+    opacity: 0.85;
+  }
+  .tickets-widget .pretix-widget-item-description p {
+    margin: 0;
+  }
+
+  /* Precio a la izquierda, en negrita; el tachado pequeño y apagado */
+  .tickets-widget .pretix-widget-item-row > .pretix-widget-item-price-col {
+    flex: 1 1 auto;
+    text-align: left;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .tickets-widget .pretix-widget-pricebox-original-price {
+    display: block;
+    font-size: var(--text-small);
+    font-weight: 600;
+    opacity: 0.6;
+  }
+  .tickets-widget .pretix-widget-pricebox-new-price {
+    text-decoration: none;
+    color: var(--brick);
+  }
+  .tickets-widget .pretix-widget-pricebox-tax {
+    font-size: var(--text-small);
+    font-weight: 400;
+    opacity: 0.75;
+  }
+
+  /* Contador y estados a la derecha */
+  .tickets-widget .pretix-widget-item-row > .pretix-widget-item-availability-col {
+    flex: 0 0 auto;
+    margin-left: auto;
+    text-align: right;
+  }
+  .tickets-widget .pretix-widget-availability-unavailable,
+  .tickets-widget .pretix-widget-availability-gone {
+    font-size: var(--text-label);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brick);
+  }
+  .tickets-widget .pretix-widget-item-count-group {
+    display: inline-flex;
+  }
+  .tickets-widget .pretix-widget-item-count-group button.pretix-widget-btn-default {
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: var(--border) var(--ink);
+    border-radius: 0;
+    background-color: #fff;
+    color: var(--ink);
+    font-weight: 800;
+    font-size: 1.125rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 160ms var(--ease-out);
+  }
+  .tickets-widget .pretix-widget-item-count-group button.pretix-widget-btn-default:hover,
+  .tickets-widget .pretix-widget-item-count-group button.pretix-widget-btn-default:focus-visible {
+    background-color: var(--terracotta);
+    color: var(--ink);
+  }
+  .tickets-widget .pretix-widget-item-count-group input.pretix-widget-item-count-multiple {
+    width: 3.25rem;
+    height: 2.75rem;
+    padding: 0;
+    border: var(--border) var(--ink);
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+    background-color: #fff;
+    color: var(--ink);
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+    box-shadow: none;
+  }
+  .tickets-widget .pretix-widget-item-count-group input.pretix-widget-item-count-multiple:focus {
+    outline: 2px solid var(--terracotta);
+    outline-offset: -2px;
+  }
+  .tickets-widget .pretix-widget-item-count-single-label {
+    text-align: right;
+  }
+
+  /* Botón de compra: el mismo CTA del sitio, a todo el ancho */
+  .tickets-widget .pretix-widget form > .pretix-widget-action {
+    width: 100%;
+    margin: var(--space-3) 0 0;
+    padding: 0;
+  }
+  .tickets-widget .pretix-widget-action button {
+    width: 100%;
+    padding: 0.95em 1.7em;
+    background-color: var(--terracotta);
+    color: var(--ink);
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+    border: var(--border) var(--terracotta);
+    border-radius: 0;
+    cursor: pointer;
+    transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out),
+      box-shadow 160ms var(--ease-out);
+  }
+  .tickets-widget .pretix-widget-action button:hover,
+  .tickets-widget .pretix-widget-action button:focus-visible {
+    background-color: var(--brick);
+    border-color: var(--brick);
+    color: var(--cream);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-1);
+  }
+  .tickets-widget .pretix-widget-action button:active {
+    transform: none;
+  }
+
+  .tickets-widget .pretix-widget-attribution {
+    padding: var(--space-2) 0 0;
+    font-size: 0.75rem;
+    opacity: 0.6;
+  }
+  .tickets-widget .pretix-widget-attribution a {
+    color: inherit;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tickets-widget .pretix-widget-action button,
+    .tickets-widget .pretix-widget-item-count-group button.pretix-widget-btn-default {
+      transition: none;
+      transform: none;
     }
   }
 </style>
