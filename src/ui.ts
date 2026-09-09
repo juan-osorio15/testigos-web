@@ -84,6 +84,8 @@ const dict = {
 
   // --- Footer ---
   'footer.organizedBy': 'Organizan',
+  'footer.supportedBy': 'Con el apoyo de',
+  'footer.supporters': 'Apoyan',
   'footer.rights': 'Testigos de la Memoria · Villa de Leyva, 2026',
   'footer.privacy': 'Tratamiento de datos personales',
 
