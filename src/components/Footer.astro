@@ -1,0 +1,138 @@
+---
+/**
+ * Pie de página: firma del evento, quiénes organizan y quiénes apoyan,
+ * y los enlaces legales. Sobre tinta, con los logos de los aliados en
+ * crema monocromo (src/data/partners.ts) a una altura fija por grupo:
+ * el peso de cada aliado lo marca el tamaño, no el color.
+ */
+import { Image } from 'astro:assets';
+import { t } from '../ui';
+import { event } from '../data/event';
+import { organizerPartners, partnerGroups } from '../data/partners';
+import LogoSymbol from '../assets/logo/logo-symbol.svg';
+
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : import.meta.env.BASE_URL + '/';
+
+/* Alto de render (px) por tamaño; el CSS fija el alto visible en rem */
+const renderHeight = { lg: 216, md: 168, sm: 120 } as const;
+---
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <LogoSymbol class="footer-symbol" aria-hidden="true" width={94} height={25} />
+
+    <div class="footer-groups">
+      <div class="footer-group">
+        <p class="eyebrow">{t('footer.organizedBy')}</p>
+        <div class="footer-row">
+          <p class="footer-names">{event.organizers.join(' · ')}</p>
+          {
+            organizerPartners.map((p) => (
+              <Image
+                class="footer-logo footer-logo--md"
+                src={p.logo}
+                alt={p.name}
+                height={renderHeight.md}
+                loading="lazy"
+              />
+            ))
+          }
+        </div>
+      </div>
+
+      {
+        partnerGroups.map((group) => (
+          <div class="footer-group">
+            <p class="eyebrow">{t(group.label)}</p>
+            <div class="footer-row">
+              {group.partners.map((p) => (
+                <Image
+                  class={`footer-logo footer-logo--${group.size}`}
+                  src={p.logo}
+                  alt={p.name}
+                  height={renderHeight[group.size]}
+                  loading="lazy"
+                />
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="footer-small">
+      {t('footer.rights')} · <a href={`${base}tratamiento-de-datos/`}>{t('footer.privacy')}</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    /* Sobre el hero fijo (z 0), como el resto de la cortina */
+    position: relative;
+    z-index: 1;
+    background-color: var(--ink);
+    color: var(--cream);
+    padding-block: var(--space-5);
+  }
+  .footer-inner {
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+  }
+  .footer-symbol {
+    width: 94px;
+  }
+
+  .footer-groups {
+    display: grid;
+    gap: var(--space-4);
+    width: 100%;
+  }
+  .footer-group {
+    display: grid;
+    gap: var(--space-2);
+  }
+  .footer-group .eyebrow {
+    color: var(--terracotta);
+  }
+  .footer-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-5);
+  }
+  .footer-names {
+    font-weight: 500;
+    font-size: var(--text-lead);
+  }
+
+  /* Los logos ya vienen en crema; el alto fijo por grupo da la jerarquía */
+  .footer-logo {
+    width: auto;
+    display: block;
+  }
+  .footer-logo--lg {
+    height: clamp(3.5rem, 2.5rem + 2vw, 4.5rem);
+  }
+  .footer-logo--md {
+    height: clamp(2.75rem, 2rem + 1.5vw, 3.5rem);
+  }
+  .footer-logo--sm {
+    height: 2.25rem;
+    opacity: 0.8;
+  }
+
+  .footer-small {
+    font-size: var(--text-small);
+    opacity: 0.7;
+  }
+  .footer-small a {
+    text-underline-offset: 0.2em;
+  }
+  .footer-small a:hover {
+    color: var(--terracotta);
+  }
+</style>

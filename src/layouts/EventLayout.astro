@@ -8,10 +8,9 @@ import {
   PRETIX_WIDGET_SCRIPT,
   pretixReady,
 } from '../config';
-import { t } from '../ui';
 import { event, venues } from '../data/event';
 import Header from '../components/Header.astro';
-import LogoSymbol from '../assets/logo/logo-symbol.svg';
+import Footer from '../components/Footer.astro';
 import archivoUrl from '../assets/fonts/archivo-var.woff2?url';
 import frauncesUrl from '../assets/fonts/fraunces-var.woff2?url';
 import frauncesItalicUrl from '../assets/fonts/fraunces-var-italic.woff2?url';
@@ -123,18 +122,7 @@ const jsonLd = {
     <a href="#contenido" class="skip-link">Saltar al contenido</a>
     <Header />
     <slot />
-    <footer class="footer">
-      <div class="container footer-inner">
-        <LogoSymbol class="footer-symbol" aria-hidden="true" width={94} height={25} />
-        <p class="footer-org">
-          <span class="eyebrow">{t('footer.organizedBy')}</span>
-          {event.organizers.join(' · ')}
-        </p>
-        <p class="footer-small">
-          {t('footer.rights')} · <a href={`${base}tratamiento-de-datos/`}>{t('footer.privacy')}</a>
-        </p>
-      </div>
-    </footer>
+    <Footer />
 
     <script>
       /* Header de dos estados + scroll reveal.
@@ -193,40 +181,3 @@ const jsonLd = {
     </script>
   </body>
 </html>
-
-<style>
-  .footer {
-    /* Sobre el hero fijo (z 0), como el resto de la cortina */
-    position: relative;
-    z-index: 1;
-    background-color: var(--ink);
-    color: var(--cream);
-    padding-block: var(--space-5);
-  }
-  .footer-inner {
-    display: grid;
-    gap: var(--space-2);
-    justify-items: start;
-  }
-  .footer-symbol {
-    width: 94px;
-  }
-  .footer-org {
-    display: grid;
-    gap: 0.35rem;
-    font-weight: 500;
-  }
-  .footer-org .eyebrow {
-    color: var(--terracotta);
-  }
-  .footer-small {
-    font-size: var(--text-small);
-    opacity: 0.7;
-  }
-  .footer-small a {
-    text-underline-offset: 0.2em;
-  }
-  .footer-small a:hover {
-    color: var(--terracotta);
-  }
-</style>
