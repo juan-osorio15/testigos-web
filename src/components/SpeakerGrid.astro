@@ -15,9 +15,9 @@ import SpeakerCard from './SpeakerCard.astro';
 const tones = ['olive', 'sky', 'brick'] as const;
 
 /* Subtítulo del banco aprobado (spec §2) */
-const subtitle = 'Escuchar a quienes estuvieron allí también es hacer memoria.';
+const subtitle = '¿Qué pasa cuando quienes contaron la historia vuelven a contarla?';
 const lead =
-  '¿Qué pasa cuando quienes contaron la historia vuelven a contarla? Esta vez no los vas a leer: vas a escucharlos hablar de lo que vieron, lo que no pudieron contar y lo que hoy entienden de otra manera.';
+  'Esta vez no los vas a leer: vas a escucharlos hablar de lo que vieron, lo que no pudieron contar y lo que hoy entienden de otra manera.';
 const ctaNote = 'Aforo limitado. Las franjas más esperadas se agotan primero.';
 ---
 
@@ -45,7 +45,7 @@ const ctaNote = 'Aforo limitado. Las franjas más esperadas se agotan primero.';
     </ul>
   </div>
   <div class="container speakers-cta">
-    <CtaButton />
+    <CtaButton label="cta.beThere" />
     <p class="speakers-cta-note">{ctaNote}</p>
   </div>
 </section>

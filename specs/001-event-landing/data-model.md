@@ -67,7 +67,7 @@ Derivadas para render: la agenda agrupa por `day`; el tipo controla la etiqueta 
 
 ### UI Dictionary (`src/i18n/ui.ts`)
 
-Mapa plano `key → LocalizedString` para todo microcopy (nav, botón CTA único, etiquetas de agenda, aria-labels, texto del fallback de Pretix, 404). El texto del CTA es **una sola key** (`cta.buy`) usada por header y los tres CTAs de contenido (FR-010: mismo texto garantizado por construcción).
+Mapa plano `key → LocalizedString` para todo microcopy (nav, botón CTA único, etiquetas de agenda, aria-labels, texto del fallback de Pretix, 404). El texto del CTA sale de un conjunto cerrado de keys (`cta.buy`, `cta.beThere`, `cta.secure`, `cta.live`); header y franja del hero usan `cta.buy` y el componente solo acepta esas claves (FR-010, ajuste 2026-09-09: mismo estilo y destino, texto por sección).
 
 ### Config (`src/config.ts`)
 
