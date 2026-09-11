@@ -53,7 +53,7 @@ const dict = {
     'Una sola boleta para los siete conversatorios: viernes en la tarde, sábado todo el día y domingo en la mañana. Incluye la bienvenida y el cierre. Sale más barato que comprar las cuatro franjas.',
   'tickets.slotName': 'Boleta por franja',
   'tickets.slotText':
-    'Cada franja es media jornada, una mañana o una tarde, con sus conversatorios. Hay cuatro: viernes tarde, sábado mañana, sábado tarde y domingo mañana. Compras solo las que quieras.',
+    'Cada franja es media jornada con sus conversatorios. Escoge la época que quieres oír contada por quienes estaban ahí. Compras solo las que quieras.',
   'tickets.freeNote':
     'Las charlas abiertas del jueves 5 y del viernes 6 en la mañana no necesitan boleta: la entrada es libre.',
   'tickets.soon':
