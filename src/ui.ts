@@ -45,10 +45,17 @@ const dict = {
   'hero.countdownLive': 'El encuentro está en curso',
 
   // --- Sección de compra ---
+  /* Junto a la tienda: explicar sin adornos las dos formas de comprar */
   'tickets.heading': 'Asegura tu lugar',
-  'tickets.title': 'Los tres días de conversatorios, o la franja que no te quieres perder.',
+  'tickets.title': 'Hay dos formas de comprar.',
+  'tickets.passName': 'Pase completo',
+  'tickets.passText':
+    'Una sola boleta para los siete conversatorios: viernes en la tarde, sábado todo el día y domingo en la mañana. Incluye la bienvenida y el cierre. Sale más barato que comprar las cuatro franjas.',
+  'tickets.slotName': 'Boleta por franja',
+  'tickets.slotText':
+    'Cada franja es media jornada con sus conversatorios. Escoge la época que quieres oír contada por quienes estaban ahí. Compras solo las que quieras.',
   'tickets.freeNote':
-    'Las charlas abiertas del jueves y del viernes en la mañana son de entrada libre, sin boleta.',
+    'Las charlas abiertas del jueves 5 y del viernes 6 en la mañana no necesitan boleta: la entrada es libre.',
   'tickets.soon':
     'La venta de boletas abre pronto. Aforo limitado, con pase completo o boletas por franja. Las charlas abiertas del 5 y 6 de noviembre son de entrada libre.',
   'tickets.widgetFallback':
