@@ -34,6 +34,16 @@ const base = import.meta.env.BASE_URL.endsWith('/')
       <LogoSymbol class="tickets-eyes" aria-hidden="true" />
       <p class="eyebrow">{t('tickets.heading')}</p>
       <h2 class="tickets-title">{t('tickets.title')}</h2>
+      <dl class="tickets-options">
+        <div class="tickets-option">
+          <dt>{t('tickets.passName')}</dt>
+          <dd>{t('tickets.passText')}</dd>
+        </div>
+        <div class="tickets-option">
+          <dt>{t('tickets.slotName')}</dt>
+          <dd>{t('tickets.slotText')}</dd>
+        </div>
+      </dl>
       <p class="tickets-free">{t('tickets.freeNote')}</p>
     </div>
     <div class="tickets-widget">
@@ -239,6 +249,27 @@ const base = import.meta.env.BASE_URL.endsWith('/')
   .tickets-title {
     font-size: var(--text-h2);
     max-width: 16ch;
+  }
+  /* Las dos opciones, como fichas: nombre en negrita y qué incluye */
+  .tickets-options {
+    display: grid;
+    gap: var(--space-2);
+    margin: var(--space-1) 0 0;
+    max-width: 44ch;
+  }
+  .tickets-option {
+    padding-left: var(--space-2);
+    border-left: 3px solid var(--ink);
+  }
+  .tickets-option dt {
+    font-size: var(--text-h3);
+    font-weight: 800;
+    line-height: 1.2;
+  }
+  .tickets-option dd {
+    margin: 0.35em 0 0;
+    font-size: var(--text-body);
+    line-height: 1.5;
   }
   .tickets-free {
     font-size: var(--text-small);
