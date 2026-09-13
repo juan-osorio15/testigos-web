@@ -7,24 +7,14 @@
  * Pretix es el único dueño de precios/tipos de boleta (FR-008); esta
  * sección implementa el contrato pretix-embed.md al pie de la letra.
  */
-import {
-  PRETIX_EVENT_URL,
-  pretixReady,
-  WAITLIST_ENDPOINT,
-  EVENTALIST_CAMPAIGN,
-  waitlistReady,
-} from '../config';
+import { PRETIX_EVENT_URL, pretixReady } from '../config';
 import { t } from '../ui';
 import LogoSymbol from '../assets/logo/logo-symbol.svg';
+import WaitlistForm from './WaitlistForm.astro';
 
 /* `pretixReady` (config.ts) decide tienda o formulario. La hoja de estilos
    y el script del widget los pone EventLayout en la cabecera del documento. */
 const live = pretixReady;
-
-/* Base del despliegue: para enlazar la política de datos */
-const base = import.meta.env.BASE_URL.endsWith('/')
-  ? import.meta.env.BASE_URL
-  : import.meta.env.BASE_URL + '/';
 ---
 
 <section id="boletas" class="tickets">
@@ -41,12 +31,15 @@ const base = import.meta.env.BASE_URL.endsWith('/')
         </div>
         <div class="tickets-option">
           <dt>{t('tickets.slotName')}</dt>
-          <dd>{t('tickets.slotText')}</dd>
+          <dd>
+            {t('tickets.slotText')}
+            <span class="tickets-option-note">{t('tickets.slotSoon')}</span>
+          </dd>
         </div>
       </dl>
       <p class="tickets-free">{t('tickets.freeNote')}</p>
     </div>
-    <div class="tickets-widget">
+    <div class="tickets-widget" data-notify-label={t('tickets.notify')}>
       {
         live ? (
           <>
@@ -63,139 +56,99 @@ const base = import.meta.env.BASE_URL.endsWith('/')
         ) : (
           <>
             <p class="tickets-soon">{t('tickets.soon')}</p>
-            {/* Lista de interesados (solo mientras no exista la tienda). El
-                envío es JSON al endpoint de Eventalist, así que requiere JS:
-                el botón nace deshabilitado y el script lo activa. */}
-            <form
-              class="waitlist"
-              method="POST"
-              data-waitlist
-              data-endpoint={WAITLIST_ENDPOINT}
-              data-campaign={EVENTALIST_CAMPAIGN}
-              data-msg-sending={t('waitlist.sending')}
-              data-msg-success={t('waitlist.success')}
-              data-msg-error={t('waitlist.error')}
-              data-msg-network={t('waitlist.errorNetwork')}
-              data-msg-toomany={t('waitlist.errorTooMany')}
-              data-msg-consent={t('waitlist.errorConsent')}
-              data-label-email={t('waitlist.fieldEmail')}
-              data-label-phone={t('waitlist.fieldPhone')}
-              data-label-first_name={t('waitlist.fieldName')}
-              data-label-consent_accepted={t('waitlist.fieldConsent')}
-            >
-              <label>
-                <span>{t('waitlist.name')}</span>
-                <input type="text" name="first_name" autocomplete="given-name" maxlength="100" />
-              </label>
-              <label>
-                <span>{t('waitlist.phone')}</span>
-                <input type="tel" name="phone" autocomplete="tel" inputmode="tel" />
-              </label>
-              <label>
-                <span>{t('waitlist.email')}</span>
-                <input type="email" name="email" required autocomplete="email" inputmode="email" />
-              </label>
-              {/* Honeypot antispam: fuera de pantalla (no display:none), vacío para humanos */}
-              <div class="waitlist-hp" aria-hidden="true">
-                <label>
-                  Sitio web
-                  <input type="text" name="website_url" tabindex="-1" autocomplete="off" />
-                </label>
-              </div>
-              {/* Autorización previa, expresa e informada: casilla propia,
-                  desmarcada por defecto (Ley 1581 de 2012, Ley 2300 de 2023) */}
-              <label class="waitlist-consent">
-                <input type="checkbox" name="consent_accepted" value="si" required />
-                <span>
-                  {t('waitlist.consent')}{' '}
-                  <a href={`${base}tratamiento-de-datos/`} target="_blank" rel="noopener">{t('waitlist.consentLink')}</a>.
-                </span>
-              </label>
-              <button type="submit" class="waitlist-submit" disabled>
-                {t('waitlist.submit')}
-              </button>
-              <p class="waitlist-note" data-waitlist-note role="status" aria-live="polite">
-                {t('waitlist.privacy')}
-              </p>
-              <noscript>
-                <p class="waitlist-note">{t('waitlist.noscript')}</p>
-              </noscript>
-            </form>
+            {/* Lista de interesados, solo mientras no exista la tienda */}
+            <WaitlistForm class="tickets-waitlist" />
           </>
         )
       }
     </div>
   </div>
+  {
+    live && (
+      <>
+        {/* "Avísame cuando esté disponible": modal con la lista de interesados
+            para las franjas que aún no se venden. Lo abre el script de abajo
+            desde el botón que reemplaza el aviso del widget. */}
+        <dialog class="notify" data-notify aria-labelledby="notify-title">
+          <div class="notify-body">
+            <p class="eyebrow" data-notify-item />
+            <h3 id="notify-title" class="notify-title">{t('notify.title')}</h3>
+            <p class="notify-intro">{t('notify.intro')}</p>
+            <WaitlistForm submitLabel={t('notify.submit')} successMessage={t('notify.success')} />
+            <button type="button" class="notify-close" data-notify-close aria-label={t('notify.close')}>
+              ×
+            </button>
+          </div>
+        </dialog>
+      </>
+    )
+  }
 </section>
 
 <script>
-  // Envío al endpoint de Eventalist (guía de integración): JSON, sin
-  // autenticación, el navegador pone el Origin. Respuestas: 200 aceptado;
-  // 400 errores por campo; 403 origen no registrado; 429 demasiados intentos.
-  const form = document.querySelector<HTMLFormElement>('[data-waitlist]');
-  const note = document.querySelector<HTMLElement>('[data-waitlist-note]');
-  const submit = form?.querySelector<HTMLButtonElement>('button[type=submit]');
-  if (form && note && submit && form.dataset.endpoint && form.dataset.campaign) {
-    submit.disabled = false; // hay JS: el formulario puede enviarse
-    const d = form.dataset;
-    type State = 'idle' | 'sending' | 'success' | 'error';
-    const say = (text: string, state: State = 'idle') => {
-      note.textContent = text;
-      note.dataset.state = state;
+  // Etapas de venta: las franjas con "disponible desde" en el futuro llegan
+  // del widget de Pretix con el aviso "Aún no disponible" (texto fijo de
+  // v2.es.js, dentro de .pretix-widget-availability-unavailable). Aquí ese
+  // aviso se cambia por un botón que abre el modal de la lista de
+  // interesados, y a cada franja se le añade una línea con sus panelistas
+  // (los nombres van en negrita en la descripción de Pretix). El widget
+  // pinta con Vue, así que se observa el DOM y se reaplica si se redibuja.
+  const NOT_YET = 'Aún no disponible';
+  const widget = document.querySelector<HTMLElement>('.tickets-widget');
+  const dialog = document.querySelector<HTMLDialogElement>('[data-notify]');
+  const itemLabel = dialog?.querySelector<HTMLElement>('[data-notify-item]');
+
+  if (widget && dialog && typeof dialog.showModal === 'function') {
+    const open = (item: string) => {
+      if (itemLabel) itemLabel.textContent = item;
+      dialog.showModal();
     };
-    // data-label-email → dataset.labelEmail; data-label-first_name → labelFirst_name
-    const labelFor = (field: string) => d[`label${field[0]!.toUpperCase()}${field.slice(1)}`] ?? '';
-    const showErrors = (errors: Record<string, unknown>) => {
-      const lines = Object.entries(errors).map(([field, msgs]) => {
-        const text = ([] as unknown[]).concat(msgs).join(' ');
-        const label = field === 'non_field_errors' ? '' : labelFor(field);
-        return label ? `${label}: ${text}` : text;
+
+    // "Daniel Samper Pizano y Darío Restrepo" → dos nombres; sin repetidos
+    const panelists = (item: Element) => {
+      const names: string[] = [];
+      item.querySelectorAll('.pretix-widget-item-description strong').forEach((el) => {
+        el.textContent
+          ?.split(/\s+y\s+|,\s*/)
+          .map((n) => n.trim())
+          .filter((n) => n && !names.includes(n))
+          .forEach((n) => names.push(n));
       });
-      say(lines.join(' ') || d.msgError!, 'error');
+      return names;
     };
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const data = new FormData(form);
-      const consent = form.elements.namedItem('consent_accepted') as HTMLInputElement | null;
-      if (!consent?.checked) {
-        say(d.msgConsent!, 'error');
-        return;
-      }
-      const payload = {
-        campaign: d.campaign,
-        first_name: String(data.get('first_name') ?? '').trim(),
-        email: String(data.get('email') ?? '').trim(),
-        phone: String(data.get('phone') ?? '').trim(),
-        language: 'es',
-        consent_accepted: consent.checked, // estado real de la casilla, nunca un true fijo
-        website_url: String(data.get('website_url') ?? ''),
-      };
+    const apply = () => {
+      widget.querySelectorAll<HTMLElement>('.pretix-widget-availability-unavailable').forEach((box) => {
+        if (box.querySelector('.tickets-notify') || box.textContent?.trim() !== NOT_YET) return;
+        const item = box.closest('.pretix-widget-item');
+        const title = item?.querySelector('.pretix-widget-item-title')?.textContent?.trim() ?? '';
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'tickets-notify';
+        btn.textContent = widget.dataset.notifyLabel ?? '';
+        btn.addEventListener('click', () => open(title));
+        box.replaceChildren(btn);
 
-      submit.disabled = true;
-      say(d.msgSending!, 'sending');
-      try {
-        const res = await fetch(d.endpoint!, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        const body: unknown = await res.json().catch(() => ({}));
-        if (res.status === 200) {
-          form.reset();
-          say(d.msgSuccess!, 'success');
-        } else if (res.status === 400 && body && typeof body === 'object') {
-          showErrors(body as Record<string, unknown>);
-        } else if (res.status === 429) {
-          say(d.msgToomany!, 'error');
-        } else {
-          say(d.msgError!, 'error');
+        const info = item?.querySelector('.pretix-widget-item-info-col');
+        if (info && !info.querySelector('.tickets-panelists')) {
+          const names = panelists(item!);
+          if (names.length) {
+            const line = document.createElement('p');
+            line.className = 'tickets-panelists';
+            line.textContent = names.join(' · ');
+            info.appendChild(line);
+          }
         }
-      } catch {
-        say(d.msgNetwork!, 'error');
-      } finally {
-        submit.disabled = false;
-      }
+      });
+    };
+
+    apply();
+    new MutationObserver(apply).observe(widget, { childList: true, subtree: true });
+
+    dialog.querySelector('[data-notify-close]')?.addEventListener('click', () => dialog.close());
+    // Clic en el fondo oscurecido: el propio <dialog> es el objetivo
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
     });
   }
 </script>
@@ -271,6 +224,13 @@ const base = import.meta.env.BASE_URL.endsWith('/')
     font-size: var(--text-body);
     line-height: 1.5;
   }
+  /* Aviso de fase: en la misma ficha, un tono más firme que el detalle */
+  .tickets-option-note {
+    display: block;
+    margin-top: 0.6em;
+    font-size: var(--text-small);
+    font-weight: 700;
+  }
   .tickets-free {
     font-size: var(--text-small);
     font-weight: 600;
@@ -295,102 +255,69 @@ const base = import.meta.env.BASE_URL.endsWith('/')
     text-wrap: balance;
   }
 
-  /* --- Formulario de interesados --- */
-  .waitlist {
-    display: grid;
-    gap: var(--space-2);
+  /* El formulario de interesados, bajo el aviso de "abre pronto" */
+  .tickets-waitlist {
     margin-top: var(--space-4);
     padding-top: var(--space-3);
     border-top: var(--border) var(--ink);
   }
-  .waitlist label {
-    display: grid;
-    gap: 0.3rem;
-    font-size: var(--text-small);
-    font-weight: 700;
+
+  /* --- Modal "avísame" ---------------------------------------------- */
+  .notify {
+    margin: auto; /* centrado nativo; el reset global lo pone a cero */
+    width: min(100% - 2rem, 30rem);
+    max-height: calc(100dvh - 2rem);
+    padding: 0;
+    border: var(--border) var(--ink);
+    border-radius: var(--radius-card);
+    background-color: #fff;
+    color: var(--ink);
+    overflow: auto;
   }
-  .waitlist input {
-    font: inherit;
-    padding: 0.6em 0.8em;
+  .notify::backdrop {
+    background-color: rgba(33, 8, 4, 0.65);
+  }
+  .notify-body {
+    position: relative;
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-4);
+  }
+  .notify-body .eyebrow {
+    color: var(--brick);
+  }
+  .notify-body .eyebrow:empty {
+    display: none;
+  }
+  .notify-title {
+    font-size: var(--text-h3);
+    line-height: 1.2;
+    padding-right: 2.5rem; /* aire para el botón de cerrar */
+  }
+  .notify-intro {
+    font-size: var(--text-body);
+    line-height: 1.5;
+    margin: 0 0 var(--space-1);
+  }
+  .notify-close {
+    position: absolute;
+    top: var(--space-2);
+    right: var(--space-2);
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
     border: var(--border) var(--ink);
     border-radius: 0;
     background-color: var(--cream);
     color: var(--ink);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
   }
-  .waitlist input:focus-visible {
-    outline: 3px solid var(--terracotta);
-    outline-offset: 0;
-  }
-  .waitlist-hp {
-    position: absolute;
-    left: -9999px;
-    top: auto;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-  }
-  /* Casilla legal: discreta (texto pequeño, sin negrita), pero legible */
-  .waitlist label.waitlist-consent {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.6rem;
-    align-items: start;
-    font-size: var(--text-label);
-    font-weight: 400;
-    line-height: 1.5;
-    opacity: 0.85;
-  }
-  .waitlist-consent input {
-    width: 1.1rem;
-    height: 1.1rem;
-    margin-top: 0.1rem;
-    accent-color: var(--terracotta);
-  }
-  .waitlist-consent a {
-    font-weight: 400;
-    text-underline-offset: 0.2em;
-  }
-  .waitlist-submit {
-    justify-self: start;
-    padding: 0.75em 1.5em;
-    font-weight: 800;
+  .notify-close:hover,
+  .notify-close:focus-visible {
     background-color: var(--ink);
     color: var(--cream);
-    border: var(--border) var(--ink);
-    border-radius: 0;
-    transition: background-color 160ms var(--ease-out);
-  }
-  .waitlist-submit:hover:not(:disabled) {
-    background-color: var(--brick);
-    border-color: var(--brick);
-  }
-  .waitlist-submit:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-  }
-  /* Mensaje de estado: en reposo, nota discreta; al enviar, bloque sólido
-     de color (oliva = listo, ladrillo = error) con texto en crema. */
-  .waitlist-note {
-    font-size: var(--text-small);
-    opacity: 0.75;
-    margin: 0;
-  }
-  .waitlist-note[data-state='sending'] {
-    opacity: 1;
-    font-weight: 700;
-  }
-  .waitlist-note[data-state='success'],
-  .waitlist-note[data-state='error'] {
-    opacity: 1;
-    font-weight: 700;
-    padding: 0.85em 1.1em;
-    color: var(--cream);
-  }
-  .waitlist-note[data-state='success'] {
-    background-color: var(--olive);
-  }
-  .waitlist-note[data-state='error'] {
-    background-color: var(--brick);
   }
 
   .pretix-widget-info-message {
@@ -555,6 +482,94 @@ const base = import.meta.env.BASE_URL.endsWith('/')
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--brick);
+  }
+  /* --- Etapas de venta (2026-09-13) ----------------------------------
+     Las franjas tienen "disponible desde" en Pretix: el widget las lista
+     sin contador y con el aviso "Aún no disponible" en
+     .pretix-widget-availability-unavailable. Se dejan a la vista como
+     ancla de precio del pase (cuatro franjas suman más que el pase),
+     pero atenuadas y con el aviso como sello, para que no se confundan
+     con el único producto que hoy se puede comprar. Cuando abra la
+     etapa 2 el widget les devuelve el contador solo. */
+  .tickets-widget .pretix-widget-item:has(.pretix-widget-availability-unavailable) {
+    --unavailable-fade: 0.5;
+  }
+  .tickets-widget .pretix-widget-item:has(.pretix-widget-availability-unavailable) .pretix-widget-item-title,
+  .tickets-widget .pretix-widget-item:has(.pretix-widget-availability-unavailable) .pretix-widget-item-description,
+  .tickets-widget .pretix-widget-item:has(.pretix-widget-availability-unavailable) > .pretix-widget-item-row > .pretix-widget-item-price-col {
+    opacity: var(--unavailable-fade);
+  }
+  .tickets-widget .pretix-widget-item:has(.pretix-widget-availability-unavailable) .pretix-widget-item-title {
+    font-size: var(--text-body);
+  }
+  /* Sin descripción mientras no se vendan: una línea por franja (nombre,
+     precio, sello) para que el botón de compra del pase no quede lejos.
+     El programa de cada franja ya está en la agenda del sitio. */
+  .tickets-widget .pretix-widget-item:has(.pretix-widget-availability-unavailable) .pretix-widget-item-description {
+    display: none;
+  }
+  .tickets-widget .pretix-widget-item:has(.pretix-widget-availability-unavailable) > .pretix-widget-item-row > .pretix-widget-item-price-col {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  /* Los nombres de los panelistas de la franja, en una línea (los pone el
+     script del componente a partir de la descripción de Pretix) */
+  .tickets-widget .tickets-panelists {
+    margin: 0.3em 0 0;
+    font-size: var(--text-small);
+    line-height: 1.45;
+    font-weight: 600;
+  }
+  /* Botón "avísame": acción secundaria, como enlace subrayado y sin caja.
+     Las únicas cajas de la tienda son el contador del pase y "Comprar".
+     Pretix pinta todo `button` del widget con fondo de marca también en
+     hover, focus y active, así que el reposo se fija en los tres estados. */
+  .tickets-widget .tickets-notify,
+  .tickets-widget .tickets-notify:hover,
+  .tickets-widget .tickets-notify:focus,
+  .tickets-widget .tickets-notify:active {
+    padding: 0.2em 0;
+    border: 0;
+    border-bottom: 2px solid var(--ink);
+    border-radius: 0;
+    background: none;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: var(--text-label);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 160ms var(--ease-out), border-color 160ms var(--ease-out);
+  }
+  .tickets-widget .tickets-notify:hover,
+  .tickets-widget .tickets-notify:focus-visible {
+    color: var(--brick);
+    border-color: var(--brick);
+  }
+  .tickets-widget .tickets-notify:focus-visible {
+    outline: 2px solid var(--terracotta);
+    outline-offset: 3px;
+  }
+  /* Sin JS queda el aviso de Pretix, como sello: tinta sobre crema */
+  .tickets-widget .pretix-widget-availability-unavailable:has(.tickets-notify) {
+    display: contents;
+  }
+  .tickets-widget .pretix-widget-availability-unavailable {
+    display: inline-block;
+    padding: 0.45em 0.75em;
+    border: 2px solid var(--ink);
+    background-color: var(--cream);
+    color: var(--ink);
+    font-size: var(--text-label);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    white-space: nowrap;
+    opacity: 0.8;
   }
   .tickets-widget .pretix-widget-item-count-group {
     display: inline-flex;
