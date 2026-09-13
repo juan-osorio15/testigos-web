@@ -54,13 +54,22 @@ const dict = {
   'tickets.slotName': 'Boleta por franja',
   'tickets.slotText':
     'Cada franja es media jornada con sus conversatorios. Escoge la época que quieres oír contada por quienes estaban ahí. Compras solo las que quieras.',
-  /* Fases de venta (2026-09-13): primero solo el pase completo */
+  /* Etapas de venta (2026-09-13): en la etapa 1 solo el pase completo.
+     El widget muestra las franjas con "Aún no disponible". */
   'tickets.slotSoon':
-    'En esta primera fase solo está a la venta el pase completo. Las boletas por franja se abren más adelante.',
+    'En la etapa 1 solo se vende el pase completo. Las boletas por franja se abren en la etapa 2: pide que te avisemos y te escribimos cuando abran.',
+  'tickets.notify': 'Avísame cuando esté disponible',
+  /* Modal "avísame" de las franjas; la franja escogida va como eyebrow */
+  'notify.title': 'Te avisamos cuando abra la etapa 2',
+  'notify.intro':
+    'Déjanos tus datos y te escribimos en cuanto las boletas por franja estén a la venta.',
+  'notify.submit': 'Avisarme',
+  'notify.success': 'Listo. Te escribiremos en cuanto abran las boletas por franja.',
+  'notify.close': 'Cerrar',
   'tickets.freeNote':
     'Las charlas abiertas del jueves 5 y del viernes 6 en la mañana no necesitan boleta: la entrada es libre.',
   'tickets.soon':
-    'La venta de boletas abre pronto. Aforo limitado. En la primera fase se vende solo el pase completo; las boletas por franja se abren más adelante. Las charlas abiertas del 5 y 6 de noviembre son de entrada libre.',
+    'La venta de boletas abre pronto. Aforo limitado. En la etapa 1 se vende solo el pase completo; las boletas por franja se abren en la etapa 2. Las charlas abiertas del 5 y 6 de noviembre son de entrada libre.',
   'tickets.widgetFallback':
     'Si el módulo de compra no carga, puedes comprar directamente en la tienda segura de Pretix:',
   'tickets.widgetLink': 'Comprar en Pretix',

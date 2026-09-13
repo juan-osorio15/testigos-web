@@ -1,0 +1,256 @@
+---
+/**
+ * Lista de interesados: nombre, teléfono, correo y autorización. Envía JSON
+ * al endpoint de Eventalist según su guía de integración. Se usa en dos
+ * sitios: bajo el aviso "la venta abre pronto" mientras no exista la
+ * tienda, y en el modal "avísame" de las boletas por franja que todavía
+ * no se venden. Requiere JS: el botón nace deshabilitado y el script lo
+ * activa. Puede haber varias instancias en la página.
+ */
+import { WAITLIST_ENDPOINT, EVENTALIST_CAMPAIGN } from '../config';
+import { t } from '../ui';
+
+interface Props {
+  class?: string;
+  /** Texto del botón de envío */
+  submitLabel?: string;
+  /** Mensaje al guardar con éxito */
+  successMessage?: string;
+}
+const {
+  class: className,
+  submitLabel = t('waitlist.submit'),
+  successMessage = t('waitlist.success'),
+} = Astro.props;
+
+/* Base del despliegue: para enlazar la política de datos */
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : import.meta.env.BASE_URL + '/';
+---
+
+<form
+  class:list={['waitlist', className]}
+  method="POST"
+  data-waitlist
+  data-endpoint={WAITLIST_ENDPOINT}
+  data-campaign={EVENTALIST_CAMPAIGN}
+  data-msg-sending={t('waitlist.sending')}
+  data-msg-success={successMessage}
+  data-msg-error={t('waitlist.error')}
+  data-msg-network={t('waitlist.errorNetwork')}
+  data-msg-toomany={t('waitlist.errorTooMany')}
+  data-msg-consent={t('waitlist.errorConsent')}
+  data-label-email={t('waitlist.fieldEmail')}
+  data-label-phone={t('waitlist.fieldPhone')}
+  data-label-first_name={t('waitlist.fieldName')}
+  data-label-consent_accepted={t('waitlist.fieldConsent')}
+>
+  <label>
+    <span>{t('waitlist.name')}</span>
+    <input type="text" name="first_name" autocomplete="given-name" maxlength="100" />
+  </label>
+  <label>
+    <span>{t('waitlist.phone')}</span>
+    <input type="tel" name="phone" autocomplete="tel" inputmode="tel" />
+  </label>
+  <label>
+    <span>{t('waitlist.email')}</span>
+    <input type="email" name="email" required autocomplete="email" inputmode="email" />
+  </label>
+  {/* Honeypot antispam: fuera de pantalla (no display:none), vacío para humanos */}
+  <div class="waitlist-hp" aria-hidden="true">
+    <label>
+      Sitio web
+      <input type="text" name="website_url" tabindex="-1" autocomplete="off" />
+    </label>
+  </div>
+  {/* Autorización previa, expresa e informada: casilla propia,
+      desmarcada por defecto (Ley 1581 de 2012, Ley 2300 de 2023) */}
+  <label class="waitlist-consent">
+    <input type="checkbox" name="consent_accepted" value="si" required />
+    <span>
+      {t('waitlist.consent')}{' '}
+      <a href={`${base}tratamiento-de-datos/`} target="_blank" rel="noopener">{t('waitlist.consentLink')}</a>.
+    </span>
+  </label>
+  <button type="submit" class="waitlist-submit" disabled>
+    {submitLabel}
+  </button>
+  <p class="waitlist-note" data-waitlist-note role="status" aria-live="polite">
+    {t('waitlist.privacy')}
+  </p>
+  <noscript>
+    <p class="waitlist-note">{t('waitlist.noscript')}</p>
+  </noscript>
+</form>
+
+<script>
+  // Envío al endpoint de Eventalist (guía de integración): JSON, sin
+  // autenticación, el navegador pone el Origin. Respuestas: 200 aceptado;
+  // 400 errores por campo; 403 origen no registrado; 429 demasiados intentos.
+  // Astro incluye este script una sola vez: se atienden todos los formularios.
+  type State = 'idle' | 'sending' | 'success' | 'error';
+
+  document.querySelectorAll<HTMLFormElement>('[data-waitlist]').forEach((form) => {
+    const note = form.querySelector<HTMLElement>('[data-waitlist-note]');
+    const submit = form.querySelector<HTMLButtonElement>('button[type=submit]');
+    if (!note || !submit || !form.dataset.endpoint || !form.dataset.campaign) return;
+    submit.disabled = false; // hay JS: el formulario puede enviarse
+    const d = form.dataset;
+    const say = (text: string, state: State = 'idle') => {
+      note.textContent = text;
+      note.dataset.state = state;
+    };
+    // data-label-email → dataset.labelEmail; data-label-first_name → labelFirst_name
+    const labelFor = (field: string) => d[`label${field[0]!.toUpperCase()}${field.slice(1)}`] ?? '';
+    const showErrors = (errors: Record<string, unknown>) => {
+      const lines = Object.entries(errors).map(([field, msgs]) => {
+        const text = ([] as unknown[]).concat(msgs).join(' ');
+        const label = field === 'non_field_errors' ? '' : labelFor(field);
+        return label ? `${label}: ${text}` : text;
+      });
+      say(lines.join(' ') || d.msgError!, 'error');
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const consent = form.elements.namedItem('consent_accepted') as HTMLInputElement | null;
+      if (!consent?.checked) {
+        say(d.msgConsent!, 'error');
+        return;
+      }
+      const payload = {
+        campaign: d.campaign,
+        first_name: String(data.get('first_name') ?? '').trim(),
+        email: String(data.get('email') ?? '').trim(),
+        phone: String(data.get('phone') ?? '').trim(),
+        language: 'es',
+        consent_accepted: consent.checked, // estado real de la casilla, nunca un true fijo
+        website_url: String(data.get('website_url') ?? ''),
+      };
+
+      submit.disabled = true;
+      say(d.msgSending!, 'sending');
+      try {
+        const res = await fetch(d.endpoint!, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const body: unknown = await res.json().catch(() => ({}));
+        if (res.status === 200) {
+          form.reset();
+          say(d.msgSuccess!, 'success');
+        } else if (res.status === 400 && body && typeof body === 'object') {
+          showErrors(body as Record<string, unknown>);
+        } else if (res.status === 429) {
+          say(d.msgToomany!, 'error');
+        } else {
+          say(d.msgError!, 'error');
+        }
+      } catch {
+        say(d.msgNetwork!, 'error');
+      } finally {
+        submit.disabled = false;
+      }
+    });
+  });
+</script>
+
+<style>
+  .waitlist {
+    display: grid;
+    gap: var(--space-2);
+  }
+  .waitlist label {
+    display: grid;
+    gap: 0.3rem;
+    font-size: var(--text-small);
+    font-weight: 700;
+  }
+  .waitlist input {
+    font: inherit;
+    padding: 0.6em 0.8em;
+    border: var(--border) var(--ink);
+    border-radius: 0;
+    background-color: var(--cream);
+    color: var(--ink);
+  }
+  .waitlist input:focus-visible {
+    outline: 3px solid var(--terracotta);
+    outline-offset: 0;
+  }
+  .waitlist-hp {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  /* Casilla legal: discreta (texto pequeño, sin negrita), pero legible */
+  .waitlist label.waitlist-consent {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.6rem;
+    align-items: start;
+    font-size: var(--text-label);
+    font-weight: 400;
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+  .waitlist-consent input {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-top: 0.1rem;
+    accent-color: var(--terracotta);
+  }
+  .waitlist-consent a {
+    font-weight: 400;
+    text-underline-offset: 0.2em;
+  }
+  .waitlist-submit {
+    justify-self: start;
+    padding: 0.75em 1.5em;
+    font-weight: 800;
+    background-color: var(--ink);
+    color: var(--cream);
+    border: var(--border) var(--ink);
+    border-radius: 0;
+    transition: background-color 160ms var(--ease-out);
+  }
+  .waitlist-submit:hover:not(:disabled) {
+    background-color: var(--brick);
+    border-color: var(--brick);
+  }
+  .waitlist-submit:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  /* Mensaje de estado: en reposo, nota discreta; al enviar, bloque sólido
+     de color (oliva = listo, ladrillo = error) con texto en crema. */
+  .waitlist-note {
+    font-size: var(--text-small);
+    opacity: 0.75;
+    margin: 0;
+  }
+  .waitlist-note[data-state='sending'] {
+    opacity: 1;
+    font-weight: 700;
+  }
+  .waitlist-note[data-state='success'],
+  .waitlist-note[data-state='error'] {
+    opacity: 1;
+    font-weight: 700;
+    padding: 0.85em 1.1em;
+    color: var(--cream);
+  }
+  .waitlist-note[data-state='success'] {
+    background-color: var(--olive);
+  }
+  .waitlist-note[data-state='error'] {
+    background-color: var(--brick);
+  }
+</style>
