@@ -1,6 +1,6 @@
 /**
  * FAQs (FR-007). Contenido mínimo: gratis vs. boleta, cómo llegar,
- * seguridad del pago (Wompi) y reembolsos. Sin precios ni tipos de
+ * seguridad del pago (Wompi). Sin precios ni tipos de
  * boleta, y sin mencionar infraestructura de boletería (decisión del
  * usuario 2026-09-02): la venta la procesa el widget (FR-008).
  */
@@ -40,10 +40,5 @@ export const faqs: Faq[] = [
     question: '¿Las charlas abiertas del 5 y 6 de noviembre requieren inscripción?',
     answer:
       'La entrada es libre. Los detalles de cupos e inscripción se publicarán en esta página.',
-  },
-  {
-    question: '¿Puedo pedir un reembolso o cambiar mi boleta?',
-    answer:
-      'Sí. Junto con tu boleta recibirás por correo las condiciones de cambio y reembolso y el canal para gestionarlos.',
   },
 ];
