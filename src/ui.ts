@@ -50,7 +50,7 @@ const dict = {
   'tickets.title': 'Hay dos formas de comprar.',
   'tickets.passName': 'Pase completo',
   'tickets.passText':
-    'Una sola boleta para los siete conversatorios: viernes en la tarde, sábado todo el día y domingo en la mañana. Incluye la bienvenida y el cierre. Sale más barato que comprar las cuatro franjas.',
+    'Una sola boleta para los siete conversatorios: viernes en la tarde, sábado todo el día y domingo en la mañana. Incluye la bienvenida y el cierre.',
   'tickets.slotName': 'Boleta por franja',
   'tickets.slotText':
     'Cada franja es media jornada con sus conversatorios. Escoge la época que quieres oír contada por quienes estaban ahí. Compras solo las que quieras.',
