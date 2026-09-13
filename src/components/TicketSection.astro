@@ -41,7 +41,10 @@ const base = import.meta.env.BASE_URL.endsWith('/')
         </div>
         <div class="tickets-option">
           <dt>{t('tickets.slotName')}</dt>
-          <dd>{t('tickets.slotText')}</dd>
+          <dd>
+            {t('tickets.slotText')}
+            <span class="tickets-option-note">{t('tickets.slotSoon')}</span>
+          </dd>
         </div>
       </dl>
       <p class="tickets-free">{t('tickets.freeNote')}</p>
@@ -270,6 +273,13 @@ const base = import.meta.env.BASE_URL.endsWith('/')
     margin: 0.35em 0 0;
     font-size: var(--text-body);
     line-height: 1.5;
+  }
+  /* Aviso de fase: en la misma ficha, un tono más firme que el detalle */
+  .tickets-option-note {
+    display: block;
+    margin-top: 0.6em;
+    font-size: var(--text-small);
+    font-weight: 700;
   }
   .tickets-free {
     font-size: var(--text-small);
