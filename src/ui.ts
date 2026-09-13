@@ -58,7 +58,7 @@ const dict = {
      El widget muestra las franjas con "Aún no disponible". */
   'tickets.slotSoon':
     'En la etapa 1 solo se vende el pase completo. Las boletas por franja se abren en la etapa 2: pide que te avisemos y te escribimos cuando abran.',
-  'tickets.notify': 'Avísame cuando esté disponible',
+  'tickets.notify': 'Avísame cuando abra',
   /* Modal "avísame" de las franjas; la franja escogida va como eyebrow */
   'notify.title': 'Te avisamos cuando abra la etapa 2',
   'notify.intro':

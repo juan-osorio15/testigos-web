@@ -520,12 +520,14 @@ const live = pretixReady;
     line-height: 1.45;
     font-weight: 600;
   }
-  /* Botón "avísame": la misma forma del sello, pero que invita a pulsar */
+  /* Botón "avísame": acción secundaria, como enlace subrayado y sin caja.
+     Las únicas cajas de la tienda son el contador del pase y "Comprar". */
   .tickets-widget .tickets-notify {
-    padding: 0.55em 0.85em;
-    border: 2px solid var(--ink);
+    padding: 0.2em 0;
+    border: 0;
+    border-bottom: 2px solid var(--ink);
     border-radius: 0;
-    background-color: var(--cream);
+    background: none;
     color: var(--ink);
     font-family: inherit;
     font-size: var(--text-label);
@@ -535,12 +537,16 @@ const live = pretixReady;
     line-height: 1.2;
     white-space: nowrap;
     cursor: pointer;
-    transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out);
+    transition: color 160ms var(--ease-out), border-color 160ms var(--ease-out);
   }
   .tickets-widget .tickets-notify:hover,
   .tickets-widget .tickets-notify:focus-visible {
-    background-color: var(--ink);
-    color: var(--cream);
+    color: var(--brick);
+    border-color: var(--brick);
+  }
+  .tickets-widget .tickets-notify:focus-visible {
+    outline: 2px solid var(--terracotta);
+    outline-offset: 3px;
   }
   /* Sin JS queda el aviso de Pretix, como sello: tinta sobre crema */
   .tickets-widget .pretix-widget-availability-unavailable:has(.tickets-notify) {
