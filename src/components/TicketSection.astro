@@ -521,8 +521,13 @@ const live = pretixReady;
     font-weight: 600;
   }
   /* Botón "avísame": acción secundaria, como enlace subrayado y sin caja.
-     Las únicas cajas de la tienda son el contador del pase y "Comprar". */
-  .tickets-widget .tickets-notify {
+     Las únicas cajas de la tienda son el contador del pase y "Comprar".
+     Pretix pinta todo `button` del widget con fondo de marca también en
+     hover, focus y active, así que el reposo se fija en los tres estados. */
+  .tickets-widget .tickets-notify,
+  .tickets-widget .tickets-notify:hover,
+  .tickets-widget .tickets-notify:focus,
+  .tickets-widget .tickets-notify:active {
     padding: 0.2em 0;
     border: 0;
     border-bottom: 2px solid var(--ink);
