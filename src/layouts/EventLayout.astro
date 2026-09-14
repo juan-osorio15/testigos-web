@@ -8,7 +8,8 @@ import {
   PRETIX_WIDGET_SCRIPT,
   pretixReady,
 } from '../config';
-import { event, venues } from '../data/event';
+import { event, ticketOffer, venues } from '../data/event';
+import { speakers } from '../data/speakers';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import archivoUrl from '../assets/fonts/archivo-var.woff2?url';
@@ -42,19 +43,56 @@ const base = import.meta.env.BASE_URL.endsWith('/')
   : import.meta.env.BASE_URL + '/';
 const forceNoindex = noindex;
 
-/* Canonical de la página actual (la raíz o /tratamiento-de-datos/). */
+/* Canonical de la página actual (la raíz o una página legal). */
 const canonical = SITE_URL + Astro.url.pathname;
 const ogImage = `${SITE_URL}${base}og/og-image.png`;
 
-/* JSON-LD Event — una sola fuente de verdad (src/data/event.ts).
-   `offers` solo cuando la tienda de Pretix exista (contrato pretix-embed). */
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Event',
+/* JSON-LD: un solo grafo con la entidad del encuentro (Organization), el
+   sitio (WebSite) y el Event, todo desde src/data. Los panelistas van como
+   `performer` con sus perfiles públicos (sameAs): así los buscadores atan
+   el encuentro a entidades ya conocidas. `offers` solo cuando la tienda de
+   Pretix exista (contrato pretix-embed). */
+const orgId = `${SITE_URL}/#organizacion`;
+const siteId = `${SITE_URL}/#sitio`;
+const eventId = `${SITE_URL}/#evento`;
+const postalAddress = (street: string) => ({
+  '@type': 'PostalAddress',
+  streetAddress: street,
+  addressLocality: 'Villa de Leyva',
+  addressRegion: 'Boyacá',
+  addressCountry: 'CO',
+});
+
+const organizationLd = {
+  '@type': 'Organization',
+  '@id': orgId,
   name: event.name,
+  alternateName: event.tagline,
+  url: `${SITE_URL}/`,
+  logo: ogImage,
+  sameAs: [...event.socialProfiles],
+  founder: event.organizers.map((name) => ({ '@type': 'Person', name })),
+};
+
+const webSiteLd = {
+  '@type': 'WebSite',
+  '@id': siteId,
+  name: event.name,
+  alternateName: event.tagline,
+  url: `${SITE_URL}/`,
+  inLanguage: 'es',
+  publisher: { '@id': orgId },
+};
+
+const eventLd = {
+  '@type': 'Event',
+  '@id': eventId,
+  name: event.name,
+  alternateName: `${event.name} · ${event.tagline}`,
   description: event.description,
-  startDate: event.startDate,
-  endDate: event.endDate,
+  url: `${SITE_URL}/`,
+  startDate: event.startDateTime,
+  endDate: event.endDateTime,
   eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
   eventStatus: 'https://schema.org/EventScheduled',
   inLanguage: 'es',
@@ -62,24 +100,34 @@ const jsonLd = {
   location: venues.map((v) => ({
     '@type': 'Place',
     name: v.name,
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: v.address,
-      addressLocality: 'Villa de Leyva',
-      addressRegion: 'Boyacá',
-      addressCountry: 'CO',
-    },
+    address: postalAddress(v.address),
+    hasMap: v.mapsUrl,
   })),
-  organizer: event.organizers.map((name) => ({ '@type': 'Person', name })),
+  organizer: { '@id': orgId },
+  performer: speakers.map((sp) => ({
+    '@type': 'Person',
+    name: sp.name,
+    description: sp.credential,
+    ...(sp.links ? { sameAs: Object.values(sp.links) } : {}),
+  })),
   ...(pretixLive
     ? {
         offers: {
           '@type': 'Offer',
+          name: ticketOffer.name,
           url: PRETIX_EVENT_URL,
+          price: ticketOffer.price,
+          priceCurrency: ticketOffer.currency,
           availability: 'https://schema.org/InStock',
+          validFrom: ticketOffer.validFrom,
         },
       }
     : {}),
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [organizationLd, webSiteLd, eventLd],
 };
 ---
 
@@ -90,7 +138,13 @@ const jsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    {forceNoindex && <meta name="robots" content="noindex" />}
+    {
+      forceNoindex ? (
+        <meta name="robots" content="noindex" />
+      ) : (
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+      )
+    }
     <link rel="canonical" href={canonical} />
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
     <link rel="preload" href={archivoUrl} as="font" type="font/woff2" crossorigin />
@@ -111,7 +165,10 @@ const jsonLd = {
     />
     <meta property="og:locale" content="es_CO" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    {pretixLive && <link rel="preconnect" href="https://pretix.eventalist.co" crossorigin />}
     <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     {/* Widget de Pretix (v2), tal como lo indica la propia tienda: en <head> */}
     {

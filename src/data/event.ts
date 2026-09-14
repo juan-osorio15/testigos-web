@@ -8,12 +8,33 @@ import photoCasaMuseo from '../assets/venues/casa-museo.jpg';
 
 export const event = {
   name: 'Testigos de la Memoria',
+  /** Subtítulo de marca; nombre alternativo de la entidad en los buscadores */
+  tagline: 'Periodistas en la Historia',
   startDate: '2026-11-05',
   endDate: '2026-11-08',
+  /* Hora de la primera y de la última sesión (agenda.ts), con zona horaria de
+     Bogotá: el JSON-LD de Google pide ISO-8601 con desfase. */
+  startDateTime: '2026-11-05T10:00:00-05:00',
+  endDateTime: '2026-11-08T13:00:00-05:00',
   city: 'Villa de Leyva, Colombia',
   organizers: ['Fernando Cordovez', 'Darío Restrepo'],
   description:
     'Los periodistas que cubrieron los últimos cincuenta años de Colombia cuentan y analizan, en persona, los hechos que vivieron de frente. Conversatorios y charlas abiertas en Villa de Leyva, del 5 al 8 de noviembre de 2026.',
+  /** Perfiles públicos del encuentro (sameAs del JSON-LD; solo los verificados) */
+  socialProfiles: ['https://www.instagram.com/testigosdelamemoria/'],
+} as const;
+
+/**
+ * Oferta vendida en la etapa 1 (docs/pretix-tienda-textos.md). Solo alimenta
+ * el JSON-LD: el precio visible lo pinta el widget de Pretix. Las franjas de
+ * 90.000 se añaden aquí cuando abra la etapa 2.
+ */
+export const ticketOffer = {
+  name: 'Pase completo',
+  price: 310000,
+  currency: 'COP',
+  /** Día en que la tienda quedó a la venta en la portada (commit 74f7049) */
+  validFrom: '2026-09-09',
 } as const;
 
 export type VenueId = 'casa-museo' | 'duruelo';

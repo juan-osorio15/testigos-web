@@ -41,25 +41,28 @@ export const waitlistReady = EVENTALIST_CAMPAIGN.length > 0;
 
 /**
  * Correo para retirar la autorización y para consultas y reclamos sobre
- * datos personales (Ley 1581 de 2012). Es el canal público de Eventalist
- * según su guía de integración; aparece en el formulario y en
- * /tratamiento-de-datos/.
+ * datos personales (Ley 1581 de 2012) y canal único de atención al comprador
+ * (Ley 1480 de 2011). Es el canal público de Eventalist según su guía de
+ * integración; aparece en el formulario, en /tratamiento-de-datos/ y en
+ * /terminos-y-condiciones/.
  */
 export const DATA_CONTACT_EMAIL = 'hola@eventalist.co';
 
-/** Fecha de entrada en vigencia de la política de tratamiento de datos (ISO). */
-export const DATA_POLICY_EFFECTIVE = '2026-09-04';
+/**
+ * Fecha de entrada en vigencia de la política de tratamiento de datos (ISO).
+ * 2026-09-14: ampliación a la tienda de boletería y al control de ingreso.
+ */
+export const DATA_POLICY_EFFECTIVE = '2026-09-14';
+
+/** Fecha de entrada en vigencia de los términos y condiciones de compra (ISO). */
+export const TERMS_EFFECTIVE = '2026-09-14';
 
 /**
- * Identificación del responsable del tratamiento (art. 13 del Decreto 1377
- * de 2013 exige razón social, domicilio, dirección, correo y teléfono).
- * Los valores que empiecen por TODO no se muestran en la página.
- * Datos entregados por el usuario el 2026-09-04.
+ * Responsable del tratamiento. Solo razón social y nombre comercial: por
+ * decisión del titular (2026-09-14) el sitio no publica dirección ni
+ * teléfono; el único canal es DATA_CONTACT_EMAIL.
  */
 export const DATA_CONTROLLER = {
   name: 'Eventalist S.A.S.',
   brand: 'Eventalist',
-  address: 'Calle 111 # 45A-70',
-  city: 'Bogotá, Colombia',
-  phone: '+57 305 840 6091',
 } as const;
