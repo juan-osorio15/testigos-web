@@ -35,7 +35,7 @@ const { text, barcode, block, logo, write } = piece({ PAGE_W, PAGE_H, extraCss }
 const mm = (n) => `${n}mm`;
 
 /* --- Bloques (x, y desde arriba, ancho, alto) --- */
-const P = { x: 0, y: 0, w: PAGE_W, h: 100 };       // color de la categoría: nombre y cargo
+const P = { x: 0, y: 0, w: PAGE_W, h: 102 };       // color de la categoría: nombre y cargo (baja hasta el terracota)
 const E = { x: 78, y: 0, w: 27, h: 25 };           // crema: las comillas, mirando desde la esquina
 // El crema del QR sube 5 mm más que el terracota: dos planos superpuestos,
 // no una grilla (ver brand/formula-visual.md, punto 1).

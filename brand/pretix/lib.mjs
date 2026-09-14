@@ -34,7 +34,15 @@ export function piece({ PAGE_W, PAGE_H, extraCss = '' }) {
   });
 
   /* --- Piezas del fondo --- */
-  const block = (r, bg) => `<div class="blk" style="left:${mm(r.x)};top:${mm(r.y)};width:${mm(r.w)};height:${mm(r.h)};background:${bg}"></div>`;
+  // Chrome redondea la página del PDF a 105.15 × 148.17 mm: los bloques que
+  // tocan el borde derecho o inferior sangran BLEED mm para que no quede un
+  // filo blanco.
+  const BLEED = 0.5;
+  const block = (r, bg) => {
+    const w = r.x + r.w >= PAGE_W ? r.w + BLEED : r.w;
+    const h = r.y + r.h >= PAGE_H ? r.h + BLEED : r.h;
+    return `<div class="blk" style="left:${mm(r.x)};top:${mm(r.y)};width:${mm(w)};height:${mm(h)};background:${bg}"></div>`;
+  };
   const label = (txt, x, y, color = C.brick) => `<div class="label" style="left:${mm(x)};top:${mm(y)};color:${color}">${txt}</div>`;
   const note = (txt, x, y, w, extra = '') => `<div class="note" style="left:${mm(x)};top:${mm(y)};width:${mm(w)};${extra}">${txt}</div>`;
   const logo = (x, y, w, markup = logoLockup()) => `<div class="logo-wrap" style="left:${mm(x)};top:${mm(y)};width:${mm(w)}">${markup}</div>`;
@@ -43,7 +51,8 @@ export function piece({ PAGE_W, PAGE_H, extraCss = '' }) {
 @page { size: ${PAGE_W}mm ${PAGE_H}mm; margin: 0; }
 @font-face { font-family: 'Archivo'; src: url('../../../src/assets/fonts/archivo-var.woff2') format('woff2-variations'); font-weight: 100 900; }
 html, body { margin: 0; padding: 0; }
-body { width: ${PAGE_W}mm; height: ${PAGE_H}mm; position: relative; background: #fff; font-family: 'Archivo', sans-serif; color: ${C.ink}; -webkit-print-color-adjust: exact; print-color-adjust: exact; overflow: hidden; }
+html { width: ${PAGE_W}mm; height: ${PAGE_H}mm; overflow: hidden; }
+body { width: ${PAGE_W + 0.5}mm; height: ${PAGE_H + 0.5}mm; position: relative; background: #fff; font-family: 'Archivo', sans-serif; color: ${C.ink}; -webkit-print-color-adjust: exact; print-color-adjust: exact; overflow: hidden; }
 .blk, .label, .note, .logo-wrap, .dyn { position: absolute; }
 .logo-wrap { color: ${C.ink}; }
 .logo { display: block; width: 100%; height: auto; }
