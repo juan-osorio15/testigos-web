@@ -13,6 +13,7 @@ La pieza no es "contenido sobre un fondo": es una superficie dividida en rectán
 - Ángulos rectos. Sin esquinas redondeadas (la única excepción: contenedores físicos como el porta-escarapela).
 - Sin márgenes entre bloques, sin sombras, sin bordes decorativos entre ellos.
 - El layout ES la composición: decidir la pieza es decidir cómo se reparte la superficie.
+- Los bloques vecinos no tienen por qué alinearse: uno puede subir unos milímetros más que el de al lado, para que se lean como planos superpuestos y no como celdas de una grilla. En la escarapela de la diseñadora, el crema del QR asoma por encima del terracota de los datos.
 
 ## 2. La tinta escribe, no pinta
 
@@ -59,4 +60,4 @@ Gradientes, glow/neón, parallax, sombras notorias (máx. 0-2px), esquinas redon
 
 ---
 
-_Última actualización: 2026-08-25. Cualquier pieza nueva debería poder señalarse en este documento bloque por bloque._
+_Última actualización: 2026-09-14. Cualquier pieza nueva debería poder señalarse en este documento bloque por bloque._

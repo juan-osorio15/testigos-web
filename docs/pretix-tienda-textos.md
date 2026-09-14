@@ -282,41 +282,50 @@ Decisiones:
 
 ## Escarapela en PDF (Badges → Badge layouts)
 
-Para las personas que llevan credencial colgada: panelistas, y si hace falta
-organización o prensa. Mismo formato A6 vertical (105 × 148 mm) de la boleta y
-de la plantilla por defecto de pretix, que es el tamaño del porta-escarapela A6
-corriente. Cuatro bloques según la fórmula visual: crema con el logo y aire,
-terracota con el nombre grande y el cargo debajo, franja oliva con la categoría
-("Panelista") y franja cielo con fechas y Villa de Leyva.
+Para las personas que llevan credencial colgada: panelistas y staff. Sigue la
+pieza de la diseñadora (pensada para asistentes) con los mismos colores: bloque
+principal de color con la categoría en píldora arriba a la izquierda y el
+cuadro crema con las comillas en la esquina; el nombre grande y el cargo
+debajo; abajo, crema con el QR y el código del pedido, y terracota con los
+datos prácticos (Hospedería Duruelo, Villa de Leyva, fechas y el sitio). El
+crema del QR sube 5 mm más que el terracota, como en la pieza original: dos
+planos superpuestos, no una grilla (ver `brand/formula-visual.md`). Mismo
+formato A6 vertical (105 × 148 mm) de la boleta, de la plantilla por defecto de
+pretix y del porta-escarapela A6 corriente.
+
+Cada categoría cambia solo el rótulo y el color del bloque principal:
+panelista en oliva, staff en cielo. Todo lo demás es igual.
 
 Archivos en `brand/pretix/`:
 
 | Archivo | Para qué |
 |---|---|
-| `escarapela-panelista-fondo.pdf` | Botón "Upload PDF as background" del layout de escarapela. Lleva bloques, logo, la palabra "Panelista" en Archivo y los datos fijos. |
-| `escarapela-layout.json` | Botón `</>` del editor: reemplazar todo el código por este. Solo dos datos variables, nombre y cargo, en Open Sans y tinta. |
-| `escarapela/build.mjs` y `escarapela/make.sh` | Fuente del diseño. `sh brand/pretix/escarapela/make.sh` regenera PDF, JSON y vista previa; `sh brand/pretix/escarapela/make.sh Organización` genera el fondo de otra categoría (`escarapela-organizacion-fondo.pdf`). Necesita Google Chrome. |
+| `escarapela-panelista-fondo.pdf`, `escarapela-staff-fondo.pdf` | Botón "Upload PDF as background" del layout de cada categoría. Llevan bloques, píldora, comillas, la píldora vacía del código y los datos fijos, con la fuente Archivo embebida. |
+| `escarapela-layout.json` | Botón `</>` del editor: reemplazar todo el código por este. Es el mismo para todas las categorías. Datos variables: nombre, cargo, QR y código del pedido, en Open Sans y tinta. |
+| `escarapela/build.mjs` y `escarapela/make.sh` | Fuente del diseño. `sh brand/pretix/escarapela/make.sh` regenera los PDF, el JSON y las vistas previas de todas las categorías; con un argumento (`panelista` o `staff`) solo esa. Los colores por categoría están en `PRESETS`, al inicio de `build.mjs`. Necesita Google Chrome. |
 | `lib.mjs` | Lo común a boleta y escarapela (colores, cajas, vista previa). |
 
 Cómo se llena en pretix:
 
+- Un layout de escarapela por categoría, cada uno con su PDF de fondo y el
+  mismo JSON, asignado a su producto (Badges → Badge layouts → "Assign to products").
 - El cargo sale del campo *Company* del asistente (en el layout, `attendee_company`).
   Se escribe como en el sitio: `Directora · El Colombiano`, `Periodista · excomisionada de la Verdad`.
 - Las escarapelas se generan desde un pedido: un producto gratuito y oculto
-  ("Panelista", sin boleta) con un pedido por persona, o un solo pedido con
-  varias posiciones. La escarapela se descarga desde el detalle del pedido
-  ("Download badge") o en lote desde Orders → Export → "Attendee badges".
-- Si hay más de una categoría, cada producto lleva su propio layout con su
-  fondo; el JSON es el mismo para todos.
+  por categoría ("Panelista", "Staff") con un pedido por persona, o un solo
+  pedido con varias posiciones. La escarapela se descarga desde el detalle
+  del pedido ("Download badge") o en lote desde Orders → Export → "Attendee badges".
+- El QR es el mismo código secreto de la boleta: la escarapela también sirve
+  para el control de entrada si hace falta.
 
 Decisiones:
 
-- La categoría va fija en el fondo, no como dato variable: así sale en Archivo
-  con tracking, como los rótulos del manual, y no en Open Sans.
-- El nombre va a 28 pt con autoajuste: "Daniel Samper Pizano" baja a dos
-  líneas; algo más largo se encoge en vez de salirse.
-- Sin QR ni código: la escarapela identifica, no da acceso. El control de
-  entrada se hace con la boleta.
+- La categoría va fija en el fondo, no como dato variable: así sale en Archivo,
+  en la píldora, y no en Open Sans.
+- El nombre va a 30 pt con autoajuste y pegado al cargo: "María Fernanda
+  Gómez" ocupa dos líneas; algo más largo baja a tres o se encoge.
+- El sitio se escribe `testigosdelamemoria.com`, que es el dominio real; la
+  pieza de la diseñadora decía `.co`.
 
 ---
 

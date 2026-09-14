@@ -12,10 +12,11 @@ export const C = { ink: '#210804', cream: '#efe8df', brick: '#7d290d', terracott
 
 export const mm = (n) => `${n}mm`;
 
-export const logoLockup = () =>
-  readFileSync(new URL('../../src/assets/logo/logo-lockup.svg', import.meta.url), 'utf8').replace('<svg ', '<svg class="logo" ');
+const svg = (name) => readFileSync(new URL(`../../src/assets/logo/${name}.svg`, import.meta.url), 'utf8').replace('<svg ', '<svg class="logo" ');
+export const logoLockup = () => svg('logo-lockup');
+export const logoSymbol = () => svg('logo-symbol');
 
-export function piece({ PAGE_W, PAGE_H }) {
+export function piece({ PAGE_W, PAGE_H, extraCss = '' }) {
   /* --- Elementos dinámicos de pretix (sobre el fondo) --- */
   const text = (content, sample, { left, top, width, height, size, bold = false, align = 'left', valign = 'top', color = INK, lineheight = 1.15 }) => ({
     type: 'textcontainer', page: 1, locale: '',
@@ -36,7 +37,7 @@ export function piece({ PAGE_W, PAGE_H }) {
   const block = (r, bg) => `<div class="blk" style="left:${mm(r.x)};top:${mm(r.y)};width:${mm(r.w)};height:${mm(r.h)};background:${bg}"></div>`;
   const label = (txt, x, y, color = C.brick) => `<div class="label" style="left:${mm(x)};top:${mm(y)};color:${color}">${txt}</div>`;
   const note = (txt, x, y, w, extra = '') => `<div class="note" style="left:${mm(x)};top:${mm(y)};width:${mm(w)};${extra}">${txt}</div>`;
-  const logo = (x, y, w) => `<div class="logo-wrap" style="left:${mm(x)};top:${mm(y)};width:${mm(w)}">${logoLockup()}</div>`;
+  const logo = (x, y, w, markup = logoLockup()) => `<div class="logo-wrap" style="left:${mm(x)};top:${mm(y)};width:${mm(w)}">${markup}</div>`;
 
   const css = `
 @page { size: ${PAGE_W}mm ${PAGE_H}mm; margin: 0; }
@@ -48,7 +49,7 @@ body { width: ${PAGE_W}mm; height: ${PAGE_H}mm; position: relative; background: 
 .logo { display: block; width: 100%; height: auto; }
 .label { font-size: 6pt; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1; }
 .dyn { font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif; line-height: 1.15; outline: 0.2mm dashed rgba(116,179,214,.9); box-sizing: border-box; display: flex; }
-`;
+${extraCss}`;
 
   const page = (background, extra = '') => `<!doctype html><html><head><meta charset="utf-8"><style>${css}</style></head><body>${background}${extra}</body></html>`;
 
