@@ -280,6 +280,44 @@ Decisiones:
 - Los textos variables tienen autoajuste: un nombre largo se encoge en vez de
   salirse de su bloque.
 
+## Escarapela en PDF (Badges → Badge layouts)
+
+Para las personas que llevan credencial colgada: panelistas, y si hace falta
+organización o prensa. Mismo formato A6 vertical (105 × 148 mm) de la boleta y
+de la plantilla por defecto de pretix, que es el tamaño del porta-escarapela A6
+corriente. Cuatro bloques según la fórmula visual: crema con el logo y aire,
+terracota con el nombre grande y el cargo debajo, franja oliva con la categoría
+("Panelista") y franja cielo con fechas y Villa de Leyva.
+
+Archivos en `brand/pretix/`:
+
+| Archivo | Para qué |
+|---|---|
+| `escarapela-panelista-fondo.pdf` | Botón "Upload PDF as background" del layout de escarapela. Lleva bloques, logo, la palabra "Panelista" en Archivo y los datos fijos. |
+| `escarapela-layout.json` | Botón `</>` del editor: reemplazar todo el código por este. Solo dos datos variables, nombre y cargo, en Open Sans y tinta. |
+| `escarapela/build.mjs` y `escarapela/make.sh` | Fuente del diseño. `sh brand/pretix/escarapela/make.sh` regenera PDF, JSON y vista previa; `sh brand/pretix/escarapela/make.sh Organización` genera el fondo de otra categoría (`escarapela-organizacion-fondo.pdf`). Necesita Google Chrome. |
+| `lib.mjs` | Lo común a boleta y escarapela (colores, cajas, vista previa). |
+
+Cómo se llena en pretix:
+
+- El cargo sale del campo *Company* del asistente (en el layout, `attendee_company`).
+  Se escribe como en el sitio: `Directora · El Colombiano`, `Periodista · excomisionada de la Verdad`.
+- Las escarapelas se generan desde un pedido: un producto gratuito y oculto
+  ("Panelista", sin boleta) con un pedido por persona, o un solo pedido con
+  varias posiciones. La escarapela se descarga desde el detalle del pedido
+  ("Download badge") o en lote desde Orders → Export → "Attendee badges".
+- Si hay más de una categoría, cada producto lleva su propio layout con su
+  fondo; el JSON es el mismo para todos.
+
+Decisiones:
+
+- La categoría va fija en el fondo, no como dato variable: así sale en Archivo
+  con tracking, como los rótulos del manual, y no en Open Sans.
+- El nombre va a 28 pt con autoajuste: "Daniel Samper Pizano" baja a dos
+  líneas; algo más largo se encoge en vez de salirse.
+- Sin QR ni código: la escarapela identifica, no da acceso. El control de
+  entrada se hace con la boleta.
+
 ---
 
 ## Correos (Settings → E-mail)
