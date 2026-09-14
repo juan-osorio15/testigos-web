@@ -9,14 +9,18 @@
 // cuadro crema con las comillas en la esquina, el nombre grande y el cargo;
 // abajo, crema con el QR y el código del pedido, y terracota con los datos.
 //
-// La categoría cambia el rótulo y el color del bloque principal:
+// La categoría cambia el rótulo y los colores (ver PRESETS):
 //   node build.mjs staff
 // Imprime el slug de la categoría (para nombrar el PDF) en la salida estándar.
 import { C, INK, piece, logoSymbol } from '../lib.mjs';
 
+// main: bloque principal (la categoría); data: bloque de datos prácticos abajo.
+// Staff va en terracota, el color más reconocible de la marca; su bloque de
+// datos pasa a oliva para no fundirse con el principal.
 const PRESETS = {
-  panelista: { label: 'Panelista', main: C.olive },
-  staff: { label: 'Staff', main: C.sky },
+  panelista: { label: 'Panelista', main: C.olive, data: C.terracotta },
+  staff: { label: 'Staff', main: C.terracotta, data: C.olive },
+  prensa: { label: 'Prensa', main: C.sky, data: C.terracotta },
 };
 const slug = process.argv[2] || 'panelista';
 const preset = PRESETS[slug];
@@ -40,7 +44,7 @@ const E = { x: 78, y: 0, w: 27, h: 25 };           // crema: las comillas, miran
 // El crema del QR sube 5 mm más que el terracota: dos planos superpuestos,
 // no una grilla (ver brand/formula-visual.md, punto 1).
 const Q = { x: 0, y: 97, w: 45, h: 51 };           // crema: QR y código del pedido
-const D = { x: 45, y: 102, w: 60, h: 46 };         // terracota: datos prácticos
+const D = { x: 45, y: 102, w: 60, h: 46 };         // datos prácticos (terracota u oliva, según la categoría)
 
 /* --- Elementos dinámicos de pretix (sobre el fondo) --- */
 // El nombre va pegado al cargo, con el aire arriba. Un nombre largo baja a
@@ -65,7 +69,7 @@ const background = `
 ${block(P, preset.main)}
 ${block(E, C.cream)}
 ${block(Q, C.cream)}
-${block(D, C.terracotta)}
+${block(D, preset.data)}
 <div class="pill" style="left:${mm(M)};top:${mm(8)};height:${mm(7)}">${preset.label}</div>
 ${logo(E.x + 4, E.y + 13, 20, logoSymbol())}
 <div class="pill" style="left:${mm(pillLeft)};top:${mm(pillTop)};width:${mm(pill.w)};height:${mm(pill.h)}"></div>
