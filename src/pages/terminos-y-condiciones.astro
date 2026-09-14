@@ -1,0 +1,388 @@
+---
+/**
+ * Términos y condiciones de compra de boletas (Ley 1480 de 2011, Estatuto
+ * del Consumidor). Redacción del abogado interno del 2026-09-14: reparte
+ * papeles entre organizadores y Eventalist sin excluir responsabilidades,
+ * reconoce el retracto del art. 47, y remite a la política de datos. Por
+ * decisión del titular no lleva colofón con NIT, dirección ni teléfono: esa
+ * identificación (art. 50 lit. a) va en la configuración del organizador de
+ * Pretix, que es el medio donde se vende. Se enlaza desde la casilla de
+ * términos de la tienda y desde el pie del sitio.
+ */
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { DATA_CONTACT_EMAIL, DATA_CONTROLLER, TERMS_EFFECTIVE } from '../config';
+import { event } from '../data/event';
+
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : import.meta.env.BASE_URL + '/';
+const c = DATA_CONTROLLER;
+const policyHref = `${base}tratamiento-de-datos/`;
+---
+
+<LegalLayout
+  title="Términos y condiciones de compra · Testigos de la Memoria"
+  description="Términos y condiciones de compra de boletas para los conversatorios del encuentro Testigos de la Memoria, Villa de Leyva, 5 al 8 de noviembre de 2026."
+  heading="Términos y condiciones de compra de boletas"
+  effective={TERMS_EFFECTIVE}
+>
+  <p class="policy-lead">
+    Estos términos regulan la compra de boletas para los conversatorios del encuentro Testigos de la
+    Memoria, que se realiza en Villa de Leyva del 5 al 8 de noviembre de 2026, a través de la tienda
+    en línea operada por {c.brand}. Al confirmar un pedido, el comprador declara haberlos leído y los
+    acepta. El tratamiento de los datos personales se rige por la
+    <a href={policyHref}>política de tratamiento de datos personales</a> publicada en este sitio, a
+    la que estos términos remiten.
+  </p>
+
+  <section class="policy-section">
+    <h2>1. Quién organiza y quién vende</h2>
+    <p>
+      El encuentro Testigos de la Memoria es organizado por {event.organizers.join(' y ')}, en
+      adelante los organizadores, responsables de su programación, de sus sedes y de su realización.
+    </p>
+    <p>
+      {c.name}, titular de la plataforma {c.brand}, en adelante {c.brand}, vende las boletas por
+      cuenta de los organizadores y opera la boletería del encuentro: la tienda en línea, el cobro
+      del precio, la emisión y el envío de las boletas, el control de ingreso y la atención al
+      comprador. {c.brand} responde ante el comprador por la venta, la emisión de la boleta, el cobro
+      y las devoluciones que procedan según estos términos. Los organizadores responden por el
+      contenido y la realización del encuentro.
+    </p>
+    <p>
+      Toda solicitud del comprador, sobre la compra o sobre el encuentro, se atiende por el canal
+      indicado en la sección 13. Los servicios que el asistente contrate con terceros, como
+      transporte, alojamiento o alimentación, son ajenos a los organizadores y a {c.brand}.
+    </p>
+  </section>
+
+  <section class="policy-section">
+    <h2>2. Qué se compra y qué incluye</h2>
+    <p>
+      La tienda ofrece dos tipos de boleta para los conversatorios, que se realizan en la Hospedería
+      Duruelo, carrera 3 n.º 12-88, Villa de Leyva:
+    </p>
+    <ol type="a">
+      <li>
+        Pase completo: acceso a todos los conversatorios del viernes 6 al domingo 8 de noviembre de
+        2026, incluidas la bienvenida y el cierre.
+      </li>
+      <li>
+        Boleta por franja: acceso a los conversatorios de una sola franja, es decir, una mañana o una
+        tarde, identificada en la boleta por su fecha y jornada. Las franjas se venden en las etapas
+        y con la disponibilidad que muestra la tienda.
+      </li>
+    </ol>
+    <p>
+      La boleta da derecho a un lugar en la sala durante la franja o las franjas correspondientes,
+      sin asiento numerado. No incluye alojamiento, transporte, alimentación ni ningún servicio
+      distinto del acceso a las sesiones. El aforo es limitado y las boletas se venden hasta agotar
+      la disponibilidad.
+    </p>
+    <p>
+      Las charlas abiertas del jueves 5 y del viernes 6 de noviembre en la mañana, en la Casa Museo
+      Antonio Nariño, son de entrada libre, no requieren boleta, están sujetas al aforo del lugar y
+      no forman parte de lo que se compra. Las condiciones de acceso o inscripción que los
+      organizadores definan para ellas se publican en el sitio del encuentro.
+    </p>
+  </section>
+
+  <section class="policy-section">
+    <h2>3. Compra, precio y pago</h2>
+    <ol type="a">
+      <li>
+        <em>Precio.</em> El precio de cada boleta es el que muestra la tienda al momento de la
+        compra, en pesos colombianos (COP), e incluye los impuestos que apliquen. Los precios y la
+        disponibilidad pueden variar según la etapa de venta. El precio pagado en una etapa no se
+        ajusta por los precios o descuentos de etapas posteriores.
+      </li>
+      <li>
+        <em>Pedido.</em> Antes de confirmar, el comprador ve el resumen del pedido con los productos,
+        las cantidades y el valor total, y debe aceptar estos términos y otorgar la autorización de
+        tratamiento de datos. El pedido queda realizado al confirmarlo y la compra se perfecciona con
+        la aprobación del pago.
+      </li>
+      <li>
+        <em>Pago.</em> El pago se realiza a través de Wompi, pasarela de pagos, con los medios de
+        pago que esta ofrezca en la tienda. Los datos del medio de pago los recibe directamente
+        Wompi; {c.brand} no los recibe ni los almacena. Si el pago no se aprueba dentro del plazo que
+        la tienda indica, el pedido se cancela y los cupos se liberan.
+      </li>
+      <li>
+        <em>Confirmación.</em> Aprobado el pago, se envía al correo electrónico registrado la
+        confirmación del pedido con las boletas adjuntas en formato PDF. Wompi envía por su parte el
+        comprobante de la transacción.
+      </li>
+      <li>
+        <em>Factura.</em> {c.name} emite la factura electrónica de venta o el documento equivalente
+        conforme a la normativa tributaria, con el código del pedido como referencia. El comprador
+        que requiera la factura a nombre de una persona jurídica o con datos distintos de los del
+        pedido debe indicarlo por el canal de la sección 13 al momento de la compra, con el código
+        del pedido.
+      </li>
+      <li>
+        <em>Códigos de cortesía o descuento.</em> Si la tienda admite códigos, estos se rigen por las
+        condiciones con que se entregan, son de un solo uso y no son canjeables por dinero.
+      </li>
+    </ol>
+  </section>
+
+  <section class="policy-section">
+    <h2>4. La boleta y el correo registrado</h2>
+    <ol type="a">
+      <li>
+        La boleta es un documento PDF con un código QR único. Cada boleta corresponde a una persona;
+        el Pase completo es una sola boleta válida para todas las franjas, y la boleta por franja es
+        válida únicamente para la franja indicada en ella.
+      </li>
+      <li>
+        El comprador es responsable de registrar un correo electrónico correcto y de revisar su
+        bandeja de correo no deseado. La confirmación y las boletas se envían únicamente a ese
+        correo, y el comprador puede volver a descargarlas desde el enlace del pedido. Si el correo
+        quedó mal escrito, el comprador debe solicitar la corrección por el canal de la sección 13,
+        indicando el código del pedido y los datos que permitan verificar la titularidad de la
+        compra.
+      </li>
+      <li>
+        El comprador debe custodiar la boleta y no compartir su imagen ni su código. El código QR se
+        valida una sola vez por franja. Si se presentan varias copias del mismo código, ingresa
+        quien lo presente primero, y ni {c.brand} ni los organizadores están obligados a admitir a
+        los demás ni a devolver el valor pagado.
+      </li>
+      <li>
+        La boleta lleva el nombre del asistente. El comprador es responsable de la exactitud de los
+        nombres que registre. No son válidas las boletas alteradas ni las adquiridas por canales
+        distintos de la tienda oficial o de la cesión prevista en la sección 6.
+      </li>
+    </ol>
+  </section>
+
+  <section class="policy-section">
+    <h2>5. Ingreso al encuentro</h2>
+    <ol type="a">
+      <li>
+        El asistente presenta la boleta en la entrada, en el celular o impresa, y el personal de
+        ingreso escanea el código. El personal puede solicitar un documento de identidad para
+        verificar el nombre de la boleta.
+      </li>
+      <li>La boleta es válida solo para la franja o las franjas que indica y para las sesiones de esa franja.</li>
+      <li>
+        Se recomienda llegar antes del inicio de cada franja. Una vez iniciada una sesión, el ingreso
+        puede demorarse hasta una pausa para no interrumpirla. La llegada tarde y la no asistencia no
+        dan derecho a devolución ni a cambio.
+      </li>
+      <li>
+        Los asistentes deben respetar a los panelistas, a los demás asistentes y al personal, seguir
+        las indicaciones del personal, mantener los teléfonos en silencio y no interrumpir las
+        sesiones. Los organizadores se reservan el derecho de admisión y de permanencia por razones
+        de seguridad, de orden o de respeto, aplicado con criterios objetivos y sin discriminación.
+        Quien sea retirado por esos motivos no tiene derecho a devolución.
+      </li>
+      <li>
+        La compra debe realizarla una persona mayor de edad. Los menores de edad pueden asistir con
+        su propia boleta, acompañados por un adulto responsable.
+      </li>
+      <li>
+        Las sedes, las fechas y los horarios son los publicados en el sitio del encuentro, sujetos a
+        los ajustes previstos en las secciones 8 y 9.
+      </li>
+    </ol>
+  </section>
+
+  <section class="policy-section">
+    <h2>6. Cesión de la boleta</h2>
+    <p>
+      La boleta puede cederse a otra persona a título gratuito. Para ello, el comprador actualiza el
+      nombre del asistente desde el enlace del pedido, mientras la tienda lo permita y hasta la fecha
+      límite que esta indique. Después de esa fecha, la cesión se solicita por el canal de la sección
+      13, desde el correo registrado en el pedido, con el código del pedido y el nombre del nuevo
+      asistente, y queda sujeta a que sea posible atenderla antes del inicio de la franja.
+    </p>
+    <p>
+      No se admite la reventa de boletas con fines de lucro ni su comercialización por canales
+      distintos de la tienda oficial. {c.brand} no responde por boletas adquiridas por esos canales.
+      El comprador que ceda su boleta es responsable de que quien la reciba conozca estos términos.
+    </p>
+  </section>
+
+  <section class="policy-section">
+    <h2>7. Devoluciones y derecho de retracto</h2>
+    <ol type="a">
+      <li>
+        La compra es en firme. No hay devolución del valor pagado por decisión del comprador, como la
+        imposibilidad de asistir, el cambio de planes, la llegada tarde o la inconformidad con la
+        programación, salvo el derecho de retracto previsto en este numeral y los casos de las
+        secciones 8 y 9. La cesión de la boleta, según la sección 6, es la alternativa para quien no
+        pueda asistir.
+      </li>
+      <li>
+        <em>Derecho de retracto.</em> Por tratarse de una compra a distancia, el comprador puede
+        retractarse de la totalidad o de parte de las boletas de un pedido dentro de los cinco (5)
+        días hábiles siguientes a la compra, siempre que la franja o el encuentro no haya comenzado,
+        conforme al artículo 47 de la Ley 1480 de 2011. Para ejercerlo, el comprador escribe por el
+        canal de la sección 13, desde el correo registrado en el pedido, indicando el código del
+        pedido y las boletas sobre las que se retracta. Las boletas objeto del retracto quedan
+        anuladas.
+      </li>
+      <li>
+        <em>Devolución.</em> {c.brand} devuelve el valor pagado por las boletas objeto del retracto,
+        sin descuentos ni retenciones, dentro de los treinta (30) días calendario siguientes al
+        ejercicio del derecho, por el mismo medio de pago o, cuando la pasarela no lo permita, por
+        transferencia a la cuenta que el comprador indique.
+      </li>
+      <li>Estos términos no limitan los derechos que la Ley 1480 de 2011 reconoce al consumidor.</li>
+    </ol>
+  </section>
+
+  <section class="policy-section">
+    <h2>8. Cancelación, aplazamiento y cambios de programación</h2>
+    <ol type="a">
+      <li>
+        <em>Cancelación.</em> Si el encuentro se cancela, {c.brand} devuelve el valor pagado por las
+        boletas. Si se cancela una franja, devuelve el valor pagado por las boletas de esa franja y,
+        a quien tenga Pase completo, la parte proporcional que resulte de dividir el valor pagado por
+        el número de franjas que cubre el pase. La devolución se realiza dentro de los treinta (30)
+        días calendario siguientes al anuncio de la cancelación, por el mismo medio de pago o por
+        transferencia a la cuenta que el comprador indique. La cancelación se comunica en el sitio
+        del encuentro y al correo registrado en el pedido.
+      </li>
+      <li>
+        <em>Aplazamiento o cambio de ciudad.</em> Si el encuentro o una franja se traslada a otra
+        fecha, o su sede se traslada fuera de Villa de Leyva, la boleta sigue vigente para la nueva
+        fecha o sede. El comprador que no pueda asistir en las nuevas condiciones puede solicitar la
+        devolución del valor pagado por las boletas afectadas, por el canal de la sección 13, dentro
+        de los diez (10) días hábiles siguientes al anuncio. Vencido ese plazo, la boleta se entiende
+        aceptada para las nuevas condiciones y no hay devolución.
+      </li>
+      <li>
+        <em>Otros cambios de programación.</em> Los cambios de sede dentro de Villa de Leyva, los
+        ajustes de horario dentro de la misma franja y los cambios de panelistas, de títulos o de
+        orden de las sesiones no dan lugar a devolución. La participación de cada panelista está
+        sujeta a su disponibilidad; ante una ausencia, los organizadores pueden sustituir al
+        panelista o reorganizar la sesión. Estos cambios se comunican en el sitio del encuentro y,
+        cuando sea posible, al correo registrado en el pedido.
+      </li>
+    </ol>
+  </section>
+
+  <section class="policy-section">
+    <h2>9. Fuerza mayor y causas ajenas</h2>
+    <p>
+      Si el encuentro o una franja no puede realizarse, se interrumpe o debe modificarse por fuerza
+      mayor, caso fortuito o hechos ajenos a los organizadores y a {c.brand}, como órdenes de
+      autoridad, alteraciones del orden público, emergencias sanitarias, desastres naturales,
+      condiciones climáticas que impidan el acceso o la realización, o fallas en los servicios
+      públicos o en la sede, los organizadores pueden reprogramar, cambiar de sede o cancelar, y se
+      aplica lo previsto en la sección 8. Ni los organizadores ni {c.brand} responden en esos casos
+      por los gastos de viaje, alojamiento, alimentación u otros en que el asistente haya incurrido,
+      ni por otros perjuicios derivados de esos hechos.
+    </p>
+  </section>
+
+  <section class="policy-section">
+    <h2>10. Imagen de los asistentes</h2>
+    <p>
+      Durante el encuentro se toman fotografías y se graban en video las sesiones y el público, con
+      el fin de documentar el encuentro y comunicarlo en el sitio web, las redes sociales, los medios
+      de comunicación y los materiales del encuentro, de sus futuras ediciones y de {c.brand} en
+      relación con el encuentro. Esas imágenes pueden incluir a los asistentes.
+    </p>
+    <p>
+      Al aceptar estos términos y al ingresar a la sede, informado por estos términos y por los
+      avisos dispuestos en el lugar, el asistente autoriza la captación de su imagen y su uso para
+      esas finalidades, sin contraprestación. La imagen de un asistente no se usará de forma que lo
+      denigre ni para publicidad de productos o servicios ajenos al encuentro. El asistente puede
+      ejercer en cualquier momento los derechos previstos en la política de tratamiento de datos
+      personales por el canal de la sección 13; la solicitud se atiende respecto de los usos futuros
+      y, en cuanto a los materiales ya publicados, en la medida en que sea razonablemente posible
+      retirar la imagen.
+    </p>
+    <p>El comprador que adquiera boletas para otras personas se obliga a informarles estos términos.</p>
+  </section>
+
+  <section class="policy-section">
+    <h2>11. Propiedad intelectual</h2>
+    <p>
+      Los conversatorios, las intervenciones, las presentaciones y los materiales del encuentro
+      pertenecen a sus autores y a los organizadores. La boleta da derecho a asistir, no a grabar,
+      reproducir ni difundir. No está permitido grabar en audio o video ni transmitir en directo las
+      sesiones, total o parcialmente, sin autorización escrita de los organizadores. Las fotografías
+      personales, sin flash y sin interrumpir la sesión, están permitidas salvo indicación contraria
+      en la sala. El nombre, la marca y los materiales gráficos del encuentro y de {c.brand} no
+      pueden usarse sin autorización.
+    </p>
+  </section>
+
+  <section class="policy-section">
+    <h2>12. Datos personales</h2>
+    <p>
+      Los datos que el comprador entrega en la tienda, es decir, el nombre del comprador y de cada
+      asistente, el correo electrónico y, si lo indica, el teléfono, los trata {c.name} como
+      responsable, para emitir y enviar la boleta, gestionar el pedido y el pago, emitir la factura
+      cuando corresponda, controlar el ingreso al encuentro y atender las solicitudes sobre la
+      compra, conforme a la <a href={policyHref}>política de tratamiento de datos personales</a>
+      publicada en este sitio, que detalla los derechos del titular y el procedimiento para
+      ejercerlos. La autorización se otorga en la casilla de la tienda antes de confirmar el pedido.
+    </p>
+    <p>
+      Los mensajes sobre el pedido, como la confirmación, la boleta, los recordatorios y los avisos
+      de cambios de programación, son de carácter transaccional. {c.brand} no usa los datos de la
+      compra para enviar publicidad ni información de otros eventos, salvo que el titular lo
+      autorice por separado.
+    </p>
+    <p>
+      Los datos del medio de pago los trata Wompi conforme a su propia política. El comprador que
+      registra datos de otros asistentes declara contar con su autorización para hacerlo y se obliga
+      a informarles estos términos y la política de tratamiento de datos.
+    </p>
+  </section>
+
+  <section class="policy-section">
+    <h2>13. Atención al comprador, peticiones, quejas y reclamos</h2>
+    <p>
+      El único canal de atención de {c.brand} para asuntos relacionados con la compra, las boletas,
+      las devoluciones, la cesión, la factura y cualquier petición, queja o reclamo es el correo
+      electrónico {DATA_CONTACT_EMAIL}. Los mensajes deben enviarse, en lo posible, desde el correo
+      registrado en el pedido e indicar el código del pedido. La fecha y hora de recepción en ese
+      buzón constituyen la constancia de radicación, y el seguimiento se realiza en el mismo hilo de
+      correo. Las solicitudes presentadas por otros medios se tienen por recibidas cuando lleguen a
+      ese correo.
+    </p>
+    <p>
+      Las reclamaciones relacionadas con la compra se responden dentro de los quince (15) días
+      hábiles siguientes a su recepción, conforme al artículo 58 de la Ley 1480 de 2011. Las
+      consultas y los reclamos sobre datos personales se atienden en los plazos previstos en la
+      política de tratamiento de datos personales.
+    </p>
+    <p>
+      La <a href="https://www.sic.gov.co" rel="noopener" target="_blank">Superintendencia de Industria y Comercio</a>
+      es la autoridad nacional de protección al consumidor. La reclamación directa ante {c.brand} es,
+      por regla general, requisito previo para presentar ante esa entidad una acción de protección al
+      consumidor.
+    </p>
+  </section>
+
+  <section class="policy-section">
+    <h2>14. Ley aplicable, vigencia, modificación y aceptación</h2>
+    <ol type="a">
+      <li>
+        Estos términos se rigen por las leyes de la República de Colombia, en particular por la Ley
+        1480 de 2011. Las controversias se someten a la Superintendencia de Industria y Comercio en
+        ejercicio de sus funciones jurisdiccionales o a los jueces competentes en Colombia, previa
+        reclamación directa conforme a la sección 13.
+      </li>
+      <li>
+        Estos términos rigen desde la fecha indicada en la cabecera y aplican a las compras
+        realizadas mientras estén vigentes. {c.brand} puede modificarlos publicando en esta página la
+        nueva versión con su fecha. Cada pedido se rige por la versión vigente en el momento de la
+        compra.
+      </li>
+      <li>
+        El comprador acepta estos términos al marcar la casilla correspondiente en la tienda antes de
+        confirmar el pedido. Esta página puede consultarse, imprimirse y descargarse en cualquier
+        momento.
+      </li>
+      <li>Si alguna de estas cláusulas resulta inválida, las demás conservan su vigencia.</li>
+    </ol>
+  </section>
+</LegalLayout>

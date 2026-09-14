@@ -1,0 +1,117 @@
+---
+/**
+ * Marco común de las páginas legales (/tratamiento-de-datos/ y
+ * /terminos-y-condiciones/): cabecera sobria con antetítulo, título y fecha
+ * de vigencia, cuerpo de documento en crema y enlace de vuelta. El contenido
+ * (entrada, secciones numeradas) va en el slot.
+ */
+import EventLayout from './EventLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  heading: string;
+  /** Fecha ISO de entrada en vigencia; se muestra en formato largo es-CO */
+  effective: string;
+}
+
+const { title, description, heading, effective } = Astro.props;
+
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : import.meta.env.BASE_URL + '/';
+
+const effectiveLabel = new Date(`${effective}T12:00:00-05:00`).toLocaleDateString('es-CO', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'America/Bogota',
+});
+---
+
+<EventLayout title={title} description={description}>
+  <main id="contenido" class="policy">
+    <div class="container policy-inner">
+      <header class="policy-head">
+        <p class="eyebrow">Testigos de la Memoria</p>
+        <h1>{heading}</h1>
+        <p class="policy-meta">Vigente desde el {effectiveLabel}</p>
+      </header>
+
+      <slot />
+
+      <p class="policy-back"><a href={base}>Volver al inicio</a></p>
+    </div>
+  </main>
+</EventLayout>
+
+<style>
+  .policy {
+    position: relative;
+    z-index: 1;
+    background-color: var(--cream);
+    padding-block: calc(var(--header-h) + var(--space-5)) var(--space-6);
+  }
+  .policy-inner {
+    max-width: 42rem;
+  }
+  .policy-head {
+    display: grid;
+    gap: var(--space-1);
+    padding-bottom: var(--space-3);
+    margin-bottom: var(--space-3);
+    border-bottom: var(--border) var(--ink);
+  }
+  .policy-head .eyebrow {
+    color: var(--brick);
+  }
+  h1 {
+    font-size: var(--text-h3);
+    letter-spacing: -0.01em;
+  }
+  .policy-meta {
+    font-size: var(--text-small);
+    opacity: 0.7;
+  }
+  :global(.policy-lead) {
+    font-size: var(--text-body);
+    margin-bottom: var(--space-4);
+    max-width: 65ch;
+    text-wrap: pretty;
+  }
+
+  :global(.policy-section) {
+    display: grid;
+    gap: var(--space-1);
+    margin-bottom: var(--space-3);
+  }
+  :global(.policy-section h2) {
+    font-size: var(--text-body);
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+  :global(.policy-section p),
+  :global(.policy-section li) {
+    font-size: var(--text-small);
+    line-height: 1.6;
+    max-width: 65ch;
+    text-wrap: pretty;
+  }
+  :global(.policy-section ol) {
+    display: grid;
+    gap: 0.35rem;
+    padding-left: 1.6em;
+  }
+  :global(.policy-section em) {
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  .policy-back {
+    margin-top: var(--space-4);
+    font-size: var(--text-small);
+  }
+  .policy-back a {
+    text-underline-offset: 0.2em;
+  }
+</style>
