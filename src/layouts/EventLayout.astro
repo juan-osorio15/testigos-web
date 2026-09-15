@@ -45,7 +45,9 @@ const forceNoindex = noindex;
 
 /* Canonical de la página actual (la raíz o una página legal). */
 const canonical = SITE_URL + Astro.url.pathname;
-const ogImage = `${SITE_URL}${base}og/og-image.png`;
+/* Se genera con brand/og/make.sh. Nombre versionado: WhatsApp guarda la vista
+   previa por URL y solo la renueva cuando cambia la URL de la imagen. */
+const ogImage = `${SITE_URL}${base}og/og-image-v2.png`;
 
 /* JSON-LD: un solo grafo con la entidad del encuentro (Organization), el
    sitio (WebSite) y el Event, todo desde src/data. Los panelistas van como
@@ -120,6 +122,7 @@ const eventLd = {
           priceCurrency: ticketOffer.currency,
           availability: 'https://schema.org/InStock',
           validFrom: ticketOffer.validFrom,
+          validThrough: ticketOffer.validThrough,
         },
       }
     : {}),
@@ -161,7 +164,7 @@ const jsonLd = {
     <meta property="og:image:type" content="image/png" />
     <meta
       property="og:image:alt"
-      content="Testigos de la Memoria: la historia reciente de Colombia, contada por quienes la ven de frente. Villa de Leyva, 5 al 8 de noviembre de 2026."
+      content="Testigos de la Memoria: la historia reciente de Colombia, contada por quienes la viven de frente. Villa de Leyva, 5 al 8 de noviembre de 2026."
     />
     <meta property="og:locale" content="es_CO" />
     <meta name="twitter:card" content="summary_large_image" />

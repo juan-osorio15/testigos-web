@@ -151,61 +151,63 @@ No te pierdes de nada y te aseguras el mejor precio.
 ### Franja · Viernes 6, tarde · 90.000 COP
 
 ```markdown
-*Viernes 6 de noviembre · 3:00 a 6:00 p.m.*
-
 3:00 p.m. · Bienvenida y presentación
 **Darío Restrepo**
 
 3:30 a 6:00 p.m. · Bogotazo, dictadura y Frente Nacional (1958-1974)
 **Daniel Samper Pizano y Darío Restrepo**
+
+*6 de noviembre*
 ```
 
 ### Franja · Sábado 7, mañana · 90.000 COP
 
 ```markdown
-*Sábado 7 de noviembre · 9:00 a.m. a 12:30 p.m.*
-
 9:00 a 10:30 a.m. · Surgimiento de las guerrillas
+**León Valencia y Ana María Echeverri**
 
 11:00 a.m. a 12:30 p.m. · Negociaciones de paz, el Caguán y La Habana
 **Marisol Gómez**
+
+*7 de noviembre*
 ```
 
 ### Franja · Sábado 7, tarde · 90.000 COP
 
 ```markdown
-*Sábado 7 de noviembre · 3:00 a 6:30 p.m.*
-
 3:00 a 4:30 p.m. · Narcotráfico y paramilitarismo
-**Luz María Sierra**
+**Luz María Sierra y Martha Soto**
 
 5:00 a 6:30 p.m. · Reelecciones
 **Cecilia Orozco**
+
+*7 de noviembre*
 ```
 
 ### Franja · Domingo 8, mañana · 90.000 COP
 
 ```markdown
-*Domingo 8 de noviembre · 9:00 a.m. a 1:00 p.m.*
-
 9:00 a 10:30 a.m. · Magnicidios y víctimas de la violencia
-**Marta Ruiz y Guillermo González**
+**Marta Ruiz y Guillermo González Uribe**
 
 11:00 a.m. a 12:30 p.m. · Mujeres periodistas y conflicto
 **Yolanda Ruiz y María Elvira Samper**
 
 12:30 a 1:00 p.m. · Cierre
+
+*8 de noviembre*
 ```
 
-> Estructura de cada franja: fecha y rango horario en cursiva, una charla por
-> bloque con su hora y título en texto normal, y los panelistas en negrita
-> debajo (es lo que vende). Sin sede: ya va en la portada y en el mensaje de
-> éxito. Solo nombres confirmados en `src/data/agenda.ts`: "Surgimiento de las
-> guerrillas" no tiene panelista confirmado y queda sin nombre; Marisol Gómez
-> solo está confirmada para "Negociaciones de paz". El cóctel del viernes no se
-> anuncia. Como los nombres viven aquí y en el sitio, un cambio de panelista se
-> corrige en los dos. Pretix convierte cada salto de línea simple en `<br>`
-> (extensión nl2br), así que no hacen falta dos espacios al final de línea.
+> Estructura de cada franja (formato del 2026-09-15): una charla por bloque
+> con su hora y título en texto normal, los panelistas en negrita debajo (es
+> lo que vende) y, al final, la fecha en cursiva. Sin sede: ya va en la
+> portada y en el mensaje de éxito. Solo nombres confirmados en
+> `src/data/agenda.ts`. El cóctel del viernes no se anuncia. Como los nombres
+> viven aquí y en el sitio, un cambio de panelista se corrige en los dos; la
+> línea de nombres que el sitio pinta bajo cada franja aún no disponible sale
+> de los datos del sitio (agenda y orden del carrusel), no de estas negritas.
+> Pretix convierte cada salto de línea simple en `<br>` (extensión nl2br), así
+> que no hacen falta dos espacios al final de línea.
 
 Nombres cortos para el checkout, el correo y el PDF (campo *Name*):
 `Pase completo`, `Viernes tarde`, `Sábado mañana`, `Sábado tarde`, `Domingo mañana`.

@@ -54,10 +54,24 @@ const dict = {
   'tickets.slotName': 'Boleta por franja',
   'tickets.slotText':
     'Cada franja es media jornada con sus conversatorios. Escoge la época que quieres oír contada por quienes estaban ahí. Compras solo las que quieras.',
-  /* Etapas de venta (2026-09-13): en la etapa 1 solo el pase completo.
-     El widget muestra las franjas con "Aún no disponible". */
-  'tickets.slotSoon':
-    'En la etapa 1 solo se vende el pase completo. Las boletas por franja se abren en la etapa 2: pide que te avisemos y te escribimos cuando abran.',
+  /* Etapas de venta (2026-09-15): en la etapa 1 solo el pase completo.
+     El widget muestra las franjas con "Aún no disponible"; las fechas las
+     cuenta el bloque de etapas (SalesStages). */
+  'tickets.slotSoon': 'Se venden desde la etapa 2: pide que te avisemos y te escribimos cuando abran.',
+  /* Bloque de etapas: dos planos que se tocan, cielo el vigente y crema el
+     que viene (fórmula visual §6: los datos van en franja) */
+  'stages.heading': 'Calendario de venta',
+  'stages.stage1': 'Etapa 1',
+  'stages.stage2': 'Etapa 2',
+  'stages.now': 'En curso',
+  'stages.until': 'Hasta el',
+  'stages.from': 'Desde el',
+  'stages.stage1Product': 'Pase completo',
+  'stages.stage2Product': 'Boletas por franja',
+  'stages.stage1Note': 'Solo el pase, con los siete conversatorios.',
+  'stages.stage2Note': 'Por franjas. El pase completo se retira.',
+  'stages.daysLeft': 'Quedan {n} días para comprar el pase',
+  'stages.lastDay': 'Último día para comprar el pase',
   'tickets.notify': 'Avísame cuando abra',
   /* Modal "avísame" de las franjas; la franja escogida va como eyebrow */
   'notify.title': 'Te avisamos cuando abra la etapa 2',
@@ -66,10 +80,8 @@ const dict = {
   'notify.submit': 'Avisarme',
   'notify.success': 'Listo. Te escribiremos en cuanto abran las boletas por franja.',
   'notify.close': 'Cerrar',
-  'tickets.freeNote':
-    'Las charlas abiertas del jueves 5 y del viernes 6 en la mañana no necesitan boleta: la entrada es libre.',
   'tickets.soon':
-    'La venta de boletas abre pronto. Aforo limitado. En la etapa 1 se vende solo el pase completo; las boletas por franja se abren en la etapa 2. Las charlas abiertas del 5 y 6 de noviembre son de entrada libre.',
+    'La venta de boletas abre pronto. Aforo limitado. En la etapa 1, hasta el 4 de octubre, se vende solo el pase completo; las boletas por franja se abren en la etapa 2, desde el 5 de octubre. Las charlas abiertas del 5 y 6 de noviembre son de entrada libre.',
   'tickets.widgetFallback':
     'Si el módulo de compra no carga, puedes comprar directamente en la tienda segura de Pretix:',
   'tickets.widgetLink': 'Comprar en Pretix',

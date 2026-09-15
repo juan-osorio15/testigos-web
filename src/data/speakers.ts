@@ -20,6 +20,7 @@ import photoGuillermoGonzalez from '../assets/speakers/guillermo-gonzalez.jpg';
 import photoYolandaRuiz from '../assets/speakers/yolanda-ruiz.jpg';
 import photoMariaElviraSamper from '../assets/speakers/maria-elvira-samper.jpg';
 import photoLeonValencia from '../assets/speakers/leon-valencia.jpg';
+import photoAnaMariaEcheverri from '../assets/speakers/ana-maria-echeverri.jpg';
 
 export type SpeakerLinkKey = 'x' | 'instagram' | 'linkedin' | 'facebook' | 'web' | 'wikipedia';
 
@@ -177,14 +178,30 @@ export const speakers: Speaker[] = [
   },
   {
     slug: 'guillermo-gonzalez',
-    name: 'Guillermo González',
+    /* Nombre con los dos apellidos y bio corregida por los organizadores el 2026-09-15 */
+    name: 'Guillermo González Uribe',
     credential: 'Fundador de Número · columnista de El Espectador',
-    bio: 'Periodista, editor y escritor. Columnista de El Espectador y director de El Ala de Arriba. Fundó y dirigió durante 18 años la revista Número (1993-2011). Antes dirigió Gaceta de Colcultura y el Magazín Dominical de El Espectador, donde empezó como reportero en 1977. Premio Planeta de Periodismo 2002 por “Los niños de la guerra” y Premio Media de LASA. Autor de “A pesar de la noche” y “Foto Sady, recuerdos de la realidad”.',
+    bio: 'Cubrió derechos humanos y cultura en El Espectador en los años ochenta y fue editor de su Magazín Dominical. Dirigió las revistas Gaceta y Número. Autor de “A pesar de la noche”, “Los niños de la guerra”, “Los niños de la guerra quince años después” y, con Margarita Carrillo, de “Foto Sady, recuerdos de la realidad”. Premio Planeta de Periodismo y Premio Media de LASA (Latin American Studies Association). Coautor, con Margarita Carrillo, del documental “Sady González, una luz en la memoria”, premio estímulo del Fondo de Desarrollo Cinematográfico. Escribe columna en El Espectador y colabora con diversos medios.',
     photo: photoGuillermoGonzalez,
     links: {
       x: 'https://x.com/guillogonzale12',
       linkedin: 'https://www.linkedin.com/in/guillermo-gonz%C3%A1lez-uribe-b2775034/',
       web: 'https://elaladearriba.wordpress.com/',
+    },
+    confirmed: true,
+  },
+  {
+    /* Añadida el 2026-09-15 por los organizadores para "Surgimiento de las
+       guerrillas". Investigación en docs/investigacion-ana-maria-echeverri.md.
+       Última del carrusel: sin columna, radio ni televisión hoy. */
+    slug: 'ana-maria-echeverri',
+    name: 'Ana María Echeverri',
+    credential: 'Periodista y documentalista · autora de “Yo soy yo”',
+    bio: 'Periodista, cronista y documentalista. Autora de “Yo soy yo” (2024), la historia de Martín Castillo, un hombre trans, contada tras siete años de conversaciones en Villa de Leyva. Empezó como reportera gráfica de la revista Guion y fue cronista de El Tiempo, Cromos y el Magazín Dominical de El Espectador. Dirigió documentales y programas de opinión para Audiovisuales, Telepacífico y Caracol Televisión. Premios Ondas, India Catalina y Simón Bolívar.',
+    photo: photoAnaMariaEcheverri,
+    photoTreatment: 'plain',
+    links: {
+      web: 'https://www.planetadelibros.com/autor/ana-maria-echeverri/000061446',
     },
     confirmed: true,
   },
