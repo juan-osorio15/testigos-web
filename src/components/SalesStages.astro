@@ -1,0 +1,213 @@
+---
+/**
+ * Calendario de venta junto a la tienda: dos planos que se tocan (fórmula
+ * visual §1 y §6). El de la etapa vigente va en cielo, un poco más alto que
+ * el otro, con la cifra del día en serif; el que viene, en crema. Las fechas
+ * salen de event.ts; el estado "en curso" y los días que quedan se calculan
+ * en el build y el script los recalcula en el navegador.
+ */
+import { salesStages } from '../data/event';
+import { t } from '../ui';
+
+const DAY = 86_400_000;
+/* Cambio de etapa a las 0:00 de Bogotá del primer día de la etapa 2 */
+const switchAt = Date.parse(`${salesStages.stage2Start}T00:00:00-05:00`);
+const daysLeft = Math.ceil((switchAt - Date.now()) / DAY);
+const stage2Live = daysLeft <= 0;
+
+const fmt = new Intl.DateTimeFormat('es-CO', { timeZone: 'America/Bogota', day: 'numeric', month: 'long' });
+const parts = (iso: string) => {
+  const p = fmt.formatToParts(new Date(`${iso}T12:00:00-05:00`));
+  return {
+    day: p.find((x) => x.type === 'day')?.value ?? '',
+    month: p.find((x) => x.type === 'month')?.value ?? '',
+  };
+};
+const end1 = parts(salesStages.stage1End);
+const start2 = parts(salesStages.stage2Start);
+
+/* Con un día se dice "último día"; de dos en adelante, la cuenta */
+const countdown = (n: number) => (n === 1 ? t('stages.lastDay') : t('stages.daysLeft').replace('{n}', String(n)));
+---
+
+<div
+  class="stages"
+  data-stages
+  data-switch-at={switchAt}
+  data-days-left={t('stages.daysLeft')}
+  data-last-day={t('stages.lastDay')}
+  data-now={t('stages.now')}
+>
+  <p class="eyebrow stages-heading">{t('stages.heading')}</p>
+  <ol class="stages-list" role="list">
+    <li class="stage" data-stage="1" data-current={!stage2Live || undefined}>
+      <p class="stage-label">
+        <span>{t('stages.stage1')}</span>
+        <span class="stage-now" data-stage-now>{stage2Live ? '' : t('stages.now')}</span>
+      </p>
+      <p class="stage-date">
+        <span class="stage-prefix">{t('stages.until')}</span>
+        <span class="stage-day">{end1.day}</span>
+        <span class="stage-month">{end1.month}</span>
+      </p>
+      <p class="stage-product">{t('stages.stage1Product')}</p>
+      <p class="stage-note">{t('stages.stage1Note')}</p>
+      <p class="stage-count" data-stage-count hidden={stage2Live}>
+        {stage2Live ? '' : countdown(daysLeft)}
+      </p>
+    </li>
+    <li class="stage" data-stage="2" data-current={stage2Live || undefined}>
+      <p class="stage-label">
+        <span>{t('stages.stage2')}</span>
+        <span class="stage-now" data-stage-now>{stage2Live ? t('stages.now') : ''}</span>
+      </p>
+      <p class="stage-date">
+        <span class="stage-prefix">{t('stages.from')}</span>
+        <span class="stage-day">{start2.day}</span>
+        <span class="stage-month">{start2.month}</span>
+      </p>
+      <p class="stage-product">{t('stages.stage2Product')}</p>
+      <p class="stage-note">{t('stages.stage2Note')}</p>
+    </li>
+  </ol>
+</div>
+
+<script>
+  // El HTML trae el estado del build; aquí se pone al día con la hora real
+  // del visitante (la página se publica una vez y vive semanas).
+  const root = document.querySelector<HTMLElement>('[data-stages]');
+  if (root) {
+    const DAY = 86_400_000;
+    const switchAt = Number(root.dataset.switchAt);
+    const daysLeft = Math.ceil((switchAt - Date.now()) / DAY);
+    const live = daysLeft <= 0 ? '2' : '1';
+    root.querySelectorAll<HTMLElement>('.stage').forEach((el) => {
+      const current = el.dataset.stage === live;
+      el.toggleAttribute('data-current', current);
+      const now = el.querySelector<HTMLElement>('[data-stage-now]');
+      if (now) now.textContent = current ? (root.dataset.now ?? '') : '';
+    });
+    const count = root.querySelector<HTMLElement>('[data-stage-count]');
+    if (count) {
+      count.hidden = daysLeft <= 0;
+      if (daysLeft === 1) count.textContent = root.dataset.lastDay ?? '';
+      else if (daysLeft > 1) count.textContent = (root.dataset.daysLeft ?? '').replace('{n}', String(daysLeft));
+    }
+  }
+</script>
+
+<style>
+  .stages {
+    display: grid;
+    gap: var(--space-2);
+    max-width: 44ch;
+  }
+  .stages-heading {
+    color: var(--ink);
+  }
+  /* Dos planos que comparten arista, sin aire entre ellos */
+  .stages-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .stage {
+    display: grid;
+    gap: 0.35em;
+    padding: var(--space-2);
+    background-color: var(--cream);
+    color: var(--ink);
+    /* El que viene, un poco velado; nunca gris */
+    --stage-fade: 0.75;
+  }
+  /* El vigente: cielo y unos milímetros más alto que el vecino (§1) */
+  .stage[data-current] {
+    background-color: var(--sky);
+    padding-top: calc(var(--space-2) + var(--space-1));
+    --stage-fade: 1;
+  }
+  .stage-label {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5em;
+    font-size: var(--text-label);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: var(--stage-fade);
+  }
+  .stage-now {
+    color: var(--ink);
+  }
+  .stage-now:empty {
+    display: none;
+  }
+  /* Cifra y mes con la misma anatomía que la fecha del hero ("5–8" +
+     "noviembre 2026"): grotesca negra en línea de base con la etiqueta */
+  .stage-date {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 0.5em;
+    opacity: var(--stage-fade);
+  }
+  .stage-prefix {
+    flex-basis: 100%;
+    font-size: var(--text-small);
+    font-weight: 600;
+  }
+  .stage-day {
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-weight: 800;
+    font-size: clamp(1.8rem, 1.2rem + 1.6vw, 2.6rem);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .stage-month {
+    font-size: var(--text-label);
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .stage-product {
+    margin-top: 0.4em;
+    font-size: var(--text-body);
+    font-weight: 800;
+    line-height: 1.2;
+    opacity: var(--stage-fade);
+  }
+  .stage-note,
+  .stage-count {
+    font-size: var(--text-small);
+    line-height: 1.4;
+    opacity: var(--stage-fade);
+  }
+  /* Los días que quedan: plano claro con tinta encima, como el sello
+     "Aún no disponible" de la tienda. Nada de ladrillo sobre cielo. */
+  .stage-count {
+    justify-self: start;
+    margin-top: 0.35em;
+    padding: 0.5em 0.75em;
+    background-color: var(--cream);
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .stage-count:empty,
+  .stage-count[hidden] {
+    display: none;
+  }
+
+  @media (max-width: 26rem) {
+    .stages-list {
+      grid-template-columns: 1fr;
+    }
+    .stage[data-current] {
+      padding-top: var(--space-2);
+    }
+  }
+</style>

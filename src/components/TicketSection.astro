@@ -11,10 +11,49 @@ import { PRETIX_EVENT_URL, pretixReady } from '../config';
 import { t } from '../ui';
 import LogoSymbol from '../assets/logo/logo-symbol.svg';
 import WaitlistForm from './WaitlistForm.astro';
+import SalesStages from './SalesStages.astro';
+import { agenda } from '../data/agenda';
+import { speakers } from '../data/speakers';
 
 /* `pretixReady` (config.ts) decide tienda o formulario. La hoja de estilos
    y el script del widget los pone EventLayout en la cabecera del documento. */
 const live = pretixReady;
+
+/* Panelistas por franja, desde los datos del sitio y no desde las negritas
+   de Pretix: la agenda dice quién va en cada conversatorio y el carrusel
+   fija el orden (reconocimiento público, docs/panelistas.md). La clave es
+   el nombre del producto en Pretix ("Sábado Mañana"), normalizado. Una
+   franja es medio día: mañana si el conversatorio empieza antes de las
+   2 p.m. (el cierre del domingo a las 12:30 p.m. cuenta como mañana). */
+const dayName: Record<string, string> = {
+  '2026-11-06': 'viernes',
+  '2026-11-07': 'sabado',
+  '2026-11-08': 'domingo',
+};
+const normalize = (s: string) =>
+  s
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .trim();
+const startHour = (time: string) => {
+  const h = Number(time.match(/\d+/)?.[0] ?? 0);
+  const pm = /p\.?\s?m/.test(time.match(/[ap]\.?\s?m/)?.[0] ?? '');
+  return pm && h < 12 ? h + 12 : h;
+};
+const franjas: Record<string, string[]> = {};
+for (const slot of agenda) {
+  if (slot.type !== 'conversatorio' || !slot.time || !dayName[slot.day]) continue;
+  const key = `${dayName[slot.day]} ${startHour(slot.time) < 14 ? 'manana' : 'tarde'}`;
+  (franjas[key] ??= []).push(...slot.speakerSlugs);
+}
+const franjaNames = Object.fromEntries(
+  Object.entries(franjas).map(([key, slugs]) => [
+    key,
+    speakers.filter((s) => slugs.includes(s.slug)).map((s) => s.name),
+  ]),
+);
 ---
 
 <section id="boletas" class="tickets">
@@ -37,9 +76,14 @@ const live = pretixReady;
           </dd>
         </div>
       </dl>
-      <p class="tickets-free">{t('tickets.freeNote')}</p>
+      {/* Calendario de venta: cuándo se vende cada cosa */}
+      <SalesStages />
     </div>
-    <div class="tickets-widget" data-notify-label={t('tickets.notify')}>
+    <div
+      class="tickets-widget"
+      data-notify-label={t('tickets.notify')}
+      data-franjas={JSON.stringify(franjaNames)}
+    >
       {
         live ? (
           <>
@@ -90,9 +134,11 @@ const live = pretixReady;
   // del widget de Pretix con el aviso "Aún no disponible" (texto fijo de
   // v2.es.js, dentro de .pretix-widget-availability-unavailable). Aquí ese
   // aviso se cambia por un botón que abre el modal de la lista de
-  // interesados, y a cada franja se le añade una línea con sus panelistas
-  // (los nombres van en negrita en la descripción de Pretix). El widget
-  // pinta con Vue, así que se observa el DOM y se reaplica si se redibuja.
+  // interesados, y a cada franja se le añade una línea con sus panelistas.
+  // Los nombres salen de los datos del sitio (data-franjas, por nombre de
+  // producto) y, si el producto no se reconoce, de las negritas de la
+  // descripción de Pretix. El widget pinta con Vue, así que se observa el
+  // DOM y se reaplica si se redibuja.
   const NOT_YET = 'Aún no disponible';
   const widget = document.querySelector<HTMLElement>('.tickets-widget');
   const dialog = document.querySelector<HTMLDialogElement>('[data-notify]');
@@ -104,8 +150,17 @@ const live = pretixReady;
       dialog.showModal();
     };
 
+    const franjas: Record<string, string[]> = JSON.parse(widget.dataset.franjas ?? '{}');
+    const normalize = (s: string) =>
+      s
+        .normalize('NFD')
+        .replace(/[̀-ͯ]/g, '')
+        .toLowerCase()
+        .replace(/\s+/g, ' ')
+        .trim();
+
     // "Daniel Samper Pizano y Darío Restrepo" → dos nombres; sin repetidos
-    const panelists = (item: Element) => {
+    const fromDescription = (item: Element) => {
       const names: string[] = [];
       item.querySelectorAll('.pretix-widget-item-description strong').forEach((el) => {
         el.textContent
@@ -116,6 +171,8 @@ const live = pretixReady;
       });
       return names;
     };
+    const panelists = (item: Element, title: string) =>
+      franjas[normalize(title)] ?? fromDescription(item);
 
     const apply = () => {
       widget.querySelectorAll<HTMLElement>('.pretix-widget-availability-unavailable').forEach((box) => {
@@ -131,7 +188,7 @@ const live = pretixReady;
 
         const info = item?.querySelector('.pretix-widget-item-info-col');
         if (info && !info.querySelector('.tickets-panelists')) {
-          const names = panelists(item!);
+          const names = panelists(item!, title);
           if (names.length) {
             const line = document.createElement('p');
             line.className = 'tickets-panelists';
@@ -231,13 +288,6 @@ const live = pretixReady;
     font-size: var(--text-small);
     font-weight: 700;
   }
-  .tickets-free {
-    font-size: var(--text-small);
-    font-weight: 600;
-    max-width: 40ch;
-    padding-top: var(--space-2);
-    border-top: var(--border) rgba(33, 8, 4, 0.35);
-  }
 
   .tickets-widget {
     min-height: 12rem;
@@ -327,6 +377,26 @@ const live = pretixReady;
   .pretix-widget-info-message a {
     font-weight: 800;
     color: var(--brick);
+  }
+
+  /* Pantallas bajas: con el calendario de venta la columna mide unos
+     840px y no cabe bajo el header. Primero se reduce el aire entre
+     bloques (las comillas no se tocan: encogidas se montan sobre la
+     etiqueta); si aun así no cabe (portátiles de 13"), la columna deja
+     de pegarse y fluye con la página. Medido el 2026-09-15. */
+  @media (min-width: 64rem) and (max-height: 60rem) {
+    .tickets-intro {
+      gap: var(--space-1);
+    }
+  }
+  @media (min-width: 64rem) and (max-height: 50rem) {
+    .tickets-intro {
+      position: static;
+      align-self: auto;
+      align-content: start;
+      max-height: none;
+      gap: var(--space-2);
+    }
   }
 
   @media (max-width: 63.9rem) {

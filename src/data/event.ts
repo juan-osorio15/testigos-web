@@ -25,6 +25,19 @@ export const event = {
 } as const;
 
 /**
+ * Etapas de venta (decisión del organizador, 2026-09-15). La etapa 1 dura
+ * tres semanas desde la del 14 de septiembre y vende solo el pase completo;
+ * el lunes 5 de octubre abre la etapa 2 con las boletas por franja y el
+ * pase completo se retira. Fechas en calendario de Bogotá; la primera es
+ * inclusiva y el cambio ocurre a las 0:00 de `stage2Start`. Pretix es quien
+ * abre y cierra los productos: aquí solo se cuenta al público.
+ */
+export const salesStages = {
+  stage1End: '2026-10-04',
+  stage2Start: '2026-10-05',
+} as const;
+
+/**
  * Oferta vendida en la etapa 1 (docs/pretix-tienda-textos.md). Solo alimenta
  * el JSON-LD: el precio visible lo pinta el widget de Pretix. Las franjas de
  * 90.000 se añaden aquí cuando abra la etapa 2.
@@ -35,6 +48,8 @@ export const ticketOffer = {
   currency: 'COP',
   /** Día en que la tienda quedó a la venta en la portada (commit 74f7049) */
   validFrom: '2026-09-09',
+  /** Último día de la etapa 1: después el pase completo deja de venderse */
+  validThrough: salesStages.stage1End,
 } as const;
 
 export type VenueId = 'casa-museo' | 'duruelo';
