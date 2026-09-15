@@ -91,7 +91,8 @@ export const agenda: AgendaSlot[] = [
     type: 'conversatorio',
     title: 'Surgimiento de las guerrillas',
     venueId: 'duruelo',
-    speakerSlugs: ['leon-valencia'],
+    /* Ana María Echeverri entró el 2026-09-15 (organizadores) */
+    speakerSlugs: ['leon-valencia', 'ana-maria-echeverri'],
   },
   {
     day: '2026-11-07',
@@ -107,7 +108,8 @@ export const agenda: AgendaSlot[] = [
     type: 'conversatorio',
     title: 'Narcotráfico y paramilitarismo',
     venueId: 'duruelo',
-    speakerSlugs: ['luz-maria-sierra'],
+    /* Martha Soto entró a esta franja el 2026-09-15 (organizadores) */
+    speakerSlugs: ['luz-maria-sierra', 'martha-soto'],
   },
   {
     day: '2026-11-07',
