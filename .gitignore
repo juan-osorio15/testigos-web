@@ -5,3 +5,6 @@ dist/
 .env
 .env.*
 .DS_Store
+
+# Datos personales de acreditaciones (uso externo, no se sube)
+acreditaciones.csv
