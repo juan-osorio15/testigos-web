@@ -247,8 +247,13 @@ const franjaNames = Object.fromEntries(
     order: 1;
   }
   .tickets-eyes {
-    width: clamp(7rem, 5rem + 6vw, 11rem);
-    height: auto;
+    display: block;
+    /* El SVG no trae width/height y la rejilla le daba una fila de 0 px
+       (ni siquiera con aspect-ratio): el dibujo desbordaba sobre la
+       etiqueta. Alto explícito con la proporción del viewBox (188 × 49). */
+    --eyes-w: clamp(7rem, 5rem + 6vw, 11rem);
+    width: var(--eyes-w);
+    height: calc(var(--eyes-w) * 49 / 188);
     color: var(--cream);
     transform: scaleX(-1); /* miran a la izquierda, donde está la tienda */
     margin-bottom: var(--space-2);
@@ -389,7 +394,7 @@ const franjaNames = Object.fromEntries(
       gap: var(--space-1);
     }
   }
-  @media (min-width: 64rem) and (max-height: 50rem) {
+  @media (min-width: 64rem) and (max-height: 57rem) {
     .tickets-intro {
       position: static;
       align-self: auto;
