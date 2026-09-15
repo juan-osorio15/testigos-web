@@ -41,7 +41,7 @@ El símbolo de las dos comillas (la mirada del testigo) aparece **una vez por pi
 ## 5. Dos voces tipográficas
 
 - **Grotesca bold en tinta** (en el sitio: Archivo 800): carga el mensaje. Titulares grandes, sin adornos.
-- **Serif itálica** (en el sitio: Fraunces): SOLO como remate. Una línea ("la ven de frente.") o una cifra ("5–8"). Es el eco del wordmark. La serif nunca escribe párrafos.
+- **Serif itálica** (en el sitio: Fraunces): SOLO como remate. Una línea ("la viven de frente.") o una cifra ("5–8"). Es el eco del wordmark. La serif nunca escribe párrafos.
 - Etiquetas y datos: mayúsculas con tracking amplio, cuerpo pequeño, bold.
 
 ## 6. Los datos van en franja
