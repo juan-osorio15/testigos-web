@@ -30,7 +30,7 @@ export interface TicketOffer {
 
 Reglas:
 - Pase completo: `pretixProduct: 'Pase completo'`, `validFrom: '2026-09-09'`, `validThrough: salesStages.stage1End` (2026-10-04), precio 310000.
-- Cuatro franjas: `pretixProduct` = `'Franja · Viernes 6, tarde'`, `'Franja · Sábado 7, mañana'`, `'Franja · Sábado 7, tarde'`, `'Franja · Domingo 8, mañana'` (encabezados de `docs/pretix-tienda-textos.md`; confirmar contra el panel de Pretix, porque TicketSection hoy reconoce "Sábado Mañana"), `validFrom: salesStages.stage2Start` (2026-10-05), `validThrough: null`, precio 90000.
+- Cuatro franjas: `pretixProduct` = `'Viernes tarde'`, `'Sábado mañana'`, `'Sábado tarde'`, `'Domingo mañana'` (confirmados por el usuario el 2026-09-16; coinciden con lo que TicketSection ya normaliza), `validFrom: salesStages.stage2Start` (2026-10-05), `validThrough: null`, precio 90000.
 - `soldOut` solo lo cambia una persona con la información de Pretix; nunca se infiere.
 
 ### Disponibilidad derivada (`src/seo/offers.ts`)
