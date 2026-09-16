@@ -11,8 +11,10 @@ export type TicketOfferId = 'pase-completo' | 'viernes-tarde' | 'sabado-manana' 
 
 export interface TicketOffer {
   id: TicketOfferId;
-  /** Nombre visible y del marcado; coincide con el producto de Pretix */
+  /** Nombre visible y del marcado ("Pase completo", "Viernes en la tarde") */
   name: string;
+  /** Nombre literal del producto en Pretix (docs/pretix-tienda-textos.md, sección Productos); es la clave con la que TicketSection y begin_checkout reconocen el producto en el widget */
+  pretixProduct: string;
   price: number;           // COP, entero
   currency: 'COP';
   /** Primer día de venta (inclusive, calendario de Bogotá) */
@@ -27,8 +29,8 @@ export interface TicketOffer {
 ```
 
 Reglas:
-- Pase completo: `validFrom: '2026-09-09'`, `validThrough: salesStages.stage1End` (2026-10-04), precio 310000.
-- Cuatro franjas: `validFrom: salesStages.stage2Start` (2026-10-05), `validThrough: null`, precio 90000.
+- Pase completo: `pretixProduct: 'Pase completo'`, `validFrom: '2026-09-09'`, `validThrough: salesStages.stage1End` (2026-10-04), precio 310000.
+- Cuatro franjas: `pretixProduct` = `'Franja · Viernes 6, tarde'`, `'Franja · Sábado 7, mañana'`, `'Franja · Sábado 7, tarde'`, `'Franja · Domingo 8, mañana'` (encabezados de `docs/pretix-tienda-textos.md`; confirmar contra el panel de Pretix, porque TicketSection hoy reconoce "Sábado Mañana"), `validFrom: salesStages.stage2Start` (2026-10-05), `validThrough: null`, precio 90000.
 - `soldOut` solo lo cambia una persona con la información de Pretix; nunca se infiere.
 
 ### Disponibilidad derivada (`src/seo/offers.ts`)

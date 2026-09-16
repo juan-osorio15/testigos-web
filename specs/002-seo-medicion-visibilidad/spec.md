@@ -55,6 +55,15 @@ Hechos verificados en el repositorio y en el HTML publicado que corrigen o matiz
 | Petición del usuario · Aparecer en ChatGPT y otros LLMs | **Añadido** | No está en la auditoría. Se cubre con Bing Webmaster (índice de ChatGPT y Copilot), acceso explícito a los rastreadores de IA, hechos del evento en texto plano y lo que arroje la investigación. |
 | Petición del usuario · Trazabilidad seamless con las herramientas de Meta | **Añadido como fase de investigación obligatoria** | Ver la sección Investigación requerida. La decisión de mecanismo se toma en el plan con evidencia, no aquí. |
 
+## Clarifications
+
+### Session 2026-09-15
+
+- Q: ¿Hace falta aviso o consentimiento para GA4 y el píxel de Meta en Colombia? → A: Dictamen del abogado interno (`docs/revision-legal-2026-09-15-medicion.md`): las cookies que reconocen el navegador son datos personales para la SIC; se exige autorización previa y expresa con prueba. Aviso con un solo botón "Aceptar" (sin "Rechazar"); GA4 carga sin cookies hasta aceptar; el píxel de Meta solo tras aceptar (cargarlo antes no es defendible); registro de cada aceptación; enlace permanente de preferencias; la casilla de Pretix y los términos cubren el envío hasheado de datos de compra. Afecta a FR-008 y al escenario 1 de la historia 1.
+- Q: ¿Cómo se atribuye una compra que ocurre en Pretix? → A: El checkout corre en un iframe de otro dominio y el widget no avisa al sitio; los identificadores de la visita viajan como atributos del widget hasta el pedido, y el webhook de pedido pagado dispara el envío desde el backend de Eventalist a Meta y GA4 (plan, contrato `pretix-attribution.md`).
+- Q: ¿Colombia entra en el módulo de eventos de Google? → A: Sí, la documentación oficial lista "Latin America (Spanish)". Google exige una URL por evento: las charlas abiertas tienen evento propio; las sesiones van como subeventos en la portada (útiles para asistentes de IA, sin entrada propia en el carrusel).
+- Q: ¿Vocabulario? → A: "panelistas" en rutas, textos y tareas (`/panelistas/`); "ponentes" solo al citar la auditoría.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - El organizador mide visitas y compras y construye audiencia de retargeting (Priority: P1)
@@ -67,7 +76,8 @@ Jorge y Carolina van a pagar una campaña de boletas en Meta y Google. Necesitan
 
 **Acceptance Scenarios**:
 
-1. **Given** un visitante llega a cualquier página del sitio, **When** la página termina de cargar, **Then** ambas plataformas registran la visita con su página, origen y campaña, y el visitante queda en la audiencia de retargeting de Meta.
+1. **Given** un visitante llega a cualquier página del sitio, **When** la página termina de cargar, **Then** Google Analytics registra la visita sin instalar cookies (medición sin identificador) y el sitio muestra un aviso de cookies con un solo botón de aceptación.
+1b. **Given** el aviso de cookies visible, **When** el visitante pulsa "Aceptar", **Then** ambas plataformas registran la visita con su página, origen y campaña, el visitante queda en la audiencia de retargeting de Meta, y la aceptación queda registrada con fecha, versión y alcance (en el navegador y en los sistemas del responsable). Cerrar el aviso, ignorarlo o seguir navegando no activa nada.
 2. **Given** un visitante en la sección de boletas, **When** pulsa un botón de compra o interactúa con el widget de Pretix, **Then** ambas plataformas registran un evento de intención de compra (inicio de pago) sin recargar la página.
 3. **Given** un visitante que llegó desde una campaña con parámetros de seguimiento, **When** completa una compra en Pretix, **Then** la compra queda atribuida a esa campaña en ambas plataformas con valor, moneda y número de boletas, y se cuenta exactamente una vez aunque se registre por más de un canal.
 4. **Given** un visitante con bloqueador de anuncios o sin JavaScript, **When** navega y compra, **Then** el sitio y la compra funcionan igual; la medición se degrada sin errores visibles.
@@ -193,7 +203,7 @@ Quien considera ir desde Bogotá o Tunja quiere saber cómo llegar y dónde dorm
 - **FR-005**: Los parámetros de seguimiento con los que llega el visitante MUST conservarse hasta la compra en Pretix, aunque la compra ocurra en otro dominio.
 - **FR-006**: La medición MUST degradarse en silencio cuando esté bloqueada: sin errores visibles, sin afectar la compra ni la navegación.
 - **FR-007**: La medición MUST poder activarse, desactivarse o cambiar de identificadores desde un único punto de configuración, sin tocar el resto del sitio.
-- **FR-008**: La política de tratamiento de datos MUST describir la medición, las plataformas con las que se comparten datos y la forma de oponerse, y esa versión MUST estar publicada antes o junto con las etiquetas. La revisión legal decide si hace falta un aviso o consentimiento previo en el sitio.
+- **FR-008**: La política de tratamiento de datos MUST describir la medición, las plataformas con las que se comparten datos y la forma de oponerse, y esa versión MUST estar publicada antes o junto con las etiquetas. Conforme al dictamen legal del 2026-09-15: el sitio MUST mostrar un aviso de cookies con botón de aceptación; el píxel de Meta MUST NOT cargar antes de la aceptación; Google Analytics MAY cargar antes sin instalar cookies; la aceptación MUST quedar registrada con identificador, fecha, versión y alcance; MUST existir un enlace permanente de preferencias que permita revocar; y la casilla de compra de Pretix y los términos MUST cubrir el envío de datos de compra a Meta y Google.
 - **FR-009**: El dominio testigosdelamemoria.com MUST quedar verificado en la cuenta de Meta Business de Eventalist para que los eventos de compra sean utilizables en campañas.
 - **FR-010**: La instalación de la medición MUST NOT empeorar la carga percibida de la portada en móvil (SC-007) ni añadir más de un tercio al peso total actual del sitio.
 
@@ -275,7 +285,7 @@ El usuario pide una fase de investigación profunda. El plan debe responder esta
 ## Assumptions
 
 - Las cuentas de medición (propiedad de Google Analytics 4, píxel y Business Manager de Meta) pertenecen a Eventalist; el usuario las crea o da acceso antes de la implementación.
-- La revisión legal decide si hace falta un aviso de cookies o consentimiento previo; la suposición de partida es que basta ampliar la política de tratamiento de datos con una descripción de la medición y un canal para oponerse, sin banner bloqueante (Colombia no tiene norma de consentimiento de cookies al estilo europeo).
+- ~~La revisión legal decide si hace falta un aviso de cookies~~ Resuelto el 2026-09-15 (ver Clarifications): aviso con aceptación expresa, píxel de Meta solo tras aceptar, registro de la aceptación. Las audiencias de compradores no dependen del aviso: se construyen desde el servidor con los datos autorizados en la casilla de compra.
 - Las biografías actuales de los 12 ponentes, ya públicas en la portada, bastan para publicar las fichas; la ampliación con obras y enlaces adicionales llega después sin bloquear la publicación.
 - El sitio sigue siendo estático y en español; no hay versión en inglés en esta feature.
 - Las coordenadas de las sedes se obtienen de los mapas oficiales de cada sede y se confirman con el organizador.
