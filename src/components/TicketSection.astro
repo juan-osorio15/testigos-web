@@ -87,7 +87,7 @@ const franjaNames = Object.fromEntries(
       {
         live ? (
           <>
-            <pretix-widget event={PRETIX_EVENT_URL}>
+            <pretix-widget event={PRETIX_EVENT_URL} disable-iframe>
               {/* Fallback oficial: esto es lo que se ve sin JS o con el widget bloqueado (FR-011/018) */}
               <div class="pretix-widget-info-message">
                 <p>{t('tickets.widgetFallback')}</p>
