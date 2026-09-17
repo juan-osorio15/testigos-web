@@ -1,3 +1,8 @@
+> **ARCHIVADO el 2026-09-17.** Esta capa (atribución de compras en el servidor) se diseñó, se
+> investigó y se retiró por desproporcionada para un evento único. No está implementada en
+> ningún repositorio. Se conserva por si el encuentro se repite en 2027 y la venta de boletas
+> se vuelve una operación continua con pauta permanente.
+
 # Plugin de Pretix `pretix_tdm_attribution` · entrega para el repositorio de la instancia de Pretix
 
 Documento autocontenido para el agente que mantiene la instancia de Pretix de Eventalist (`pretix.eventalist.co`, versión 2026.5.1, self-hosted). No hace falta leer el repositorio del sitio ni el del backend. Fecha: 2026-09-17. Contrato de origen: `specs/002-seo-medicion-visibilidad/contracts/pretix-attribution.md` del repositorio del sitio testigosdelamemoria.com.

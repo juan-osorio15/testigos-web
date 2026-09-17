@@ -35,7 +35,8 @@ export const pretixReady = true;
  * Reglas del dictamen legal del 2026-09-15: el píxel de Meta solo carga
  * después de que el visitante pulsa "Aceptar" en el aviso de cookies; GA4
  * carga antes pero en Consent Mode sin cookies hasta la aceptación. No hay
- * interruptor para cargar el píxel antes: no es defendible.
+ * interruptor para cargar el píxel antes: no es defendible. La aceptación
+ * se guarda en el navegador; nada se envía a ningún servidor propio.
  */
 export const measurement = {
   /** ID de medición de GA4 ('G-XXXXXXXXXX'); vacío → no se carga gtag */
@@ -44,8 +45,6 @@ export const measurement = {
   metaPixelId: '',
   /** Versión del aviso de cookies; cambiarla vuelve a mostrarlo */
   consentVersion: '2026-09',
-  /** Registro de aceptaciones en el backend de Eventalist; vacío → solo navegador (variante B de la política) */
-  consentEndpoint: '',
   /** Verificación de dominio de Meta por etiqueta; vacío si se verifica por DNS */
   metaDomainVerification: '',
 } as const;
@@ -74,13 +73,13 @@ export const DATA_CONTACT_EMAIL = 'hola@eventalist.co';
 /**
  * Fecha de entrada en vigencia de la política de tratamiento de datos (ISO).
  * 2026-09-14: ampliación a la tienda de boletería y al control de ingreso.
- * 2026-09-21: sección 10 (cookies, medición y atribución de compras).
+ * 2026-09-21: sección 10 (cookies de analítica y publicidad).
  * DEBE coincidir con el día de la publicación 1; ajustar si cambia.
  */
 export const DATA_POLICY_EFFECTIVE = '2026-09-21';
 
-/** Fecha de entrada en vigencia de los términos y condiciones de compra (ISO). Igual que la política. */
-export const TERMS_EFFECTIVE = '2026-09-21';
+/** Fecha de entrada en vigencia de los términos y condiciones de compra (ISO). Sin cambios desde el 14 de septiembre. */
+export const TERMS_EFFECTIVE = '2026-09-14';
 
 /**
  * Responsable del tratamiento. Solo razón social y nombre comercial: por

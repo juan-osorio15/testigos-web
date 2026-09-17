@@ -1,3 +1,8 @@
+> **ARCHIVADO el 2026-09-17.** Esta capa (atribución de compras en el servidor) se diseñó, se
+> investigó y se retiró por desproporcionada para un evento único. No está implementada en
+> ningún repositorio. Se conserva por si el encuentro se repite en 2027 y la venta de boletas
+> se vuelve una operación continua con pauta permanente.
+
 # Integración de medición · lo que necesita el sitio testigosdelamemoria.com del backend de Eventalist y de Pretix
 
 Documento de entrega para el agente que desarrolla el backend de Eventalist (Django en Railway) y para quien administra la instancia de Pretix (`pretix.eventalist.co`, versión 2026.5.1). Es autocontenido: no hace falta leer el repositorio del sitio. Al terminar, el agente devuelve (1) cómo se usan los endpoints (URL, autenticación, ejemplos de petición y respuesta) y (2) cualquier cambio respecto a este contrato.

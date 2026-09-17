@@ -1,5 +1,7 @@
 # Pendientes humanos · Feature 002 (medición, marcado y visibilidad)
 
+> **Replanteo del 2026-09-17**: la capa de servidor (webhook de Pretix, plugin, endpoints del backend, envío de datos de compra a Meta y Google) se retiró. Nadie toca Pretix ni el backend. Lo que sigue es solo lo de este repo más las cuentas de medición.
+
 Lo que no puede hacer el código. Una casilla por acción, agrupadas por quien la hace. Cada bloque dice qué desbloquea y cómo se comprueba. Fechas en calendario de Bogotá. Documento vivo: se marca a medida que llegan respuestas. Fuente de las decisiones: `specs/002-seo-medicion-visibilidad/` y `docs/revision-legal-2026-09-15-medicion.md`.
 
 Fechas que mandan: **21 de septiembre** medición publicada · **29 de septiembre** fichas, programación y charlas publicadas · **5 de octubre** cambio de etapa de venta · **15 de octubre** último día para publicar contenido nuevo · **5 al 8 de noviembre** evento.
@@ -10,16 +12,16 @@ Sin estas respuestas el desarrollo avanza con identificadores vacíos, pero nada
 
 - [x] **P1 · Título de la portada.** Respuesta 2026-09-16: opción (a), 60 caracteres. Pregunta original: ¿Cuál? (a) "Testigos de la Memoria · Villa de Leyva, 5 al 8 de noviembre" (60 caracteres) o (b) "Testigos de la Memoria · Villa de Leyva, 5-8 nov 2026" (53). Desbloquea T057.
 - [x] **P2 · Textos legales del dictamen.** Respuesta 2026-09-16: aprobados tal cual. Pregunta original: ¿Apruebas tal cual, o con cambios, estos cuatro textos de `docs/revision-legal-2026-09-15-medicion.md`? (1) el aviso de cookies (§3a), (2) la sección 10 de la política y sus siete ajustes (§3b), (3) la casilla obligatoria de Pretix (§4), (4) la sección 12 de los términos (§4). Desbloquea T015 a T017 y, con ellos, toda la publicación de la medición.
-- [ ] **P3 · Google Analytics 4.** Explicado el 2026-09-16 (ver sección 2, paso 1); falta el ID `G-` y el secreto. Pregunta original: ¿Existe ya una propiedad de GA4 de Eventalist para este sitio, o creo instrucciones para una nueva? Necesito el ID de medición (empieza por `G-`) y un secreto de Measurement Protocol para el backend. Desbloquea T029.
-- [ ] **P4 · Meta.** Explicado el 2026-09-16 (ver sección 2, paso 2); faltan ID del dataset y token. Pregunta original: ¿En qué Business Manager va el píxel (dataset)? Necesito el ID del dataset y un token de acceso de la Conversions API. ¿Quién lo administra? Desbloquea T029.
+- [ ] **P3 · Google Analytics 4.** Explicado el 2026-09-16 (ver sección 2, paso 2); falta el ID `G-`. Pregunta original: ¿Existe ya una propiedad de GA4 de Eventalist para este sitio, o creo instrucciones para una nueva? Necesito el ID de medición (empieza por `G-`). Desbloquea T029.
+- [ ] **P4 · Meta.** Explicado el 2026-09-16 (ver sección 2, paso 3); falta el ID del dataset. Pregunta original: ¿En qué Business Manager va el píxel (dataset)? Necesito el ID del dataset. ¿Quién lo administra? Desbloquea T029.
 - [ ] **P5 · Verificación del dominio en Meta.** Explicado el 2026-09-16 (ver sección 2, paso 3): es distinto de Search Console; por DNS. Pregunta original: ¿Por registro DNS en GoDaddy (recomendado, no toca el sitio) o por etiqueta en el HTML? Desbloquea T029.
 - [x] **P6 · Google Ads.** Respuesta 2026-09-16: no hay cuenta. Se retira el enlace GA4 ↔ Google Ads de las tareas. Pregunta original: ¿Existe cuenta de Google Ads para la campaña? Si sí, se enlaza con GA4 y se importa la compra como conversión. Si no, se deja para cuando exista. No bloquea.
-- [x] **P7 · Backend de Eventalist.** Respuesta 2026-09-16: lo desarrolla Juan con un agente en el repo del backend de Eventalist. Entrega: `docs/eventalist-integracion-medicion.md` (contrato completo para el agente; el agente devuelve cómo usar los endpoints y cualquier cambio de contrato). Pregunta original: ¿Quién desarrolla el backend en Railway y cuándo puede tener listos (1) el endpoint de registro de consentimiento y (2) el receptor del webhook de Pretix que envía la compra a Meta y GA4? Contratos en `specs/002-seo-medicion-visibilidad/contracts/`. Si (1) no está el 21 de septiembre, la política se publica con la variante B ("registro en el navegador") y se cambia después. Desbloquea T028 y decide la variante de T015.
-- [x] **P8 · Pretix.** Respuesta 2026-09-16: versión 2026.5.1 (cumple). El plugin lo instala Juan en la instancia de Pretix; instrucciones en `docs/eventalist-integracion-medicion.md` §C. Pregunta original: ¿Qué versión corre pretix.eventalist.co (Admin → Global settings)? Necesita ser 2024.7 o posterior. ¿Quién puede instalar un plugin de Python en esa instancia? Desbloquea T027.
+- [x] **P7 · Backend de Eventalist.** Resuelto el 2026-09-17: no hay backend en esta feature (capa retirada; contrato archivado en `docs/archivo-2027/`).
+- [x] **P8 · Pretix.** Resuelto el 2026-09-17: no se instala nada en Pretix (capa retirada).
 - [x] **P9 · Coordenadas de las sedes.** Respuesta 2026-09-16: tomarlas de los pines de Google Maps. Pregunta original: ¿Me autorizas a tomar latitud y longitud del pin de Google Maps de la Hospedería Duruelo y de la Casa Museo Antonio Nariño, o las confirmas con el organizador? Desbloquea T005 (se pueden dejar "por confirmar" hasta la verificación de T038).
 - [x] **P10 · Hora de fin de la charla de periodismo digital.** Respuesta 2026-09-16: asumir dos horas (10:00 a 12:00 m.). Importa porque el subevento del marcado lleva hora de fin y el módulo de eventos de Google la usa. Pregunta original: (viernes 6, 10:00 a.m., Casa Museo). Sin ella el subevento se publica sin hora de fin. Pregunta para los organizadores. No bloquea.
 - [x] **P11 · Fichas con las biografías actuales.** Respuesta 2026-09-16: sí. Pregunta original: ¿Publicamos las 12 fichas con las biografías que ya están en la portada, sin esperar textos de los panelistas? La spec lo asume; confírmalo. Desbloquea T042.
-- [ ] **P12 · Casilla nueva en Pretix.** Explicado el 2026-09-16 (ver sección 2, paso 4); la hace Juan el día de la publicación legal. Pregunta original: ¿La aplicas tú en el panel (Settings → Confirmation text) el día que se publique la política, o lo hace quien administre Pretix? La fecha de ese cambio es la que separa las compras que sí se envían a Meta y GA4 de las que no. Desbloquea T027 y T028.
+- [x] **P12 · Casilla nueva en Pretix.** Resuelto el 2026-09-17: la casilla no cambia (la ampliación se retiró con la capa de servidor).
 - [x] **P13 · Nombres de los productos en Pretix.** Respuesta 2026-09-16: "Pase completo", "Viernes tarde", "Sábado mañana", "Sábado tarde", "Domingo mañana". Aplicado en data-model §1. Pregunta original: Confirma los cinco nombres literales tal como están en el panel: "Pase completo", "Franja · Viernes 6, tarde", "Franja · Sábado 7, mañana", "Franja · Sábado 7, tarde", "Franja · Domingo 8, mañana". El sitio hoy reconoce "Sábado Mañana", así que puede que difieran. Desbloquea T005.
 - [x] **P14 · Excel de Jorge.** Respuesta 2026-09-16: lo mantiene el desarrollador. Espejo en `docs/plan-seo-estado.md` (columna Estado); el Excel se regenera desde ahí cuando haya que enviárselo a Jorge. Pregunta original: ¿Quieres que mantenga la columna Estado del Excel según avance esta feature, o lo lleva Jorge? Ver la tabla del final.
 
@@ -29,27 +31,23 @@ Todo lo que depende de ti, en el orden en que conviene hacerlo. Cada paso dice q
 
 ### Esta semana (antes del 19 de septiembre)
 
-- [ ] **Paso 1 · Pasar los contratos a tus dos agentes.** (a) Backend de Eventalist: dale `docs/eventalist-integracion-medicion.md` con la instrucción "Implementa las secciones A y B en este repo (modelo de procesamiento A: cron de Railway cada minuto) y devuélveme el `.md` de la sección F". (b) Repositorio de Pretix: dale `docs/pretix-plugin-tdm-attribution.md` con la instrucción "Construye e instala este plugin y devuélveme el `.md` de resultado". Respuestas ya dadas al agente del backend el 2026-09-17: Q1 = A (cron persistente), Q2 = el plugin vive en el repo de Pretix, fuera del backend; el receptor debe funcionar aunque el plugin llegue después. Guarda los dos resultados aquí como `docs/eventalist-integracion-medicion-resultado.md` y `docs/pretix-plugin-tdm-attribution-resultado.md` y pásamelos. Es lo primero porque es lo que más tarda.
-
+- [x] **Paso 1 · Contratos externos.** Ya no aplica (2026-09-17): las ramas de los otros repos se borraron; los contratos quedan archivados en `docs/archivo-2027/` por si el evento se repite.
 - [ ] **Paso 2 · Google Analytics 4.** Entra a https://analytics.google.com con la cuenta de Google de Eventalist. Abajo a la izquierda, el engranaje "Administrar".
   1. Si ya existe una propiedad de Eventalist, entra en ella; si no, "Crear propiedad" (nombre: Testigos de la Memoria; zona horaria: Colombia; moneda: COP).
   2. En la propiedad: "Flujos de datos" → "Añadir flujo" → "Web" → URL `https://testigosdelamemoria.com`, nombre "Sitio Testigos de la Memoria" → Crear.
   3. En la pantalla del flujo aparece el **ID de medición**, con la forma `G-AB12CD34EF`. Cópialo: es lo que va en el sitio.
-  4. En esa misma pantalla, más abajo, "Secretos de la API de Measurement Protocol" → "Crear" → nombre "backend" → copia el valor (parece `aBcDeFgHiJkLmNoPqRsT`). Va al backend, no al sitio.
-  5. Administrar → "Recopilación y modificación de datos" → "Recopilación de datos": apaga "Señales de Google" y, si aparece, "Personalización de anuncios". (Obligación del dictamen legal.)
-  6. Más adelante, cuando ya existan eventos (tras la primera compra de prueba): Administrar → "Eventos" → marcar `purchase` y `begin_checkout` como "Evento clave".
+  4. Administrar → "Recopilación y modificación de datos" → "Recopilación de datos": apaga "Señales de Google" y, si aparece, "Personalización de anuncios". (Obligación del dictamen legal.)
+  5. Más adelante, cuando ya haya datos: Administrar → "Eventos" → marcar `begin_checkout` como "Evento clave".
 
-  Lo que obtienes: el `G-…` (me lo pasas) y el secreto (va a Railway como `GA4_API_SECRET`, con el `G-…` como `GA4_MEASUREMENT_ID`).
+  Lo que obtienes: el `G-…` (me lo pasas). Nada más.
 
 - [ ] **Paso 3 · Meta: conjunto de datos (píxel).** Todo vive en https://business.facebook.com. El "Business Manager" (hoy "Portafolio empresarial") es la cuenta de empresa de Eventalist. Dentro está el "Administrador de eventos": https://business.facebook.com/events_manager2.
   1. "Conectar orígenes de datos" → "Web" → Conectar. Nombre: Testigos de la Memoria. Sitio: `https://testigosdelamemoria.com`. Crea un **conjunto de datos** (dataset). Es lo que antes se llamaba píxel; Meta le cambió el nombre en 2024, es la misma cosa.
-  2. Al crearlo aparece un número de 15 o 16 cifras, por ejemplo `1234567890123456`. Ese es el **ID del dataset**: cópialo, es lo que va en el sitio y en el backend (`META_DATASET_ID`).
+  2. Al crearlo aparece un número de 15 o 16 cifras, por ejemplo `1234567890123456`. Ese es el **ID del dataset**: cópialo, es lo que va en el sitio.
   3. Si te ofrece "instalar el código" o "usar un socio", cierra esa parte: el código lo pone el sitio.
-  4. En el dataset, pestaña "Configuración": sección "API de conversiones" → "Generar token de acceso" → aparece una cadena muy larga que empieza por `EAA…`. Cópiala una sola vez: no se vuelve a mostrar. Va al backend (`META_CAPI_TOKEN`), nunca al sitio.
-  5. En la misma "Configuración", "Coincidencias avanzadas automáticas": actívala. Y "Categorías de origen de datos": comprueba que no esté clasificado como salud o finanzas.
-  6. Pestaña "Probar eventos": ahí verás un código tipo `TEST12345`. Sirve para las pruebas del backend (`META_TEST_EVENT_CODE`).
+  4. En el dataset, pestaña "Configuración": "Coincidencias avanzadas automáticas": actívala. Y "Categorías de origen de datos": comprueba que no esté clasificado como salud o finanzas.
 
-  Lo que obtienes: el ID del dataset (me lo pasas), el token y el código de prueba (van a Railway).
+  Lo que obtienes: el ID del dataset (me lo pasas). Sin tokens: nada corre en servidor.
 
 - [ ] **Paso 4 · Meta: verificar el dominio.** No es lo mismo que Search Console: Google ya sabe que el dominio es tuyo; Meta no.
   1. https://business.facebook.com/settings → "Seguridad de la marca" → "Dominios" → "Añadir" → `testigosdelamemoria.com`.
@@ -59,27 +57,20 @@ Todo lo que depende de ti, en el orden en que conviene hacerlo. Cada paso dice q
 
   Desde 2025 no es obligatorio para las campañas. Cinco minutos; si prefieres saltarlo, no bloquea nada.
 
-- [ ] **Paso 5 · Pretix: token de API de solo lectura.** https://pretix.eventalist.co/control/ → Organizador "eventalist" → "Equipos" (Teams) → crea un equipo "Backend medición" con permiso solo de "Ver pedidos" y "Ver ítems" del evento `testigos-memoria` → pestaña "Tokens de API" → "Crear token" → cópialo. Va a Railway como `PRETIX_API_TOKEN`.
 
-- [ ] **Paso 6 · Pretix: no indexar la tienda.** En el evento `testigos-memoria` → Configuración → General → busca "Pedir a los buscadores que no indexen la tienda" (Ask search engines not to index the ticket shop) → marcar → Guardar. Comprobación: yo la hago con `curl` después.
+- [ ] **Paso 6 · Pretix: no indexar la tienda (opcional).** Único ajuste en Pretix, y es opcional: evento `testigos-memoria` → Configuración → General → "Pedir a los buscadores que no indexen la tienda" → marcar → Guardar. No afecta la venta.
 
-- [ ] **Paso 7 · Enviarme los identificadores.** Por este chat: el `G-…` de GA4 y el ID del dataset de Meta. Con eso configuro el sitio. El resto (secretos y tokens) va solo al backend.
+- [ ] **Paso 7 · Enviarme los identificadores.** Por este chat: el `G-…` de GA4 y el ID del dataset de Meta. Con eso configuro el sitio. No hacen falta secretos ni tokens: nada corre en servidor.
 
-### Cuando tu agente entregue el backend (idealmente antes del 21 de septiembre)
+### Cuando tengas los identificadores
 
-- [ ] **Paso 8 · Variables en Railway.** En el servicio del backend, añade las variables que lista la sección B.6 de `docs/eventalist-integracion-medicion.md`: `PRETIX_API_TOKEN` (paso 5), `PRETIX_WEBHOOK_USER` y `PRETIX_WEBHOOK_PASSWORD` (las genera tu agente), `META_DATASET_ID`, `META_CAPI_TOKEN`, `META_TEST_EVENT_CODE` (paso 3), `GA4_MEASUREMENT_ID`, `GA4_API_SECRET` (paso 2), `CONSENT_ALLOWED_ORIGINS` = `https://testigosdelamemoria.com`, y `ATTRIBUTION_CONSENT_SINCE` (la fecha del paso 10; ponla el día que lo hagas).
 
-- [ ] **Paso 9 · Pretix: webhook y plugin** (el plugin lo construye el agente del repo de Pretix con `docs/pretix-plugin-tdm-attribution.md`).
-  1. Webhook: Organizador → "Webhooks" → "Crear webhook" → URL la del endpoint que te devolvió el agente, con usuario y clave dentro (`https://USUARIO:CLAVE@tu-backend.up.railway.app/api/v1/marketing/pretix/webhook/`) → acción "Pedido pagado" (`pretix.event.order.paid`) → limitar al evento `testigos-memoria` → Guardar.
-  2. Plugin: instala el paquete `pretix_tdm_attribution` en el servidor de Pretix (en el entorno donde corre pretix: `pip install /ruta/al/paquete` y reinicia pretix). Luego, en el evento → Configuración → "Plugins" → activar "TDM attribution".
-  3. Comprobación: compra de prueba desde el sitio (te aviso cuando la medición esté en el sitio) y el pedido debe mostrar `api_meta.tracking` con datos. La hacemos juntos (sección E del contrato).
 
 ### El día de la publicación 1 (medición y textos legales, ≤ 21 de septiembre)
 
-- [ ] **Paso 10 · Pretix: casilla nueva de compra.** Hoy el comprador marca una casilla que solo autoriza la boleta y el ingreso. El dictamen exige que también autorice el envío hasheado de su correo, teléfono y nombre a Meta y Google. Texto nuevo: `docs/revision-legal-2026-09-15-medicion.md` §4 (también quedará en `docs/pretix-tienda-textos.md`). Dónde: evento → Configuración → General → "Textos de confirmación" (Confirmation texts) → reemplazar el texto de la casilla existente → Guardar. Hazlo el mismo día que yo publique la política nueva, y anota la fecha y hora: es `ATTRIBUTION_CONSENT_SINCE` (paso 8). El backend no enviará a Meta ni Google ningún pedido anterior a ese momento.
 
 - [ ] **Paso 10b · Confirmar el cambio del workflow de despliegue.** El paso IndexNow en `.github/workflows/deploy.yml` (aviso a Bing tras cada deploy) quedó sin confirmar en git porque el hook de revisión no me deja preparar archivos de workflow: revisa el diff de ese archivo y confírmalo tú con un commit propio ("Deploy: aviso a IndexNow tras publicar").
-- [ ] **Paso 11 · Visto bueno de la publicación 1.** Te muestro el cambio (textos legales, aviso de cookies, GA4, píxel, título y descripción de la portada, precarga de la imagen) en la rama y me das el sí para `main`. Tras el deploy, tú y yo comprobamos en el sitio publicado que no hay cookies antes de "Aceptar" (lo verifico yo y te paso captura).
+- [ ] **Paso 11 · Revisión de restos y visto bueno de la publicación 1.** Antes del sí: repasamos juntos el diff completo de la rama y yo busco restos de la capa retirada en código, textos legales y documentación (tarea T073); comprobamos que el widget de Pretix carga igual que el 15 de septiembre. Luego me das el sí para `main`. Tras el deploy verifico en producción que no hay cookies antes de "Aceptar" y te paso captura.
 
 ### Antes del 30 de septiembre
 
@@ -95,18 +86,9 @@ Todo lo que depende de ti, en el orden en que conviene hacerlo. Cada paso dice q
 - [ ] **Paso 17 · Revisión semanal hasta el 4 de noviembre** (media hora, contigo): pedidos pagados en Pretix frente a compras en Meta (Events Manager) y en GA4 (Informes → Monetización); páginas indexadas en Search Console (meta: 80 % el 20 de octubre); informe "Eventos" de Search Console sin errores; citas en Bing "Rendimiento de IA".
 - [ ] **Paso 18 · Correo hola@eventalist.co.** Si alguien escribe pidiendo retirar su aceptación de cookies o una copia de ella: responder en 10 días hábiles (consultas) o 15 (reclamos); la copia se saca del backend buscando el identificador que la persona ve en "Cookies y preferencias" del sitio.
 
-## 3. Backend y Pretix (Eventalist)
+## 3. Backend y Pretix
 
-Contratos: `specs/002-seo-medicion-visibilidad/contracts/pretix-attribution.md` y `contracts/measurement-events.md` (sección "Endpoint de consentimiento"). Cuanto antes: es lo que más tarda.
-
-- [ ] Confirmar versión de pretix ≥ 2024.7 en pretix.eventalist.co.
-- [ ] Instalar y habilitar el mini plugin `pretix_tdm_attribution` (unas 30 líneas: copia los atributos `tracking-*` del widget más IP y user-agent al `api_meta` del pedido). Se comprueba con un pedido de prueba cuyo `api_meta.tracking` tenga datos.
-- [ ] Activar "Ask search engines not to index the ticket shop" en la configuración del evento. Se comprueba con `curl -sI` de la tienda o el `<meta name="robots">` de su HTML.
-- [ ] Crear el webhook del organizador hacia el backend con la acción `pretix.event.order.paid` y Basic Auth.
-- [ ] Aplicar la casilla obligatoria nueva (texto del dictamen §4) y anotar la fecha como `ATTRIBUTION_CONSENT_SINCE`.
-- [ ] Backend: endpoint `POST /api/v1/marketing/consent/` (upsert por `id`, sin IP ni identidad, CORS para https://testigosdelamemoria.com, responde 204).
-- [ ] Backend: receptor del webhook, idempotente por código de pedido, que consulta el pedido por la API, descarta los anteriores a `ATTRIBUTION_CONSENT_SINCE` y envía `Purchase` a la Conversions API (event_id = código) y `purchase` al Measurement Protocol de GA4 (client_id y session_id del pedido). Se comprueba con el quickstart §4: compra de prueba visible en Meta Test Events y en GA4 DebugView, y reenvío del webhook sin duplicado.
-- [ ] Enviar solo los datos enumerados en la sección 10 de la política; si se añade un dato, avisar antes para actualizar la política.
+Nada. La capa de servidor se retiró el 2026-09-17. Los contratos están archivados en `docs/archivo-2027/` por si el encuentro se repite en 2027 con venta continua.
 
 ## 4. Carolina
 
@@ -125,7 +107,7 @@ Contratos: `specs/002-seo-medicion-visibilidad/contracts/pretix-attribution.md` 
 | Fecha | Qué | Quién |
 |---|---|---|
 | ≤ 19 sep | Cuentas de GA4 y Meta, respuestas P1 a P13 | Juan |
-| ≤ 21 sep | Publicación 1: medición y textos legales; casilla nueva en Pretix el mismo día | Juan (visto bueno), Eventalist |
+| ≤ 21 sep | Publicación 1: medición y textos legales (revisión de restos antes) | Juan (visto bueno) |
 | ≤ 29 sep | Publicación 2: marcado, fichas, programación, charlas abiertas; reenvío de sitemap; Bing verificado | Juan, desarrollador |
 | ≤ 30 sep | Bing Webmaster Tools importado y sitemap enviado | Juan |
 | 5 oct | Publicación del cambio de etapa (franjas a la venta, pase retirado) | Juan (visto bueno) |
@@ -144,7 +126,7 @@ Contratos: `specs/002-seo-medicion-visibilidad/contracts/pretix-attribution.md` 
 | T04 Bing | Acción de Juan (sección 2) |
 | T05, T06 título y descripción | En la feature; título pendiente de P1 |
 | T07 dominio de compra | Descartada: falso positivo, no existe pretix.eu en el sitio |
-| T08 noindex Pretix | Acción de Eventalist (sección 3) |
+| T08 noindex Pretix | Opcional, casilla en el panel de Pretix (paso 6) |
 | T09 legales noindex, T10 imagen LCP | En la feature (historia 5) |
 | T11 imagen al compartir | Carolina (Facebook y LinkedIn; WhatsApp ya validado) |
 | T12, T13, T14, T15 schema | En la feature (historia 2); T14 requiere que Jorge valide la programación |

@@ -10,11 +10,11 @@ Guía de setup manual y de verificación. Cada bloque cierra un criterio de éxi
 
 ## 1. Setup manual (usuario o Eventalist)
 
-1. **Pretix**: confirmar versión ≥ 2024.7 (Admin → Global settings). Activar en el evento "Ask search engines not to index the ticket shop". Instalar el plugin `pretix_tdm_attribution` (contrato `pretix-attribution.md` §2) y habilitarlo en el evento. Crear el webhook del organizador hacia el backend con la acción `pretix.event.order.paid`. Reemplazar el texto de la casilla obligatoria por el del dictamen (§4) el día de la publicación legal.
+1. **Pretix**: nada obligatorio. Opcional: activar en el evento "Ask search engines not to index the ticket shop".
 2. **Meta**: Events Manager → dataset → obtener ID y token de CAPI; Business Settings → Brand Safety → Domains → añadir testigosdelamemoria.com y verificar (DNS TXT en GoDaddy, o meta-tag → `measurement.metaDomainVerification`). Comprobar que el dataset no cae en una categoría restringida.
 3. **GA4**: crear propiedad y flujo web; copiar `G-…`; Admin → Data collection → Google Signals **apagado** y personalización de anuncios **apagada**; sin User-ID; Admin → Data streams → Measurement Protocol API secrets → crear uno para el backend; Admin → Events → marcar `purchase` y `begin_checkout` como eventos clave. Sin Google Ads (decisión 2026-09-16).
-4. **Backend de Eventalist**: endpoint de consentimiento (`measurement-events.md`) y receptor del webhook (`pretix-attribution.md` §3) con `ATTRIBUTION_CONSENT_SINCE`.
-5. **Configurar el sitio**: `src/config.ts` → `measurement.ga4Id`, `measurement.metaPixelId`, `metaDomainVerification` (si aplica), `consentEndpoint` (vacío si el backend no está listo → variante B en la política).
+4. **Backend de Eventalist**: nada (capa retirada el 2026-09-17).
+5. **Configurar el sitio**: `src/config.ts` → `measurement.ga4Id`, `measurement.metaPixelId`, `metaDomainVerification` (si aplica).
 6. **Bing Webmaster Tools**: My Sites → Import → Google Search Console → seleccionar testigosdelamemoria.com → Import. Sitemaps → añadir `https://testigosdelamemoria.com/sitemap.xml`. URL Inspection → portada → Request indexing. Anotar la fecha para SC-008.
 
 ## 2. Medición en navegador (SC-001, FR-001, FR-002, FR-006)
@@ -25,7 +25,7 @@ npm run build && npm run preview
 
 1. Abrir la portada en una ventana limpia. Debe aparecer el aviso de consentimiento y permanecer al hacer scroll; en la pestaña Network solo `gtag/js` (no `fbevents.js`); en Application → Cookies **no** existe `_ga` ni `_fbp` (Consent Mode en `denied`); los pings a `/g/collect` llevan `gcs=G100`.
 2. Cerrar el aviso con ×: no aparecen cookies ni `fbevents.js`; al abrir otra pestaña nueva el aviso vuelve.
-3. Pulsar "Aceptar": `localStorage['tdm.consent']` con `id`, versión, alcance y fecha; aparecen `_ga` y, tras `load`, `fbevents.js` y `_fbp`; en GA4 DebugView (con `?debug_mode=1` o la extensión) aparece `consent_granted`; en Network un `POST` al endpoint de consentimiento con 204 (si está configurado).
+3. Pulsar "Aceptar": `localStorage['tdm.consent']` con `id`, versión, alcance y fecha; aparecen `_ga` y, tras `load`, `fbevents.js` y `_fbp`; en GA4 DebugView (con `?debug_mode=1` o la extensión) aparece `consent_granted`. Ninguna petición a servidores propios.
 4. Recargar: el aviso no vuelve a salir; `gcs=G111` en los pings.
 5. Pie de página → "Cookies y preferencias" → "Retirar la aceptación": `acceptedAt` en null, `_ga*`, `_fbp` y `_fbc` borradas, `gcs=G100`, y en la siguiente carga no se carga `fbevents.js`.
 6. Con la aceptación dada, pulsar "Comprar boletas" en el header: GA4 DebugView muestra `begin_checkout` con `currency: COP`; Meta Test Events (Events Manager → Test Events, con el código de prueba) muestra `InitiateCheckout` con el mismo `eventID` (se ve en el payload `/tr?…&eid=`).
@@ -33,22 +33,9 @@ npm run build && npm run preview
 8. Sin JavaScript (DevTools → Disable JavaScript): no hay aviso, no hay etiquetas, el contenido y el enlace de compra se ven.
 9. En producción, 24 h después del deploy: GA4 Realtime con visitas y al menos un `begin_checkout`; Meta Events Manager con `PageView` activo y audiencia creciendo.
 
-## 3. Origen conservado hasta el widget (FR-005)
+## 3 y 4. Retirados el 2026-09-17
 
-1. Abrir `/?utm_source=prueba&utm_medium=qa&utm_campaign=t1&fbclid=TEST123`.
-2. Comprobar `localStorage['tdm.attribution']` con esos valores y `fbc` = `fb.1.<ts>.TEST123`.
-3. Inspeccionar `<pretix-widget>`: atributos `data-tracking-ga-id`, `data-tracking-ga-sessid`, `data-tracking-fbc`, `data-tracking-utm-*` presentes. Navegar a `/programacion/` y volver: siguen presentes (persistencia).
-4. Con `gtag` bloqueado: el widget se construye a los 2 s sin los atributos de GA.
-
-## 4. Atribución de compra en servidor (SC-002, SC-003, FR-003, FR-004)
-
-1. Poner la tienda en modo test en Pretix. Desde la portada con los parámetros del §3, comprar un pase (pago de prueba).
-2. `GET /api/v1/organizers/eventalist/events/testigos-memoria/orders/<code>/` → `api_meta.tracking` contiene `ga_client_id`, `ga_session_id`, `fbc`, `utm_source: prueba`, `client_ip`, `client_user_agent`, `captured_at`.
-3. Meta Events Manager → Test Events: un `Purchase` del servidor con `event_id` = `<code>`, `value` = 310000 `COP`, Event Match Quality ≥ 6.
-4. GA4 DebugView / Realtime: `purchase` con `transaction_id` = `<code>`, fuente `prueba`, medio `qa`.
-5. Reenviar el webhook desde Pretix (Settings → Webhooks → historial → reenviar): ningún evento nuevo en Meta ni GA4 (idempotencia).
-6. Compra por enlace directo a la tienda (sin pasar por el sitio): `Purchase` llega a Meta con correo hasheado; GA4 no recibe nada y el backend registra "sin client_id".
-7. Durante la campaña, semanalmente: pedidos pagados en Pretix vs. `Purchase` en Meta y `purchase` en GA4; desviación ≤ 10 %.
+La atribución de compras en el servidor se retiró; no hay nada que probar en Pretix ni en el backend. El widget de Pretix debe comportarse exactamente igual que el 15 de septiembre: misma lista, mismo botón, sin atributos `data-tracking-*` (comprobar en el inspector).
 
 ## 5. Rendimiento (SC-007, FR-010, FR-036)
 
@@ -87,13 +74,13 @@ Extraer `audits.largest-contentful-paint.numericValue` y `audits.total-byte-weig
 
 ## 9. Legal (SC-011, FR-008)
 
-1. `/tratamiento-de-datos/#cookies` existe con la sección 10 del dictamen (variante A o B según `consentEndpoint`) y los siete ajustes consecuenciales; ya no aparece la frase "no se comparten, ceden ni venden a terceros" sin la salvedad; `DATA_POLICY_EFFECTIVE` actualizado; el aviso y el pie enlazan a esa ancla.
-2. `/terminos-y-condiciones/` sección 12 con el texto nuevo; `TERMS_EFFECTIVE` actualizado.
-3. En Pretix, la casilla obligatoria muestra el texto nuevo; anotar la fecha como `ATTRIBUTION_CONSENT_SINCE` en el backend.
+1. `/tratamiento-de-datos/#cookies` existe con la sección 10 (solo cookies, variante B) y sus ajustes consecuenciales; la política no afirma que se transmitan datos de compra; `DATA_POLICY_EFFECTIVE` actualizado; el aviso y el pie enlazan a esa ancla.
+2. `/terminos-y-condiciones/` sin cambios respecto al 14 de septiembre.
+3. En Pretix, la casilla obligatoria conserva su texto.
 4. Enlaces https://policies.google.com/technologies/partner-sites y https://www.facebook.com/adpreferences/ responden 200.
 5. Los cambios legales van en commits propios; el despliegue que activa las etiquetas incluye la política y los términos nuevos (mismo commit o anterior).
 6. Comprobación del §2 (sin cookies antes de Aceptar) hecha en producción antes de anunciar la campaña.
 
-## 10. Publicación
+## 10. Publicación y revisión de restos (FR-039)
 
-Cada despliegue a `main` requiere el visto bueno del usuario para ese cambio. Orden previsto: (1) medición + on-page + política; (2) marcado + fichas + programación + charlas; (3) cómo llegar (y dónde dormir si hay lista); (4) 5 de octubre; (5) agotados. Tras cada uno: reenviar sitemap en Search Console y comprobar el paso IndexNow.
+Antes de cada despliegue, con el usuario: (1) leer el diff completo de la rama frente a `main`; (2) buscar en código, HTML compilado y documentación los términos `webhook`, `api_meta`, `Conversions API`, `Measurement Protocol`, `ATTRIBUTION_CONSENT_SINCE`, `consentEndpoint`, `data-tracking`, `attribution` y confirmar que solo aparecen en `docs/archivo-2027/` o en notas de "retirado"; (3) abrir la portada y comprobar que el widget de Pretix carga igual que el 15 de septiembre; (4) anotar fecha y resultado en `perf.md`. Cada despliegue a `main` requiere además el visto bueno del usuario para ese cambio. Orden previsto: (1) medición + on-page + política; (2) marcado + fichas + programación + charlas; (3) cómo llegar (y dónde dormir si hay lista); (4) 5 de octubre; (5) agotados. Tras cada uno: reenviar sitemap en Search Console y comprobar el paso IndexNow.

@@ -1,6 +1,6 @@
 # Contrato: medición en el navegador y consentimiento
 
-Cubre FR-001, FR-002, FR-006, FR-007, FR-008, FR-010 y R-02, R-03, R-04. El lado servidor está en `pretix-attribution.md`.
+Cubre FR-001, FR-002, FR-006, FR-007, FR-008, FR-010 y R-02, R-03, R-04. No hay lado servidor (retirado el 2026-09-17; archivo en `docs/archivo-2027/`).
 
 ## Configuración (`src/config.ts`)
 
@@ -10,8 +10,6 @@ export const measurement = {
   metaPixelId: '',           // '1234567890'; vacío → no se carga fbevents
   /** Versión del aviso; cambiarla vuelve a mostrarlo */
   consentVersion: '2026-09',
-  /** Registro de aceptaciones en el backend de Eventalist; vacío → variante B (solo navegador) */
-  consentEndpoint: `${EVENTALIST_BACKEND}/api/v1/marketing/consent/`,
   /** Verificación de dominio de Meta por etiqueta; vacío si se verifica por DNS */
   metaDomainVerification: '',
 } as const;
@@ -64,23 +62,19 @@ Disparadores de intención de compra (una vez por página, el primero que ocurra
 - Franja baja y discreta al pie de la pantalla, tinta sobre crema, texto pequeño sin negritas, una línea en escritorio y dos en móvil; visible hasta que se acepta o se cierra (no se pierde al hacer scroll). Elementos: texto, enlace "Política de datos" a `/tratamiento-de-datos/#cookies`, botón "Aceptar" (borde, sin relleno) y cerrar (×). Sin "Rechazar". Decisión del titular (2026-09-17): cumplir la norma sin llamar la atención; el detalle vive en la sección 10 de la política, donde quien lo busque lo encuentra.
 - Texto (`ui.ts` `consent.text`, versión corta del dictamen con responsable, proveedores, finalidad y enlace): "Eventalist usa cookies de analítica y publicidad (Google y Meta) para medir las visitas y la campaña de boletas. Al aceptar autorizas ese uso según la política de datos."
 - Solo "Aceptar" acepta: cerrar, ignorar, hacer scroll, navegar o pulsar "Más información" no cambian el estado. Cerrar oculta la barra durante la sesión (`sessionStorage`) y vuelve a mostrarla en la siguiente visita.
-- Al aceptar: crea `id` (UUID), guarda `ConsentState` en `localStorage['tdm.consent']`, actualiza Consent Mode a `granted`, envía `consent_granted` a GA4, dispara `tdm:consent`, registra en `consentEndpoint` (`POST { id, version, scope, accepted_at, site }`, reintento en la siguiente carga si falla) y oculta la barra.
+- Al aceptar: crea `id` (UUID), guarda `ConsentState` en `localStorage['tdm.consent']`, actualiza Consent Mode a `granted`, envía `consent_granted` a GA4, dispara `tdm:consent` y oculta la barra. Sin registro en servidor (variante B).
 - No se muestra si `acceptedAt` existe con la misma `consentVersion`. Si `localStorage` no está disponible, la barra se oculta para la sesión y no se carga el píxel.
 - Sin JS: la barra no aparece (está dentro de un `<template>` que el script materializa), y no se carga ninguna etiqueta.
 
 ## Gestor de preferencias (pie de página, todas las páginas)
 
 - Enlace "Cookies y preferencias" en `Footer.astro` que abre un `<dialog>` con el estado actual ("Aceptado el <fecha>" o "No aceptado"), el texto del aviso, botón "Aceptar" o "Retirar la aceptación" según el estado, y enlace a `/tratamiento-de-datos/#cookies`. Sin JS, el enlace lleva a la sección de la política.
-- Retirar: guarda `revokedAt`, pone `acceptedAt` en null, dispara `tdm:revoke` (Consent Mode a `denied`, borrado de cookies), notifica al backend `POST { id, revoked_at }`.
-
-## Endpoint de consentimiento (backend de Eventalist)
-
-`POST /api/v1/marketing/consent/` (CORS desde https://testigosdelamemoria.com) con cuerpo `{ id, version, scope, accepted_at, revoked_at?, site }`; idempotente por `id` (upsert). Sin IP ni identidad; responde 204. Sirve para entregar copia al titular que la pida (art. 8 del Decreto 1377). Si no existe al publicar, `consentEndpoint` queda vacío y la política usa la variante B ("en el navegador del visitante").
+- Retirar: guarda `revokedAt`, pone `acceptedAt` en null, dispara `tdm:revoke` (Consent Mode a `denied`, borrado de cookies).
 
 ## Degradación (FR-006)
 
 - Todos los accesos a `gtag`, `fbq`, `localStorage` van en `try/catch`; nunca se lanza ni se escribe en consola de error.
-- Bloqueadores: las llamadas a `gtag('get')` tienen tope de 4 s y nunca retrasan el widget; si no responden, el widget queda sin `data-tracking-ga-*` (ver `pretix-attribution.md`).
+- El widget de Pretix no se toca: ni atributos, ni espera, ni lectura de su estado.
 
 ## Rendimiento (FR-010)
 
@@ -91,7 +85,6 @@ Disparadores de intención de compra (una vez por página, el primero que ocurra
 
 Fuente de verdad: `docs/revision-legal-2026-09-15-medicion.md`. Cada cambio legal en un commit propio, sin reescribir historial (prueba de la versión vigente, art. 16 del Decreto 1377).
 
-- `tratamiento-de-datos.astro`: nueva sección 10 "Cookies, medición de audiencia y publicidad" con `id="cookies"` (variante A si `consentEndpoint` existe, B si no); Vigencia pasa a 11; los siete ajustes consecuenciales de la tabla del dictamen (párrafo inicial, sección 2, sección 3 literal g y frase de mensajes, sección 4, sección 5, cabecera). `DATA_POLICY_EFFECTIVE` = fecha de publicación.
-- `terminos-y-condiciones.astro`: sección 12, primer párrafo reemplazado y frase final añadida según el dictamen. `TERMS_EFFECTIVE` = fecha de publicación.
-- `docs/pretix-tienda-textos.md`: casilla obligatoria de Pretix reescrita con el texto del dictamen; se aplica en el panel de Pretix (Confirmation text) el mismo día que se publica la política; la fecha queda como `ATTRIBUTION_CONSENT_SINCE` para el backend.
+- `tratamiento-de-datos.astro`: sección 10 "Cookies, medición de audiencia y publicidad" con `id="cookies"`, variante B (aceptación en el navegador) y sin ningún párrafo sobre datos de compra; Vigencia pasa a 11; ajustes consecuenciales solo sobre cookies. `DATA_POLICY_EFFECTIVE` = fecha de publicación.
+- `terminos-y-condiciones.astro` y la casilla de Pretix: sin cambios respecto al 14 de septiembre (la ampliación se retiró el 2026-09-17).
 - La política y los términos nuevos se publican en el mismo despliegue que las etiquetas o antes; el HTML publicado no debe afirmar nada que el sitio no haga (verificación con el inspector antes de publicar).

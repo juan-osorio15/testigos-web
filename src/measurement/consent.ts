@@ -3,9 +3,9 @@
  * dictamen legal 2026-09-15). Corre en el navegador.
  *
  * - Solo "Aceptar" acepta. Cerrar, ignorar o navegar no cambian nada.
- * - La aceptación se guarda en el navegador y, si hay endpoint, en el
- *   backend de Eventalist (prueba en manos del responsable). Sin IP ni
- *   identidad: identificador aleatorio, versión, alcance y fechas.
+ * - La aceptación se guarda en el navegador del visitante (variante B del
+ *   dictamen legal): identificador aleatorio, versión, alcance y fechas.
+ *   Sin registro en servidor (capa retirada el 2026-09-17).
  * - Todo acceso a localStorage va en try/catch: sin almacenamiento el
  *   aviso se oculta para la sesión y no se carga el píxel.
  */
@@ -16,13 +16,10 @@ export interface ConsentState {
   scope: string[];
   acceptedAt: string | null;
   revokedAt?: string;
-  recorded: boolean;
 }
 
 export interface ConsentConfig {
   version: string;
-  endpoint: string;
-  site: string;
 }
 
 const KEY = 'tdm.consent';
@@ -100,42 +97,15 @@ function uuid(): string {
   });
 }
 
-async function record(cfg: ConsentConfig, state: ConsentState): Promise<boolean> {
-  if (!cfg.endpoint) return true;
-  try {
-    const res = await fetch(cfg.endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        id: state.id,
-        site: cfg.site,
-        version: state.version,
-        scope: state.scope,
-        accepted_at: state.acceptedAt,
-        revoked_at: state.revokedAt ?? null,
-      }),
-      keepalive: true,
-    });
-    return res.ok;
-  } catch {
-    return false;
-  }
-}
-
 export async function accept(cfg: ConsentConfig): Promise<ConsentState> {
   const state: ConsentState = {
     id: uuid(),
     version: cfg.version,
     scope: [...SCOPE],
     acceptedAt: new Date().toISOString(),
-    recorded: !cfg.endpoint,
   };
   write(state);
   document.dispatchEvent(new CustomEvent(CONSENT_EVENT, { detail: state }));
-  if (!state.recorded) {
-    state.recorded = await record(cfg, state);
-    write(state);
-  }
   return state;
 }
 
@@ -147,20 +117,7 @@ export async function revoke(cfg: ConsentConfig): Promise<void> {
     scope: prev?.scope ?? [...SCOPE],
     acceptedAt: null,
     revokedAt: new Date().toISOString(),
-    recorded: !cfg.endpoint,
   };
   write(state);
   document.dispatchEvent(new CustomEvent(REVOKE_EVENT, { detail: state }));
-  if (!state.recorded) {
-    state.recorded = await record(cfg, { ...state, acceptedAt: prev?.acceptedAt ?? null });
-    write(state);
-  }
-}
-
-/** Reintento del registro pendiente (se llama en cada carga) */
-export async function flushPending(cfg: ConsentConfig): Promise<void> {
-  const s = read();
-  if (!s || s.recorded || !cfg.endpoint) return;
-  s.recorded = await record(cfg, s);
-  write(s);
 }

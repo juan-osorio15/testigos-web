@@ -22,11 +22,7 @@ export function getStaticPaths() {
   return speakers.map((speaker, i) => ({ params: { slug: speaker.slug }, props: { speaker, index: i } }));
 }
 
-interface Props {
-  speaker: Speaker;
-  index: number;
-}
-const { speaker, index } = Astro.props;
+const { speaker, index } = Astro.props as { speaker: Speaker; index: number };
 const path = speakerPath(speaker.slug);
 const tones = ['olive', 'sky', 'brick'] as const;
 const tone = tones[index % tones.length]!;

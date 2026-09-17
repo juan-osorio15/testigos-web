@@ -28,8 +28,13 @@ Nota: la auditoría reportó 420 KB transferidos (comprimidos) y TTFB de 53 ms e
 | Meta dataset ID | pendiente (Juan, paso 3) | |
 | Dominio verificado en Meta | pendiente (paso 4, opcional) | |
 | Bing Webmaster Tools | pendiente (paso 12) | |
-| Backend: endpoints | pendiente (agente de Juan) | |
-| `ATTRIBUTION_CONSENT_SINCE` | pendiente (paso 10) | |
+| Backend y Pretix | no aplica (capa retirada el 2026-09-17) | 2026-09-17 |
+
+## Revisiones de restos antes de publicar (FR-039, T073)
+
+| Fecha | Publicación | Resultado |
+|---|---|---|
+| | 1 (medición y legales) | pendiente |
 
 ## Verificaciones por historia
 

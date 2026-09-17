@@ -1,3 +1,8 @@
+> **ARCHIVADO el 2026-09-17.** Esta capa (atribución de compras en el servidor) se diseñó, se
+> investigó y se retiró por desproporcionada para un evento único. No está implementada en
+> ningún repositorio. Se conserva por si el encuentro se repite en 2027 y la venta de boletas
+> se vuelve una operación continua con pauta permanente.
+
 # Contrato: atribución de compras (sitio → Pretix → backend → Meta y GA4)
 
 Cubre FR-003, FR-004, FR-005 y R-01, R-02. Tres partes: el sitio (este repo), la instancia de Pretix de Eventalist (mini plugin) y el backend de Eventalist en Railway (receptor del webhook). Las dos últimas son entregables de Eventalist; aquí se fija lo que deben cumplir para que el sitio funcione.

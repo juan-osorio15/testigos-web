@@ -7,32 +7,22 @@
  * - El píxel de Meta SOLO se inyecta tras la aceptación, en idle.
  * - `begin_checkout` (GA4) e `InitiateCheckout` (Meta) comparten eventId.
  * - Degradación silenciosa: nada lanza ni escribe errores en consola.
+ * - Nada viaja al widget de Pretix ni a ningún servidor propio: la
+ *   atribución de compras en el servidor se retiró el 2026-09-17.
  */
 import { measurement } from '../config';
-import {
-  CONSENT_EVENT,
-  REVOKE_EVENT,
-  accept,
-  flushPending,
-  isAccepted,
-  revoke,
-  type ConsentConfig,
-} from './consent';
-import { applyTrackingToWidgets, collectTrackingData } from './attribution';
+import { CONSENT_EVENT, REVOKE_EVENT, accept, isAccepted, revoke, type ConsentConfig } from './consent';
 
 declare global {
   interface Window {
     dataLayer?: unknown[];
+    gtag?: (...args: unknown[]) => void;
     fbq?: ((...args: unknown[]) => void) & { queue?: unknown[]; loaded?: boolean; version?: string; callMethod?: unknown };
     _fbq?: unknown;
   }
 }
 
-const cfg: ConsentConfig = {
-  version: measurement.consentVersion,
-  endpoint: measurement.consentEndpoint,
-  site: 'testigosdelamemoria.com',
-};
+const cfg: ConsentConfig = { version: measurement.consentVersion };
 
 const GRANTED = {
   analytics_storage: 'granted',
@@ -141,22 +131,6 @@ export function trackBeginCheckout(value?: number): void {
   fbq('track', 'InitiateCheckout', params, { eventID: id });
 }
 
-/* ---------- Widget de Pretix ----------
-   El widget se construye solo, como siempre: no se retrasa la tienda. Los
-   atributos data-tracking-* se ponen de inmediato con lo que hay en el
-   navegador (utm, fbclid, cookies) y se completan con los identificadores
-   de GA4 cuando gtag responde; Pretix los lee al añadir al carrito. */
-
-async function prepareWidgets(): Promise<void> {
-  if (!document.querySelector('pretix-widget')) return;
-  try {
-    applyTrackingToWidgets(await collectTrackingData('', 0));
-    if (measurement.ga4Id) applyTrackingToWidgets(await collectTrackingData(measurement.ga4Id, 4000));
-  } catch {
-    /* sin datos: el widget funciona igual */
-  }
-}
-
 /* ---------- Consentimiento ---------- */
 
 export const consentConfig = cfg;
@@ -188,10 +162,7 @@ export function initMeasurement(): void {
     clearMeasurementCookies();
   });
 
-  if (enabled && consentAccepted()) {
-    whenIdle(loadPixel);
-    void flushPending(cfg);
-  }
+  if (enabled && consentAccepted()) whenIdle(loadPixel);
 
   // Botones de compra: primer clic hacia #boletas
   document.addEventListener(
@@ -202,11 +173,4 @@ export function initMeasurement(): void {
     },
     { capture: true },
   );
-
-  // Identificadores de la visita hacia el widget, sin retrasar su construcción
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => void prepareWidgets(), { once: true });
-  } else {
-    void prepareWidgets();
-  }
 }

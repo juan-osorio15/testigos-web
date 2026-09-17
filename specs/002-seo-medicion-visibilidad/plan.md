@@ -6,15 +6,17 @@
 
 ## Summary
 
-Convertir el sitio de una sola URL sin medición en un sitio medible y multipágina en las dos primeras semanas: medición de navegador (GA4 y píxel de Meta) con aviso de consentimiento y atribución de la compra real que ocurre en Pretix (widget → `api_meta` del pedido → webhook → backend de Eventalist → Conversions API y Measurement Protocol); marcado de evento completo para el módulo de eventos de Google (sedes con coordenadas, ofertas por etapa, subeventos, ponentes enlazados); 12 fichas de panelistas, programación, charlas abiertas y página de cómo llegar; sitemap derivado de una fuente única de rutas, Bing e IndexNow, `robots.txt` con los bots de respuesta de IA; título, descripción y precarga de la imagen principal. Todo estático en Astro 5, sin gestor de etiquetas ni dependencias nuevas de runtime, y con dos entregables fuera del repositorio (mini plugin de Pretix y receptor de webhook en Django) cuyos contratos fija este plan.
+> **Replanteado el 2026-09-17**: la capa de servidor (atribución de la compra real: widget → `api_meta` → webhook → backend → Conversions API y Measurement Protocol) se retiró por desproporcionada para un evento único. Quedan la capa 1 (SEO y contenido) y la capa 2 (medición en el navegador). Nada toca Pretix ni el backend de Eventalist. Los contratos de la capa retirada están en `docs/archivo-2027/`. Antes de cada publicación a `main` hay una revisión obligatoria de restos (FR-039, tarea T073).
+
+Convertir el sitio de una sola URL sin medición en un sitio medible y multipágina en las dos primeras semanas: medición de navegador (GA4 y píxel de Meta) con aviso de consentimiento discreto e intención de compra; marcado de evento completo para el módulo de eventos de Google (sedes con coordenadas, ofertas por etapa, subeventos, ponentes enlazados); 12 fichas de panelistas, programación, charlas abiertas y página de cómo llegar; sitemap derivado de una fuente única de rutas, Bing e IndexNow, `robots.txt` con los bots de respuesta de IA; título, descripción y precarga de la imagen principal. Todo estático en Astro 5, sin gestor de etiquetas ni dependencias nuevas de runtime, y sin entregables fuera de este repositorio.
 
 ## Technical Context
 
-**Language/Version**: Astro 5.18.2 (estático), TypeScript para datos y configuración, JavaScript vanilla en `<script>` de Astro. Node 22 en CI (24 local). Fuera del repo: Python (mini plugin de Pretix, ~30 líneas) y Django (backend de Eventalist en Railway).
+**Language/Version**: Astro 5.18.2 (estático), TypeScript para datos y configuración, JavaScript vanilla en `<script>` de Astro. Node 22 en CI (24 local). Sin código fuera del repo (la capa de servidor se retiró el 2026-09-17).
 
 **Primary Dependencies**: `astro` (única de runtime). Nueva devDependency opcional: ninguna obligatoria (`web-vitals` se carga inline desde el bundle de Astro si se decide RUM; ver R-04). Scripts externos: `gtag.js` (GA4), `fbevents.js` (Meta), widget de Pretix (ya existente). Sin GTM, sin Partytown.
 
-**Storage**: N/A en el sitio (datos en módulos TypeScript de `src/data/`). Consentimiento y parámetros de origen en `localStorage` / cookie propia del navegador. Fuera del repo: `api_meta` del pedido en Pretix; registro de eventos enviados en el backend de Eventalist (idempotencia por código de pedido).
+**Storage**: N/A en el sitio (datos en módulos TypeScript de `src/data/`). Consentimiento y parámetros de origen en `localStorage` / cookie propia del navegador. Sin almacenamiento en servidor.
 
 **Testing**: `astro build` + `astro check` como gate mecánico; validación funcional por `quickstart.md` (Rich Results Test, Schema Markup Validator, GA4 DebugView, Meta Test Events, Lighthouse móvil mediana de 5, Search Console, Bing Webmaster Tools). Sin harness de tests: el sitio es estático y los contratos se validan contra las herramientas de cada plataforma.
 
@@ -26,7 +28,7 @@ Convertir el sitio de una sola URL sin medición en un sitio medible y multipág
 
 **Constraints**: fecha límite dura de contenido 2026-10-15 (fichas, programación y charlas abiertas antes del 2026-09-29); ningún dato de sesión, sede o ponente inventado (FR-012); ningún precio en copy fuera de los datos de `event.ts` (la tienda sigue siendo dueña de la venta; el marcado y el texto plano de precios salen del mismo módulo); fórmula visual de bloques y copy sin guiones de pausa; publicación a `main` solo con visto bueno del usuario; identificadores de medición vacíos por defecto (nada se carga hasta que existan las cuentas).
 
-**Scale/Scope**: 12 fichas de panelistas + índice, programación (13 sesiones), charlas abiertas, cómo llegar, dónde dormir (condicionada), 2 legales con `noindex`; 5 ofertas; 2 sedes; 3 eventos de medición en navegador y 2 en servidor; ~20 URL en el sitemap.
+**Scale/Scope**: 12 fichas de panelistas + índice, programación (13 sesiones), charlas abiertas, cómo llegar, dónde dormir (condicionada), 2 legales con `noindex`; 5 ofertas; 2 sedes; 3 eventos de medición en navegador; 17 URL en el sitemap.
 
 ## Constitution Check
 
@@ -47,7 +49,6 @@ specs/002-seo-medicion-visibilidad/
 ├── quickstart.md                # Phase 1: guía de validación y setup manual
 ├── contracts/
 │   ├── measurement-events.md    # Eventos de navegador, consentimiento, configuración
-│   ├── pretix-attribution.md    # Widget → api_meta → webhook → CAPI y MP (Eventalist)
 │   ├── jsonld.md                # Formas del JSON-LD: Event, ofertas, subeventos, Person, Breadcrumb
 │   └── pages-seo.md             # Rutas, títulos, sitemap, robots, IndexNow, OG
 ├── checklists/requirements.md
@@ -68,7 +69,7 @@ public/
     └── paginas/<ruta>-v1.png    # programación, charlas abiertas, cómo llegar
 brand/og/                        # + plantilla y script para las imágenes de panelistas y páginas
 src/
-├── config.ts                    # + measurement { ga4Id, metaPixelId, consentVersion, consentEndpoint }
+├── config.ts                    # + measurement { ga4Id, metaPixelId, consentVersion, metaDomainVerification }
 ├── routes.ts                    # NUEVO: fuente única de rutas indexables (sitemap, migas, IndexNow)
 ├── links.ts                     # sectionHref sigue; + helpers a rutas internas
 ├── ui.ts                        # + textos de aviso de consentimiento, migas, fichas, programación
@@ -83,8 +84,7 @@ src/
 │   └── meta.ts                  # NUEVO: título/descripción por página con aserción de longitud
 ├── measurement/
 │   ├── consent.ts               # NUEVO: estado del aviso (localStorage, versión, fecha)
-│   ├── tags.ts                  # NUEVO: carga de gtag y fbevents, eventos begin_checkout / InitiateCheckout con event_id
-│   └── attribution.ts           # NUEVO: captura utm/fbclid/gclid, lectura de _fbp/_fbc/client_id/session_id, inyección data-tracking-* al widget
+│   └── tags.ts                  # NUEVO: carga de gtag y fbevents, eventos begin_checkout / InitiateCheckout con event_id
 ├── layouts/
 │   ├── EventLayout.astro        # head: preload LCP, preconnect, JSON-LD por página (slot), etiquetas de medición, aviso de consentimiento, migas
 │   ├── LegalLayout.astro        # noindex, follow
@@ -96,7 +96,7 @@ src/
 │   ├── Hero.astro               # <Image priority> con widths acordes
 │   ├── SpeakerCard.astro        # nombre y foto enlazan a /panelistas/<slug>/
 │   ├── Schedule.astro           # filas con ancla por sesión y enlace a fichas; enlace a /programacion/
-│   ├── TicketSection.astro      # data-tracking-* en <pretix-widget>; precios en texto plano desde event.ts
+│   ├── TicketSection.astro      # sin cambios en el widget (la capa de atribución se retiró)
 │   └── FAQ.astro                # respuestas de "cómo llego" y "dónde me hospedo" enlazan a las páginas nuevas
 └── pages/
     ├── index.astro              # título y descripción nuevos; enlaces a las páginas internas
@@ -114,15 +114,19 @@ docs/
 └── pretix-tienda-textos.md                 # casilla obligatoria de Pretix reescrita (se aplica en el panel de Pretix)
 ```
 
-**Structure Decision**: proyecto Astro existente en la raíz; se añaden dos módulos de dominio (`src/seo/`, `src/measurement/`) para que el layout no acumule lógica, y `src/routes.ts` como fuente única de rutas. Los entregables de Eventalist (plugin de Pretix y receptor del webhook) no viven en este repositorio: sus contratos están en `contracts/pretix-attribution.md` y las tareas los marcan como dependencias externas.
+**Structure Decision**: proyecto Astro existente en la raíz; se añaden dos módulos de dominio (`src/seo/`, `src/measurement/`) para que el layout no acumule lógica, y `src/routes.ts` como fuente única de rutas. No hay entregables fuera de este repositorio.
 
 ## Fases de entrega (para /speckit-tasks)
 
-1. **Semana 1 · Medición y correcciones on-page** (publicable sola): configuración de medición, aviso de consentimiento con Consent Mode y gestor de preferencias, GA4 y píxel, `begin_checkout` / `InitiateCheckout`, captura de origen e inyección al widget, textos legales del dictamen (política, términos) en commits propios, título y descripción, preload de la hero, `noindex` legales, `robots.txt`, IndexNow en el deploy. Manual del usuario: cuentas de GA4 (Signals apagado) y Meta, verificación de dominio en Meta, Bing Webmaster Tools, `noindex` y casilla nueva en Pretix.
-2. **Semana 1-2 · Lado servidor** (Eventalist, en paralelo): endpoint de registro de consentimiento, plugin de Pretix, webhook, endpoint Django, envío a CAPI y MP solo de pedidos posteriores a la nueva casilla, prueba con pedido de test.
+1. **Semana 1 · Medición y correcciones on-page** (publicable sola): configuración de medición, aviso de consentimiento discreto con Consent Mode y gestor de preferencias, GA4 y píxel, `begin_checkout` / `InitiateCheckout`, textos legales (sección 10 de cookies), título y descripción, preload de la hero, `noindex` legales, `robots.txt`, IndexNow en el deploy. Manual del usuario: cuentas de GA4 (Signals apagado) y Meta, Bing Webmaster Tools. En Pretix no cambia nada.
+2. **Revisión de restos antes de cada publicación** (T073): diff completo de la rama, búsqueda de términos de la capa retirada, checkout de Pretix idéntico.
 3. **Semana 2 · Marcado y arquitectura** (antes del 29 de septiembre): `routes.ts`, `seo/`, ofertas y disponibilidad derivada, sedes con geo, subeventos, fichas de panelistas con OG propio, índice, programación, charlas abiertas, migas, sitemap nuevo, reenvío en Search Console y Bing.
 4. **Semana 3 · Páginas prácticas** (antes del 15 de octubre): cómo llegar; dónde dormir si hay lista.
 5. **Hitos de operación**: publicación el 5 de octubre (cambio de etapa); marcar `soldOut` cuando aplique; revisión del informe de eventos de Search Console a los 7 días de cada publicación.
+
+## Decisión del 2026-09-17: capa de servidor retirada
+
+Tras la investigación y el dictamen, el titular concluyó que atribuir cada compra a su anuncio (webhook de Pretix, plugin en la instancia, endpoints en el backend, Conversions API, Measurement Protocol, registro de consentimiento en el backend) no es proporcional para un evento único a siete semanas. Efectos: `src/measurement/attribution.ts` y el `consentEndpoint` eliminados; la política, los términos y la casilla de Pretix vuelven a no mencionar datos de compra; `TERMS_EFFECTIVE` vuelve al 14 de septiembre; los contratos externos se archivan en `docs/archivo-2027/`; las ramas de los otros repositorios se borraron. La campaña de Meta se optimiza por tráfico e intención de compra; las ventas se leen en Pretix.
 
 ## Decisiones cerradas por el dictamen legal (2026-09-15)
 
@@ -130,10 +134,9 @@ Dictamen completo en `docs/revision-legal-2026-09-15-medicion.md`. Efectos en el
 
 - El píxel de Meta carga solo tras "Aceptar". No hay interruptor para cargarlo antes.
 - GA4 carga de inmediato en Consent Mode con todo en `denied` y pasa a `granted` al aceptar; Google Signals y personalización de anuncios apagados en la propiedad; sin ID de usuario.
-- La aceptación se registra en el navegador y en el backend de Eventalist (endpoint mínimo de consentimiento, contrato en `measurement-events.md`). Sin backend a tiempo: variante B de la cláusula.
+- La aceptación se registra en el navegador (variante B de la cláusula; decisión del 2026-09-17).
 - Enlace "Cookies y preferencias" en el pie de todas las páginas, con revocación efectiva en ese navegador.
-- La política de datos no se publica con la medición sin la cláusula 10 y los siete ajustes consecuenciales; la casilla obligatoria de Pretix y la sección 12 de los términos se reescriben con los textos del dictamen. `DATA_POLICY_EFFECTIVE` y `TERMS_EFFECTIVE` suben a la fecha de publicación.
-- El backend solo envía a Meta y GA4 pedidos pagados después de la nueva versión de la casilla de Pretix; ningún dato fuera de los enumerados en la cláusula.
+- La política de datos no se publica con la medición sin la cláusula 10 (solo cookies) y sus ajustes consecuenciales. Casilla de Pretix y términos: sin cambios (2026-09-17).
 
 ## Decisión pendiente del usuario
 

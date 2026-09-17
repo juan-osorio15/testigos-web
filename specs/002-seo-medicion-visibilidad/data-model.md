@@ -124,7 +124,7 @@ Reglas: las páginas legales y la 404 no están aquí. `sitemap.xml.ts`, `Breadc
 | `og:image` | 1200×630 PNG versionado; por ficha, la del panelista; por página, la de la página o la de la portada |
 | Hechos en texto plano | nombre, "Villa de Leyva, Boyacá, Colombia", "5 al 8 de noviembre de 2026", sedes, estado de boletería y precios (FR-034): los aporta `InnerLayout` en un bloque fijo al pie de cada página interior |
 
-## 7. Evento de medición (`src/measurement/`)
+## 7. Evento de medición y aceptación de cookies (`src/measurement/`)
 
 ```ts
 type BrowserEvent =
@@ -132,51 +132,16 @@ type BrowserEvent =
   | { name: 'begin_checkout'; eventId: string; currency: 'COP'; value?: number }
   | { name: 'consent_granted'; version: string };
 
-interface Attribution {
-  utm: Partial<Record<'source' | 'medium' | 'campaign' | 'content' | 'term', string>>;
-  fbclid?: string; gclid?: string;
-  fbp?: string; fbc?: string;
-  gaClientId?: string; gaSessionId?: string;
-  landing: string;          // path de aterrizaje
-  firstSeen: string;        // ISO
-}
-
 interface ConsentState {
-  id: string;               // identificador aleatorio de la aceptación (UUID), creado al aceptar
+  id: string;               // identificador aleatorio de la aceptación (UUID)
   version: string;          // measurement.consentVersion
   scope: ['analytics', 'advertising'];
   acceptedAt: string | null;   // ISO; null = no aceptado o revocado
-  revokedAt?: string;       // ISO, si se retiró desde "Cookies y preferencias"
-  recorded: boolean;        // true cuando el backend confirmó el registro
+  revokedAt?: string;
 }
 ```
 
-Reglas: `Attribution` se guarda en `localStorage` (clave `tdm.attribution`, 90 días por `firstSeen`) y se sobrescribe solo si llega un nuevo `fbclid`, `gclid` o `utm_*`. `ConsentState` en `localStorage` (`tdm.consent`); un cambio de `consentVersion` vuelve a mostrar el aviso; cerrar el aviso no cambia el estado. Al aceptar se envía `{ id, version, scope, acceptedAt }` al endpoint de consentimiento del backend (sin IP ni nombre); si falla, se reintenta en la siguiente carga hasta `recorded`. Revocar guarda `revokedAt`, pone `acceptedAt` en null, vuelve `analytics_storage` y `ad_*` a `denied`, borra las cookies `_ga*`, `_fbp` y `_fbc` del dominio y notifica al backend con el mismo `id`. `eventId` de `begin_checkout` = `${gaClientId ?? random}.${Date.now()}` y se envía a GA4 y a Meta con el mismo valor (dedup futura). Mapeo: `begin_checkout` ↔ Meta `InitiateCheckout`.
-
-## 8. Pedido atribuido (fuera del repo: Pretix `api_meta` y backend)
-
-```json
-{
-  "tracking": {
-    "ga_id": "…", "ga_sessid": "…",
-    "fbp": "fb.1.…", "fbc": "fb.1.…",
-    "gclid": "…", "utm_source": "…", "utm_medium": "…", "utm_campaign": "…",
-    "landing": "/", "event_id_checkout": "…",
-    "client_ip": "…", "client_user_agent": "…",
-    "captured_at": "2026-09-20T15:04:05-05:00"
-  }
-}
-```
-
-Reglas: el plugin escribe `api_meta.tracking` una sola vez al confirmar el pedido; el backend registra por `code` los envíos hechos (`capi_sent_at`, `mp_sent_at`) para idempotencia frente a reintentos del webhook, y solo procesa pedidos cuya fecha sea posterior a la entrada en vigor de la casilla nueva de Pretix (`ATTRIBUTION_CONSENT_SINCE`). Detalle en `contracts/pretix-attribution.md`.
-
-## 8b. Registro de consentimiento (fuera del repo: backend)
-
-```json
-{"id":"<uuid>","version":"2026-09","scope":["analytics","advertising"],"accepted_at":"…","revoked_at":null,"site":"testigosdelamemoria.com"}
-```
-
-Sin IP ni datos de identidad. Sirve como prueba de autorización (art. 8 del Decreto 1377) y para entregar copia al titular que la pida.
+Reglas: `ConsentState` vive en `localStorage['tdm.consent']` (variante B del dictamen: solo navegador). Un cambio de `consentVersion` vuelve a mostrar el aviso; cerrar el aviso no cambia el estado. Revocar guarda `revokedAt`, pone `acceptedAt` en null, vuelve `analytics_storage` y `ad_*` a `denied` y borra las cookies `_ga*`, `_fbp` y `_fbc`. `eventId` de `begin_checkout` se envía a GA4 y a Meta con el mismo valor. Nada viaja al widget de Pretix ni a un servidor propio (capa retirada el 2026-09-17).
 
 ## 9. Relaciones
 
@@ -184,4 +149,4 @@ Sin IP ni datos de identidad. Sirve como prueba de autorización (art. 8 del Dec
 - Charlas abiertas: evento propio (URL `/charlas-abiertas/`) con `superEvent` al principal, que agrupa las sesiones `type: 'charla'`.
 - Ficha de panelista → sesiones donde participa → programación (ancla) y compra.
 - Ruta → migas (padre) → `BreadcrumbList`.
-- Visita (Attribution) → pedido (api_meta.tracking) → eventos de servidor (CAPI, MP) → informes (Meta Ads, GA4, Google Ads).
+- Visita → eventos de navegador (GA4, Meta) → informes (GA4, Meta Ads). Las ventas viven en Pretix y se comparan a mano con el tráfico por origen.
