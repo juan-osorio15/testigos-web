@@ -5,14 +5,14 @@ Guía de setup manual y de verificación. Cada bloque cierra un criterio de éxi
 ## 0. Prerrequisitos
 
 - Node 22 o 24, `npm ci`, `npm run build` y `npm run check` en verde en la rama `002-seo-medicion-visibilidad`.
-- Cuentas: propiedad GA4 de Eventalist para testigosdelamemoria.com (`G-…` y un `api_secret` de Measurement Protocol); dataset (píxel) de Meta en el Business Manager de Eventalist con token de Conversions API; acceso de administrador a `pretix.eventalist.co` (organizador `eventalist`, evento `testigos-memoria`) y a la API con token de solo lectura; acceso al backend de Eventalist en Railway.
+- Cuentas: propiedad GA4 de Eventalist para testigosdelamemoria.com (`G-…`) y dataset (píxel) de Meta en el Business Manager de Eventalist. Nada en Pretix ni en el backend (capa de servidor retirada el 2026-09-17).
 - Perfil de Chrome "Eventalist" para Search Console (propiedad de dominio) y Bing Webmaster Tools (bing.com está bloqueado para el navegador automatizado: paso manual).
 
 ## 1. Setup manual (usuario o Eventalist)
 
 1. **Pretix**: nada obligatorio. Opcional: activar en el evento "Ask search engines not to index the ticket shop".
 2. **Meta**: Events Manager → dataset → obtener ID y token de CAPI; Business Settings → Brand Safety → Domains → añadir testigosdelamemoria.com y verificar (DNS TXT en GoDaddy, o meta-tag → `measurement.metaDomainVerification`). Comprobar que el dataset no cae en una categoría restringida.
-3. **GA4**: crear propiedad y flujo web; copiar `G-…`; Admin → Data collection → Google Signals **apagado** y personalización de anuncios **apagada**; sin User-ID; Admin → Data streams → Measurement Protocol API secrets → crear uno para el backend; Admin → Events → marcar `purchase` y `begin_checkout` como eventos clave. Sin Google Ads (decisión 2026-09-16).
+3. **GA4**: crear propiedad y flujo web; copiar `G-…`; Admin → Data collection → Google Signals **apagado** y personalización de anuncios **apagada**; sin User-ID; Admin → Events → marcar `begin_checkout` como evento clave. Sin Google Ads (decisión 2026-09-16).
 4. **Backend de Eventalist**: nada (capa retirada el 2026-09-17).
 5. **Configurar el sitio**: `src/config.ts` → `measurement.ga4Id`, `measurement.metaPixelId`, `metaDomainVerification` (si aplica).
 6. **Bing Webmaster Tools**: My Sites → Import → Google Search Console → seleccionar testigosdelamemoria.com → Import. Sitemaps → añadir `https://testigosdelamemoria.com/sitemap.xml`. URL Inspection → portada → Request indexing. Anotar la fecha para SC-008.

@@ -45,11 +45,11 @@ Sin JS (o widget bloqueado): ese contenido interno es lo que se ve → siempre h
 - La página no lee ni sincroniza estado del widget (carrito, precios, disponibilidad).
 - Ningún precio/tipo de boleta hardcodeado en copy, JSON-LD ni FAQs; las dudas de reembolso remiten a Pretix/organizador.
 
-## Extensión (feature 002, 2026-09-17)
+## Nota (feature 002, 2026-09-17)
 
-El sitio añade atributos `data-tracking-*` al `<pretix-widget>` (identificadores
-de la visita para atribuir la compra) y retrasa su construcción hasta tenerlos
-o hasta 2 s (`build_widgets = false` + `buildWidgets()`, patrón oficial). Todo
-lo demás de este contrato sigue vigente: la página no lee precios ni estado del
-widget; los precios del marcado y del texto plano salen de `ticketOffers` en
-`src/data/event.ts`. Detalle: `specs/002-seo-medicion-visibilidad/contracts/pretix-attribution.md`.
+La feature 002 estudió añadir atributos `data-tracking-*` al `<pretix-widget>` para
+atribuir compras en el servidor y **lo retiró el mismo día**: el widget no se toca.
+Lo único nuevo que roza este contrato es que los precios del marcado JSON-LD y del
+texto plano salen de `ticketOffers` en `src/data/event.ts` (antes `ticketOffer`), y
+que el clic en los botones de compra se cuenta como intención de compra en GA4 y
+Meta sin alterar el widget. Todo lo demás sigue vigente.
