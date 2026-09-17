@@ -40,7 +40,7 @@ export const pretixReady = true;
  */
 export const measurement = {
   /** ID de medición de GA4 ('G-XXXXXXXXXX'); vacío → no se carga gtag */
-  ga4Id: '',
+  ga4Id: 'G-XJES5Z5EC9',
   /** ID del conjunto de datos (píxel) de Meta; vacío → no se carga fbevents */
   metaPixelId: '',
   /** Versión del aviso de cookies; cambiarla vuelve a mostrarlo */
