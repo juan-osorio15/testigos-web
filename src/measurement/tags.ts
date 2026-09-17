@@ -25,8 +25,6 @@ declare global {
     dataLayer?: unknown[];
     fbq?: ((...args: unknown[]) => void) & { queue?: unknown[]; loaded?: boolean; version?: string; callMethod?: unknown };
     _fbq?: unknown;
-    PretixWidget?: { build_widgets?: boolean; buildWidgets?: () => void };
-    __tdmWidgetsBuilt?: boolean;
   }
 }
 
@@ -143,25 +141,19 @@ export function trackBeginCheckout(value?: number): void {
   fbq('track', 'InitiateCheckout', params, { eventID: id });
 }
 
-/* ---------- Widget de Pretix ---------- */
-
-function buildWidgets(): void {
-  if (window.__tdmWidgetsBuilt) return;
-  window.__tdmWidgetsBuilt = true;
-  try {
-    window.PretixWidget?.buildWidgets?.();
-  } catch {
-    /* el widget no cargó: el fallback de TicketSection sigue visible */
-  }
-}
+/* ---------- Widget de Pretix ----------
+   El widget se construye solo, como siempre: no se retrasa la tienda. Los
+   atributos data-tracking-* se ponen de inmediato con lo que hay en el
+   navegador (utm, fbclid, cookies) y se completan con los identificadores
+   de GA4 cuando gtag responde; Pretix los lee al añadir al carrito. */
 
 async function prepareWidgets(): Promise<void> {
   if (!document.querySelector('pretix-widget')) return;
   try {
-    const data = await collectTrackingData(measurement.ga4Id, 2000);
-    applyTrackingToWidgets(data);
-  } finally {
-    buildWidgets();
+    applyTrackingToWidgets(await collectTrackingData('', 0));
+    if (measurement.ga4Id) applyTrackingToWidgets(await collectTrackingData(measurement.ga4Id, 4000));
+  } catch {
+    /* sin datos: el widget funciona igual */
   }
 }
 
@@ -211,7 +203,7 @@ export function initMeasurement(): void {
     { capture: true },
   );
 
-  // El widget se construye cuando tiene los identificadores (o a los 2 s)
+  // Identificadores de la visita hacia el widget, sin retrasar su construcción
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => void prepareWidgets(), { once: true });
   } else {

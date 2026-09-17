@@ -85,11 +85,6 @@ const consentBootstrap = ga4
     `gtag('js',new Date());gtag('config',${JSON.stringify(ga4)},{send_page_view:true});`
   : '';
 
-/* El widget espera a los identificadores de la visita (≤ 2 s); si el módulo
-   de medición no corre, un temporizador lo construye igual. */
-const pretixGate =
-  `window.PretixWidget=window.PretixWidget||{};window.PretixWidget.build_widgets=false;` +
-  `setTimeout(function(){if(!window.__tdmWidgetsBuilt){window.__tdmWidgetsBuilt=true;var p=window.PretixWidget;if(p&&typeof p.buildWidgets==='function'){p.buildWidgets();}else{p.build_widgets=true;}}},4000);`;
 ---
 
 <!doctype html>
@@ -151,7 +146,6 @@ const pretixGate =
     {
       pretixLive && (
         <>
-          <script is:inline set:html={pretixGate} />
           <link rel="stylesheet" type="text/css" href={PRETIX_WIDGET_CSS} crossorigin="anonymous" />
           <script is:inline type="text/javascript" src={PRETIX_WIDGET_SCRIPT} async crossorigin="anonymous" />
         </>

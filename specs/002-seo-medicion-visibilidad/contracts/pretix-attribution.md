@@ -9,7 +9,7 @@ Cubre FR-003, FR-004, FR-005 y R-01, R-02. Tres partes: el sitio (este repo), la
 - Cookies propias que crean las etiquetas: `_fbp`, `_fbc` (solo si el píxel cargó). Si hay `fbclid` y no hay `_fbc`, se construye `fbc = fb.1.<Date.now()>.<fbclid>` (formato oficial de Meta).
 - GA4: `gtag('get', G-…, 'client_id', cb)` y `gtag('get', G-…, 'session_id', cb)` con tope de 2 s.
 
-**Inyección al widget** (patrón oficial de Pretix: `window.PretixWidget.build_widgets = false` en `<head>` antes del script del widget; el layout llama `PretixWidget.buildWidgets()` cuando tiene los datos o vence el tope):
+**Inyección al widget** (sin retrasar la tienda, decisión del 2026-09-17: el widget se construye solo como siempre; los atributos se ponen de inmediato con lo que hay en el navegador y se completan con los identificadores de GA4 cuando gtag responde, porque Pretix los lee al añadir al carrito):
 
 ```html
 <pretix-widget

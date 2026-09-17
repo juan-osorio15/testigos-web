@@ -61,8 +61,8 @@ Disparadores de intención de compra (una vez por página, el primero que ocurra
 
 ## Aviso de consentimiento (`ConsentNotice.astro`)
 
-- Barra fija inferior, bloque de tinta sobre crema (fórmula visual), visible en toda la página hasta que se acepta o se cierra (no se pierde al hacer scroll), sin superponerse al CTA del hero en móvil. Elementos: texto, enlace "Más información" a `/tratamiento-de-datos/#cookies`, botón "Aceptar" y botón de cerrar (×). Sin "Rechazar".
-- Texto (dictamen, `ui.ts` `consent.text`): "Eventalist S.A.S. usa en este sitio cookies de analítica y de publicidad de Google y de Meta para medir las visitas y atribuir las compras de boletas. Al pulsar Aceptar se autoriza ese uso conforme a la política de tratamiento de datos, que explica cómo revocarlo."
+- Franja baja y discreta al pie de la pantalla, tinta sobre crema, texto pequeño sin negritas, una línea en escritorio y dos en móvil; visible hasta que se acepta o se cierra (no se pierde al hacer scroll). Elementos: texto, enlace "Política de datos" a `/tratamiento-de-datos/#cookies`, botón "Aceptar" (borde, sin relleno) y cerrar (×). Sin "Rechazar". Decisión del titular (2026-09-17): cumplir la norma sin llamar la atención; el detalle vive en la sección 10 de la política, donde quien lo busque lo encuentra.
+- Texto (`ui.ts` `consent.text`, versión corta del dictamen con responsable, proveedores, finalidad y enlace): "Eventalist usa cookies de analítica y publicidad (Google y Meta) para medir las visitas y la campaña de boletas. Al aceptar autorizas ese uso según la política de datos."
 - Solo "Aceptar" acepta: cerrar, ignorar, hacer scroll, navegar o pulsar "Más información" no cambian el estado. Cerrar oculta la barra durante la sesión (`sessionStorage`) y vuelve a mostrarla en la siguiente visita.
 - Al aceptar: crea `id` (UUID), guarda `ConsentState` en `localStorage['tdm.consent']`, actualiza Consent Mode a `granted`, envía `consent_granted` a GA4, dispara `tdm:consent`, registra en `consentEndpoint` (`POST { id, version, scope, accepted_at, site }`, reintento en la siguiente carga si falla) y oculta la barra.
 - No se muestra si `acceptedAt` existe con la misma `consentVersion`. Si `localStorage` no está disponible, la barra se oculta para la sesión y no se carga el píxel.
@@ -80,7 +80,7 @@ Disparadores de intención de compra (una vez por página, el primero que ocurra
 ## Degradación (FR-006)
 
 - Todos los accesos a `gtag`, `fbq`, `localStorage` van en `try/catch`; nunca se lanza ni se escribe en consola de error.
-- Bloqueadores: las llamadas a `gtag('get')` tienen tope de 2 s; si no responden, el widget se construye igual sin `data-tracking-ga-*` (patrón oficial de Pretix, ver `pretix-attribution.md`).
+- Bloqueadores: las llamadas a `gtag('get')` tienen tope de 4 s y nunca retrasan el widget; si no responden, el widget queda sin `data-tracking-ga-*` (ver `pretix-attribution.md`).
 
 ## Rendimiento (FR-010)
 

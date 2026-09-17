@@ -139,9 +139,12 @@ const dict = {
   'footer.terms': 'Términos y condiciones',
 
   // --- Aviso de cookies y preferencias (dictamen legal 2026-09-15) ---
+  /* Corto y sin énfasis, como es habitual: nombra al responsable, los
+     proveedores y la finalidad, y enlaza la política (arts. 14 y 15 del
+     Decreto 1377). El detalle vive en la sección 10 de la política. */
   'consent.text':
-    'Eventalist S.A.S. usa en este sitio cookies de analítica y de publicidad de Google y de Meta para medir las visitas y atribuir las compras de boletas. Al pulsar Aceptar se autoriza ese uso conforme a la política de tratamiento de datos, que explica cómo revocarlo.',
-  'consent.more': 'Más información',
+    'Eventalist usa cookies de analítica y publicidad (Google y Meta) para medir las visitas y la campaña de boletas. Al aceptar autorizas ese uso según la política de datos.',
+  'consent.more': 'Política de datos',
   'consent.accept': 'Aceptar',
   'consent.close': 'Cerrar el aviso',
   'consent.prefsLink': 'Cookies y preferencias',
