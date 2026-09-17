@@ -1,0 +1,263 @@
+---
+/**
+ * Programación completa (feature 002, FR-021): un bloque por día con ancla
+ * (#jueves-5 …) y una fila por sesión con ancla (#slug), hora, sede, tipo
+ * de entrada, panelistas enlazados a su ficha y botón de compra en las de
+ * boleta. Precios y etapas en texto plano. Nada inventado: lo que no está
+ * confirmado no aparece (FR-012).
+ */
+import InnerLayout from '../layouts/InnerLayout.astro';
+import CtaButton from '../components/CtaButton.astro';
+import { t } from '../ui';
+import { agenda, dayLabels, type EventDay } from '../data/agenda';
+import { venueById, formatPrice, salesStages } from '../data/event';
+import { speakerBySlug } from '../data/speakers';
+import { routeByPath, speakerPath } from '../routes';
+import { offerStatuses } from '../seo/offers';
+
+const route = routeByPath('/programacion/');
+const days = Object.keys(dayLabels) as EventDay[];
+const dayAnchor: Record<EventDay, string> = {
+  '2026-11-05': 'jueves-5',
+  '2026-11-06': 'viernes-6',
+  '2026-11-07': 'sabado-7',
+  '2026-11-08': 'domingo-8',
+};
+const slotsByDay = (day: EventDay) => agenda.filter((s) => s.day === day);
+const fmtLong = (iso: string) =>
+  new Date(`${iso}T12:00:00-05:00`).toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'America/Bogota' });
+const statuses = offerStatuses();
+const stage2Live = statuses.some((s) => s.offer.id !== 'pase-completo' && s.availability === 'InStock');
+---
+
+<InnerLayout
+  path="/programacion/"
+  eyebrow={t('crumb.schedule')}
+  heading="Cuatro días en Villa de Leyva"
+  lead="Charlas abiertas de entrada libre el jueves y el viernes en la mañana, en la Casa Museo Antonio Nariño. Conversatorios con boleta del viernes en la tarde al domingo, en la Hospedería Duruelo."
+  tone="terracotta"
+>
+  <p slot="head-extra" class="updated">{t('schedule.updated')} {fmtLong(route.lastmod)}.</p>
+
+  <div class="container program">
+    <nav class="program-days" aria-label="Días del encuentro">
+      {days.map((day) => <a href={`#${dayAnchor[day]}`}>{dayLabels[day]}</a>)}
+    </nav>
+
+    {
+      days.map((day) => (
+        <section class="program-day" id={dayAnchor[day]} aria-labelledby={`${dayAnchor[day]}-title`}>
+          <h2 id={`${dayAnchor[day]}-title`}>{dayLabels[day]}</h2>
+          <ol class="program-list" role="list">
+            {slotsByDay(day).map((slot) => {
+              const venue = slot.venueId ? venueById(slot.venueId) : null;
+              const free = slot.type === 'charla';
+              const people = slot.speakerSlugs.map(speakerBySlug);
+              return (
+                <li class:list={['session', { 'session--free': free }]} id={slot.slug}>
+                  <div class="session-time">{slot.time}</div>
+                  <div class="session-body">
+                    <h3 class="session-title">
+                      <a href={`#${slot.slug}`}>{slot.title}</a>
+                    </h3>
+                    {(people.length > 0 || slot.guests?.length) && (
+                      <p class="session-people">
+                        {people.map((sp, i) => (
+                          <>
+                            {i > 0 && ' · '}
+                            <a href={speakerPath(sp.slug)}>{sp.name}</a>
+                          </>
+                        ))}
+                        {slot.guests?.map((g) => (
+                          <>
+                            {(people.length > 0 || slot.guests!.indexOf(g) > 0) && ' · '}
+                            <span>{g}</span>
+                          </>
+                        ))}
+                      </p>
+                    )}
+                    {slot.note && <p class="session-note">{slot.note}</p>}
+                    {venue && (
+                      <p class="session-venue">
+                        {venue.name}, {venue.address} ·{' '}
+                        <a href={venue.mapsUrl} target="_blank" rel="noopener noreferrer">
+                          {t('schedule.venueMap')}
+                        </a>
+                      </p>
+                    )}
+                  </div>
+                  <div class="session-action">
+                    {free ? (
+                      <a class="session-badge" href="/charlas-abiertas/">
+                        {t('schedule.free')}
+                      </a>
+                    ) : (
+                      <CtaButton variant="header" label="cta.secure" />
+                    )}
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+        </section>
+      ))
+    }
+
+    <section class="program-tickets" aria-labelledby="tickets-title">
+      <h2 id="tickets-title">{t('schedule.pricesHeading')}</h2>
+      <p>
+        Las charlas abiertas no necesitan boleta. Los conversatorios se venden en dos etapas: hasta el {fmtLong(salesStages.stage1End)} solo el pase completo; desde el {fmtLong(salesStages.stage2Start)}, boletas por franja y el pase se retira.
+        {stage2Live ? ' La etapa 2 está en curso.' : ' La etapa 1 está en curso.'}
+      </p>
+      <ul class="program-offers">
+        {
+          statuses.map(({ offer, availability }) => (
+            <li>
+              <strong>{offer.name}</strong>: {formatPrice(offer)}
+              {availability === 'InStock' && ` · ${t('facts.onSale').toLowerCase()}`}
+              {availability === 'PreOrder' && ` · ${t('facts.soon').toLowerCase()} ${fmtLong(offer.validFrom)}`}
+              {availability === 'SoldOut' && ` · ${t('facts.soldOut').toLowerCase()}`}
+              {availability === null && ` · ${t('facts.closed').toLowerCase()}`}
+            </li>
+          ))
+        }
+      </ul>
+      <CtaButton />
+    </section>
+  </div>
+</InnerLayout>
+
+<style>
+  .updated {
+    font-size: var(--text-small);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .program {
+    display: grid;
+    gap: var(--space-5);
+  }
+  .program-days {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
+    font-size: var(--text-label);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .program-days a {
+    text-decoration: none;
+    border-bottom: 2px solid var(--terracotta);
+  }
+  .program-day {
+    display: grid;
+    gap: var(--space-3);
+    scroll-margin-top: calc(var(--header-h) + var(--space-2));
+  }
+  .program-day h2 {
+    font-size: var(--text-h2);
+  }
+  .program-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0;
+    border-top: var(--border) var(--ink);
+  }
+  .session {
+    display: grid;
+    grid-template-columns: 9rem minmax(0, 1fr) auto;
+    gap: var(--space-2) var(--space-3);
+    padding: var(--space-3) 0;
+    border-bottom: var(--border) var(--ink);
+    scroll-margin-top: calc(var(--header-h) + var(--space-2));
+  }
+  .session:target {
+    background-color: rgba(212, 91, 48, 0.12);
+    box-shadow: -0.75rem 0 0 rgba(212, 91, 48, 0.12), 0.75rem 0 0 rgba(212, 91, 48, 0.12);
+  }
+  .session-time {
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.3;
+  }
+  .session-body {
+    display: grid;
+    gap: 0.35rem;
+  }
+  .session-title {
+    font-size: var(--text-h3);
+    line-height: 1.2;
+  }
+  .session-title a {
+    text-decoration: none;
+  }
+  .session-title a:hover,
+  .session-title a:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .session-people {
+    font-weight: 700;
+    font-size: var(--text-body);
+  }
+  .session-people a {
+    text-underline-offset: 0.2em;
+  }
+  .session-note,
+  .session-venue {
+    font-size: var(--text-small);
+    line-height: 1.5;
+    max-width: 62ch;
+    opacity: 0.9;
+  }
+  .session-action {
+    align-self: start;
+  }
+  .session-badge {
+    display: inline-block;
+    padding: 0.5em 0.9em;
+    border: 2px solid var(--olive);
+    color: var(--olive);
+    font-size: var(--text-label);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .session-badge:hover,
+  .session-badge:focus-visible {
+    background-color: var(--olive);
+    color: var(--cream);
+  }
+  .program-tickets {
+    display: grid;
+    gap: var(--space-2);
+    justify-items: start;
+    padding: var(--space-4);
+    background-color: var(--sky);
+  }
+  .program-tickets h2 {
+    font-size: var(--text-h3);
+  }
+  .program-tickets p,
+  .program-offers li {
+    font-size: var(--text-body);
+    line-height: 1.5;
+    max-width: 62ch;
+  }
+  .program-offers {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.3rem;
+  }
+  @media (max-width: 47.9rem) {
+    .session {
+      grid-template-columns: 1fr;
+      gap: var(--space-1);
+    }
+  }
+</style>

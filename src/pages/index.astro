@@ -8,13 +8,12 @@ import Schedule from '../components/Schedule.astro';
 import Interlude from '../components/Interlude.astro';
 import VenueMap from '../components/VenueMap.astro';
 import FAQ from '../components/FAQ.astro';
+import { homeGraph } from '../seo/jsonld';
+
+/* Título y descripción: src/routes.ts (aprobados el 2026-09-16, ≤ 60 y ≤ 155) */
 ---
 
-<EventLayout
-  hero
-  title="Testigos de la Memoria · Periodistas en la Historia · Villa de Leyva 2026"
-  description="Encuentro de periodismo e historia en Villa de Leyva, del 5 al 8 de noviembre de 2026. Charlas abiertas y conversatorios con los periodistas que cubrieron la Colombia reciente."
->
+<EventLayout hero path="/" jsonld={homeGraph()}>
   <Hero />
   <main id="contenido">
     <Opportunity />

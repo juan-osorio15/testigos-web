@@ -12,7 +12,7 @@ import { t } from '../ui';
 import { event } from '../data/event';
 import CtaButton from './CtaButton.astro';
 import LogoLockup from '../assets/logo/logo-lockup.svg';
-import streetPhoto from '../assets/photos/pexels-enzo-renz-424999667-33786545.jpg';
+import { heroImage } from '../seo/hero';
 
 /* Slogan aprobado (spec §2); el nombre del evento va en el h1 para SEO/AT
    y el eslogan es el display visible. */
@@ -67,15 +67,16 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
         <LogoLockup class="hero-logo" aria-hidden="true" />
       </div>
       <div class="duotone hero-photo">
+        {/* LCP: `priority` = eager + fetchpriority high; widths y sizes de
+            src/seo/hero.ts, los mismos del <link rel="preload"> del layout */}
         <Image
-          src={streetPhoto}
-          alt="Calle empedrada de Villa de Leyva, con muros blancos y balcones coloniales"
-          width={1280}
-          height={853}
-          widths={[640, 960, 1280]}
-          sizes="(max-width: 63.9rem) 100vw, 42vw"
-          loading="eager"
-          fetchpriority="high"
+          src={heroImage.src}
+          alt={heroImage.alt}
+          width={heroImage.width}
+          height={heroImage.height}
+          widths={[...heroImage.widths]}
+          sizes={heroImage.sizes}
+          priority
         />
       </div>
     </div>

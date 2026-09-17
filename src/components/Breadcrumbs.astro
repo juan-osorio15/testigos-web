@@ -1,0 +1,56 @@
+---
+/**
+ * Migas de pan de las páginas interiores (feature 002, FR-017). El dato
+ * sale de src/routes.ts; el BreadcrumbList del JSON-LD lo genera
+ * src/seo/jsonld.ts con la misma cadena.
+ */
+import { t } from '../ui';
+import { breadcrumbsFor } from '../routes';
+
+interface Props {
+  path: string;
+}
+const { path } = Astro.props;
+const chain = breadcrumbsFor(path);
+---
+
+<nav class="crumbs" aria-label={t('crumb.aria')}>
+  <ol>
+    {
+      chain.map((r, i) => (
+        <li>
+          {i < chain.length - 1 ? <a href={r.path}>{r.crumb}</a> : <span aria-current="page">{r.crumb}</span>}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  .crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35em;
+    list-style: none;
+    padding: 0;
+    font-size: var(--text-small);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .crumbs li + li::before {
+    content: '·';
+    margin-right: 0.35em;
+    opacity: 0.6;
+  }
+  .crumbs a {
+    text-decoration: none;
+    text-underline-offset: 0.2em;
+  }
+  .crumbs a:hover,
+  .crumbs a:focus-visible {
+    text-decoration: underline;
+  }
+  .crumbs [aria-current] {
+    opacity: 0.75;
+  }
+</style>

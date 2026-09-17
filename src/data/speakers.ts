@@ -42,6 +42,13 @@ export interface Speaker {
    */
   photoTreatment?: 'soft' | 'plain';
   links?: SpeakerLinks;
+  /**
+   * Obras y piezas destacadas para la ficha (feature 002); solo con fuente
+   * verificada. Opcional: la ficha se publica con la bio aunque no haya.
+   */
+  works?: { title: string; year?: number; url?: string }[];
+  /** Versión de la imagen de vista previa (public/og/panelistas/<slug>-v<n>.png); subir al regenerar */
+  ogVersion?: number;
   confirmed: true;
 }
 
