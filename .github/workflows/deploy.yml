@@ -44,3 +44,14 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+      # Aviso a Bing y afines (IndexNow) con las URL del sitemap publicado.
+      # La clave es pública por diseño (public/<clave>.txt). Google no
+      # participa: sigue por sitemap y Search Console. No rompe el deploy.
+      - name: IndexNow
+        continue-on-error: true
+        run: |
+          URLS=$(curl -sf https://testigosdelamemoria.com/sitemap.xml | grep -o '<loc>[^<]*' | sed 's/<loc>//' | jq -R . | jq -sc .)
+          echo "URL enviadas: $(echo "$URLS" | jq length)"
+          curl -s -o /dev/null -w 'IndexNow HTTP %{http_code}\n' -X POST https://api.indexnow.org/IndexNow \
+            -H 'Content-Type: application/json; charset=utf-8' \
+            -d "{\"host\":\"testigosdelamemoria.com\",\"key\":\"1b880322af30410c8832c1e6748dc455\",\"keyLocation\":\"https://testigosdelamemoria.com/1b880322af30410c8832c1e6748dc455.txt\",\"urlList\":$URLS}"
