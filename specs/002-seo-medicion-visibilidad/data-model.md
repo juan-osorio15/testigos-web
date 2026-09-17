@@ -158,7 +158,7 @@ Reglas: `Attribution` se guarda en `localStorage` (clave `tdm.attribution`, 90 d
 ```json
 {
   "tracking": {
-    "ga_client_id": "…", "ga_session_id": "…",
+    "ga_id": "…", "ga_sessid": "…",
     "fbp": "fb.1.…", "fbc": "fb.1.…",
     "gclid": "…", "utm_source": "…", "utm_medium": "…", "utm_campaign": "…",
     "landing": "/", "event_id_checkout": "…",

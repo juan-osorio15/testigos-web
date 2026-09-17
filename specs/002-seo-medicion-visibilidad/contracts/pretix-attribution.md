@@ -85,16 +85,16 @@ def attach_tracking(sender, request, **kwargs):
 3. **GA4 Measurement Protocol** `POST https://www.google-analytics.com/mp/collect?measurement_id=G-…&api_secret=…`:
 
 ```json
-{"client_id":"<tracking.ga_client_id>",
+{"client_id":"<tracking.ga_id>",
  "timestamp_micros": <payment_date en µs, ≤ 72 h>,
  "events":[{"name":"purchase","params":{
    "transaction_id":"<code>","currency":"COP","value":<total>,
-   "session_id":"<tracking.ga_session_id>","engagement_time_msec":1,
+   "session_id":"<tracking.ga_sessid>","engagement_time_msec":1,
    "items":[{"item_id":"<item id>","item_name":"<nombre>","price":<price>,"quantity":1}]
  }}]}
 ```
 
-   Reglas: sin `ga_client_id` no se envía a GA4 (quedaría sin sesión y en "(not set)"; se registra el motivo). Validar primero contra `/debug/mp/collect`.
+   Reglas: sin `ga_id` no se envía a GA4 (quedaría sin sesión y en "(not set)"; se registra el motivo). Validar primero contra `/debug/mp/collect`.
 4. Registrar resultado; reintentar con backoff ante 5xx; ante 4xx guardar el error y no reintentar.
 
 **Google Ads**: no se sube nada por separado; se enlaza GA4 con Google Ads y se importa el evento clave `purchase` (evita doble conteo con gclid).
@@ -102,7 +102,7 @@ def attach_tracking(sender, request, **kwargs):
 ## 4. Pruebas de aceptación (quickstart §4)
 
 1. Compra de prueba en modo test de Pretix desde la portada con `?utm_source=prueba&utm_medium=qa&fbclid=TEST123`.
-2. En el pedido: `api_meta.tracking` con `ga_client_id`, `ga_session_id`, `fbc = fb.1.<ts>.TEST123`, `utm_source = prueba`, `client_user_agent`.
+2. En el pedido: `api_meta.tracking` con `ga_id`, `ga_sessid`, `fbc = fb.1.<ts>.TEST123`, `utm_source = prueba`, `client_user_agent`.
 3. Meta Events Manager → Test Events: un `Purchase` con `event_id` = código, EMQ ≥ 6.
 4. GA4 DebugView / Realtime: un `purchase` con `transaction_id` = código, atribuido a `prueba / qa`.
 5. Reenviar el mismo webhook: no se crea un segundo evento (idempotencia).

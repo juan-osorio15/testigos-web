@@ -29,7 +29,7 @@ Todo lo que depende de ti, en el orden en que conviene hacerlo. Cada paso dice q
 
 ### Esta semana (antes del 19 de septiembre)
 
-- [ ] **Paso 1 · Pasar el contrato a tu agente del backend.** Abre el repo del backend de Eventalist y dale al agente el archivo `docs/eventalist-integracion-medicion.md` de este repo (cópialo o pégalo). Instrucción sugerida: "Implementa lo que pide este documento en este repo (secciones A y B; la sección C es un plugin de Pretix aparte, escríbelo en una carpeta `pretix_tdm_attribution/` fuera del proyecto Django) y devuélveme el `.md` que describe la sección F." Lo que obtienes: dos endpoints desplegados en Railway, el paquete del plugin, y un `.md` de resultado. Guárdalo aquí como `docs/eventalist-integracion-medicion-resultado.md` y pásamelo. Es lo primero porque es lo que más tarda.
+- [ ] **Paso 1 · Pasar los contratos a tus dos agentes.** (a) Backend de Eventalist: dale `docs/eventalist-integracion-medicion.md` con la instrucción "Implementa las secciones A y B en este repo (modelo de procesamiento A: cron de Railway cada minuto) y devuélveme el `.md` de la sección F". (b) Repositorio de Pretix: dale `docs/pretix-plugin-tdm-attribution.md` con la instrucción "Construye e instala este plugin y devuélveme el `.md` de resultado". Respuestas ya dadas al agente del backend el 2026-09-17: Q1 = A (cron persistente), Q2 = el plugin vive en el repo de Pretix, fuera del backend; el receptor debe funcionar aunque el plugin llegue después. Guarda los dos resultados aquí como `docs/eventalist-integracion-medicion-resultado.md` y `docs/pretix-plugin-tdm-attribution-resultado.md` y pásamelos. Es lo primero porque es lo que más tarda.
 
 - [ ] **Paso 2 · Google Analytics 4.** Entra a https://analytics.google.com con la cuenta de Google de Eventalist. Abajo a la izquierda, el engranaje "Administrar".
   1. Si ya existe una propiedad de Eventalist, entra en ella; si no, "Crear propiedad" (nombre: Testigos de la Memoria; zona horaria: Colombia; moneda: COP).
@@ -69,7 +69,7 @@ Todo lo que depende de ti, en el orden en que conviene hacerlo. Cada paso dice q
 
 - [ ] **Paso 8 · Variables en Railway.** En el servicio del backend, añade las variables que lista la sección B.6 de `docs/eventalist-integracion-medicion.md`: `PRETIX_API_TOKEN` (paso 5), `PRETIX_WEBHOOK_USER` y `PRETIX_WEBHOOK_PASSWORD` (las genera tu agente), `META_DATASET_ID`, `META_CAPI_TOKEN`, `META_TEST_EVENT_CODE` (paso 3), `GA4_MEASUREMENT_ID`, `GA4_API_SECRET` (paso 2), `CONSENT_ALLOWED_ORIGINS` = `https://testigosdelamemoria.com`, y `ATTRIBUTION_CONSENT_SINCE` (la fecha del paso 10; ponla el día que lo hagas).
 
-- [ ] **Paso 9 · Pretix: webhook y plugin.**
+- [ ] **Paso 9 · Pretix: webhook y plugin** (el plugin lo construye el agente del repo de Pretix con `docs/pretix-plugin-tdm-attribution.md`).
   1. Webhook: Organizador → "Webhooks" → "Crear webhook" → URL la del endpoint que te devolvió el agente, con usuario y clave dentro (`https://USUARIO:CLAVE@tu-backend.up.railway.app/api/v1/marketing/pretix/webhook/`) → acción "Pedido pagado" (`pretix.event.order.paid`) → limitar al evento `testigos-memoria` → Guardar.
   2. Plugin: instala el paquete `pretix_tdm_attribution` en el servidor de Pretix (en el entorno donde corre pretix: `pip install /ruta/al/paquete` y reinicia pretix). Luego, en el evento → Configuración → "Plugins" → activar "TDM attribution".
   3. Comprobación: compra de prueba desde el sitio (te aviso cuando la medición esté en el sitio) y el pedido debe mostrar `api_meta.tracking` con datos. La hacemos juntos (sección E del contrato).
@@ -78,6 +78,7 @@ Todo lo que depende de ti, en el orden en que conviene hacerlo. Cada paso dice q
 
 - [ ] **Paso 10 · Pretix: casilla nueva de compra.** Hoy el comprador marca una casilla que solo autoriza la boleta y el ingreso. El dictamen exige que también autorice el envío hasheado de su correo, teléfono y nombre a Meta y Google. Texto nuevo: `docs/revision-legal-2026-09-15-medicion.md` §4 (también quedará en `docs/pretix-tienda-textos.md`). Dónde: evento → Configuración → General → "Textos de confirmación" (Confirmation texts) → reemplazar el texto de la casilla existente → Guardar. Hazlo el mismo día que yo publique la política nueva, y anota la fecha y hora: es `ATTRIBUTION_CONSENT_SINCE` (paso 8). El backend no enviará a Meta ni Google ningún pedido anterior a ese momento.
 
+- [ ] **Paso 10b · Confirmar el cambio del workflow de despliegue.** El paso IndexNow en `.github/workflows/deploy.yml` (aviso a Bing tras cada deploy) quedó sin confirmar en git porque el hook de revisión no me deja preparar archivos de workflow: revisa el diff de ese archivo y confírmalo tú con un commit propio ("Deploy: aviso a IndexNow tras publicar").
 - [ ] **Paso 11 · Visto bueno de la publicación 1.** Te muestro el cambio (textos legales, aviso de cookies, GA4, píxel, título y descripción de la portada, precarga de la imagen) en la rama y me das el sí para `main`. Tras el deploy, tú y yo comprobamos en el sitio publicado que no hay cookies antes de "Aceptar" (lo verifico yo y te paso captura).
 
 ### Antes del 30 de septiembre

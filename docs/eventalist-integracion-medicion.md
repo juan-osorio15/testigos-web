@@ -8,7 +8,9 @@ Fecha de este contrato: 2026-09-16. Origen: `specs/002-seo-medicion-visibilidad/
 
 El sitio (Astro estático en GitHub Pages) embebe el widget de Pretix. El checkout ocurre en `pretix.eventalist.co`, en un iframe de otro dominio, así que el Google Analytics y el píxel de Meta del sitio no ven la compra. Solución: el sitio pasa los identificadores de la visita como atributos `data-tracking-*` al widget (Pretix los conserva en el carrito como `widget_data`); un mini plugin de Pretix los copia al campo `api_meta` del pedido; cuando el pedido queda pagado, Pretix avisa por webhook al backend; el backend consulta el pedido por la API de Pretix y envía la compra a Meta (Conversions API) y a Google Analytics 4 (Measurement Protocol). Además, el backend registra las aceptaciones del aviso de cookies del sitio, que sirven como prueba de autorización.
 
-Tres entregables: **A** endpoint de consentimiento (backend), **B** receptor del webhook y envío a Meta y GA4 (backend), **C** mini plugin de Pretix (se instala en la instancia de Pretix, no en el backend).
+Tres entregables: **A** endpoint de consentimiento (backend), **B** receptor del webhook y envío a Meta y GA4 (backend), **C** mini plugin de Pretix. **C no es de este repositorio**: vive en el repositorio de la instancia de Pretix y tiene su propio documento (`docs/pretix-plugin-tdm-attribution.md` en el repo del sitio). Este documento lo conserva como referencia de qué datos aparecerán en `api_meta.tracking`; el receptor B debe funcionar aunque el plugin llegue después (pedidos sin `api_meta.tracking`: Meta con correo hasheado, GA4 omitido).
+
+**Modelo de procesamiento (respuesta del 2026-09-17 a la pregunta del agente del backend)**: opción A. El webhook responde 200 de inmediato y solo persiste el trabajo pendiente en `pretix_conversion`; un comando de gestión (`process_pretix_conversions`) corre cada minuto como servicio cron de Railway y procesa los pedidos nuevos y los reintentos vencidos (`next_attempt_at` en la tabla; backoff 1 min, 5 min, 30 min, 2 h, 12 h; máximo 5 intentos). Los reintentos sobreviven reinicios y escalado; el retraso máximo hasta el primer envío es de un minuto, aceptable (Meta admite hasta 7 días; GA4 hasta 72 h).
 
 ## Restricciones legales (no negociables)
 
@@ -57,7 +59,7 @@ Recibe la aceptación (o revocación) del aviso de cookies del sitio.
 {"notification_id": 123, "organizer": "eventalist", "event": "testigos-memoria", "code": "ABC12", "action": "pretix.event.order.paid"}
 ```
 
-- **Comportamiento**: responder `200` de inmediato y procesar en una tarea (Celery, RQ o hilo; lo que ya use el backend). Pretix reintenta hasta tres días con backoff, así que el mismo `code` puede llegar varias veces: el proceso debe ser **idempotente por `code`**. Ignorar (con 200) acciones distintas de `pretix.event.order.paid`. Un `410` desactiva el webhook en Pretix: no devolverlo nunca por error.
+- **Comportamiento**: responder `200` de inmediato tras persistir la fila (modelo A: el cron de cada minuto procesa; ver B.5). Pretix reintenta hasta tres días con backoff, así que el mismo `code` puede llegar varias veces: el proceso debe ser **idempotente por `code`**. Ignorar (con 200) acciones distintas de `pretix.event.order.paid`. Un `410` desactiva el webhook en Pretix: no devolverlo nunca por error.
 - **Registro**: tabla `pretix_conversion` con `code` (único), `event_slug`, `order_datetime`, `payment_date`, `total`, `currency`, `skipped_reason` (nulo o texto), `capi_sent_at`, `capi_response` (JSON), `mp_sent_at`, `mp_response` (JSON), `attempts`, `last_error`, `created_at`, `updated_at`.
 
 ### B.2 Consulta del pedido en Pretix
@@ -80,12 +82,12 @@ Campos que se usan de la respuesta:
 
 Para traducir `item` (id) a nombre, una sola vez: `GET .../events/testigos-memoria/items/` y cachear `{id: name}`. Nombres esperados: "Pase completo", "Viernes tarde", "Sábado mañana", "Sábado tarde", "Domingo mañana".
 
-`api_meta.tracking` tiene esta forma (todo opcional):
+`api_meta.tracking` tiene esta forma (todo opcional; las claves salen de los atributos `data-tracking-*` del widget quitando el prefijo y cambiando guiones por guion bajo, por eso `ga_id` y `ga_sessid`):
 
 ```json
 {
-  "ga_client_id": "1234567890.1700000000",
-  "ga_session_id": "1700000000",
+  "ga_id": "1234567890.1700000000",
+  "ga_sessid": "1700000000",
   "fbp": "fb.1.1700000000000.1234567890",
   "fbc": "fb.1.1700000000000.AbCdEfGh",
   "gclid": "…",
@@ -167,16 +169,18 @@ Para traducir `item` (id) a nombre, una sola vez: `GET .../events/testigos-memor
 ```
 
 - **Reglas**:
-  - Sin `ga_client_id` en `api_meta.tracking` **no se envía** a GA4 (quedaría sin sesión y sin origen): `mp_response = {"skipped": "sin client_id"}`. Meta sí se envía igual (con correo hasheado).
+  - Sin `ga_id` en `api_meta.tracking` **no se envía** a GA4 (quedaría sin sesión y sin origen): `mp_response = {"skipped": "sin client_id"}`. Meta sí se envía igual (con correo hasheado).
   - `timestamp_micros` como máximo 72 horas atrás; si el pedido es más viejo, enviar sin `timestamp_micros` (GA4 lo fecha en la recepción).
   - `session_id` y `engagement_time_msec` hacen que la compra herede fuente, medio y campaña de la sesión.
   - El endpoint de producción responde `2xx` vacío aunque el cuerpo esté mal: validar primero contra `/debug/mp/collect` en las pruebas.
 
 ### B.5 Reintentos e idempotencia
 
-- Antes de enviar, comprobar `pretix_conversion` por `code`: si `capi_sent_at` ya existe, no reenviar a Meta; lo mismo con `mp_sent_at`. Así los reintentos de Pretix no duplican.
-- Ante `5xx` o timeout de Meta o Google: reintentar con backoff (1 min, 5 min, 30 min, 2 h, 12 h) hasta 5 veces; guardar `last_error`. Ante `4xx`: guardar el error y no reintentar (es un problema de datos o de token).
-- Tiempo total de respuesta al webhook: menos de 5 s (Pretix corta a los 30).
+- El webhook solo inserta o actualiza la fila de `pretix_conversion` (`code`, `event_slug`, `status = pending`, `next_attempt_at = now`) y responde 200. No llama a Pretix ni a Meta ni a Google dentro de la petición.
+- Un comando de gestión `process_pretix_conversions`, ejecutado cada minuto por un servicio cron de Railway, toma las filas con `status in (pending, retry)` y `next_attempt_at <= now`, consulta el pedido y envía. Campos añadidos a la tabla: `status` (pending, retry, sent, skipped, failed), `next_attempt_at`, `attempts`.
+- Antes de enviar, comprobar por `code`: si `capi_sent_at` ya existe, no reenviar a Meta; lo mismo con `mp_sent_at`. Así los reintentos de Pretix no duplican.
+- Ante `5xx` o timeout de Meta o Google: `status = retry`, `attempts + 1`, `next_attempt_at` según el backoff (1 min, 5 min, 30 min, 2 h, 12 h); a partir del sexto intento `status = failed` y `last_error`. Ante `4xx`: `failed` de inmediato (es un problema de datos o de token).
+- Tiempo de respuesta del webhook: menos de 5 s (Pretix corta a los 30).
 
 ### B.6 Variables de entorno
 
@@ -192,7 +196,7 @@ Para traducir `item` (id) a nombre, una sola vez: `GET .../events/testigos-memor
 | `ATTRIBUTION_CONSENT_SINCE` | `2026-09-21T00:00:00-05:00` | Fecha en que se aplicó la casilla nueva en Pretix (la fija Juan) |
 | `CONSENT_ALLOWED_ORIGINS` | `https://testigosdelamemoria.com` | Fija |
 
-## C · Mini plugin de Pretix `pretix_tdm_attribution`
+## C · Mini plugin de Pretix `pretix_tdm_attribution` (referencia; se entrega por separado al repo de Pretix)
 
 Va en la **instancia de Pretix** (paquete Python instalado en el mismo entorno que pretix, registrado en `INSTALLED_APPS` vía entry point, como cualquier plugin de pretix), no en el backend de Django. Pretix 2026.5.1 cumple el requisito (`api_meta` existe desde 2024.7).
 
@@ -255,7 +259,7 @@ Notas:
 ## E · Pruebas de aceptación
 
 1. Con `test_event_code` de Meta y el endpoint de depuración de GA4, hacer una compra de prueba en el evento de test de Pretix desde el sitio (una URL con `?utm_source=prueba&utm_medium=qa&fbclid=TEST123`).
-2. El pedido muestra `api_meta.tracking` con `ga_client_id`, `ga_session_id`, `fbc` que termina en `TEST123`, `utm_source = prueba`, `client_user_agent`.
+2. El pedido muestra `api_meta.tracking` con `ga_id`, `ga_sessid`, `fbc` que termina en `TEST123`, `utm_source = prueba`, `client_user_agent`.
 3. Meta → Events Manager → Test Events: un `Purchase` de servidor con `event_id` = código del pedido y calidad de coincidencia (EMQ) ≥ 6.
 4. GA4 → DebugView o Realtime: `purchase` con `transaction_id` = código, fuente `prueba`, medio `qa`.
 5. Reenviar el mismo webhook desde Pretix (Webhooks → historial → reenviar): ningún evento nuevo en Meta ni en GA4; `attempts` sube, `*_sent_at` no cambia.
@@ -265,4 +269,4 @@ Notas:
 
 ## F · Qué devuelve el agente al terminar
 
-Un `.md` corto con: URL final de cada endpoint; cómo se autentica el webhook (usuario y dónde vive la clave); qué variables de entorno quedaron definidas en Railway; el nombre exacto de las tablas; cualquier diferencia respecto a este contrato (campos, rutas, códigos de respuesta) marcada como "CAMBIO"; y el resultado de las ocho pruebas de la sección E. Ese documento se guarda en el repositorio del sitio como `docs/eventalist-integracion-medicion-resultado.md`.
+Un `.md` corto con: URL final de cada endpoint; cómo se autentica el webhook (usuario y dónde vive la clave); el comando de gestión y cómo quedó programado el cron en Railway; qué variables de entorno quedaron definidas en Railway; el nombre exacto de las tablas; cualquier diferencia respecto a este contrato (campos, rutas, códigos de respuesta) marcada como "CAMBIO"; y el resultado de las ocho pruebas de la sección E. Ese documento se guarda en el repositorio del sitio como `docs/eventalist-integracion-medicion-resultado.md`.
