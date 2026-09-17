@@ -136,3 +136,26 @@ Nada. La capa de servidor se retiró el 2026-09-17. Los contratos están archiva
 | T32 artículos por tema | Fuera de la feature (semanas 5 y 6, redacción) |
 | T34 disponibilidad | En la feature: automática el 5 de octubre y con interruptor de agotado |
 | T35, T36, T37 post-evento | Fuera de la feature; inversión para 2027 |
+
+## 8. Carta a la Alcaldía de Villa de Leyva (Secretaría de Turismo): lo que falta
+
+Borrador del 2026-09-17 (doc "Carta de solicitud de apoyo · Alcaldía de Villa de Leyva"). Pide dos cosas: ficha en la agenda del portal y publicaciones colaborativas en Instagram. Antes de enviarla hay que cerrar esto.
+
+### Datos que ya existen y solo hay que pegar en la carta
+
+- [ ] **Fechas:** 5 al 8 de noviembre de 2026.
+- [ ] **Lugares (son dos, la carta dice uno):** Casa Museo Antonio Nariño (Cra 9 n.º 10-25), charlas abiertas de entrada libre el 5 y 6; Hospedería Duruelo (Cra 3 n.º 12-88), conversatorios con boleta del 6 al 8.
+- [ ] **Línea de contenido:** 7 conversatorios con boleta, 2 charlas abiertas de entrada libre y el documental "Sady González, una luz en la memoria"; 12 periodistas invitados; subtítulo "Periodistas en la Historia"; tema: los últimos cincuenta años de Colombia contados por quienes los cubrieron.
+- [ ] **Periodistas (para la carta y la ficha):** Daniel Samper Pizano, Yolanda Ruiz, María Elvira Samper, Cecilia Orozco, León Valencia, Darío Restrepo, Luz María Sierra, Marta Ruiz, Marisol Gómez, Martha Soto, Guillermo González Uribe y Ana María Echeverri. Codirigen Fernando Cordovez y Darío Restrepo.
+- [ ] **Horario por sesión (Anexo 1):** jue 5: 10 a.m. a 12 m. y 3 p.m. · vie 6: 10 a.m. (charla abierta), 3 p.m. bienvenida y 3:30 a 6 p.m. · sáb 7: 9 a.m. a 6:30 p.m. · dom 8: 9 a.m. a 1 p.m.
+- [ ] **Entrada (Anexo 1):** "Entrada libre a las charlas abiertas; conversatorios con boleta desde 90.000 COP por franja (a la venta desde el 5 de octubre); pase completo 310.000 COP hasta el 4 de octubre".
+- [ ] **Aliados que respaldan (opcional en la carta):** Conexión Zaquencipa, Centro Cultural Banco de la República de Tunja, Relato Librería y Centro Cultural.
+
+### Datos que nadie tiene todavía
+
+- [ ] **Aforo:** el sitio solo dice "aforo limitado". Pedir la cifra de la sala de Duruelo a los organizadores.
+- [ ] **Cuenta de Instagram de la Alcaldía** (Anexo 2).
+- [ ] **Número de piezas colaborativas y meses** (Anexo 2). Propuesta: entre septiembre y noviembre, una por anuncio de invitados, apertura de franjas (5 de octubre), programación completa y recordatorio final.
+- [ ] **Captura de la sección de programación del portal de la Alcaldía**, para calcar el formato de la ficha.
+- [ ] **Imágenes de la ficha:** horizontal 1200 × 630 y vertical 1080 × 1350, JPG. No existen en el repo; hay que producirlas.
+- [ ] **Radicación:** confirmar si basta el correo secretariaturismo@villadeleyva-boyaca.gov.co o piden radicación física.
