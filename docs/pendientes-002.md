@@ -12,9 +12,9 @@ Sin estas respuestas el desarrollo avanza con identificadores vacíos, pero nada
 
 - [x] **P1 · Título de la portada.** Respuesta 2026-09-16: opción (a), 60 caracteres. Pregunta original: ¿Cuál? (a) "Testigos de la Memoria · Villa de Leyva, 5 al 8 de noviembre" (60 caracteres) o (b) "Testigos de la Memoria · Villa de Leyva, 5-8 nov 2026" (53). Desbloquea T057.
 - [x] **P2 · Textos legales del dictamen.** Respuesta 2026-09-16: aprobados tal cual. Pregunta original: ¿Apruebas tal cual, o con cambios, estos cuatro textos de `docs/revision-legal-2026-09-15-medicion.md`? (1) el aviso de cookies (§3a), (2) la sección 10 de la política y sus siete ajustes (§3b), (3) la casilla obligatoria de Pretix (§4), (4) la sección 12 de los términos (§4). Desbloquea T015 a T017 y, con ellos, toda la publicación de la medición.
-- [ ] **P3 · Google Analytics 4.** Explicado el 2026-09-16 (ver sección 2, paso 2); falta el ID `G-`. Pregunta original: ¿Existe ya una propiedad de GA4 de Eventalist para este sitio, o creo instrucciones para una nueva? Necesito el ID de medición (empieza por `G-`). Desbloquea T029.
-- [ ] **P4 · Meta.** Explicado el 2026-09-16 (ver sección 2, paso 3); falta el ID del dataset. Pregunta original: ¿En qué Business Manager va el píxel (dataset)? Necesito el ID del dataset. ¿Quién lo administra? Desbloquea T029.
-- [ ] **P5 · Verificación del dominio en Meta.** Explicado el 2026-09-16 (ver sección 2, paso 3): es distinto de Search Console; por DNS. Pregunta original: ¿Por registro DNS en GoDaddy (recomendado, no toca el sitio) o por etiqueta en el HTML? Desbloquea T029.
+- [x] **P3 · Google Analytics 4.** Resuelto el 2026-09-17: propiedad creada, ID de medición recibido y volcado en `src/config.ts`; Señales de Google apagadas (comprobado con captura). Pregunta original: ¿Existe ya una propiedad de GA4 de Eventalist para este sitio, o creo instrucciones para una nueva? Necesito el ID de medición (empieza por `G-`). Desbloquea T029.
+- [x] **P4 · Meta.** Resuelto el 2026-09-17: se usa el dataset que ya existe en el portafolio "Que Hacer en Villa de Leyva" (ver sección 2, paso 3); el ID está en `docs/credenciales.md` y en `src/config.ts`. Pregunta original: ¿En qué Business Manager va el píxel (dataset)? Necesito el ID del dataset. ¿Quién lo administra? Desbloquea T029.
+- [ ] **P5 · Verificación del dominio en Meta.** Opcional; si se hace, es en el portafolio "Que Hacer en Villa de Leyva" (ver sección 2, paso 4). Pregunta original: ¿Por registro DNS en GoDaddy (recomendado, no toca el sitio) o por etiqueta en el HTML? Desbloquea T029.
 - [x] **P6 · Google Ads.** Respuesta 2026-09-16: no hay cuenta. Se retira el enlace GA4 ↔ Google Ads de las tareas. Pregunta original: ¿Existe cuenta de Google Ads para la campaña? Si sí, se enlaza con GA4 y se importa la compra como conversión. Si no, se deja para cuando exista. No bloquea.
 - [x] **P7 · Backend de Eventalist.** Resuelto el 2026-09-17: no hay backend en esta feature (capa retirada; contrato archivado en `docs/archivo-2027/`).
 - [x] **P8 · Pretix.** Resuelto el 2026-09-17: no se instala nada en Pretix (capa retirada).
@@ -41,15 +41,16 @@ Todo lo que depende de ti, en el orden en que conviene hacerlo. Cada paso dice q
 
   Lo que obtienes: el `G-…` (me lo pasas). Nada más.
 
-- [ ] **Paso 3 · Meta: conjunto de datos (píxel).** Todo vive en https://business.facebook.com. El "Business Manager" (hoy "Portafolio empresarial") es la cuenta de empresa de Eventalist. Dentro está el "Administrador de eventos": https://business.facebook.com/events_manager2.
-  1. "Conectar orígenes de datos" → "Web" → Conectar. Nombre: Testigos de la Memoria. Sitio: `https://testigosdelamemoria.com`. Crea un **conjunto de datos** (dataset). Es lo que antes se llamaba píxel; Meta le cambió el nombre en 2024, es la misma cosa.
-  2. Al crearlo aparece un número de 15 o 16 cifras, por ejemplo `1234567890123456`. Ese es el **ID del dataset**: cópialo, es lo que va en el sitio.
-  3. Si te ofrece "instalar el código" o "usar un socio", cierra esa parte: el código lo pone el sitio.
-  4. En el dataset, pestaña "Configuración": "Coincidencias avanzadas automáticas": actívala. Y "Categorías de origen de datos": comprueba que no esté clasificado como salud o finanzas.
+- [x] **Paso 3 · Meta: conjunto de datos (píxel).** Resuelto el 2026-09-17. No se crea ninguno: ya existe un dataset del evento, creado automáticamente el 15 de septiembre cuando se vinculó la cuenta de WhatsApp Business "Testigos de la Memoria" y se corrieron anuncios desde Instagram. Vive en el portafolio empresarial **"Que Hacer en Villa de Leyva"** (el que corre los anuncios), con Maria Paula como creadora. Decisión: usar ese mismo dataset para el sitio, porque Meta recomienda un solo dataset por negocio para todos los canales (web + WhatsApp) y porque un píxel creado en el portafolio de Eventalist no serviría a esa cuenta publicitaria sin compartirlo. El ID está en `docs/credenciales.md` (ignorado por git) y en `src/config.ts`.
 
-  Lo que obtienes: el ID del dataset (me lo pasas). Sin tokens: nada corre en servidor.
+  Lo que queda por hacer en ese dataset (Administrador de eventos → el dataset → **Settings**), lo puede hacer Maria Paula o tú con acceso al portafolio:
+  1. Sección **Website** → "Automatic advanced matching": activar.
+  2. Sección **Data source categories**: comprobar que no está clasificado como salud ni finanzas.
+  3. Nada más: no hay tokens ni "instalar código"; el sitio ya lo carga solo tras "Aceptar" en el aviso de cookies.
 
-- [ ] **Paso 4 · Meta: verificar el dominio.** No es lo mismo que Search Console: Google ya sabe que el dominio es tuyo; Meta no.
+  Pendiente de confirmar: que la campaña pagada del evento salga de la cuenta publicitaria de ese portafolio. Si saliera de otra (por ejemplo, la de Eventalist), habría que compartir el dataset entre portafolios (Settings → Sharing).
+
+- [ ] **Paso 4 · Meta: verificar el dominio (opcional).** No es lo mismo que Search Console: Google ya sabe que el dominio es tuyo; Meta no. Se hace en el portafolio "Que Hacer en Villa de Leyva", que es el dueño del dataset.
   1. https://business.facebook.com/settings → "Seguridad de la marca" → "Dominios" → "Añadir" → `testigosdelamemoria.com`.
   2. Pestaña "Verificación de DNS": Meta te muestra un registro TXT con la forma `facebook-domain-verification=abc123…`. Cópialo.
   3. GoDaddy → tu dominio → DNS → "Añadir registro": tipo TXT, nombre `@`, valor el texto de Meta, TTL por defecto. Guardar.
@@ -60,11 +61,11 @@ Todo lo que depende de ti, en el orden en que conviene hacerlo. Cada paso dice q
 
 - [ ] **Paso 6 · Pretix: no indexar la tienda (opcional).** Único ajuste en Pretix, y es opcional: evento `testigos-memoria` → Configuración → General → "Pedir a los buscadores que no indexen la tienda" → marcar → Guardar. No afecta la venta.
 
-- [ ] **Paso 7 · Enviarme los identificadores.** Por este chat: el `G-…` de GA4 y el ID del dataset de Meta. Con eso configuro el sitio. No hacen falta secretos ni tokens: nada corre en servidor.
+- [x] **Paso 7 · Enviarme los identificadores.** Hecho el 2026-09-17: `G-…` de GA4 y dataset de Meta en `docs/credenciales.md` y en `src/config.ts`.
 
 ### Cuando tengas los identificadores
 
-- [ ] **Paso 8 · Configurar el sitio.** Con el `G-…` y el ID del dataset los vuelco en `src/config.ts` (tarea T029) y verifico en local que no hay cookies antes de Aceptar (T025) y el rendimiento con etiquetas (T026).
+- [x] **Paso 8 · Configurar el sitio.** Hecho el 2026-09-17: identificadores en `src/config.ts` (T029); verificación local del aviso hecha (sin cookies antes de Aceptar, píxel solo tras Aceptar). Queda T026 (rendimiento con etiquetas) y una pregunta legal: el dataset lo ve el portafolio "Que Hacer en Villa de Leyva", que no es Eventalist; conviene que el abogado interno confirme cómo se describe en la política antes de encender el píxel.
 
 ### El día de la publicación 1 (medición y textos legales, ≤ 21 de septiembre)
 

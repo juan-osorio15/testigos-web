@@ -42,7 +42,7 @@ export const measurement = {
   /** ID de medición de GA4 ('G-XXXXXXXXXX'); vacío → no se carga gtag */
   ga4Id: 'G-XJES5Z5EC9',
   /** ID del conjunto de datos (píxel) de Meta; vacío → no se carga fbevents */
-  metaPixelId: '',
+  metaPixelId: '1443741474322260',
   /** Versión del aviso de cookies; cambiarla vuelve a mostrarlo */
   consentVersion: '2026-09',
   /** Verificación de dominio de Meta por etiqueta; vacío si se verifica por DNS */
