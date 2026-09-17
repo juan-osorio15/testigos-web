@@ -8,3 +8,6 @@ dist/
 
 # Datos personales de acreditaciones (uso externo, no se sube)
 acreditaciones.csv
+
+# Identificadores de cuentas y credenciales (no se sube)
+docs/credenciales.md

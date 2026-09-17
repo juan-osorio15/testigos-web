@@ -40,13 +40,13 @@ export const pretixReady = true;
  */
 export const measurement = {
   /** ID de medición de GA4 ('G-XXXXXXXXXX'); vacío → no se carga gtag */
-  ga4Id: '',
+  ga4Id: 'G-XJES5Z5EC9',
   /** ID del conjunto de datos (píxel) de Meta; vacío → no se carga fbevents */
-  metaPixelId: '',
+  metaPixelId: '1443741474322260',
   /** Versión del aviso de cookies; cambiarla vuelve a mostrarlo */
   consentVersion: '2026-09',
   /** Verificación de dominio de Meta por etiqueta; vacío si se verifica por DNS */
-  metaDomainVerification: '',
+  metaDomainVerification: 'm7v5qnwqoo5xpd94j1x1bu8n6oph8n',
 } as const;
 
 /**
@@ -73,10 +73,10 @@ export const DATA_CONTACT_EMAIL = 'hola@eventalist.co';
 /**
  * Fecha de entrada en vigencia de la política de tratamiento de datos (ISO).
  * 2026-09-14: ampliación a la tienda de boletería y al control de ingreso.
- * 2026-09-21: sección 10 (cookies de analítica y publicidad).
- * DEBE coincidir con el día de la publicación 1; ajustar si cambia.
+ * 2026-09-17: sección 10 (cookies de analítica y publicidad), publicada
+ * el mismo día que entra GA4 en producción.
  */
-export const DATA_POLICY_EFFECTIVE = '2026-09-21';
+export const DATA_POLICY_EFFECTIVE = '2026-09-17';
 
 /** Fecha de entrada en vigencia de los términos y condiciones de compra (ISO). Sin cambios desde el 14 de septiembre. */
 export const TERMS_EFFECTIVE = '2026-09-14';
