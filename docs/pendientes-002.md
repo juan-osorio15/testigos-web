@@ -23,26 +23,76 @@ Sin estas respuestas el desarrollo avanza con identificadores vacíos, pero nada
 - [x] **P13 · Nombres de los productos en Pretix.** Respuesta 2026-09-16: "Pase completo", "Viernes tarde", "Sábado mañana", "Sábado tarde", "Domingo mañana". Aplicado en data-model §1. Pregunta original: Confirma los cinco nombres literales tal como están en el panel: "Pase completo", "Franja · Viernes 6, tarde", "Franja · Sábado 7, mañana", "Franja · Sábado 7, tarde", "Franja · Domingo 8, mañana". El sitio hoy reconoce "Sábado Mañana", así que puede que difieran. Desbloquea T005.
 - [x] **P14 · Excel de Jorge.** Respuesta 2026-09-16: lo mantiene el desarrollador. Espejo en `docs/plan-seo-estado.md` (columna Estado); el Excel se regenera desde ahí cuando haya que enviárselo a Jorge. Pregunta original: ¿Quieres que mantenga la columna Estado del Excel según avance esta feature, o lo lleva Jorge? Ver la tabla del final.
 
-## 2. Tus acciones (Juan, manager de Eventalist)
+## 2. Tu paso a paso completo (Juan)
 
-Guía de las cuatro que generan dudas (respuesta a P3, P4, P5 y P12 del 2026-09-16):
+Todo lo que depende de ti, en el orden en que conviene hacerlo. Cada paso dice qué obtienes al final y a quién se lo entregas. Las que ya respondiste están en la sección 1; aquí solo van acciones.
 
-**Paso 1 · GA4.** Entra a https://analytics.google.com con la cuenta de Google de Eventalist. Abajo a la izquierda, el engranaje "Administrar". Si ya existe una propiedad de Eventalist, puedes crear dentro de ella un "flujo de datos" nuevo para este sitio; si no, "Crear propiedad" (nombre: Testigos de la Memoria; zona horaria Bogotá; moneda COP). En la propiedad: "Flujos de datos" → "Añadir flujo" → Web → URL `https://testigosdelamemoria.com`. Al crearlo aparece el **ID de medición**, con este aspecto: `G-AB12CD34EF`. Es lo que necesito. En la misma pantalla del flujo, más abajo, "Secretos de la API de Measurement Protocol" → "Crear" → copia el valor (parece `aBcDeFgHiJkLmNoPqRsT`); es para el backend, no para el sitio. Luego, en Administrar → "Recopilación y modificación de datos" → "Recopilación de datos": apaga "Señales de Google" y "Personalización de anuncios". Por último, Administrar → "Eventos" → cuando existan `purchase` y `begin_checkout`, marcarlos como "Evento clave" (se puede hacer después de la primera compra de prueba).
+### Esta semana (antes del 19 de septiembre)
 
-**Paso 2 · Meta.** Todo vive en https://business.facebook.com. El "Business Manager" (ahora "Portafolio empresarial") es la cuenta de empresa de Eventalist; dentro está el "Administrador de eventos" (Events Manager): https://business.facebook.com/events_manager2. Ahí, "Conectar orígenes de datos" → Web → crea un **conjunto de datos** (dataset; es lo que antes se llamaba píxel; Meta cambió el nombre en 2024). Al crearlo aparece un número de 15 o 16 cifras, por ejemplo `1234567890123456`: ese es el **ID del dataset**, lo que necesito para el sitio. Para el backend hace falta además un **token de la Conversions API**: en el mismo dataset, pestaña "Configuración" (Settings), sección "API de conversiones" → "Generar token de acceso" → aparece una cadena muy larga que empieza por `EAA…`. Cópiala una vez: no se vuelve a mostrar. En la pestaña "Probar eventos" (Test Events) hay un código tipo `TEST12345` que se usa solo en las pruebas. Y en "Configuración" del dataset, revisa que "Categorías de origen de datos" no lo tenga clasificado como salud o finanzas.
+- [ ] **Paso 1 · Pasar el contrato a tu agente del backend.** Abre el repo del backend de Eventalist y dale al agente el archivo `docs/eventalist-integracion-medicion.md` de este repo (cópialo o pégalo). Instrucción sugerida: "Implementa lo que pide este documento en este repo (secciones A y B; la sección C es un plugin de Pretix aparte, escríbelo en una carpeta `pretix_tdm_attribution/` fuera del proyecto Django) y devuélveme el `.md` que describe la sección F." Lo que obtienes: dos endpoints desplegados en Railway, el paquete del plugin, y un `.md` de resultado. Guárdalo aquí como `docs/eventalist-integracion-medicion-resultado.md` y pásamelo. Es lo primero porque es lo que más tarda.
 
-**Paso 3 · Verificación del dominio en Meta.** No es lo mismo que Search Console: Google ya sabe que el dominio es tuyo, pero Meta no. Se hace en Configuración del negocio → "Seguridad de la marca" → "Dominios" → "Añadir" → `testigosdelamemoria.com` → pestaña "Verificación de DNS": Meta te da un registro TXT con la forma `facebook-domain-verification=abc123…`. Lo añades en GoDaddy (DNS → Añadir registro → tipo TXT, nombre `@`, valor el que te dio Meta), esperas unos minutos y pulsas "Verificar dominio". Desde 2025 ya no es obligatorio para las campañas, pero permite editar cómo se ven los enlaces del sitio en los anuncios y ata el dataset al dominio. Cinco minutos; si prefieres saltarlo, no bloquea nada.
+- [ ] **Paso 2 · Google Analytics 4.** Entra a https://analytics.google.com con la cuenta de Google de Eventalist. Abajo a la izquierda, el engranaje "Administrar".
+  1. Si ya existe una propiedad de Eventalist, entra en ella; si no, "Crear propiedad" (nombre: Testigos de la Memoria; zona horaria: Colombia; moneda: COP).
+  2. En la propiedad: "Flujos de datos" → "Añadir flujo" → "Web" → URL `https://testigosdelamemoria.com`, nombre "Sitio Testigos de la Memoria" → Crear.
+  3. En la pantalla del flujo aparece el **ID de medición**, con la forma `G-AB12CD34EF`. Cópialo: es lo que va en el sitio.
+  4. En esa misma pantalla, más abajo, "Secretos de la API de Measurement Protocol" → "Crear" → nombre "backend" → copia el valor (parece `aBcDeFgHiJkLmNoPqRsT`). Va al backend, no al sitio.
+  5. Administrar → "Recopilación y modificación de datos" → "Recopilación de datos": apaga "Señales de Google" y, si aparece, "Personalización de anuncios". (Obligación del dictamen legal.)
+  6. Más adelante, cuando ya existan eventos (tras la primera compra de prueba): Administrar → "Eventos" → marcar `purchase` y `begin_checkout` como "Evento clave".
 
-**Paso 4 · Casilla nueva en Pretix.** Hoy la tienda tiene una casilla obligatoria que el comprador marca antes de pagar ("He leído la política… y autorizo a Eventalist a tratar mis datos para emitir la boleta…"). Solo autoriza la boleta y el ingreso. El dictamen dice que enviar a Meta y Google el correo, teléfono y nombre del comprador (hasheados) es una finalidad nueva y una transferencia, y que la casilla debe decirlo. Por eso hay un texto nuevo (`docs/revision-legal-2026-09-15-medicion.md` §4) que reemplaza al actual. Dónde: en Pretix, el evento → Configuración → General → sección "Textos de confirmación" (Confirmation texts), donde está la casilla actual. Cuándo: el mismo día que se publique la política nueva del sitio (publicación 1, ≤ 21 sep). Esa fecha es `ATTRIBUTION_CONSENT_SINCE`: el backend solo enviará a Meta y Google los pedidos creados después. Lo haces tú (tienes admin): dos minutos.
+  Lo que obtienes: el `G-…` (me lo pasas) y el secreto (va a Railway como `GA4_API_SECRET`, con el `G-…` como `GA4_MEASUREMENT_ID`).
 
+- [ ] **Paso 3 · Meta: conjunto de datos (píxel).** Todo vive en https://business.facebook.com. El "Business Manager" (hoy "Portafolio empresarial") es la cuenta de empresa de Eventalist. Dentro está el "Administrador de eventos": https://business.facebook.com/events_manager2.
+  1. "Conectar orígenes de datos" → "Web" → Conectar. Nombre: Testigos de la Memoria. Sitio: `https://testigosdelamemoria.com`. Crea un **conjunto de datos** (dataset). Es lo que antes se llamaba píxel; Meta le cambió el nombre en 2024, es la misma cosa.
+  2. Al crearlo aparece un número de 15 o 16 cifras, por ejemplo `1234567890123456`. Ese es el **ID del dataset**: cópialo, es lo que va en el sitio y en el backend (`META_DATASET_ID`).
+  3. Si te ofrece "instalar el código" o "usar un socio", cierra esa parte: el código lo pone el sitio.
+  4. En el dataset, pestaña "Configuración": sección "API de conversiones" → "Generar token de acceso" → aparece una cadena muy larga que empieza por `EAA…`. Cópiala una sola vez: no se vuelve a mostrar. Va al backend (`META_CAPI_TOKEN`), nunca al sitio.
+  5. En la misma "Configuración", "Coincidencias avanzadas automáticas": actívala. Y "Categorías de origen de datos": comprueba que no esté clasificado como salud o finanzas.
+  6. Pestaña "Probar eventos": ahí verás un código tipo `TEST12345`. Sirve para las pruebas del backend (`META_TEST_EVENT_CODE`).
 
-- [ ] Crear o localizar la propiedad de GA4; apagar Google Signals y la personalización de anuncios; sin User-ID; crear el secreto de Measurement Protocol; marcar `purchase` y `begin_checkout` como eventos clave. Se comprueba con el ID `G-` y una captura de Data collection. Antes del 19 de septiembre.
-- [ ] Crear o localizar el dataset de Meta, generar el token de la Conversions API, verificar el dominio testigosdelamemoria.com y revisar que el dataset no caiga en una categoría restringida. Se comprueba en Events Manager → Settings. Antes del 19 de septiembre.
-- [ ] Bing Webmaster Tools desde el perfil de Chrome "Eventalist": My Sites → Import → Google Search Console → importar testigosdelamemoria.com; Sitemaps → añadir `https://testigosdelamemoria.com/sitemap.xml`; URL Inspection → portada → Request indexing; abrir el informe AI Performance. Se comprueba con una captura de la propiedad verificada. Antes del 30 de septiembre.
-- [ ] Dar el visto bueno de publicación a `main` en cada despliegue: (1) medición y textos legales (≤ 21 sep), (2) marcado y páginas nuevas (≤ 29 sep), (3) cómo llegar y dónde dormir (≤ 15 oct), (4) cambio de etapa (5 oct), (5) agotados (cuando ocurra). Cada uno es un sí explícito a ese cambio.
-- [ ] Tras cada despliegue: Search Console → Sitemaps → reenviar; Inspección de URL → solicitar indexación de las páginas nuevas (portada, programación, charlas, fichas).
-- [ ] Revisión semanal hasta el 4 de noviembre (con el desarrollador): pedidos pagados en Pretix frente a compras en Meta y GA4; páginas indexadas en Search Console; informe de eventos sin errores; citas en Bing AI Performance.
-- [ ] Atender por hola@eventalist.co consultas y revocaciones sobre cookies en los plazos ya asumidos (10 días hábiles consultas, 15 reclamos), incluida la entrega del registro de aceptación cuando lo pidan.
+  Lo que obtienes: el ID del dataset (me lo pasas), el token y el código de prueba (van a Railway).
+
+- [ ] **Paso 4 · Meta: verificar el dominio.** No es lo mismo que Search Console: Google ya sabe que el dominio es tuyo; Meta no.
+  1. https://business.facebook.com/settings → "Seguridad de la marca" → "Dominios" → "Añadir" → `testigosdelamemoria.com`.
+  2. Pestaña "Verificación de DNS": Meta te muestra un registro TXT con la forma `facebook-domain-verification=abc123…`. Cópialo.
+  3. GoDaddy → tu dominio → DNS → "Añadir registro": tipo TXT, nombre `@`, valor el texto de Meta, TTL por defecto. Guardar.
+  4. Espera unos minutos, vuelve a Meta y pulsa "Verificar dominio".
+
+  Desde 2025 no es obligatorio para las campañas. Cinco minutos; si prefieres saltarlo, no bloquea nada.
+
+- [ ] **Paso 5 · Pretix: token de API de solo lectura.** https://pretix.eventalist.co/control/ → Organizador "eventalist" → "Equipos" (Teams) → crea un equipo "Backend medición" con permiso solo de "Ver pedidos" y "Ver ítems" del evento `testigos-memoria` → pestaña "Tokens de API" → "Crear token" → cópialo. Va a Railway como `PRETIX_API_TOKEN`.
+
+- [ ] **Paso 6 · Pretix: no indexar la tienda.** En el evento `testigos-memoria` → Configuración → General → busca "Pedir a los buscadores que no indexen la tienda" (Ask search engines not to index the ticket shop) → marcar → Guardar. Comprobación: yo la hago con `curl` después.
+
+- [ ] **Paso 7 · Enviarme los identificadores.** Por este chat: el `G-…` de GA4 y el ID del dataset de Meta. Con eso configuro el sitio. El resto (secretos y tokens) va solo al backend.
+
+### Cuando tu agente entregue el backend (idealmente antes del 21 de septiembre)
+
+- [ ] **Paso 8 · Variables en Railway.** En el servicio del backend, añade las variables que lista la sección B.6 de `docs/eventalist-integracion-medicion.md`: `PRETIX_API_TOKEN` (paso 5), `PRETIX_WEBHOOK_USER` y `PRETIX_WEBHOOK_PASSWORD` (las genera tu agente), `META_DATASET_ID`, `META_CAPI_TOKEN`, `META_TEST_EVENT_CODE` (paso 3), `GA4_MEASUREMENT_ID`, `GA4_API_SECRET` (paso 2), `CONSENT_ALLOWED_ORIGINS` = `https://testigosdelamemoria.com`, y `ATTRIBUTION_CONSENT_SINCE` (la fecha del paso 10; ponla el día que lo hagas).
+
+- [ ] **Paso 9 · Pretix: webhook y plugin.**
+  1. Webhook: Organizador → "Webhooks" → "Crear webhook" → URL la del endpoint que te devolvió el agente, con usuario y clave dentro (`https://USUARIO:CLAVE@tu-backend.up.railway.app/api/v1/marketing/pretix/webhook/`) → acción "Pedido pagado" (`pretix.event.order.paid`) → limitar al evento `testigos-memoria` → Guardar.
+  2. Plugin: instala el paquete `pretix_tdm_attribution` en el servidor de Pretix (en el entorno donde corre pretix: `pip install /ruta/al/paquete` y reinicia pretix). Luego, en el evento → Configuración → "Plugins" → activar "TDM attribution".
+  3. Comprobación: compra de prueba desde el sitio (te aviso cuando la medición esté en el sitio) y el pedido debe mostrar `api_meta.tracking` con datos. La hacemos juntos (sección E del contrato).
+
+### El día de la publicación 1 (medición y textos legales, ≤ 21 de septiembre)
+
+- [ ] **Paso 10 · Pretix: casilla nueva de compra.** Hoy el comprador marca una casilla que solo autoriza la boleta y el ingreso. El dictamen exige que también autorice el envío hasheado de su correo, teléfono y nombre a Meta y Google. Texto nuevo: `docs/revision-legal-2026-09-15-medicion.md` §4 (también quedará en `docs/pretix-tienda-textos.md`). Dónde: evento → Configuración → General → "Textos de confirmación" (Confirmation texts) → reemplazar el texto de la casilla existente → Guardar. Hazlo el mismo día que yo publique la política nueva, y anota la fecha y hora: es `ATTRIBUTION_CONSENT_SINCE` (paso 8). El backend no enviará a Meta ni Google ningún pedido anterior a ese momento.
+
+- [ ] **Paso 11 · Visto bueno de la publicación 1.** Te muestro el cambio (textos legales, aviso de cookies, GA4, píxel, título y descripción de la portada, precarga de la imagen) en la rama y me das el sí para `main`. Tras el deploy, tú y yo comprobamos en el sitio publicado que no hay cookies antes de "Aceptar" (lo verifico yo y te paso captura).
+
+### Antes del 30 de septiembre
+
+- [ ] **Paso 12 · Bing Webmaster Tools.** Desde el perfil de Chrome "Eventalist" (el que tiene Search Console): https://www.bing.com/webmasters → iniciar sesión con la cuenta Microsoft o con Google → "Añadir sitio" → "Importar desde Google Search Console" → "Importar" → autorizar con la cuenta de Google → marcar `testigosdelamemoria.com` → "Importar". Queda verificado solo. Luego: menú "Sitemaps" → "Enviar sitemap" → `https://testigosdelamemoria.com/sitemap.xml`. Luego: "Inspección de URL" → pega `https://testigosdelamemoria.com/` → "Solicitar indexación". Por último abre "Rendimiento de IA" (AI Performance) para que empiece a registrar. Comprobación: captura de la propiedad con el sitemap en "Procesado".
+
+- [ ] **Paso 13 · Visto bueno de la publicación 2** (≤ 29 sep): marcado del evento, 12 fichas de panelistas, programación, charlas abiertas. Tras el deploy: Search Console → "Sitemaps" → reenviar; "Inspección de URL" → solicitar indexación de la portada, `/programacion/`, `/charlas-abiertas/` y las fichas (Google limita las solicitudes diarias; empieza por portada, programación, charlas y los cuatro panelistas más conocidos).
+
+### Octubre y noviembre
+
+- [ ] **Paso 14 · 5 de octubre: visto bueno de la publicación del cambio de etapa.** Ese día el sitio debe recompilarse para que el marcado y el texto pasen de "pase completo" a "boletas por franja". Te lo pido ese día por la mañana.
+- [ ] **Paso 15 · ≤ 15 de octubre: visto bueno de la publicación 3** (cómo llegar; dónde dormir solo si Carolina entregó la lista el 10).
+- [ ] **Paso 16 · Agotados.** Cuando Pretix muestre una boleta agotada, avísame: cambio un interruptor, te pido el sí y publico para que Google deje de decir "disponible".
+- [ ] **Paso 17 · Revisión semanal hasta el 4 de noviembre** (media hora, contigo): pedidos pagados en Pretix frente a compras en Meta (Events Manager) y en GA4 (Informes → Monetización); páginas indexadas en Search Console (meta: 80 % el 20 de octubre); informe "Eventos" de Search Console sin errores; citas en Bing "Rendimiento de IA".
+- [ ] **Paso 18 · Correo hola@eventalist.co.** Si alguien escribe pidiendo retirar su aceptación de cookies o una copia de ella: responder en 10 días hábiles (consultas) o 15 (reclamos); la copia se saca del backend buscando el identificador que la persona ve en "Cookies y preferencias" del sitio.
 
 ## 3. Backend y Pretix (Eventalist)
 
