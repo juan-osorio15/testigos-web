@@ -187,8 +187,8 @@ Proyecto Astro en la raíz: `src/`, `public/`, `brand/`, `docs/`, `.github/workf
 
 **Purpose**: hitos de operación hasta el evento y limpieza
 
-- [ ] T067 [P] Actualizar `specs/001-event-landing/contracts/pretix-embed.md` con una nota que remita a `specs/002-seo-medicion-visibilidad/contracts/pretix-attribution.md` para los atributos `data-tracking-*` (el contrato de embed sigue vigente en todo lo demás)
-- [ ] T068 [P] Actualizar la memoria del proyecto (`/Users/juandev/.claude/projects/-Users-juandev-Documents-eventalist-testigos-testigos-web/memory/testigos-web-site.md`): cuentas de medición, rutas nuevas, hitos del 5 de octubre y de agotados, Bing verificado
+- [x] T067 [P] Actualizar `specs/001-event-landing/contracts/pretix-embed.md` con una nota que remita a `specs/002-seo-medicion-visibilidad/contracts/pretix-attribution.md` para los atributos `data-tracking-*` (el contrato de embed sigue vigente en todo lo demás)
+- [x] T068 [P] Actualizar la memoria del proyecto (`/Users/juandev/.claude/projects/-Users-juandev-Documents-eventalist-testigos-testigos-web/memory/testigos-web-site.md`): cuentas de medición, rutas nuevas, hitos del 5 de octubre y de agotados, Bing verificado
 - [ ] T069 Hito 2026-10-05: publicar ese día (con visto bueno) para que el build cambie las franjas a InStock y retire el pase; verificar en el Rich Results Test y en la tienda (quickstart §6.6); anotar en `perf.md`
 - [ ] T070 Hito "agotado": cuando Pretix reporte una boleta agotada, `soldOut: true` en `src/data/event.ts`, publicar con visto bueno y verificar `SoldOut` (quickstart §6.6)
 - [ ] T071 Seguimiento semanal hasta el 4 de noviembre (registrar en `perf.md`): pedidos pagados en Pretix vs. `Purchase` en Meta y `purchase` en GA4 (desviación ≤ 10 %, SC-003); Search Console → Páginas indexadas (≥ 80 % el 20 de octubre, SC-005); Search Console → Eventos sin errores; Bing → AI Performance; el 1 de noviembre búsquedas por nombre de 8 de 12 panelistas y búsqueda de marca (SC-006, SC-009)

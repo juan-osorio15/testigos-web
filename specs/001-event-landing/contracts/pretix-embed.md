@@ -44,3 +44,12 @@ Sin JS (o widget bloqueado): ese contenido interno es lo que se ve → siempre h
 - Ningún otro componente carga scripts de Pretix ni duplica el widget (los CTAs solo hacen scroll a `#boletas`, FR-010).
 - La página no lee ni sincroniza estado del widget (carrito, precios, disponibilidad).
 - Ningún precio/tipo de boleta hardcodeado en copy, JSON-LD ni FAQs; las dudas de reembolso remiten a Pretix/organizador.
+
+## Extensión (feature 002, 2026-09-17)
+
+El sitio añade atributos `data-tracking-*` al `<pretix-widget>` (identificadores
+de la visita para atribuir la compra) y retrasa su construcción hasta tenerlos
+o hasta 2 s (`build_widgets = false` + `buildWidgets()`, patrón oficial). Todo
+lo demás de este contrato sigue vigente: la página no lee precios ni estado del
+widget; los precios del marcado y del texto plano salen de `ticketOffers` en
+`src/data/event.ts`. Detalle: `specs/002-seo-medicion-visibilidad/contracts/pretix-attribution.md`.
