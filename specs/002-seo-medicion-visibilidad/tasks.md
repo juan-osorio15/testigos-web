@@ -2,7 +2,7 @@
 
 **Input**: Design documents from `specs/002-seo-medicion-visibilidad/`
 
-**Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts/ (measurement-events, pretix-attribution, jsonld, pages-seo), quickstart.md, docs/revision-legal-2026-09-15-medicion.md
+**Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts/ (measurement-events, jsonld, pages-seo; `pretix-attribution` archivado en docs/archivo-2027/), quickstart.md, docs/revision-legal-2026-09-15-medicion.md
 
 **Tests**: no se pidieron tests automatizados. El gate mecánico es `npm run build` + `npm run check` (que ejecutan las aserciones de datos en el build); la validación funcional es `quickstart.md`. Las tareas de verificación manual llevan el prefijo "Verificar" y citan la sección del quickstart.
 
@@ -194,7 +194,7 @@ Proyecto Astro en la raíz: `src/`, `public/`, `brand/`, `docs/`, `.github/workf
 - [x] T068 [P] Actualizar la memoria del proyecto (`/Users/juandev/.claude/projects/-Users-juandev-Documents-eventalist-testigos-testigos-web/memory/testigos-web-site.md`): cuentas de medición, rutas nuevas, hitos del 5 de octubre y de agotados, Bing verificado
 - [ ] T069 Hito 2026-10-05: publicar ese día (con visto bueno) para que el build cambie las franjas a InStock y retire el pase; verificar en el Rich Results Test y en la tienda (quickstart §6.6); anotar en `perf.md`
 - [ ] T070 Hito "agotado": cuando Pretix reporte una boleta agotada, `soldOut: true` en `src/data/event.ts`, publicar con visto bueno y verificar `SoldOut` (quickstart §6.6)
-- [ ] T071 Seguimiento semanal hasta el 4 de noviembre (registrar en `perf.md`): pedidos pagados en Pretix vs. `Purchase` en Meta y `purchase` en GA4 (desviación ≤ 10 %, SC-003); Search Console → Páginas indexadas (≥ 80 % el 20 de octubre, SC-005); Search Console → Eventos sin errores; Bing → AI Performance; el 1 de noviembre búsquedas por nombre de 8 de 12 panelistas y búsqueda de marca (SC-006, SC-009)
+- [ ] T071 Seguimiento semanal hasta el 4 de noviembre (registrar en `perf.md`): pedidos pagados en Pretix (se leen allí; SC-003 retirado el 2026-09-17) frente a `begin_checkout` en GA4 e `InitiateCheckout` en Meta como referencia de intención; Search Console → Páginas indexadas (≥ 80 % el 20 de octubre, SC-005); Search Console → Eventos sin errores; Bing → AI Performance; el 1 de noviembre búsquedas por nombre de 8 de 12 panelistas y búsqueda de marca (SC-006, SC-009)
 - [ ] T072 Ejecutar la lista completa de `specs/002-seo-medicion-visibilidad/quickstart.md` una vez publicado todo y marcar en `specs/002-seo-medicion-visibilidad/checklists/requirements.md` una nota de cierre con fecha y resultados
 
 ---
@@ -262,7 +262,7 @@ Task: "Plantillas OG en brand/og/ y modos nuevos de make.sh"
 ### Parallel Team Strategy
 
 - Desarrollador del sitio: Phases 2 a 8 en el orden anterior.
-- Eventalist (backend y Pretix): T027, T028 desde el día 1 con `docs/eventalist-integracion-medicion.md`.
+- Eventalist (backend y Pretix): nada desde el 2026-09-17 (T027 y T028 retiradas).
 - Usuario: T002, T029, T054, T060 (cuentas, Bing, vistas previas) y los vistos bueno de publicación.
 - Carolina: T064 (hoteles), T060 (vistas previas) y las tareas off-site del Excel (T25 a T30), fuera de este repositorio.
 

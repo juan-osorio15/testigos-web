@@ -16,7 +16,7 @@ Convertir el sitio de una sola URL sin medición en un sitio medible y multipág
 
 **Primary Dependencies**: `astro` (única de runtime). Nueva devDependency opcional: ninguna obligatoria (`web-vitals` se carga inline desde el bundle de Astro si se decide RUM; ver R-04). Scripts externos: `gtag.js` (GA4), `fbevents.js` (Meta), widget de Pretix (ya existente). Sin GTM, sin Partytown.
 
-**Storage**: N/A en el sitio (datos en módulos TypeScript de `src/data/`). Consentimiento y parámetros de origen en `localStorage` / cookie propia del navegador. Sin almacenamiento en servidor.
+**Storage**: N/A en el sitio (datos en módulos TypeScript de `src/data/`). Consentimiento en `localStorage` del navegador (los parámetros de origen ya no se capturan: capa retirada el 2026-09-17). Sin almacenamiento en servidor.
 
 **Testing**: `astro build` + `astro check` como gate mecánico; validación funcional por `quickstart.md` (Rich Results Test, Schema Markup Validator, GA4 DebugView, Meta Test Events, Lighthouse móvil mediana de 5, Search Console, Bing Webmaster Tools). Sin harness de tests: el sitio es estático y los contratos se validan contra las herramientas de cada plataforma.
 
@@ -145,4 +145,4 @@ Dictamen completo en `docs/revision-legal-2026-09-15-medicion.md`. Efectos en el
 
 ## Complexity Tracking
 
-Sin violaciones que justificar. Los dos módulos nuevos (`src/seo/`, `src/measurement/`) sustituyen lógica que de otro modo crecería dentro de `EventLayout.astro`; el mini plugin de Pretix es la alternativa más simple verificada frente a una licencia Enterprise.
+Sin violaciones que justificar. Los dos módulos nuevos (`src/seo/`, `src/measurement/`) sustituyen lógica que de otro modo crecería dentro de `EventLayout.astro`. (La alternativa del mini plugin de Pretix se retiró el 2026-09-17 junto con la capa de servidor.)

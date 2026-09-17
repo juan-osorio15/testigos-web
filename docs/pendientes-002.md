@@ -64,11 +64,11 @@ Todo lo que depende de ti, en el orden en que conviene hacerlo. Cada paso dice q
 
 ### Cuando tengas los identificadores
 
-
+- [ ] **Paso 8 · Configurar el sitio.** Con el `G-…` y el ID del dataset los vuelco en `src/config.ts` (tarea T029) y verifico en local que no hay cookies antes de Aceptar (T025) y el rendimiento con etiquetas (T026).
 
 ### El día de la publicación 1 (medición y textos legales, ≤ 21 de septiembre)
 
-
+- [ ] **Paso 10a · Traer `main` a la rama.** La rama nació antes del commit `8087686` de `main` (el widget abre la tienda en pestaña nueva, `disable-iframe`, que resolvió el pago que se quedaba "cargando"). Antes de publicar: `git merge main` en la rama, `npm run build && npm run check`, y comprobar que `<pretix-widget>` conserva `disable-iframe`.
 - [ ] **Paso 10b · Confirmar el cambio del workflow de despliegue.** El paso IndexNow en `.github/workflows/deploy.yml` (aviso a Bing tras cada deploy) quedó sin confirmar en git porque el hook de revisión no me deja preparar archivos de workflow: revisa el diff de ese archivo y confírmalo tú con un commit propio ("Deploy: aviso a IndexNow tras publicar").
 - [ ] **Paso 11 · Revisión de restos y visto bueno de la publicación 1.** Antes del sí: repasamos juntos el diff completo de la rama y yo busco restos de la capa retirada en código, textos legales y documentación (tarea T073); comprobamos que el widget de Pretix carga igual que el 15 de septiembre. Luego me das el sí para `main`. Tras el deploy verifico en producción que no hay cookies antes de "Aceptar" y te paso captura.
 
@@ -83,8 +83,8 @@ Todo lo que depende de ti, en el orden en que conviene hacerlo. Cada paso dice q
 - [ ] **Paso 14 · 5 de octubre: visto bueno de la publicación del cambio de etapa.** Ese día el sitio debe recompilarse para que el marcado y el texto pasen de "pase completo" a "boletas por franja". Te lo pido ese día por la mañana.
 - [ ] **Paso 15 · ≤ 15 de octubre: visto bueno de la publicación 3** (cómo llegar; dónde dormir solo si Carolina entregó la lista el 10).
 - [ ] **Paso 16 · Agotados.** Cuando Pretix muestre una boleta agotada, avísame: cambio un interruptor, te pido el sí y publico para que Google deje de decir "disponible".
-- [ ] **Paso 17 · Revisión semanal hasta el 4 de noviembre** (media hora, contigo): pedidos pagados en Pretix frente a compras en Meta (Events Manager) y en GA4 (Informes → Monetización); páginas indexadas en Search Console (meta: 80 % el 20 de octubre); informe "Eventos" de Search Console sin errores; citas en Bing "Rendimiento de IA".
-- [ ] **Paso 18 · Correo hola@eventalist.co.** Si alguien escribe pidiendo retirar su aceptación de cookies o una copia de ella: responder en 10 días hábiles (consultas) o 15 (reclamos); la copia se saca del backend buscando el identificador que la persona ve en "Cookies y preferencias" del sitio.
+- [ ] **Paso 17 · Revisión semanal hasta el 4 de noviembre** (media hora, contigo): pedidos pagados en Pretix (la única fuente de ventas: la atribución de compras se retiró el 17 de septiembre) frente a los eventos de intención de compra en Meta (Events Manager) y en GA4 (Informes → Interacción → Eventos → begin_checkout); páginas indexadas en Search Console (meta: 80 % el 20 de octubre); informe "Eventos" de Search Console sin errores; citas en Bing "Rendimiento de IA".
+- [ ] **Paso 18 · Correo hola@eventalist.co.** Si alguien escribe pidiendo retirar su aceptación de cookies o una copia de ella: responder en 10 días hábiles (consultas) o 15 (reclamos); no hay registro en servidor (la aceptación vive solo en el navegador de la persona), así que la respuesta es indicarle el enlace "Cookies y preferencias" del sitio para retirarla o confirmar que ya no hay cookies activas; el identificador que ve ahí sirve para que la conversación quede referenciada.
 
 ## 3. Backend y Pretix
 
@@ -121,7 +121,7 @@ Nada. La capa de servidor se retiró el 2026-09-17. Los contratos están archiva
 
 | Excel | Estado en esta feature |
 |---|---|
-| T01 GA4, T02 píxel | En la feature (historia 1), con aviso de consentimiento y atribución de compra real, no solo el clic |
+| T01 GA4, T02 píxel | En la feature (historia 1), con aviso de consentimiento; se mide visita e intención de compra (la atribución de compra real se retiró el 17 de septiembre) |
 | T03 Search Console | Ya hecho antes de la auditoría (propiedad de dominio por DNS) |
 | T04 Bing | Acción de Juan (sección 2) |
 | T05, T06 título y descripción | En la feature; título pendiente de P1 |

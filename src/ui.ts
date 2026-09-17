@@ -149,7 +149,7 @@ const dict = {
   'consent.close': 'Cerrar el aviso',
   'consent.prefsLink': 'Cookies y preferencias',
   'consent.prefsTitle': 'Cookies y preferencias',
-  'consent.prefsAccepted': 'Aceptaste el uso de cookies de analítica y publicidad el {date}.',
+  'consent.prefsAccepted': 'Aceptaste el uso de cookies de analítica y publicidad el {date}',
   'consent.prefsNone': 'No has aceptado el uso de cookies de analítica y publicidad en este navegador.',
   'consent.prefsId': 'Identificador de tu aceptación (para consultas o reclamos):',
   'consent.revoke': 'Retirar la aceptación',
