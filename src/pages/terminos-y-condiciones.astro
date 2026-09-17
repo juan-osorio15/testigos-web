@@ -9,9 +9,10 @@
  * decisión del titular no lleva colofón con NIT, dirección ni teléfono: esa
  * identificación (art. 50 lit. a) va en la configuración del organizador de
  * Pretix, que es el medio donde se vende. Se enlaza desde la casilla de
- * términos de la tienda y desde el pie del sitio. Sección 12 ampliada el
- * 2026-09-17 con la atribución de compras a Google y Meta (dictamen del
- * 2026-09-15, docs/revision-legal-2026-09-15-medicion.md).
+ * términos de la tienda y desde el pie del sitio. La ampliación de la
+ * sección 12 con la atribución de compras (dictamen del 2026-09-15) se
+ * retiró el 2026-09-17 junto con esa capa; el texto vuelve al del 14 de
+ * septiembre.
  */
 import LegalLayout from '../layouts/LegalLayout.astro';
 import { DATA_CONTACT_EMAIL, DATA_CONTROLLER, TERMS_EFFECTIVE } from '../config';
@@ -295,20 +296,15 @@ const policyHref = `${base}tratamiento-de-datos/`;
       asistente, el correo electrónico y, si lo indica, el teléfono, los trata {c.name} como
       responsable, para emitir y enviar la boleta, gestionar el pedido y el pago, emitir la factura
       cuando corresponda, controlar el ingreso al encuentro y atender las solicitudes sobre la
-      compra y atribuir la compra a la campaña que la originó, conforme a la
-      <a href={policyHref}>política de tratamiento de datos personales</a> publicada en este sitio,
-      que detalla los derechos del titular y el procedimiento para ejercerlos. Para la atribución,
-      {c.brand} transmite a Google LLC y a Meta Platforms, Inc., en Estados Unidos, el correo, el
-      teléfono y el nombre del comprador convertidos en códigos SHA-256, junto con los datos del
-      pedido y del navegador, en los términos de la sección 10 de esa política. La autorización se
-      otorga en la casilla de la tienda antes de confirmar el pedido.
+      compra, conforme a la <a href={policyHref}>política de tratamiento de datos personales</a>
+      publicada en este sitio, que detalla los derechos del titular y el procedimiento para
+      ejercerlos. La autorización se otorga en la casilla de la tienda antes de confirmar el pedido.
     </p>
     <p>
       Los mensajes sobre el pedido, como la confirmación, la boleta, los recordatorios y los avisos
       de cambios de programación, son de carácter transaccional. {c.brand} no usa los datos de la
       compra para enviar publicidad ni información de otros eventos, salvo que el titular lo
-      autorice por separado. La transmisión para atribuir la compra no implica el envío de mensajes
-      al comprador.
+      autorice por separado.
     </p>
     <p>
       Los datos del medio de pago los trata Wompi conforme a su propia política. El comprador que
