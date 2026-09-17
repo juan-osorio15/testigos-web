@@ -14,7 +14,7 @@ Sin estas respuestas el desarrollo avanza con identificadores vacíos, pero nada
 - [x] **P2 · Textos legales del dictamen.** Respuesta 2026-09-16: aprobados tal cual. Pregunta original: ¿Apruebas tal cual, o con cambios, estos cuatro textos de `docs/revision-legal-2026-09-15-medicion.md`? (1) el aviso de cookies (§3a), (2) la sección 10 de la política y sus siete ajustes (§3b), (3) la casilla obligatoria de Pretix (§4), (4) la sección 12 de los términos (§4). Desbloquea T015 a T017 y, con ellos, toda la publicación de la medición.
 - [x] **P3 · Google Analytics 4.** Resuelto el 2026-09-17: propiedad creada, ID de medición recibido y volcado en `src/config.ts`; Señales de Google apagadas (comprobado con captura). Pregunta original: ¿Existe ya una propiedad de GA4 de Eventalist para este sitio, o creo instrucciones para una nueva? Necesito el ID de medición (empieza por `G-`). Desbloquea T029.
 - [x] **P4 · Meta.** Resuelto el 2026-09-17: se usa el dataset que ya existe en el portafolio "Que Hacer en Villa de Leyva" (ver sección 2, paso 3); el ID está en `docs/credenciales.md` y en `src/config.ts`. Pregunta original: ¿En qué Business Manager va el píxel (dataset)? Necesito el ID del dataset. ¿Quién lo administra? Desbloquea T029.
-- [ ] **P5 · Verificación del dominio en Meta.** Opcional; si se hace, es en el portafolio "Que Hacer en Villa de Leyva" (ver sección 2, paso 4). Pregunta original: ¿Por registro DNS en GoDaddy (recomendado, no toca el sitio) o por etiqueta en el HTML? Desbloquea T029.
+- [x] **P5 · Verificación del dominio en Meta.** Resuelto el 2026-09-17: por etiqueta HTML (la emite el sitio en todas las páginas desde `src/config.ts`). Falta pulsar "Verificar" en Meta cuando el sitio esté publicado (paso 4). Pregunta original: ¿Por registro DNS en GoDaddy (recomendado, no toca el sitio) o por etiqueta en el HTML? Desbloquea T029.
 - [x] **P6 · Google Ads.** Respuesta 2026-09-16: no hay cuenta. Se retira el enlace GA4 ↔ Google Ads de las tareas. Pregunta original: ¿Existe cuenta de Google Ads para la campaña? Si sí, se enlaza con GA4 y se importa la compra como conversión. Si no, se deja para cuando exista. No bloquea.
 - [x] **P7 · Backend de Eventalist.** Resuelto el 2026-09-17: no hay backend en esta feature (capa retirada; contrato archivado en `docs/archivo-2027/`).
 - [x] **P8 · Pretix.** Resuelto el 2026-09-17: no se instala nada en Pretix (capa retirada).
@@ -50,14 +50,7 @@ Todo lo que depende de ti, en el orden en que conviene hacerlo. Cada paso dice q
 
   Pendiente de confirmar: que la campaña pagada del evento salga de la cuenta publicitaria de ese portafolio. Si saliera de otra (por ejemplo, la de Eventalist), habría que compartir el dataset entre portafolios (Settings → Sharing).
 
-- [ ] **Paso 4 · Meta: verificar el dominio (opcional).** No es lo mismo que Search Console: Google ya sabe que el dominio es tuyo; Meta no. Se hace en el portafolio "Que Hacer en Villa de Leyva", que es el dueño del dataset.
-  1. https://business.facebook.com/settings → "Seguridad de la marca" → "Dominios" → "Añadir" → `testigosdelamemoria.com`.
-  2. Pestaña "Verificación de DNS": Meta te muestra un registro TXT con la forma `facebook-domain-verification=abc123…`. Cópialo.
-  3. GoDaddy → tu dominio → DNS → "Añadir registro": tipo TXT, nombre `@`, valor el texto de Meta, TTL por defecto. Guardar.
-  4. Espera unos minutos, vuelve a Meta y pulsa "Verificar dominio".
-
-  Desde 2025 no es obligatorio para las campañas. Cinco minutos; si prefieres saltarlo, no bloquea nada.
-
+- [ ] **Paso 4 · Meta: verificar el dominio.** La etiqueta ya está en el sitio (`facebook-domain-verification` en el `<head>` de todas las páginas). Cuando se publique la medición: business.facebook.com/settings → Seguridad de la marca → Dominios → testigosdelamemoria.com → pestaña "Etiqueta meta" → **Verificar**. Si dice que no la encuentra, esperar unos minutos (caché de GitHub Pages) y reintentar.
 
 - [ ] **Paso 6 · Pretix: no indexar la tienda (opcional).** Único ajuste en Pretix, y es opcional: evento `testigos-memoria` → Configuración → General → "Pedir a los buscadores que no indexen la tienda" → marcar → Guardar. No afecta la venta.
 

@@ -46,7 +46,7 @@ export const measurement = {
   /** Versión del aviso de cookies; cambiarla vuelve a mostrarlo */
   consentVersion: '2026-09',
   /** Verificación de dominio de Meta por etiqueta; vacío si se verifica por DNS */
-  metaDomainVerification: '',
+  metaDomainVerification: 'm7v5qnwqoo5xpd94j1x1bu8n6oph8n',
 } as const;
 
 /**
