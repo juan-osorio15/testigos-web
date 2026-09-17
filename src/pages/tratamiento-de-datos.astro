@@ -7,9 +7,13 @@
  * procedimiento de consultas y reclamos, vigencia). El responsable se
  * identifica por razón social y correo; por decisión del titular no se
  * publica dirección ni teléfono. Fuente: docs/tratamiento-de-datos.md.
+ * Sección 10: cookies (GA4, píxel de Meta) y envío hasheado de datos de
+ * compra a Google y Meta; dictamen del 2026-09-15
+ * (docs/revision-legal-2026-09-15-medicion.md). El párrafo sobre dónde se
+ * registra la aceptación depende de measurement.consentEndpoint.
  */
 import LegalLayout from '../layouts/LegalLayout.astro';
-import { DATA_CONTACT_EMAIL, DATA_CONTROLLER, DATA_POLICY_EFFECTIVE } from '../config';
+import { DATA_CONTACT_EMAIL, DATA_CONTROLLER, DATA_POLICY_EFFECTIVE, measurement } from '../config';
 
 const c = DATA_CONTROLLER;
 const effective = new Date(`${DATA_POLICY_EFFECTIVE}T12:00:00-05:00`).toLocaleDateString('es-CO', {
@@ -33,8 +37,10 @@ const base = import.meta.env.BASE_URL.endsWith('/')
     Quien se inscribe en el formulario de este sitio entrega su nombre, su correo electrónico y su
     teléfono para recibir información del encuentro y de otros eventos. Quien compra una boleta en
     la tienda del encuentro entrega los datos necesarios para emitir y enviar la boleta, gestionar
-    el pedido y controlar el ingreso. Esos datos se guardan con esos fines y no se comparten, ceden
-    ni venden a terceros.
+    el pedido y controlar el ingreso. Esos datos se guardan con esos fines y no se venden ni se
+    ceden a terceros. El sitio usa además cookies de medición y de publicidad de Google y de Meta,
+    y transmite a esos proveedores ciertos datos de cada compra para atribuirla a su origen, según
+    se explica en la sección 10.
   </p>
 
   <section class="policy-section">
@@ -70,6 +76,11 @@ const base = import.meta.env.BASE_URL.endsWith('/')
       menor de edad que lleguen a recibirse se suprimirán tan pronto se tenga conocimiento de esa
       circunstancia.
     </p>
+    <p>
+      El sitio recoge además, mediante cookies e identificadores similares, los datos de navegación
+      descritos en la sección 10, y transmite a los proveedores de medición los datos de la compra
+      allí indicados.
+    </p>
   </section>
 
   <section class="policy-section">
@@ -92,6 +103,10 @@ const base = import.meta.env.BASE_URL.endsWith('/')
         Documentar el encuentro y comunicarlo, junto con sus futuras ediciones, mediante las
         fotografías y los videos captados durante las sesiones.
       </li>
+      <li>
+        Medir la audiencia del sitio y la eficacia de la publicidad del encuentro, y atribuir las
+        compras de boletas a la fuente que las originó, en los términos de la sección 10.
+      </li>
     </ol>
     <p>
       Las comunicaciones se envían por los canales que el titular autoriza en el formulario, correo
@@ -100,15 +115,16 @@ const base = import.meta.env.BASE_URL.endsWith('/')
       finalidades distintas sin una nueva autorización del titular. Los mensajes sobre un pedido,
       como la confirmación, la boleta y los avisos de cambios de programación, son de carácter
       transaccional. Los datos de la compra no se usan para enviar publicidad ni información de
-      otros eventos, salvo autorización separada del titular.
+      otros eventos, salvo autorización separada del titular. La transmisión prevista en la
+      sección 10 no implica el envío de mensajes al comprador.
     </p>
   </section>
 
   <section class="policy-section">
     <h2>4. Transferencia y transmisión a terceros</h2>
     <p>
-      El responsable no comparte, cede, transfiere ni vende los datos personales a terceros. Para
-      el almacenamiento de la información y el envío de comunicaciones se apoya en proveedores
+      El responsable no vende los datos personales ni los cede a terceros, salvo la transmisión a
+      Google LLC y a Meta Platforms, Inc. descrita en la sección 10. Para el almacenamiento de la información y el envío de comunicaciones se apoya en proveedores
       tecnológicos que actúan como encargados del tratamiento por cuenta del responsable, siguen
       sus instrucciones y solo pueden usar los datos para las finalidades de esta política. El
       personal de acreditación del encuentro accede a los datos de la boleta únicamente para
@@ -135,7 +151,10 @@ const base = import.meta.env.BASE_URL.endsWith('/')
       <a href={`${base}terminos-y-condiciones/`}>términos y condiciones de compra</a> y mediante
       avisos en la sede, y se entiende otorgada por la conducta inequívoca de ingresar a las sesiones
       tras esa información. La autorización que el titular otorga a {c.brand} en el formulario o en
-      la tienda se entiende otorgada a {c.name}.
+      la tienda se entiende otorgada a {c.name}. La autorización para las cookies de analítica y de
+      publicidad se otorga al pulsar Aceptar en el aviso del sitio. La autorización para transmitir
+      los datos de la compra a los proveedores de medición se otorga en la casilla de la tienda,
+      cuyo texto la menciona de forma expresa.
     </p>
   </section>
 
@@ -210,8 +229,65 @@ const base = import.meta.env.BASE_URL.endsWith('/')
     </p>
   </section>
 
+  <section class="policy-section" id="cookies">
+    <h2>10. Cookies, medición de audiencia y publicidad</h2>
+    <p>
+      El sitio usa cookies e identificadores similares de dos proveedores. Google Analytics 4, de
+      Google LLC, mide la audiencia del sitio: páginas visitadas, origen de la visita, tipo de
+      dispositivo y navegador, país aproximado y compras de boletas atribuidas a la fuente que las
+      originó. El píxel de Meta, de Meta Platforms, Inc., mide la eficacia de los anuncios del
+      encuentro en las plataformas de Meta, atribuye a esos anuncios las compras realizadas y
+      permite mostrar anuncios del encuentro a quienes han visitado el sitio. Los identificadores
+      que estos servicios guardan en el navegador, entre ellos las cookies _ga, _fbp y _fbc, no
+      contienen el nombre ni el correo del visitante, pero permiten reconocer el navegador en
+      visitas sucesivas, por lo que se tratan como datos personales conforme al criterio de la
+      Superintendencia de Industria y Comercio.
+    </p>
+    <p>
+      Esas cookies solo se activan después de que el visitante acepta el aviso que el sitio muestra
+      en su primera visita; hasta entonces el sitio no instala cookies de analítica ni de
+      publicidad. La aceptación se registra con la fecha, la hora y la versión del aviso aceptado
+      {measurement.consentEndpoint
+        ? 'en los sistemas del responsable, asociada a un identificador aleatorio del navegador'
+        : 'en el navegador del visitante'}, y el responsable conserva el texto de cada versión del
+      aviso.
+    </p>
+    <p>
+      Cuando un pedido de la tienda queda pagado, el responsable transmite desde sus propios
+      servidores a Google LLC y a Meta Platforms, Inc. el correo electrónico, el número de teléfono,
+      el nombre y el apellido del comprador, convertidos previamente mediante la función SHA-256 en
+      códigos que no revelan el dato y que el proveedor solo puede cotejar con cuentas que ya
+      conoce, junto con el país, la dirección IP y el navegador desde los que se hizo la compra,
+      los identificadores de cookie del navegador que aceptó el aviso, y el valor y la moneda del
+      pedido. La finalidad de esa transmisión es atribuir la compra a la campaña o la fuente que la
+      originó y medir la eficacia de la publicidad del encuentro. Esos datos no se usan para enviar
+      mensajes al comprador por ningún canal.
+    </p>
+    <p>
+      Google LLC y Meta Platforms, Inc. tienen su sede en Estados Unidos y tratan la información
+      que reciben conforme a sus propias políticas, para prestar sus servicios de medición y
+      publicidad. La transferencia se realiza con la autorización del titular y al amparo del
+      artículo 26 de la Ley 1581 de 2012 y de la Circular Externa 005 de 2017 de la
+      Superintendencia de Industria y Comercio, que reconoce a Estados Unidos un nivel adecuado de
+      protección de datos. La forma en que Google usa la información de los sitios que utilizan sus
+      servicios se describe en
+      <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">policies.google.com/technologies/partner-sites</a>,
+      y las opciones sobre los anuncios de Meta están disponibles en
+      <a href="https://www.facebook.com/adpreferences/" target="_blank" rel="noopener noreferrer">facebook.com/adpreferences</a>.
+    </p>
+    <p>
+      El visitante puede retirar la aceptación en cualquier momento por cualquiera de estos medios:
+      el enlace Cookies y preferencias del pie de página, que desactiva las cookies de analítica y
+      publicidad en ese navegador; la eliminación de las cookies desde la configuración del
+      navegador; o el correo electrónico {DATA_CONTACT_EMAIL}. La revocación surte efecto desde ese
+      momento y respecto del navegador en que se realiza. Sobre la información que Google o Meta ya
+      hayan recibido, el titular puede ejercer sus derechos ante esos proveedores mediante las
+      opciones indicadas en el párrafo anterior.
+    </p>
+  </section>
+
   <section class="policy-section">
-    <h2>10. Vigencia</h2>
+    <h2>11. Vigencia</h2>
     <p>
       Esta política rige a partir del {effective}. La base de datos de personas inscritas se
       mantiene vigente mientras subsistan las finalidades de la sección 3. Cualquier cambio
