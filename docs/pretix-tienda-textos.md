@@ -62,8 +62,16 @@ Una sola casilla. Enlaza la política publicada en el sitio; no hace falta un
 texto legal largo dentro de la tienda.
 
 ```markdown
-He leído la [política de tratamiento de datos](https://testigosdelamemoria.com/tratamiento-de-datos/) y autorizo a Eventalist S.A.S. a tratar mis datos para emitir y enviarme la boleta, gestionar esta compra y controlar mi ingreso al evento.
+He leído la [política de tratamiento de datos](https://testigosdelamemoria.com/tratamiento-de-datos/) y autorizo a Eventalist S.A.S. a tratar mis datos para emitir y enviarme la boleta, gestionar esta compra y controlar mi ingreso al evento, y a transmitir a Google y a Meta mi correo, teléfono y nombre convertidos en códigos SHA-256, junto con los datos de esta compra, para atribuirla a su origen y medir la publicidad del encuentro, según la sección 10 de la política.
 ```
+
+> Texto del dictamen legal del 2026-09-15 (docs/revision-legal-2026-09-15-medicion.md §4).
+> Se aplica en el panel el mismo día que se publica la política con la sección 10;
+> esa fecha y hora es `ATTRIBUTION_CONSENT_SINCE` para el backend: los pedidos
+> anteriores no se envían a Meta ni a Google. Versión anterior (hasta esa fecha):
+> "He leído la política de tratamiento de datos y autorizo a Eventalist S.A.S. a
+> tratar mis datos para emitir y enviarme la boleta, gestionar esta compra y
+> controlar mi ingreso al evento."
 
 > Revisión legal del 7 de septiembre de 2026: la casilla sí hace falta (la Ley
 > 1581 no exime por ejecución de contrato) y esta redacción es suficiente. Pero
