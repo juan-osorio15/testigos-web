@@ -52,6 +52,16 @@ const mapSrc = (id: string) =>
               <p class="showcase-kicker">{venue.kicker}</p>
               <h3>{venue.name}</h3>
               <p class="showcase-summary">{venue.summary}</p>
+              {venue.logo && (
+                <Image
+                  class="showcase-logo"
+                  style={`--logo-scale: ${venue.logoScale}`}
+                  src={venue.logo}
+                  alt={`Logo de ${venue.name}`}
+                  height={216}
+                  loading="lazy"
+                />
+              )}
             </div>
           </article>
         ))
@@ -192,6 +202,16 @@ const mapSrc = (id: string) =>
     line-height: 1.55;
     max-width: 48ch;
     text-wrap: pretty;
+  }
+  /* Logo de la sede en crema, como en el pie, pero al doble de tamaño */
+  .showcase-logo {
+    width: auto;
+    height: calc(clamp(4rem, 3rem + 2.5vw, 5.5rem) * var(--logo-scale, 1));
+    max-width: 100%;
+    object-fit: contain;
+    object-position: left;
+    margin-top: var(--space-2);
+    justify-self: start;
   }
 
   .venue-grid {

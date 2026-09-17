@@ -5,6 +5,8 @@
  */
 import photoDuruelo from '../assets/venues/duruelo.jpg';
 import photoCasaMuseo from '../assets/venues/casa-museo.jpg';
+import logoDuruelo from '../assets/partners/duruelo.png';
+import logoCasaMuseo from '../assets/partners/casa-museo.png';
 import type { EventDay } from './agenda';
 
 export const event = {
@@ -169,6 +171,10 @@ export interface Venue {
   photo: ImageMetadata | null;
   /** Texto alternativo de la foto */
   photoAlt: string;
+  /** Logo de la sede (crema monocromo, el mismo del pie); null → sin logo */
+  logo: ImageMetadata | null;
+  /** Alto relativo del logo en el bloque de la sede (1 = base); los logos verticales necesitan más */
+  logoScale: number;
 }
 
 /* Orden de presentación: la sede principal (conversatorios) primero. */
@@ -187,6 +193,8 @@ export const venues: Venue[] = [
       'Un hotel en lo alto del pueblo, abierto en 1973 y concebido como las hospederías de los antiguos monasterios europeos: corredores, balcones y jardines desde donde se ve todo Villa de Leyva y el valle. Su nombre recuerda a Duruelo, el pueblo castellano donde San Juan de la Cruz fundó el primer convento de carmelitas descalzos.',
     photo: photoDuruelo,
     photoAlt: 'Fachada de la Hospedería Duruelo, con sus arcos y balcones cubiertos de buganvilias',
+    logo: logoDuruelo,
+    logoScale: 1,
   },
   {
     id: 'casa-museo',
@@ -199,9 +207,11 @@ export const venues: Venue[] = [
     geo: { latitude: 5.63209, longitude: -73.52497 },
     kicker: 'Sede de las charlas abiertas',
     summary:
-      'Una casona colonial de finales del siglo XVII, con balcón de madera y patio empedrado en torno a una fuente de piedra. Aquí pasó sus últimos meses y murió, en diciembre de 1823, Antonio Nariño, el precursor que tradujo los Derechos del Hombre. Es Monumento Nacional desde 1961 y hoy un museo de cuatro salas sobre la vida de la Colonia y la República.',
+      'Una casona colonial construida a finales del siglo XVII. Desde su creación ha tenido diversos usos y se considera que fue la última morada del precursor Antonio Nariño y el lugar de su fallecimiento en diciembre de 1823. Fue declarada Monumento Nacional en 1961. Actualmente es una institución museal, dedicada a conservar la memoria y el legado del traductor de los Derechos del Hombre.',
     photo: photoCasaMuseo,
     photoAlt: 'Jardín de la Casa Museo Antonio Nariño, con su fuente de piedra y la casa de tejas al fondo',
+    logo: logoCasaMuseo,
+    logoScale: 1.5,
   },
 ];
 

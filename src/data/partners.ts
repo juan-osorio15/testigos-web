@@ -3,13 +3,15 @@
  * 2026-09-08). Los logos van en crema monocromo sobre la tinta del pie:
  * PNG con transparencia generados desde los archivos originales que
  * enviaron (Duruelo desde su PDF vectorial; Conexión Zaquencipa desde
- * un JPEG con fondo café, por eso se ve algo más blando).
+ * un JPEG con fondo café, por eso se ve algo más blando; Relato desde
+ * su versión en blanco, teñida al crema del resto el 2026-09-17).
  */
 import type { UiKey } from '../ui';
 import logoConexion from '../assets/partners/conexion-zaquencipa.png';
 import logoCasaMuseo from '../assets/partners/casa-museo.png';
 import logoDuruelo from '../assets/partners/duruelo.png';
 import logoBanrepTunja from '../assets/partners/banrep-tunja.png';
+import logoRelato from '../assets/partners/relato.png';
 
 export interface Partner {
   name: string;
@@ -36,6 +38,7 @@ export const partnerGroups: PartnerGroup[] = [
     partners: [
       { name: 'Casa Museo Antonio Nariño', logo: logoCasaMuseo },
       { name: 'Hospedería y Centro de Convenciones Duruelo', logo: logoDuruelo },
+      { name: 'Relato, Librería y Centro Cultural', logo: logoRelato },
     ],
   },
   {
