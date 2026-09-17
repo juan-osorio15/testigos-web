@@ -7,13 +7,13 @@
  * procedimiento de consultas y reclamos, vigencia). El responsable se
  * identifica por razón social y correo; por decisión del titular no se
  * publica dirección ni teléfono. Fuente: docs/tratamiento-de-datos.md.
- * Sección 10: cookies (GA4, píxel de Meta) y envío hasheado de datos de
- * compra a Google y Meta; dictamen del 2026-09-15
- * (docs/revision-legal-2026-09-15-medicion.md). El párrafo sobre dónde se
- * registra la aceptación depende de measurement.consentEndpoint.
+ * Sección 10: cookies de analítica y publicidad (GA4, píxel de Meta);
+ * dictamen del 2026-09-15 (docs/revision-legal-2026-09-15-medicion.md),
+ * variante B: la aceptación se guarda en el navegador. El envío de datos
+ * de compra a Google y Meta se retiró el 2026-09-17 y no se describe.
  */
 import LegalLayout from '../layouts/LegalLayout.astro';
-import { DATA_CONTACT_EMAIL, DATA_CONTROLLER, DATA_POLICY_EFFECTIVE, measurement } from '../config';
+import { DATA_CONTACT_EMAIL, DATA_CONTROLLER, DATA_POLICY_EFFECTIVE } from '../config';
 
 const c = DATA_CONTROLLER;
 const effective = new Date(`${DATA_POLICY_EFFECTIVE}T12:00:00-05:00`).toLocaleDateString('es-CO', {
@@ -39,8 +39,7 @@ const base = import.meta.env.BASE_URL.endsWith('/')
     la tienda del encuentro entrega los datos necesarios para emitir y enviar la boleta, gestionar
     el pedido y controlar el ingreso. Esos datos se guardan con esos fines y no se venden ni se
     ceden a terceros. El sitio usa además cookies de medición y de publicidad de Google y de Meta,
-    y transmite a esos proveedores ciertos datos de cada compra para atribuirla a su origen, según
-    se explica en la sección 10.
+    según se explica en la sección 10.
   </p>
 
   <section class="policy-section">
@@ -78,8 +77,7 @@ const base = import.meta.env.BASE_URL.endsWith('/')
     </p>
     <p>
       El sitio recoge además, mediante cookies e identificadores similares, los datos de navegación
-      descritos en la sección 10, y transmite a los proveedores de medición los datos de la compra
-      allí indicados.
+      descritos en la sección 10.
     </p>
   </section>
 
@@ -104,8 +102,8 @@ const base = import.meta.env.BASE_URL.endsWith('/')
         fotografías y los videos captados durante las sesiones.
       </li>
       <li>
-        Medir la audiencia del sitio y la eficacia de la publicidad del encuentro, y atribuir las
-        compras de boletas a la fuente que las originó, en los términos de la sección 10.
+        Medir la audiencia del sitio y la eficacia de la publicidad del encuentro, en los términos
+        de la sección 10.
       </li>
     </ol>
     <p>
@@ -115,16 +113,16 @@ const base = import.meta.env.BASE_URL.endsWith('/')
       finalidades distintas sin una nueva autorización del titular. Los mensajes sobre un pedido,
       como la confirmación, la boleta y los avisos de cambios de programación, son de carácter
       transaccional. Los datos de la compra no se usan para enviar publicidad ni información de
-      otros eventos, salvo autorización separada del titular. La transmisión prevista en la
-      sección 10 no implica el envío de mensajes al comprador.
+      otros eventos, salvo autorización separada del titular.
     </p>
   </section>
 
   <section class="policy-section">
     <h2>4. Transferencia y transmisión a terceros</h2>
     <p>
-      El responsable no vende los datos personales ni los cede a terceros, salvo la transmisión a
-      Google LLC y a Meta Platforms, Inc. descrita en la sección 10. Para el almacenamiento de la información y el envío de comunicaciones se apoya en proveedores
+      El responsable no vende los datos personales ni los cede a terceros, salvo los datos de
+      navegación que las cookies descritas en la sección 10 envían a Google LLC y a Meta Platforms,
+      Inc. Para el almacenamiento de la información y el envío de comunicaciones se apoya en proveedores
       tecnológicos que actúan como encargados del tratamiento por cuenta del responsable, siguen
       sus instrucciones y solo pueden usar los datos para las finalidades de esta política. El
       personal de acreditación del encuentro accede a los datos de la boleta únicamente para
@@ -152,9 +150,7 @@ const base = import.meta.env.BASE_URL.endsWith('/')
       avisos en la sede, y se entiende otorgada por la conducta inequívoca de ingresar a las sesiones
       tras esa información. La autorización que el titular otorga a {c.brand} en el formulario o en
       la tienda se entiende otorgada a {c.name}. La autorización para las cookies de analítica y de
-      publicidad se otorga al pulsar Aceptar en el aviso del sitio. La autorización para transmitir
-      los datos de la compra a los proveedores de medición se otorga en la casilla de la tienda,
-      cuyo texto la menciona de forma expresa.
+      publicidad se otorga al pulsar Aceptar en el aviso del sitio.
     </p>
   </section>
 
@@ -246,22 +242,9 @@ const base = import.meta.env.BASE_URL.endsWith('/')
     <p>
       Esas cookies solo se activan después de que el visitante acepta el aviso que el sitio muestra
       en su primera visita; hasta entonces el sitio no instala cookies de analítica ni de
-      publicidad. La aceptación se registra con la fecha, la hora y la versión del aviso aceptado
-      {measurement.consentEndpoint
-        ? 'en los sistemas del responsable, asociada a un identificador aleatorio del navegador'
-        : 'en el navegador del visitante'}, y el responsable conserva el texto de cada versión del
-      aviso.
-    </p>
-    <p>
-      Cuando un pedido de la tienda queda pagado, el responsable transmite desde sus propios
-      servidores a Google LLC y a Meta Platforms, Inc. el correo electrónico, el número de teléfono,
-      el nombre y el apellido del comprador, convertidos previamente mediante la función SHA-256 en
-      códigos que no revelan el dato y que el proveedor solo puede cotejar con cuentas que ya
-      conoce, junto con el país, la dirección IP y el navegador desde los que se hizo la compra,
-      los identificadores de cookie del navegador que aceptó el aviso, y el valor y la moneda del
-      pedido. La finalidad de esa transmisión es atribuir la compra a la campaña o la fuente que la
-      originó y medir la eficacia de la publicidad del encuentro. Esos datos no se usan para enviar
-      mensajes al comprador por ningún canal.
+      publicidad. La aceptación se registra en el navegador del visitante con la fecha, la hora y
+      la versión del aviso aceptado, y el responsable conserva el texto de cada versión del aviso.
+      Los datos de la compra de boletas no se transmiten a estos proveedores.
     </p>
     <p>
       Google LLC y Meta Platforms, Inc. tienen su sede en Estados Unidos y tratan la información
