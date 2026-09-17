@@ -138,6 +138,67 @@ const dict = {
   'footer.privacy': 'Tratamiento de datos personales',
   'footer.terms': 'Términos y condiciones',
 
+  // --- Aviso de cookies y preferencias (dictamen legal 2026-09-15) ---
+  /* Corto y sin énfasis, como es habitual: nombra al responsable, los
+     proveedores y la finalidad, y enlaza la política (arts. 14 y 15 del
+     Decreto 1377). El detalle vive en la sección 10 de la política. */
+  'consent.text':
+    'Eventalist usa cookies de analítica y publicidad (Google y Meta) para medir las visitas y la campaña de boletas. Al aceptar autorizas ese uso según la política de datos.',
+  'consent.more': 'Política de datos',
+  'consent.accept': 'Aceptar',
+  'consent.close': 'Cerrar el aviso',
+  'consent.prefsLink': 'Cookies y preferencias',
+  'consent.prefsTitle': 'Cookies y preferencias',
+  'consent.prefsAccepted': 'Aceptaste el uso de cookies de analítica y publicidad el {date}',
+  'consent.prefsNone': 'No has aceptado el uso de cookies de analítica y publicidad en este navegador.',
+  'consent.prefsId': 'Identificador de tu aceptación (para consultas o reclamos):',
+  'consent.revoke': 'Retirar la aceptación',
+  'consent.revoked': 'Listo. Las cookies de analítica y publicidad quedaron desactivadas en este navegador.',
+  'consent.policy': 'Leer la política de tratamiento de datos',
+
+  // --- Migas de pan y páginas interiores ---
+  'crumb.home': 'Inicio',
+  'crumb.speakers': 'Panelistas',
+  'crumb.schedule': 'Programación',
+  'crumb.talks': 'Charlas abiertas',
+  'crumb.directions': 'Cómo llegar',
+  'crumb.lodging': 'Dónde dormir',
+  'crumb.aria': 'Ruta de navegación',
+
+  // --- Fichas de panelistas ---
+  'speaker.sessions': 'En el encuentro',
+  'speaker.works': 'Obras y enlaces',
+  'speaker.all': 'Todos los panelistas',
+  'speaker.indexLead':
+    'Los periodistas que cubrieron los últimos cincuenta años de Colombia, reunidos en Villa de Leyva del 5 al 8 de noviembre de 2026.',
+  'speaker.readProfile': 'Ver ficha',
+
+  // --- Programación ---
+  'schedule.updated': 'Actualizado el',
+  'schedule.paid': 'Con boleta',
+  'schedule.full': 'Ver la programación completa',
+  'schedule.talksLink': 'Las charlas abiertas son de entrada libre',
+  'schedule.venueMap': 'Ver en el mapa',
+  'schedule.pricesHeading': 'Boletas',
+
+  // --- Bloque de hechos del encuentro (texto plano en toda página interior) ---
+  'facts.heading': 'El encuentro en pocas líneas',
+  'facts.where': 'Villa de Leyva, Boyacá, Colombia',
+  'facts.when': '5 al 8 de noviembre de 2026',
+  'facts.talks': 'Charlas abiertas de entrada libre el jueves 5 y el viernes 6 en la mañana, en la Casa Museo Antonio Nariño.',
+  'facts.panels': 'Conversatorios con boleta del viernes 6 en la tarde al domingo 8, en la Hospedería Duruelo.',
+  'facts.onSale': 'A la venta',
+  'facts.soon': 'Desde el',
+  'facts.soldOut': 'Agotado',
+  'facts.closed': 'Venta cerrada',
+  'facts.buy': 'Comprar boletas',
+
+  // --- Pie: enlaces a páginas interiores ---
+  'footer.speakers': 'Panelistas',
+  'footer.schedule': 'Programación',
+  'footer.talks': 'Charlas abiertas',
+  'footer.directions': 'Cómo llegar',
+
   // --- 404 ---
   'notfound.title': 'Página no encontrada',
   'notfound.body': 'La página que buscas no existe o cambió de lugar.',

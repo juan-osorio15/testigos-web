@@ -11,12 +11,16 @@ import { t } from '../ui';
 import { agenda, dayLabels, type EventDay } from '../data/agenda';
 import { venueById } from '../data/event';
 import { speakerBySlug } from '../data/speakers';
+import { speakerPath } from '../routes';
 import CtaButton from './CtaButton.astro';
 
 const days = Object.keys(dayLabels) as EventDay[];
 const slotsByDay = (day: EventDay) => agenda.filter((s) => s.day === day);
 
 const heading = 'Cuatro días en Villa de Leyva';
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : import.meta.env.BASE_URL + '/';
 ---
 
 <section id="agenda" class="schedule" data-reveal>
@@ -33,18 +37,34 @@ const heading = 'Cuatro días en Villa de Leyva';
                 {slotsByDay(day).map((slot) => {
                   const venue = slot.venueId ? venueById(slot.venueId) : null;
                   const free = slot.type === 'charla';
-                  /* Solo nombres confirmados: panelistas con tarjeta e invitados. */
-                  const names = [
-                    ...slot.speakerSlugs.map((s) => speakerBySlug(s).name),
-                    ...(slot.guests ?? []),
-                  ];
-                  const panelistLabel = names.length > 0 ? names.join(' · ') : null;
+                  /* Solo nombres confirmados: panelistas con tarjeta (enlazados a
+                     su ficha, feature 002) e invitados. */
+                  const people = slot.speakerSlugs.map(speakerBySlug);
+                  const guests = slot.guests ?? [];
+                  const hasPeople = people.length > 0 || guests.length > 0;
                   return (
-                    <tr class:list={['slot', { 'slot--free': free }]}>
+                    <tr class:list={['slot', { 'slot--free': free }]} id={`sesion-${slot.slug}`}>
                       <td class="slot-time">{slot.time}</td>
                       <td class="slot-body">
-                        <p class="slot-title">{slot.title}</p>
-                        {panelistLabel && <p class="slot-speakers">{panelistLabel}</p>}
+                        <p class="slot-title">
+                          <a href={`${base}programacion/#${slot.slug}`}>{slot.title}</a>
+                        </p>
+                        {hasPeople && (
+                          <p class="slot-speakers">
+                            {people.map((sp, i) => (
+                              <>
+                                {i > 0 && ' · '}
+                                <a href={speakerPath(sp.slug)}>{sp.name}</a>
+                              </>
+                            ))}
+                            {guests.map((g, i) => (
+                              <>
+                                {(people.length > 0 || i > 0) && ' · '}
+                                <span>{g}</span>
+                              </>
+                            ))}
+                          </p>
+                        )}
                         {slot.note && <p class="slot-note">{slot.note}</p>}
                         {/* Siempre se reserva la línea de la sede: si aún no está
                             confirmada queda en blanco y la fila no cambia de alto. */}
@@ -68,10 +88,35 @@ const heading = 'Cuatro días en Villa de Leyva';
         ))
       }
     </div>
+    <p class="schedule-links">
+      <a href={`${base}programacion/`}>{t('schedule.full')} →</a>
+      <a href={`${base}charlas-abiertas/`}>{t('schedule.talksLink')} →</a>
+    </p>
   </div>
 </section>
 
 <style>
+  .schedule-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-4);
+    margin-top: var(--space-3);
+    font-weight: 800;
+  }
+  .schedule-links a {
+    text-underline-offset: 0.2em;
+  }
+  .slot-title a,
+  .slot-speakers a {
+    text-decoration: none;
+  }
+  .slot-title a:hover,
+  .slot-title a:focus-visible,
+  .slot-speakers a:hover,
+  .slot-speakers a:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
   .schedule {
     position: relative;
     z-index: 1;

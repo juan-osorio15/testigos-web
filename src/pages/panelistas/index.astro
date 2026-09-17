@@ -1,0 +1,129 @@
+---
+/**
+ * Índice de panelistas (feature 002): los doce con foto, nombre,
+ * credencial y enlace a su ficha. Mismo orden que el carrusel de la
+ * portada (reconocimiento público). Tarjetas en bloques de color, como el
+ * manual.
+ */
+import { Image } from 'astro:assets';
+import InnerLayout from '../../layouts/InnerLayout.astro';
+import CtaButton from '../../components/CtaButton.astro';
+import { t } from '../../ui';
+import { speakers } from '../../data/speakers';
+import { speakerPath } from '../../routes';
+import LogoSymbol from '../../assets/logo/logo-symbol.svg';
+
+const tones = ['olive', 'sky', 'brick'] as const;
+---
+
+<InnerLayout path="/panelistas/" eyebrow={t('crumb.speakers')} heading="¿Quiénes estarán?" lead={t('speaker.indexLead')} tone="sky">
+  <div class="container">
+    <ul class="tiles" role="list">
+      {
+        speakers.map((sp, i) => (
+          <li class:list={['tile', `tile--${tones[i % tones.length]}`]}>
+            <a href={speakerPath(sp.slug)} class="tile-link">
+              <div class="tile-media">
+                {sp.photo ? (
+                  <div class:list={['grain', 'tile-photo', sp.photoTreatment && `tile-photo--${sp.photoTreatment}`]}>
+                    <Image src={sp.photo} alt={sp.name} widths={[320, 480, 640]} sizes="(max-width: 48rem) 90vw, 320px" />
+                  </div>
+                ) : (
+                  <LogoSymbol class="tile-symbol" aria-hidden="true" />
+                )}
+              </div>
+              <span class="tile-name">{sp.name}</span>
+              <span class="tile-credential">{sp.credential}</span>
+              <span class="tile-more">{t('speaker.readProfile')} →</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="tiles-cta">
+      <CtaButton label="cta.beThere" />
+    </div>
+  </div>
+</InnerLayout>
+
+<style>
+  .tiles {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: var(--space-3);
+  }
+  .tile {
+    color: var(--ink);
+  }
+  .tile--olive {
+    background-color: var(--olive);
+    color: var(--cream);
+  }
+  .tile--sky {
+    background-color: var(--sky);
+  }
+  .tile--brick {
+    background-color: var(--brick);
+    color: var(--cream);
+  }
+  .tile-link {
+    display: grid;
+    gap: 0.5rem;
+    height: 100%;
+    padding: var(--space-3);
+    text-decoration: none;
+    color: inherit;
+  }
+  .tile-link:hover .tile-more,
+  .tile-link:focus-visible .tile-more {
+    text-decoration: underline;
+  }
+  .tile-media {
+    min-height: 8.5rem;
+    margin-bottom: var(--space-1);
+  }
+  .tile-photo {
+    aspect-ratio: 4 / 3;
+  }
+  .tile-photo :global(img) {
+    object-position: center top;
+  }
+  .tile-photo--soft :global(img) {
+    filter: grayscale(1) sepia(0.18) contrast(1.02) brightness(0.97);
+  }
+  .tile-photo--plain :global(img) {
+    filter: sepia(0.08);
+  }
+  .tile-photo--plain::after {
+    opacity: 0.45;
+  }
+  .tile-symbol {
+    width: 4.5rem;
+    opacity: 0.9;
+  }
+  .tile-name {
+    font-size: var(--text-h3);
+    font-weight: 800;
+    line-height: 1.15;
+  }
+  .tile-credential {
+    font-size: var(--text-small);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.85;
+  }
+  .tile-more {
+    margin-top: auto;
+    padding-top: var(--space-1);
+    font-size: var(--text-label);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .tiles-cta {
+    margin-top: var(--space-5);
+  }
+</style>

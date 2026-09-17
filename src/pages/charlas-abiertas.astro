@@ -1,0 +1,216 @@
+---
+/**
+ * Charlas abiertas (feature 002, FR-022): las sesiones de entrada libre del
+ * 5 y 6 de noviembre en la Casa Museo Antonio Nariño, con evento propio en
+ * el marcado (URL propia, isAccessibleForFree). Condiciones de ingreso
+ * desde las FAQ; enlace a los conversatorios con boleta.
+ */
+import { Image } from 'astro:assets';
+import InnerLayout from '../layouts/InnerLayout.astro';
+import CtaButton from '../components/CtaButton.astro';
+import { t } from '../ui';
+import { agenda, dayLabels } from '../data/agenda';
+import { venueById } from '../data/event';
+import { speakerBySlug } from '../data/speakers';
+import { faqs } from '../data/faqs';
+import { speakerPath } from '../routes';
+import { talksGraph } from '../seo/jsonld';
+
+const venue = venueById('casa-museo');
+const talks = agenda.filter((s) => s.type === 'charla');
+const registration = faqs.find((f) => /inscripci/i.test(f.question));
+---
+
+<InnerLayout
+  path="/charlas-abiertas/"
+  eyebrow={t('crumb.talks')}
+  heading="Charlas abiertas, con entrada libre"
+  lead="Dos mañanas y una tarde de periodismo en la Casa Museo Antonio Nariño, sin boleta. El jueves 5 y el viernes 6 de noviembre de 2026."
+  tone="olive"
+  jsonld={talksGraph()}
+>
+  <div class="container talks">
+    <ol class="talks-list" role="list">
+      {
+        talks.map((slot) => {
+          const people = slot.speakerSlugs.map(speakerBySlug);
+          return (
+            <li class="talk" id={slot.slug}>
+              <p class="talk-when">
+                {dayLabels[slot.day]}
+                {slot.time && ` · ${slot.time}`}
+              </p>
+              <h2 class="talk-title">{slot.title}</h2>
+              {(people.length > 0 || slot.guests?.length) && (
+                <p class="talk-people">
+                  {people.map((sp, i) => (
+                    <>
+                      {i > 0 && ' · '}
+                      <a href={speakerPath(sp.slug)}>{sp.name}</a>
+                    </>
+                  ))}
+                  {slot.guests?.map((g, i) => (
+                    <>
+                      {(people.length > 0 || i > 0) && ' · '}
+                      <span>{g}</span>
+                    </>
+                  ))}
+                </p>
+              )}
+              {slot.note && <p class="talk-note">{slot.note}</p>}
+            </li>
+          );
+        })
+      }
+    </ol>
+
+    <aside class="talks-venue">
+      {
+        venue.photo && (
+          <div class="duotone talks-photo" style="--duotone-tint: var(--olive)">
+            <Image src={venue.photo} alt={venue.photoAlt} widths={[480, 720, 960]} sizes="(max-width: 63.9rem) 100vw, 380px" />
+          </div>
+        )
+      }
+      <p class="eyebrow">{venue.kicker}</p>
+      <h2 class="talks-venue-name">{venue.name}</h2>
+      <p class="talks-venue-address">
+        {venue.address}. Latitud {venue.geo.latitude}, longitud {venue.geo.longitude}.
+      </p>
+      <p class="talks-venue-text">{venue.summary}</p>
+      <a class="talks-map" href={venue.mapsUrl} target="_blank" rel="noopener noreferrer">
+        {t('venue.directions')} →
+      </a>
+      {
+        registration && (
+          <div class="talks-faq">
+            <h3>{registration.question}</h3>
+            <p>{registration.answer}</p>
+          </div>
+        )
+      }
+    </aside>
+
+    <section class="talks-next" aria-labelledby="next-title">
+      <p class="eyebrow">Conversatorios</p>
+      <h2 id="next-title">Del viernes en la tarde al domingo, con boleta</h2>
+      <p>
+        Los siete conversatorios con los periodistas que cubrieron la Colombia reciente son en la Hospedería Duruelo y requieren boleta. Aforo limitado.
+      </p>
+      <div class="talks-next-actions">
+        <CtaButton label="cta.secure" />
+        <a href="/programacion/">{t('schedule.full')}</a>
+      </div>
+    </section>
+  </div>
+</InnerLayout>
+
+<style>
+  .talks {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--space-5);
+    align-items: start;
+  }
+  .talks-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .talk {
+    display: grid;
+    gap: 0.4rem;
+    padding: var(--space-3);
+    background-color: #fff;
+    border-left: 4px solid var(--olive);
+    scroll-margin-top: calc(var(--header-h) + var(--space-2));
+  }
+  .talk-when {
+    font-size: var(--text-label);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--olive);
+  }
+  .talk-title {
+    font-size: var(--text-h3);
+    line-height: 1.2;
+  }
+  .talk-people {
+    font-weight: 700;
+  }
+  .talk-people a {
+    text-underline-offset: 0.2em;
+  }
+  .talk-note {
+    font-size: var(--text-small);
+    line-height: 1.5;
+    max-width: 62ch;
+  }
+  .talks-venue {
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    background-color: var(--cream);
+    border: var(--border) var(--ink);
+  }
+  .talks-photo {
+    aspect-ratio: 4 / 3;
+  }
+  .talks-venue .eyebrow {
+    color: var(--olive);
+  }
+  .talks-venue-name {
+    font-size: var(--text-h3);
+  }
+  .talks-venue-address,
+  .talks-venue-text,
+  .talks-faq p {
+    font-size: var(--text-small);
+    line-height: 1.55;
+  }
+  .talks-map {
+    font-weight: 800;
+    text-underline-offset: 0.2em;
+  }
+  .talks-faq {
+    display: grid;
+    gap: 0.3rem;
+    padding-top: var(--space-2);
+    border-top: var(--border) var(--ink);
+  }
+  .talks-faq h3 {
+    font-size: var(--text-body);
+  }
+  .talks-next {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: var(--space-2);
+    justify-items: start;
+    padding: var(--space-4);
+    background-color: var(--terracotta);
+  }
+  .talks-next h2 {
+    font-size: var(--text-h2);
+    max-width: 22ch;
+  }
+  .talks-next p {
+    max-width: 60ch;
+  }
+  .talks-next-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .talks-next-actions a:not(.cta) {
+    font-weight: 700;
+    text-underline-offset: 0.2em;
+  }
+  @media (max-width: 63.9rem) {
+    .talks {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

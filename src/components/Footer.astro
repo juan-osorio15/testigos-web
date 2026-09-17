@@ -62,9 +62,17 @@ const renderHeight = { lg: 216, md: 168, sm: 120 } as const;
       }
     </div>
 
+    <nav class="footer-pages" aria-label="Páginas del sitio">
+      <a href={`${base}panelistas/`}>{t('footer.speakers')}</a>
+      <a href={`${base}programacion/`}>{t('footer.schedule')}</a>
+      <a href={`${base}charlas-abiertas/`}>{t('footer.talks')}</a>
+      <a href={`${base}como-llegar/`}>{t('footer.directions')}</a>
+    </nav>
+
     <p class="footer-small">
       {t('footer.rights')} · <a href={`${base}tratamiento-de-datos/`}>{t('footer.privacy')}</a> ·
-      <a href={`${base}terminos-y-condiciones/`}>{t('footer.terms')}</a>
+      <a href={`${base}terminos-y-condiciones/`}>{t('footer.terms')}</a> ·
+      <a href={`${base}tratamiento-de-datos/#cookies`} data-open-consent-prefs>{t('consent.prefsLink')}</a>
     </p>
   </div>
 </footer>
@@ -124,6 +132,25 @@ const renderHeight = { lg: 216, md: 168, sm: 120 } as const;
   .footer-logo--sm {
     height: 2.25rem;
     opacity: 0.8;
+  }
+
+  .footer-pages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
+    font-size: var(--text-small);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .footer-pages a {
+    text-decoration: none;
+    text-underline-offset: 0.2em;
+  }
+  .footer-pages a:hover,
+  .footer-pages a:focus-visible {
+    color: var(--terracotta);
+    text-decoration: underline;
   }
 
   .footer-small {

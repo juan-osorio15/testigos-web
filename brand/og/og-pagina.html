@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Imagen para compartir · página</title>
+<style>
+  /* Vista previa de una página interior (programación, charlas abiertas),
+     1200 × 630: título grande en tinta sobre un bloque de color, el logo
+     en crema y la franja cielo con fechas y lugar. Los marcadores {{…}}
+     los rellena make-og.mjs; el logo lo incrusta inline-logo.mjs. */
+  @font-face { font-family: 'Archivo'; src: url('../../src/assets/fonts/archivo-var.woff2') format('woff2-variations'); font-weight: 100 900; }
+  @font-face { font-family: 'Fraunces'; src: url('../../src/assets/fonts/fraunces-var-italic.woff2') format('woff2-variations'); font-weight: 100 900; font-style: italic; }
+  :root {
+    --ink: #210804; --cream: #efe8df; --terracotta: #d45b30; --sky: #74b3d6; --olive: #757522; --brick: #7d290d;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    display: grid;
+    grid-template-columns: 780px 420px;
+    grid-template-rows: 542px 88px;
+    font-family: 'Archivo', sans-serif;
+    color: var(--ink);
+    background: var(--cream);
+  }
+  .msg { background: var(--{{tone}}); padding: 54px 56px 0; display: flex; flex-direction: column; color: var(--{{inkOn}}); }
+  .eyebrow {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 15px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+  }
+  .eyebrow::before { content: ''; width: 24px; height: 2px; background: currentColor; }
+  h1 { margin-top: 26px; font-size: 66px; line-height: 1.02; font-weight: 800; letter-spacing: -.02em; text-wrap: balance; }
+  .pitch { margin-top: 26px; font-size: 22px; font-weight: 600; line-height: 1.4; max-width: 34ch; }
+  .serif { margin-top: auto; margin-bottom: 40px; font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; font-size: 30px; }
+  .brand { background: var(--cream); display: grid; place-items: center; }
+  .brand svg { width: 250px; height: auto; color: var(--ink); }
+  .strip {
+    grid-column: 1 / -1;
+    background: var(--sky);
+    display: flex; align-items: center; gap: 18px;
+    padding: 0 56px;
+    color: var(--ink);
+  }
+  .num { font-size: 42px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+  .label { font-size: 15px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+  .label .sep { font-weight: 500; }
+  .cta { margin-left: auto; background: var(--terracotta); color: var(--ink); font-size: 19px; font-weight: 800; padding: 17px 30px; }
+</style>
+</head>
+<body>
+  <div class="msg">
+    <p class="eyebrow">{{eyebrow}}</p>
+    <h1>{{title}}</h1>
+    <p class="pitch">{{pitch}}</p>
+    <p class="serif">Testigos de la Memoria</p>
+  </div>
+  <div class="brand">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="110 111 385 235"><use href="../../src/assets/logo/logo-lockup.svg#lockup"/></svg>
+  </div>
+  <div class="strip">
+    <span class="num">5–8</span>
+    <span class="label">noviembre 2026 <span class="sep">·</span> Villa de Leyva, Colombia</span>
+    <span class="cta">{{cta}}</span>
+  </div>
+</body>
+</html>

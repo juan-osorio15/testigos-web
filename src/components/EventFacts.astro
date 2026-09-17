@@ -1,0 +1,141 @@
+---
+/**
+ * Los hechos del encuentro en texto plano, al pie de toda página interior
+ * (feature 002, FR-034): nombre, lugar, fechas, sedes con dirección y el
+ * estado de cada boleta con su precio. Es lo que un buscador o un
+ * asistente de IA necesita leer sin ejecutar nada. Dos planos que se
+ * tocan: tinta con los datos, terracota con el botón (fórmula visual).
+ */
+import { t } from '../ui';
+import { event, formatPrice, venues } from '../data/event';
+import { offerStatuses } from '../seo/offers';
+import CtaButton from './CtaButton.astro';
+
+const statuses = offerStatuses();
+const fmtDay = (iso: string) =>
+  new Date(`${iso}T12:00:00-05:00`).toLocaleDateString('es-CO', { day: 'numeric', month: 'long', timeZone: 'America/Bogota' });
+
+function label(availability: ReturnType<typeof offerStatuses>[number]['availability'], validFrom: string): string {
+  if (availability === 'InStock') return t('facts.onSale');
+  if (availability === 'PreOrder') return `${t('facts.soon')} ${fmtDay(validFrom)}`;
+  if (availability === 'SoldOut') return t('facts.soldOut');
+  return t('facts.closed');
+}
+---
+
+<section class="facts" aria-labelledby="facts-title">
+  <div class="container facts-grid">
+    <div class="facts-main">
+      <p class="eyebrow">{t('facts.heading')}</p>
+      <h2 id="facts-title" class="facts-title">
+        {event.name}: {event.tagline}. {t('facts.where')}, {t('facts.when')}.
+      </h2>
+      <p class="facts-line">{t('facts.talks')}</p>
+      <p class="facts-line">{t('facts.panels')}</p>
+      <ul class="facts-venues">
+        {venues.map((v) => <li><strong>{v.name}</strong>, {v.address}.</li>)}
+      </ul>
+    </div>
+    <div class="facts-tickets">
+      <p class="eyebrow">{t('schedule.pricesHeading')}</p>
+      <ul class="facts-offers">
+        {
+          statuses.map(({ offer, availability }) => (
+            <li>
+              <span class="facts-offer-name">{offer.name}</span>
+              <span class="facts-offer-price">{formatPrice(offer)}</span>
+              <span class="facts-offer-status">{label(availability, offer.validFrom)}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <CtaButton />
+    </div>
+  </div>
+</section>
+
+<style>
+  .facts {
+    position: relative;
+    z-index: 1;
+    background-color: var(--ink);
+    color: var(--cream);
+    padding-block: var(--space-5);
+  }
+  .facts-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--space-4);
+    align-items: start;
+  }
+  .facts .eyebrow {
+    color: var(--terracotta);
+  }
+  .facts-title {
+    font-size: var(--text-h3);
+    line-height: 1.3;
+    margin: var(--space-1) 0 var(--space-2);
+    max-width: 34ch;
+  }
+  .facts-line,
+  .facts-venues li {
+    font-size: var(--text-small);
+    line-height: 1.55;
+    max-width: 60ch;
+  }
+  .facts-venues {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-2);
+    display: grid;
+    gap: 0.35rem;
+  }
+  .facts-tickets {
+    padding: var(--space-3);
+    background-color: var(--terracotta);
+    color: var(--ink);
+    display: grid;
+    gap: var(--space-2);
+    justify-items: start;
+  }
+  .facts-tickets .eyebrow {
+    color: var(--ink);
+  }
+  .facts-offers {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  .facts-offers li {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.2rem 1rem;
+    font-size: var(--text-small);
+    line-height: 1.4;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(33, 8, 4, 0.35);
+  }
+  .facts-offer-name {
+    font-weight: 800;
+  }
+  .facts-offer-price {
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+  .facts-offer-status {
+    grid-column: 1 / -1;
+    font-size: var(--text-label);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  @media (max-width: 63.9rem) {
+    .facts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

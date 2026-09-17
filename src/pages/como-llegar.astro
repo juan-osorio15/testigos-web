@@ -1,0 +1,171 @@
+---
+/**
+ * Cómo llegar (feature 002, FR-026). Solo hechos con fuente pública o ya
+ * aprobados (docs/como-llegar.md): rutas por carretera y en bus desde
+ * Bogotá y Tunja, el consejo de aparcar y caminar, y las dos sedes con
+ * dirección, coordenadas y mapa.
+ */
+import { Image } from 'astro:assets';
+import InnerLayout from '../layouts/InnerLayout.astro';
+import CtaButton from '../components/CtaButton.astro';
+import { t } from '../ui';
+import { venues } from '../data/event';
+
+const tones = ['terracotta', 'sky'] as const;
+---
+
+<InnerLayout
+  path="/como-llegar/"
+  eyebrow={t('crumb.directions')}
+  heading="Cómo llegar a Villa de Leyva"
+  lead="A tres o cuatro horas de Bogotá por carretera y a cuarenta y cinco minutos de Tunja. Las dos sedes del encuentro están a pocas cuadras de la Plaza Mayor y a unos 850 metros una de otra."
+  tone="sky"
+>
+  <div class="container directions">
+    <section class="directions-block" aria-labelledby="car-title">
+      <p class="eyebrow">En carro</p>
+      <h2 id="car-title">Desde Bogotá</h2>
+      <p>
+        Se sale por la Autopista Norte hacia Tunja y se toma el desvío a Villa de Leyva. El viaje dura entre tres y cuatro horas según el tráfico. Hay una ruta alterna por Chiquinquirá, más larga pero con menos tráfico de salida.
+      </p>
+      <h2>Desde Tunja</h2>
+      <p>El trayecto toma unos cuarenta y cinco minutos.</p>
+      <h2>Al llegar</h2>
+      <p>
+        El casco histórico es empedrado, de calles angostas y con sentidos únicos. Conviene dejar el carro en un parqueadero y caminar: las dos sedes quedan a pocas cuadras de la Plaza Mayor.
+      </p>
+    </section>
+
+    <section class="directions-block" aria-labelledby="bus-title">
+      <p class="eyebrow">En bus</p>
+      <h2 id="bus-title">Desde Bogotá</h2>
+      <p>
+        Hay buses directos durante todo el día desde la Terminal Salitre, con el primer servicio a las 5:00 a.m., y desde la Terminal del Norte, con el primero a las 6:00 a.m. Cubren la ruta Valle de Tenza, Libertadores y Omega; Cundinamarca opera solo fines de semana y festivos. Conviene llegar veinte minutos antes de la salida.
+      </p>
+      <h2>Desde Tunja</h2>
+      <p>Desde la terminal de Tunja hay servicio frecuente a Villa de Leyva, con unos cuarenta y cinco minutos de recorrido.</p>
+    </section>
+
+    <section class="directions-venues" aria-labelledby="venues-title">
+      <p class="eyebrow">Las sedes</p>
+      <h2 id="venues-title">Dos sedes, a pocas cuadras</h2>
+      <ul class="venues" role="list">
+        {
+          venues.map((v, i) => (
+            <li class:list={['venue', `venue--${tones[i % tones.length]}`]}>
+              {v.photo && (
+                <div class="duotone venue-photo" style={`--duotone-tint: var(--${tones[i % tones.length]})`}>
+                  <Image src={v.photo} alt={v.photoAlt} widths={[480, 720, 960]} sizes="(max-width: 63.9rem) 100vw, 480px" />
+                </div>
+              )}
+              <div class="venue-body">
+                <p class="venue-kicker">{v.kicker}</p>
+                <h3>{v.name}</h3>
+                <p class="venue-role">{v.role}</p>
+                <p class="venue-address">{v.address}</p>
+                <p class="venue-geo">
+                  Latitud {v.geo.latitude}, longitud {v.geo.longitude}
+                </p>
+                <a class="venue-map" href={v.mapsUrl} target="_blank" rel="noopener noreferrer">
+                  {t('venue.directions')} →
+                </a>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <div class="directions-cta">
+      <CtaButton label="cta.live" />
+    </div>
+  </div>
+</InnerLayout>
+
+<style>
+  .directions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+  .directions-block {
+    display: grid;
+    gap: var(--space-2);
+    align-content: start;
+  }
+  .directions-block .eyebrow {
+    color: var(--brick);
+  }
+  .directions-block h2 {
+    font-size: var(--text-h3);
+    margin-top: var(--space-1);
+  }
+  .directions-block p {
+    max-width: 58ch;
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+  .directions-venues {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .directions-venues .eyebrow {
+    color: var(--brick);
+  }
+  .directions-venues h2 {
+    font-size: var(--text-h2);
+  }
+  .venues {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: var(--space-3);
+  }
+  .venue {
+    display: grid;
+    color: var(--ink);
+  }
+  .venue--terracotta {
+    background-color: var(--terracotta);
+  }
+  .venue--sky {
+    background-color: var(--sky);
+  }
+  .venue-photo {
+    aspect-ratio: 3 / 2;
+  }
+  .venue-body {
+    display: grid;
+    gap: 0.4rem;
+    padding: var(--space-3);
+  }
+  .venue-kicker {
+    font-size: var(--text-label);
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .venue h3 {
+    font-size: var(--text-h3);
+  }
+  .venue-role,
+  .venue-address,
+  .venue-geo {
+    font-size: var(--text-small);
+    line-height: 1.5;
+  }
+  .venue-map {
+    font-weight: 800;
+    text-underline-offset: 0.2em;
+  }
+  .directions-cta {
+    grid-column: 1 / -1;
+  }
+  @media (max-width: 63.9rem) {
+    .directions {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

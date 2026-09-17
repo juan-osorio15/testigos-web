@@ -14,6 +14,7 @@ import { Image } from 'astro:assets';
 import { t } from '../ui';
 import type { Speaker, SpeakerLinkKey } from '../data/speakers';
 import LogoSymbol from '../assets/logo/logo-symbol.svg';
+import { speakerPath } from '../routes';
 
 interface Props {
   speaker: Speaker;
@@ -23,6 +24,8 @@ interface Props {
 
 const { speaker, tone } = Astro.props;
 const bioId = `bio-${speaker.slug}`;
+/* Ficha propia del panelista (feature 002): la foto y el nombre enlazan */
+const href = speakerPath(speaker.slug);
 
 /* Orden fijo de los iconos; solo se pintan los enlaces presentes. */
 const linkOrder: SpeakerLinkKey[] = ['x', 'instagram', 'linkedin', 'facebook', 'web', 'wikipedia'];
@@ -32,7 +35,7 @@ const links = linkOrder
 ---
 
 <article class:list={['card', `card--${tone}`]}>
-  <div class="card-media">
+  <a class="card-media" href={href} aria-label={`${speaker.name}: ver ficha`} tabindex="-1">
     {
       speaker.photo ? (
         <div class:list={['grain', 'card-photo', speaker.photoTreatment && `card-photo--${speaker.photoTreatment}`]}>
@@ -47,8 +50,8 @@ const links = linkOrder
         <LogoSymbol class="card-symbol" aria-hidden="true" />
       )
     }
-  </div>
-  <h3 class="card-name">{speaker.name}</h3>
+  </a>
+  <h3 class="card-name"><a href={href}>{speaker.name}</a></h3>
   <p class="card-credential">{speaker.credential}</p>
   <p class="card-bio" id={bioId} data-bio>{speaker.bio}</p>
   <button
@@ -164,6 +167,18 @@ const links = linkOrder
     font-size: var(--text-h3);
     font-weight: 800;
     line-height: 1.15;
+  }
+  .card-name a {
+    text-decoration: none;
+  }
+  .card-name a:hover,
+  .card-name a:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  a.card-media {
+    text-decoration: none;
+    color: inherit;
   }
   .card-credential {
     font-size: var(--text-small);

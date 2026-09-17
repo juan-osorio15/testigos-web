@@ -1,0 +1,354 @@
+---
+/**
+ * Aviso de cookies y gestor de preferencias (feature 002, dictamen legal
+ * 2026-09-15). Un bloque de tinta al pie de la pantalla, fijo hasta que se
+ * acepta o se cierra. Solo "Aceptar" acepta. El gestor (<dialog>) lo abre
+ * el enlace "Cookies y preferencias" del pie y permite retirar la
+ * aceptación. Sin JS no aparece nada y no se carga ninguna etiqueta:
+ * el HTML del aviso vive en un <template>.
+ *
+ * Con identificadores de medición vacíos el aviso tampoco se muestra:
+ * no habría nada que autorizar.
+ */
+import { measurement } from '../config';
+import { t } from '../ui';
+
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : import.meta.env.BASE_URL + '/';
+const policyHref = `${base}tratamiento-de-datos/#cookies`;
+const enabled = !!(measurement.ga4Id || measurement.metaPixelId);
+---
+
+{
+  enabled && (
+    <>
+      <template data-consent-template>
+        <aside class="consent" data-consent role="region" aria-label={t('consent.prefsTitle')}>
+          <div class="container consent-inner">
+            <p class="consent-text">
+              {t('consent.text')}
+              <a href={policyHref}>{t('consent.more')}</a>
+            </p>
+            <div class="consent-actions">
+              <button type="button" class="consent-accept" data-consent-accept>
+                {t('consent.accept')}
+              </button>
+              <button type="button" class="consent-close" data-consent-close aria-label={t('consent.close')}>
+                ×
+              </button>
+            </div>
+          </div>
+        </aside>
+      </template>
+
+      <dialog
+        class="prefs"
+        data-consent-prefs
+        data-text-accepted={t('consent.prefsAccepted')}
+        data-text-none={t('consent.prefsNone')}
+        aria-labelledby="prefs-title"
+      >
+        <div class="prefs-body">
+          <p class="eyebrow">{t('consent.prefsTitle')}</p>
+          <h2 id="prefs-title" class="prefs-title" data-prefs-status />
+          <p class="prefs-id" data-prefs-id hidden>
+            <span>{t('consent.prefsId')}</span> <code data-prefs-id-value />
+          </p>
+          <p class="prefs-text">{t('consent.text')}</p>
+          <p class="prefs-feedback" data-prefs-feedback hidden>
+            {t('consent.revoked')}
+          </p>
+          <div class="prefs-actions">
+            <button type="button" class="consent-accept" data-prefs-accept>
+              {t('consent.accept')}
+            </button>
+            <button type="button" class="prefs-revoke" data-prefs-revoke>
+              {t('consent.revoke')}
+            </button>
+            <a class="prefs-policy" href={policyHref}>
+              {t('consent.policy')}
+            </a>
+          </div>
+          <button type="button" class="prefs-close" data-prefs-close aria-label={t('consent.close')}>
+            ×
+          </button>
+        </div>
+      </dialog>
+
+      <script>
+        import { getConsent, wasDismissed, dismiss } from '../measurement/consent';
+        import { acceptConsent, revokeConsent, consentAccepted } from '../measurement/tags';
+
+        const tpl = document.querySelector<HTMLTemplateElement>('[data-consent-template]');
+        const dialog = document.querySelector<HTMLDialogElement>('[data-consent-prefs]');
+        const strings = {
+          accepted: dialog?.dataset.textAccepted ?? '',
+          none: dialog?.dataset.textNone ?? '',
+        };
+
+        let bar: HTMLElement | null = null;
+
+        const showBar = () => {
+          if (!tpl || bar || consentAccepted() || wasDismissed()) return;
+          const node = tpl.content.firstElementChild?.cloneNode(true) as HTMLElement | null;
+          if (!node) return;
+          document.body.appendChild(node);
+          bar = node;
+          node.querySelector('[data-consent-accept]')?.addEventListener('click', async () => {
+            await acceptConsent();
+            hideBar();
+          });
+          node.querySelector('[data-consent-close]')?.addEventListener('click', () => {
+            dismiss();
+            hideBar();
+          });
+        };
+        const hideBar = () => {
+          bar?.remove();
+          bar = null;
+        };
+
+        // --- Gestor de preferencias ---
+        const fmt = (iso: string) =>
+          new Date(iso).toLocaleString('es-CO', { dateStyle: 'long', timeStyle: 'short', timeZone: 'America/Bogota' });
+
+        const render = () => {
+          if (!dialog) return;
+          const state = getConsent();
+          const ok = consentAccepted();
+          const status = dialog.querySelector<HTMLElement>('[data-prefs-status]');
+          const idRow = dialog.querySelector<HTMLElement>('[data-prefs-id]');
+          const idVal = dialog.querySelector<HTMLElement>('[data-prefs-id-value]');
+          const acceptBtn = dialog.querySelector<HTMLElement>('[data-prefs-accept]');
+          const revokeBtn = dialog.querySelector<HTMLElement>('[data-prefs-revoke]');
+          if (status) status.textContent = ok && state?.acceptedAt ? strings.accepted.replace('{date}', fmt(state.acceptedAt)) : strings.none;
+          if (idRow && idVal) {
+            idRow.hidden = !state?.id;
+            idVal.textContent = state?.id ?? '';
+          }
+          if (acceptBtn) acceptBtn.hidden = ok;
+          if (revokeBtn) revokeBtn.hidden = !ok;
+        };
+
+        const openPrefs = () => {
+          if (!dialog || typeof dialog.showModal !== 'function') return false;
+          const fb = dialog.querySelector<HTMLElement>('[data-prefs-feedback]');
+          if (fb) fb.hidden = true;
+          render();
+          dialog.showModal();
+          return true;
+        };
+
+        if (dialog) {
+          dialog.querySelector('[data-prefs-close]')?.addEventListener('click', () => dialog.close());
+          dialog.addEventListener('click', (e) => {
+            if (e.target === dialog) dialog.close();
+          });
+          dialog.querySelector('[data-prefs-accept]')?.addEventListener('click', async () => {
+            await acceptConsent();
+            hideBar();
+            render();
+          });
+          dialog.querySelector('[data-prefs-revoke]')?.addEventListener('click', async () => {
+            await revokeConsent();
+            render();
+            const fb = dialog.querySelector<HTMLElement>('[data-prefs-feedback]');
+            if (fb) fb.hidden = false;
+          });
+        }
+
+        // El enlace del pie abre el gestor; sin JS lleva a la política.
+        document.querySelectorAll<HTMLAnchorElement>('[data-open-consent-prefs]').forEach((a) => {
+          a.addEventListener('click', (e) => {
+            if (openPrefs()) e.preventDefault();
+          });
+        });
+
+        showBar();
+      </script>
+    </>
+  )
+}
+
+<style is:global>
+  /* --- Aviso: una franja baja y discreta, tinta sobre crema, sin negritas.
+     Cabe en una línea en escritorio y en dos en móvil. ------------------- */
+  .consent {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 60;
+    background-color: var(--ink);
+    color: var(--cream);
+    padding-block: 0.6rem;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+  }
+  .consent-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2) var(--space-3);
+  }
+  .consent-text {
+    flex: 1 1 auto;
+    max-width: 90ch;
+    opacity: 0.9;
+    text-wrap: pretty;
+  }
+  .consent-text a {
+    margin-left: 0.35em;
+    text-underline-offset: 0.2em;
+    white-space: nowrap;
+  }
+  .consent-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+    flex: 0 0 auto;
+  }
+  .consent-accept {
+    padding: 0.45em 1.1em;
+    border: 1px solid var(--cream);
+    border-radius: 0;
+    background: none;
+    color: var(--cream);
+    font-weight: 700;
+    font-size: 0.8125rem;
+  }
+  .consent-accept:hover,
+  .consent-accept:focus-visible {
+    background-color: var(--cream);
+    color: var(--ink);
+  }
+  .consent-close {
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    color: var(--cream);
+    font-size: 1.25rem;
+    line-height: 1;
+    opacity: 0.7;
+  }
+  .consent-close:hover,
+  .consent-close:focus-visible {
+    opacity: 1;
+  }
+  @media (max-width: 47.9rem) {
+    .consent-inner {
+      flex-wrap: wrap;
+      row-gap: 0.5rem;
+    }
+    .consent-text {
+      flex-basis: 100%;
+    }
+    .consent-actions {
+      margin-left: 0;
+    }
+  }
+
+  /* --- Gestor de preferencias: la misma tarjeta que el modal "avísame" */
+  .prefs {
+    margin: auto;
+    width: min(100% - 2rem, 32rem);
+    max-height: calc(100dvh - 2rem);
+    padding: 0;
+    border: var(--border) var(--ink);
+    border-radius: 0;
+    background-color: #fff;
+    color: var(--ink);
+    overflow: auto;
+  }
+  .prefs::backdrop {
+    background-color: rgba(33, 8, 4, 0.65);
+  }
+  .prefs-body {
+    position: relative;
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-4);
+  }
+  .prefs-body .eyebrow {
+    color: var(--brick);
+  }
+  .prefs-title {
+    font-size: var(--text-h3);
+    line-height: 1.25;
+    padding-right: 2.5rem;
+  }
+  .prefs-text,
+  .prefs-id,
+  .prefs-feedback {
+    font-size: var(--text-small);
+    line-height: 1.5;
+  }
+  .prefs-id code {
+    font-size: 0.8125rem;
+    word-break: break-all;
+  }
+  .prefs-feedback {
+    font-weight: 700;
+    color: var(--olive);
+  }
+  .prefs-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-1);
+  }
+  .prefs .consent-accept {
+    padding: 0.7em 1.5em;
+    border: var(--border) var(--terracotta);
+    background-color: var(--terracotta);
+    color: var(--ink);
+    font-size: 0.9375rem;
+  }
+  .prefs .consent-accept:hover,
+  .prefs .consent-accept:focus-visible {
+    background-color: var(--brick);
+    border-color: var(--brick);
+    color: var(--cream);
+  }
+  .prefs-revoke {
+    padding: 0.7em 1.5em;
+    border: var(--border) var(--ink);
+    border-radius: 0;
+    background: none;
+    color: var(--ink);
+    font-weight: 800;
+    font-size: 0.9375rem;
+  }
+  .prefs-revoke:hover,
+  .prefs-revoke:focus-visible {
+    background-color: var(--ink);
+    color: var(--cream);
+  }
+  .prefs-policy {
+    font-size: var(--text-small);
+    font-weight: 700;
+    text-underline-offset: 0.2em;
+  }
+  .prefs-close {
+    position: absolute;
+    top: var(--space-2);
+    right: var(--space-2);
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: var(--border) var(--ink);
+    border-radius: 0;
+    background-color: var(--cream);
+    color: var(--ink);
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+  .prefs-close:hover,
+  .prefs-close:focus-visible {
+    background-color: var(--ink);
+    color: var(--cream);
+  }
+</style>

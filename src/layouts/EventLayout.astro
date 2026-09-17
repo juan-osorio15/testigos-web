@@ -1,137 +1,90 @@
 ---
 import '../styles/tokens.css';
 import '../styles/global.css';
+import { getImage } from 'astro:assets';
 import {
   SITE_URL,
-  PRETIX_EVENT_URL,
   PRETIX_WIDGET_CSS,
   PRETIX_WIDGET_SCRIPT,
+  measurement,
   pretixReady,
 } from '../config';
-import { event, ticketOffer, venues } from '../data/event';
-import { speakers } from '../data/speakers';
+import { event } from '../data/event';
+import { assertAgenda } from '../data/agenda';
+import { heroImage } from '../seo/hero';
+import { noindexMeta, pageMeta, type PageMeta } from '../seo/meta';
+import { routeByPath } from '../routes';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ConsentNotice from '../components/ConsentNotice.astro';
 import archivoUrl from '../assets/fonts/archivo-var.woff2?url';
 import frauncesUrl from '../assets/fonts/fraunces-var.woff2?url';
 import frauncesItalicUrl from '../assets/fonts/fraunces-var-italic.woff2?url';
 
 interface Props {
-  title: string;
-  description: string;
-  /** noindex para páginas utilitarias (404) */
+  /**
+   * Ruta registrada en src/routes.ts: de ahí salen título, descripción,
+   * canonical e imagen de vista previa. Las páginas noindex (legales, 404)
+   * no tienen ruta y pasan `title` y `description` a mano.
+   */
+  path?: string;
+  title?: string;
+  description?: string;
+  /** noindex, follow: páginas utilitarias y legales */
   noindex?: boolean;
   /** La página abre con el hero: el header nace recogido y baja al hacer
       scroll. Sin hero (404, política de datos) nace visible y sólido. */
   hero?: boolean;
+  /** Grafo JSON-LD de la página (src/seo/jsonld.ts); sin él no se emite marcado */
+  jsonld?: Record<string, unknown>;
 }
 
-const {
-  title,
-  description,
-  noindex = false,
-  hero = false,
-} = Astro.props;
+const { path, title, description, noindex = false, hero = false, jsonld } = Astro.props;
 
-/* Tienda de Pretix (widget en la cabecera y oferta en JSON-LD): la decide
-   el interruptor `pretixReady` de config.ts. */
-const pretixLive = pretixReady;
+/* Datos de la agenda coherentes antes de emitir cualquier marcado */
+assertAgenda();
 
 /* Base del despliegue (siempre '/'; se conserva por si cambia el hosting). */
 const base = import.meta.env.BASE_URL.endsWith('/')
   ? import.meta.env.BASE_URL
   : import.meta.env.BASE_URL + '/';
-const forceNoindex = noindex;
 
-/* Canonical de la página actual (la raíz o una página legal). */
-const canonical = SITE_URL + Astro.url.pathname;
-/* Se genera con brand/og/make.sh. Nombre versionado: WhatsApp guarda la vista
-   previa por URL y solo la renueva cuando cambia la URL de la imagen. */
-const ogImage = `${SITE_URL}${base}og/og-image-v2.png`;
+/* Metadatos: por ruta registrada o a mano (noindex). */
+const homeOg = `${SITE_URL}${base}og/og-image-v2.png`;
+let meta: PageMeta;
+if (path) {
+  meta = pageMeta(routeByPath(path));
+} else {
+  if (!title || !description) throw new Error('EventLayout: sin `path` hacen falta `title` y `description`');
+  meta = noindexMeta(title, description, Astro.url.pathname, homeOg);
+  if (!noindex) throw new Error(`EventLayout: la página ${Astro.url.pathname} debe registrarse en src/routes.ts o llevar noindex`);
+}
 
-/* JSON-LD: un solo grafo con la entidad del encuentro (Organization), el
-   sitio (WebSite) y el Event, todo desde src/data. Los panelistas van como
-   `performer` con sus perfiles públicos (sameAs): así los buscadores atan
-   el encuentro a entidades ya conocidas. `offers` solo cuando la tienda de
-   Pretix exista (contrato pretix-embed). */
-const orgId = `${SITE_URL}/#organizacion`;
-const siteId = `${SITE_URL}/#sitio`;
-const eventId = `${SITE_URL}/#evento`;
-const postalAddress = (street: string) => ({
-  '@type': 'PostalAddress',
-  streetAddress: street,
-  addressLocality: 'Villa de Leyva',
-  addressRegion: 'Boyacá',
-  addressCountry: 'CO',
+/* Tienda de Pretix (widget en la cabecera): la decide `pretixReady`. */
+const pretixLive = pretixReady;
+
+/* Precarga de la imagen principal: mismo srcset que la <Image> del hero. */
+const heroPreload = hero
+  ? await getImage({ src: heroImage.src, widths: [...heroImage.widths], format: 'webp' })
+  : null;
+
+/* Medición: solo con identificadores; sin ellos el HTML no menciona a Google ni a Meta. */
+const ga4 = measurement.ga4Id;
+const consentGranted = JSON.stringify({
+  analytics_storage: 'granted',
+  ad_storage: 'granted',
+  ad_user_data: 'granted',
+  ad_personalization: 'granted',
 });
+/* Consent Mode antes de gtag: todo denegado; concedido si ya hay aceptación
+   vigente guardada (dictamen legal: sin cookies antes de Aceptar). */
+const consentBootstrap = ga4
+  ? `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;` +
+    `gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',wait_for_update:500});` +
+    `try{var c=JSON.parse(localStorage.getItem('tdm.consent')||'null');if(c&&c.version===${JSON.stringify(measurement.consentVersion)}&&c.acceptedAt){gtag('consent','update',${consentGranted});}}catch(e){}` +
+    `gtag('js',new Date());gtag('config',${JSON.stringify(ga4)},{send_page_view:true});`
+  : '';
 
-const organizationLd = {
-  '@type': 'Organization',
-  '@id': orgId,
-  name: event.name,
-  alternateName: event.tagline,
-  url: `${SITE_URL}/`,
-  logo: ogImage,
-  sameAs: [...event.socialProfiles],
-  founder: event.organizers.map((name) => ({ '@type': 'Person', name })),
-};
-
-const webSiteLd = {
-  '@type': 'WebSite',
-  '@id': siteId,
-  name: event.name,
-  alternateName: event.tagline,
-  url: `${SITE_URL}/`,
-  inLanguage: 'es',
-  publisher: { '@id': orgId },
-};
-
-const eventLd = {
-  '@type': 'Event',
-  '@id': eventId,
-  name: event.name,
-  alternateName: `${event.name} · ${event.tagline}`,
-  description: event.description,
-  url: `${SITE_URL}/`,
-  startDate: event.startDateTime,
-  endDate: event.endDateTime,
-  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-  eventStatus: 'https://schema.org/EventScheduled',
-  inLanguage: 'es',
-  image: [ogImage],
-  location: venues.map((v) => ({
-    '@type': 'Place',
-    name: v.name,
-    address: postalAddress(v.address),
-    hasMap: v.mapsUrl,
-  })),
-  organizer: { '@id': orgId },
-  performer: speakers.map((sp) => ({
-    '@type': 'Person',
-    name: sp.name,
-    description: sp.credential,
-    ...(sp.links ? { sameAs: Object.values(sp.links) } : {}),
-  })),
-  ...(pretixLive
-    ? {
-        offers: {
-          '@type': 'Offer',
-          name: ticketOffer.name,
-          url: PRETIX_EVENT_URL,
-          price: ticketOffer.price,
-          priceCurrency: ticketOffer.currency,
-          availability: 'https://schema.org/InStock',
-          validFrom: ticketOffer.validFrom,
-          validThrough: ticketOffer.validThrough,
-        },
-      }
-    : {}),
-};
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [organizationLd, webSiteLd, eventLd],
-};
 ---
 
 <!doctype html>
@@ -139,40 +92,56 @@ const jsonLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <title>{meta.title}</title>
+    <meta name="description" content={meta.description} />
+    <meta name="robots" content={meta.robots} />
+    <link rel="canonical" href={meta.canonical} />
+    {measurement.metaDomainVerification && (
+      <meta name="facebook-domain-verification" content={measurement.metaDomainVerification} />
+    )}
+    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
     {
-      forceNoindex ? (
-        <meta name="robots" content="noindex" />
-      ) : (
-        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+      heroPreload && (
+        <link
+          rel="preload"
+          as="image"
+          href={heroPreload.src}
+          imagesrcset={heroPreload.srcSet.attribute}
+          imagesizes={heroImage.sizes}
+          fetchpriority="high"
+        />
       )
     }
-    <link rel="canonical" href={canonical} />
-    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    {ga4 && <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />}
+    {pretixLive && <link rel="preconnect" href="https://pretix.eventalist.co" crossorigin />}
     <link rel="preload" href={archivoUrl} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={frauncesUrl} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={frauncesItalicUrl} as="font" type="font/woff2" crossorigin />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={event.name} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:url" content={meta.canonical} />
+    <meta property="og:image" content={meta.ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:type" content="image/png" />
-    <meta
-      property="og:image:alt"
-      content="Testigos de la Memoria: la historia reciente de Colombia, contada por quienes la viven de frente. Villa de Leyva, 5 al 8 de noviembre de 2026."
-    />
+    <meta property="og:image:type" content={meta.ogImage.endsWith('.jpg') ? 'image/jpeg' : 'image/png'} />
+    <meta property="og:image:alt" content={`${meta.title}. ${meta.description}`} />
     <meta property="og:locale" content="es_CO" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
-    {pretixLive && <link rel="preconnect" href="https://pretix.eventalist.co" crossorigin />}
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <meta name="twitter:title" content={meta.title} />
+    <meta name="twitter:description" content={meta.description} />
+    <meta name="twitter:image" content={meta.ogImage} />
+    {jsonld && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonld)} />}
+    {/* GA4 en Consent Mode (denegado hasta Aceptar); async detrás de la imagen principal */}
+    {
+      ga4 && (
+        <>
+          <script is:inline set:html={consentBootstrap} />
+          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ga4}`} />
+        </>
+      )
+    }
     {/* Widget de Pretix (v2), tal como lo indica la propia tienda: en <head> */}
     {
       pretixLive && (
@@ -192,8 +161,11 @@ const jsonLd = {
     <Header solid={!hero} />
     <slot />
     <Footer />
+    <ConsentNotice />
 
     <script>
+      import { initMeasurement } from '../measurement/tags';
+
       /* Header de dos estados + scroll reveal.
          Un solo archivo, dos IntersectionObserver, cero listeners de scroll (R7). */
 
@@ -248,6 +220,10 @@ const jsonLd = {
         { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
       );
       document.querySelectorAll('[data-reveal]').forEach((el) => revealer.observe(el));
+
+      // 4. Medición: consentimiento, etiquetas e intención de compra
+      //    (feature 002). Nada viaja al widget de Pretix.
+      initMeasurement();
     </script>
   </body>
 </html>

@@ -1,0 +1,280 @@
+---
+/**
+ * Ficha de panelista (feature 002, FR-018 a FR-020): una URL por persona
+ * con biografía completa, foto, enlaces, obras y sus sesiones en el
+ * encuentro. Marcado ProfilePage + Breadcrumb. Solo panelistas confirmados
+ * (speakers.ts); si alguien se retira, sale del array y su ruta
+ * desaparece del build (redirección en astro.config.mjs).
+ */
+import { Image, getImage } from 'astro:assets';
+import InnerLayout from '../../layouts/InnerLayout.astro';
+import CtaButton from '../../components/CtaButton.astro';
+import { SITE_URL } from '../../config';
+import { t } from '../../ui';
+import { speakers, type Speaker, type SpeakerLinkKey } from '../../data/speakers';
+import { agenda, dayLabels } from '../../data/agenda';
+import { venueById } from '../../data/event';
+import { speakerPath, HOME_TITLE } from '../../routes';
+import { speakerGraph } from '../../seo/jsonld';
+import LogoSymbol from '../../assets/logo/logo-symbol.svg';
+
+export function getStaticPaths() {
+  return speakers.map((speaker, i) => ({ params: { slug: speaker.slug }, props: { speaker, index: i } }));
+}
+
+const { speaker, index } = Astro.props as { speaker: Speaker; index: number };
+const path = speakerPath(speaker.slug);
+const tones = ['olive', 'sky', 'brick'] as const;
+const tone = tones[index % tones.length]!;
+
+/* Imagen absoluta para el Person del JSON-LD (misma pipeline que la foto visible) */
+const photo = speaker.photo ? await getImage({ src: speaker.photo, width: 960, format: 'webp' }) : null;
+const imageUrl = photo ? `${SITE_URL}${photo.src}` : `${SITE_URL}/og/og-image-v2.png`;
+
+const sessions = agenda.filter((s) => s.speakerSlugs.includes(speaker.slug));
+const linkOrder: SpeakerLinkKey[] = ['web', 'wikipedia', 'x', 'instagram', 'linkedin', 'facebook'];
+const links = linkOrder
+  .filter((k) => speaker.links?.[k])
+  .map((k) => ({ key: k, href: speaker.links![k]!, label: t(`links.${k}`) }));
+void HOME_TITLE;
+---
+
+<InnerLayout
+  path={path}
+  eyebrow={t('crumb.speakers')}
+  heading={speaker.name}
+  lead={speaker.credential}
+  tone={tone}
+  jsonld={speakerGraph(speaker, imageUrl)}
+>
+  <div class="container profile">
+    <div class="profile-media">
+      {
+        speaker.photo ? (
+          <div class:list={['grain', 'profile-photo', speaker.photoTreatment && `profile-photo--${speaker.photoTreatment}`]}>
+            <Image src={speaker.photo} alt={speaker.name} widths={[480, 720, 960]} sizes="(max-width: 48rem) 100vw, 400px" />
+          </div>
+        ) : (
+          <div class="profile-symbol">
+            <LogoSymbol aria-hidden="true" />
+          </div>
+        )
+      }
+      {
+        links.length > 0 && (
+          <ul class="profile-links" aria-label={`${t('speakers.links')} ${speaker.name}`}>
+            {links.map(({ href, label }) => (
+              <li>
+                <a href={href} target="_blank" rel="noopener noreferrer">
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+
+    <div class="profile-body">
+      <p class="profile-bio">{speaker.bio}</p>
+
+      {
+        speaker.works && speaker.works.length > 0 && (
+          <section class="profile-section" aria-labelledby="works-title">
+            <h2 id="works-title" class="eyebrow">{t('speaker.works')}</h2>
+            <ul class="profile-works">
+              {speaker.works.map((w) => (
+                <li>
+                  {w.url ? (
+                    <a href={w.url} target="_blank" rel="noopener noreferrer">
+                      {w.title}
+                    </a>
+                  ) : (
+                    w.title
+                  )}
+                  {w.year && <span class="profile-year"> ({w.year})</span>}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      <section class="profile-section" aria-labelledby="sessions-title">
+        <h2 id="sessions-title" class="eyebrow">{t('speaker.sessions')}</h2>
+        {
+          sessions.length > 0 ? (
+            <ul class="profile-sessions">
+              {sessions.map((s) => {
+                const venue = s.venueId ? venueById(s.venueId) : null;
+                return (
+                  <li>
+                    <a href={`/programacion/#${s.slug}`} class="profile-session">
+                      <span class="profile-session-when">
+                        {dayLabels[s.day]}
+                        {s.time && <span> · {s.time}</span>}
+                      </span>
+                      <span class="profile-session-title">{s.title}</span>
+                      <span class="profile-session-meta">
+                        {venue?.name}
+                        {venue && ' · '}
+                        {s.type === 'charla' ? t('schedule.free') : t('schedule.paid')}
+                      </span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <p class="profile-session-meta">{t('facts.when')}, {t('facts.where')}.</p>
+          )
+        }
+      </section>
+
+      <div class="profile-cta">
+        <CtaButton label="cta.beThere" />
+        <a class="profile-all" href="/panelistas/">{t('speaker.all')}</a>
+      </div>
+    </div>
+  </div>
+</InnerLayout>
+
+<style>
+  .profile {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--space-5);
+    align-items: start;
+  }
+  .profile-media {
+    display: grid;
+    gap: var(--space-2);
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-2));
+  }
+  .profile-photo {
+    aspect-ratio: 4 / 3;
+  }
+  .profile-photo :global(img) {
+    object-position: center top;
+  }
+  .profile-photo--soft :global(img) {
+    filter: grayscale(1) sepia(0.18) contrast(1.02) brightness(0.97);
+  }
+  .profile-photo--plain :global(img) {
+    filter: sepia(0.08);
+  }
+  .profile-photo--plain::after {
+    opacity: 0.45;
+  }
+  .profile-symbol {
+    aspect-ratio: 4 / 3;
+    display: grid;
+    place-items: center;
+    background-color: var(--sky);
+  }
+  .profile-symbol svg {
+    width: 6rem;
+  }
+  .profile-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+  }
+  .profile-links a {
+    display: inline-block;
+    padding: 0.4em 0.9em;
+    border: var(--border) var(--ink);
+    font-size: var(--text-label);
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .profile-links a:hover,
+  .profile-links a:focus-visible {
+    background-color: var(--ink);
+    color: var(--cream);
+  }
+  .profile-body {
+    display: grid;
+    gap: var(--space-4);
+  }
+  .profile-bio {
+    font-size: var(--text-lead);
+    line-height: 1.55;
+    max-width: 62ch;
+    text-wrap: pretty;
+  }
+  .profile-section {
+    display: grid;
+    gap: var(--space-2);
+  }
+  .profile-section .eyebrow {
+    color: var(--brick);
+    font-size: var(--text-label);
+  }
+  .profile-works,
+  .profile-sessions {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-1);
+  }
+  .profile-works li {
+    font-size: var(--text-body);
+    line-height: 1.5;
+  }
+  .profile-year {
+    opacity: 0.7;
+  }
+  .profile-session {
+    display: grid;
+    gap: 0.2rem;
+    padding: var(--space-2);
+    border-left: 3px solid var(--terracotta);
+    background-color: #fff;
+    text-decoration: none;
+  }
+  .profile-session:hover,
+  .profile-session:focus-visible {
+    background-color: var(--terracotta);
+  }
+  .profile-session-when {
+    font-size: var(--text-label);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .profile-session-title {
+    font-size: var(--text-h3);
+    font-weight: 800;
+    line-height: 1.2;
+  }
+  .profile-session-meta {
+    font-size: var(--text-small);
+    opacity: 0.85;
+  }
+  .profile-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .profile-all {
+    font-weight: 700;
+    text-underline-offset: 0.2em;
+  }
+  @media (max-width: 63.9rem) {
+    .profile {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+    .profile-media {
+      position: static;
+      max-width: 28rem;
+    }
+  }
+</style>

@@ -65,6 +65,9 @@ texto legal largo dentro de la tienda.
 He leído la [política de tratamiento de datos](https://testigosdelamemoria.com/tratamiento-de-datos/) y autorizo a Eventalist S.A.S. a tratar mis datos para emitir y enviarme la boleta, gestionar esta compra y controlar mi ingreso al evento.
 ```
 
+> Sin cambios: la ampliación de la casilla para autorizar el envío de datos de compra a
+> Google y Meta (dictamen del 2026-09-15) se retiró el 2026-09-17 junto con esa capa.
+
 > Revisión legal del 7 de septiembre de 2026: la casilla sí hace falta (la Ley
 > 1581 no exime por ejecución de contrato) y esta redacción es suficiente. Pero
 > la política publicada hoy solo se declara aplicable al formulario de
