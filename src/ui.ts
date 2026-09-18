@@ -26,8 +26,8 @@ const dict = {
   'hero.tagline': 'Periodistas en la Historia',
   'hero.dates': '5 al 8 de noviembre de 2026',
   'hero.place': 'Villa de Leyva, Colombia',
-  'hero.pitch': 'Cuatro días. Más de diez periodistas. Una conversación que no se repite.',
   /* Línea de datos bajo el remate: edición, formato y escasez, separados por "·" */
+  'hero.tileCta': 'Ver ficha',
   'hero.edition': 'Primera edición',
   'hero.format': 'Charlas abiertas y conversatorios',
   'hero.capacity': 'Aforo limitado',

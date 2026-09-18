@@ -1,9 +1,12 @@
 ---
 /**
  * Hero fijo con cortina (patrón 8.1). Composición: collage de bloques de
- * color a ángulo recto, calcado de la valla del manual (pág. 6):
- * terracota con titular en tinta · crema con las comillas · foto
- * documental en duotono · franja azul cielo con fecha, lugar, contador y CTA.
+ * color a ángulo recto, calcado del afiche y de la valla del manual (pág. 6):
+ * terracota con titular en tinta · crema con el logo · mosaico con las
+ * caras de los panelistas, cada una con su nombre en franja de tinta ·
+ * franja azul cielo con fecha, lugar, contador y CTA.
+ * Las caras son lo más vendedor del encuentro (decisión del 2026-09-18),
+ * por eso van arriba, en el lugar que antes ocupaba la foto de la casa.
  * Sin bordes redondeados. Sin fondo café. Sin header encima: el logo y el
  * CTA ya viven aquí; el header baja cuando el contenido llega arriba.
  */
@@ -12,7 +15,14 @@ import { t } from '../ui';
 import { event } from '../data/event';
 import CtaButton from './CtaButton.astro';
 import LogoLockup from '../assets/logo/logo-lockup.svg';
-import { heroImage } from '../seo/hero';
+import { heroTile } from '../seo/hero';
+import { speakers } from '../data/speakers';
+import { speakerPath } from '../routes';
+
+/* Mosaico 4×3: los doce panelistas con foto, en el orden editorial de
+   speakers.ts. Si algún día hay más de doce, el hero muestra los primeros
+   y el carrusel los tiene todos. */
+const tiles = speakers.filter((s) => s.photo !== null).slice(0, 12);
 
 /* Slogan aprobado (spec §2); el nombre del evento va en el h1 para SEO/AT
    y el eslogan es el display visible. */
@@ -52,7 +62,6 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
           <span class="sr-only">Testigos de la Memoria: </span>
           {slogan.map((line) => <span class="hero-line">{line}</span>)}
         </h1>
-        <p class="hero-pitch">{t('hero.pitch')}</p>
         <p class="hero-note">
           <span class="hero-note-line">
             <span>{t('hero.edition')}</span>
@@ -66,19 +75,51 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
       <div class="hero-watch-block">
         <LogoLockup class="hero-logo" aria-hidden="true" />
       </div>
-      <div class="duotone hero-photo">
-        {/* LCP: `priority` = eager + fetchpriority high; widths y sizes de
-            src/seo/hero.ts, los mismos del <link rel="preload"> del layout */}
-        <Image
-          src={heroImage.src}
-          alt={heroImage.alt}
-          width={heroImage.width}
-          height={heroImage.height}
-          widths={[...heroImage.widths]}
-          sizes={heroImage.sizes}
-          priority
-        />
-      </div>
+      <ul class="hero-faces" role="list" aria-label={t('nav.speakers')}>
+        {
+          tiles.map((speaker) => (
+            <li>
+              <a class="hero-tile" href={speakerPath(speaker.slug)}>
+                <span class="hero-tile-inner">
+                  <span class="hero-tile-front">
+                    <span class:list={['grain', 'hero-tile-photo', speaker.photoTreatment && `hero-tile-photo--${speaker.photoTreatment}`]}>
+                      {/* LCP: `priority` = eager + fetchpriority high; widths y sizes
+                          de src/seo/hero.ts, los mismos del <link rel="preload"> */}
+                      <Image
+                        src={speaker.photo!}
+                        alt=""
+                        widths={[...heroTile.widths]}
+                        sizes={heroTile.sizes}
+                        priority
+                      />
+                    </span>
+                    <span class="hero-tile-name">{speaker.name}</span>
+                  </span>
+                  {/* Dorso al pasar el mouse: la misma foto (mismo srcset, ya en
+                      caché) como duotono terracota apagado, y encima el nombre,
+                      la credencial y el llamado a la ficha */}
+                  <span class="hero-tile-back" aria-hidden="true">
+                    <span class="duotone hero-tile-ghost">
+                      <Image
+                        src={speaker.photo!}
+                        alt=""
+                        widths={[...heroTile.widths]}
+                        sizes={heroTile.sizes}
+                        loading="lazy"
+                      />
+                    </span>
+                    <span class="hero-tile-back-text">
+                      <span class="hero-tile-back-name">{speaker.name}</span>
+                      <span class="hero-tile-back-credential">{speaker.credential}</span>
+                      <span class="hero-tile-back-cta">{t('hero.tileCta')}</span>
+                    </span>
+                  </span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
     <div class="hero-strip">
       <p class="hero-fact hero-date">
@@ -171,7 +212,8 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     inset: 0;
     z-index: 0;
     display: grid;
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    /* Terracota ≈ 45 %, columna del logo y las caras ≈ 55 % */
+    grid-template-columns: minmax(0, 9fr) minmax(0, 11fr);
     grid-template-rows: 1fr auto;
     grid-template-areas:
       'head side'
@@ -211,7 +253,7 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     /* Los espacios y el titular escalan también con la altura de la
        ventana: en pantallas bajas el bloque no se come la franja azul */
     gap: clamp(1.25rem, 3.6svh, 2.5rem);
-    max-width: 38rem;
+    max-width: 30rem;
     width: 100%;
     /* Un poco más a la izquierda que el .container de las secciones:
        un tercio del margen sobrante del max-width global (el gutter ya
@@ -231,8 +273,10 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     color: var(--ink);
   }
 
+  /* Un escalón menor que antes: el bloque es más angosto y las caras
+     comparten el protagonismo */
   h1 {
-    font-size: min(clamp(2.2rem, 1rem + 4.2vw, 4.5rem), 7svh);
+    font-size: min(clamp(2rem, 0.9rem + 3.4vw, 3.6rem), 6.5svh);
     font-weight: 800;
     display: grid;
   }
@@ -248,14 +292,6 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     color: var(--cream);
   }
 
-  /* Remate de venta bajo el eslogan: escasez real, sin súplica */
-  .hero-pitch {
-    margin-top: var(--space-1);
-    font-size: clamp(1.125rem, 1rem + 0.7vw, 1.5rem);
-    font-weight: 600;
-    max-width: 30ch;
-    text-wrap: balance;
-  }
   /* Datos en dos líneas de peso parejo: "edición · aforo" y el formato. */
   .hero-note {
     margin-top: var(--space-1);
@@ -293,11 +329,12 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     white-space: nowrap;
   }
 
-  /* Columna derecha: crema con comillas arriba + foto documental abajo */
+  /* Columna derecha: crema con el logo arriba + mosaico de caras abajo */
   .hero-side {
     grid-area: side;
     display: grid;
-    grid-template-rows: minmax(0, 2fr) minmax(0, 3fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    min-height: 0;
   }
   /* Bloque crema con el logo completo, como la valla del manual. */
   .hero-watch-block {
@@ -307,16 +344,171 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     padding: var(--space-3) var(--space-4);
   }
   .hero-logo {
-    width: min(clamp(150px, 18vw, 270px), 26svh);
+    width: min(clamp(200px, 22vw, 340px), 24svh);
     height: auto;
     color: var(--ink);
   }
-  .hero-photo {
-    --duotone-tint: var(--cream);
+
+  /* Mosaico: doce tiles que se tocan, sin márgenes (fórmula §1). Cada
+     tile es foto b/n con grano arriba y el nombre en franja de tinta
+     debajo, como en el afiche: nunca texto sobre la foto (§8). */
+  .hero-faces {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: minmax(0, 1fr);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    min-height: 0;
+    background-color: var(--ink);
+  }
+  .hero-faces li {
+    display: grid;
     min-height: 0;
   }
-  .hero-photo :global(img) {
+  .hero-tile {
+    display: block;
+    position: relative;
+    min-height: 0;
+    color: var(--cream);
+    text-decoration: none;
+    perspective: 1000px;
+  }
+  /* Carta de dos caras: el frente es la foto con el nombre; el dorso, un
+     bloque terracota. Gira sobre su eje vertical al pasar el mouse o al
+     recibir el foco; en pantallas táctiles no hay giro, solo el enlace. */
+  .hero-tile-inner {
+    position: relative;
+    display: grid;
     height: 100%;
+    min-height: 0;
+    transform-style: preserve-3d;
+    transition: transform 560ms var(--ease-out);
+  }
+  .hero-tile-front {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    min-height: 0;
+    backface-visibility: hidden;
+  }
+  .hero-tile-back {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    align-content: end;
+    overflow: hidden;
+    background-color: var(--terracotta);
+    color: var(--ink);
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+  }
+  /* La cara como fantasma: duotono terracota muy apagado, para que el
+     nombre en tinta se lea encima sin esfuerzo */
+  .hero-tile-ghost {
+    --duotone-tint: var(--terracotta);
+    position: absolute;
+    inset: 0;
+  }
+  .hero-tile-ghost :global(img) {
+    height: 100%;
+    object-position: 50% 22%;
+    opacity: 0.32;
+  }
+  .hero-tile-back-text {
+    position: relative;
+    display: grid;
+    gap: 0.25em;
+    padding: 0.6em 0.7em;
+  }
+  .hero-tile-back-name {
+    font-size: clamp(0.85rem, 0.6rem + 0.7vw, 1.15rem);
+    font-weight: 800;
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+  .hero-tile-back-credential {
+    font-size: clamp(0.55rem, 0.45rem + 0.3vw, 0.7rem);
+    font-weight: 700;
+    line-height: 1.25;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.9;
+  }
+  .hero-tile-back-cta {
+    margin-top: 0.35em;
+    font-size: clamp(0.55rem, 0.45rem + 0.3vw, 0.7rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+    text-decoration-thickness: 1px;
+  }
+  @media (hover: hover) {
+    .hero-tile:hover .hero-tile-inner {
+      transform: rotateY(180deg);
+    }
+  }
+  .hero-tile:focus-visible .hero-tile-inner {
+    transform: rotateY(180deg);
+  }
+  /* Sin movimiento: el dorso aparece por fundido, sin giro */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-tile-inner {
+      transition: none;
+      transform-style: flat;
+    }
+    .hero-tile-back {
+      transform: none;
+      opacity: 0;
+      transition: opacity 200ms var(--ease-out);
+    }
+    .hero-tile:hover .hero-tile-inner,
+    .hero-tile:focus-visible .hero-tile-inner {
+      transform: none;
+    }
+    .hero-tile:hover .hero-tile-back,
+    .hero-tile:focus-visible .hero-tile-back {
+      opacity: 1;
+    }
+  }
+  .hero-tile-photo {
+    display: block;
+    min-height: 0;
+  }
+  .hero-tile-photo :global(img) {
+    display: block;
+    height: 100%;
+    /* Recorte apaisado: la cara queda en el tercio superior del original */
+    object-position: 50% 22%;
+    transition: filter 200ms var(--ease-out);
+  }
+  /* Ajustes por original (ver photoTreatment en speakers.ts) */
+  .hero-tile-photo--soft :global(img) {
+    filter: grayscale(1) sepia(0.18) contrast(1.02) brightness(0.97);
+  }
+  .hero-tile-photo--plain :global(img) {
+    filter: sepia(0.08);
+  }
+  .hero-tile-photo--plain::after {
+    opacity: 0.45;
+  }
+  .hero-tile-name {
+    display: grid;
+    align-content: center;
+    min-height: 2.6em;
+    padding: 0.25em 0.5em;
+    background-color: var(--ink);
+    font-size: clamp(0.65rem, 0.5rem + 0.45vw, 0.85rem);
+    font-weight: 700;
+    line-height: 1.15;
+    text-align: center;
+    letter-spacing: 0.02em;
+    text-wrap: balance;
+  }
+  .hero-tile:focus-visible {
+    outline: 2px solid var(--cream);
+    outline-offset: -2px;
   }
 
   /* Franja azul cielo: a la izquierda fecha y lugar, a la derecha el
@@ -420,21 +612,26 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     h1 {
       font-size: min(clamp(1.7rem, 0.9rem + 5vw, 2.6rem), 6svh);
     }
-    /* En móvil el logo pequeño del bloque terracota basta: la foto queda como banda propia */
+    /* En móvil el logo pequeño del bloque terracota basta: el mosaico
+       ocupa la columna entera, cuatro caras por fila */
     .hero-watch-block {
       display: none;
     }
     .hero-side {
       grid-template-rows: minmax(0, 1fr);
     }
-    /* Banda de foto encuadrada arriba: tejados y buganvilias, no el muro.
-       Altura mínima en celulares bajos; crece con la pantalla. */
-    .hero-photo {
-      height: auto;
-      min-height: clamp(7.5rem, 22svh, 14rem);
+    /* Las filas reparten la altura sobrante del hero (celulares altos);
+       en los bajos, cada foto conserva al menos un recorte casi cuadrado */
+    .hero-tile-inner,
+    .hero-tile-front {
+      height: 100%;
     }
-    .hero-photo :global(img) {
-      object-position: 50% 15%;
+    .hero-tile-photo {
+      min-height: 19vw;
+    }
+    .hero-tile-name {
+      font-size: 0.6rem;
+      padding-inline: 0.25em;
     }
     /* Franja compacta: datos apilados y CTA a lo ancho, siempre visible */
     .hero-strip {

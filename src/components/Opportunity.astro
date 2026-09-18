@@ -1,17 +1,18 @@
 ---
 /**
- * "La Oportunidad" (sección 3, FR-004): primera edición — sin testimonios
- * ni ediciones anteriores. El argumento: escuchar de frente a quienes
- * cubrieron la historia, en Villa de Leyva. Audiencia 1 primero (spec §3).
+ * "Qué es" (antes "La Oportunidad", FR-004): el argumento largo, ya abajo
+ * de quién, cuándo, dónde y precio (decisión del 2026-09-18: primero lo
+ * urgente, el que quiera profundizar llega aquí). Primera edición: sin
+ * testimonios ni ediciones anteriores. Título, un párrafo y el remate a la
+ * vista; los puntos, en un desplegable nativo. Se conserva el id
+ * #oportunidad para los enlaces del header y de fuera.
  */
-import { Image } from 'astro:assets';
-import plazaPhoto from '../assets/photos/pexels-juansegmentado-31342298.jpg';
-
 const copy = {
   eyebrow: 'Primera edición',
   /* Pregunta del banco aprobado (spec §2) */
   heading: 'Una oportunidad de escuchar de primera mano a quienes estuvieron allí cuando la historia estaba ocurriendo.',
   lead: 'Los hechos que marcaron al país tienen testigos de primera fila: los reporteros que los cubrieron. Durante cuatro días, algunos de los grandes nombres del periodismo colombiano se sientan a contar lo que vieron, cómo lo contaron y qué nos enseña ese pasado para lo que viene.',
+  more: '¿Qué voy a vivir?',
   points: [
     'Lo que estaba detrás de las noticias, lo que no salió en televisión, las decisiones que tuvieron que tomar y las historias que quedaron fuera.',
     'Conversatorios cercanos, sin tarima lejana: preguntas y desacuerdos incluidos.',
@@ -23,72 +24,37 @@ const copy = {
 ---
 
 <section id="oportunidad" class="opp" data-reveal>
-  <div class="container opp-grid">
-    <div class="opp-inner">
-      <p class="eyebrow">{copy.eyebrow}</p>
-      <h2>{copy.heading}</h2>
-      <p class="opp-lead">{copy.lead}</p>
+  <div class="container opp-inner">
+    <p class="eyebrow">{copy.eyebrow}</p>
+    <h2>{copy.heading}</h2>
+    <p class="opp-lead">{copy.lead}</p>
+    <details class="opp-more">
+      <summary>{copy.more}</summary>
       <ul class="opp-points" role="list">
         {copy.points.map((point) => <li>{point}</li>)}
       </ul>
-      <p class="opp-closing">{copy.closing}</p>
-    </div>
-    <div class="opp-photo">
-      <Image
-        src={plazaPhoto}
-        alt="Plaza Mayor de Villa de Leyva: la fuente de piedra sobre el empedrado"
-        width={900}
-        height={1350}
-        widths={[480, 720, 900]}
-        sizes="(max-width: 63.9rem) 100vw, 26rem"
-        loading="lazy"
-      />
-    </div>
+    </details>
+    <p class="opp-closing">{copy.closing}</p>
   </div>
 </section>
 
 <style>
-  /* Primera capa de la cortina sobre el hero */
   .opp {
     position: relative;
     z-index: 1;
-    background-color: var(--ink);
-    color: var(--cream);
+    background-color: var(--cream);
+    color: var(--ink);
     padding-block: var(--space-6);
-  }
-  .opp-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 24rem);
-    gap: var(--space-5);
-    align-items: center;
   }
   .opp-inner {
     display: grid;
     gap: var(--space-3);
+  }
+  .opp-inner > * {
     max-width: 54rem;
   }
-  /* La foto en su propio bloque, a color (decisión del usuario 2026-09-04) */
-  .opp-photo {
-    aspect-ratio: 3 / 4;
-    overflow: hidden;
-    background-color: var(--ink);
-  }
-  .opp-photo :global(img) {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  @media (max-width: 63.9rem) {
-    .opp-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
-    }
-    .opp-photo {
-      aspect-ratio: 4 / 3;
-    }
-  }
   .opp .eyebrow {
-    color: var(--terracotta);
+    color: var(--brick);
   }
   h2 {
     font-size: var(--text-h2);
@@ -98,11 +64,51 @@ const copy = {
     line-height: 1.6;
     text-wrap: pretty;
   }
+
+  /* Desplegable nativo: el resumen como etiqueta en caps con flecha de
+     bloque; sin JS y accesible de fábrica */
+  .opp-more summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    cursor: pointer;
+    list-style: none;
+    font-size: var(--text-label);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.7em 1em;
+    border: var(--border) var(--ink);
+    transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out);
+  }
+  .opp-more summary::-webkit-details-marker {
+    display: none;
+  }
+  .opp-more summary::after {
+    content: '';
+    width: 0.55em;
+    height: 0.55em;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-0.15em) rotate(45deg);
+    transition: transform 160ms var(--ease-out);
+  }
+  .opp-more[open] summary::after {
+    transform: translateY(0.1em) rotate(-135deg);
+  }
+  .opp-more summary:hover,
+  .opp-more summary:focus-visible {
+    background-color: var(--ink);
+    color: var(--cream);
+  }
   .opp-points {
     display: grid;
     gap: var(--space-2);
+    margin-top: var(--space-3);
     padding: 0;
     list-style: none;
+    font-size: var(--text-body);
+    line-height: 1.55;
   }
   .opp-points li {
     padding-left: 1.4rem;
@@ -124,11 +130,14 @@ const copy = {
   .opp-points li:nth-child(3)::before {
     background-color: var(--olive);
   }
+  .opp-points li:nth-child(4)::before {
+    background-color: var(--brick);
+  }
   .opp-closing {
     font-family: var(--font-serif);
     font-style: italic;
     font-size: var(--text-h3);
-    color: var(--terracotta);
+    color: var(--brick);
     margin-top: var(--space-2);
   }
 </style>

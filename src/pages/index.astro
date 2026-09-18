@@ -2,6 +2,7 @@
 import EventLayout from '../layouts/EventLayout.astro';
 import Hero from '../components/Hero.astro';
 import TicketSection from '../components/TicketSection.astro';
+import KeyFacts from '../components/KeyFacts.astro';
 import Opportunity from '../components/Opportunity.astro';
 import SpeakerGrid from '../components/SpeakerGrid.astro';
 import Schedule from '../components/Schedule.astro';
@@ -15,12 +16,16 @@ import { homeGraph } from '../seo/jsonld';
 
 <EventLayout hero path="/" jsonld={homeGraph()}>
   <Hero />
+  {/* Orden (2026-09-18): primero lo urgente para quien no lee: quién
+      (caras en el hero y carrusel), precio, cuándo y dónde; el argumento
+      largo ("Qué es") va después, para quien quiera profundizar. */}
   <main id="contenido">
-    <Opportunity />
+    <KeyFacts />
     <SpeakerGrid />
+    <TicketSection />
     <Schedule />
     <VenueMap />
-    <TicketSection />
+    <Opportunity />
     <Interlude />
     <FAQ />
   </main>

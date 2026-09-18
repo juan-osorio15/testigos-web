@@ -87,5 +87,6 @@ La clave ya es pública en la raíz (es su función); 200 o 202 = aceptado. Solo
 
 ## Preload de la imagen principal (portada)
 
-- `Hero.astro`: `<Image priority src={streetPhoto} widths={[480, 768, 1080, 1280]} sizes="(max-width: 63.9rem) 100vw, 42vw" />`.
-- `EventLayout` (solo con `hero`): `getImage({ src: streetPhoto, widths: [480, 768, 1080, 1280], format: 'webp' })` → `<link rel="preload" as="image" href={img.src} imagesrcset={img.srcSet.attribute} imagesizes="(max-width: 63.9rem) 100vw, 42vw" fetchpriority="high">`. Los `widths` y `sizes` deben ser idénticos a los de la `<img>`; una constante compartida `HERO_IMAGE` en `src/data/event.ts` (o `src/seo/hero.ts`) los fija una sola vez.
+- Desde el 2026-09-18 la imagen principal es el mosaico de caras del hero (doce retratos de `speakers.ts`), no la foto de la calle.
+- `Hero.astro`: cada tile lleva `<Image priority src={speaker.photo} widths={[200, 320, 480]} sizes="(max-width: 63.9rem) 25vw, 14vw" />`.
+- `EventLayout` (solo con `hero`): `getImage({ src: <primer retrato>, widths: [200, 320, 480], format: 'webp' })` → `<link rel="preload" as="image" href={img.src} imagesrcset={img.srcSet.attribute} imagesizes="(max-width: 63.9rem) 25vw, 14vw" fetchpriority="high">`. Se precarga solo el primer retrato. Los `widths` y `sizes` deben ser idénticos a los de las `<img>`; la constante compartida `heroTile` en `src/seo/hero.ts` los fija una sola vez.

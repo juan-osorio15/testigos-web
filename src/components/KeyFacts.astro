@@ -1,0 +1,107 @@
+---
+/**
+ * El "qué" del encuentro en tres datos, sin párrafo: primera capa de la
+ * cortina sobre el hero. Cifra grande en serif (el remate, fórmula §5) y
+ * etiqueta en caps con una línea de detalle. Para quien no quiere leer:
+ * cuánto dura, quiénes vienen y en qué formato. El texto largo vive más
+ * abajo, en "Qué es" (Opportunity.astro).
+ */
+import { event } from '../data/event';
+import { speakers } from '../data/speakers';
+
+const days =
+  Math.round((Date.parse(`${event.endDate}T12:00:00Z`) - Date.parse(`${event.startDate}T12:00:00Z`)) / 86_400_000) + 1;
+
+const facts = [
+  { figure: String(days), label: 'días', detail: '5 al 8 de noviembre de 2026, en Villa de Leyva.' },
+  { figure: String(speakers.length), label: 'periodistas', detail: 'Los que cubrieron la historia reciente del país, en persona.' },
+  { figure: '2', label: 'formatos', detail: 'Charlas abiertas de entrada libre y conversatorios con boleta.' },
+];
+---
+
+<section id="datos" class="keyfacts" aria-label="El encuentro en tres datos" data-reveal>
+  <ul class="container keyfacts-grid" role="list">
+    {
+      facts.map((f) => (
+        <li class="keyfact">
+          <p class="keyfact-head">
+            <span class="keyfact-figure">{f.figure}</span>
+            <span class="keyfact-label">{f.label}</span>
+          </p>
+          <p class="keyfact-detail">{f.detail}</p>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  /* Primera capa de la cortina sobre el hero: contrapunto en tinta */
+  .keyfacts {
+    position: relative;
+    z-index: 1;
+    background-color: var(--ink);
+    color: var(--cream);
+    padding-block: var(--space-5);
+  }
+  .keyfacts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4);
+    list-style: none;
+  }
+  .keyfact {
+    display: grid;
+    gap: var(--space-1);
+    padding-left: var(--space-3);
+    border-left: 4px solid var(--terracotta);
+  }
+  .keyfact:nth-child(2) {
+    border-color: var(--sky);
+  }
+  .keyfact:nth-child(3) {
+    border-color: var(--olive);
+  }
+  .keyfact-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4em;
+  }
+  .keyfact-figure {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(3rem, 2rem + 3.5vw, 5rem);
+    line-height: 0.9;
+    color: var(--terracotta);
+    font-variant-numeric: tabular-nums;
+  }
+  .keyfact:nth-child(2) .keyfact-figure {
+    color: var(--sky);
+  }
+  .keyfact:nth-child(3) .keyfact-figure {
+    color: var(--olive);
+  }
+  .keyfact-label {
+    font-size: var(--text-h3);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .keyfact-detail {
+    font-size: var(--text-body);
+    line-height: 1.45;
+    max-width: 28ch;
+    opacity: 0.9;
+    text-wrap: pretty;
+  }
+  @media (max-width: 63.9rem) {
+    .keyfacts {
+      padding-block: var(--space-4);
+    }
+    .keyfacts-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+  }
+</style>
