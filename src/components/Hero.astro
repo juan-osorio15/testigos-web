@@ -109,7 +109,7 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
                     <span class="hero-tile-name">{speaker.name}</span>
                   </span>
                   {/* Dorso al pasar el mouse: la misma foto (mismo srcset, ya en
-                      caché) como duotono terracota apagado, y encima el nombre,
+                      caché) como duotono oliva apagado, y encima el nombre,
                       la credencial y el llamado a la ficha */}
                   <span class="hero-tile-back" aria-hidden="true">
                     <span class="duotone hero-tile-ghost">
@@ -265,13 +265,16 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     min-height: 0;
     display: grid;
     align-content: center;
-    padding: var(--space-3) var(--gutter);
+    /* El texto se arrima a la escalera, no al borde izquierdo: bloque
+       alineado a la derecha de su área, con un respiro antes de las caras */
+    justify-content: end;
+    padding: var(--space-3) clamp(1.5rem, 3vw, 3rem) var(--space-3) var(--gutter);
   }
   .hero-head-inner {
     display: grid;
     /* Los espacios y el titular escalan también con la altura de la
        ventana: en pantallas bajas el bloque no se come la franja azul */
-    gap: clamp(1.25rem, 3.6svh, 2.5rem);
+    gap: clamp(0.75rem, 2.8svh, 2.5rem);
     max-width: 30rem;
     width: 100%;
   }
@@ -291,7 +294,7 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
   /* Un escalón menor que antes: el bloque es más angosto y las caras
      comparten el protagonismo */
   h1 {
-    font-size: min(clamp(1.9rem, 0.8rem + 3.2vw, 3.4rem), 6.2svh);
+    font-size: min(clamp(1.9rem, 0.8rem + 3.2vw, 3.4rem), 5.6svh);
     font-weight: 800;
     display: grid;
   }
@@ -351,16 +354,19 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
   .hero-faces li {
     display: contents;
   }
-  /* Bloque crema con el logo completo, como la valla del manual: las tres
-     columnas de la derecha en la primera fila, encima de la escalera. */
+  /* Bloque crema con el logo completo, como la valla del manual: las dos
+     columnas de la derecha en la primera fila, encima de la escalera. El
+     logo va pegado a la derecha con el mismo gutter de la franja, así su
+     borde derecho coincide con el del botón de comprar. */
   .hero-watch-block {
-    grid-column: 5 / -1;
+    grid-column: 6 / -1;
     grid-row: 1;
     min-height: 0;
     background-color: var(--cream);
     display: grid;
-    place-content: center;
-    padding: var(--space-2) var(--space-3);
+    align-content: center;
+    justify-content: end;
+    padding: var(--space-2) var(--gutter) var(--space-2) var(--space-3);
   }
   .hero-logo {
     /* Manda la altura de la fila; el ancho sigue la proporción del lockup */
@@ -390,7 +396,7 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     perspective: 1000px;
   }
   /* Carta de dos caras: el frente es la foto con el nombre; el dorso, un
-     bloque terracota. Gira sobre su eje vertical al pasar el mouse o al
+     bloque oliva. Gira sobre su eje vertical al pasar el mouse o al
      recibir el foco; en pantallas táctiles no hay giro, solo el enlace. */
   .hero-tile-inner {
     position: relative;
@@ -418,15 +424,15 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     display: grid;
     align-content: end;
     overflow: hidden;
-    background-color: var(--terracotta);
-    color: var(--ink);
+    background-color: var(--olive);
+    color: var(--cream);
     transform: rotateY(180deg);
     backface-visibility: hidden;
   }
-  /* La cara como fantasma: duotono terracota muy apagado, para que el
-     nombre en tinta se lea encima sin esfuerzo */
+  /* La cara como fantasma: duotono oliva muy apagado, para que el nombre
+     en crema se lea encima sin esfuerzo */
   .hero-tile-ghost {
-    --duotone-tint: var(--terracotta);
+    --duotone-tint: var(--olive);
     position: absolute;
     inset: 0;
   }
