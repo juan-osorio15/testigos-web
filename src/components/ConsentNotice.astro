@@ -88,6 +88,14 @@ const enabled = !!(measurement.ga4Id || measurement.metaPixelId);
         };
 
         let bar: HTMLElement | null = null;
+        let sizer: ResizeObserver | null = null;
+
+        // Publica el alto del aviso en --consent-h para que el hero fijo de
+        // la portada se recorte y su franja con el CTA no quede tapada.
+        const root = document.documentElement;
+        const publishHeight = () => {
+          root.style.setProperty('--consent-h', bar ? `${bar.offsetHeight}px` : '0px');
+        };
 
         const showBar = () => {
           if (!tpl || bar || consentAccepted() || wasDismissed()) return;
@@ -95,6 +103,13 @@ const enabled = !!(measurement.ga4Id || measurement.metaPixelId);
           if (!node) return;
           document.body.appendChild(node);
           bar = node;
+          publishHeight();
+          if ('ResizeObserver' in window) {
+            sizer = new ResizeObserver(publishHeight);
+            sizer.observe(node);
+          } else {
+            window.addEventListener('resize', publishHeight);
+          }
           node.querySelector('[data-consent-accept]')?.addEventListener('click', async () => {
             await acceptConsent();
             hideBar();
@@ -105,8 +120,12 @@ const enabled = !!(measurement.ga4Id || measurement.metaPixelId);
           });
         };
         const hideBar = () => {
+          sizer?.disconnect();
+          sizer = null;
+          window.removeEventListener('resize', publishHeight);
           bar?.remove();
           bar = null;
+          publishHeight();
         };
 
         // --- Gestor de preferencias ---
