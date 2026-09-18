@@ -265,17 +265,16 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     min-height: 0;
     display: grid;
     align-content: center;
-    /* El texto se arrima a la escalera, no al borde izquierdo: bloque
-       alineado a la derecha de su área, con un respiro antes de las caras */
-    justify-content: end;
-    padding: var(--space-3) clamp(1.5rem, 3vw, 3rem) var(--space-3) var(--gutter);
+    /* El bloque queda pegado al gutter izquierdo (alineado con el "5–8" de
+       la franja) y crece hacia la escalera: el titular se agranda con el
+       ancho disponible en vez de dejar terracota vacío en medio */
+    padding: var(--space-3) var(--space-3) var(--space-3) var(--gutter);
   }
   .hero-head-inner {
     display: grid;
     /* Los espacios y el titular escalan también con la altura de la
        ventana: en pantallas bajas el bloque no se come la franja azul */
     gap: clamp(0.75rem, 2.8svh, 2.5rem);
-    max-width: 30rem;
     width: 100%;
   }
 
@@ -294,7 +293,9 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
   /* Un escalón menor que antes: el bloque es más angosto y las caras
      comparten el protagonismo */
   h1 {
-    font-size: min(clamp(1.9rem, 0.8rem + 3.2vw, 3.4rem), 5.6svh);
+    /* Escala con el ancho del bloque (tres columnas de siete) y con la
+       altura de la ventana, para que las cuatro líneas llenen el terracota */
+    font-size: min(clamp(2rem, 0.6rem + 3.6vw, 5rem), 6svh);
     font-weight: 800;
     display: grid;
   }
