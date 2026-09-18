@@ -33,18 +33,22 @@ export const organizerPartners: Partner[] = [
 
 export const partnerGroups: PartnerGroup[] = [
   {
-    label: 'footer.supportedBy',
+    /* Las dos sedes: aliados principales, a tamaño grande */
+    label: 'footer.partners',
     size: 'lg',
     partners: [
       { name: 'Casa Museo Antonio Nariño', logo: logoCasaMuseo },
       { name: 'Hospedería y Centro de Convenciones Duruelo', logo: logoDuruelo },
-      { name: 'Relato, Librería y Centro Cultural', logo: logoRelato },
     ],
   },
   {
-    /* Apoyo menor: aquí se suman los comercios locales que apoyen */
-    label: 'footer.supporters',
+    /* Apoyo menor (decisión del 2026-09-18): aquí se suman los comercios
+       y entidades locales que apoyen, a menor tamaño que las sedes */
+    label: 'footer.supportedBy',
     size: 'sm',
-    partners: [{ name: 'Centro Cultural Banco de la República, Tunja', logo: logoBanrepTunja }],
+    partners: [
+      { name: 'Relato, Librería y Centro Cultural', logo: logoRelato },
+      { name: 'Centro Cultural Banco de la República, Tunja', logo: logoBanrepTunja },
+    ],
   },
 ];

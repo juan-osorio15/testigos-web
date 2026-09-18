@@ -132,8 +132,8 @@ const dict = {
 
   // --- Footer ---
   'footer.organizedBy': 'Organizan',
+  'footer.partners': 'Aliados',
   'footer.supportedBy': 'Con el apoyo de',
-  'footer.supporters': 'Aliados',
   'footer.rights': 'Testigos de la Memoria · Villa de Leyva, 2026',
   'footer.privacy': 'Tratamiento de datos personales',
   'footer.terms': 'Términos y condiciones',
