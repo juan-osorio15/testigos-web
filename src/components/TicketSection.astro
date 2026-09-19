@@ -69,8 +69,8 @@ const franjaNames = Object.fromEntries(
       <LogoSymbol class="tickets-eyes" aria-hidden="true" />
       <p class="eyebrow">{t('tickets.heading')}</p>
       <h2 class="tickets-title">{t('tickets.title')}</h2>
-      {/* Dos fichas: nombre y precio en crema (lo que se escoge), detalle en
-          tinta (qué incluye). "Medio día" en vez de "franja" desde el 2026-09-18. */}
+      {/* Dos fichas en tinta: nombre con su precio y qué incluye.
+          "Medio día" en vez de "franja" desde el 2026-09-18. */}
       <dl class="tickets-options">
         <div class="tickets-option">
           <dt>
@@ -288,7 +288,7 @@ const franjaNames = Object.fromEntries(
   }
   .tickets-option {
     padding-left: var(--space-2);
-    border-left: 3px solid var(--cream);
+    border-left: 3px solid var(--ink);
   }
   .tickets-option dt {
     display: flex;
@@ -298,7 +298,6 @@ const franjaNames = Object.fromEntries(
     font-size: var(--text-h3);
     font-weight: 800;
     line-height: 1.2;
-    color: var(--cream);
   }
   .tickets-option-price {
     font-size: var(--text-body);
