@@ -99,7 +99,15 @@ const consentBootstrap = ga4
     {measurement.metaDomainVerification && (
       <meta name="facebook-domain-verification" content={measurement.metaDomainVerification} />
     )}
-    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    {/* Favicon en cuatro formas: el .ico en la raíz y el PNG de 96/192 son
+        los que Google lee para el resultado de búsqueda (múltiplos de 48);
+        el SVG lo prefieren los navegadores modernos; el apple-touch-icon,
+        iOS al guardar en la pantalla de inicio. */}
+    <link rel="icon" href={`${base}favicon.ico`} sizes="48x48" />
+    <link rel="icon" href={`${base}favicon-96.png`} type="image/png" sizes="96x96" />
+    <link rel="icon" href={`${base}favicon-192.png`} type="image/png" sizes="192x192" />
+    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" sizes="any" />
+    <link rel="apple-touch-icon" href={`${base}apple-touch-icon.png`} />
     {
       heroPreload && (
         <link
