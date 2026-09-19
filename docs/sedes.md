@@ -88,4 +88,4 @@ Recomendación: `casa-museo-1.jpg` como imagen principal (es la más bella y res
 
 ## Foto publicada de la Casa Museo (2026-09-04)
 
-La foto final en `src/assets/venues/casa-museo.jpg` (jardín con fuente, 1200 x 1200) la aportó el usuario y reemplaza a las candidatas de Commons; se muestra recortada al centro en 3:2. Origen y licencia: pendientes de anotar por el usuario.
+La foto final en `src/assets/venues/casa-museo-patio.jpg` (patio central con la fuente y la arcada, 6000 x 4000, entregada el 2026-09-17 y puesta en uso el 2026-09-18) la aportó el usuario y reemplaza tanto a las candidatas de Commons como a la foto anterior del jardín (`casa-museo.jpg`, retirada). Origen y licencia: pendientes de anotar por el usuario.

@@ -4,7 +4,7 @@
  * conversatorios con boleta del 6 al 8). FR-001.
  */
 import photoDuruelo from '../assets/venues/duruelo.jpg';
-import photoCasaMuseo from '../assets/venues/casa-museo.jpg';
+import photoCasaMuseo from '../assets/venues/casa-museo-patio.jpg';
 import logoDuruelo from '../assets/partners/duruelo.png';
 import logoCasaMuseo from '../assets/partners/casa-museo.png';
 import type { EventDay } from './agenda';
@@ -209,7 +209,7 @@ export const venues: Venue[] = [
     summary:
       'Una casona colonial construida a finales del siglo XVII. Desde su creación ha tenido diversos usos y se considera que fue la última morada del precursor Antonio Nariño y el lugar de su fallecimiento en diciembre de 1823. Fue declarada Monumento Nacional en 1961. Actualmente es una institución museal, dedicada a conservar la memoria y el legado del traductor de los Derechos del Hombre.',
     photo: photoCasaMuseo,
-    photoAlt: 'Jardín de la Casa Museo Antonio Nariño, con su fuente de piedra y la casa de tejas al fondo',
+    photoAlt: 'Patio central de la Casa Museo Antonio Nariño: la fuente de piedra sobre el empedrado y la arcada de columnas alrededor',
     logo: logoCasaMuseo,
     logoScale: 1.5,
   },

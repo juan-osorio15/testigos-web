@@ -1,9 +1,11 @@
 ---
 /**
  * Agenda (FR-004): una tabla por día — hora | sesión | acción.
- * Charlas abiertas: etiqueta "Entrada libre". Conversatorios: botón de compra
- * en la propia fila (decisión del usuario 2026-09-02; reemplaza al badge
- * "Con boleta" y al CTA de cierre de la sección). Todo dato sin fuente
+ * Charlas abiertas: enlace "Quiero saber más" a /charlas-abiertas/ con la
+ * marca oliva de lo gratuito. Conversatorios: botón de compra en la propia
+ * fila (decisión del usuario 2026-09-02; reemplaza al badge "Con boleta" y
+ * al CTA de cierre de la sección). Sin enlaces al pie de la sección: la
+ * agenda ya está completa aquí (decisión del 2026-09-18). Todo dato sin fuente
  * (hora, sede, panelistas) se omite en vez de marcarse "por confirmar"
  * (FR-005 + decisión del usuario 2026-09-03).
  */
@@ -74,7 +76,7 @@ const base = import.meta.env.BASE_URL.endsWith('/')
                       </td>
                       <td class="slot-action">
                         {free ? (
-                          <p class="slot-badge">{t('schedule.free')}</p>
+                          <a class="slot-badge" href={`${base}charlas-abiertas/`}>{t('schedule.freeCta')}</a>
                         ) : (
                           <CtaButton variant="header" label="cta.secure" />
                         )}
@@ -88,24 +90,10 @@ const base = import.meta.env.BASE_URL.endsWith('/')
         ))
       }
     </div>
-    <p class="schedule-links">
-      <a href={`${base}programacion/`}>{t('schedule.full')} →</a>
-      <a href={`${base}charlas-abiertas/`}>{t('schedule.talksLink')} →</a>
-    </p>
   </div>
 </section>
 
 <style>
-  .schedule-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-1) var(--space-4);
-    margin-top: var(--space-3);
-    font-weight: 800;
-  }
-  .schedule-links a {
-    text-underline-offset: 0.2em;
-  }
   .slot-title a,
   .slot-speakers a {
     text-decoration: none;
@@ -207,6 +195,13 @@ const base = import.meta.env.BASE_URL.endsWith('/')
     padding: 0.35em 0.8em;
     border: var(--border) var(--ink);
     color: var(--ink);
+    text-decoration: none;
+    transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out);
+  }
+  .slot-badge:hover,
+  .slot-badge:focus-visible {
+    background-color: var(--ink);
+    color: var(--cream);
   }
   .slot-badge::before {
     content: '';

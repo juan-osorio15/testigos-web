@@ -177,7 +177,7 @@ const dict = {
   'schedule.updated': 'Actualizado el',
   'schedule.paid': 'Con boleta',
   'schedule.full': 'Ver la programación completa',
-  'schedule.talksLink': 'Las charlas abiertas son de entrada libre',
+  'schedule.freeCta': 'Quiero saber más',
   'schedule.venueMap': 'Ver en el mapa',
   'schedule.pricesHeading': 'Boletas',
 
