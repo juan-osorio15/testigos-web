@@ -131,7 +131,7 @@ const enabled = !!(measurement.ga4Id || measurement.metaPixelId);
           document.body.appendChild(node);
           bar = node;
           publishHeight();
-          if ('ResizeObserver' in window) {
+          if (typeof ResizeObserver === 'function') {
             sizer = new ResizeObserver(publishHeight);
             sizer.observe(node);
           } else {

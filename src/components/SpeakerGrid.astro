@@ -35,8 +35,10 @@ const ctaNote = 'Las franjas más esperadas se agotan primero.';
       </div>
     </div>
   </div>
-  <div class="speakers-track-wrap">
-    <ul class="speakers-track container" role="list" data-carousel>
+  {/* El gutter va en el envoltorio y no en el carrusel: así la barra de
+      scroll arranca y termina exactamente bajo las tarjetas (2026-09-18) */}
+  <div class="speakers-track-wrap container">
+    <ul class="speakers-track" role="list" data-carousel>
       {
         speakers.map((speaker, i) => (
           <li>
@@ -234,9 +236,6 @@ const ctaNote = 'Las franjas más esperadas se agotan primero.';
     overflow-x: auto;
     overflow-y: hidden; /* sin scroll-container vertical: la rueda sigue moviendo la página */
     scroll-snap-type: x mandatory;
-    /* El ajuste respeta el gutter del contenedor: tras usar las flechas la
-       tarjeta vuelve a quedar alineada con el título, no con el borde */
-    scroll-padding-inline: var(--gutter);
     scrollbar-width: thin;
     scrollbar-color: var(--terracotta) transparent;
   }
