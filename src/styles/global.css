@@ -192,9 +192,10 @@ html.js-reveal [data-reveal].is-visible {
   transform: none;
 }
 .cta--header {
-  padding: 0.55em 1.3em;
-  font-size: 0.9375rem;
+  padding: 0.65em 1.4em;
+  font-size: 1rem;
   border-color: var(--ink);
+  white-space: nowrap;
 }
 
 /* --- Movimiento reducido (FR-016): sin excepciones ----------------- */
