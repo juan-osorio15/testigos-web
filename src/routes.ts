@@ -32,7 +32,7 @@ export interface Route {
 
 const BRAND = 'Testigos de la Memoria';
 const PLACE_DATES = 'Villa de Leyva, 5 al 8 de noviembre de 2026';
-const HOME_OG = `${SITE_URL}/og/og-image-v2.png`;
+const HOME_OG = `${SITE_URL}/og/og-image-v3.png`;
 
 /** Fecha de contenido de las fichas y páginas creadas en la feature 002 */
 const CONTENT_DATE = '2026-09-17';

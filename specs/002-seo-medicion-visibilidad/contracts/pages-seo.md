@@ -6,7 +6,7 @@ Cubre FR-018 a FR-037 y R-05.
 
 | Ruta | Página | Título (≤ 60) | Migas | OG |
 |---|---|---|---|---|
-| `/` | portada | opción aprobada por el usuario (60 o 53 car.) | — | `og-image-v2.png` |
+| `/` | portada | opción aprobada por el usuario (60 o 53 car.) | — | `og-image-v3.png` (v3 desde el 2026-09-18: hero con las caras) |
 | `/panelistas/` | índice | `Panelistas · Testigos de la Memoria 2026` | Inicio › Panelistas | portada |
 | `/panelistas/<slug>/` ×12 | ficha | `<Nombre> · Testigos de la Memoria 2026` | Inicio › Panelistas › Nombre | `og/panelistas/<slug>-v1.png` |
 | `/programacion/` | programación | `Programación · Testigos de la Memoria, Villa de Leyva 2026` (58) | Inicio › Programación | `og/paginas/programacion-v1.png` |

@@ -29,7 +29,7 @@ export const ids = {
   person: (sp: Pick<Speaker, 'slug'>) => `${SITE_URL}${speakerPath(sp.slug)}#persona`,
 };
 
-const HOME_IMAGE = `${SITE_URL}/og/og-image-v2.png`;
+const HOME_IMAGE = `${SITE_URL}/og/og-image-v3.png`;
 const TALKS_IMAGE = `${SITE_URL}/og/paginas/charlas-abiertas-v1.jpg`;
 
 /** '2026-11-06' + '15:30' → '2026-11-06T15:30:00-05:00' */

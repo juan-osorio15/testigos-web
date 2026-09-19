@@ -5,7 +5,7 @@
 # vista previa por URL y solo la renueva si la URL de la imagen cambia.
 set -e
 cd "$(dirname "$0")"
-OUT="$PWD/../../public/og/og-image-v2.png"
+OUT="$PWD/../../public/og/og-image-v3.png"
 CH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 node inline-logo.mjs
 "$CH" --headless=new --disable-gpu --allow-file-access-from-files --hide-scrollbars \

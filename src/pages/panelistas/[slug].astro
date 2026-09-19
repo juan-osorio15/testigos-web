@@ -29,7 +29,7 @@ const tone = tones[index % tones.length]!;
 
 /* Imagen absoluta para el Person del JSON-LD (misma pipeline que la foto visible) */
 const photo = speaker.photo ? await getImage({ src: speaker.photo, width: 960, format: 'webp' }) : null;
-const imageUrl = photo ? `${SITE_URL}${photo.src}` : `${SITE_URL}/og/og-image-v2.png`;
+const imageUrl = photo ? `${SITE_URL}${photo.src}` : `${SITE_URL}/og/og-image-v3.png`;
 
 const sessions = agenda.filter((s) => s.speakerSlugs.includes(speaker.slug));
 const linkOrder: SpeakerLinkKey[] = ['web', 'wikipedia', 'x', 'instagram', 'linkedin', 'facebook'];
