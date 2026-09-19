@@ -62,7 +62,7 @@ const dict = {
   /* Etapas de venta (2026-09-15): en la etapa 1 solo el pase completo.
      El widget muestra las franjas con "Aún no disponible"; las fechas las
      cuenta el bloque de etapas (SalesStages). */
-  'tickets.slotSoon': 'Se venden desde la etapa 2: pide que te avisemos y te escribimos cuando abran.',
+  'tickets.slotSoon': 'Se venden desde la etapa 2.',
   /* Bloque de etapas: dos planos que se tocan, cielo el vigente y crema el
      que viene (fórmula visual §6: los datos van en franja) */
   'stages.heading': 'Calendario de venta',
