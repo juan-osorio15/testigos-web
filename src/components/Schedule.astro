@@ -6,15 +6,22 @@
  * fila (decisión del usuario 2026-09-02; reemplaza al badge "Con boleta" y
  * al CTA de cierre de la sección). Sin enlaces al pie de la sección: la
  * agenda ya está completa aquí (decisión del 2026-09-18). Filas compactas:
- * las charlas abiertas solo con título y personas (el detalle vive en
- * /charlas-abiertas/); los conversatorios con la sede; las notas largas
- * quedan para /programacion/. Todo dato sin fuente
+ * solo título y personas; la sede no se repite en cada fila, la dice una
+ * leyenda arriba con los dos colores que marcan las filas (oliva = charla
+ * abierta en la Casa Museo, terracota = conversatorio en Duruelo;
+ * 2026-09-19). Las notas largas quedan para /programacion/. Todo dato sin fuente
  * (hora, sede, panelistas) se omite en vez de marcarse "por confirmar"
  * (FR-005 + decisión del usuario 2026-09-03).
  */
 import { t } from '../ui';
 import { agenda, dayLabels, type EventDay } from '../data/agenda';
 import { venueById } from '../data/event';
+
+/* Leyenda: cada tipo de sesión con su color, su sede y su entrada */
+const legend = [
+  { tone: 'olive', label: t('schedule.legendTalks'), venue: venueById('casa-museo').name },
+  { tone: 'terracotta', label: t('schedule.legendPanels'), venue: venueById('duruelo').name },
+] as const;
 import { speakerBySlug } from '../data/speakers';
 import { speakerPath } from '../routes';
 import CtaButton from './CtaButton.astro';
@@ -32,6 +39,16 @@ const base = import.meta.env.BASE_URL.endsWith('/')
   <div class="container">
     <p class="eyebrow">{t('nav.schedule')}</p>
     <h2>{heading}</h2>
+    <ul class="schedule-legend" role="list">
+      {
+        legend.map((l) => (
+          <li class:list={['legend-item', `legend-item--${l.tone}`]}>
+            <span class="legend-label">{l.label}</span>
+            <span class="legend-venue">{l.venue}</span>
+          </li>
+        ))
+      }
+    </ul>
     <div class="schedule-days">
       {
         days.map((day) => (
@@ -40,7 +57,6 @@ const base = import.meta.env.BASE_URL.endsWith('/')
             <table>
               <tbody>
                 {slotsByDay(day).map((slot) => {
-                  const venue = slot.venueId ? venueById(slot.venueId) : null;
                   const free = slot.type === 'charla';
                   /* Solo nombres confirmados: panelistas con tarjeta (enlazados a
                      su ficha, feature 002) e invitados. */
@@ -70,7 +86,6 @@ const base = import.meta.env.BASE_URL.endsWith('/')
                             ))}
                           </p>
                         )}
-                        {!free && venue && <p class="slot-venue">{venue.name}</p>}
                       </td>
                       <td class="slot-action">
                         {free ? (
@@ -118,6 +133,47 @@ const base = import.meta.env.BASE_URL.endsWith('/')
     margin-block: var(--space-1) var(--space-4);
   }
 
+  /* Leyenda de colores: el mismo filo que llevan las filas, con la sede */
+  .schedule-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-4);
+  }
+  /* Cada entrada lleva el mismo cuadrado sólido del botón "Quiero saber
+     más", en el color de su tipo, delante de la etiqueta */
+  .legend-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.5em;
+    row-gap: 0.15em;
+    align-items: baseline;
+  }
+  .legend-item::before {
+    content: '';
+    grid-row: 1;
+    align-self: center;
+    width: 0.65em;
+    height: 0.65em;
+    background-color: var(--terracotta);
+  }
+  .legend-item--olive::before {
+    background-color: var(--olive);
+  }
+  .legend-label {
+    grid-column: 2;
+    font-size: var(--text-label);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .legend-venue {
+    grid-column: 2;
+    font-size: var(--text-small);
+    opacity: 0.8;
+  }
   .schedule-days {
     display: grid;
     gap: var(--space-3);
@@ -170,10 +226,6 @@ const base = import.meta.env.BASE_URL.endsWith('/')
   }
   .slot-speakers {
     font-size: var(--text-body);
-  }
-  .slot-venue {
-    font-size: var(--text-small);
-    opacity: 0.75;
   }
 
   .slot-action {

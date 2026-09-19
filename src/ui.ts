@@ -187,6 +187,8 @@ const dict = {
   'schedule.paid': 'Con boleta',
   'schedule.full': 'Ver la programación completa',
   'schedule.freeCta': 'Quiero saber más',
+  'schedule.legendTalks': 'Charlas abiertas · Entrada libre',
+  'schedule.legendPanels': 'Conversatorios · Con boleta',
   'schedule.venueMap': 'Ver en el mapa',
   'schedule.pricesHeading': 'Boletas',
 
