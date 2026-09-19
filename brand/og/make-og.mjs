@@ -68,7 +68,9 @@ function readSpeakers() {
       const name = b.match(/name: '([^']+)'/)?.[1];
       const credential = b.match(/credential: '([^']+)'/)?.[1];
       const version = Number(b.match(/ogVersion: (\d+)/)?.[1] ?? 1);
-      return slug && name && credential ? { slug, name, credential, version } : null;
+      /* Punto focal del recorte (photoFocus en speakers.ts); por defecto, centro arriba */
+      const focus = b.match(/photoFocus: '([^']+)'/)?.[1] ?? 'center top';
+      return slug && name && credential ? { slug, name, credential, version, focus } : null;
     })
     .filter(Boolean);
 }
@@ -83,6 +85,7 @@ if (mode === 'panelistas') {
     if (!existsSync(photo)) throw new Error(`sin foto: ${photo}`);
     const html = fill(tpl, {
       photo: `file://${photo}`,
+      focus: sp.focus,
       name: esc(sp.name),
       credential: esc(sp.credential.replace(/\s·\s/g, ' · ')),
       tone: tones[i % tones.length],

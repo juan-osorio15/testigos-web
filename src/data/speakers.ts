@@ -41,6 +41,12 @@ export interface Speaker {
    * solo grano ligero.
    */
   photoTreatment?: 'soft' | 'plain';
+  /**
+   * Punto de la foto que debe quedar a la vista al recortarla (valor de
+   * `object-position`); por defecto, el centro y algo arriba. Para
+   * originales donde la cara no está centrada.
+   */
+  photoFocus?: string;
   links?: SpeakerLinks;
   /**
    * Obras y piezas destacadas para la ficha (feature 002); solo con fuente
@@ -115,6 +121,10 @@ export const speakers: Speaker[] = [
     credential: 'Director · Fundación Paz y Reconciliación',
     bio: 'Dirige la Fundación Paz y Reconciliación, que fundó en 2013, y escribe columnas en Cambio y en el portal de la fundación. Integró el comando central del ELN en los años ochenta y encabezó la Corriente de Renovación Socialista, la disidencia que dejó las armas en 1994. Contó esa experiencia en “Mis años de guerra” y en “Adiós a la política, bienvenida la guerra”. Desde la Corporación Nuevo Arco Iris impulsó las investigaciones sobre la parapolítica. Premio Simón Bolívar de opinión en 2008.',
     photo: photoLeonValencia,
+    /* Retrato nuevo del 2026-09-18 (3:2, cara a la derecha del centro);
+       la vista previa se regeneró con él (v2) */
+    photoFocus: '62% 30%',
+    ogVersion: 2,
     links: {
       x: 'https://x.com/LeonVaLenciaA',
       web: 'https://www.pares.com.co/author/leonvalencia/',

@@ -25,7 +25,10 @@ const tones = ['olive', 'sky', 'brick'] as const;
             <a href={speakerPath(sp.slug)} class="tile-link">
               <div class="tile-media">
                 {sp.photo ? (
-                  <div class:list={['grain', 'tile-photo', sp.photoTreatment && `tile-photo--${sp.photoTreatment}`]}>
+                  <div
+                    class:list={['grain', 'tile-photo', sp.photoTreatment && `tile-photo--${sp.photoTreatment}`]}
+                    style={sp.photoFocus && `--photo-focus: ${sp.photoFocus}`}
+                  >
                     <Image src={sp.photo} alt={sp.name} widths={[320, 480, 640]} sizes="(max-width: 48rem) 90vw, 320px" />
                   </div>
                 ) : (
@@ -88,7 +91,7 @@ const tones = ['olive', 'sky', 'brick'] as const;
     aspect-ratio: 4 / 3;
   }
   .tile-photo :global(img) {
-    object-position: center top;
+    object-position: var(--photo-focus, center top);
   }
   .tile-photo--soft :global(img) {
     filter: grayscale(1) sepia(0.18) contrast(1.02) brightness(0.97);

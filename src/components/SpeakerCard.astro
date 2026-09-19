@@ -38,7 +38,10 @@ const links = linkOrder
   <a class="card-media" href={href} aria-label={`${speaker.name}: ver ficha`} tabindex="-1">
     {
       speaker.photo ? (
-        <div class:list={['grain', 'card-photo', speaker.photoTreatment && `card-photo--${speaker.photoTreatment}`]}>
+        <div
+          class:list={['grain', 'card-photo', speaker.photoTreatment && `card-photo--${speaker.photoTreatment}`]}
+          style={speaker.photoFocus && `--photo-focus: ${speaker.photoFocus}`}
+        >
           <Image
             src={speaker.photo}
             alt={speaker.name}
@@ -144,7 +147,7 @@ const links = linkOrder
     aspect-ratio: 4 / 3;
   }
   .card-photo img {
-    object-position: center top;
+    object-position: var(--photo-focus, center top);
     display: block;
   }
   /* Ajustes por original (ver photoTreatment en speakers.ts) */

@@ -93,7 +93,12 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
         {
           tiles.map(({ speaker, row, col }) => (
             <li style={`--r: ${row}; --c: ${col}`}>
-              <a class="hero-tile" href={speakerPath(speaker.slug)} aria-label={speaker.name}>
+              <a
+                class="hero-tile"
+                href={speakerPath(speaker.slug)}
+                aria-label={speaker.name}
+                style={speaker.photoFocus && `--photo-focus: ${speaker.photoFocus}`}
+              >
                 <span class="hero-tile-inner">
                   <span class="hero-tile-front">
                     <span class:list={['grain', 'hero-tile-photo', speaker.photoTreatment && `hero-tile-photo--${speaker.photoTreatment}`]}>
@@ -457,7 +462,7 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
   }
   .hero-tile-ghost :global(img) {
     height: 100%;
-    object-position: 50% 22%;
+    object-position: var(--photo-focus, 50% 22%);
     opacity: 0.32;
   }
   .hero-tile-back-text {
@@ -525,8 +530,9 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
   .hero-tile-photo :global(img) {
     display: block;
     height: 100%;
-    /* Recorte apaisado: la cara queda en el tercio superior del original */
-    object-position: 50% 22%;
+    /* Recorte apaisado: la cara queda en el tercio superior del original,
+       salvo que el panelista traiga su propio punto (photoFocus) */
+    object-position: var(--photo-focus, 50% 22%);
     transition: filter 200ms var(--ease-out);
   }
   /* Ajustes por original (ver photoTreatment en speakers.ts) */

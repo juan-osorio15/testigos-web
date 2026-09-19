@@ -51,7 +51,10 @@ void HOME_TITLE;
     <div class="profile-media">
       {
         speaker.photo ? (
-          <div class:list={['grain', 'profile-photo', speaker.photoTreatment && `profile-photo--${speaker.photoTreatment}`]}>
+          <div
+            class:list={['grain', 'profile-photo', speaker.photoTreatment && `profile-photo--${speaker.photoTreatment}`]}
+            style={speaker.photoFocus && `--photo-focus: ${speaker.photoFocus}`}
+          >
             <Image src={speaker.photo} alt={speaker.name} widths={[480, 720, 960]} sizes="(max-width: 48rem) 100vw, 400px" />
           </div>
         ) : (
@@ -156,7 +159,7 @@ void HOME_TITLE;
     aspect-ratio: 4 / 3;
   }
   .profile-photo :global(img) {
-    object-position: center top;
+    object-position: var(--photo-focus, center top);
   }
   .profile-photo--soft :global(img) {
     filter: grayscale(1) sepia(0.18) contrast(1.02) brightness(0.97);
