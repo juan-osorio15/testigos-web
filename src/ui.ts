@@ -28,11 +28,9 @@ const dict = {
   'hero.place': 'Villa de Leyva, Colombia',
   /* Línea de datos bajo el remate: edición, formato y escasez, separados por "·" */
   'hero.tileCta': 'Ver ficha',
-  /* El lugar va dentro de la frase y resaltado (2026-09-19): sin la foto
-     de la casa en el hero, nada decía Villa de Leyva antes de las boletas */
-  'hero.pitchBefore': 'Cuatro días en',
-  'hero.pitchPlace': 'Villa de Leyva',
-  'hero.pitchAfter': 'con los reporteros que estuvieron ahí: se sientan a contar lo que vieron y a responder preguntas.',
+  /* El lugar va dentro de la frase (2026-09-19): sin la foto de la casa en
+     el hero, nada decía Villa de Leyva antes de las boletas */
+  'hero.pitch': 'Cuatro días en Villa de Leyva con los reporteros que estuvieron ahí: se sientan a contar lo que vieron y a responder preguntas.',
   'hero.edition': 'Primera edición',
   'hero.format': 'Charlas abiertas y conversatorios',
   'hero.capacity': 'Aforo limitado',

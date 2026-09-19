@@ -76,21 +76,13 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
           {slogan.map((line) => <span class="hero-line">{line}</span>)}
         </h1>
         <p class="hero-note">
-          {/* El lugar primero (2026-09-19): en móvil la frase de abajo no se
-              muestra y la franja azul queda bajo el pliegue */}
-          <span class="hero-note-line hero-note-line--place">
-            <span>{t('hero.place')}</span>
-            <span class="hero-after-sep">{t('hero.dates')}</span>
-          </span>
           <span class="hero-note-line">
             <span>{t('hero.edition')}</span>
             <span class="hero-after-sep">{t('hero.capacity')}</span>
           </span>
           <span class="hero-note-line">{t('hero.format')}</span>
         </p>
-        <p class="hero-pitch">
-          {t('hero.pitchBefore')} <strong class="hero-place">{t('hero.pitchPlace')}</strong> {t('hero.pitchAfter')}
-        </p>
+        <p class="hero-pitch">{t('hero.pitch')}</p>
       </div>
     </div>
     <div class="hero-side">
@@ -344,9 +336,6 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
   .hero-note-line > span {
     white-space: nowrap;
   }
-  .hero-note-line--place {
-    color: var(--cream);
-  }
   /* El punto viaja con la frase que le sigue: nunca queda colgado al final
      de una línea si el texto se parte. */
   .hero-after-sep::before {
@@ -356,19 +345,15 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
   /* Frase antojadora bajo los datos: llena el terracota que la escalera
      deja libre en escritorio. En móvil no va: allí el bloque ya es alto y
      las caras y la franja deben quedar cerca. */
+  /* En crema, como el remate del titular; nombra Villa de Leyva para que
+     nadie llegue a las boletas creyendo que el encuentro es en Bogotá */
   .hero-pitch {
     font-size: clamp(1.1rem, 0.8rem + 0.8vw, 1.7rem);
     font-weight: 500;
     line-height: 1.4;
     max-width: 32ch;
     text-wrap: pretty;
-  }
-  /* El lugar, en crema y negrita: que nadie llegue a las boletas creyendo
-     que el encuentro es en Bogotá */
-  .hero-place {
-    font-weight: 800;
     color: var(--cream);
-    white-space: nowrap;
   }
   /* En ventanas bajas (portátiles pequeños) el bloque no da para la frase
      sin desbordar sus tres filas: se omite */
@@ -600,7 +585,7 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     flex-shrink: 0;
     white-space: nowrap;
     font-weight: 800;
-    font-size: clamp(1.8rem, 1.2rem + 1.6vw, 2.6rem);
+    font-size: clamp(2rem, 1.2rem + 1.7vw, 2.9rem);
     line-height: 1;
     font-variant-numeric: tabular-nums;
   }
@@ -610,7 +595,7 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     align-items: baseline;
     column-gap: 0.6em;
     row-gap: 0.2em;
-    font-size: var(--text-label);
+    font-size: clamp(0.8125rem, 0.65rem + 0.25vw, 0.9375rem);
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -628,7 +613,7 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    column-gap: 0.9em;
+    column-gap: 0.7em;
     row-gap: 0.3em;
   }
   /* Sin cifra (hoy empieza / en curso): la frase toma el estilo de etiqueta */
@@ -694,13 +679,6 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     }
     .hero-pitch {
       display: none;
-    }
-    /* Lugar y fechas en dos líneas, sin el punto colgando al inicio */
-    .hero-note-line--place {
-      flex-direction: column;
-    }
-    .hero-note-line--place .hero-after-sep::before {
-      content: none;
     }
     .hero-spacer {
       display: none;
