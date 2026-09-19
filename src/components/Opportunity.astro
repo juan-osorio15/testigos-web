@@ -3,16 +3,16 @@
  * "Qué es" (antes "La Oportunidad", FR-004): el argumento largo, ya abajo
  * de quién, cuándo, dónde y precio (decisión del 2026-09-18: primero lo
  * urgente, el que quiera profundizar llega aquí). Primera edición: sin
- * testimonios ni ediciones anteriores. Título, un párrafo y el remate a la
- * vista; los puntos, en un desplegable nativo. Se conserva el id
- * #oportunidad para los enlaces del header y de fuera.
+ * testimonios ni ediciones anteriores. Título, párrafo, los cuatro puntos
+ * a la vista (quien llegó hasta aquí quiere leer; decisión del
+ * 2026-09-18) y el remate. Se conserva el id #oportunidad para los
+ * enlaces del header y de fuera.
  */
 const copy = {
   eyebrow: 'Primera edición',
   /* Pregunta del banco aprobado (spec §2) */
   heading: 'Una oportunidad de escuchar de primera mano a quienes estuvieron allí cuando la historia estaba ocurriendo.',
   lead: 'Los hechos que marcaron al país tienen testigos de primera fila: los reporteros que los cubrieron. Durante cuatro días, algunos de los grandes nombres del periodismo colombiano se sientan a contar lo que vieron, cómo lo contaron y qué nos enseña ese pasado para lo que viene.',
-  more: '¿Qué voy a vivir?',
   points: [
     'Lo que estaba detrás de las noticias, lo que no salió en televisión, las decisiones que tuvieron que tomar y las historias que quedaron fuera.',
     'Conversatorios cercanos, sin tarima lejana: preguntas y desacuerdos incluidos.',
@@ -28,12 +28,9 @@ const copy = {
     <p class="eyebrow">{copy.eyebrow}</p>
     <h2>{copy.heading}</h2>
     <p class="opp-lead">{copy.lead}</p>
-    <details class="opp-more">
-      <summary>{copy.more}</summary>
-      <ul class="opp-points" role="list">
-        {copy.points.map((point) => <li>{point}</li>)}
-      </ul>
-    </details>
+    <ul class="opp-points" role="list">
+      {copy.points.map((point) => <li>{point}</li>)}
+    </ul>
     <p class="opp-closing">{copy.closing}</p>
   </div>
 </section>
@@ -65,46 +62,9 @@ const copy = {
     text-wrap: pretty;
   }
 
-  /* Desplegable nativo: el resumen como etiqueta en caps con flecha de
-     bloque; sin JS y accesible de fábrica */
-  .opp-more summary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6em;
-    cursor: pointer;
-    list-style: none;
-    font-size: var(--text-label);
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 0.7em 1em;
-    border: var(--border) var(--ink);
-    transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out);
-  }
-  .opp-more summary::-webkit-details-marker {
-    display: none;
-  }
-  .opp-more summary::after {
-    content: '';
-    width: 0.55em;
-    height: 0.55em;
-    border-right: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
-    transform: translateY(-0.15em) rotate(45deg);
-    transition: transform 160ms var(--ease-out);
-  }
-  .opp-more[open] summary::after {
-    transform: translateY(0.1em) rotate(-135deg);
-  }
-  .opp-more summary:hover,
-  .opp-more summary:focus-visible {
-    background-color: var(--ink);
-    color: var(--cream);
-  }
   .opp-points {
     display: grid;
     gap: var(--space-2);
-    margin-top: var(--space-3);
     padding: 0;
     list-style: none;
     font-size: var(--text-body);
