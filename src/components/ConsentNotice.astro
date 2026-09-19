@@ -1,8 +1,12 @@
 ---
 /**
  * Aviso de cookies y gestor de preferencias (feature 002, dictamen legal
- * 2026-09-15). Un bloque de tinta al pie de la pantalla, fijo hasta que se
- * acepta o se cierra. Solo "Aceptar" acepta. El gestor (<dialog>) lo abre
+ * 2026-09-15). Dos formas, según `measurement.consentUi`: 'bar' es un
+ * bloque de tinta al pie de la pantalla, fijo hasta que se acepta o se
+ * cierra; 'modal' (prueba del 2026-09-18) es un <dialog> centrado con un
+ * solo botón grande de aceptar y, en pequeño, "Seguir sin aceptar" (que
+ * hace lo mismo que cerrar la franja: no molesta más en la sesión). En
+ * ambos casos solo "Aceptar" acepta; Escape o clic fuera no aceptan. El gestor (<dialog>) lo abre
  * el enlace "Cookies y preferencias" del pie y permite retirar la
  * aceptación. Sin JS no aparece nada y no se carga ninguna etiqueta:
  * el HTML del aviso vive en un <template>.
@@ -41,6 +45,28 @@ const enabled = !!(measurement.ga4Id || measurement.metaPixelId);
           </div>
         </aside>
       </template>
+
+      {
+        measurement.consentUi === 'modal' && (
+          <dialog class="prefs consent-modal" data-consent-modal aria-labelledby="consent-modal-title">
+            <div class="prefs-body consent-modal-body">
+              <p class="eyebrow">{t('consent.modalEyebrow')}</p>
+              <h2 id="consent-modal-title" class="prefs-title">
+                {t('consent.modalTitle')}
+              </h2>
+              <p class="prefs-text">
+                {t('consent.text')} <a href={policyHref}>{t('consent.more')}</a>
+              </p>
+              <button type="button" class="consent-accept consent-modal-accept" data-modal-accept autofocus>
+                {t('consent.modalAccept')}
+              </button>
+              <button type="button" class="consent-modal-skip" data-modal-skip>
+                {t('consent.modalSkip')}
+              </button>
+            </div>
+          </dialog>
+        )
+      }
 
       <dialog
         class="prefs"
@@ -89,6 +115,7 @@ const enabled = !!(measurement.ga4Id || measurement.metaPixelId);
 
         let bar: HTMLElement | null = null;
         let sizer: ResizeObserver | null = null;
+        const modal = document.querySelector<HTMLDialogElement>('[data-consent-modal]');
 
         // Publica el alto del aviso en --consent-h para que el hero fijo de
         // la portada se recorte y su franja con el CTA no quede tapada.
@@ -184,7 +211,37 @@ const enabled = !!(measurement.ga4Id || measurement.metaPixelId);
           });
         });
 
-        showBar();
+        // --- Aviso: modal si está configurado y el navegador lo soporta;
+        // si no, la franja. El modal espera medio segundo para que la
+        // primera impresión sea el hero, no el aviso.
+        const showModal = (): boolean => {
+          if (!modal || typeof modal.showModal !== 'function') return false;
+          if (consentAccepted() || wasDismissed()) return true;
+          const close = () => {
+            if (modal.open) modal.close();
+          };
+          modal.querySelector('[data-modal-accept]')?.addEventListener('click', async () => {
+            await acceptConsent();
+            close();
+          });
+          modal.querySelector('[data-modal-skip]')?.addEventListener('click', () => {
+            dismiss();
+            close();
+          });
+          // Escape y clic fuera: seguir sin aceptar
+          modal.addEventListener('cancel', () => dismiss());
+          modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+              dismiss();
+              close();
+            }
+          });
+          window.setTimeout(() => {
+            if (!consentAccepted() && !wasDismissed() && !modal.open) modal.showModal();
+          }, 500);
+          return true;
+        };
+        if (!showModal()) showBar();
       </script>
     </>
   )
@@ -271,6 +328,41 @@ const enabled = !!(measurement.ga4Id || measurement.metaPixelId);
     .consent-actions {
       margin-left: 0;
     }
+  }
+
+  /* --- Aviso modal: la tarjeta del gestor, con un solo botón grande y el
+     "seguir sin aceptar" en texto pequeño debajo, visible pero sin competir */
+  .consent-modal-body {
+    justify-items: start;
+  }
+  .consent-modal .prefs-title {
+    padding-right: 0;
+  }
+  .consent-modal .prefs-text a {
+    margin-left: 0.35em;
+    text-underline-offset: 0.2em;
+  }
+  .prefs .consent-modal-accept {
+    margin-top: var(--space-1);
+    padding: 0.9em 2em;
+    font-size: 1.0625rem;
+  }
+  .consent-modal-skip {
+    padding: 0.2em 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    color: var(--ink);
+    font-size: var(--text-small);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    opacity: 0.75;
+    cursor: pointer;
+  }
+  .consent-modal-skip:hover,
+  .consent-modal-skip:focus-visible {
+    opacity: 1;
   }
 
   /* --- Gestor de preferencias: la misma tarjeta que el modal "avísame" */

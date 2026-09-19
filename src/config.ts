@@ -47,6 +47,13 @@ export const measurement = {
   consentVersion: '2026-09',
   /** Verificación de dominio de Meta por etiqueta; vacío si se verifica por DNS */
   metaDomainVerification: 'm7v5qnwqoo5xpd94j1x1bu8n6oph8n',
+  /**
+   * Forma del aviso de cookies (prueba del 2026-09-18): 'modal' lo muestra
+   * como diálogo centrado con un solo botón grande, para que más gente
+   * acepte; 'bar' es la franja discreta al pie. Para revertir la prueba
+   * basta con volver a 'bar'.
+   */
+  consentUi: 'modal' as 'modal' | 'bar',
 } as const;
 
 /**
