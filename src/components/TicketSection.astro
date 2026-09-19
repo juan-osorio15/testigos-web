@@ -13,6 +13,12 @@ import LogoSymbol from '../assets/logo/logo-symbol.svg';
 import WaitlistForm from './WaitlistForm.astro';
 import SalesStages from './SalesStages.astro';
 import { agenda } from '../data/agenda';
+import { ticketOffers, formatPrice } from '../data/event';
+
+/* Precios de referencia para las dos fichas (los cobra Pretix; aquí solo
+   se muestran): el pase y cualquiera de las boletas de medio día. */
+const passPrice = formatPrice(ticketOffers.find((o) => o.id === 'pase-completo')!);
+const halfDayPrice = formatPrice(ticketOffers.find((o) => o.id === 'viernes-tarde')!);
 import { speakers } from '../data/speakers';
 
 /* `pretixReady` (config.ts) decide tienda o formulario. La hoja de estilos
@@ -63,13 +69,21 @@ const franjaNames = Object.fromEntries(
       <LogoSymbol class="tickets-eyes" aria-hidden="true" />
       <p class="eyebrow">{t('tickets.heading')}</p>
       <h2 class="tickets-title">{t('tickets.title')}</h2>
+      {/* Dos fichas: nombre y precio en crema (lo que se escoge), detalle en
+          tinta (qué incluye). "Medio día" en vez de "franja" desde el 2026-09-18. */}
       <dl class="tickets-options">
         <div class="tickets-option">
-          <dt>{t('tickets.passName')}</dt>
+          <dt>
+            <span class="tickets-option-name">{t('tickets.passName')}</span>
+            <span class="tickets-option-price">{passPrice}</span>
+          </dt>
           <dd>{t('tickets.passText')}</dd>
         </div>
         <div class="tickets-option">
-          <dt>{t('tickets.slotName')}</dt>
+          <dt>
+            <span class="tickets-option-name">{t('tickets.slotName')}</span>
+            <span class="tickets-option-price">{halfDayPrice}</span>
+          </dt>
           <dd>
             {t('tickets.slotText')}
             <span class="tickets-option-note">{t('tickets.slotSoon')}</span>
@@ -274,12 +288,21 @@ const franjaNames = Object.fromEntries(
   }
   .tickets-option {
     padding-left: var(--space-2);
-    border-left: 3px solid var(--ink);
+    border-left: 3px solid var(--cream);
   }
   .tickets-option dt {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.2em 0.6em;
     font-size: var(--text-h3);
     font-weight: 800;
     line-height: 1.2;
+    color: var(--cream);
+  }
+  .tickets-option-price {
+    font-size: var(--text-body);
+    font-variant-numeric: tabular-nums;
   }
   .tickets-option dd {
     margin: 0.35em 0 0;

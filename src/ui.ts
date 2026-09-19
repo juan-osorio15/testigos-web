@@ -50,11 +50,13 @@ const dict = {
   'tickets.heading': 'Asegura tu lugar',
   'tickets.title': 'Hay dos formas de comprar.',
   'tickets.passName': 'Pase completo',
+  /* "Medio día" en vez de "franja" (2026-09-18): la palabra franja no se
+     entendía; una mañana o una tarde sí. */
   'tickets.passText':
-    'Una sola boleta para los siete conversatorios: viernes en la tarde, sábado todo el día y domingo en la mañana. Incluye la bienvenida y el cierre.',
-  'tickets.slotName': 'Boleta por franja',
+    'Los siete conversatorios, del viernes en la tarde al domingo en la mañana, en una sola boleta.',
+  'tickets.slotName': 'Boleta de medio día',
   'tickets.slotText':
-    'Cada franja es media jornada con sus conversatorios. Escoge la época que quieres oír contada por quienes estaban ahí. Compras solo las que quieras.',
+    'Una mañana o una tarde, con sus dos o tres conversatorios: viernes en la tarde, sábado en la mañana, sábado en la tarde o domingo en la mañana. Compra solo las que quieras.',
   /* Etapas de venta (2026-09-15): en la etapa 1 solo el pase completo.
      El widget muestra las franjas con "Aún no disponible"; las fechas las
      cuenta el bloque de etapas (SalesStages). */
@@ -68,21 +70,21 @@ const dict = {
   'stages.until': 'Hasta el',
   'stages.from': 'Desde el',
   'stages.stage1Product': 'Pase completo',
-  'stages.stage2Product': 'Boletas por franja',
+  'stages.stage2Product': 'Boletas de medio día',
   'stages.stage1Note': 'Solo el pase, con los siete conversatorios.',
-  'stages.stage2Note': 'Por franjas. El pase completo se retira.',
+  'stages.stage2Note': 'Mañanas y tardes sueltas. El pase completo se retira.',
   'stages.daysLeft': 'Quedan {n} días para comprar el pase',
   'stages.lastDay': 'Último día para comprar el pase',
   'tickets.notify': 'Avísame cuando abra',
   /* Modal "avísame" de las franjas; la franja escogida va como eyebrow */
   'notify.title': 'Te avisamos cuando abra la etapa 2',
   'notify.intro':
-    'Déjanos tus datos y te escribimos en cuanto las boletas por franja estén a la venta.',
+    'Déjanos tus datos y te escribimos en cuanto las boletas de medio día estén a la venta.',
   'notify.submit': 'Avisarme',
-  'notify.success': 'Listo. Te escribiremos en cuanto abran las boletas por franja.',
+  'notify.success': 'Listo. Te escribiremos en cuanto abran las boletas de medio día.',
   'notify.close': 'Cerrar',
   'tickets.soon':
-    'La venta de boletas abre pronto. Aforo limitado. En la etapa 1, hasta el 4 de octubre, se vende solo el pase completo; las boletas por franja se abren en la etapa 2, desde el 5 de octubre. Las charlas abiertas del 5 y 6 de noviembre son de entrada libre.',
+    'La venta de boletas abre pronto. Aforo limitado. En la etapa 1, hasta el 4 de octubre, se vende solo el pase completo; las boletas de medio día se abren en la etapa 2, desde el 5 de octubre. Las charlas abiertas del 5 y 6 de noviembre son de entrada libre.',
   'tickets.widgetFallback':
     'Si el módulo de compra no carga, puedes comprar directamente en la tienda segura de Pretix:',
   'tickets.widgetLink': 'Comprar en Pretix',
