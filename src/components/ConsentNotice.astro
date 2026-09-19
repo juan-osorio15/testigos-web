@@ -193,8 +193,9 @@ const enabled = !!(measurement.ga4Id || measurement.metaPixelId);
 <style is:global>
   /* --- Aviso: franja baja en tinta con el botón de aceptar en terracota,
      para que se vea y se acepte (2026-09-18: antes pasaba desapercibida
-     y sin aceptación no hay medición útil). Dos líneas en escritorio,
-     tres o cuatro en móvil. --------------------------------------------- */
+     y sin aceptación no hay medición útil). Sin filo de color arriba: el
+     bloque de tinta se toca con lo que haya encima, como el resto de
+     bloques. Dos líneas en escritorio, tres o cuatro en móvil. ---------- */
   .consent {
     position: fixed;
     inset: auto 0 0 0;
@@ -204,7 +205,6 @@ const enabled = !!(measurement.ga4Id || measurement.metaPixelId);
     padding-block: 1rem;
     font-size: 0.9375rem;
     line-height: 1.45;
-    border-top: 3px solid var(--terracotta);
   }
   .consent-inner {
     display: flex;
