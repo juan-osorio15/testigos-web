@@ -12,6 +12,7 @@ import { t } from '../ui';
 import LogoSymbol from '../assets/logo/logo-symbol.svg';
 import WaitlistForm from './WaitlistForm.astro';
 import SalesStages from './SalesStages.astro';
+import TicketMap from './TicketMap.astro';
 import { agenda } from '../data/agenda';
 import { speakers } from '../data/speakers';
 
@@ -63,19 +64,10 @@ const franjaNames = Object.fromEntries(
       <LogoSymbol class="tickets-eyes" aria-hidden="true" />
       <p class="eyebrow">{t('tickets.heading')}</p>
       <h2 class="tickets-title">{t('tickets.title')}</h2>
-      <dl class="tickets-options">
-        <div class="tickets-option">
-          <dt>{t('tickets.passName')}</dt>
-          <dd>{t('tickets.passText')}</dd>
-        </div>
-        <div class="tickets-option">
-          <dt>{t('tickets.slotName')}</dt>
-          <dd>
-            {t('tickets.slotText')}
-            <span class="tickets-option-note">{t('tickets.slotSoon')}</span>
-          </dd>
-        </div>
-      </dl>
+      {/* Mapa de franjas (2026-09-18): reemplaza a las dos fichas de texto
+          "Pase completo / Boleta por franja"; la franja se entiende viéndola */}
+      <TicketMap />
+      <p class="tickets-note">{t('tickets.slotSoon')}</p>
       {/* Calendario de venta: cuándo se vende cada cosa */}
       <SalesStages />
     </div>
@@ -223,7 +215,8 @@ const franjaNames = Object.fromEntries(
 
   .tickets-grid {
     display: grid;
-    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    /* Mitad y mitad desde el 2026-09-18: el mapa de franjas necesita ancho */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: var(--space-5);
     align-items: start;
   }
@@ -265,33 +258,11 @@ const franjaNames = Object.fromEntries(
     font-size: var(--text-h2);
     max-width: 16ch;
   }
-  /* Las dos opciones, como fichas: nombre en negrita y qué incluye */
-  .tickets-options {
-    display: grid;
-    gap: var(--space-2);
-    margin: var(--space-1) 0 0;
-    max-width: 44ch;
-  }
-  .tickets-option {
-    padding-left: var(--space-2);
-    border-left: 3px solid var(--ink);
-  }
-  .tickets-option dt {
-    font-size: var(--text-h3);
-    font-weight: 800;
-    line-height: 1.2;
-  }
-  .tickets-option dd {
-    margin: 0.35em 0 0;
-    font-size: var(--text-body);
-    line-height: 1.5;
-  }
-  /* Aviso de fase: en la misma ficha, un tono más firme que el detalle */
-  .tickets-option-note {
-    display: block;
-    margin-top: 0.6em;
+  /* Aviso de fase bajo el mapa */
+  .tickets-note {
     font-size: var(--text-small);
     font-weight: 700;
+    max-width: 44ch;
   }
 
   .tickets-widget {

@@ -1,0 +1,243 @@
+---
+/**
+ * Mapa de las franjas (2026-09-18): explica sin texto qué es una "franja".
+ * Cuatro columnas (los días) por dos filas (mañana y tarde); cada media
+ * jornada con boleta es un bloque cielo con su nombre, sus conversatorios
+ * y su precio; las charlas abiertas son bloques oliva pequeños ("Entrada
+ * libre"); debajo, una barra terracota que abarca las cuatro franjas con
+ * el pase completo y su precio. Todo sale de agenda.ts y event.ts: si
+ * cambia la agenda, cambia el mapa. Vive en el sitio, no en Pretix.
+ */
+import { t } from '../ui';
+import { agenda, type EventDay } from '../data/agenda';
+import { ticketOffers, formatPrice, type TicketOfferId } from '../data/event';
+
+const days: { day: EventDay; label: string; key: string }[] = [
+  { day: '2026-11-05', label: 'Jue 5', key: 'jueves' },
+  { day: '2026-11-06', label: 'Vie 6', key: 'viernes' },
+  { day: '2026-11-07', label: 'Sáb 7', key: 'sabado' },
+  { day: '2026-11-08', label: 'Dom 8', key: 'domingo' },
+];
+type Half = 'manana' | 'tarde';
+const halves: { half: Half; label: string }[] = [
+  { half: 'manana', label: t('map.am') },
+  { half: 'tarde', label: t('map.pm') },
+];
+
+/* Media jornada: mañana si empieza antes de las 2 p.m. (misma regla que
+   TicketSection para casar la agenda con los productos de Pretix). */
+const startHour = (time: string) => {
+  const h = Number(time.match(/\d+/)?.[0] ?? 0);
+  const pm = /p\.?\s?m/.test(time.match(/[ap]\.?\s?m/)?.[0] ?? '');
+  return pm && h < 12 ? h + 12 : h;
+};
+const halfOf = (time: string | null): Half => (time && startHour(time) >= 14 ? 'tarde' : 'manana');
+
+interface Cell {
+  kind: 'free' | 'paid' | 'empty';
+  titles: string[];
+  offer?: (typeof ticketOffers)[number];
+}
+const cell = (day: EventDay, key: string, half: Half): Cell => {
+  const slots = agenda.filter((s) => s.day === day && halfOf(s.time) === half);
+  if (slots.length === 0) return { kind: 'empty', titles: [] };
+  const paid = slots.some((s) => s.type === 'conversatorio');
+  const offer = paid ? ticketOffers.find((o) => o.id === (`${key}-${half}` as TicketOfferId)) : undefined;
+  return {
+    kind: paid ? 'paid' : 'free',
+    /* En las charlas abiertas no caben los títulos: el bloque solo dice
+       "Charla abierta · Entrada libre" y la agenda de abajo da el detalle */
+    titles: paid ? slots.map((s) => s.title) : [],
+    offer,
+  };
+};
+const grid = halves.map(({ half, label }) => ({
+  half,
+  label,
+  cells: days.map((d) => ({ ...d, ...cell(d.day, d.key, half) })),
+}));
+const pass = ticketOffers.find((o) => o.id === 'pase-completo')!;
+/* Columnas que cubre el pase: de la primera a la última con franja de pago */
+const paidCols = days.map((d, i) => (grid.some((r) => r.cells[i]!.kind === 'paid') ? i : -1)).filter((i) => i >= 0);
+const passFrom = Math.min(...paidCols) + 2; /* +1 por la columna de horas, +1 por base 1 */
+const passTo = Math.max(...paidCols) + 3;
+---
+
+<div class="map" role="img" aria-label={t('map.aria')}>
+  <div class="map-corner"></div>
+  {days.map((d, i) => <div class="map-day" style={`--m-order: ${i * 3 + 1}`}>{d.label}</div>)}
+  {
+    grid.map((row) => (
+      <>
+        <div class="map-half">{row.label}</div>
+        {row.cells.map((c, i) => (
+          <div class:list={['map-cell', `map-cell--${c.kind}`]} style={`--m-order: ${i * 3 + (row.half === 'manana' ? 2 : 3)}`}>
+            {c.kind === 'paid' && c.offer && (
+              <>
+                <span class="map-name">{c.offer.name.replace(' en la ', ' ')}</span>
+                <ul class="map-titles" role="list">
+                  {c.titles.map((title) => (
+                    <li>{title}</li>
+                  ))}
+                </ul>
+                <span class="map-price">{formatPrice(c.offer)}</span>
+              </>
+            )}
+            {c.kind === 'free' && (
+              <>
+                <span class="map-name">{t('map.freeName')}</span>
+                <span class="map-free">{t('map.free')}</span>
+              </>
+            )}
+          </div>
+        ))}
+      </>
+    ))
+  }
+  <div class="map-pass" style={`grid-column: ${passFrom} / ${passTo}`}>
+    <span class="map-pass-name">{t('map.pass')}</span>
+    <span class="map-pass-text">{t('map.passText')}</span>
+    <span class="map-pass-price">{formatPrice(pass)}</span>
+  </div>
+</div>
+
+<style>
+  /* Bloques que se tocan (fórmula §1): rejilla sin separación, sobre el
+     terracota de la sección. Las etiquetas de días y horas van en tinta. */
+  .map {
+    display: grid;
+    grid-template-columns: auto repeat(4, minmax(0, 1fr));
+    gap: 3px;
+    margin-top: var(--space-2);
+    color: var(--ink);
+  }
+  .map-corner {
+    grid-column: 1;
+  }
+  .map-day,
+  .map-half {
+    font-size: var(--text-label);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .map-day {
+    padding-bottom: 0.25em;
+  }
+  .map-half {
+    align-self: center;
+    padding-right: 0.5em;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-align: center;
+    font-size: 0.6875rem;
+  }
+  .map-cell {
+    display: grid;
+    align-content: start;
+    gap: 0.3em;
+    padding: 0.55em 0.6em 0.6em;
+    min-height: 4.5rem;
+    font-size: 0.6875rem;
+    line-height: 1.25;
+  }
+  /* Franja con boleta: cielo con tinta, como los datos prácticos */
+  .map-cell--paid {
+    background-color: var(--sky);
+  }
+  /* Charla abierta: oliva con crema, el color de lo gratuito */
+  .map-cell--free {
+    background-color: var(--olive);
+    color: var(--cream);
+    min-height: 0;
+  }
+  /* Sin nada: un bloque tenue, para que se vea que el domingo acaba al mediodía */
+  .map-cell--empty {
+    background-color: rgba(33, 8, 4, 0.12);
+    min-height: 0;
+  }
+  .map-name {
+    font-weight: 800;
+    font-size: 0.8125rem;
+    line-height: 1.15;
+  }
+  .map-titles {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.15em;
+    opacity: 0.9;
+  }
+  .map-price {
+    margin-top: 0.2em;
+    font-weight: 800;
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .map-free {
+    font-size: 0.625rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  /* El pase: una barra que abarca las cuatro franjas, en tinta con crema
+     para que se lea como "todo lo de arriba, junto" */
+  .map-pass {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'name price'
+      'text price';
+    align-items: center;
+    column-gap: 0.75em;
+    padding: 0.6em 0.75em;
+    background-color: var(--ink);
+    color: var(--cream);
+  }
+  .map-pass-name {
+    grid-area: name;
+    font-weight: 800;
+    font-size: 0.9375rem;
+    line-height: 1.2;
+  }
+  .map-pass-text {
+    grid-area: text;
+    font-size: 0.6875rem;
+    line-height: 1.25;
+    opacity: 0.85;
+  }
+  .map-pass-price {
+    grid-area: price;
+    font-weight: 800;
+    font-size: 0.9375rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* Móvil: los días se apilan; cada uno es una fila con sus dos medias
+     jornadas lado a lado, y el pase abajo a lo ancho */
+  @media (max-width: 47.9rem) {
+    .map {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .map-corner,
+    .map-half {
+      display: none;
+    }
+    .map-day {
+      grid-column: 1 / -1;
+      margin-top: 0.6em;
+    }
+    /* Reordenar por día: cada columna (día) pasa a ser un grupo; el orden
+       lo trae cada bloque en --m-order (día × 3 + posición) */
+    .map-day,
+    .map-cell {
+      order: var(--m-order);
+    }
+    .map-pass {
+      order: 13;
+      grid-column: 1 / -1 !important;
+    }
+  }
+</style>

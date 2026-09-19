@@ -74,6 +74,14 @@ const dict = {
   'stages.daysLeft': 'Quedan {n} días para comprar el pase',
   'stages.lastDay': 'Último día para comprar el pase',
   'tickets.notify': 'Avísame cuando abra',
+  // --- Mapa de franjas (2026-09-18) ---
+  'map.aria': 'Mapa del encuentro: cuatro días, cada uno con mañana y tarde; las franjas con boleta y las charlas abiertas de entrada libre; el pase completo cubre las cuatro franjas',
+  'map.am': 'Mañana',
+  'map.pm': 'Tarde',
+  'map.freeName': 'Charla abierta',
+  'map.free': 'Entrada libre',
+  'map.pass': 'Pase completo',
+  'map.passText': 'Las cuatro franjas, en una sola boleta',
   /* Modal "avísame" de las franjas; la franja escogida va como eyebrow */
   'notify.title': 'Te avisamos cuando abra la etapa 2',
   'notify.intro':
