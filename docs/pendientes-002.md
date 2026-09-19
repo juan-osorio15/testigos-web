@@ -62,15 +62,15 @@ Todo lo que depende de ti, en el orden en que conviene hacerlo. Cada paso dice q
 
 ### El día de la publicación 1 (medición y textos legales, ≤ 21 de septiembre)
 
-- [ ] **Paso 10a · Traer `main` a la rama.** La rama nació antes del commit `8087686` de `main` (el widget abre la tienda en pestaña nueva, `disable-iframe`, que resolvió el pago que se quedaba "cargando"). Antes de publicar: `git merge main` en la rama, `npm run build && npm run check`, y comprobar que `<pretix-widget>` conserva `disable-iframe`.
-- [ ] **Paso 10b · Confirmar el cambio del workflow de despliegue.** El paso IndexNow en `.github/workflows/deploy.yml` (aviso a Bing tras cada deploy) quedó sin confirmar en git porque el hook de revisión no me deja preparar archivos de workflow: revisa el diff de ese archivo y confírmalo tú con un commit propio ("Deploy: aviso a IndexNow tras publicar").
-- [ ] **Paso 11 · Revisión de restos y visto bueno de la publicación 1.** Antes del sí: repasamos juntos el diff completo de la rama y yo busco restos de la capa retirada en código, textos legales y documentación (tarea T073); comprobamos que el widget de Pretix carga igual que el 15 de septiembre. Luego me das el sí para `main`. Tras el deploy verifico en producción que no hay cookies antes de "Aceptar" y te paso captura.
+- [x] **Paso 10a · Traer `main` a la rama.** Hecho el 2026-09-17 (merge limpio; `disable-iframe` conservado). Antes: La rama nació antes del commit `8087686` de `main` (el widget abre la tienda en pestaña nueva, `disable-iframe`, que resolvió el pago que se quedaba "cargando"). Antes de publicar: `git merge main` en la rama, `npm run build && npm run check`, y comprobar que `<pretix-widget>` conserva `disable-iframe`.
+- [x] **Paso 10b · Confirmar el cambio del workflow de despliegue.** Hecho el 2026-09-17 (`2f93b8c`). Antes: El paso IndexNow en `.github/workflows/deploy.yml` (aviso a Bing tras cada deploy) quedó sin confirmar en git porque el hook de revisión no me deja preparar archivos de workflow: revisa el diff de ese archivo y confírmalo tú con un commit propio ("Deploy: aviso a IndexNow tras publicar").
+- [x] **Paso 11 · Revisión de restos y visto bueno de la publicación 1.** Hecho el 2026-09-17: restos corregidos (spec restaurado, sección 10 de la política, docs) y publicado a `main` con GA4, píxel de Meta y etiqueta de verificación. Antes: Antes del sí: repasamos juntos el diff completo de la rama y yo busco restos de la capa retirada en código, textos legales y documentación (tarea T073); comprobamos que el widget de Pretix carga igual que el 15 de septiembre. Luego me das el sí para `main`. Tras el deploy verifico en producción que no hay cookies antes de "Aceptar" y te paso captura.
 
 ### Antes del 30 de septiembre
 
 - [ ] **Paso 12 · Bing Webmaster Tools.** Desde el perfil de Chrome "Eventalist" (el que tiene Search Console): https://www.bing.com/webmasters → iniciar sesión con la cuenta Microsoft o con Google → "Añadir sitio" → "Importar desde Google Search Console" → "Importar" → autorizar con la cuenta de Google → marcar `testigosdelamemoria.com` → "Importar". Queda verificado solo. Luego: menú "Sitemaps" → "Enviar sitemap" → `https://testigosdelamemoria.com/sitemap.xml`. Luego: "Inspección de URL" → pega `https://testigosdelamemoria.com/` → "Solicitar indexación". Por último abre "Rendimiento de IA" (AI Performance) para que empiece a registrar. Comprobación: captura de la propiedad con el sitemap en "Procesado".
 
-- [ ] **Paso 13 · Visto bueno de la publicación 2** (≤ 29 sep): marcado del evento, 12 fichas de panelistas, programación, charlas abiertas. Tras el deploy: Search Console → "Sitemaps" → reenviar; "Inspección de URL" → solicitar indexación de la portada, `/programacion/`, `/charlas-abiertas/` y las fichas (Google limita las solicitudes diarias; empieza por portada, programación, charlas y los cuatro panelistas más conocidos).
+- [x] **Paso 13 · Visto bueno de la publicación 2** Publicada el 2026-09-17 junto con la 1 (falta solo lo de Search Console, ver resumen final). Antes: (≤ 29 sep): marcado del evento, 12 fichas de panelistas, programación, charlas abiertas. Tras el deploy: Search Console → "Sitemaps" → reenviar; "Inspección de URL" → solicitar indexación de la portada, `/programacion/`, `/charlas-abiertas/` y las fichas (Google limita las solicitudes diarias; empieza por portada, programación, charlas y los cuatro panelistas más conocidos).
 
 ### Octubre y noviembre
 
@@ -159,3 +159,21 @@ Borrador del 2026-09-17 (doc "Carta de solicitud de apoyo · Alcaldía de Villa 
 - [ ] **Captura de la sección de programación del portal de la Alcaldía**, para calcar el formato de la ficha.
 - [ ] **Imágenes de la ficha:** horizontal 1200 × 630 y vertical 1080 × 1350, JPG. No existen en el repo; hay que producirlas.
 - [ ] **Radicación:** confirmar si basta el correo secretariaturismo@villadeleyva-boyaca.gov.co o piden radicación física.
+
+---
+
+## 9. Resumen: lo que te queda a ti (Juan), al 18 de septiembre
+
+Todo lo del código de la feature 002 está publicado. Esto es lo único que depende de ti, en orden de urgencia:
+
+1. **Search Console: pedir indexación** (paso 13; T44 de Jorge). Inspección de URL → "Solicitar indexación": portada, `/programacion/`, `/charlas-abiertas/`, `/panelistas/` y las fichas más buscadas (Google limita unas 10 al día; sigue al día siguiente). Reenviar el sitemap en "Sitemaps". Media hora.
+2. **Meta: verificar el dominio** (paso 4). Portafolio "Que Hacer en Villa de Leyva" → Configuración → Seguridad de la marca → Dominios → testigosdelamemoria.com → pestaña "Etiqueta meta" → **Verificar**. La etiqueta ya está publicada.
+3. **Meta: dos ajustes en el dataset** (paso 3): Settings → Website → "Automatic advanced matching" activado; Data source categories sin salud ni finanzas. Y confirmar que la campaña pagada sale de la cuenta publicitaria de ese mismo portafolio.
+4. **Bing Webmaster Tools** (paso 12, antes del 30 de septiembre): importar desde Search Console, enviar el sitemap, pedir indexación de la portada, activar "Rendimiento de IA".
+5. **Pretix: no indexar la tienda** (paso 6, opcional): Configuración → General → pestaña Visualización → "Otros ajustes" → marcar la casilla; si aparece heredada del organizador, cambiarla en Organizador → Configuración.
+6. **Decidir la foto de la Casa Museo**: reemplazar la del jardín por la del patio, mantener la actual, o las dos. Hoy la nueva está en el repo sin usarse.
+7. **Decidir sobre el dictamen del dataset ajeno**: el píxel lo ve el portafolio de Maria Paula, no Eventalist; sí o no a pasarlo por el abogado interno antes de que acumule datos.
+8. **Con fecha**: 5 de octubre, dar el visto bueno para publicar el cambio de etapa (paso 14); avisar cuando una boleta se agote (paso 16); ≤ 15 de octubre, visto bueno de `/donde-dormir/` si Carolina entregó la lista (paso 15).
+9. **Empujar a los demás**: Jorge con los 12 panelistas compartiendo su ficha (sección 5); Carolina con hoteles, prensa, calendarios, sedes y evento de Facebook (sección 4); la carta a la Alcaldía (sección 8).
+
+Lo que queda del lado del desarrollador, sin depender de ti: medir rendimiento con etiquetas activas (T026/T061), pasar la portada y una ficha por el Rich Results Test (T038), y `/donde-dormir/` cuando llegue la lista.
