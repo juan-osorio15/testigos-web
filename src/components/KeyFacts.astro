@@ -13,9 +13,9 @@ const days =
   Math.round((Date.parse(`${event.endDate}T12:00:00Z`) - Date.parse(`${event.startDate}T12:00:00Z`)) / 86_400_000) + 1;
 
 const facts = [
-  { figure: String(days), label: 'días', detail: '5 al 8 de noviembre de 2026, en Villa de Leyva.' },
-  { figure: String(speakers.length), label: 'periodistas', detail: 'Los que cuentan la historia reciente del país, en persona.' },
-  { figure: '2', label: 'formatos', detail: 'Charlas abiertas de entrada libre y conversatorios con boleta.' },
+  { figure: String(days), label: 'días', detail: 'Del jueves 5 al domingo 8 de noviembre en Villa de Leyva. Charlas en la mañana y sobremesa en la plaza.' },
+  { figure: String(speakers.length), label: 'periodistas', detail: 'Los que cuentan la historia reciente del país, en persona y con derecho a preguntas.' },
+  { figure: '2', label: 'formatos', detail: 'Charlas abiertas de entrada libre en la Casa Museo Antonio Nariño y conversatorios con boleta en la Hospedería Duruelo.' },
 ];
 ---
 
@@ -91,7 +91,7 @@ const facts = [
   .keyfact-detail {
     font-size: var(--text-body);
     line-height: 1.45;
-    max-width: 28ch;
+    max-width: 32ch;
     opacity: 0.9;
     text-wrap: pretty;
   }

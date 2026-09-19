@@ -82,6 +82,7 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
           </span>
           <span class="hero-note-line">{t('hero.format')}</span>
         </p>
+        <p class="hero-pitch">{t('hero.pitch')}</p>
       </div>
     </div>
     <div class="hero-side">
@@ -337,6 +338,23 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
   .hero-after-sep::before {
     content: '· ';
     font-weight: 500;
+  }
+  /* Frase antojadora bajo los datos: llena el terracota que la escalera
+     deja libre en escritorio. En móvil no va: allí el bloque ya es alto y
+     las caras y la franja deben quedar cerca. */
+  .hero-pitch {
+    font-size: clamp(1.05rem, 0.85rem + 0.55vw, 1.4rem);
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 34ch;
+    text-wrap: pretty;
+  }
+  /* En ventanas bajas (portátiles pequeños) el bloque no da para la frase
+     sin desbordar sus tres filas: se omite */
+  @media (max-height: 47.5rem) {
+    .hero-pitch {
+      display: none;
+    }
   }
 
   .sr-only {
@@ -651,6 +669,9 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     }
     .hero-tile-name {
       display: grid;
+    }
+    .hero-pitch {
+      display: none;
     }
     .hero-spacer {
       display: none;

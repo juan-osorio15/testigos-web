@@ -28,6 +28,7 @@ const dict = {
   'hero.place': 'Villa de Leyva, Colombia',
   /* Línea de datos bajo el remate: edición, formato y escasez, separados por "·" */
   'hero.tileCta': 'Ver ficha',
+  'hero.pitch': 'Los reporteros que estuvieron ahí se sientan a contar lo que vieron. Y a responder preguntas.',
   'hero.edition': 'Primera edición',
   'hero.format': 'Charlas abiertas y conversatorios',
   'hero.capacity': 'Aforo limitado',
