@@ -6,7 +6,6 @@
  * cuánto dura, quiénes vienen y en qué formato. El texto largo vive más
  * abajo, en "Qué es" (Opportunity.astro).
  */
-import { t } from '../ui';
 import { event } from '../data/event';
 import { speakers } from '../data/speakers';
 
@@ -21,9 +20,6 @@ const facts = [
 ---
 
 <section id="datos" class="keyfacts" aria-label="El encuentro en tres datos" data-reveal>
-  {/* En móvil el hero no muestra la frase antojadora (allí no cabe): va
-      aquí, abriendo la franja de datos, que es lo primero tras el hero */}
-  <p class="container keyfacts-pitch">{t('hero.pitch')}</p>
   <ul class="container keyfacts-grid" role="list">
     {
       facts.map((f) => (
@@ -47,15 +43,6 @@ const facts = [
     background-color: var(--ink);
     color: var(--cream);
     padding-block: var(--space-5);
-  }
-  .keyfacts-pitch {
-    display: none;
-    margin-bottom: var(--space-3);
-    font-size: var(--text-lead);
-    font-weight: 500;
-    line-height: 1.4;
-    color: var(--terracotta);
-    text-wrap: pretty;
   }
   .keyfacts-grid {
     display: grid;
@@ -115,9 +102,6 @@ const facts = [
     .keyfacts-grid {
       grid-template-columns: 1fr;
       gap: var(--space-3);
-    }
-    .keyfacts-pitch {
-      display: block;
     }
   }
 </style>
