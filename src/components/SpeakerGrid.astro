@@ -234,6 +234,9 @@ const ctaNote = 'Las franjas más esperadas se agotan primero.';
     overflow-x: auto;
     overflow-y: hidden; /* sin scroll-container vertical: la rueda sigue moviendo la página */
     scroll-snap-type: x mandatory;
+    /* El ajuste respeta el gutter del contenedor: tras usar las flechas la
+       tarjeta vuelve a quedar alineada con el título, no con el borde */
+    scroll-padding-inline: var(--gutter);
     scrollbar-width: thin;
     scrollbar-color: var(--terracotta) transparent;
   }
