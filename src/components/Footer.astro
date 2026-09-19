@@ -49,10 +49,10 @@ const renderHeight = { lg: 216, md: 168, sm: 120 } as const;
             <div class="footer-row">
               {group.partners.map((p) => (
                 <Image
-                  class={`footer-logo footer-logo--${group.size}`}
+                  class:list={['footer-logo', `footer-logo--${group.size}`, p.shape && `footer-logo--${p.shape}`]}
                   src={p.logo}
                   alt={p.name}
-                  height={renderHeight[group.size]}
+                  height={p.shape === 'square' ? renderHeight.md : renderHeight[group.size]}
                   loading="lazy"
                 />
               ))}
@@ -132,6 +132,10 @@ const renderHeight = { lg: 216, md: 168, sm: 120 } as const;
   .footer-logo--sm {
     height: 2.25rem;
     opacity: 0.8;
+  }
+  /* Sellos cuadrados: más alto que los logotipos apaisados de su grupo */
+  .footer-logo--sm.footer-logo--square {
+    height: 3.5rem;
   }
 
   .footer-pages {
