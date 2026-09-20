@@ -119,25 +119,81 @@ export function sessionsForMarkup(): AgendaSlot[] {
   return agenda.filter((s) => s.start && s.venueId);
 }
 
-export function subEventLd(slot: AgendaSlot, superEventId: string = ids.event): Node {
+/**
+ * Ofertas de una sesión (Search Console las pide, aunque sean opcionales):
+ * las charlas abiertas, gratis; los conversatorios, las boletas vigentes
+ * que cubren ese día (el pase y, desde la etapa 2, la de ese medio día).
+ * Sin tienda o sin boleta vigente que lo cubra, ninguna.
+ */
+function sessionOffersLd(slot: AgendaSlot, today: string): Node[] {
+  if (slot.type === 'charla') {
+    return [
+      {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'COP',
+        availability: 'https://schema.org/InStock',
+        url: absoluteUrl('/charlas-abiertas/'),
+        validFrom: bogotaStart('2026-09-15'),
+      },
+    ];
+  }
+  if (!pretixReady) return [];
+  const half = slot.start && Number(slot.start.slice(0, 2)) >= 14 ? 'tarde' : 'manana';
+  return activeOffers(today)
+    .filter(({ offer }) => {
+      if (offer.covers === 'all') return true;
+      /* La boleta de medio día cubre su día y su mitad (id "sabado-manana") */
+      return offer.covers.includes(slot.day) && offer.id.endsWith(half);
+    })
+    .map(({ offer, availability }) => ({
+      '@type': 'Offer',
+      name: offer.name,
+      url: PRETIX_EVENT_URL,
+      price: String(offer.price),
+      priceCurrency: offer.currency,
+      availability: `https://schema.org/${availability}`,
+      validFrom: bogotaStart(offer.validFrom),
+      ...(offer.validThrough ? { validThrough: bogotaEnd(offer.validThrough) } : {}),
+    }));
+}
+
+export function subEventLd(
+  slot: AgendaSlot,
+  superEventId: string = ids.event,
+  today: string = todayBogota(),
+): Node {
   const venue = venues.find((v) => v.id === slot.venueId)!;
   const performers: Node[] = [
     ...slot.speakerSlugs.map((slug) => ({ '@id': ids.person(speakerBySlug(slug)) })),
     ...(slot.guests ?? []).map((name) => ({ '@type': 'Person', name })),
   ];
+  const free = slot.type === 'charla';
+  const offers = sessionOffersLd(slot, today);
+  /* Descripción: la nota de la agenda o, si no hay, una genérica con el
+     tipo de sesión, la sede y el encuentro */
+  const description =
+    slot.note ??
+    (free
+      ? `Charla abierta de entrada libre en la ${venue.name}, dentro de ${event.name}, Villa de Leyva.`
+      : `Conversatorio con boleta en la ${venue.name}, dentro de ${event.name}, Villa de Leyva.`);
   return {
     '@type': 'Event',
     '@id': ids.session(slot),
     name: slot.title,
+    description,
     url: ids.session(slot),
     startDate: bogotaDateTime(slot.day, slot.start!),
     ...(slot.end ? { endDate: bogotaDateTime(slot.day, slot.end) } : {}),
     eventStatus: 'https://schema.org/EventScheduled',
+    inLanguage: 'es',
+    image: [free ? TALKS_IMAGE : HOME_IMAGE],
     location: { '@id': ids.venue(venue) },
+    organizer: { '@id': ids.organization },
     superEvent: { '@id': superEventId },
     ...(performers.length ? { performer: performers } : {}),
-    ...(slot.type === 'charla' ? { isAccessibleForFree: true } : {}),
-    ...(slot.note ? { description: slot.note } : {}),
+    ...(free ? { isAccessibleForFree: true } : {}),
+    ...(offers.length ? { offers } : {}),
   };
 }
 
