@@ -13,7 +13,7 @@ import { agenda, dayLabels } from '../data/agenda';
 import { venueById } from '../data/event';
 import { speakerBySlug } from '../data/speakers';
 import { faqs } from '../data/faqs';
-import { speakerPath } from '../routes';
+import { sessionHref, speakerPath } from '../routes';
 import { talksGraph } from '../seo/jsonld';
 
 const venue = venueById('casa-museo');
@@ -40,7 +40,9 @@ const registration = faqs.find((f) => /inscripci/i.test(f.question));
                 {dayLabels[slot.day]}
                 {slot.time && ` · ${slot.time}`}
               </p>
-              <h2 class="talk-title">{slot.title}</h2>
+              <h2 class="talk-title">
+                <a href={sessionHref(slot)}>{slot.title}</a>
+              </h2>
               {(people.length > 0 || slot.guests?.length) && (
                 <p class="talk-people">
                   {people.map((sp, i) => (
@@ -136,6 +138,14 @@ const registration = faqs.find((f) => /inscripci/i.test(f.question));
   .talk-title {
     font-size: var(--text-h3);
     line-height: 1.2;
+  }
+  .talk-title a {
+    text-decoration: none;
+  }
+  .talk-title a:hover,
+  .talk-title a:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
   .talk-people {
     font-weight: 700;

@@ -1,0 +1,90 @@
+---
+/**
+ * Tarjeta de sesión para la ficha de un panelista: bloque sólido con el
+ * color de su tipo (oliva = charla abierta, terracota = conversatorio, los
+ * mismos de la leyenda de la agenda), cuándo, título, sede y la primera
+ * pregunta de su página como anzuelo. Lleva a la página de la sesión o, si
+ * no la tiene, a su fila en /programacion/.
+ */
+import { t } from '../ui';
+import { dayLabels, type AgendaSlot } from '../data/agenda';
+import { venueById } from '../data/event';
+import { sessionHref } from '../routes';
+
+interface Props {
+  session: AgendaSlot;
+}
+
+const { session: slot } = Astro.props;
+const free = slot.type === 'charla';
+const venue = slot.venueId ? venueById(slot.venueId) : null;
+const teaser = slot.intro?.questions[0];
+---
+
+<a class:list={['session-card', { 'session-card--free': free }]} href={sessionHref(slot)}>
+  <span class="session-card-when">
+    {dayLabels[slot.day]}
+    {slot.time && <span> · {slot.time}</span>}
+  </span>
+  <span class="session-card-title">{slot.title}</span>
+  {teaser && <span class="session-card-teaser">{teaser}</span>}
+  <span class="session-card-meta">
+    {venue?.name}
+    {venue && ' · '}
+    {free ? t('schedule.free') : t('schedule.paid')}
+  </span>
+  {slot.intro && <span class="session-card-more">{t('session.read')}</span>}
+</a>
+
+<style>
+  .session-card {
+    display: grid;
+    gap: 0.4rem;
+    padding: var(--space-3);
+    border-radius: var(--radius-card);
+    background-color: var(--terracotta);
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .session-card--free {
+    background-color: var(--olive);
+    color: var(--cream);
+  }
+  .session-card-when {
+    font-size: var(--text-label);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .session-card-title {
+    font-size: var(--text-h3);
+    font-weight: 800;
+    line-height: 1.2;
+  }
+  .session-card-teaser {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-body);
+    line-height: 1.45;
+    max-width: 52ch;
+  }
+  .session-card-meta {
+    font-size: var(--text-small);
+    opacity: 0.85;
+  }
+  .session-card-more {
+    margin-top: 0.2rem;
+    font-size: var(--text-label);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+    text-decoration-thickness: 1px;
+  }
+  .session-card:hover .session-card-title,
+  .session-card:focus-visible .session-card-title {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+</style>

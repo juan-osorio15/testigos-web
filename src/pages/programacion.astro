@@ -12,7 +12,7 @@ import { t } from '../ui';
 import { agenda, dayLabels, type EventDay } from '../data/agenda';
 import { venueById, formatPrice, salesStages } from '../data/event';
 import { speakerBySlug } from '../data/speakers';
-import { routeByPath, speakerPath } from '../routes';
+import { routeByPath, sessionHref, speakerPath } from '../routes';
 import { offerStatuses } from '../seo/offers';
 
 const route = routeByPath('/programacion/');
@@ -58,7 +58,7 @@ const stage2Live = statuses.some((s) => s.offer.id !== 'pase-completo' && s.avai
                   <div class="session-time">{slot.time}</div>
                   <div class="session-body">
                     <h3 class="session-title">
-                      <a href={`#${slot.slug}`}>{slot.title}</a>
+                      <a href={sessionHref(slot)}>{slot.title}</a>
                     </h3>
                     {(people.length > 0 || slot.guests?.length) && (
                       <p class="session-people">

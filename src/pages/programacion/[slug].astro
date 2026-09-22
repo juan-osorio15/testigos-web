@@ -1,0 +1,253 @@
+---
+/**
+ * Página de sesión: una URL por charla o conversatorio con tema (las que
+ * tienen `intro` en agenda.ts). Imita la ficha de panelista: a la
+ * izquierda, cuándo y dónde con la entrada; a la derecha, un resumen del
+ * tema para quien no sabe nada de él, preguntas para llegar a la sesión y
+ * tarjetas de quienes están en la mesa, enlazadas a su ficha. Marcado
+ * WebPage + Event (mismo @id que el subevento de la portada) + migas.
+ */
+import InnerLayout from '../../layouts/InnerLayout.astro';
+import CtaButton from '../../components/CtaButton.astro';
+import PersonCard from '../../components/PersonCard.astro';
+import { t } from '../../ui';
+import { dayLabels, type AgendaSlot } from '../../data/agenda';
+import { venueById } from '../../data/event';
+import { speakers, speakerBySlug } from '../../data/speakers';
+import { sessionPath, sessionsWithPage } from '../../routes';
+import { sessionGraph } from '../../seo/jsonld';
+
+export function getStaticPaths() {
+  return sessionsWithPage.map((slot) => ({ params: { slug: slot.slug }, props: { slot } }));
+}
+
+const { slot } = Astro.props as { slot: AgendaSlot };
+const intro = slot.intro!;
+const free = slot.type === 'charla';
+const venue = slot.venueId ? venueById(slot.venueId) : null;
+const people = slot.speakerSlugs.map(speakerBySlug);
+const guests = slot.guests ?? [];
+
+/* El mismo color que la tarjeta de cada panelista en /panelistas/ */
+const tones = ['olive', 'sky', 'brick'] as const;
+const toneOf = (slug: string) => tones[speakers.findIndex((s) => s.slug === slug) % tones.length]!;
+---
+
+<InnerLayout
+  path={sessionPath(slot.slug)}
+  eyebrow={free ? t('session.talk') : t('session.panel')}
+  heading={slot.title}
+  lead={`${dayLabels[slot.day]}${slot.time ? ` · ${slot.time}` : ''}`}
+  tone={free ? 'olive' : 'terracotta'}
+  jsonld={sessionGraph(slot)}
+>
+  <div class="container session-page">
+    <aside class:list={['session-facts', { 'session-facts--free': free }]} aria-labelledby="details-title">
+      <h2 id="details-title" class="eyebrow">{t('session.details')}</h2>
+      <div class="session-facts-list">
+        <p class="session-facts-day">{dayLabels[slot.day]}</p>
+        {slot.time && <p class="session-facts-time">{slot.time}</p>}
+        {
+          venue && (
+            <p>
+                {venue.name}
+                <br />
+                <span class="session-facts-address">{venue.address}</span>
+                <br />
+                <a href={venue.mapsUrl} target="_blank" rel="noopener noreferrer">
+                  {t('schedule.venueMap')}
+                </a>
+            </p>
+          )
+        }
+        <p class:list={['session-facts-entry', { 'session-facts-entry--free': free }]}>
+          {free ? t('schedule.free') : t('schedule.paid')}
+        </p>
+      </div>
+      {
+        free ? (
+          <a class="session-facts-link" href="/charlas-abiertas/">
+            {t('schedule.freeCta')}
+          </a>
+        ) : (
+          <CtaButton label="cta.secure" />
+        )
+      }
+    </aside>
+
+    <div class="session-main">
+      <p class="session-summary">{intro.summary}</p>
+
+      <section class="session-section" aria-labelledby="questions-title">
+        <h2 id="questions-title" class="eyebrow">{t('session.questions')}</h2>
+        <ul class="session-questions" role="list">
+          {intro.questions.map((q) => <li>{q}</li>)}
+        </ul>
+      </section>
+
+      {slot.note && <p class="session-note">{slot.note}</p>}
+
+      {
+        (people.length > 0 || guests.length > 0) && (
+          <section class="session-section" aria-labelledby="people-title">
+            <h2 id="people-title" class="eyebrow">{t('session.people')}</h2>
+            {people.length > 0 && (
+              <div class="session-people">
+                {people.map((sp) => (
+                  <PersonCard speaker={sp} tone={toneOf(sp.slug)} />
+                ))}
+              </div>
+            )}
+            {guests.length > 0 && (
+              <ul class="session-guests" role="list">
+                {guests.map((g) => (
+                  <li>
+                    <span class="session-guest-label">{t('session.guest')}</span> {g}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        )
+      }
+
+      <div class="session-cta">
+        <a class="session-all" href="/programacion/">{t('schedule.full')}</a>
+      </div>
+    </div>
+  </div>
+</InnerLayout>
+
+<style>
+  .session-page {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: var(--space-5);
+    align-items: start;
+  }
+  .session-facts {
+    display: grid;
+    gap: var(--space-2);
+    justify-items: start;
+    padding: var(--space-3);
+    background-color: #fff;
+    border-left: 6px solid var(--terracotta);
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-2));
+  }
+  .session-facts--free {
+    border-left-color: var(--olive);
+  }
+  .session-facts .eyebrow,
+  .session-section .eyebrow {
+    color: var(--brick);
+    font-size: var(--text-label);
+  }
+  .session-facts-list {
+    display: grid;
+    gap: var(--space-1);
+  }
+  .session-facts-list p {
+    font-size: var(--text-body);
+    line-height: 1.45;
+  }
+  .session-facts-day,
+  .session-facts-time {
+    font-weight: 800;
+  }
+  .session-facts-address {
+    font-size: var(--text-small);
+    opacity: 0.85;
+  }
+  .session-facts a {
+    text-underline-offset: 0.2em;
+  }
+  .session-facts-entry {
+    font-size: var(--text-label);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .session-facts-link {
+    display: inline-block;
+    padding: 0.5em 0.9em;
+    border: 2px solid var(--olive);
+    color: var(--olive);
+    font-size: var(--text-label);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .session-facts a.session-facts-link:hover,
+  .session-facts a.session-facts-link:focus-visible {
+    background-color: var(--olive);
+    color: var(--cream);
+  }
+  .session-main {
+    display: grid;
+    gap: var(--space-4);
+  }
+  .session-summary {
+    font-size: var(--text-lead);
+    line-height: 1.55;
+    max-width: 62ch;
+    text-wrap: pretty;
+  }
+  .session-section {
+    display: grid;
+    gap: var(--space-2);
+  }
+  .session-questions {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+    max-width: 58ch;
+  }
+  .session-questions li {
+    padding-left: var(--space-2);
+    border-left: 3px solid var(--terracotta);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-h3);
+    line-height: 1.35;
+    text-wrap: pretty;
+  }
+  .session-note {
+    font-size: var(--text-body);
+    line-height: 1.55;
+    max-width: 62ch;
+  }
+  .session-people {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: var(--space-2);
+  }
+  .session-guests {
+    list-style: none;
+    padding: 0;
+    font-size: var(--text-body);
+    font-weight: 700;
+  }
+  .session-guest-label {
+    font-size: var(--text-label);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+  .session-all {
+    font-weight: 700;
+    text-underline-offset: 0.2em;
+  }
+  @media (max-width: 63.9rem) {
+    .session-page {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+    .session-facts {
+      position: static;
+    }
+  }
+</style>

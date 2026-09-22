@@ -14,7 +14,7 @@ import { agenda, type AgendaSlot, type EventDay } from '../data/agenda';
 import { event, venues, type Venue } from '../data/event';
 import { speakers, speakerBySlug, type Speaker } from '../data/speakers';
 import { faqs } from '../data/faqs';
-import { absoluteUrl, breadcrumbsFor, routeByPath, speakerPath, type Route } from '../routes';
+import { absoluteUrl, breadcrumbsFor, routeByPath, sessionPath, speakerPath, type Route } from '../routes';
 import { activeOffers, bogotaEnd, bogotaStart, todayBogota } from './offers';
 
 type Node = Record<string, unknown>;
@@ -170,10 +170,11 @@ export function subEventLd(
   ];
   const free = slot.type === 'charla';
   const offers = sessionOffersLd(slot, today);
-  /* Descripción: la nota de la agenda o, si no hay, una genérica con el
-     tipo de sesión, la sede y el encuentro */
+  /* Descripción: la nota de la agenda, el resumen de su página o, si no
+     hay ninguno, una genérica con el tipo de sesión, la sede y el encuentro */
   const description =
     slot.note ??
+    slot.intro?.summary ??
     (free
       ? `Charla abierta de entrada libre en la ${venue.name}, dentro de ${event.name}, Villa de Leyva.`
       : `Conversatorio con boleta en la ${venue.name}, dentro de ${event.name}, Villa de Leyva.`);
@@ -182,7 +183,8 @@ export function subEventLd(
     '@id': ids.session(slot),
     name: slot.title,
     description,
-    url: ids.session(slot),
+    /* Con página propia, la URL del evento es esa página (Google pide una URL por evento) */
+    url: slot.intro ? absoluteUrl(sessionPath(slot.slug)) : ids.session(slot),
     startDate: bogotaDateTime(slot.day, slot.start!),
     ...(slot.end ? { endDate: bogotaDateTime(slot.day, slot.end) } : {}),
     eventStatus: 'https://schema.org/EventScheduled',
@@ -341,6 +343,24 @@ export function speakerGraph(sp: Speaker, imageUrl: string): Node {
     webSiteLd(),
     breadcrumbLd(route.path),
     profilePageLd(sp, route, imageUrl),
+    eventStubLd(),
+  ]);
+}
+
+/**
+ * Página de sesión: migas + WebPage cuyo tema es la sesión + la sesión
+ * como Event completo (mismo @id que el subevento de la portada) + su sede.
+ */
+export function sessionGraph(slot: AgendaSlot): Node {
+  const route = routeByPath(sessionPath(slot.slug));
+  const venue = venues.find((v) => v.id === slot.venueId)!;
+  return graph([
+    organizationLd(),
+    webSiteLd(),
+    breadcrumbLd(route.path),
+    { ...webPageLd(route), about: { '@id': ids.session(slot) } },
+    placeLd(venue),
+    subEventLd(slot),
     eventStubLd(),
   ]);
 }

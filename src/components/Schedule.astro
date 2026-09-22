@@ -18,7 +18,7 @@ import { langOf } from '../i18n';
 import { agendaFor, dayLabelsFor, type EventDay } from '../data/agenda';
 import { venueById } from '../data/event';
 import { speakersFor } from '../data/speakers';
-import { speakerPath } from '../routes';
+import { sessionHref, speakerPath } from '../routes';
 import CtaButton from './CtaButton.astro';
 
 const t = tFor(Astro.url.pathname);
@@ -79,7 +79,7 @@ const base = import.meta.env.BASE_URL.endsWith('/')
                       <td class="slot-time">{slot.time}</td>
                       <td class="slot-body">
                         <p class="slot-title">
-                          <a href={`${base}programacion/#${slot.slug}`}>{slot.title}</a>
+                          <a href={`${base}${sessionHref(slot).slice(1)}`}>{slot.title}</a>
                         </p>
                         {hasPeople && (
                           <p class="slot-speakers">

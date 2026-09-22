@@ -6,7 +6,7 @@
  */
 import type { APIRoute } from 'astro';
 import { SITE_URL } from '../config';
-import { routes, speakerPath } from '../routes';
+import { routes, speakerPath, sessionPath, sessionsWithPage } from '../routes';
 import { speakers } from '../data/speakers';
 import { assertRoutesCoverPages, pagePathFromFile } from '../seo/meta';
 
@@ -15,6 +15,7 @@ const pageFiles = Object.keys(import.meta.glob('./**/*.astro'));
 const pagePaths = pageFiles.flatMap((file) => {
   const p = pagePathFromFile(file);
   if (p === '/panelistas/[slug]/') return speakers.map((s) => speakerPath(s.slug));
+  if (p === '/programacion/[slug]/') return sessionsWithPage.map((s) => sessionPath(s.slug));
   return [p];
 });
 

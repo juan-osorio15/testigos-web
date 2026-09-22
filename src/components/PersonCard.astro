@@ -1,0 +1,115 @@
+---
+/**
+ * Tarjeta compacta de panelista para la página de una sesión: bloque de
+ * color con foto en b/n (o el símbolo), nombre y credencial; toda la
+ * tarjeta lleva a la ficha. La bio completa vive en la ficha, no aquí.
+ */
+import { Image } from 'astro:assets';
+import { t } from '../ui';
+import type { Speaker } from '../data/speakers';
+import { speakerPath } from '../routes';
+import LogoSymbol from '../assets/logo/logo-symbol.svg';
+
+interface Props {
+  speaker: Speaker;
+  tone: 'olive' | 'sky' | 'brick';
+}
+
+const { speaker, tone } = Astro.props;
+---
+
+<a class:list={['person', `person--${tone}`]} href={speakerPath(speaker.slug)}>
+  {
+    speaker.photo ? (
+      <div
+        class:list={['grain', 'person-photo', speaker.photoTreatment && `person-photo--${speaker.photoTreatment}`]}
+        style={speaker.photoFocus && `--photo-focus: ${speaker.photoFocus}`}
+      >
+        <Image src={speaker.photo} alt="" widths={[320, 480, 640]} sizes="(max-width: 48rem) 90vw, 320px" />
+      </div>
+    ) : (
+      <div class="person-symbol">
+        <LogoSymbol aria-hidden="true" />
+      </div>
+    )
+  }
+  <span class="person-name">{speaker.name}</span>
+  <span class="person-credential">{speaker.credential}</span>
+  <span class="person-more">{t('speaker.readProfile')}</span>
+</a>
+
+<style>
+  .person {
+    display: grid;
+    grid-template-rows: auto auto auto 1fr;
+    gap: 0.5rem;
+    padding: var(--space-3);
+    border-radius: var(--radius-card);
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .person--olive {
+    background-color: var(--olive);
+    color: var(--cream);
+  }
+  .person--sky {
+    background-color: var(--sky);
+  }
+  .person--brick {
+    background-color: var(--brick);
+    color: var(--cream);
+  }
+  .person-photo,
+  .person-symbol {
+    aspect-ratio: 4 / 3;
+    margin-bottom: var(--space-1);
+  }
+  .person-photo :global(img) {
+    object-position: var(--photo-focus, center top);
+    display: block;
+  }
+  .person-photo--soft :global(img) {
+    filter: grayscale(1) sepia(0.18) contrast(1.02) brightness(0.97);
+  }
+  .person-photo--plain :global(img) {
+    filter: sepia(0.08);
+  }
+  .person-photo--plain::after {
+    opacity: 0.45;
+  }
+  .person-symbol {
+    display: grid;
+    place-items: center;
+  }
+  .person-symbol svg {
+    width: 4.5rem;
+  }
+  .person-name {
+    font-size: var(--text-h3);
+    font-weight: 800;
+    line-height: 1.15;
+  }
+  .person-credential {
+    font-size: var(--text-small);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.85;
+  }
+  .person-more {
+    align-self: end;
+    margin-top: var(--space-1);
+    font-size: var(--text-label);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+    text-decoration-thickness: 1px;
+  }
+  .person:hover .person-name,
+  .person:focus-visible .person-name {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+</style>

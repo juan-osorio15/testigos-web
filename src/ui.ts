@@ -243,6 +243,15 @@ const es = {
     'Los periodistas que cubrieron los últimos cincuenta años de Colombia, reunidos en Villa de Leyva del 5 al 8 de noviembre de 2026.',
   'speaker.readProfile': 'Ver ficha',
 
+  // --- Páginas de sesión ---
+  'session.questions': 'Preguntas para llegar',
+  'session.people': 'En la mesa',
+  'session.guest': 'Invitado',
+  'session.details': 'Cuándo y dónde',
+  'session.read': 'Ver la sesión',
+  'session.talk': 'Charla abierta',
+  'session.panel': 'Conversatorio',
+
   // --- Programación ---
   'schedule.updated': 'Actualizado el',
   'schedule.paid': 'Con boleta',
@@ -472,6 +481,14 @@ const en: Record<UiKey, string> = {
   'speaker.indexLead':
     "The journalists who covered Colombia's last fifty years, gathered in Villa de Leyva, November 5–8, 2026.",
   'speaker.readProfile': 'View profile',
+
+  'session.questions': 'Questions to bring',
+  'session.people': 'At the table',
+  'session.guest': 'Guest',
+  'session.details': 'When and where',
+  'session.read': 'View session',
+  'session.talk': 'Open talk',
+  'session.panel': 'Panel conversation',
 
   'schedule.updated': 'Updated on',
   'schedule.paid': 'Ticket required',

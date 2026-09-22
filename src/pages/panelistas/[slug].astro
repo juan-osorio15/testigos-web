@@ -9,11 +9,11 @@
 import { Image, getImage } from 'astro:assets';
 import InnerLayout from '../../layouts/InnerLayout.astro';
 import CtaButton from '../../components/CtaButton.astro';
+import SessionCard from '../../components/SessionCard.astro';
 import { SITE_URL } from '../../config';
 import { t } from '../../ui';
 import { speakers, type Speaker, type SpeakerLinkKey } from '../../data/speakers';
-import { agenda, dayLabels } from '../../data/agenda';
-import { venueById } from '../../data/event';
+import { agenda } from '../../data/agenda';
 import { speakerPath, HOME_TITLE } from '../../routes';
 import { speakerGraph } from '../../seo/jsonld';
 import LogoSymbol from '../../assets/logo/logo-symbol.svg';
@@ -107,26 +107,12 @@ void HOME_TITLE;
         <h2 id="sessions-title" class="eyebrow">{t('speaker.sessions')}</h2>
         {
           sessions.length > 0 ? (
-            <ul class="profile-sessions">
-              {sessions.map((s) => {
-                const venue = s.venueId ? venueById(s.venueId) : null;
-                return (
-                  <li>
-                    <a href={`/programacion/#${s.slug}`} class="profile-session">
-                      <span class="profile-session-when">
-                        {dayLabels[s.day]}
-                        {s.time && <span> · {s.time}</span>}
-                      </span>
-                      <span class="profile-session-title">{s.title}</span>
-                      <span class="profile-session-meta">
-                        {venue?.name}
-                        {venue && ' · '}
-                        {s.type === 'charla' ? t('schedule.free') : t('schedule.paid')}
-                      </span>
-                    </a>
-                  </li>
-                );
-              })}
+            <ul class="profile-sessions" role="list">
+              {sessions.map((s) => (
+                <li>
+                  <SessionCard session={s} />
+                </li>
+              ))}
             </ul>
           ) : (
             <p class="profile-session-meta">{t('facts.when')}, {t('facts.where')}.</p>
@@ -224,7 +210,7 @@ void HOME_TITLE;
     list-style: none;
     padding: 0;
     display: grid;
-    gap: var(--space-1);
+    gap: var(--space-2);
   }
   .profile-works li {
     font-size: var(--text-body);
@@ -232,29 +218,6 @@ void HOME_TITLE;
   }
   .profile-year {
     opacity: 0.7;
-  }
-  .profile-session {
-    display: grid;
-    gap: 0.2rem;
-    padding: var(--space-2);
-    border-left: 3px solid var(--terracotta);
-    background-color: #fff;
-    text-decoration: none;
-  }
-  .profile-session:hover,
-  .profile-session:focus-visible {
-    background-color: var(--terracotta);
-  }
-  .profile-session-when {
-    font-size: var(--text-label);
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .profile-session-title {
-    font-size: var(--text-h3);
-    font-weight: 800;
-    line-height: 1.2;
   }
   .profile-session-meta {
     font-size: var(--text-small);

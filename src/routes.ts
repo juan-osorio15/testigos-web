@@ -10,6 +10,7 @@
  */
 import { SITE_URL } from './config';
 import { speakers, type Speaker } from './data/speakers';
+import { agenda, type AgendaSlot } from './data/agenda';
 
 export interface Route {
   /** Ruta absoluta con barra final ('/panelistas/daniel-samper-pizano/') */
@@ -37,6 +38,9 @@ const HOME_OG = `${SITE_URL}/og/og-image-v3.png`;
 /** Fecha de contenido de las fichas y páginas creadas en la feature 002 */
 const CONTENT_DATE = '2026-09-17';
 
+/** Fecha de contenido de las páginas de sesión */
+const SESSIONS_DATE = '2026-09-22';
+
 export const HOME_TITLE = 'Testigos de la Memoria · Villa de Leyva, 5 al 8 de noviembre';
 export const HOME_DESCRIPTION =
   'Cuatro días de periodismo e historia en Villa de Leyva, del 5 al 8 de noviembre de 2026. Charlas abiertas y conversatorios. Boletas disponibles.';
@@ -44,6 +48,22 @@ export const HOME_DESCRIPTION =
 export function speakerPath(slug: string): string {
   return `/panelistas/${slug}/`;
 }
+
+/** Página propia de una sesión (solo las que tienen `intro` en agenda.ts) */
+export function sessionPath(slug: string): string {
+  return `/programacion/${slug}/`;
+}
+
+/**
+ * Destino del título de una sesión en la agenda, la programación y las
+ * fichas: su página si la tiene; si no, su fila en /programacion/.
+ */
+export function sessionHref(slot: Pick<AgendaSlot, 'slug' | 'intro'>): string {
+  return slot.intro ? sessionPath(slot.slug) : `/programacion/#${slot.slug}`;
+}
+
+/** Sesiones con página propia, en el orden de la agenda */
+export const sessionsWithPage = agenda.filter((s) => s.intro);
 
 /** Versión de la imagen de vista previa de cada panelista (subir al regenerar) */
 export function speakerOgImage(speaker: Pick<Speaker, 'slug' | 'ogVersion'>): string {
@@ -70,6 +90,32 @@ const speakerRoutes: Route[] = speakers.map((sp) => ({
   ogImage: speakerOgImage(sp),
   lastmod: CONTENT_DATE,
   priority: 'alta',
+}));
+
+function sessionTitle(slot: AgendaSlot): string {
+  const full = `${slot.title} · ${BRAND}`;
+  return full.length <= 60 ? full : slot.title.length <= 60 ? slot.title : `${slot.title.slice(0, 57).trimEnd()}...`;
+}
+
+function sessionDescription(slot: AgendaSlot): string {
+  const kind = slot.type === 'charla' ? 'Charla abierta de entrada libre' : 'Conversatorio';
+  const full = `${kind}: ${slot.title}. ${BRAND}, ${PLACE_DATES}.`;
+  if (full.length <= 155) return full;
+  return `${kind} en ${BRAND}, ${PLACE_DATES}.`;
+}
+
+const sessionRoutes: Route[] = sessionsWithPage.map((slot) => ({
+  path: sessionPath(slot.slug),
+  title: sessionTitle(slot),
+  description: sessionDescription(slot),
+  crumb: slot.title,
+  parent: '/programacion/',
+  ogImage:
+    slot.type === 'charla'
+      ? `${SITE_URL}/og/paginas/charlas-abiertas-v1.jpg`
+      : `${SITE_URL}/og/paginas/programacion-v1.jpg`,
+  lastmod: SESSIONS_DATE,
+  priority: 'media',
 }));
 
 export const routes: Route[] = [
@@ -103,6 +149,7 @@ export const routes: Route[] = [
     lastmod: CONTENT_DATE,
     priority: 'alta',
   },
+  ...sessionRoutes,
   {
     path: '/charlas-abiertas/',
     title: `Charlas abiertas gratis · ${BRAND} 2026`,
