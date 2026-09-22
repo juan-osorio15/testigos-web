@@ -9,12 +9,16 @@
  * la sede principal). Sede 1 = Hospedería Duruelo, sede 2 = Casa Museo.
  */
 import { Image } from 'astro:assets';
-import { t } from '../ui';
-import { venues } from '../data/event';
+import { tFor } from '../ui';
+import { venuesFor } from '../data/event';
+import { langOf } from '../i18n';
 
-const heading = 'Dos sedes, a pocas cuadras';
-const intro =
-  'Un encuentro sobre Colombia en un lugar que parece hecho para conversar. Después de cada sesión puedes caminar por la plaza de Villa de Leyva, sentarte a tomar algo y quedarte conversando. Las dos sedes están a unas cuadras de la Plaza Mayor.';
+const t = tFor(Astro.url.pathname);
+const lang = langOf(Astro.url.pathname);
+const venues = venuesFor(lang);
+
+const heading = t('venue.heading');
+const intro = t('venue.intro');
 
 const mapQueries: Record<string, string> = {
   duruelo: 'Hospedería Duruelo, Villa de Leyva, Boyacá',
@@ -22,7 +26,7 @@ const mapQueries: Record<string, string> = {
 };
 
 const mapSrc = (id: string) =>
-  'https://www.google.com/maps?q=' + encodeURIComponent(mapQueries[id]!) + '&hl=es&z=16&output=embed';
+  'https://www.google.com/maps?q=' + encodeURIComponent(mapQueries[id]!) + `&hl=${lang}&z=16&output=embed`;
 ---
 
 <section id="lugar" class="venue" data-reveal>
@@ -57,7 +61,7 @@ const mapSrc = (id: string) =>
                   class="showcase-logo"
                   style={`--logo-scale: ${venue.logoScale}`}
                   src={venue.logo}
-                  alt={`Logo de ${venue.name}`}
+                  alt={`${t('venue.logoAlt')} ${venue.name}`}
                   height={216}
                   loading="lazy"
                 />
@@ -78,7 +82,7 @@ const mapSrc = (id: string) =>
             >
               <iframe
                 src={mapSrc(venue.id)}
-                title={`Mapa de Google: ${venue.name}`}
+                title={`${t('venue.mapOf')} ${venue.name}`}
                 loading="lazy"
                 allowfullscreen
                 referrerpolicy="no-referrer-when-downgrade"

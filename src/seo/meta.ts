@@ -53,8 +53,12 @@ export function noindexMeta(title: string, description: string, pathname: string
   };
 }
 
-/** Páginas que existen sin estar en `routes` (llevan noindex) */
-export const UNROUTED_PAGES = ['/404/', '/tratamiento-de-datos/', '/terminos-y-condiciones/'];
+/**
+ * Páginas que existen sin estar en `routes` (llevan noindex). /en/ es la
+ * portada en inglés para enlazar desde fuera (src/i18n.ts): no compite
+ * con la portada en español en los buscadores.
+ */
+export const UNROUTED_PAGES = ['/404/', '/tratamiento-de-datos/', '/terminos-y-condiciones/', '/en/'];
 
 /**
  * Recibe las rutas de todas las páginas .astro públicas (derivadas de

@@ -4,13 +4,17 @@
  * sin JS (FR-018). Cierra con el CTA final de la página.
  */
 import { Image } from 'astro:assets';
-import { t } from '../ui';
-import { faqs } from '../data/faqs';
+import { tFor } from '../ui';
+import { faqsFor } from '../data/faqs';
+import { langOf } from '../i18n';
 import CtaButton from './CtaButton.astro';
 import towerPhoto from '../assets/photos/pexels-juansegmentado-31342284.jpg';
 
-const heading = 'Preguntas frecuentes';
-const closing = 'Que no te lo cuenten. Ven y sé testigo.';
+const t = tFor(Astro.url.pathname);
+const faqs = faqsFor(langOf(Astro.url.pathname));
+
+const heading = t('faq.heading');
+const closing = t('faq.closing');
 
 /* El FAQPage del JSON-LD sale de los mismos datos y vive en el grafo de
    la portada (src/seo/jsonld.ts, feature 002). */
@@ -39,7 +43,7 @@ const closing = 'Que no te lo cuenten. Ven y sé testigo.';
     <div class="faq-photo">
       <Image
         src={towerPhoto}
-        alt="Campanario de piedra de la iglesia de Villa de Leyva"
+        alt={t('faq.photoAlt')}
         width={800}
         height={1200}
         widths={[480, 640, 800]}

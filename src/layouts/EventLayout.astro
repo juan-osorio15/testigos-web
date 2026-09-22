@@ -14,6 +14,8 @@ import { assertAgenda } from '../data/agenda';
 import { heroImage } from '../seo/hero';
 import { noindexMeta, pageMeta, type PageMeta } from '../seo/meta';
 import { routeByPath } from '../routes';
+import { tFor } from '../ui';
+import { langOf } from '../i18n';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ConsentNotice from '../components/ConsentNotice.astro';
@@ -40,6 +42,10 @@ interface Props {
 }
 
 const { path, title, description, noindex = false, hero = false, jsonld } = Astro.props;
+
+/* Idioma por ruta (src/i18n.ts): solo /en/ es inglés */
+const lang = langOf(Astro.url.pathname);
+const t = tFor(Astro.url.pathname);
 
 /* Datos de la agenda coherentes antes de emitir cualquier marcado */
 assertAgenda();
@@ -88,7 +94,7 @@ const consentBootstrap = ga4
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -135,7 +141,7 @@ const consentBootstrap = ga4
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content={meta.ogImage.endsWith('.jpg') ? 'image/jpeg' : 'image/png'} />
     <meta property="og:image:alt" content={`${meta.title}. ${meta.description}`} />
-    <meta property="og:locale" content="es_CO" />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'es_CO'} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={meta.title} />
     <meta name="twitter:description" content={meta.description} />
@@ -155,7 +161,13 @@ const consentBootstrap = ga4
       pretixLive && (
         <>
           <link rel="stylesheet" type="text/css" href={PRETIX_WIDGET_CSS} crossorigin="anonymous" />
-          <script is:inline type="text/javascript" src={PRETIX_WIDGET_SCRIPT} async crossorigin="anonymous" />
+          <script
+            is:inline
+            type="text/javascript"
+            src={PRETIX_WIDGET_SCRIPT.replace('.es.js', `.${lang}.js`)}
+            async
+            crossorigin="anonymous"
+          />
         </>
       )
     }
@@ -165,7 +177,7 @@ const consentBootstrap = ga4
     </script>
   </head>
   <body>
-    <a href="#contenido" class="skip-link">Saltar al contenido</a>
+    <a href="#contenido" class="skip-link">{t('layout.skip')}</a>
     <Header solid={!hero} />
     <slot />
     <Footer />

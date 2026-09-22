@@ -7,20 +7,23 @@
  * (una sola altura de fila) y vuelven a encogerse cuando la sección sale
  * de la pantalla. Transición corta y lineal, sin rebotes.
  */
-import { t } from '../ui';
-import { speakers } from '../data/speakers';
+import { tFor } from '../ui';
+import { speakersFor } from '../data/speakers';
+import { langOf } from '../i18n';
 import CtaButton from './CtaButton.astro';
 import SpeakerCard from './SpeakerCard.astro';
 
+const t = tFor(Astro.url.pathname);
+const speakers = speakersFor(langOf(Astro.url.pathname));
+
 const tones = ['olive', 'sky', 'brick'] as const;
 
-/* Subtítulo del banco aprobado (spec §2) */
-const subtitle = '¿Qué pasa cuando quienes contaron la historia vuelven a contarla?';
-const lead =
-  'Esta vez no los vas a leer: vas a escucharlos hablar de lo que vieron, lo que no pudieron contar y lo que hoy entienden de otra manera.';
-/* Remate de urgencia junto al CTA: el dato en negrita, la consecuencia después */
-const ctaLead = 'Aforo limitado.';
-const ctaNote = 'Los conversatorios más esperados se agotan primero.';
+/* Subtítulo del banco aprobado (spec §2) y remate de urgencia junto al
+   CTA (el dato en negrita, la consecuencia después): ui.ts */
+const subtitle = t('speakers.subtitle');
+const lead = t('speakers.lead');
+const ctaLead = t('speakers.ctaLead');
+const ctaNote = t('speakers.ctaNote');
 ---
 
 <section id="speakers" class="speakers" data-reveal>

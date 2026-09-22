@@ -1,0 +1,46 @@
+---
+/**
+ * Portada en inglés (/en/): la misma portada, con los textos de la tabla
+ * `en` de ui.ts y de los campos `en` de los datos (src/i18n.ts). Es para
+ * enlazar desde fuera (LinkedIn, hoja de vida): sin selector de idioma,
+ * sin enlaces desde el sitio en español, noindex y fuera del sitemap
+ * (UNROUTED_PAGES). Sin JSON-LD: el grafo en español ya describe el evento.
+ */
+import EventLayout from '../layouts/EventLayout.astro';
+import Hero from '../components/Hero.astro';
+import TicketSection from '../components/TicketSection.astro';
+import KeyFacts from '../components/KeyFacts.astro';
+import Opportunity from '../components/Opportunity.astro';
+import SpeakerGrid from '../components/SpeakerGrid.astro';
+import Schedule from '../components/Schedule.astro';
+import Interlude from '../components/Interlude.astro';
+import VenueMap from '../components/VenueMap.astro';
+import FAQ from '../components/FAQ.astro';
+
+const title = 'Testigos de la Memoria · Villa de Leyva, November 5–8';
+const description =
+  'Four days of journalism and history in Villa de Leyva, Colombia, November 5–8, 2026. Open talks and panel conversations. Tickets on sale.';
+---
+
+<EventLayout hero noindex title={title} description={description}>
+  <Hero />
+  {/* Mismo orden que index.astro (2026-09-18) */}
+  <main id="contenido">
+    <KeyFacts />
+    <SpeakerGrid />
+    <TicketSection />
+    <Schedule />
+    <VenueMap />
+    <Opportunity />
+    <Interlude />
+    <FAQ />
+  </main>
+</EventLayout>
+
+<style>
+  main {
+    position: relative;
+    z-index: 1;
+    background-color: var(--cream);
+  }
+</style>

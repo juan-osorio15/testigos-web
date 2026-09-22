@@ -5,7 +5,7 @@
  * 'cta.buy' por defecto (header y franja del hero lo usan siempre); las
  * variantes de sección se eligen con `label` entre las claves permitidas.
  */
-import { t, type UiKey } from '../ui';
+import { tFor, type UiKey } from '../ui';
 import { sectionHref } from '../links';
 
 type CtaKey = Extract<UiKey, 'cta.buy' | 'cta.beThere' | 'cta.secure' | 'cta.live'>;
@@ -17,6 +17,7 @@ interface Props {
 }
 
 const { variant = 'inline', label = 'cta.buy' } = Astro.props;
+const t = tFor(Astro.url.pathname);
 const href = sectionHref(Astro.url.pathname, 'boletas');
 ---
 

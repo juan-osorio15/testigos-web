@@ -8,10 +8,12 @@
  * prácticos van en cielo, fórmula visual §3); ahí el botón terracota
  * contrasta, cosa que sobre terracota no hacía.
  */
-import { t } from '../ui';
+import { tFor } from '../ui';
 import { event, formatPrice, venues } from '../data/event';
 import { offerStatuses } from '../seo/offers';
 import CtaButton from './CtaButton.astro';
+
+const t = tFor(Astro.url.pathname);
 
 const statuses = offerStatuses();
 const fmtDay = (iso: string) =>

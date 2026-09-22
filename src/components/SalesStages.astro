@@ -7,7 +7,10 @@
  * en el build y el script los recalcula en el navegador.
  */
 import { salesStages } from '../data/event';
-import { t } from '../ui';
+import { tFor } from '../ui';
+import { langOf, localeOf } from '../i18n';
+
+const t = tFor(Astro.url.pathname);
 
 const DAY = 86_400_000;
 /* Cambio de etapa a las 0:00 de Bogotá del primer día de la etapa 2 */
@@ -15,7 +18,7 @@ const switchAt = Date.parse(`${salesStages.stage2Start}T00:00:00-05:00`);
 const daysLeft = Math.ceil((switchAt - Date.now()) / DAY);
 const stage2Live = daysLeft <= 0;
 
-const fmt = new Intl.DateTimeFormat('es-CO', { timeZone: 'America/Bogota', day: 'numeric', month: 'long' });
+const fmt = new Intl.DateTimeFormat(localeOf(langOf(Astro.url.pathname)), { timeZone: 'America/Bogota', day: 'numeric', month: 'long' });
 const parts = (iso: string) => {
   const p = fmt.formatToParts(new Date(`${iso}T12:00:00-05:00`));
   return {

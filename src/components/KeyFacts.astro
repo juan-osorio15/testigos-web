@@ -8,18 +8,21 @@
  */
 import { event } from '../data/event';
 import { speakers } from '../data/speakers';
+import { tFor } from '../ui';
+
+const t = tFor(Astro.url.pathname);
 
 const days =
   Math.round((Date.parse(`${event.endDate}T12:00:00Z`) - Date.parse(`${event.startDate}T12:00:00Z`)) / 86_400_000) + 1;
 
 const facts = [
-  { figure: String(days), label: 'días', detail: 'Del jueves 5 al domingo 8 de noviembre de 2026, en Villa de Leyva.' },
-  { figure: String(speakers.length), label: 'periodistas', detail: 'Los que cuentan la historia reciente del país, en persona y con derecho a preguntas.' },
-  { figure: '2', label: 'formatos', detail: 'Charlas abiertas de entrada libre en la Casa Museo Antonio Nariño y conversatorios con boleta en la Hospedería Duruelo.' },
+  { figure: String(days), label: t('keyfacts.days'), detail: t('keyfacts.daysDetail') },
+  { figure: String(speakers.length), label: t('keyfacts.speakers'), detail: t('keyfacts.speakersDetail') },
+  { figure: '2', label: t('keyfacts.formats'), detail: t('keyfacts.formatsDetail') },
 ];
 ---
 
-<section id="datos" class="keyfacts" aria-label="El encuentro en tres datos" data-reveal>
+<section id="datos" class="keyfacts" aria-label={t('keyfacts.aria')} data-reveal>
   <ul class="container keyfacts-grid" role="list">
     {
       facts.map((f) => (

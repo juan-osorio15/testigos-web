@@ -8,18 +8,16 @@
  * 2026-09-18) y el remate. Se conserva el id #oportunidad para los
  * enlaces del header y de fuera.
  */
+import { tFor } from '../ui';
+
+const t = tFor(Astro.url.pathname);
+/* Textos en ui.ts (opp.*); la pregunta es del banco aprobado (spec §2) */
 const copy = {
-  eyebrow: 'Primera edición',
-  /* Pregunta del banco aprobado (spec §2) */
-  heading: 'Una oportunidad de escuchar de primera mano a quienes estuvieron allí cuando la historia estaba ocurriendo.',
-  lead: 'Los hechos que marcaron al país tienen testigos de primera fila: los reporteros que los cubrieron. Durante cuatro días, algunos de los grandes nombres del periodismo colombiano se sientan a contar lo que vieron, cómo lo contaron y qué nos enseña ese pasado para lo que viene.',
-  points: [
-    'Lo que estaba detrás de las noticias, lo que no salió en televisión, las decisiones que tuvieron que tomar y las historias que quedaron fuera.',
-    'Conversatorios cercanos, sin tarima lejana: preguntas y desacuerdos incluidos.',
-    'Historia y oficio de primera mano, con nombres, fechas y medios sobre la mesa.',
-    'Villa de Leyva: un pueblo que invita a quedarse conversando después de cada sesión.',
-  ],
-  closing: 'Es la primera edición. Nadie te lo va a contar: ¡hay que estar!',
+  eyebrow: t('opp.eyebrow'),
+  heading: t('opp.heading'),
+  lead: t('opp.lead'),
+  points: [t('opp.point1'), t('opp.point2'), t('opp.point3'), t('opp.point4')],
+  closing: t('opp.closing'),
 };
 ---
 

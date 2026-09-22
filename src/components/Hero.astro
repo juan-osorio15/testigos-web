@@ -11,13 +11,17 @@
  * CTA ya viven aquí; el header baja cuando el contenido llega arriba.
  */
 import { Image } from 'astro:assets';
-import { t } from '../ui';
+import { tFor } from '../ui';
 import { event } from '../data/event';
 import CtaButton from './CtaButton.astro';
 import LogoLockup from '../assets/logo/logo-lockup.svg';
 import { heroTile } from '../seo/hero';
-import { speakers } from '../data/speakers';
+import { speakersFor } from '../data/speakers';
+import { langOf } from '../i18n';
 import { speakerPath } from '../routes';
+
+const t = tFor(Astro.url.pathname);
+const lang = langOf(Astro.url.pathname);
 
 /* Escalera de caras, como en el afiche: tres arriba, cuatro en medio y
    cinco abajo, alineadas a la derecha sobre una grilla de siete columnas,
@@ -27,7 +31,7 @@ import { speakerPath } from '../routes';
    En móvil la escalera no aplica: cuatro columnas a lo ancho. */
 const STAIR = [3, 4, 5] as const;
 const COLS = 7;
-const withPhoto = speakers.filter((s) => s.photo !== null);
+const withPhoto = speakersFor(lang).filter((s) => s.photo !== null);
 const tiles = STAIR.flatMap((n, r) =>
   Array.from({ length: n }, (_, k) => ({
     speaker: withPhoto[STAIR.slice(0, r).reduce((a, b) => a + b, 0) + k]!,
@@ -37,9 +41,9 @@ const tiles = STAIR.flatMap((n, r) =>
   })),
 ).filter((t) => t.speaker);
 
-/* Slogan aprobado (spec §2); el nombre del evento va en el h1 para SEO/AT
-   y el eslogan es el display visible. */
-const slogan = ['La historia reciente', 'de Colombia, contada', 'por quienes', 'la viven de frente.'];
+/* Slogan aprobado (spec §2), una línea por salto (ui.ts); el nombre del
+   evento va en el h1 para SEO/AT y el eslogan es el display visible. */
+const slogan = t('hero.slogan').split('\n');
 
 /* Contador: días, horas, minutos y segundos hasta el 5 de noviembre a las
    0:00 de Bogotá. Valor de build como punto de partida; el script lo
@@ -144,7 +148,7 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
       <p class="hero-fact hero-date">
         <span class="hero-fact-num">5–8</span>
         <span class="hero-fact-label">
-          <span>noviembre 2026</span>
+          <span>{t('hero.month')}</span>
           <span class="hero-after-sep">{t('hero.place')}</span>
         </span>
       </p>

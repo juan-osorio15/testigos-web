@@ -7,10 +7,12 @@
  * las páginas sin hero la reciben desde el servidor (`solid`) y sin JS el
  * fallback <noscript> lo deja visible, sólido y legible siempre.
  */
-import { t } from '../ui';
+import { tFor } from '../ui';
 import { sectionHref } from '../links';
 import CtaButton from './CtaButton.astro';
 import LogoLockup from '../assets/logo/logo-lockup.svg';
+
+const t = tFor(Astro.url.pathname);
 
 interface Props {
   /** Página sin hero: el header nace visible y sólido, sin animación de entrada. */

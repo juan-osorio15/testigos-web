@@ -8,7 +8,9 @@
  * activa. Puede haber varias instancias en la página.
  */
 import { WAITLIST_ENDPOINT, EVENTALIST_CAMPAIGN } from '../config';
-import { t } from '../ui';
+import { tFor } from '../ui';
+
+const t = tFor(Astro.url.pathname);
 
 interface Props {
   class?: string;

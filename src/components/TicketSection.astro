@@ -8,18 +8,22 @@
  * sección implementa el contrato pretix-embed.md al pie de la letra.
  */
 import { PRETIX_EVENT_URL, pretixReady } from '../config';
-import { t } from '../ui';
+import { tFor } from '../ui';
 import LogoSymbol from '../assets/logo/logo-symbol.svg';
 import WaitlistForm from './WaitlistForm.astro';
 import SalesStages from './SalesStages.astro';
 import { agenda } from '../data/agenda';
 import { ticketOffers, formatPrice } from '../data/event';
+import { speakers } from '../data/speakers';
+import { langOf } from '../i18n';
+
+const t = tFor(Astro.url.pathname);
+const lang = langOf(Astro.url.pathname);
 
 /* Precios de referencia para las dos fichas (los cobra Pretix; aquí solo
    se muestran): el pase y cualquiera de las boletas de medio día. */
-const passPrice = formatPrice(ticketOffers.find((o) => o.id === 'pase-completo')!);
-const halfDayPrice = formatPrice(ticketOffers.find((o) => o.id === 'viernes-tarde')!);
-import { speakers } from '../data/speakers';
+const passPrice = formatPrice(ticketOffers.find((o) => o.id === 'pase-completo')!, lang);
+const halfDayPrice = formatPrice(ticketOffers.find((o) => o.id === 'viernes-tarde')!, lang);
 
 /* `pretixReady` (config.ts) decide tienda o formulario. La hoja de estilos
    y el script del widget los pone EventLayout en la cabecera del documento. */
@@ -96,6 +100,7 @@ const franjaNames = Object.fromEntries(
     <div
       class="tickets-widget"
       data-notify-label={t('tickets.notify')}
+      data-not-yet={t('tickets.notYet')}
       data-franjas={JSON.stringify(franjaNames)}
     >
       {
@@ -146,15 +151,16 @@ const franjaNames = Object.fromEntries(
 <script>
   // Etapas de venta: las franjas con "disponible desde" en el futuro llegan
   // del widget de Pretix con el aviso "Aún no disponible" (texto fijo de
-  // v2.es.js, dentro de .pretix-widget-availability-unavailable). Aquí ese
+  // v2.<idioma>.js, dentro de .pretix-widget-availability-unavailable;
+  // llega en data-not-yet en el idioma de la página). Aquí ese
   // aviso se cambia por un botón que abre el modal de la lista de
   // interesados, y a cada franja se le añade una línea con sus panelistas.
   // Los nombres salen de los datos del sitio (data-franjas, por nombre de
   // producto) y, si el producto no se reconoce, de las negritas de la
   // descripción de Pretix. El widget pinta con Vue, así que se observa el
   // DOM y se reaplica si se redibuja.
-  const NOT_YET = 'Aún no disponible';
   const widget = document.querySelector<HTMLElement>('.tickets-widget');
+  const NOT_YET = widget?.dataset.notYet ?? 'Aún no disponible';
   const dialog = document.querySelector<HTMLDialogElement>('[data-notify]');
   const itemLabel = dialog?.querySelector<HTMLElement>('[data-notify-item]');
 

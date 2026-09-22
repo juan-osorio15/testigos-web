@@ -4,8 +4,10 @@
  * sale de src/routes.ts; el BreadcrumbList del JSON-LD lo genera
  * src/seo/jsonld.ts con la misma cadena.
  */
-import { t } from '../ui';
+import { tFor } from '../ui';
 import { breadcrumbsFor } from '../routes';
+
+const t = tFor(Astro.url.pathname);
 
 interface Props {
   path: string;

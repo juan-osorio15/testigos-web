@@ -13,23 +13,34 @@
  * (hora, sede, panelistas) se omite en vez de marcarse "por confirmar"
  * (FR-005 + decisión del usuario 2026-09-03).
  */
-import { t } from '../ui';
-import { agenda, dayLabels, type EventDay } from '../data/agenda';
+import { tFor } from '../ui';
+import { langOf } from '../i18n';
+import { agendaFor, dayLabelsFor, type EventDay } from '../data/agenda';
 import { venueById } from '../data/event';
+import { speakersFor } from '../data/speakers';
+import { speakerPath } from '../routes';
+import CtaButton from './CtaButton.astro';
+
+const t = tFor(Astro.url.pathname);
+const lang = langOf(Astro.url.pathname);
+const agenda = agendaFor(lang);
+const dayLabels = dayLabelsFor(lang);
+const speakerBySlug = (slug: string) => {
+  const s = speakersFor(lang).find((s) => s.slug === slug);
+  if (!s) throw new Error(`Speaker desconocido: ${slug}`);
+  return s;
+};
 
 /* Leyenda: cada tipo de sesión con su color, su sede y su entrada */
 const legend = [
   { tone: 'olive', label: t('schedule.legendTalks'), venue: venueById('casa-museo').name },
   { tone: 'terracotta', label: t('schedule.legendPanels'), venue: venueById('duruelo').name },
 ] as const;
-import { speakerBySlug } from '../data/speakers';
-import { speakerPath } from '../routes';
-import CtaButton from './CtaButton.astro';
 
 const days = Object.keys(dayLabels) as EventDay[];
 const slotsByDay = (day: EventDay) => agenda.filter((s) => s.day === day);
 
-const heading = 'Cuatro días en Villa de Leyva';
+const heading = t('schedule.heading');
 const base = import.meta.env.BASE_URL.endsWith('/')
   ? import.meta.env.BASE_URL
   : import.meta.env.BASE_URL + '/';

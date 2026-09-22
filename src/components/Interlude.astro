@@ -7,13 +7,16 @@
  */
 import { Image } from 'astro:assets';
 import streetPhoto from '../assets/photos/pexels-enrique-30266123.jpg';
+import { tFor } from '../ui';
+
+const t = tFor(Astro.url.pathname);
 ---
 
 <aside class="interlude" data-reveal>
   <div class="duotone interlude-photo">
     <Image
       src={streetPhoto}
-      alt="Calle empedrada de Villa de Leyva con las casas blancas y la montaña al fondo"
+      alt={t('interlude.alt')}
       width={1200}
       height={1600}
       widths={[640, 900, 1200]}
@@ -22,9 +25,7 @@ import streetPhoto from '../assets/photos/pexels-enrique-30266123.jpg';
     />
   </div>
   <div class="interlude-block">
-    <p class="interlude-quote">
-      Villa de Leyva se reúne para conversar sobre el país que hemos vivido.
-    </p>
+    <p class="interlude-quote">{t('interlude.quote')}</p>
   </div>
 </aside>
 

@@ -1,4 +1,5 @@
 import type { VenueId } from './event';
+import type { Lang } from '../i18n';
 
 /**
  * Agenda oficial: conversatorios de la programación parcial del
@@ -36,6 +37,8 @@ export interface AgendaSlot {
   guests?: string[];
   /** Nota breve bajo el título (sinopsis, credencial del invitado) */
   note?: string;
+  /** Título y nota para la portada en inglés (/en/); `agendaFor('en')` los sustituye */
+  en?: { title: string; note?: string };
 }
 
 export const dayLabels: Record<EventDay, string> = {
@@ -44,6 +47,17 @@ export const dayLabels: Record<EventDay, string> = {
   '2026-11-07': 'Sábado 7 de noviembre',
   '2026-11-08': 'Domingo 8 de noviembre',
 };
+
+const dayLabelsEn: Record<EventDay, string> = {
+  '2026-11-05': 'Thursday, November 5',
+  '2026-11-06': 'Friday, November 6',
+  '2026-11-07': 'Saturday, November 7',
+  '2026-11-08': 'Sunday, November 8',
+};
+
+export function dayLabelsFor(lang: Lang): Record<EventDay, string> {
+  return lang === 'en' ? dayLabelsEn : dayLabels;
+}
 
 export const agenda: AgendaSlot[] = [
   /* --- Jueves 5: charlas abiertas, entrada libre --- */
@@ -59,6 +73,10 @@ export const agenda: AgendaSlot[] = [
     speakerSlugs: [],
     guests: ['Daniel Esteban Alvarado'],
     note: 'Docente del programa de Comunicación Social de la Universidad de Boyacá.',
+    en: {
+      title: 'Reporting workshop talk',
+      note: 'Lecturer in the Social Communication program at Universidad de Boyacá.',
+    },
   },
   {
     day: '2026-11-05',
@@ -71,6 +89,10 @@ export const agenda: AgendaSlot[] = [
     venueId: 'casa-museo',
     speakerSlugs: ['guillermo-gonzalez'],
     note: 'La historia del fotógrafo Sady González, pionero de la reportería gráfica en Colombia, y de Esperanza Uribe, creadora del archivo Foto Sady. La Bogotá de los años cuarenta y cincuenta, con las imágenes del 9 de abril de 1948. Presenta Guillermo González Uribe, codirector.',
+    en: {
+      title: 'Documentary: Sady González, a light in memory',
+      note: 'The story of photographer Sady González, a pioneer of photojournalism in Colombia, and of Esperanza Uribe, creator of the Foto Sady archive. Bogotá in the 1940s and 1950s, with the images of April 9, 1948. Presented by co-director Guillermo González Uribe.',
+    },
   },
 
   /* --- Viernes 6: charla abierta en la mañana + apertura de conversatorios --- */
@@ -85,6 +107,7 @@ export const agenda: AgendaSlot[] = [
     title: 'Charla de periodismo digital',
     venueId: 'casa-museo',
     speakerSlugs: [],
+    en: { title: 'Digital journalism talk' },
   },
   {
     day: '2026-11-06',
@@ -96,6 +119,7 @@ export const agenda: AgendaSlot[] = [
     title: 'Bienvenida y presentación',
     venueId: 'duruelo',
     speakerSlugs: ['dario-restrepo'],
+    en: { title: 'Welcome and introduction' },
   },
   {
     day: '2026-11-06',
@@ -107,6 +131,7 @@ export const agenda: AgendaSlot[] = [
     title: 'Bogotazo, dictadura y Frente Nacional (1958-1974)',
     venueId: 'duruelo',
     speakerSlugs: ['daniel-samper-pizano', 'dario-restrepo'],
+    en: { title: 'The Bogotazo, dictatorship and the National Front (1958-1974)' },
   },
 
   /* --- Sábado 7: conversatorios --- */
@@ -121,6 +146,7 @@ export const agenda: AgendaSlot[] = [
     venueId: 'duruelo',
     /* Ana María Echeverri entró el 2026-09-15 (organizadores) */
     speakerSlugs: ['leon-valencia', 'ana-maria-echeverri'],
+    en: { title: 'The rise of the guerrillas' },
   },
   {
     day: '2026-11-07',
@@ -132,6 +158,7 @@ export const agenda: AgendaSlot[] = [
     title: 'Negociaciones de paz, el Caguán y La Habana',
     venueId: 'duruelo',
     speakerSlugs: ['marisol-gomez'],
+    en: { title: 'Peace negotiations: Caguán and Havana' },
   },
   {
     day: '2026-11-07',
@@ -144,6 +171,7 @@ export const agenda: AgendaSlot[] = [
     venueId: 'duruelo',
     /* Martha Soto entró a esta franja el 2026-09-15 (organizadores) */
     speakerSlugs: ['luz-maria-sierra', 'martha-soto'],
+    en: { title: 'Drug trafficking and paramilitarism' },
   },
   {
     day: '2026-11-07',
@@ -155,6 +183,7 @@ export const agenda: AgendaSlot[] = [
     title: 'Reelecciones',
     venueId: 'duruelo',
     speakerSlugs: ['cecilia-orozco'],
+    en: { title: 'Presidential re-elections' },
   },
 
   /* --- Domingo 8: conversatorios y cierre --- */
@@ -168,6 +197,7 @@ export const agenda: AgendaSlot[] = [
     title: 'Magnicidios y víctimas de la violencia',
     venueId: 'duruelo',
     speakerSlugs: ['marta-ruiz', 'guillermo-gonzalez'],
+    en: { title: 'Assassinations and victims of the violence' },
   },
   {
     day: '2026-11-08',
@@ -179,6 +209,7 @@ export const agenda: AgendaSlot[] = [
     title: 'Mujeres periodistas y conflicto',
     venueId: 'duruelo',
     speakerSlugs: ['yolanda-ruiz', 'maria-elvira-samper'],
+    en: { title: 'Women journalists and the conflict' },
   },
   {
     day: '2026-11-08',
@@ -190,8 +221,18 @@ export const agenda: AgendaSlot[] = [
     title: 'Cierre',
     venueId: 'duruelo',
     speakerSlugs: [],
+    en: { title: 'Closing session' },
   },
 ];
+
+/** Agenda con los textos del idioma pedido; en español, el array tal cual */
+export function agendaFor(lang: Lang): AgendaSlot[] {
+  if (lang === 'es') return agenda;
+  return agenda.map((slot) => {
+    if (!slot.en) throw new Error(`agenda: "${slot.slug}" sin textos en inglés`);
+    return { ...slot, title: slot.en.title, note: slot.en.note ?? slot.note };
+  });
+}
 
 /**
  * Comprobación en el build (feature 002): `time` visible sin `start`,

@@ -8,6 +8,7 @@ import photoCasaMuseo from '../assets/venues/casa-museo-patio.jpg';
 import logoDuruelo from '../assets/partners/duruelo.png';
 import logoCasaMuseo from '../assets/partners/casa-museo.png';
 import type { EventDay } from './agenda';
+import type { Lang } from '../i18n';
 
 export const event = {
   name: 'Testigos de la Memoria',
@@ -143,9 +144,9 @@ export const ticketOffers: TicketOffer[] = [
   },
 ];
 
-/** Formato de precio en texto plano: "310.000 COP" */
-export function formatPrice(offer: Pick<TicketOffer, 'price' | 'currency'>): string {
-  return `${offer.price.toLocaleString('es-CO')} ${offer.currency}`;
+/** Formato de precio en texto plano: "310.000 COP" (en inglés, "310,000 COP") */
+export function formatPrice(offer: Pick<TicketOffer, 'price' | 'currency'>, lang: Lang = 'es'): string {
+  return `${offer.price.toLocaleString(lang === 'en' ? 'en-US' : 'es-CO')} ${offer.currency}`;
 }
 
 export type VenueId = 'casa-museo' | 'duruelo';
@@ -175,6 +176,8 @@ export interface Venue {
   logo: ImageMetadata | null;
   /** Alto relativo del logo en el bloque de la sede (1 = base); los logos verticales necesitan más */
   logoScale: number;
+  /** Textos para la portada en inglés (/en/); `venuesFor('en')` los sustituye */
+  en?: Pick<Venue, 'role' | 'kicker' | 'summary' | 'photoAlt'>;
 }
 
 /* Orden de presentación: la sede principal (conversatorios) primero. */
@@ -195,6 +198,13 @@ export const venues: Venue[] = [
     photoAlt: 'Fachada de la Hospedería Duruelo, con sus arcos y balcones cubiertos de buganvilias',
     logo: logoDuruelo,
     logoScale: 1,
+    en: {
+      role: 'Panel conversations · ticket required · November 6–8',
+      kicker: 'Venue for the panel conversations',
+      summary:
+        'A hotel at the top of the town, opened in 1973 and conceived like the guesthouses of the old European monasteries: corridors, balconies and gardens overlooking all of Villa de Leyva and the valley. Its name recalls Duruelo, the Castilian village where Saint John of the Cross founded the first convent of the Discalced Carmelites.',
+      photoAlt: 'Facade of Hospedería Duruelo, with its arches and balconies covered in bougainvillea',
+    },
   },
   {
     id: 'casa-museo',
@@ -212,11 +222,27 @@ export const venues: Venue[] = [
     photoAlt: 'Patio central de la Casa Museo Antonio Nariño: la fuente de piedra sobre el empedrado y la arcada de columnas alrededor',
     logo: logoCasaMuseo,
     logoScale: 1.5,
+    en: {
+      role: 'Open talks · free admission · November 5 and 6',
+      kicker: 'Venue for the open talks',
+      summary:
+        'A colonial mansion built in the late 17th century. It has served many purposes over the years and is considered the last home of independence precursor Antonio Nariño, who died there in December 1823. Declared a National Monument in 1961, it is now a museum dedicated to preserving the memory and legacy of the man who translated the Declaration of the Rights of Man into Spanish.',
+      photoAlt: 'Central courtyard of Casa Museo Antonio Nariño: the stone fountain on the cobblestones and the colonnaded arcade around it',
+    },
   },
 ];
 
-export function venueById(id: VenueId): Venue {
-  const v = venues.find((v) => v.id === id);
+/** Sedes con los textos del idioma pedido; en español, el array tal cual */
+export function venuesFor(lang: Lang): Venue[] {
+  if (lang === 'es') return venues;
+  return venues.map((v) => {
+    if (!v.en) throw new Error(`Venue sin textos en inglés: ${v.id}`);
+    return { ...v, ...v.en };
+  });
+}
+
+export function venueById(id: VenueId, lang: Lang = 'es'): Venue {
+  const v = venuesFor(lang).find((v) => v.id === id);
   if (!v) throw new Error(`Venue desconocida: ${id}`);
   return v;
 }

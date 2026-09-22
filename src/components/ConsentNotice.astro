@@ -15,7 +15,9 @@
  * no habría nada que autorizar.
  */
 import { measurement } from '../config';
-import { t } from '../ui';
+import { tFor } from '../ui';
+
+const t = tFor(Astro.url.pathname);
 
 const base = import.meta.env.BASE_URL.endsWith('/')
   ? import.meta.env.BASE_URL
@@ -157,7 +159,11 @@ const enabled = !!(measurement.ga4Id || measurement.metaPixelId);
 
         // --- Gestor de preferencias ---
         const fmt = (iso: string) =>
-          new Date(iso).toLocaleString('es-CO', { dateStyle: 'long', timeStyle: 'short', timeZone: 'America/Bogota' });
+          new Date(iso).toLocaleString(document.documentElement.lang === 'en' ? 'en-US' : 'es-CO', {
+            dateStyle: 'long',
+            timeStyle: 'short',
+            timeZone: 'America/Bogota',
+          });
 
         const render = () => {
           if (!dialog) return;

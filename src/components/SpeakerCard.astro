@@ -11,10 +11,12 @@
  * altura. Sin JS, la bio se muestra completa y el botón no aparece.
  */
 import { Image } from 'astro:assets';
-import { t } from '../ui';
+import { tFor } from '../ui';
 import type { Speaker, SpeakerLinkKey } from '../data/speakers';
 import LogoSymbol from '../assets/logo/logo-symbol.svg';
 import { speakerPath } from '../routes';
+
+const t = tFor(Astro.url.pathname);
 
 interface Props {
   speaker: Speaker;
@@ -35,7 +37,7 @@ const links = linkOrder
 ---
 
 <article class:list={['card', `card--${tone}`]}>
-  <a class="card-media" href={href} aria-label={`${speaker.name}: ver ficha`} tabindex="-1">
+  <a class="card-media" href={href} aria-label={`${speaker.name}: ${t('speakers.viewProfile')}`} tabindex="-1">
     {
       speaker.photo ? (
         <div
@@ -73,7 +75,7 @@ const links = linkOrder
       <ul class="card-links" aria-label={`${t('speakers.links')} ${speaker.name}`}>
         {links.map(({ key, href, label }) => (
           <li>
-            <a href={href} target="_blank" rel="noopener noreferrer" aria-label={`${speaker.name} en ${label}`} title={label}>
+            <a href={href} target="_blank" rel="noopener noreferrer" aria-label={`${speaker.name} ${t('speakers.on')} ${label}`} title={label}>
               {key === 'x' && (
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M17.7 3h3.1l-6.8 7.8L22 21h-6.3l-4.9-6.4L5.2 21H2.1l7.3-8.3L1.7 3h6.4l4.4 5.9L17.7 3Zm-1.1 16.2h1.7L7 4.7H5.2l11.4 14.5Z" />
