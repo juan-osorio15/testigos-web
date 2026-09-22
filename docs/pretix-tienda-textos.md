@@ -351,7 +351,7 @@ el separador "-- " por su cuenta. Corta y sin repetir lo que el cuerpo ya dice.
 Testigos de la Memoria
 Periodistas en la Historia
 Villa de Leyva, 5 al 8 de noviembre de 2026
-testigosdelamemoria.com
+https://testigosdelamemoria.com
 
 Organizan Fernando Cordovez y Darío Restrepo.
 Boletería a cargo de Eventalist. Dudas sobre tu compra: hola@eventalist.co

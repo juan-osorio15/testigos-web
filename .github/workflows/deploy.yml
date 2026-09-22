@@ -4,6 +4,13 @@
 # a `main` (que requiere autorización explícita del usuario) o a mano.
 # Requiere además cambiar Pages a Source: "GitHub Actions" — acción manual
 # del usuario documentada en specs/001-event-landing/quickstart.md.
+#
+# Las acciones van fijadas al SHA del commit, no a la etiqueta `v4`: una
+# etiqueta la puede mover su dueño en cualquier momento y el runner
+# ejecutaría código distinto con permiso de publicar el sitio. El comentario
+# al lado dice de qué versión salió cada SHA. Para actualizar: mirar el
+# release de la acción y reemplazar el SHA, nunca volver a `@v4`.
+#
 name: Deploy to GitHub Pages
 
 on:
@@ -24,14 +31,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
           cache: npm
       - run: npm ci
       - run: npm run build
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
           path: dist/
 
@@ -43,7 +50,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
       # Aviso a Bing y afines (IndexNow) con las URL del sitemap publicado.
       # La clave es pública por diseño (public/<clave>.txt). Google no
       # participa: sigue por sitemap y Search Console. No rompe el deploy.

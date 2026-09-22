@@ -11,3 +11,6 @@ acreditaciones.csv
 
 # Identificadores de cuentas y credenciales (no se sube)
 docs/credenciales.md
+
+# Revisiones de seguridad (uso interno, el repositorio es público)
+docs/seguridad-*.md

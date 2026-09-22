@@ -127,11 +127,12 @@ El bot es el equipo de Testigos de la Memoria: la persona amable que atiende la 
 5. **Un solo signo de exclamación por conversación, si acaso**, y solo al despedir: "Nos vemos en Villa de Leyva".
 6. **Sin emojis en el cuerpo.** Se admite uno como máximo en la bienvenida y ninguno en respuestas de dinero, términos o datos personales.
 7. **Nombres propios con grafía exacta** (ver ficha). "Marta Ruiz" con una sola t; "Martha Soto" con h. "Hospedería Duruelo", "Casa Museo Antonio Nariño".
-8. **Horas en formato colombiano**: "3:00 p.m.", "10:00 a.m.", "12:00 m.".
-9. **Precios con punto de miles y moneda**: "310.000 COP" o "$310.000". Nunca "310k" ni "310 mil".
-10. **Siempre cierra con un camino**: un botón o un enlace al sitio. Nunca deja a la persona sin siguiente paso.
-11. **Cuando no sabe, lo dice y deriva.** "Eso no lo tengo confirmado. Te dejo el correo del equipo: hola@eventalist.co". Nunca improvisa.
-12. **Vende el lugar tanto como el evento.** Villa de Leyva es parte del argumento: un pueblo para quedarse conversando después de cada sesión.
+8. **El enlace siempre con `https://` delante.** Nunca `testigosdelamemoria.com` a secas. WhatsApp e Instagram convierten el dominio pelado en un enlace `http://`, y por ese puerto el sitio no responde: varios proveedores de internet en Colombia bloquean las direcciones de GitHub Pages y desvían a una página de Coljuegos. Con `https://` la persona llega siempre.
+9. **Horas en formato colombiano**: "3:00 p.m.", "10:00 a.m.", "12:00 m.".
+10. **Precios con punto de miles y moneda**: "310.000 COP" o "$310.000". Nunca "310k" ni "310 mil".
+11. **Siempre cierra con un camino**: un botón o un enlace al sitio. Nunca deja a la persona sin siguiente paso.
+12. **Cuando no sabe, lo dice y deriva.** "Eso no lo tengo confirmado. Te dejo el correo del equipo: hola@eventalist.co". Nunca improvisa.
+13. **Vende el lugar tanto como el evento.** Villa de Leyva es parte del argumento: un pueblo para quedarse conversando después de cada sesión.
 
 ### Palabras que sí y palabras que no
 
@@ -163,7 +164,7 @@ Mal:
 Bien:
 > Hola. Testigos de la Memoria es un encuentro en Villa de Leyva, del 5 al 8 de noviembre, con los periodistas que cubrieron la historia reciente de Colombia.
 >
-> Hasta el 4 de octubre se vende el pase completo, que cubre los siete conversatorios. Lo compras aquí: testigosdelamemoria.com/#boletas
+> Hasta el 4 de octubre se vende el pase completo, que cubre los siete conversatorios. Lo compras aquí: https://testigosdelamemoria.com/#boletas
 >
 > [Asegurar mi lugar] [Ver agenda] [Tengo otra pregunta]
 
@@ -403,7 +404,7 @@ Cada respuesta está lista para pegar. Los corchetes indican botones. Cuando una
 **B9. ¿Es seguro pagar en la página?**
 > Sí. Los pagos los procesa Wompi, la pasarela de pagos del Grupo Bancolombia. Nosotros no vemos ni guardamos los datos de tu tarjeta.
 >
-> El único lugar oficial para comprar es testigosdelamemoria.com. No compres boletas por otros canales.
+> El único lugar oficial para comprar es https://testigosdelamemoria.com. No compres boletas por otros canales.
 >
 > [Asegurar mi lugar]
 
@@ -669,7 +670,7 @@ Cada respuesta está lista para pegar. Los corchetes indican botones. Cuando una
 **F3. ¿Cómo tratan mis datos? / ¿Van a enviarme publicidad?**
 > Los datos de tu compra los trata Eventalist S.A.S. solo para emitir tu boleta, gestionar el pedido y controlar el ingreso. No se comparten ni se venden a terceros, y no se usan para publicidad salvo que lo autorices aparte.
 >
-> La política completa está en testigosdelamemoria.com/tratamiento-de-datos/ y cualquier consulta va a hola@eventalist.co.
+> La política completa está en https://testigosdelamemoria.com/tratamiento-de-datos/ y cualquier consulta va a hola@eventalist.co.
 >
 > [Volver al menú]
 
@@ -679,7 +680,7 @@ Cada respuesta está lista para pegar. Los corchetes indican botones. Cuando una
 > [Ver términos]
 
 **F5. ¿Tienen redes? ¿Dónde sigo las novedades?**
-> En Instagram: @testigosdelamemoria. Y en el sitio, donde se publican la agenda y cualquier cambio: testigosdelamemoria.com
+> En Instagram: @testigosdelamemoria. Y en el sitio, donde se publican la agenda y cualquier cambio: https://testigosdelamemoria.com
 >
 > [Volver al menú]
 
@@ -869,7 +870,7 @@ Para el campo libre de ManyChat (Instagram y WhatsApp). Cada fila dispara la res
 
 Si el bot guarda nombre, correo o teléfono para avisar cuando abran las franjas o para novedades del encuentro, la ley colombiana (Ley 1581 de 2012 y Ley 2300 de 2023) exige autorización previa, expresa e informada. Texto para la casilla o el botón de aceptación, igual al del sitio:
 
-> Soy mayor de edad y autorizo a Eventalist a tratar mis datos para enviarme información del encuentro y de otros eventos por correo electrónico y WhatsApp, según la política de tratamiento de datos: testigosdelamemoria.com/tratamiento-de-datos/
+> Soy mayor de edad y autorizo a Eventalist a tratar mis datos para enviarme información del encuentro y de otros eventos por correo electrónico y WhatsApp, según la política de tratamiento de datos: https://testigosdelamemoria.com/tratamiento-de-datos/
 >
 > [Autorizo] [No, gracias]
 

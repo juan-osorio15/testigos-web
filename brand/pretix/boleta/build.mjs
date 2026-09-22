@@ -26,7 +26,7 @@ const qrTop = Q.y + 3;
 
 const elements = [
   barcode('secret', { left: qrLeft, top: qrTop, size: qrSize }),
-  text('secret', 'tdmruoekvkpbv1o2mv8xccvqcikvr58u', { left: M, top: qrTop + qrSize + 1, width: PAGE_W - 2 * M, height: 4, size: 6, align: 'center' }),
+  text('secret', 'ejemplodemuestranoesunpedidoreal', { left: M, top: qrTop + qrSize + 1, width: PAGE_W - 2 * M, height: 4, size: 6, align: 'center' }),
   text('itemvar', 'Franja · Sábado 7, mañana', { left: M, top: 102.5, width: PAGE_W - 2 * M, height: 11, size: 14, bold: true }),
   text('attendee_name', 'Juan Pérez', { left: M, top: 118.5, width: PAGE_W - 2 * M, height: 6.5, size: 11 }),
   text('event_location', 'Hospedería Duruelo, Villa de Leyva, Boyacá', { left: M, top: 129.5, width: PAGE_W - 2 * M, height: 6, size: 9 }),
