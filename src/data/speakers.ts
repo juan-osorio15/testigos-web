@@ -107,6 +107,29 @@ export const speakers: Speaker[] = [
     confirmed: true,
   },
   {
+    /* Añadido el 2026-09-25 por los organizadores para "Reelecciones",
+       con Cecilia Orozco. Investigación en docs/investigacion-fidel-cano.md.
+       Tercero del carrusel, en la fila de arriba del hero, por indicación
+       del usuario (2026-09-25); María Elvira Samper baja a la segunda. */
+    slug: 'fidel-cano',
+    name: 'Fidel Cano',
+    credential: 'Director · El Espectador',
+    bio: 'Director de El Espectador desde mayo de 2004. El diario lo fundó en 1887 su bisabuelo, Fidel Cano Gutiérrez, y lo dirigió su tío Guillermo Cano hasta su asesinato en 1986. Llegó a la redacción en 1987 y fue redactor deportivo, corresponsal en Estados Unidos y editor general. En El Tiempo fue editor político. Cada semana responde por los errores del diario en “Redacción al desnudo”. Premio Simón Bolívar a la Vida y Obra 2022.',
+    en: {
+      credential: 'Editor-in-chief · El Espectador',
+      bio: 'Editor-in-chief of El Espectador since May 2004. The newspaper was founded in 1887 by his great-grandfather, Fidel Cano Gutiérrez, and run by his uncle Guillermo Cano until his murder in 1986. He joined the newsroom in 1987 and worked as a sports reporter, U.S. correspondent and managing editor. At El Tiempo he was political editor. Every week he answers for the paper\'s mistakes in “Redacción al desnudo”. 2022 Simón Bolívar Lifetime Achievement Award.',
+    },
+    photo: photoFidelCano,
+    /* Premio Gabo 2022 (ya en b/n), recorte propio a 4:3 desde arriba */
+    photoTreatment: 'plain',
+    links: {
+      x: 'https://x.com/fidelcanoco',
+      web: 'https://www.elespectador.com/autores/fidel-cano/',
+      wikipedia: 'https://es.wikipedia.org/wiki/Fidel_Cano_Correa',
+    },
+    confirmed: true,
+  },
+  {
     slug: 'maria-elvira-samper',
     name: 'María Elvira Samper',
     credential: 'Periodista · exdirectora de Semana y Cambio',
@@ -136,29 +159,6 @@ export const speakers: Speaker[] = [
       x: 'https://x.com/CeciliaOrozcoT',
       web: 'https://www.elespectador.com/opinion/columnistas/cecilia-orozco-tascon/',
       wikipedia: 'https://es.wikipedia.org/wiki/Cecilia_Orozco_Tasc%C3%B3n',
-    },
-    confirmed: true,
-  },
-  {
-    /* Añadido el 2026-09-25 por los organizadores para "Reelecciones",
-       con Cecilia Orozco. Investigación en docs/investigacion-fidel-cano.md.
-       Junto a ella en el carrusel: dirige un diario nacional y el panel es
-       de los dos. */
-    slug: 'fidel-cano',
-    name: 'Fidel Cano',
-    credential: 'Director · El Espectador',
-    bio: 'Director de El Espectador desde mayo de 2004. El diario lo fundó en 1887 su bisabuelo, Fidel Cano Gutiérrez, y lo dirigió su tío Guillermo Cano hasta su asesinato en 1986. Llegó a la redacción en 1987 y fue redactor deportivo, corresponsal en Estados Unidos y editor general. En El Tiempo fue editor político. Cada semana responde por los errores del diario en “Redacción al desnudo”. Premio Simón Bolívar a la Vida y Obra 2022.',
-    en: {
-      credential: 'Editor-in-chief · El Espectador',
-      bio: 'Editor-in-chief of El Espectador since May 2004. The newspaper was founded in 1887 by his great-grandfather, Fidel Cano Gutiérrez, and run by his uncle Guillermo Cano until his murder in 1986. He joined the newsroom in 1987 and worked as a sports reporter, U.S. correspondent and managing editor. At El Tiempo he was political editor. Every week he answers for the paper\'s mistakes in “Redacción al desnudo”. 2022 Simón Bolívar Lifetime Achievement Award.',
-    },
-    photo: photoFidelCano,
-    /* Premio Gabo 2022 (ya en b/n), recorte propio a 4:3 desde arriba */
-    photoTreatment: 'plain',
-    links: {
-      x: 'https://x.com/fidelcanoco',
-      web: 'https://www.elespectador.com/autores/fidel-cano/',
-      wikipedia: 'https://es.wikipedia.org/wiki/Fidel_Cano_Correa',
     },
     confirmed: true,
   },
