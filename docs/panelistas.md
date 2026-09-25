@@ -20,6 +20,8 @@ Un solo mensaje sirve para todos:
 | Daniel Samper Pizano (fundador de Cambio 16 Colombia, no director; corrección de los organizadores 2026-09-07) | Periodista y escritor · Los Danieles | X @DanielSamperPi · Los Danieles · Wikipedia | Foto de autor de Cambio (b/n), derechos reservados. Alternativa con licencia libre: Wikimedia Commons, NotimexTV 2018, CC BY 3.0, pero de baja calidad | La cuenta de X fue señalada como parodia en 2020; en 2026 Los Danieles la etiqueta como suya. Confirmar con él. |
 | Darío Restrepo | Periodista · codirector del encuentro | Wikipedia | Foto nueva del 2026-09-14 (original horizontal de 3840 x 2160 px, en color, en un patio con geranios); recorte propio a 4:3 y 960 px, con el encuadre de la de Daniel Samper Pizano (cabeza y hombros). Reemplaza la de prensa de El Tiempo y la vertical que envió él el 2026-09-07. Anotar el crédito y la autorización de uso | **Identidad**: la bio corresponde a Darío Restrepo Vélez (exdirector de Citytv, n. 1949). Ninguna fuente pública lo vincula con el encuentro. Confirmar con Fernando Cordovez antes de publicar. No tiene redes públicas. |
 | León Valencia | Director · Fundación Paz y Reconciliación | X @LeonVaLenciaA · autor en pares.com.co · Wikipedia | Retrato nuevo aportado por el usuario el 2026-09-18 (678 × 452, biblioteca de fondo; origen y crédito pendientes de anotar), con punto focal `62% 30%` porque la cara va a la derecha del centro; reemplaza a la de Presidencia de Colombia (13 de mayo de 2025, dominio público, Wikimedia Commons File:León_Valencia.jpg) | Añadido el 2026-09-09 por los organizadores para "Surgimiento de las guerrillas". Año de nacimiento sin consenso (1955 en Wikipedia y Planeta; 1956 en La Silla Vacía): no se publica. Salió de Semana en 2017, por eso la bio no lo llama columnista de Semana. Instagram, LinkedIn y Facebook no verificados; no se enlazaron. Informe de fuentes en docs/investigacion-leon-valencia.md. |
+| Jorge Cardona | Narrador del encuentro · exeditor general de El Espectador | Columna en El Espectador | Comfama, enero 2025, sin crédito de fotógrafo (la misma del 2026-09-03, recuperada del historial) | Retirado el 2026-09-07 y de vuelta el 2026-09-25 por indicación de los organizadores como **narrador**: presenta cada conversatorio y conecta los temas. En el sitio figura en la bienvenida del viernes y en el cierre del domingo; la bio explica su papel. Dejó la edición general en diciembre de 2021. Sin redes personales encontradas. Bio de la investigación del 2026-09-03: confirmar con él. |
+| Fidel Cano | Director · El Espectador | X @fidelcanoco · página de autor en El Espectador · Wikipedia | Premio Gabo 2022 (premioggm.org, 1080 × 1080, b/n, sin crédito de fotógrafo); recorte propio a 4:3 desde arriba y 960 px, tratamiento `plain`. Acreditar "Cortesía Fundación Gabo" o pedirle foto oficial a El Espectador. Alternativa libre: Wikimedia Commons, MinTIC 2015, CC BY 3.0, de baja calidad | Añadido el 2026-09-25 por los organizadores para "Las reelecciones de Uribe y Santos" con Cecilia Orozco. Es Fidel Cano Correa, director desde mayo de 2004. Fecha de nacimiento solo en Wikipedia: no se publica. Instagram no verificado; no se enlazó. Informe en docs/investigacion-fidel-cano.md. |
 | Marisol Gómez | Columnista · Cambio | X @Marisol_GomezG · LinkedIn · Facebook · columna en Cambio | Festival Gabo 2024, sin crédito. El original viene con las luces quemadas (fondo y rostro casi blancos) y en el sitio se veía "fantasma"; el 2026-09-15 se le aplicó una curva de tonos por píxel (blancos a 205, medios más densos, negros intactos; media de 167 a 134) y conserva el tratamiento `soft`. Sigue pendiente pedirle una foto oficial | Salió de El Tiempo en 2019 y fue concejal de Bogotá 2020-2023. Su LinkedIn está desactualizado. |
 | Luz María Sierra | Directora · El Colombiano | X @LuzMaSierra · LinkedIn (probable) | Forbes Colombia 2026, crédito El Colombiano | Sigue siendo directora (no "exdirectora"). Instagram @luzmariasierra no parece suyo; no se enlazó. |
 | Martha Soto | Editora de la Unidad Investigativa · El Tiempo | Página de autora en El Tiempo | Retrato de estudio, El Tiempo (vía gerente.com), 683 px, derechos reservados; pedirle foto oficial en alta | Añadida el 2026-09-07 por los organizadores; desde el 2026-09-15 en "Narcotráfico y paramilitarismo" con Luz María Sierra. Es Martha Elvira Soto Franco. No tiene redes personales verificables; su perfil remite a la X institucional @UinvestigativaET. Informe en docs/investigacion-martha-soto.md. |
@@ -52,16 +54,19 @@ No es jerarquía del evento. Sirve para las descripciones de la tienda de Pretix
 para la línea de nombres que el sitio pinta bajo cada franja y para cualquier
 pieza de difusión. Corte del 2026-09-15; se actualiza con cada cambio de agenda.
 
-- Viernes 6, tarde: Daniel Samper Pizano · Darío Restrepo
+- Viernes 6, tarde: Daniel Samper Pizano · Darío Restrepo · Jorge Cardona (narrador)
 - Sábado 7, mañana: León Valencia · Marisol Gómez · Ana María Echeverri
-- Sábado 7, tarde: Cecilia Orozco · Luz María Sierra · Martha Soto
-- Domingo 8, mañana: Yolanda Ruiz · María Elvira Samper · Marta Ruiz · Guillermo González Uribe
+- Sábado 7, tarde: Cecilia Orozco · Fidel Cano · Luz María Sierra · Martha Soto
+- Domingo 8, mañana: Yolanda Ruiz · María Elvira Samper · Marta Ruiz · Guillermo González Uribe · Jorge Cardona (narrador)
 
 Diferencias con la tienda (2026-09-15), pendientes de corregir en Pretix: la
 descripción de "Sábado Mañana" no nombra a León Valencia en "Surgimiento de las
 guerrillas" (el sitio lo tiene desde el 2026-09-09), y la de "Sábado Tarde" no
 nombra a Martha Soto en "Narcotráfico y paramilitarismo" (entró el 2026-09-15).
+Desde el 2026-09-25 también falta en Pretix: "Reelecciones" pasó a llamarse
+"Las reelecciones de Uribe y Santos" y suma a Fidel Cano (Sábado Tarde), y
+Jorge Cardona entra como narrador en la bienvenida (Viernes Tarde) y el cierre.
 
 ## Retirados
 
-- Jorge Cardona: retirado el 2026-09-07 por indicación de los organizadores (aún no han hablado con él). Su investigación queda en la sesión por si vuelve.
+- Jorge Cardona: retirado el 2026-09-07 por indicación de los organizadores (aún no han hablado con él). Volvió el 2026-09-25 como narrador del encuentro (ver tabla).

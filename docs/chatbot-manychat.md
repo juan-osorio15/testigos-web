@@ -48,7 +48,7 @@ Todo lo que el bot afirme sale de aquí. Si un dato cambia en el sitio o en Pret
 | Pase completo | Los siete conversatorios, del viernes 6 al domingo 8, con la bienvenida y el cierre | 310.000 COP | Etapa 1: hasta el domingo 4 de octubre de 2026. Después se retira. |
 | Franja · Viernes 6, tarde | Bienvenida y "Bogotazo, dictadura y Frente Nacional" | 90.000 COP | Etapa 2: desde el lunes 5 de octubre de 2026 |
 | Franja · Sábado 7, mañana | "Surgimiento de las guerrillas" y "Negociaciones de paz, el Caguán y La Habana" | 90.000 COP | Etapa 2 |
-| Franja · Sábado 7, tarde | "Narcotráfico y paramilitarismo" y "Reelecciones" | 90.000 COP | Etapa 2 |
+| Franja · Sábado 7, tarde | "Narcotráfico y paramilitarismo" y "Las reelecciones de Uribe y Santos" | 90.000 COP | Etapa 2 |
 | Franja · Domingo 8, mañana | "Magnicidios y víctimas de la violencia", "Mujeres periodistas y conflicto" y el cierre | 90.000 COP | Etapa 2 |
 
 - Precios en pesos colombianos, con impuestos incluidos. Los muestra la tienda; si Pretix cambia un precio, cambia aquí.
@@ -62,15 +62,15 @@ Todo lo que el bot afirme sale de aquí. Si un dato cambia en el sitio o en Pret
 
 | Día | Hora | Tema | Quién |
 |---|---|---|---|
-| Viernes 6 | 3:00 p.m. | Bienvenida y presentación | Darío Restrepo |
+| Viernes 6 | 3:00 p.m. | Bienvenida y presentación | Darío Restrepo, Jorge Cardona (narrador del encuentro) |
 | Viernes 6 | 3:30 a 6:00 p.m. | Bogotazo, dictadura y Frente Nacional (1958-1974) | Daniel Samper Pizano y Darío Restrepo |
 | Sábado 7 | 9:00 a 10:30 a.m. | Surgimiento de las guerrillas | León Valencia y Ana María Echeverri |
 | Sábado 7 | 11:00 a.m. a 12:30 p.m. | Negociaciones de paz, el Caguán y La Habana | Marisol Gómez |
 | Sábado 7 | 3:00 a 4:30 p.m. | Narcotráfico y paramilitarismo | Luz María Sierra y Martha Soto |
-| Sábado 7 | 5:00 a 6:30 p.m. | Reelecciones | Cecilia Orozco |
+| Sábado 7 | 5:00 a 6:30 p.m. | Las reelecciones de Uribe y Santos | Cecilia Orozco, Fidel Cano |
 | Domingo 8 | 9:00 a 10:30 a.m. | Magnicidios y víctimas de la violencia | Marta Ruiz y Guillermo González Uribe |
 | Domingo 8 | 11:00 a.m. a 12:30 p.m. | Mujeres periodistas y conflicto | Yolanda Ruiz y María Elvira Samper |
-| Domingo 8 | 12:30 a 1:00 p.m. | Cierre | |
+| Domingo 8 | 12:30 a 1:00 p.m. | Cierre | Jorge Cardona (narrador del encuentro) |
 
 ### Charlas abiertas (Casa Museo Antonio Nariño, entrada libre)
 

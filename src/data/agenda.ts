@@ -157,7 +157,8 @@ export const agenda: AgendaSlot[] = [
     type: 'conversatorio',
     title: 'Bienvenida y presentación',
     venueId: 'duruelo',
-    speakerSlugs: ['dario-restrepo'],
+    /* Jorge Cardona, narrador del encuentro, de vuelta el 2026-09-25 */
+    speakerSlugs: ['dario-restrepo', 'jorge-cardona'],
     en: { title: 'Welcome and introduction' },
   },
   {
@@ -259,10 +260,11 @@ export const agenda: AgendaSlot[] = [
     start: '17:00',
     end: '18:30',
     type: 'conversatorio',
-    title: 'Reelecciones',
+    /* Título precisado y Fidel Cano añadido el 2026-09-25 (organizadores) */
+    title: 'Las reelecciones de Uribe y Santos',
     venueId: 'duruelo',
-    speakerSlugs: ['cecilia-orozco'],
-    en: { title: 'Presidential re-elections' },
+    speakerSlugs: ['cecilia-orozco', 'fidel-cano'],
+    en: { title: 'The re-elections of Uribe and Santos' },
     intro: {
       summary:
         'La Constitución de 1991 prohibió la reelección presidencial. Una reforma de 2004 la permitió, Álvaro Uribe fue reelegido en 2006 y Juan Manuel Santos en 2014. En 2015 el Congreso volvió a prohibirla.',
@@ -329,7 +331,7 @@ export const agenda: AgendaSlot[] = [
     type: 'conversatorio',
     title: 'Cierre',
     venueId: 'duruelo',
-    speakerSlugs: [],
+    speakerSlugs: ['jorge-cardona'],
     en: { title: 'Closing session' },
   },
 ];

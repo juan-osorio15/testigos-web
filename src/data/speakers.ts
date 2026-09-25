@@ -12,10 +12,12 @@
 import type { Lang } from '../i18n';
 import photoDanielSamperPizano from '../assets/speakers/daniel-samper-pizano.jpg';
 import photoDarioRestrepo from '../assets/speakers/dario-restrepo.jpg';
+import photoJorgeCardona from '../assets/speakers/jorge-cardona.jpg';
 import photoMarisolGomez from '../assets/speakers/marisol-gomez.jpg';
 import photoLuzMariaSierra from '../assets/speakers/luz-maria-sierra.jpg';
 import photoMarthaSoto from '../assets/speakers/martha-soto.jpg';
 import photoCeciliaOrozco from '../assets/speakers/cecilia-orozco.jpg';
+import photoFidelCano from '../assets/speakers/fidel-cano.jpg';
 import photoMartaRuiz from '../assets/speakers/marta-ruiz.jpg';
 import photoGuillermoGonzalez from '../assets/speakers/guillermo-gonzalez.jpg';
 import photoYolandaRuiz from '../assets/speakers/yolanda-ruiz.jpg';
@@ -138,6 +140,29 @@ export const speakers: Speaker[] = [
     confirmed: true,
   },
   {
+    /* Añadido el 2026-09-25 por los organizadores para "Reelecciones",
+       con Cecilia Orozco. Investigación en docs/investigacion-fidel-cano.md.
+       Junto a ella en el carrusel: dirige un diario nacional y el panel es
+       de los dos. */
+    slug: 'fidel-cano',
+    name: 'Fidel Cano',
+    credential: 'Director · El Espectador',
+    bio: 'Director de El Espectador desde mayo de 2004. El diario lo fundó en 1887 su bisabuelo, Fidel Cano Gutiérrez, y lo dirigió su tío Guillermo Cano hasta su asesinato en 1986. Llegó a la redacción en 1987 y fue redactor deportivo, corresponsal en Estados Unidos y editor general. En El Tiempo fue editor político. Cada semana responde por los errores del diario en “Redacción al desnudo”. Premio Simón Bolívar a la Vida y Obra 2022.',
+    en: {
+      credential: 'Editor-in-chief · El Espectador',
+      bio: 'Editor-in-chief of El Espectador since May 2004. The newspaper was founded in 1887 by his great-grandfather, Fidel Cano Gutiérrez, and run by his uncle Guillermo Cano until his murder in 1986. He joined the newsroom in 1987 and worked as a sports reporter, U.S. correspondent and managing editor. At El Tiempo he was political editor. Every week he answers for the paper\'s mistakes in “Redacción al desnudo”. 2022 Simón Bolívar Lifetime Achievement Award.',
+    },
+    photo: photoFidelCano,
+    /* Premio Gabo 2022 (ya en b/n), recorte propio a 4:3 desde arriba */
+    photoTreatment: 'plain',
+    links: {
+      x: 'https://x.com/fidelcanoco',
+      web: 'https://www.elespectador.com/autores/fidel-cano/',
+      wikipedia: 'https://es.wikipedia.org/wiki/Fidel_Cano_Correa',
+    },
+    confirmed: true,
+  },
+  {
     slug: 'leon-valencia',
     name: 'León Valencia',
     credential: 'Director · Fundación Paz y Reconciliación',
@@ -170,6 +195,24 @@ export const speakers: Speaker[] = [
     photo: photoDarioRestrepo,
     links: {
       wikipedia: 'https://es.wikipedia.org/wiki/Dar%C3%ADo_Restrepo_V%C3%A9lez',
+    },
+    confirmed: true,
+  },
+  {
+    /* Retirado el 2026-09-07 y de vuelta el 2026-09-25 como narrador: abre
+       cada conversatorio y hila los temas entre sí (organizadores). Bio y
+       foto de la investigación del 2026-09-03 (docs/panelistas.md). */
+    slug: 'jorge-cardona',
+    name: 'Jorge Cardona',
+    credential: 'Narrador del encuentro · exeditor general de El Espectador',
+    bio: 'Narrador de Testigos de la Memoria: presenta cada conversatorio y conecta los temas del encuentro. Escritor, periodista y columnista de El Espectador, diario del que fue editor general entre 2005 y 2021. En 2026 publicó “Rastros de una pasión” y en 2025 “Sin medias tintas”, tres siglos de Colombia contados desde El Espectador. Premio Simón Bolívar a la Vida y Obra de un Periodista (2020). Autor de “Días de memoria” y “Diario del conflicto”.',
+    en: {
+      credential: 'Narrator of the event · former managing editor of El Espectador',
+      bio: 'Narrator of Testigos de la Memoria: he introduces each panel and connects the themes of the event. Writer, journalist and columnist for El Espectador, where he was managing editor from 2005 to 2021. In 2026 he published “Rastros de una pasión” and in 2025 “Sin medias tintas”, three centuries of Colombia told through El Espectador. Simón Bolívar Award for a Journalist\'s Life and Work (2020). Author of “Días de memoria” and “Diario del conflicto”.',
+    },
+    photo: photoJorgeCardona,
+    links: {
+      web: 'https://www.elespectador.com/opinion/columnistas/jorge-cardona/',
     },
     confirmed: true,
   },
