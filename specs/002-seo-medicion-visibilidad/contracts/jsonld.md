@@ -69,7 +69,8 @@ Cubre FR-011 a FR-017, FR-019 y R-06. Todo sale de `src/seo/jsonld.ts` a partir 
 {"@type":"ProfilePage","@id":"…/panelistas/<slug>/","dateModified":"<lastmod>",
  "mainEntity":{"@type":"Person","@id":"…/panelistas/<slug>/#persona","name":"…","description":"<credencial>",
    "image":"<foto 4:3 optimizada, URL absoluta>","url":"…/panelistas/<slug>/","sameAs":["…"],
-   "performerIn":[{"@id":"…/#evento"},{"@id":"…/programacion/#<sesion>"}]}}
+   "performerIn":[{"@id":"…/#evento"}]}}
+  (Solo el evento principal, definido en la misma página. Desde el 2026-09-25 sin las sesiones: Google leía cada `…/programacion/#<sesion>` sin definir como un Event vacío e inválido.)
 ```
 La biografía completa va en el HTML; `description` del Person lleva la credencial (corta).
 

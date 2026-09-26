@@ -296,7 +296,6 @@ export function webPageLd(route: Route): Node {
 }
 
 export function personLd(sp: Speaker, imageUrl: string): Node {
-  const sessions = agenda.filter((s) => s.speakerSlugs.includes(sp.slug) && s.start && s.venueId);
   return {
     '@type': 'Person',
     '@id': ids.person(sp),
@@ -305,7 +304,12 @@ export function personLd(sp: Speaker, imageUrl: string): Node {
     image: imageUrl,
     url: absoluteUrl(speakerPath(sp.slug)),
     ...(sp.links ? { sameAs: Object.values(sp.links) } : {}),
-    performerIn: [{ '@id': ids.event }, ...sessions.map((s) => ({ '@id': ids.session(s) }))],
+    /* Solo el evento principal, que la ficha define (eventStubLd). Las
+       sesiones no: una referencia sin definir en la página la lee Google
+       como un Event vacío y la marca inválida (Search Console, 2026-09-19:
+       12 fichas con "Missing field name/startDate/location"). El vínculo
+       persona → sesión ya lo declara cada sesión con `performer`. */
+    performerIn: [{ '@id': ids.event }],
   };
 }
 
@@ -410,8 +414,8 @@ function eventStubLd(): Node {
 const AVAILABILITY = new Set(['InStock', 'SoldOut', 'PreOrder'].map((a) => `https://schema.org/${a}`));
 
 /**
- * Todo @id referenciado existe en el grafo (o es un ancla de sesión, que
- * vive en el grafo de la portada); ningún subevento sin startDate y
+ * Todo @id referenciado existe en el grafo (salvo personas, que viven en
+ * su ficha); ningún subevento sin startDate y
  * location; ninguna Offer con availability fuera de la lista de Google.
  */
 export function assertJsonLd(g: Node): void {
@@ -440,8 +444,8 @@ export function assertJsonLd(g: Node): void {
     }
   };
   walk(nodes);
-  const missing = [...referenced].filter(
-    (id) => !defined.has(id) && !id.includes('/programacion/#') && !id.includes('/panelistas/'),
-  );
+  /* Personas por @id sí (Google no valida Person); eventos nunca: un Event
+     referenciado sin definir en la misma página cuenta como inválido */
+  const missing = [...referenced].filter((id) => !defined.has(id) && !id.includes('/panelistas/'));
   if (missing.length) throw new Error(`JSON-LD: @id referenciados sin definir: ${missing.join(', ')}`);
 }
