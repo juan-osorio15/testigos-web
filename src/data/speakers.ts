@@ -284,6 +284,10 @@ export const speakers: Speaker[] = [
       bio: 'Narrator of Testigos de la Memoria: he introduces each panel and connects the themes of the event. Writer, journalist and columnist for El Espectador, where he was managing editor from 2005 to 2021. In 2026 he published “Rastros de una pasión” and in 2025 “Sin medias tintas”, three centuries of Colombia told through El Espectador. Simón Bolívar Award for a Journalist\'s Life and Work (2020). Author of “Días de memoria” and “Diario del conflicto”.',
     },
     photo: photoJorgeCardona,
+    /* Retrato del afiche (usuario, 2026-09-28), ya en b/n; recorte 4:3
+       con la cara al centro. Vista previa v2 */
+    photoTreatment: 'plain',
+    ogVersion: 2,
     links: {
       web: 'https://www.elespectador.com/opinion/columnistas/jorge-cardona/',
     },
