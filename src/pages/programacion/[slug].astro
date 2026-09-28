@@ -3,8 +3,8 @@
  * Página de sesión: una URL por charla o conversatorio con tema (las que
  * tienen `intro` en agenda.ts). Imita la ficha de panelista: a la
  * izquierda, cuándo y dónde con la entrada; a la derecha, un resumen del
- * tema para quien no sabe nada de él, preguntas para llegar a la sesión y
- * tarjetas de quienes están en la mesa, enlazadas a su ficha. Marcado
+ * tema para quien no sabe nada de él y tarjetas de quienes están en la
+ * mesa, enlazadas a su ficha (sin preguntas desde el 2026-09-28). Marcado
  * WebPage + Event (mismo @id que el subevento de la portada) + migas.
  */
 import InnerLayout from '../../layouts/InnerLayout.astro';
@@ -77,13 +77,6 @@ const toneOf = (slug: string) => tones[speakers.findIndex((s) => s.slug === slug
 
     <div class="session-main">
       <p class="session-summary">{intro.summary}</p>
-
-      <section class="session-section" aria-labelledby="questions-title">
-        <h2 id="questions-title" class="eyebrow">{t('session.questions')}</h2>
-        <ul class="session-questions" role="list">
-          {intro.questions.map((q) => <li>{q}</li>)}
-        </ul>
-      </section>
 
       {slot.note && <p class="session-note">{slot.note}</p>}
 
@@ -197,22 +190,6 @@ const toneOf = (slug: string) => tones[speakers.findIndex((s) => s.slug === slug
   .session-section {
     display: grid;
     gap: var(--space-2);
-  }
-  .session-questions {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    gap: var(--space-2);
-    max-width: 58ch;
-  }
-  .session-questions li {
-    padding-left: var(--space-2);
-    border-left: 3px solid var(--terracotta);
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: var(--text-h3);
-    line-height: 1.35;
-    text-wrap: pretty;
   }
   .session-note {
     font-size: var(--text-body);

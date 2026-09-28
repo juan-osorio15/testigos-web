@@ -6,7 +6,9 @@
  * un JPEG con fondo café, por eso se ve algo más blando; Relato desde
  * su versión en blanco, teñida al crema del resto el 2026-09-17; Alma
  * Bazar desde su JPEG con fondo azul, quedándose solo con el sello
- * granate pasado a crema, el 2026-09-18).
+ * granate pasado a crema, el 2026-09-18; Hotel La Posada de San Antonio
+ * desde su JPEG en tinta sobre blanco, con la tinta como alfa, el
+ * 2026-09-28).
  */
 import type { UiKey } from '../ui';
 import logoConexion from '../assets/partners/conexion-zaquencipa.png';
@@ -15,6 +17,7 @@ import logoDuruelo from '../assets/partners/duruelo.png';
 import logoBanrepTunja from '../assets/partners/banrep-tunja.png';
 import logoRelato from '../assets/partners/relato.png';
 import logoAlmaBazar from '../assets/partners/alma-bazar.png';
+import logoPosada from '../assets/partners/posada-san-antonio.png';
 
 export interface Partner {
   name: string;
@@ -59,6 +62,7 @@ export const partnerGroups: PartnerGroup[] = [
       { name: 'Relato, Librería y Centro Cultural', logo: logoRelato },
       { name: 'Centro Cultural Banco de la República, Tunja', logo: logoBanrepTunja },
       { name: 'Alma Bazar', logo: logoAlmaBazar, shape: 'square' },
+      { name: 'Hotel La Posada de San Antonio', logo: logoPosada, shape: 'square' },
     ],
   },
 ];

@@ -244,7 +244,6 @@ const es = {
   'speaker.readProfile': 'Ver ficha',
 
   // --- Páginas de sesión ---
-  'session.questions': 'Preguntas para llegar',
   'session.people': 'En la mesa',
   'session.guest': 'Invitado',
   'session.details': 'Cuándo y dónde',
@@ -482,7 +481,6 @@ const en: Record<UiKey, string> = {
     "The journalists who covered Colombia's last fifty years, gathered in Villa de Leyva, November 5–8, 2026.",
   'speaker.readProfile': 'View profile',
 
-  'session.questions': 'Questions to bring',
   'session.people': 'At the table',
   'session.guest': 'Guest',
   'session.details': 'When and where',

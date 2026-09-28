@@ -263,7 +263,7 @@ export const agenda: AgendaSlot[] = [
     /* Título precisado y Fidel Cano añadido el 2026-09-25 (organizadores) */
     title: 'Las reelecciones de Uribe y Santos',
     venueId: 'duruelo',
-    speakerSlugs: ['cecilia-orozco', 'fidel-cano'],
+    speakerSlugs: ['fidel-cano', 'cecilia-orozco'],
     en: { title: 'The re-elections of Uribe and Santos' },
     intro: {
       summary:
@@ -287,7 +287,7 @@ export const agenda: AgendaSlot[] = [
     type: 'conversatorio',
     title: 'Magnicidios y víctimas de la violencia',
     venueId: 'duruelo',
-    speakerSlugs: ['marta-ruiz', 'guillermo-gonzalez'],
+    speakerSlugs: ['guillermo-gonzalez', 'marta-ruiz'],
     en: { title: 'Assassinations and victims of the violence' },
     intro: {
       summary:

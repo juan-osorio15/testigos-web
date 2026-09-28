@@ -67,9 +67,9 @@ export interface Speaker {
 }
 
 export const speakers: Speaker[] = [
-  /* Orden del carrusel: reconocimiento entre el público general, de mayor
-     a menor (criterio editorial del 2026-09-09: presencia en radio,
-     televisión y columnas de gran audiencia). No es jerarquía del evento. */
+  /* Orden del carrusel, del hero y de todo listado: el del afiche oficial,
+     leído de izquierda a derecha y de arriba abajo (indicación del usuario,
+     2026-09-28; reemplaza el criterio editorial del 2026-09-09). */
   {
     slug: 'daniel-samper-pizano',
     name: 'Daniel Samper Pizano',
@@ -88,29 +88,9 @@ export const speakers: Speaker[] = [
     confirmed: true,
   },
   {
-    slug: 'yolanda-ruiz',
-    name: 'Yolanda Ruiz',
-    credential: 'Periodista · Simón Bolívar a la Vida y Obra 2025',
-    bio: 'Periodista y escritora. Columnista de El Espectador y El País América, corresponsable del Consultorio Ético de la Fundación Gabo y anfitriona del pódcast “El diván del periodismo”. Conduce con María Elvira Samper “Menopáusicas ¡y qué!”. Premio Simón Bolívar a la Vida y Obra 2025. Primera mujer en dirigir las noticias de Caracol Radio y RCN Radio. Autora de “En el filo de la navaja” y “Los que quedan”.',
-    en: {
-      credential: 'Journalist · 2025 Simón Bolívar Lifetime Achievement Award',
-      bio: 'Journalist and writer. Columnist for El Espectador and El País América, co-lead of the Gabo Foundation\'s ethics desk and host of the podcast “El diván del periodismo”. She co-hosts “Menopáusicas ¡y qué!” with María Elvira Samper. 2025 Simón Bolívar Lifetime Achievement Award. The first woman to run the news desks of Caracol Radio and RCN Radio. Author of “En el filo de la navaja” and “Los que quedan”.',
-    },
-    photo: photoYolandaRuiz,
-    photoTreatment: 'plain',
-    links: {
-      x: 'https://x.com/YolandaRuizCe',
-      instagram: 'https://www.instagram.com/yolandaruizperiodista/',
-      facebook: 'https://www.facebook.com/YolandaRuizPeriodista',
-      wikipedia: 'https://es.wikipedia.org/wiki/Yolanda_Ruiz',
-    },
-    confirmed: true,
-  },
-  {
     /* Añadido el 2026-09-25 por los organizadores para "Reelecciones",
        con Cecilia Orozco. Investigación en docs/investigacion-fidel-cano.md.
-       Tercero del carrusel, en la fila de arriba del hero, por indicación
-       del usuario (2026-09-25); María Elvira Samper baja a la segunda. */
+       Segundo, como en el afiche. */
     slug: 'fidel-cano',
     name: 'Fidel Cano',
     credential: 'Director · El Espectador',
@@ -130,35 +110,21 @@ export const speakers: Speaker[] = [
     confirmed: true,
   },
   {
-    slug: 'maria-elvira-samper',
-    name: 'María Elvira Samper',
-    credential: 'Periodista · exdirectora de Semana y Cambio',
-    bio: 'Periodista y escritora. Conduce con Yolanda Ruiz el pódcast “Menopáusicas ¡y qué!”, origen del libro “Menopáusicas y más” (2026). Coautora de la serie documental “ELN: entre fusiles y diálogos”. Dirigió la revista Semana, codirigió el noticiero QAP y fue directora de la revista Cambio. Analista de RCN Radio hasta 2022. Premio Simón Bolívar a la Vida y Obra 2010. Autora de “1989” y “Extradición”.',
+    slug: 'luz-maria-sierra',
+    name: 'Luz María Sierra',
+    /* Dejó la dirección de El Colombiano el jueves 24 de septiembre de 2026
+       (usuario, 2026-09-28): exdirectora. Vista previa regenerada (v2). */
+    credential: 'Periodista · exdirectora de El Colombiano',
+    bio: 'Periodista. Dirigió El Colombiano entre 2021 y 2026, donde encabezó la transición digital del diario más antiguo de Antioquia. Forbes Colombia la ha incluido entre las 100 mujeres más poderosas del país en 2023, 2025 y 2026. Antes fue editora general de Semana, jefa de redacción de El Tiempo y panelista de Mañanas Blu. Ha ganado cuatro premios Simón Bolívar y el premio latinoamericano de investigación del Ipys.',
     en: {
-      credential: 'Journalist · former editor of Semana and Cambio',
-      bio: 'Journalist and writer. She co-hosts the podcast “Menopáusicas ¡y qué!” with Yolanda Ruiz, the origin of the book “Menopáusicas y más” (2026). Co-author of the documentary series “ELN: entre fusiles y diálogos”. She edited Semana magazine, co-directed the QAP newscast and was editor of Cambio magazine. Analyst at RCN Radio until 2022. 2010 Simón Bolívar Lifetime Achievement Award. Author of “1989” and “Extradición”.',
+      credential: 'Journalist · former editor-in-chief of El Colombiano',
+      bio: 'Journalist. She was editor-in-chief of El Colombiano from 2021 to 2026, where she led the digital transition of Antioquia\'s oldest newspaper. Forbes Colombia listed her among the country\'s 100 most powerful women in 2023, 2025 and 2026. She was previously managing editor of Semana, news editor of El Tiempo and a panelist on Mañanas Blu. She has won four Simón Bolívar awards and the IPYS Latin American investigative journalism prize.',
     },
-    photo: photoMariaElviraSamper,
+    photo: photoLuzMariaSierra,
+    ogVersion: 2,
     links: {
-      x: 'https://x.com/monasamper',
-      wikipedia: 'https://es.wikipedia.org/wiki/Mar%C3%ADa_Elvira_Samper',
-    },
-    confirmed: true,
-  },
-  {
-    slug: 'cecilia-orozco',
-    name: 'Cecilia Orozco',
-    credential: 'Columnista · El Espectador',
-    bio: 'Columnista de El Espectador y conductora de “Parte y Contraparte”, el programa de debate de Señal Colombia estrenado en 2025. Dirigió Noticias Uno entre 2011 y 2024 y antes los noticieros CM&, Hora Cero y Noticiero de las 7. Fue defensora del lector de El Tiempo. En 2023 recibió el Gran Premio Simón Bolívar a la Vida y Obra de un Periodista.',
-    en: {
-      credential: 'Columnist · El Espectador',
-      bio: 'Columnist for El Espectador and host of “Parte y Contraparte”, the debate program Señal Colombia launched in 2025. She directed Noticias Uno from 2011 to 2024 and, before that, the newscasts CM&, Hora Cero and Noticiero de las 7. She served as readers\' editor of El Tiempo. In 2023 she received the Simón Bolívar Grand Prize for a Journalist\'s Life and Work.',
-    },
-    photo: photoCeciliaOrozco,
-    links: {
-      x: 'https://x.com/CeciliaOrozcoT',
-      web: 'https://www.elespectador.com/opinion/columnistas/cecilia-orozco-tascon/',
-      wikipedia: 'https://es.wikipedia.org/wiki/Cecilia_Orozco_Tasc%C3%B3n',
+      x: 'https://x.com/LuzMaSierra',
+      linkedin: 'https://www.linkedin.com/in/luz-maria-sierra-4317a338/',
     },
     confirmed: true,
   },
@@ -184,51 +150,72 @@ export const speakers: Speaker[] = [
     confirmed: true,
   },
   {
-    slug: 'dario-restrepo',
-    name: 'Darío Restrepo',
-    credential: 'Periodista · codirector del encuentro',
-    bio: 'Codirige Testigos de la Memoria junto a Fernando Cordovez. Dirigió durante veinte años el sistema informativo de Citytv y El Tiempo Televisión, donde creó el programa “Historias de la gente”. Antes fue editor general de Semana, primer director de Cambio 16 en Colombia, director de Inravisión y consejero de comunicaciones de la Presidencia. Premio Simón Bolívar a la Vida y Obra de un Periodista.',
+    slug: 'cecilia-orozco',
+    name: 'Cecilia Orozco',
+    credential: 'Columnista · El Espectador',
+    bio: 'Columnista de El Espectador y conductora de “Parte y Contraparte”, el programa de debate de Señal Colombia estrenado en 2025. Dirigió Noticias Uno entre 2011 y 2024 y antes los noticieros CM&, Hora Cero y Noticiero de las 7. Fue defensora del lector de El Tiempo. En 2023 recibió el Gran Premio Simón Bolívar a la Vida y Obra de un Periodista.',
     en: {
-      credential: 'Journalist · co-director of the event',
-      bio: 'He co-directs Testigos de la Memoria with Fernando Cordovez. For twenty years he ran the news operation of Citytv and El Tiempo Televisión, where he created the program “Historias de la gente”. Before that he was managing editor of Semana, the first editor of Cambio 16 in Colombia, director of Inravisión and communications adviser to the Presidency. Simón Bolívar Award for a Journalist\'s Life and Work.',
+      credential: 'Columnist · El Espectador',
+      bio: 'Columnist for El Espectador and host of “Parte y Contraparte”, the debate program Señal Colombia launched in 2025. She directed Noticias Uno from 2011 to 2024 and, before that, the newscasts CM&, Hora Cero and Noticiero de las 7. She served as readers\' editor of El Tiempo. In 2023 she received the Simón Bolívar Grand Prize for a Journalist\'s Life and Work.',
     },
-    photo: photoDarioRestrepo,
+    photo: photoCeciliaOrozco,
     links: {
-      wikipedia: 'https://es.wikipedia.org/wiki/Dar%C3%ADo_Restrepo_V%C3%A9lez',
+      x: 'https://x.com/CeciliaOrozcoT',
+      web: 'https://www.elespectador.com/opinion/columnistas/cecilia-orozco-tascon/',
+      wikipedia: 'https://es.wikipedia.org/wiki/Cecilia_Orozco_Tasc%C3%B3n',
     },
     confirmed: true,
   },
   {
-    /* Retirado el 2026-09-07 y de vuelta el 2026-09-25 como narrador: abre
-       cada conversatorio y hila los temas entre sí (organizadores). Bio y
-       foto de la investigación del 2026-09-03 (docs/panelistas.md). */
-    slug: 'jorge-cardona',
-    name: 'Jorge Cardona',
-    credential: 'Narrador del encuentro · exeditor general de El Espectador',
-    bio: 'Narrador de Testigos de la Memoria: presenta cada conversatorio y conecta los temas del encuentro. Escritor, periodista y columnista de El Espectador, diario del que fue editor general entre 2005 y 2021. En 2026 publicó “Rastros de una pasión” y en 2025 “Sin medias tintas”, tres siglos de Colombia contados desde El Espectador. Premio Simón Bolívar a la Vida y Obra de un Periodista (2020). Autor de “Días de memoria” y “Diario del conflicto”.',
+    slug: 'yolanda-ruiz',
+    name: 'Yolanda Ruiz',
+    credential: 'Periodista · Simón Bolívar a la Vida y Obra 2025',
+    bio: 'Periodista y escritora. Columnista de El Espectador y El País América, corresponsable del Consultorio Ético de la Fundación Gabo y anfitriona del pódcast “El diván del periodismo”. Conduce con María Elvira Samper “Menopáusicas ¡y qué!”. Premio Simón Bolívar a la Vida y Obra 2025. Primera mujer en dirigir las noticias de Caracol Radio y RCN Radio. Autora de “En el filo de la navaja” y “Los que quedan”.',
     en: {
-      credential: 'Narrator of the event · former managing editor of El Espectador',
-      bio: 'Narrator of Testigos de la Memoria: he introduces each panel and connects the themes of the event. Writer, journalist and columnist for El Espectador, where he was managing editor from 2005 to 2021. In 2026 he published “Rastros de una pasión” and in 2025 “Sin medias tintas”, three centuries of Colombia told through El Espectador. Simón Bolívar Award for a Journalist\'s Life and Work (2020). Author of “Días de memoria” and “Diario del conflicto”.',
+      credential: 'Journalist · 2025 Simón Bolívar Lifetime Achievement Award',
+      bio: 'Journalist and writer. Columnist for El Espectador and El País América, co-lead of the Gabo Foundation\'s ethics desk and host of the podcast “El diván del periodismo”. She co-hosts “Menopáusicas ¡y qué!” with María Elvira Samper. 2025 Simón Bolívar Lifetime Achievement Award. The first woman to run the news desks of Caracol Radio and RCN Radio. Author of “En el filo de la navaja” and “Los que quedan”.',
     },
-    photo: photoJorgeCardona,
+    photo: photoYolandaRuiz,
+    photoTreatment: 'plain',
     links: {
-      web: 'https://www.elespectador.com/opinion/columnistas/jorge-cardona/',
+      x: 'https://x.com/YolandaRuizCe',
+      instagram: 'https://www.instagram.com/yolandaruizperiodista/',
+      facebook: 'https://www.facebook.com/YolandaRuizPeriodista',
+      wikipedia: 'https://es.wikipedia.org/wiki/Yolanda_Ruiz',
     },
     confirmed: true,
   },
   {
-    slug: 'luz-maria-sierra',
-    name: 'Luz María Sierra',
-    credential: 'Directora · El Colombiano',
-    bio: 'Directora de El Colombiano desde 2021, donde lidera la transición digital del diario más antiguo de Antioquia. Forbes Colombia la ha incluido entre las 100 mujeres más poderosas del país en 2023, 2025 y 2026. Antes fue editora general de Semana, jefa de redacción de El Tiempo y panelista de Mañanas Blu. Ha ganado cuatro premios Simón Bolívar y el premio latinoamericano de investigación del Ipys.',
+    slug: 'maria-elvira-samper',
+    name: 'María Elvira Samper',
+    credential: 'Periodista · exdirectora de Semana y Cambio',
+    bio: 'Periodista y escritora. Conduce con Yolanda Ruiz el pódcast “Menopáusicas ¡y qué!”, origen del libro “Menopáusicas y más” (2026). Coautora de la serie documental “ELN: entre fusiles y diálogos”. Dirigió la revista Semana, codirigió el noticiero QAP y fue directora de la revista Cambio. Analista de RCN Radio hasta 2022. Premio Simón Bolívar a la Vida y Obra 2010. Autora de “1989” y “Extradición”.',
     en: {
-      credential: 'Editor-in-chief · El Colombiano',
-      bio: 'Editor-in-chief of El Colombiano since 2021, where she leads the digital transition of Antioquia\'s oldest newspaper. Forbes Colombia listed her among the country\'s 100 most powerful women in 2023, 2025 and 2026. She was previously managing editor of Semana, news editor of El Tiempo and a panelist on Mañanas Blu. She has won four Simón Bolívar awards and the IPYS Latin American investigative journalism prize.',
+      credential: 'Journalist · former editor of Semana and Cambio',
+      bio: 'Journalist and writer. She co-hosts the podcast “Menopáusicas ¡y qué!” with Yolanda Ruiz, the origin of the book “Menopáusicas y más” (2026). Co-author of the documentary series “ELN: entre fusiles y diálogos”. She edited Semana magazine, co-directed the QAP newscast and was editor of Cambio magazine. Analyst at RCN Radio until 2022. 2010 Simón Bolívar Lifetime Achievement Award. Author of “1989” and “Extradición”.',
     },
-    photo: photoLuzMariaSierra,
+    photo: photoMariaElviraSamper,
     links: {
-      x: 'https://x.com/LuzMaSierra',
-      linkedin: 'https://www.linkedin.com/in/luz-maria-sierra-4317a338/',
+      x: 'https://x.com/monasamper',
+      wikipedia: 'https://es.wikipedia.org/wiki/Mar%C3%ADa_Elvira_Samper',
+    },
+    confirmed: true,
+  },
+  {
+    slug: 'guillermo-gonzalez',
+    /* Nombre con los dos apellidos y bio corregida por los organizadores el 2026-09-15 */
+    name: 'Guillermo González Uribe',
+    credential: 'Fundador de Número · columnista de El Espectador',
+    bio: 'Cubrió derechos humanos y cultura en El Espectador en los años ochenta y fue editor de su Magazín Dominical. Dirigió las revistas Gaceta y Número. Autor de “A pesar de la noche”, “Los niños de la guerra”, “Los niños de la guerra quince años después” y, con Margarita Carrillo, de “Foto Sady, recuerdos de la realidad”. Premio Planeta de Periodismo y Premio Media de LASA (Latin American Studies Association). Coautor, con Margarita Carrillo, del documental “Sady González, una luz en la memoria”, premio estímulo del Fondo de Desarrollo Cinematográfico. Escribe columna en El Espectador y colabora con diversos medios.',
+    en: {
+      credential: 'Founder of Número · columnist for El Espectador',
+      bio: 'He covered human rights and culture for El Espectador in the 1980s and edited its Magazín Dominical. He directed the magazines Gaceta and Número. Author of “A pesar de la noche”, “Los niños de la guerra”, “Los niños de la guerra quince años después” and, with Margarita Carrillo, “Foto Sady, recuerdos de la realidad”. Planeta Journalism Award and LASA (Latin American Studies Association) Media Award. Co-author, with Margarita Carrillo, of the documentary “Sady González, una luz en la memoria”, winner of a Colombian Film Development Fund grant. He writes a column for El Espectador and contributes to several outlets.',
+    },
+    photo: photoGuillermoGonzalez,
+    links: {
+      x: 'https://x.com/guillogonzale12',
+      linkedin: 'https://www.linkedin.com/in/guillermo-gonz%C3%A1lez-uribe-b2775034/',
+      web: 'https://elaladearriba.wordpress.com/',
     },
     confirmed: true,
   },
@@ -245,6 +232,21 @@ export const speakers: Speaker[] = [
     links: {
       x: 'https://x.com/martaruiz66',
       web: 'https://cambiocolombia.com/autor/marta-ruiz',
+    },
+    confirmed: true,
+  },
+  {
+    slug: 'dario-restrepo',
+    name: 'Darío Restrepo',
+    credential: 'Periodista · codirector del encuentro',
+    bio: 'Codirige Testigos de la Memoria junto a Fernando Cordovez. Dirigió durante veinte años el sistema informativo de Citytv y El Tiempo Televisión, donde creó el programa “Historias de la gente”. Antes fue editor general de Semana, primer director de Cambio 16 en Colombia, director de Inravisión y consejero de comunicaciones de la Presidencia. Premio Simón Bolívar a la Vida y Obra de un Periodista.',
+    en: {
+      credential: 'Journalist · co-director of the event',
+      bio: 'He co-directs Testigos de la Memoria with Fernando Cordovez. For twenty years he ran the news operation of Citytv and El Tiempo Televisión, where he created the program “Historias de la gente”. Before that he was managing editor of Semana, the first editor of Cambio 16 in Colombia, director of Inravisión and communications adviser to the Presidency. Simón Bolívar Award for a Journalist\'s Life and Work.',
+    },
+    photo: photoDarioRestrepo,
+    links: {
+      wikipedia: 'https://es.wikipedia.org/wiki/Dar%C3%ADo_Restrepo_V%C3%A9lez',
     },
     confirmed: true,
   },
@@ -268,6 +270,24 @@ export const speakers: Speaker[] = [
     confirmed: true,
   },
   {
+    /* Retirado el 2026-09-07 y de vuelta el 2026-09-25 como narrador: abre
+       cada conversatorio y hila los temas entre sí (organizadores). Bio y
+       foto de la investigación del 2026-09-03 (docs/panelistas.md). */
+    slug: 'jorge-cardona',
+    name: 'Jorge Cardona',
+    credential: 'Narrador del encuentro · exeditor general de El Espectador',
+    bio: 'Narrador de Testigos de la Memoria: presenta cada conversatorio y conecta los temas del encuentro. Escritor, periodista y columnista de El Espectador, diario del que fue editor general entre 2005 y 2021. En 2026 publicó “Rastros de una pasión” y en 2025 “Sin medias tintas”, tres siglos de Colombia contados desde El Espectador. Premio Simón Bolívar a la Vida y Obra de un Periodista (2020). Autor de “Días de memoria” y “Diario del conflicto”.',
+    en: {
+      credential: 'Narrator of the event · former managing editor of El Espectador',
+      bio: 'Narrator of Testigos de la Memoria: he introduces each panel and connects the themes of the event. Writer, journalist and columnist for El Espectador, where he was managing editor from 2005 to 2021. In 2026 he published “Rastros de una pasión” and in 2025 “Sin medias tintas”, three centuries of Colombia told through El Espectador. Simón Bolívar Award for a Journalist\'s Life and Work (2020). Author of “Días de memoria” and “Diario del conflicto”.',
+    },
+    photo: photoJorgeCardona,
+    links: {
+      web: 'https://www.elespectador.com/opinion/columnistas/jorge-cardona/',
+    },
+    confirmed: true,
+  },
+  {
     slug: 'martha-soto',
     name: 'Martha Soto',
     credential: 'Editora de la Unidad Investigativa · El Tiempo',
@@ -283,27 +303,9 @@ export const speakers: Speaker[] = [
     confirmed: true,
   },
   {
-    slug: 'guillermo-gonzalez',
-    /* Nombre con los dos apellidos y bio corregida por los organizadores el 2026-09-15 */
-    name: 'Guillermo González Uribe',
-    credential: 'Fundador de Número · columnista de El Espectador',
-    bio: 'Cubrió derechos humanos y cultura en El Espectador en los años ochenta y fue editor de su Magazín Dominical. Dirigió las revistas Gaceta y Número. Autor de “A pesar de la noche”, “Los niños de la guerra”, “Los niños de la guerra quince años después” y, con Margarita Carrillo, de “Foto Sady, recuerdos de la realidad”. Premio Planeta de Periodismo y Premio Media de LASA (Latin American Studies Association). Coautor, con Margarita Carrillo, del documental “Sady González, una luz en la memoria”, premio estímulo del Fondo de Desarrollo Cinematográfico. Escribe columna en El Espectador y colabora con diversos medios.',
-    en: {
-      credential: 'Founder of Número · columnist for El Espectador',
-      bio: 'He covered human rights and culture for El Espectador in the 1980s and edited its Magazín Dominical. He directed the magazines Gaceta and Número. Author of “A pesar de la noche”, “Los niños de la guerra”, “Los niños de la guerra quince años después” and, with Margarita Carrillo, “Foto Sady, recuerdos de la realidad”. Planeta Journalism Award and LASA (Latin American Studies Association) Media Award. Co-author, with Margarita Carrillo, of the documentary “Sady González, una luz en la memoria”, winner of a Colombian Film Development Fund grant. He writes a column for El Espectador and contributes to several outlets.',
-    },
-    photo: photoGuillermoGonzalez,
-    links: {
-      x: 'https://x.com/guillogonzale12',
-      linkedin: 'https://www.linkedin.com/in/guillermo-gonz%C3%A1lez-uribe-b2775034/',
-      web: 'https://elaladearriba.wordpress.com/',
-    },
-    confirmed: true,
-  },
-  {
     /* Añadida el 2026-09-15 por los organizadores para "Surgimiento de las
        guerrillas". Investigación en docs/investigacion-ana-maria-echeverri.md.
-       Última del carrusel: sin columna, radio ni televisión hoy. */
+       Última, como en el afiche. */
     slug: 'ana-maria-echeverri',
     name: 'Ana María Echeverri',
     credential: 'Periodista y documentalista · autora de “Yo soy yo”',
