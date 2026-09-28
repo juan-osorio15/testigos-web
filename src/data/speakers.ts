@@ -159,6 +159,8 @@ export const speakers: Speaker[] = [
       bio: 'Columnist for El Espectador and host of “Parte y Contraparte”, the debate program Señal Colombia launched in 2025. She directed Noticias Uno from 2011 to 2024 and, before that, the newscasts CM&, Hora Cero and Noticiero de las 7. She served as readers\' editor of El Tiempo. In 2023 she received the Simón Bolívar Grand Prize for a Journalist\'s Life and Work.',
     },
     photo: photoCeciliaOrozco,
+    /* Recorte más cerrado, como en el afiche (2026-09-28); vista previa v2 */
+    ogVersion: 2,
     links: {
       x: 'https://x.com/CeciliaOrozcoT',
       web: 'https://www.elespectador.com/opinion/columnistas/cecilia-orozco-tascon/',
