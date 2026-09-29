@@ -100,8 +100,10 @@ export const speakers: Speaker[] = [
       bio: 'Editor-in-chief of El Espectador since May 2004. The newspaper was founded in 1887 by his great-grandfather, Fidel Cano Gutiérrez, and run by his uncle Guillermo Cano until his murder in 1986. He joined the newsroom in 1987 and worked as a sports reporter, U.S. correspondent and managing editor. At El Tiempo he was political editor. Every week he answers for the paper\'s mistakes in “Redacción al desnudo”. 2022 Simón Bolívar Lifetime Achievement Award.',
     },
     photo: photoFidelCano,
-    /* Premio Gabo 2022 (ya en b/n), recorte propio a 4:3 desde arriba */
-    photoTreatment: 'plain',
+    /* Retrato a color enviado por el usuario el 2026-09-29 (2784 × 1856,
+       fondo oscuro); recorte propio a 4:3 con la cara centrada. El b/n y
+       el grano los pone el sitio. Vista previa v2 */
+    ogVersion: 2,
     links: {
       x: 'https://x.com/fidelcanoco',
       web: 'https://www.elespectador.com/autores/fidel-cano/',

@@ -23,13 +23,15 @@ import { speakerPath } from '../routes';
 const t = tFor(Astro.url.pathname);
 const lang = langOf(Astro.url.pathname);
 
-/* Escalera de caras, como en el afiche: tres arriba, cuatro en medio y
-   cinco abajo, alineadas a la derecha sobre una grilla de siete columnas,
-   de modo que cada fila se come un escalón más del terracota. Doce
-   panelistas con foto, en el orden editorial de speakers.ts; si algún día
-   hay más, el hero muestra los primeros y el carrusel los tiene todos.
-   En móvil la escalera no aplica: cuatro columnas a lo ancho. */
-const STAIR = [3, 4, 5] as const;
+/* Escalera de caras, como en el afiche: tres arriba y cuatro en medio,
+   alineadas a la derecha sobre una grilla de siete columnas, y una base
+   de siete a todo el ancho bajo el titular (2026-09-29: así caben los
+   catorce panelistas, en el orden del afiche de speakers.ts). Si algún
+   día hay más, el hero muestra los primeros y el carrusel los tiene todos.
+   En móvil la escalera no aplica: cinco columnas a lo ancho (tres filas,
+   como antes con doce en cuatro, para no bajar la franja de compra), y el
+   hueco de la última fila lo llena un enlace a los panelistas. */
+const STAIR = [3, 4, 7] as const;
 const COLS = 7;
 const withPhoto = speakersFor(lang).filter((s) => s.photo !== null);
 const tiles = STAIR.flatMap((n, r) =>
@@ -142,6 +144,11 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
             </li>
           ))
         }
+        <li class="hero-faces-more">
+          <a href="/panelistas/">
+            {t('hero.speakersAll')} <span aria-hidden="true">→</span>
+          </a>
+        </li>
       </ul>
     </div>
     <div class="hero-strip">
@@ -408,6 +415,10 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
   /* Mosaico: doce tiles que se tocan, sin márgenes (fórmula §1). Cada
      tile es foto b/n con grano arriba y el nombre en franja de tinta
      debajo, como en el afiche: nunca texto sobre la foto (§8). */
+  /* El enlace de cierre solo existe en móvil */
+  .hero-faces .hero-faces-more {
+    display: none;
+  }
   .hero-faces {
     list-style: none;
     margin: 0;
@@ -662,7 +673,7 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     }
     .hero-faces {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       grid-auto-rows: minmax(0, 1fr);
       min-height: 0;
       background-color: var(--ink);
@@ -670,6 +681,23 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     .hero-faces li {
       display: grid;
       min-height: 0;
+    }
+    /* Cierra la última fila (catorce caras en cinco columnas) */
+    .hero-faces .hero-faces-more {
+      display: grid;
+    }
+    .hero-faces-more a {
+      display: grid;
+      place-content: center;
+      padding: 0.4rem;
+      background-color: var(--cream);
+      color: var(--ink);
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+      text-decoration: none;
     }
     .hero-tile {
       grid-row: auto;
@@ -706,7 +734,7 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
       font-size: min(clamp(1.7rem, 0.9rem + 5vw, 2.6rem), 6svh);
     }
     /* En móvil el logo pequeño del bloque terracota basta: el mosaico
-       ocupa la columna entera, cuatro caras por fila */
+       ocupa la columna entera, cinco caras por fila */
     .hero-watch-block {
       display: none;
     }
