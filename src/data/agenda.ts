@@ -136,7 +136,11 @@ export const agenda: AgendaSlot[] = [
     title: 'Charla de periodismo digital',
     venueId: 'casa-museo',
     speakerSlugs: [],
-    en: { title: 'Digital journalism talk' },
+    /* Confirmado por el usuario el 2026-09-29; grafía según sus perfiles
+       públicos (LinkedIn, YouTube, repositorio de la UNAD) */
+    guests: ['Javier Sneider Bautista'],
+    note: 'Magíster en Comunicación Digital.',
+    en: { title: 'Digital journalism talk', note: 'Master\'s in Digital Communication.' },
     intro: {
       summary:
         'Las redes sociales, los buscadores y los teléfonos cambiaron la manera de hacer, distribuir y leer el periodismo. Una charla abierta sobre el oficio en su versión digital.',

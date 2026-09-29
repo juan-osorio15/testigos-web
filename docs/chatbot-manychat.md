@@ -78,7 +78,7 @@ Todo lo que el bot afirme sale de aquí. Si un dato cambia en el sitio o en Pret
 |---|---|---|
 | Jueves 5 | 10:00 a.m. a 12:00 m. | Charla de reportería, con Daniel Esteban Alvarado (Universidad de Boyacá) |
 | Jueves 5 | 3:00 p.m. | Documental "Sady González, una luz en la memoria", presenta Guillermo González Uribe |
-| Viernes 6 | 10:00 a.m. | Charla de periodismo digital |
+| Viernes 6 | 10:00 a.m. | Charla de periodismo digital, con Javier Sneider Bautista (magíster en Comunicación Digital) |
 
 ### Panelistas confirmados (grafía exacta)
 
