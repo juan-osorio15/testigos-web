@@ -30,16 +30,16 @@ export const event = {
 
 /**
  * Etapas de venta (decisión del organizador, 2026-09-15). La etapa 1 vende
- * solo el pase completo, con su mayor descuento; el lunes 12 de octubre
+ * solo el pase completo, con su mayor descuento; el martes 13 de octubre
  * abre la etapa 2 con las boletas por franja y el pase SIGUE a la venta con
- * un descuento menor (usuario, 2026-09-30: fecha movida del 5 al 12 de
- * octubre y el pase ya no se retira). Fechas en calendario de Bogotá; la primera es
+ * un descuento menor (usuario, 2026-09-30: la etapa 1 va hasta el lunes 12
+ * de octubre, no hasta el 4, y el pase ya no se retira). Fechas en calendario de Bogotá; la primera es
  * inclusiva y el cambio ocurre a las 0:00 de `stage2Start`. Pretix es quien
  * abre y cierra los productos: aquí solo se cuenta al público.
  */
 export const salesStages = {
-  stage1End: '2026-10-11',
-  stage2Start: '2026-10-12',
+  stage1End: '2026-10-12',
+  stage2Start: '2026-10-13',
 } as const;
 
 export type TicketOfferId =
@@ -82,7 +82,7 @@ export interface TicketOffer {
  * Pretix. La disponibilidad de cada una se calcula en el build a partir de
  * las etapas y de `soldOut` (src/seo/offers.ts).
  *
- * OPERACIÓN: el 12 de octubre (stage2Start) hay que publicar el sitio para
+ * OPERACIÓN: el 13 de octubre (stage2Start) hay que publicar el sitio para
  * que el build ponga las franjas en venta, y ANTES cambiar `price` del pase
  * al precio de la etapa 2 (el mismo que se ponga en Pretix). Al agotarse una
  * boleta: `soldOut: true`, commit y publicación con visto bueno.

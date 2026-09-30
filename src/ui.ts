@@ -104,7 +104,7 @@ const es = {
   'notify.success': 'Listo. Te escribiremos en cuanto abran las boletas de medio día.',
   'notify.close': 'Cerrar',
   'tickets.soon':
-    'La venta de boletas abre pronto. Aforo limitado. En la etapa 1, hasta el 11 de octubre, se vende solo el pase completo, con su mayor descuento; desde el 12 de octubre abren las boletas de medio día y el pase sigue a la venta con un descuento menor. Las charlas abiertas del 5 y 6 de noviembre son de entrada libre.',
+    'La venta de boletas abre pronto. Aforo limitado. En la etapa 1, hasta el 12 de octubre, se vende solo el pase completo, con su mayor descuento; desde el 13 de octubre abren las boletas de medio día y el pase sigue a la venta con un descuento menor. Las charlas abiertas del 5 y 6 de noviembre son de entrada libre.',
   'tickets.widgetFallback':
     'Si el módulo de compra no carga, puedes comprar directamente en la tienda segura de Pretix:',
   'tickets.widgetLink': 'Comprar en Pretix',
@@ -377,7 +377,7 @@ const en: Record<UiKey, string> = {
   'notify.success': "Done. We'll write to you as soon as half-day tickets go on sale.",
   'notify.close': 'Close',
   'tickets.soon':
-    'Ticket sales open soon. Limited seating. During stage 1, until October 11, only the full pass is sold, at its biggest discount; from October 12, half-day tickets open and the pass stays on sale with a smaller discount. The open talks on November 5 and 6 are free to attend.',
+    'Ticket sales open soon. Limited seating. During stage 1, until October 12, only the full pass is sold, at its biggest discount; from October 13, half-day tickets open and the pass stays on sale with a smaller discount. The open talks on November 5 and 6 are free to attend.',
   'tickets.widgetFallback': 'If the checkout module does not load, you can buy directly from the secure Pretix shop:',
   'tickets.widgetLink': 'Buy on Pretix',
   'tickets.notYet': 'Not yet available',
