@@ -142,8 +142,14 @@ Los talleres de periodismo del jueves 5 y el viernes 6 de noviembre, en la Casa 
 
 ```markdown
 **Los siete conversatorios, del viernes 6 al domingo 8.**
-No te pierdes de nada y te aseguras el mejor precio.
+Precio de la etapa 1, con el mayor descuento, hasta el 11 de octubre.
 ```
+
+> 2026-09-30: el descuento es de la etapa 1. Desde el 12 de octubre el pase
+> sigue a la venta con un descuento menor (ya no se retira). Ese día se
+> cambia el precio en Pretix, el `price` del pase en `src/data/event.ts` y
+> esta descripción, por ejemplo: `No te pierdes de nada y pagas menos que
+> por franjas.`
 
 > Dos líneas para que quepa en el widget: qué incluye, en negrita, y el
 > argumento de compra sin cifra (el widget ya muestra 360.000 tachado). Sin

@@ -29,16 +29,17 @@ export const event = {
 } as const;
 
 /**
- * Etapas de venta (decisión del organizador, 2026-09-15). La etapa 1 dura
- * tres semanas desde la del 14 de septiembre y vende solo el pase completo;
- * el lunes 5 de octubre abre la etapa 2 con las boletas por franja y el
- * pase completo se retira. Fechas en calendario de Bogotá; la primera es
+ * Etapas de venta (decisión del organizador, 2026-09-15). La etapa 1 vende
+ * solo el pase completo, con su mayor descuento; el lunes 12 de octubre
+ * abre la etapa 2 con las boletas por franja y el pase SIGUE a la venta con
+ * un descuento menor (usuario, 2026-09-30: fecha movida del 5 al 12 de
+ * octubre y el pase ya no se retira). Fechas en calendario de Bogotá; la primera es
  * inclusiva y el cambio ocurre a las 0:00 de `stage2Start`. Pretix es quien
  * abre y cierra los productos: aquí solo se cuenta al público.
  */
 export const salesStages = {
-  stage1End: '2026-10-04',
-  stage2Start: '2026-10-05',
+  stage1End: '2026-10-11',
+  stage2Start: '2026-10-12',
 } as const;
 
 export type TicketOfferId =
@@ -81,8 +82,9 @@ export interface TicketOffer {
  * Pretix. La disponibilidad de cada una se calcula en el build a partir de
  * las etapas y de `soldOut` (src/seo/offers.ts).
  *
- * OPERACIÓN: el 5 de octubre (stage2Start) hay que publicar el sitio para
- * que el build retire el pase y ponga las franjas en venta. Al agotarse una
+ * OPERACIÓN: el 12 de octubre (stage2Start) hay que publicar el sitio para
+ * que el build ponga las franjas en venta, y ANTES cambiar `price` del pase
+ * al precio de la etapa 2 (el mismo que se ponga en Pretix). Al agotarse una
  * boleta: `soldOut: true`, commit y publicación con visto bueno.
  */
 export const ticketOffers: TicketOffer[] = [
@@ -94,7 +96,8 @@ export const ticketOffers: TicketOffer[] = [
     currency: 'COP',
     /** Día en que la tienda quedó a la venta en la portada (commit 74f7049) */
     validFrom: '2026-09-09',
-    validThrough: salesStages.stage1End,
+    /* Sigue a la venta en la etapa 2, con menos descuento (2026-09-30) */
+    validThrough: null,
     soldOut: false,
     covers: 'all',
   },

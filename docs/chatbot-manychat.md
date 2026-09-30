@@ -45,8 +45,8 @@ Todo lo que el bot afirme sale de aquí. Si un dato cambia en el sitio o en Pret
 
 | Boleta | Qué incluye | Precio | Cuándo se vende |
 |---|---|---|---|
-| Pase completo | Los siete conversatorios, del viernes 6 al domingo 8, con la bienvenida y el cierre | 310.000 COP | Etapa 1: hasta el domingo 4 de octubre de 2026. Después se retira. |
-| Franja · Viernes 6, tarde | Bienvenida y "Bogotazo, dictadura y Frente Nacional" | 90.000 COP | Etapa 2: desde el lunes 5 de octubre de 2026 |
+| Pase completo | Los siete conversatorios, del viernes 6 al domingo 8, con la bienvenida y el cierre | 310.000 COP | Precio de la etapa 1, hasta el domingo 11 de octubre de 2026. Desde el 12 sigue a la venta con un descuento menor (precio por confirmar). |
+| Franja · Viernes 6, tarde | Bienvenida y "Bogotazo, dictadura y Frente Nacional" | 90.000 COP | Etapa 2: desde el lunes 12 de octubre de 2026 |
 | Franja · Sábado 7, mañana | "Surgimiento de las guerrillas" y "Negociaciones de paz, el Caguán y La Habana" | 90.000 COP | Etapa 2 |
 | Franja · Sábado 7, tarde | "Narcotráfico y paramilitarismo" y "Las reelecciones de Uribe y Santos" | 90.000 COP | Etapa 2 |
 | Franja · Domingo 8, mañana | "Magnicidios y víctimas de la violencia", "Mujeres periodistas y conflicto" y el cierre | 90.000 COP | Etapa 2 |
@@ -123,7 +123,7 @@ El bot es el equipo de Testigos de la Memoria: la persona amable que atiende la 
 1. **Tuteo**. Siempre "tú": "tu boleta", "puedes comprar". Nunca "usted" ni "vos".
 2. **Frases cortas, un dato por frase.** En WhatsApp e Instagram se lee en el celular: máximo tres o cuatro líneas por burbuja, y máximo dos burbujas por respuesta antes del botón.
 3. **Sin guion largo de pausa (—).** Se usa punto seguido, coma o el separador "·" en listas y títulos. Rangos numéricos con guion corto sí: "9:00 a 10:30 a.m." o "5–8 de noviembre".
-4. **Sin urgencia artificial.** Nada de "¡corre!", "últimos cupos", cuentas regresivas ni mayúsculas. La única escasez que se menciona es real y en tono neutro: "el aforo es limitado" y "el pase completo se vende hasta el 4 de octubre".
+4. **Sin urgencia artificial.** Nada de "¡corre!", "últimos cupos", cuentas regresivas ni mayúsculas. La única escasez que se menciona es real y en tono neutro: "el aforo es limitado" y "el pase completo se vende hasta el 11 de octubre".
 5. **Un solo signo de exclamación por conversación, si acaso**, y solo al despedir: "Nos vemos en Villa de Leyva".
 6. **Sin emojis en el cuerpo.** Se admite uno como máximo en la bienvenida y ninguno en respuestas de dinero, términos o datos personales.
 7. **Nombres propios con grafía exacta** (ver ficha). "Marta Ruiz" con una sola t; "Martha Soto" con h. "Hospedería Duruelo", "Casa Museo Antonio Nariño".
@@ -164,7 +164,7 @@ Mal:
 Bien:
 > Hola. Testigos de la Memoria es un encuentro en Villa de Leyva, del 5 al 8 de noviembre, con los periodistas que cubrieron la historia reciente de Colombia.
 >
-> Hasta el 4 de octubre se vende el pase completo, que cubre los siete conversatorios. Lo compras aquí: https://testigosdelamemoria.com/#boletas
+> Hasta el 11 de octubre el pase completo, que cubre los siete conversatorios, tiene su mayor descuento. Lo compras aquí: https://testigosdelamemoria.com/#boletas
 >
 > [Asegurar mi lugar] [Ver agenda] [Tengo otra pregunta]
 
@@ -176,9 +176,9 @@ Bien:
 
 La bienvenida vende en dos burbujas y pone la compra de primera. Quien llega desde un post ya sabe qué es el evento; no hay que hacerle escoger en un menú antes de mostrarle el botón.
 
-> Hola. Testigos de la Memoria: del 5 al 8 de noviembre, en Villa de Leyva, los periodistas que cubrieron los últimos cincuenta años de Colombia cuentan lo que vieron. Daniel Samper Pizano, Yolanda Ruiz, María Elvira Samper, Cecilia Orozco y ocho más.
+> Hola. Testigos de la Memoria: del 5 al 8 de noviembre, en Villa de Leyva, los periodistas que cubrieron los últimos cincuenta años de Colombia cuentan lo que vieron. Daniel Samper Pizano, Yolanda Ruiz, María Elvira Samper, Cecilia Orozco y nueve más.
 >
-> El pase completo cubre los siete conversatorios: 310.000 COP, a la venta hasta el 4 de octubre.
+> El pase completo cubre los siete conversatorios: 310.000 COP con el precio de la etapa 1, hasta el 11 de octubre.
 >
 > [Asegurar mi lugar] [Quiénes y qué temas] [Tengo otra pregunta]
 
@@ -269,7 +269,7 @@ Instagram y WhatsApp permiten escribirle a la persona durante las 24 horas sigui
 >
 > [Asegurar mi lugar] [Tengo otra pregunta]
 
-Uno solo. Si no responde, no se insiste. Si responde, la conversación sigue por el bot o pasa a una persona. Pasadas las 24 horas, en Instagram ya no se puede escribir; por eso el aviso del 5 de octubre (B3 y B4) solo llega a quien dejó su correo con la casilla de la sección 6.
+Uno solo. Si no responde, no se insiste. Si responde, la conversación sigue por el bot o pasa a una persona. Pasadas las 24 horas, en Instagram ya no se puede escribir; por eso el aviso del 12 de octubre (B3 y B4) solo llega a quien dejó su correo con la casilla de la sección 6.
 
 ### Derivación a humano
 
@@ -330,7 +330,7 @@ Cada respuesta está lista para pegar. Los corchetes indican botones. Cuando una
 **A7. ¿Cuánto dura? ¿Tengo que ir los cuatro días?**
 > No. Los conversatorios van del viernes 6 a las 3:00 p.m. al domingo 8 a la 1:00 p.m.: un fin de semana. Sales de Bogotá el viernes en la mañana y vuelves el domingo en la tarde. Entre sesión y sesión, el pueblo.
 >
-> El pase completo cubre los siete conversatorios. Desde el 5 de octubre también habrá boletas por media jornada.
+> El pase completo cubre los siete conversatorios. Desde el 12 de octubre también habrá boletas por media jornada.
 >
 > [Asegurar mi lugar] [Ver agenda]
 
@@ -344,7 +344,7 @@ Cada respuesta está lista para pegar. Los corchetes indican botones. Cuando una
 **B1. ¿Cuánto cuesta? / ¿Qué boletas hay?**
 > Ahora se vende el pase completo: 310.000 COP por los siete conversatorios, del viernes 6 en la tarde al domingo 8 al mediodía, con lugar asegurado en todos.
 >
-> Desde el 5 de octubre saldrán boletas por media jornada a 90.000 COP cada una. Las cuatro suman 360.000 y cada una depende del aforo que quede. Ese día el pase se retira.
+> Desde el 12 de octubre saldrán boletas por media jornada a 90.000 COP cada una. Las cuatro suman 360.000 y cada una depende del aforo que quede. El pase sigue a la venta, pero con un descuento menor: el mejor precio es el de ahora.
 >
 > [Asegurar mi lugar] [Ver la agenda]
 
@@ -360,21 +360,21 @@ Cada respuesta está lista para pegar. Los corchetes indican botones. Cuando una
 **B3. ¿Qué es una franja?**
 > Una franja es media jornada con sus conversatorios: por ejemplo, el sábado en la mañana trae "Surgimiento de las guerrillas" y "Negociaciones de paz, el Caguán y La Habana". Hay cuatro: viernes tarde, sábado mañana, sábado tarde y domingo mañana.
 >
-> Salen el 5 de octubre a 90.000 COP cada una, con el aforo que quede después del pase. Hasta el 4 de octubre el pase completo cubre las cuatro por 310.000 y asegura el lugar en todas.
+> Salen el 12 de octubre a 90.000 COP cada una, con el aforo que quede después del pase. Hasta el 11 de octubre el pase completo cubre las cuatro por 310.000 y asegura el lugar en todas.
 >
 > [Asegurar mi lugar] [Avísame cuando abran]
 
 **B4. ¿Por qué no puedo comprar una franja todavía?**
-> Porque la venta va por etapas. Hasta el 4 de octubre se vende solo el pase completo: los siete conversatorios por 310.000 COP, con lugar asegurado en todos. Desde el 5 de octubre abren las franjas a 90.000 cada una, con el aforo que quede, y el pase se retira.
+> Porque la venta va por etapas. Hasta el 11 de octubre se vende solo el pase completo: los siete conversatorios por 310.000 COP, con lugar asegurado en todos. Desde el 12 de octubre abren las franjas a 90.000 cada una, con el aforo que quede, y el pase sigue pero con un descuento menor.
 >
 > Si prefieres esperar una franja, en el sitio puedes pedir que te avisemos cuando abran.
 >
 > [Asegurar mi lugar] [Avísame cuando abran]
 
-*Nota para ManyChat: "Avísame cuando abran" lleva a `https://testigosdelamemoria.com/#boletas`, donde está el formulario de aviso. Alternativa: capturar nombre y correo en el bot con la casilla de autorización de la sección 6 y etiquetar `aviso-etapa-2`. En Instagram esta alternativa es la única que funciona: el 5 de octubre ya habrán pasado las 24 horas en que el bot puede escribir por su cuenta. El argumento del pase va siempre antes de este botón: la lista de aviso es para quien de verdad prefiere esperar, no un desvío para quien puede comprar hoy.*
+*Nota para ManyChat: "Avísame cuando abran" lleva a `https://testigosdelamemoria.com/#boletas`, donde está el formulario de aviso. Alternativa: capturar nombre y correo en el bot con la casilla de autorización de la sección 6 y etiquetar `aviso-etapa-2`. En Instagram esta alternativa es la única que funciona: el 12 de octubre ya habrán pasado las 24 horas en que el bot puede escribir por su cuenta. El argumento del pase va siempre antes de este botón: la lista de aviso es para quien de verdad prefiere esperar, no un desvío para quien puede comprar hoy.*
 
 **B5. ¿Hasta cuándo puedo comprar el pase completo?**
-> Hasta el domingo 4 de octubre de 2026. Desde el 5 de octubre solo se venden boletas por franja, con el aforo que quede.
+> El pase se vende hasta que se agote el aforo. El precio de 310.000 COP, con el mayor descuento, es hasta el domingo 11 de octubre de 2026; desde el 12 sigue a la venta con un descuento menor, junto con las boletas por franja.
 >
 > [Asegurar mi lugar]
 
@@ -889,8 +889,8 @@ Fechas en las que hay que actualizar el bot:
 
 | Cuándo | Qué cambia |
 |---|---|
-| 5 de octubre de 2026 | Abre la etapa 2. B1, B3, B4 y B5 pasan a: "El pase completo ya no está a la venta. Hay boletas por franja a 90.000 COP cada una". La segunda burbuja de la bienvenida pasa a: "Boletas por media jornada desde 90.000 COP. Cada franja tiene aforo limitado". El botón "Avísame cuando abran" desaparece y a los etiquetados `aviso-etapa-2` se les escribe ese día. |
-| Si el pase completo se agota antes del 4 de octubre | B1 y B2: "El pase completo se agotó. Las boletas por franja abren el 5 de octubre". |
+| 12 de octubre de 2026 | Abre la etapa 2. B1, B3, B4 y B5 pasan a: "El pase completo sigue a la venta a [precio de la etapa 2] y hay boletas por franja a 90.000 COP cada una". La segunda burbuja de la bienvenida pasa a: "Pase completo a [precio de la etapa 2] o boletas por media jornada desde 90.000 COP. Cada franja tiene aforo limitado". El botón "Avísame cuando abran" desaparece y a los etiquetados `aviso-etapa-2` se les escribe ese día. |
+| Si el pase completo se agota antes del 11 de octubre | B1 y B2: "El pase completo se agotó. Las boletas por franja abren el 12 de octubre". |
 | Si una franja se agota | La respuesta de esa franja dice "agotada" y ofrece las que quedan. |
 | Cada vez que cambie la agenda o entre un panelista | Ficha (sección 1), C1, C2, C4, C5 y la descripción de la franja afectada. |
 | Cuando se publiquen cupos o inscripción de las charlas abiertas | C6 y C7. |

@@ -1,6 +1,6 @@
 /**
  * Disponibilidad de cada boleta para el marcado (feature 002, FR-014).
- * Se calcula en el build con la fecha de Bogotá: por eso el 5 de octubre
+ * Se calcula en el build con la fecha de Bogotá: por eso el 12 de octubre
  * hay que publicar el sitio, y al agotarse una boleta se pone `soldOut`.
  * Google solo acepta InStock, SoldOut y PreOrder.
  */
