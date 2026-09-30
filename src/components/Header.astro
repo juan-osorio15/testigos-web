@@ -32,7 +32,6 @@ const navItems = [
   { href: sectionHref(Astro.url.pathname, 'agenda'), label: t('nav.schedule') },
   { href: sectionHref(Astro.url.pathname, 'lugar'), label: t('nav.venue') },
   { href: sectionHref(Astro.url.pathname, 'oportunidad'), label: t('nav.opportunity') },
-  { href: sectionHref(Astro.url.pathname, 'faq'), label: t('nav.faq') },
 ];
 ---
 
@@ -155,12 +154,12 @@ const navItems = [
     margin-left: auto;
   }
 
-  /* Los cinco enlaces, el logo y el CTA solo caben juntos desde ~1100 px;
-     por debajo (tabletas, portátiles pequeños y móvil) el header queda en
-     logo + CTA, y las secciones se alcanzan por scroll. Antes el corte era
-     47.9rem y entre 768 y 1100 px el botón de compra se salía de la
-     pantalla (2026-09-29). */
-  @media (max-width: 74.9rem) {
+  /* Los cuatro enlaces ("Preguntas" salió del menú el 2026-09-30), el
+     logo y el CTA solo caben juntos desde ~1050 px; por debajo (tabletas,
+     portátiles pequeños y móvil) el header queda en logo + CTA, y las
+     secciones se alcanzan por scroll. Con 47.9rem el botón de compra se
+     salía de la pantalla entre 768 y 1100 px (2026-09-29). */
+  @media (max-width: 67.4rem) {
     .nav {
       display: none;
     }
