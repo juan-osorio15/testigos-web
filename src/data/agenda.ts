@@ -44,8 +44,7 @@ export interface AgendaSlot {
    * dos frases del tema para quien no sabe nada de él, y preguntas que den
    * ganas de ir. Texto editorial, no del panelista: nada de conclusiones
    * ni de anticipar qué dirán; solo hechos públicos y preguntas. Sin
-   * `intro`, la sesión no tiene página y sus enlaces van al ancla de
-   * /programacion/ (bienvenida, cierre).
+   * `intro`, la sesión no tiene página y su título va sin enlace.
    */
   intro?: { summary: string; questions: string[] };
 }
@@ -164,6 +163,17 @@ export const agenda: AgendaSlot[] = [
     /* Jorge Cardona, narrador del encuentro, de vuelta el 2026-09-25 */
     speakerSlugs: ['dario-restrepo', 'jorge-cardona'],
     en: { title: 'Welcome and introduction' },
+    /* Página propia desde el 2026-09-29 (indicación del usuario): la
+       apertura presenta al narrador y el recorrido. Solo hechos del
+       formato; nada de lo que dirán. */
+    intro: {
+      summary:
+        'La apertura de los conversatorios. Darío Restrepo, codirector del encuentro, da la bienvenida, y Jorge Cardona, el narrador de Testigos de la Memoria, presenta el recorrido: siete conversaciones entre el viernes y el domingo, del Bogotazo a las mujeres que cubrieron la guerra, con él como hilo entre una y otra. Justo después empieza la primera.',
+      questions: [
+        '¿Qué hilo une setenta años de historia contada por quienes la cubrieron?',
+        '¿Por dónde se empieza a contar un país?',
+      ],
+    },
   },
   {
     day: '2026-11-06',
@@ -337,6 +347,15 @@ export const agenda: AgendaSlot[] = [
     venueId: 'duruelo',
     speakerSlugs: ['jorge-cardona'],
     en: { title: 'Closing session' },
+    /* Página propia desde el 2026-09-29, como la bienvenida */
+    intro: {
+      summary:
+        'El final del encuentro. Jorge Cardona, que presentó cada conversatorio y fue tejiendo el hilo entre uno y otro, retoma ese hilo para cerrar: media hora para ver de un solo vistazo la historia que se contó entre el viernes y el domingo.',
+      questions: [
+        '¿Qué queda cuando se juntan todas las piezas?',
+        '¿Qué historia se lleva uno a casa después de tres días de conversación?',
+      ],
+    },
   },
 ];
 
