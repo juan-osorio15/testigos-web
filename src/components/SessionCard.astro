@@ -3,8 +3,8 @@
  * Tarjeta de sesión para la ficha de un panelista: bloque sólido con el
  * color de su tipo (oliva = charla abierta, terracota = conversatorio, los
  * mismos de la leyenda de la agenda), cuándo, título, sede y la primera
- * pregunta de su página como anzuelo. Lleva a la página de la sesión o, si
- * no la tiene, a su fila en /programacion/.
+ * pregunta de su página como anzuelo. Lleva a la página de la sesión; si
+ * no la tiene (bienvenida, cierre), la tarjeta no es enlace.
  */
 import { t } from '../ui';
 import { dayLabels, type AgendaSlot } from '../data/agenda';
@@ -19,9 +19,11 @@ const { session: slot } = Astro.props;
 const free = slot.type === 'charla';
 const venue = slot.venueId ? venueById(slot.venueId) : null;
 const teaser = slot.intro?.questions[0];
+const href = sessionHref(slot);
+const Tag = href ? 'a' : 'div';
 ---
 
-<a class:list={['session-card', { 'session-card--free': free }]} href={sessionHref(slot)}>
+<Tag class:list={['session-card', { 'session-card--free': free }]} href={href ?? undefined}>
   <span class="session-card-when">
     {dayLabels[slot.day]}
     {slot.time && <span> · {slot.time}</span>}
@@ -33,8 +35,8 @@ const teaser = slot.intro?.questions[0];
     {venue && ' · '}
     {free ? t('schedule.free') : t('schedule.paid')}
   </span>
-  {slot.intro && <span class="session-card-more">{t('session.read')}</span>}
-</a>
+  {href && <span class="session-card-more">{t('session.read')}</span>}
+</Tag>
 
 <style>
   .session-card {
@@ -82,8 +84,8 @@ const teaser = slot.intro?.questions[0];
     text-underline-offset: 0.3em;
     text-decoration-thickness: 1px;
   }
-  .session-card:hover .session-card-title,
-  .session-card:focus-visible .session-card-title {
+  a.session-card:hover .session-card-title,
+  a.session-card:focus-visible .session-card-title {
     text-decoration: underline;
     text-underline-offset: 0.2em;
   }

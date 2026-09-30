@@ -58,7 +58,8 @@ export function noindexMeta(title: string, description: string, pathname: string
  * portada en inglés para enlazar desde fuera (src/i18n.ts): no compite
  * con la portada en español en los buscadores.
  */
-export const UNROUTED_PAGES = ['/404/', '/tratamiento-de-datos/', '/terminos-y-condiciones/', '/en/'];
+/* /programacion/ es solo una redirección a la agenda de la portada (2026-09-29) */
+export const UNROUTED_PAGES = ['/404/', '/tratamiento-de-datos/', '/terminos-y-condiciones/', '/en/', '/programacion/'];
 
 /**
  * Recibe las rutas de todas las páginas .astro públicas (derivadas de

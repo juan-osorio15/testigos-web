@@ -55,11 +55,13 @@ export function sessionPath(slug: string): string {
 }
 
 /**
- * Destino del título de una sesión en la agenda, la programación y las
- * fichas: su página si la tiene; si no, su fila en /programacion/.
+ * Destino del título de una sesión en la agenda, las charlas abiertas y las
+ * fichas: su página si la tiene; si no (bienvenida, cierre), ninguno y el
+ * título va sin enlace. La página /programacion/ se retiró el 2026-09-29:
+ * repetía la agenda de la portada y ahora redirige a ella.
  */
-export function sessionHref(slot: Pick<AgendaSlot, 'slug' | 'intro'>): string {
-  return slot.intro ? sessionPath(slot.slug) : `/programacion/#${slot.slug}`;
+export function sessionHref(slot: Pick<AgendaSlot, 'slug' | 'intro'>): string | null {
+  return slot.intro ? sessionPath(slot.slug) : null;
 }
 
 /** Sesiones con página propia, en el orden de la agenda */
@@ -109,7 +111,7 @@ const sessionRoutes: Route[] = sessionsWithPage.map((slot) => ({
   title: sessionTitle(slot),
   description: sessionDescription(slot),
   crumb: slot.title,
-  parent: '/programacion/',
+  parent: '/',
   ogImage:
     slot.type === 'charla'
       ? `${SITE_URL}/og/paginas/charlas-abiertas-v1.jpg`
@@ -131,7 +133,7 @@ export const routes: Route[] = [
   {
     path: '/panelistas/',
     title: `Panelistas · ${BRAND} 2026`,
-    description: `Los doce periodistas que cubrieron la Colombia reciente, reunidos en ${BRAND}, ${PLACE_DATES}.`,
+    description: `Los catorce periodistas que cubrieron la Colombia reciente, reunidos en ${BRAND}, ${PLACE_DATES}.`,
     crumb: 'Panelistas',
     parent: '/',
     ogImage: HOME_OG,
@@ -139,16 +141,6 @@ export const routes: Route[] = [
     priority: 'alta',
   },
   ...speakerRoutes,
-  {
-    path: '/programacion/',
-    title: `Programación · ${BRAND}, Villa de Leyva 2026`,
-    description: `Programación de ${BRAND}: charlas abiertas y conversatorios del 5 al 8 de noviembre de 2026 en Villa de Leyva, con horas, sedes y panelistas.`,
-    crumb: 'Programación',
-    parent: '/',
-    ogImage: `${SITE_URL}/og/paginas/programacion-v1.jpg`,
-    lastmod: CONTENT_DATE,
-    priority: 'alta',
-  },
   ...sessionRoutes,
   {
     path: '/charlas-abiertas/',

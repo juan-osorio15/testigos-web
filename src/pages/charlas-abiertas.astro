@@ -41,7 +41,7 @@ const registration = faqs.find((f) => /inscripci/i.test(f.question));
                 {slot.time && ` · ${slot.time}`}
               </p>
               <h2 class="talk-title">
-                <a href={sessionHref(slot)}>{slot.title}</a>
+                {sessionHref(slot) ? <a href={sessionHref(slot)!}>{slot.title}</a> : slot.title}
               </h2>
               {(people.length > 0 || slot.guests?.length) && (
                 <p class="talk-people">
@@ -101,7 +101,7 @@ const registration = faqs.find((f) => /inscripci/i.test(f.question));
       </p>
       <div class="talks-next-actions">
         <CtaButton label="cta.secure" />
-        <a href="/programacion/">{t('schedule.full')}</a>
+        <a href="/#agenda">{t('schedule.full')}</a>
       </div>
     </section>
   </div>

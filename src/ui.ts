@@ -240,7 +240,6 @@ const es = {
   // --- Migas de pan y páginas interiores ---
   'crumb.home': 'Inicio',
   'crumb.speakers': 'Panelistas',
-  'crumb.schedule': 'Programación',
   'crumb.talks': 'Charlas abiertas',
   'crumb.directions': 'Cómo llegar',
   'crumb.lodging': 'Dónde dormir',
@@ -263,7 +262,6 @@ const es = {
   'session.panel': 'Conversatorio',
 
   // --- Programación ---
-  'schedule.updated': 'Actualizado el',
   'schedule.paid': 'Con boleta',
   'schedule.full': 'Ver la programación completa',
   'schedule.freeCta': 'Quiero saber más',
@@ -490,7 +488,6 @@ const en: Record<UiKey, string> = {
 
   'crumb.home': 'Home',
   'crumb.speakers': 'Speakers',
-  'crumb.schedule': 'Program',
   'crumb.talks': 'Open talks',
   'crumb.directions': 'Getting there',
   'crumb.lodging': 'Where to stay',
@@ -510,7 +507,6 @@ const en: Record<UiKey, string> = {
   'session.talk': 'Open talk',
   'session.panel': 'Panel conversation',
 
-  'schedule.updated': 'Updated on',
   'schedule.paid': 'Ticket required',
   'schedule.full': 'See the full program',
   'schedule.freeCta': 'Tell me more',

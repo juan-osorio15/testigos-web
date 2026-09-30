@@ -25,7 +25,8 @@ export const ids = {
   event: `${SITE_URL}/#evento`,
   talks: `${SITE_URL}/charlas-abiertas/#evento`,
   venue: (v: Pick<Venue, 'id'>) => `${SITE_URL}/#sede-${v.id}`,
-  session: (slot: Pick<AgendaSlot, 'slug'>) => `${SITE_URL}/programacion/#${slot.slug}`,
+  /* La fila de la sesión en la agenda de la portada (tr id="sesion-<slug>") */
+  session: (slot: Pick<AgendaSlot, 'slug'>) => `${SITE_URL}/#sesion-${slot.slug}`,
   person: (sp: Pick<Speaker, 'slug'>) => `${SITE_URL}${speakerPath(sp.slug)}#persona`,
 };
 
