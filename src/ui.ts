@@ -33,7 +33,7 @@ const es = {
   'hero.tileCta': 'Ver ficha',
   /* El lugar va dentro de la frase (2026-09-19): sin la foto de la casa en
      el hero, nada decía Villa de Leyva antes de las boletas */
-  'hero.speakersAll': 'Conoce a los panelistas',
+  'hero.speakersAll': 'Ver todos',
   'hero.pitch': 'Cuatro días en Villa de Leyva con los reporteros que estuvieron ahí: se sientan a contar lo que vieron y a responder preguntas.',
   'hero.edition': 'Primera edición',
   'hero.format': 'Charlas abiertas y conversatorios',
@@ -320,7 +320,7 @@ const en: Record<UiKey, string> = {
   'hero.dates': 'November 5–8, 2026',
   'hero.place': 'Villa de Leyva, Colombia',
   'hero.tileCta': 'View profile',
-  'hero.speakersAll': 'Meet the speakers',
+  'hero.speakersAll': 'See all',
   'hero.pitch':
     'Four days in Villa de Leyva with the reporters who were there: they sit down to tell what they saw and take your questions.',
   'hero.edition': 'First edition',

@@ -197,6 +197,13 @@ html.js-reveal [data-reveal].is-visible {
   border-color: var(--ink);
   white-space: nowrap;
 }
+/* Celulares de 320-375 px: logo + botón no cabían en el header */
+@media (max-width: 23.4rem) {
+  .cta--header {
+    padding-inline: 0.9em;
+    font-size: 0.9375rem;
+  }
+}
 
 /* --- Movimiento reducido (FR-016): sin excepciones ----------------- */
 

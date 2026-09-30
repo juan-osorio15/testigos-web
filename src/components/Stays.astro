@@ -252,9 +252,10 @@ const tones = ['brick', 'olive'] as const;
   }
 
   @media (max-width: 63.9rem) {
-    /* Una columna: cada tarjeta vuelve a su propia grilla */
+    /* Una columna: cada tarjeta vuelve a su propia grilla. minmax(0, …)
+       para que el botón de WhatsApp no ensanche la tarjeta en 320 px */
     .stays-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       grid-template-rows: none;
     }
     .stay,
@@ -272,6 +273,13 @@ const tones = ['brick', 'olive'] as const;
     }
     .stay-whatsapp {
       padding-inline: 0.75em;
+    }
+  }
+  /* En los celulares más angostos el texto del botón puede partirse */
+  @media (max-width: 23.4rem) {
+    .stay-whatsapp {
+      white-space: normal;
+      text-align: center;
     }
   }
 </style>

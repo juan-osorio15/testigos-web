@@ -366,13 +366,24 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     text-wrap: pretty;
     color: var(--cream);
   }
-  /* En ventanas bajas (portátiles pequeños) el bloque no da para la frase
-     sin desbordar sus tres filas: se omite */
-  @media (max-height: 46rem) {
+  /* La frase solo va si el bloque terracota tiene alto para ella. Se mide
+     el propio bloque (contenedor de tamaño) y no la ventana: con la base
+     de siete caras bajo el titular, la altura de la ventana no bastaba y en
+     portátiles de 1366 × 768 el texto se cortaba arriba y abajo
+     (2026-09-30). El alto que se compara es el de adentro, sin el relleno
+     del bloque. Solo en escritorio: en móvil el bloque crece con su
+     contenido y la frase no se muestra. */
+  @media (min-width: 64rem) {
+    .hero-head {
+      container: hero-head / size;
+    }
+  }
+  @container hero-head (max-height: 540px) {
     .hero-pitch {
       display: none;
     }
   }
+
 
   .sr-only {
     position: absolute;
@@ -639,6 +650,37 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     letter-spacing: 0.1em;
   }
 
+  /* Franja en portátiles: si fecha, contador y botón no caben en una línea,
+     el botón salta abajo y la franja le roba casi 60 px al hero. Entre
+     64rem y 90rem el lugar va bajo el mes; hasta 80rem, además, cada
+     unidad del contador va bajo su cifra (como en móvil). */
+  @media (min-width: 64rem) and (max-width: 90rem) {
+    .hero-strip {
+      column-gap: var(--space-3);
+    }
+    .hero-date .hero-fact-label {
+      flex-direction: column;
+      align-items: flex-start;
+      row-gap: 0.15em;
+    }
+    .hero-date .hero-after-sep::before {
+      content: none;
+    }
+  }
+  @media (min-width: 64rem) and (max-width: 80rem) {
+    .hero-count {
+      display: grid;
+      grid-template-columns: repeat(4, auto);
+      column-gap: 1.25rem;
+      row-gap: 0;
+    }
+    .hero-count .hero-fact {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.15em;
+    }
+  }
+
   @media (max-width: 63.9rem) {
     /* En móvil el hero fluye con la página en lugar de quedar fijo: así
        nunca recorta la franja azul con el contador y el CTA en pantallas
@@ -683,8 +725,11 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
       min-height: 0;
     }
     /* Cierra la última fila (catorce caras en cinco columnas) */
+    /* min-width 0: la celda nunca más ancha que su columna (a 360 px mide
+       ~72 px; "Conoce a los panelistas" empujaba la página, 2026-09-30) */
     .hero-faces .hero-faces-more {
       display: grid;
+      min-width: 0;
     }
     .hero-faces-more a {
       display: grid;
@@ -694,10 +739,11 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
       color: var(--ink);
       font-size: 0.6rem;
       font-weight: 800;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       text-align: center;
       text-decoration: none;
+      overflow-wrap: anywhere;
     }
     .hero-tile {
       grid-row: auto;
