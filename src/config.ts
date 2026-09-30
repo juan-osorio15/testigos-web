@@ -41,8 +41,12 @@ export const pretixReady = true;
 export const measurement = {
   /** ID de medición de GA4 ('G-XXXXXXXXXX'); vacío → no se carga gtag */
   ga4Id: 'G-XJES5Z5EC9',
-  /** ID del conjunto de datos (píxel) de Meta; vacío → no se carga fbevents */
-  metaPixelId: '1443741474322260',
+  /**
+   * ID del conjunto de datos (píxel) de Meta; vacío → no se carga fbevents.
+   * Desde el 2026-09-30, el del portafolio Testigos de la Memoria
+   * (4125554607744771); antes, uno temporal de "Que Hacer en Villa de Leyva".
+   */
+  metaPixelId: '1858161698687866',
   /** Versión del aviso de cookies; cambiarla vuelve a mostrarlo */
   consentVersion: '2026-09',
   /** Verificación de dominio de Meta por etiqueta; vacío si se verifica por DNS */
