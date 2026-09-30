@@ -218,8 +218,10 @@ Precio de la etapa 1, con el mayor descuento, hasta el 11 de octubre.
 > Pretix convierte cada salto de línea simple en `<br>` (extensión nl2br), así
 > que no hacen falta dos espacios al final de línea.
 
-Nombres cortos para el checkout, el correo y el PDF (campo *Name*):
-`Pase completo`, `Viernes tarde`, `Sábado mañana`, `Sábado tarde`, `Domingo mañana`.
+Nombres cortos para el checkout, el correo y el PDF (campo *Name*), desde
+el 2026-09-30: `Pase completo`, `Viernes PM`, `Sábado AM`, `Sábado PM`,
+`Domingo AM`. Deben coincidir con `pretixProduct` en `src/data/event.ts`:
+el sitio reconoce cada producto del widget por ese nombre.
 Para no perder la fecha en la boleta, conviene el nombre con fecha:
 `Franja · Viernes 6, tarde`, etcétera.
 

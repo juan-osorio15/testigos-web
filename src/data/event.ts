@@ -104,7 +104,7 @@ export const ticketOffers: TicketOffer[] = [
   {
     id: 'viernes-tarde',
     name: 'Viernes en la tarde',
-    pretixProduct: 'Viernes tarde',
+    pretixProduct: 'Viernes PM',
     price: 90000,
     currency: 'COP',
     validFrom: salesStages.stage2Start,
@@ -115,7 +115,7 @@ export const ticketOffers: TicketOffer[] = [
   {
     id: 'sabado-manana',
     name: 'Sábado en la mañana',
-    pretixProduct: 'Sábado mañana',
+    pretixProduct: 'Sábado AM',
     price: 90000,
     currency: 'COP',
     validFrom: salesStages.stage2Start,
@@ -126,7 +126,7 @@ export const ticketOffers: TicketOffer[] = [
   {
     id: 'sabado-tarde',
     name: 'Sábado en la tarde',
-    pretixProduct: 'Sábado tarde',
+    pretixProduct: 'Sábado PM',
     price: 90000,
     currency: 'COP',
     validFrom: salesStages.stage2Start,
@@ -137,7 +137,7 @@ export const ticketOffers: TicketOffer[] = [
   {
     id: 'domingo-manana',
     name: 'Domingo en la mañana',
-    pretixProduct: 'Domingo mañana',
+    pretixProduct: 'Domingo AM',
     price: 90000,
     currency: 'COP',
     validFrom: salesStages.stage2Start,

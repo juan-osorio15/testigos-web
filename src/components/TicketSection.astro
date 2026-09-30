@@ -13,9 +13,9 @@ import LogoSymbol from '../assets/logo/logo-symbol.svg';
 import WaitlistForm from './WaitlistForm.astro';
 import SalesStages from './SalesStages.astro';
 import { agenda } from '../data/agenda';
-import { ticketOffers, formatPrice } from '../data/event';
+import { ticketOffers, formatPrice, salesStages } from '../data/event';
 import { speakers } from '../data/speakers';
-import { langOf } from '../i18n';
+import { langOf, localeOf } from '../i18n';
 
 const t = tFor(Astro.url.pathname);
 const lang = langOf(Astro.url.pathname);
@@ -25,16 +25,28 @@ const lang = langOf(Astro.url.pathname);
 const passPrice = formatPrice(ticketOffers.find((o) => o.id === 'pase-completo')!, lang);
 const halfDayPrice = formatPrice(ticketOffers.find((o) => o.id === 'viernes-tarde')!, lang);
 
+/* Aviso bajo el precio del pase en el widget (2026-09-30): el descuento es
+   el de la etapa 1. Lo inyecta el script, porque el precio lo pinta Pretix;
+   desaparece solo a las 0:00 de Bogotá del primer día de la etapa 2. */
+const stage1Until = new Intl.DateTimeFormat(localeOf(lang), {
+  timeZone: 'America/Bogota',
+  day: 'numeric',
+  month: 'long',
+}).format(new Date(`${salesStages.stage1End}T12:00:00-05:00`));
+const stagePriceNote = t('tickets.stagePrice').replace('{date}', stage1Until);
+const stageSwitchAt = Date.parse(`${salesStages.stage2Start}T00:00:00-05:00`);
+const passProduct = ticketOffers.find((o) => o.id === 'pase-completo')!.pretixProduct;
+
 /* `pretixReady` (config.ts) decide tienda o formulario. La hoja de estilos
    y el script del widget los pone EventLayout en la cabecera del documento. */
 const live = pretixReady;
 
 /* Panelistas por franja, desde los datos del sitio y no desde las negritas
    de Pretix: la agenda dice quién va en cada conversatorio y el carrusel
-   fija el orden (reconocimiento público, docs/panelistas.md). La clave es
-   el nombre del producto en Pretix ("Sábado Mañana"), normalizado. Una
-   franja es medio día: mañana si el conversatorio empieza antes de las
-   2 p.m. (el cierre del domingo a las 12:30 p.m. cuenta como mañana). */
+   fija el orden (el del afiche, docs/panelistas.md). La clave es el nombre
+   del producto en Pretix ("Sábado AM", desde el 2026-09-30), normalizado.
+   Una franja es medio día: AM si el conversatorio empieza antes de las
+   2 p.m. (el cierre del domingo a las 12:30 p.m. cuenta como AM). */
 const dayName: Record<string, string> = {
   '2026-11-06': 'viernes',
   '2026-11-07': 'sabado',
@@ -55,14 +67,21 @@ const startHour = (time: string) => {
 const franjas: Record<string, string[]> = {};
 for (const slot of agenda) {
   if (slot.type !== 'conversatorio' || !slot.time || !dayName[slot.day]) continue;
-  const key = `${dayName[slot.day]} ${startHour(slot.time) < 14 ? 'manana' : 'tarde'}`;
+  const key = `${dayName[slot.day]} ${startHour(slot.time) < 14 ? 'am' : 'pm'}`;
   (franjas[key] ??= []).push(...slot.speakerSlugs);
 }
+/* Cada franja responde a su nombre nuevo ("sabado am") y al anterior
+   ("sabado manana"), por si Pretix todavía no se ha renombrado */
+const oldName = { am: 'manana', pm: 'tarde' } as const;
 const franjaNames = Object.fromEntries(
-  Object.entries(franjas).map(([key, slugs]) => [
-    key,
-    speakers.filter((s) => slugs.includes(s.slug)).map((s) => s.name),
-  ]),
+  Object.entries(franjas).flatMap(([key, slugs]) => {
+    const names = speakers.filter((s) => slugs.includes(s.slug)).map((s) => s.name);
+    const [day, half] = key.split(' ') as [string, keyof typeof oldName];
+    return [
+      [key, names],
+      [`${day} ${oldName[half]}`, names],
+    ];
+  }),
 );
 ---
 
@@ -102,6 +121,9 @@ const franjaNames = Object.fromEntries(
       data-notify-label={t('tickets.notify')}
       data-not-yet={t('tickets.notYet')}
       data-franjas={JSON.stringify(franjaNames)}
+      data-stage-price={stagePriceNote}
+      data-stage-switch-at={stageSwitchAt}
+      data-pass-product={passProduct}
     >
       {
         live ? (
@@ -219,8 +241,32 @@ const franjaNames = Object.fromEntries(
       });
     };
 
-    apply();
-    new MutationObserver(apply).observe(widget, { childList: true, subtree: true });
+    // Aviso de etapa bajo el precio del pase, mientras dure la etapa 1
+    const stageNote = widget.dataset.stagePrice ?? '';
+    const stageSwitchAt = Number(widget.dataset.stageSwitchAt);
+    const passName = normalize(widget.dataset.passProduct ?? '');
+    const markPass = () => {
+      if (!stageNote || !(Date.now() < stageSwitchAt)) return;
+      widget.querySelectorAll<HTMLElement>('.pretix-widget-item').forEach((item) => {
+        const title = item.querySelector('.pretix-widget-item-title')?.textContent ?? '';
+        if (normalize(title) !== passName) return;
+        // Junto a la descripción, encima de los precios: así no ensancha la
+        // columna del precio ni empuja el selector de cantidad a otra fila
+        const info = item.querySelector('.pretix-widget-item-info-col');
+        if (!info || info.querySelector('.tickets-stage-price')) return;
+        const note = document.createElement('p');
+        note.className = 'tickets-stage-price';
+        note.textContent = stageNote;
+        info.appendChild(note);
+      });
+    };
+
+    const run = () => {
+      apply();
+      markPass();
+    };
+    run();
+    new MutationObserver(run).observe(widget, { childList: true, subtree: true });
 
     dialog.querySelector('[data-notify-close]')?.addEventListener('click', () => dialog.close());
     // Clic en el fondo oscurecido: el propio <dialog> es el objetivo
@@ -564,6 +610,13 @@ const franjaNames = Object.fromEntries(
   }
   .tickets-widget .pretix-widget-pricebox-new-price {
     text-decoration: none;
+    color: var(--brick);
+  }
+  .tickets-widget .tickets-stage-price {
+    margin: 0.5em 0 0;
+    font-size: var(--text-small);
+    font-weight: 700;
+    line-height: 1.4;
     color: var(--brick);
   }
   .tickets-widget .pretix-widget-pricebox-tax {

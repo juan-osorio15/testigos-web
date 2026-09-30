@@ -94,6 +94,7 @@ const es = {
   'stages.stage2Note': 'Llegan las mañanas y tardes sueltas. El pase sigue, con un descuento menor.',
   'stages.daysLeft': 'Quedan {n} días con el precio de la etapa 1',
   'stages.lastDay': 'Último día con el precio de la etapa 1',
+  'tickets.stagePrice': 'Precio de la etapa 1, hasta el {date}.',
   'tickets.notify': 'Avísame cuando abra',
   /* Modal "avísame" de las franjas; la franja escogida va como eyebrow */
   'notify.title': 'Te avisamos cuando abra la etapa 2',
@@ -368,6 +369,7 @@ const en: Record<UiKey, string> = {
   'stages.stage2Note': 'Individual mornings and afternoons arrive. The pass stays, with a smaller discount.',
   'stages.daysLeft': '{n} days left at the stage 1 price',
   'stages.lastDay': 'Last day at the stage 1 price',
+  'tickets.stagePrice': 'Stage 1 price, until {date}.',
   'tickets.notify': 'Notify me when it opens',
   'notify.title': "We'll let you know when stage 2 opens",
   'notify.intro': "Leave us your details and we'll write to you as soon as half-day tickets go on sale.",
