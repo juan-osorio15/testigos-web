@@ -133,17 +133,18 @@ export const speakers: Speaker[] = [
   {
     slug: 'leon-valencia',
     name: 'León Valencia',
-    credential: 'Director · Fundación Paz y Reconciliación',
+    /* "Escritor" delante por indicación del usuario (2026-09-30) */
+    credential: 'Escritor · director de la Fundación Paz y Reconciliación',
     bio: 'Dirige la Fundación Paz y Reconciliación, que fundó en 2013, y escribe columnas en Cambio y en el portal de la fundación. Integró el comando central del ELN en los años ochenta y encabezó la Corriente de Renovación Socialista, la disidencia que dejó las armas en 1994. Contó esa experiencia en “Mis años de guerra” y en “Adiós a la política, bienvenida la guerra”. Desde la Corporación Nuevo Arco Iris impulsó las investigaciones sobre la parapolítica. Premio Simón Bolívar de opinión en 2008.',
     en: {
-      credential: 'Director · Fundación Paz y Reconciliación',
+      credential: 'Writer · director of Fundación Paz y Reconciliación',
       bio: 'He leads the Fundación Paz y Reconciliación, which he founded in 2013, and writes columns for Cambio and the foundation\'s website. He sat on the central command of the ELN guerrilla in the 1980s and led the Corriente de Renovación Socialista, the faction that laid down its arms in 1994. He told that story in “Mis años de guerra” and “Adiós a la política, bienvenida la guerra”. From the Corporación Nuevo Arco Iris he drove the investigations into the parapolitics scandal. 2008 Simón Bolívar Award for opinion writing.',
     },
     photo: photoLeonValencia,
     /* Retrato nuevo del 2026-09-18 (3:2, cara a la derecha del centro);
-       la vista previa se regeneró con él (v2) */
+       la vista previa se regeneró con él (v2) y con la credencial nueva (v3) */
     photoFocus: '62% 30%',
-    ogVersion: 2,
+    ogVersion: 3,
     links: {
       x: 'https://x.com/LeonVaLenciaA',
       web: 'https://www.pares.com.co/author/leonvalencia/',
