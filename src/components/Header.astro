@@ -155,9 +155,14 @@ const navItems = [
     margin-left: auto;
   }
 
-  @media (max-width: 47.9rem) {
+  /* Los cinco enlaces, el logo y el CTA solo caben juntos desde ~1100 px;
+     por debajo (tabletas, portátiles pequeños y móvil) el header queda en
+     logo + CTA, y las secciones se alcanzan por scroll. Antes el corte era
+     47.9rem y entre 768 y 1100 px el botón de compra se salía de la
+     pantalla (2026-09-29). */
+  @media (max-width: 74.9rem) {
     .nav {
-      display: none; /* móvil: logo + CTA; las secciones se alcanzan por scroll */
+      display: none;
     }
   }
 </style>
