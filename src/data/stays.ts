@@ -12,8 +12,8 @@
  *
  * Fotos de los sitios oficiales, descargadas el 2026-09-29 con permiso del
  * usuario (derechos reservados de cada hotel, usadas para promocionarlos):
- * Duruelo, suite Úbeda con vista al valle (duruelo.com.co, 1280 × 960,
- * recorte 3:2); Posada, patio colonial (hotellaposadadesanantonio.com,
+ * Duruelo, suite Segovia 401 con techo de vigas y chimenea (duruelo.com.co,
+ * 1280 × 960, recorte 3:2; cambiada por el usuario el 2026-09-30); Posada, patio colonial (hotellaposadadesanantonio.com,
  * 5504 × 3998, recorte 3:2 a 1920 px).
  */
 import type { Lang } from '../i18n';
@@ -58,7 +58,7 @@ export const stays: Stay[] = [
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=Hospeder%C3%ADa+Duruelo+Villa+de+Leyva',
     photo: photoDuruelo,
-    photoAlt: 'Suite de la Hospedería Duruelo con la ventana abierta sobre el valle de Villa de Leyva',
+    photoAlt: 'Suite de la Hospedería Duruelo con techo de vigas de madera, chimenea de piedra y cama doble',
     en: {
       offer: 'Special discounted package',
       pitch:
@@ -66,7 +66,7 @@ export const stays: Stay[] = [
       contact: { name: 'Jazmín Casallas', role: 'Sales coordinator' },
       whatsappText:
         'Hi Jazmín, I am attending Testigos de la Memoria in Villa de Leyva (November 5–8) and would like the special package for attendees.',
-      photoAlt: 'A suite at Hospedería Duruelo with its window open onto the Villa de Leyva valley',
+      photoAlt: 'A suite at Hospedería Duruelo with a wooden-beamed ceiling, stone fireplace and double bed',
     },
   },
   {
