@@ -163,6 +163,16 @@ const es = {
 
   // --- Venue ---
   'venue.directions': 'Cómo llegar',
+  'stay.heading': '¿Y dónde me voy a quedar?',
+  'stay.intro':
+    'Si vienes de Bogotá o de más lejos, no tienes que buscar hotel. Estos dos aliados tienen una oferta solo para asistentes: escríbeles por WhatsApp y ellos te arman la reserva.',
+  'stay.onlyAttendees': 'Solo para asistentes',
+  'stay.askFor': 'Pregunta por',
+  'stay.writeTo': 'Te atienden directamente en recepción.',
+  'stay.whatsapp': 'Escribir por WhatsApp',
+  'stay.call': 'Llamar',
+  'stay.note':
+    'Di que vas a Testigos de la Memoria para acceder a la oferta. La reserva y el pago se hacen directamente con cada hotel.',
   'venue.mapTitle': 'Mapa de Google de Villa de Leyva con la Hospedería Duruelo',
   'venue.heading': 'Dos sedes, a pocas cuadras',
   'venue.intro':
@@ -415,6 +425,16 @@ const en: Record<UiKey, string> = {
   'links.wikipedia': 'Wikipedia',
 
   'venue.directions': 'Get directions',
+  'stay.heading': 'And where do I stay?',
+  'stay.intro':
+    'Coming from Bogotá or farther away? No need to hunt for a hotel. These two partners have an offer for attendees only: message them on WhatsApp and they will set up your booking.',
+  'stay.onlyAttendees': 'Attendees only',
+  'stay.askFor': 'Ask for',
+  'stay.writeTo': 'The front desk will help you directly.',
+  'stay.whatsapp': 'Message on WhatsApp',
+  'stay.call': 'Call',
+  'stay.note':
+    'Mention that you are attending Testigos de la Memoria to get the offer. Booking and payment are handled directly with each hotel.',
   'venue.mapTitle': 'Google map of Villa de Leyva showing Hospedería Duruelo',
   'venue.heading': 'Two venues, a few blocks apart',
   'venue.intro':

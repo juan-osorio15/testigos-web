@@ -1,0 +1,277 @@
+---
+/**
+ * ¿Y dónde me voy a quedar? (2026-09-29): los hoteles aliados con su
+ * oferta solo para asistentes, pensada para quien viene de Bogotá. Va al
+ * final de la sección de sedes (VenueMap), sin enlace propio en el menú.
+ *
+ * Las dos tarjetas tienen exactamente la misma estructura y comparten las
+ * filas por subgrid (foto, nombre, oferta, reseña, las tres del contacto
+ * y dirección),
+ * así cada pieza queda a la misma altura en las dos columnas. Una sola
+ * familia tipográfica y tres tamaños: título, cuerpo y etiqueta en caps.
+ * El contacto es lo más visible: WhatsApp con el mensaje ya escrito a todo
+ * el ancho, y debajo llamada y correo (compra sin fricción).
+ */
+import { Image } from 'astro:assets';
+import { tFor } from '../ui';
+import { langOf } from '../i18n';
+import { staysFor, telUrl, whatsappUrl } from '../data/stays';
+
+const t = tFor(Astro.url.pathname);
+const stays = staysFor(langOf(Astro.url.pathname));
+const tones = ['brick', 'olive'] as const;
+---
+
+<div id="hospedaje" class="stays">
+  <div class="stays-inner">
+    <h3 class="stays-heading">{t('stay.heading')}</h3>
+    <p class="stays-intro">{t('stay.intro')}</p>
+
+    <div class="stays-grid">
+      {
+        stays.map((stay, i) => (
+          <article class:list={['stay', `stay--${tones[i % tones.length]}`]}>
+            <div class="stay-photo">
+              <Image
+                src={stay.photo}
+                alt={stay.photoAlt}
+                widths={[640, 960, 1280]}
+                sizes="(max-width: 63.9rem) 100vw, 50vw"
+                loading="lazy"
+              />
+            </div>
+            <h4 class="stay-name">{stay.name}</h4>
+            <p class="stay-offer">
+              <span class="stay-label">{t('stay.onlyAttendees')}</span>
+              <span class="stay-offer-text">{stay.offer}</span>
+            </p>
+            <p class="stay-pitch">{stay.pitch}</p>
+            <div class="stay-contact">
+              <p class="stay-who">
+                {stay.contact ? (
+                  <>
+                    {t('stay.askFor')}{' '}
+                    <strong>{stay.contact.name}</strong>, {stay.contact.role.toLowerCase()}.
+                  </>
+                ) : (
+                  t('stay.writeTo')
+                )}
+              </p>
+              <a class="stay-whatsapp" href={whatsappUrl(stay)} target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path
+                    fill="currentColor"
+                    d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.87 9.87 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91A9.84 9.84 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.23 8.23 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24a8.2 8.2 0 0 1 5.83 2.42 8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.78.97-.15.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.13-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.22-.16-.47-.28Z"
+                  />
+                </svg>
+                {t('stay.whatsapp')}
+              </a>
+              <p class="stay-alt">
+                <a href={telUrl(stay)}>
+                  {t('stay.call')} {stay.phone}
+                </a>
+                {stay.email && <a href={`mailto:${stay.email}`}>{stay.email}</a>}
+              </p>
+            </div>
+            <p class="stay-address">
+              {stay.address} ·{' '}
+              <a href={stay.mapsUrl} target="_blank" rel="noopener">
+                {t('venue.directions')}
+              </a>
+            </p>
+          </article>
+        ))
+      }
+    </div>
+    <p class="stays-note">{t('stay.note')}</p>
+  </div>
+</div>
+
+<style>
+  .stays {
+    margin-top: var(--space-5);
+    background-color: var(--sky);
+    color: var(--ink);
+  }
+  .stays-inner {
+    padding: var(--space-4) var(--space-3) var(--space-3);
+  }
+  .stays-heading {
+    font-size: var(--text-h2);
+    margin-bottom: var(--space-2);
+  }
+  .stays-intro {
+    font-size: var(--text-lead);
+    max-width: 46ch;
+    margin-bottom: var(--space-4);
+    text-wrap: pretty;
+  }
+
+  /* Dos tarjetas que se tocan (fórmula §1). Cada una ocupa ocho filas
+     compartidas: foto, nombre, oferta, reseña, quién atiende, WhatsApp,
+     llamada y correo, dirección. */
+  .stays-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(8, auto);
+  }
+  .stay {
+    --pad: var(--space-3);
+    display: grid;
+    grid-row: span 8;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+    color: var(--cream);
+  }
+  .stay--brick {
+    background-color: var(--brick);
+  }
+  .stay--olive {
+    background-color: var(--olive);
+  }
+  .stay > :not(.stay-photo) {
+    margin-inline: var(--pad);
+  }
+
+  .stay-photo {
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    background-color: var(--ink);
+  }
+  .stay-photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Tres voces: título (nombre y oferta), cuerpo y etiqueta en caps */
+  .stay-name {
+    padding-top: var(--pad);
+    font-size: var(--text-h3);
+    font-weight: 800;
+    line-height: 1.2;
+  }
+  .stay-offer {
+    display: grid;
+    gap: 0.25rem;
+    align-content: start;
+    padding-top: var(--space-2);
+  }
+  .stay-label,
+  .stay-address {
+    font-size: var(--text-label);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .stay-offer-text {
+    font-size: var(--text-h3);
+    font-weight: 800;
+    line-height: 1.2;
+  }
+  .stay-pitch {
+    padding-top: var(--space-2);
+    font-size: var(--text-body);
+    line-height: 1.55;
+    max-width: 48ch;
+    text-wrap: pretty;
+  }
+
+  /* Contacto: bloque crema de tres filas compartidas, así el botón de
+     WhatsApp queda a la misma altura en las dos tarjetas */
+  .stay-contact {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    row-gap: var(--space-2);
+    margin-top: var(--space-3);
+    padding: var(--pad);
+    background-color: var(--cream);
+    color: var(--ink);
+  }
+  .stay-who {
+    font-size: var(--text-body);
+    line-height: 1.45;
+  }
+  .stay-who strong {
+    font-weight: 800;
+  }
+  .stay-whatsapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    padding: 0.9em 1.2em;
+    background-color: var(--terracotta);
+    color: var(--ink);
+    font-size: var(--text-body);
+    font-weight: 800;
+    white-space: nowrap;
+    text-decoration: none;
+    border: var(--border) var(--ink);
+    transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out);
+  }
+  .stay-whatsapp svg {
+    width: 1.35em;
+    height: 1.35em;
+    flex: none;
+  }
+  .stay-whatsapp:hover,
+  .stay-whatsapp:focus-visible {
+    background-color: var(--ink);
+    color: var(--cream);
+  }
+  .stay-alt {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+    font-size: var(--text-small);
+    font-weight: 700;
+  }
+  .stay-alt a {
+    color: var(--ink);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+    overflow-wrap: anywhere;
+  }
+
+  .stay-address {
+    padding-block: var(--space-2) var(--pad);
+    opacity: 0.9;
+  }
+  .stay-address a {
+    color: inherit;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+  }
+
+  .stays-note {
+    margin-top: var(--space-3);
+    font-size: var(--text-small);
+    max-width: 60ch;
+  }
+
+  @media (max-width: 63.9rem) {
+    /* Una columna: cada tarjeta vuelve a su propia grilla */
+    .stays-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: none;
+    }
+    .stay,
+    .stay-contact {
+      grid-row: auto;
+      grid-template-rows: none;
+    }
+  }
+  @media (max-width: 47.9rem) {
+    .stays-inner {
+      padding-inline: var(--space-2);
+    }
+    .stay {
+      --pad: var(--space-2);
+    }
+    .stay-whatsapp {
+      padding-inline: 0.75em;
+    }
+  }
+</style>

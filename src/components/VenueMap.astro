@@ -12,6 +12,7 @@ import { Image } from 'astro:assets';
 import { tFor } from '../ui';
 import { venuesFor } from '../data/event';
 import { langOf } from '../i18n';
+import Stays from './Stays.astro';
 
 const t = tFor(Astro.url.pathname);
 const lang = langOf(Astro.url.pathname);
@@ -112,6 +113,8 @@ const mapSrc = (id: string) =>
         }
       </div>
     </div>
+
+    <Stays />
   </div>
 </section>
 
