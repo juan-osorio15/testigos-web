@@ -217,7 +217,9 @@ const consentBootstrap = ga4
             if (entry.isIntersecting) inView.add(entry.target.id);
             else inView.delete(entry.target.id);
           }
-          const activeId = [...linkById.keys()].find((id) => inView.has(id));
+          // #hospedaje vive dentro de #lugar: si las dos están en la banda,
+          // gana la última del menú, que es la más específica.
+          const activeId = [...linkById.keys()].reverse().find((id) => inView.has(id));
           navLinks.forEach((a) => a.classList.toggle('is-active', idOf(a) === activeId));
         },
         { rootMargin: '-40% 0px -55% 0px' }

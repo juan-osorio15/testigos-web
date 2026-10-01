@@ -23,6 +23,7 @@ const es = {
   'nav.schedule': '¿Qué voy a escuchar?',
   'nav.venue': '¿Dónde?',
   'nav.faq': 'Preguntas',
+  'nav.lodging': 'Hospedaje',
   'nav.aria': 'Navegación principal',
 
   // --- Hero ---
@@ -316,6 +317,7 @@ const en: Record<UiKey, string> = {
   'nav.schedule': 'What will I hear?',
   'nav.venue': 'Where?',
   'nav.faq': 'FAQ',
+  'nav.lodging': 'Where to stay',
   'nav.aria': 'Main navigation',
 
   'hero.tagline': 'Journalists in History',

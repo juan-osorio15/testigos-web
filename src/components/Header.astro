@@ -31,6 +31,8 @@ const navItems = [
   { href: sectionHref(Astro.url.pathname, 'speakers'), label: t('nav.speakers') },
   { href: sectionHref(Astro.url.pathname, 'agenda'), label: t('nav.schedule') },
   { href: sectionHref(Astro.url.pathname, 'lugar'), label: t('nav.venue') },
+  /* Hoteles aliados (2026-10-01): queremos que la gente llegue a ellos */
+  { href: sectionHref(Astro.url.pathname, 'hospedaje'), label: t('nav.lodging') },
   { href: sectionHref(Astro.url.pathname, 'oportunidad'), label: t('nav.opportunity') },
 ];
 ---
@@ -154,8 +156,9 @@ const navItems = [
     margin-left: auto;
   }
 
-  /* Los cuatro enlaces ("Preguntas" salió del menú el 2026-09-30), el
-     logo y el CTA solo caben juntos desde ~1050 px; por debajo (tabletas,
+  /* Los cinco enlaces ("Preguntas" salió del menú el 2026-09-30 y entró
+     "Hospedaje" el 2026-10-01; comprobado a 1080 px), el logo y el CTA
+     solo caben juntos desde ~1078 px; por debajo (tabletas,
      portátiles pequeños y móvil) el header queda en logo + CTA, y las
      secciones se alcanzan por scroll. Con 47.9rem el botón de compra se
      salía de la pantalla entre 768 y 1100 px (2026-09-29). */
