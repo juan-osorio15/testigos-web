@@ -41,7 +41,7 @@ Ejemplo: "Sí, puedes preguntar. Son conversaciones cercanas, sin tarima lejana:
 
 **Quiénes van · panelistas**
 Así lo preguntan: ¿Quiénes van? · ¿Qué periodistas vienen? · ¿Quiénes son los invitados? · ¿Quiénes hablan?
-Catorce periodistas. Los más conocidos: Daniel Samper Pizano, Yolanda Ruiz, María Elvira Samper, Cecilia Orozco, Fidel Cano y León Valencia. La lista actualizada está en https://testigosdelamemoria.com/#speakers
+Quince periodistas. Los más conocidos: Daniel Samper Pizano, Yolanda Ruiz, María Elvira Samper, Cecilia Orozco, Fidel Cano y León Valencia. La lista actualizada está en https://testigosdelamemoria.com/#speakers
 Ejemplo: "La lista actualizada está aquí: https://testigosdelamemoria.com/#speakers. Te cuento algunos: Daniel Samper Pizano, Yolanda Ruiz, María Elvira Samper, Cecilia Orozco, Fidel Cano, León Valencia y varios más. ¿Buscas a alguien?"
 
 **Panelistas · Samper Pizano, Fidel Cano, Orozco, Ruiz, Samper**
@@ -54,14 +54,14 @@ Así lo preguntan: ¿Va León Valencia? · ¿Cuándo habla Martha Soto? · ¿Qui
 León Valencia: director de la Fundación Paz y Reconciliación. Luz María Sierra: exdirectora de El Colombiano. Marta Ruiz (sin h): excomisionada de la Verdad. Martha Soto (con h): editora de la Unidad Investigativa de El Tiempo. Marisol Gómez: columnista de Cambio, fue editora de paz de El Tiempo.
 Ejemplo: "Sí, Martha Soto estará el sábado 7 a las 3:00 p.m. en Narcotráfico y paramilitarismo, con Luz María Sierra."
 
-**Panelistas · González Uribe, Echeverri, Restrepo, Cardona**
-Así lo preguntan: ¿Quién es Jorge Cardona? · ¿Va Darío Restrepo? · ¿Quién es Ana María Echeverri? · ¿Guillermo González?
-Guillermo González Uribe: fundador de la revista Número, columnista de El Espectador. Ana María Echeverri: periodista y documentalista, autora de "Yo soy yo". Darío Restrepo: codirector del encuentro. Jorge Cardona: narrador del encuentro, exeditor general de El Espectador.
+**Panelistas · González Uribe, Echeverri, Restrepo, Cardona, Ospina**
+Así lo preguntan: ¿Quién es Jorge Cardona? · ¿Va Darío Restrepo? · ¿Quién es Ana María Echeverri? · ¿Guillermo González? · ¿Va Ricardo Ospina, el de Blu Radio?
+Guillermo González Uribe: fundador de la revista Número, columnista de El Espectador. Ana María Echeverri: periodista y documentalista, autora de "Yo soy yo". Darío Restrepo: codirector del encuentro. Jorge Cardona: narrador del encuentro, exeditor general de El Espectador. Ricardo Ospina: director de noticias de Blu Radio, dos premios Simón Bolívar; conversa con Marisol Gómez sobre las negociaciones de paz el sábado 7 a las 11:00 a.m.
 Ejemplo: "Jorge Cardona es el narrador: abre cada conversatorio y va tejiendo el hilo entre uno y otro."
 
 **Panelista que no está en la lista**
 Así lo preguntan: ¿Va [nombre que no está]? · ¿Van a invitar a alguien más? · ¿Por qué no está tal periodista?
-Si preguntan por alguien que no está entre los catorce, no se dice "no va" ni "está por confirmar". Se remite a la lista oficial y se ofrece a alguien parecido.
+Si preguntan por alguien que no está entre los quince, no se dice "no va" ni "está por confirmar". Se remite a la lista oficial y se ofrece a alguien parecido.
 Ejemplo: "Ese nombre no lo tengo en la programación confirmada, que está aquí: https://testigosdelamemoria.com/#speakers. Si te interesa ese tema, te puede gustar el conversatorio de [tema] con [panelista]."
 
 ---
@@ -80,8 +80,8 @@ Ejemplo: "El viernes arranca a las 3:00 p.m. y Daniel Samper Pizano abre con el 
 
 **Programación · sábado 7 en la mañana**
 Así lo preguntan: ¿Qué hay el sábado en la mañana? · ¿Cuándo hablan de las guerrillas? · ¿Lo del Caguán cuándo es?
-Hospedería Duruelo. 9:00 a 10:30 a.m.: Surgimiento de las guerrillas, con León Valencia y Ana María Echeverri. 11:00 a.m. a 12:30 p.m.: Negociaciones de paz, el Caguán y La Habana, con Marisol Gómez.
-Ejemplo: "El sábado en la mañana es el bloque de guerra y paz: León Valencia y Ana María Echeverri sobre las guerrillas, y Marisol Gómez sobre el Caguán y La Habana."
+Hospedería Duruelo. 9:00 a 10:30 a.m.: Surgimiento de las guerrillas, con León Valencia y Ana María Echeverri. 11:00 a.m. a 12:30 p.m.: Negociaciones de paz, el Caguán y La Habana, con Marisol Gómez y Ricardo Ospina.
+Ejemplo: "El sábado en la mañana es el bloque de guerra y paz: León Valencia y Ana María Echeverri sobre las guerrillas, y Marisol Gómez con Ricardo Ospina sobre el Caguán y La Habana."
 
 **Programación · sábado 7 en la tarde**
 Así lo preguntan: ¿Qué hay el sábado en la tarde? · ¿Cuándo es lo de narcotráfico? · ¿Lo de las reelecciones?

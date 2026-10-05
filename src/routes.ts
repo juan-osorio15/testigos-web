@@ -133,7 +133,7 @@ export const routes: Route[] = [
   {
     path: '/panelistas/',
     title: `Panelistas · ${BRAND} 2026`,
-    description: `Los catorce periodistas que cubrieron la Colombia reciente, reunidos en ${BRAND}, ${PLACE_DATES}.`,
+    description: `Los quince periodistas que cubrieron la Colombia reciente, reunidos en ${BRAND}, ${PLACE_DATES}.`,
     crumb: 'Panelistas',
     parent: '/',
     ogImage: HOME_OG,

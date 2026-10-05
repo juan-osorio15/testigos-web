@@ -231,7 +231,8 @@ export const agenda: AgendaSlot[] = [
     type: 'conversatorio',
     title: 'Negociaciones de paz, el Caguán y La Habana',
     venueId: 'duruelo',
-    speakerSlugs: ['marisol-gomez'],
+    /* Ricardo Ospina entró el 2026-10-05 (organizadores) */
+    speakerSlugs: ['marisol-gomez', 'ricardo-ospina'],
     en: { title: 'Peace negotiations: Caguán and Havana' },
     intro: {
       summary:

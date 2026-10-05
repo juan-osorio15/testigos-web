@@ -32,6 +32,17 @@ Un solo mensaje sirve para todos:
 | Ana María Echeverri | Periodista y documentalista · autora de “Yo soy yo” | Página de autora en Planeta | Tarjeta de invitada de Villa de Letras 2026 (1080 × 1080, b/n, fondo de ladrillo; misma sesión de la foto oficial de Planeta, crédito © Margarita Casas); recorte propio a 4:3 y 960 px, tratamiento `plain` por venir ya en b/n. Pedirle a ella o a Planeta el original | Añadida el 2026-09-15 por los organizadores para "Surgimiento de las guerrillas" con León Valencia. Nombre completo Ana María Echeverri Salazar; algunas fuentes escriben "Echeverry". **Identidad**: ninguna fuente pública la vincula con guerrillas, conflicto ni con León Valencia; su obra es de cultura, medicina alternativa e identidad de género. Confirmar que es ella y en qué calidad va. De los premios, solo el Simón Bolívar 1987 está confirmado en la fuente oficial; Ondas e India Catalina constan en su bio editorial de Planeta. Sin redes verificadas ni Wikipedia. Informe en docs/investigacion-ana-maria-echeverri.md. |
 | María Elvira Samper | Periodista · exdirectora de Semana y Cambio | X @monasamper · Wikipedia | Contexto Media 2024 (mismo retrato que usan Planeta y Ulibro) | No hay fuente que la vincule a CM& (la ficha anterior lo decía). Dejó RCN Radio en 2022. Sin columna regular hoy. |
 
+### Ricardo Ospina (añadido el 2026-10-05)
+
+La tabla de arriba no se amplía; este panelista va en lista.
+
+- Credencial publicada: Director de noticias · Blu Radio.
+- Identidad: Ricardo Andrés Ospina Beltrán, firma "Ricardo Ospina". Único periodista con ese nombre que aparece en fuentes públicas. Añadido por los organizadores para "Negociaciones de paz, el Caguán y La Habana" con Marisol Gómez. Ninguna fuente lo muestra cubriendo el Caguán ni La Habana como reportero (empezó en radio hacia 2003); dirigía la redacción de Blu Radio durante La Habana. Confirmar con los organizadores que es él.
+- Redes enlazadas: X @ricarospina y su página de autor en Blu Radio. Instagram @ricarospina probable, no enlazado. Facebook y LinkedIn sin verificar.
+- Foto: retrato oficial de Blu Radio (650 × 466, a color, fondo gris; crédito "Foto Blu Radio"); recorte propio a 4:3 (621 × 466). Pedirle una foto en alta.
+- No está en el afiche: va de último en el carrusel y fuera de la escalera de caras del hero.
+- Informe en docs/investigacion-ricardo-ospina.md.
+
 ## Fotos
 
 Recortadas a 4:3 y 960 px de ancho en `src/assets/speakers/`. Se muestran en blanco y negro con grano
@@ -55,7 +66,7 @@ para la línea de nombres que el sitio pinta bajo cada franja y para cualquier
 pieza de difusión. Corte del 2026-09-15; se actualiza con cada cambio de agenda.
 
 - Viernes 6, tarde: Daniel Samper Pizano · Darío Restrepo · Jorge Cardona (narrador)
-- Sábado 7, mañana: León Valencia · Marisol Gómez · Ana María Echeverri
+- Sábado 7, mañana: León Valencia · Marisol Gómez · Ana María Echeverri · Ricardo Ospina (no está en el afiche)
 - Sábado 7, tarde: Fidel Cano · Luz María Sierra · Cecilia Orozco · Martha Soto
 - Domingo 8, mañana: Yolanda Ruiz · María Elvira Samper · Guillermo González Uribe · Marta Ruiz · Jorge Cardona (narrador)
 
@@ -66,6 +77,7 @@ nombra a Martha Soto en "Narcotráfico y paramilitarismo" (entró el 2026-09-15)
 Desde el 2026-09-25 también falta en Pretix: "Reelecciones" pasó a llamarse
 "Las reelecciones de Uribe y Santos" y suma a Fidel Cano (Sábado Tarde), y
 Jorge Cardona entra como narrador en la bienvenida (Viernes Tarde) y el cierre.
+Desde el 2026-10-05 falta en Pretix Ricardo Ospina en "Negociaciones de paz" (Sábado Mañana).
 
 ## Retirados
 
