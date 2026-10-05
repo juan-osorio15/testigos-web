@@ -7,8 +7,9 @@
  * su versión en blanco, teñida al crema del resto el 2026-09-17; Alma
  * Bazar desde su JPEG con fondo azul, quedándose solo con el sello
  * granate pasado a crema, el 2026-09-18; Hotel La Posada de San Antonio
- * desde su JPEG en tinta sobre blanco, con la tinta como alfa, el
- * 2026-09-28).
+ * desde su PDF en tinta sobre blanco (logo nuevo del 2026-10-05), con la
+ * tinta como alfa; Cabañas Ojo de Agua desde su JPEG turquesa y gris
+ * sobre blanco, con la distancia al blanco como alfa, el 2026-10-05).
  */
 import type { UiKey } from '../ui';
 import logoConexion from '../assets/partners/conexion-zaquencipa.png';
@@ -18,6 +19,7 @@ import logoBanrepTunja from '../assets/partners/banrep-tunja.png';
 import logoRelato from '../assets/partners/relato.png';
 import logoAlmaBazar from '../assets/partners/alma-bazar.png';
 import logoPosada from '../assets/partners/posada-san-antonio.png';
+import logoOjoDeAgua from '../assets/partners/ojo-de-agua.png';
 
 export interface Partner {
   name: string;
@@ -63,6 +65,8 @@ export const partnerGroups: PartnerGroup[] = [
       { name: 'Centro Cultural Banco de la República, Tunja', logo: logoBanrepTunja },
       { name: 'Alma Bazar', logo: logoAlmaBazar, shape: 'square' },
       { name: 'Hotel La Posada de San Antonio', logo: logoPosada, shape: 'square' },
+      /* Trazo fino y lema pequeño: al alto de los apaisados no se leía */
+      { name: 'Cabañas Ojo de Agua', logo: logoOjoDeAgua, shape: 'square' },
     ],
   },
 ];
