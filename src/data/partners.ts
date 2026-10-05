@@ -9,7 +9,9 @@
  * granate pasado a crema, el 2026-09-18; Hotel La Posada de San Antonio
  * desde su PDF en tinta sobre blanco (logo nuevo del 2026-10-05), con la
  * tinta como alfa; Cabañas Ojo de Agua desde su JPEG turquesa y gris
- * sobre blanco, con la distancia al blanco como alfa, el 2026-10-05).
+ * sobre blanco, con la distancia al blanco como alfa, el 2026-10-05; Casa
+ * Boutique El Carmel desde su PNG blanco con transparencia, teñido al
+ * crema, el 2026-10-05; el original mide 150 px y no hay uno mayor).
  */
 import type { UiKey } from '../ui';
 import logoConexion from '../assets/partners/conexion-zaquencipa.png';
@@ -20,6 +22,7 @@ import logoRelato from '../assets/partners/relato.png';
 import logoAlmaBazar from '../assets/partners/alma-bazar.png';
 import logoPosada from '../assets/partners/posada-san-antonio.png';
 import logoOjoDeAgua from '../assets/partners/ojo-de-agua.png';
+import logoElCarmel from '../assets/partners/el-carmel.png';
 
 export interface Partner {
   name: string;
@@ -67,6 +70,7 @@ export const partnerGroups: PartnerGroup[] = [
       { name: 'Hotel La Posada de San Antonio', logo: logoPosada, shape: 'square' },
       /* Trazo fino y lema pequeño: al alto de los apaisados no se leía */
       { name: 'Cabañas Ojo de Agua', logo: logoOjoDeAgua, shape: 'square' },
+      { name: 'Casa Boutique El Carmel', logo: logoElCarmel, shape: 'square' },
     ],
   },
 ];
