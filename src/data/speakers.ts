@@ -298,6 +298,30 @@ export const speakers: Speaker[] = [
     confirmed: true,
   },
   {
+    /* Añadido el 2026-10-05 por los organizadores para "Negociaciones de
+       paz, el Caguán y La Habana" con Marisol Gómez. Es Ricardo Andrés
+       Ospina Beltrán; firma "Ricardo Ospina". Investigación en
+       docs/investigacion-ricardo-ospina.md. No está en el afiche; va
+       antes de Martha Soto (indicación del usuario, 2026-10-05). */
+    slug: 'ricardo-ospina',
+    name: 'Ricardo Ospina',
+    credential: 'Director de noticias · Blu Radio',
+    bio: 'Director del servicio informativo de Blu Radio, donde presenta “Meridiano Blu” y “El Radar” y hace parte de la mesa de “Mañanas Blu”. Antes fue jefe del noticiero de Todelar y periodista de Caracol Radio, donde estuvo a cargo de la Unidad Investigativa. Ganó el Premio Simón Bolívar en 2017, con Néstor Morales, por la noticia de los dineros de Odebrecht en la campaña de Santos de 2010, y en 2025 por una investigación sobre los desaparecidos del Palacio de Justicia.',
+    en: {
+      credential: 'News director · Blu Radio',
+      bio: 'News director at Blu Radio, where he hosts “Meridiano Blu” and “El Radar” and sits on the “Mañanas Blu” panel. He previously ran the newscast at Todelar and worked at Caracol Radio, where he headed the investigative unit. He won the Simón Bolívar Award in 2017, with Néstor Morales, for the story on Odebrecht money in Santos\'s 2010 campaign, and in 2025 for an investigation into the disappeared of the Palace of Justice.',
+    },
+    /* Retrato oficial de Blu Radio (650 × 466, a color, fondo gris de
+       estudio; crédito "Foto Blu Radio"); recorte propio a 4:3. Pedir una
+       versión más grande. */
+    photo: photoRicardoOspina,
+    links: {
+      x: 'https://x.com/ricarospina',
+      web: 'https://www.bluradio.com/autor/ricardo-ospina',
+    },
+    confirmed: true,
+  },
+  {
     slug: 'martha-soto',
     name: 'Martha Soto',
     credential: 'Editora de la Unidad Investigativa · El Tiempo',
@@ -328,30 +352,6 @@ export const speakers: Speaker[] = [
     photoTreatment: 'plain',
     links: {
       web: 'https://www.planetadelibros.com/autor/ana-maria-echeverri/000061446',
-    },
-    confirmed: true,
-  },
-  {
-    /* Añadido el 2026-10-05 por los organizadores para "Negociaciones de
-       paz, el Caguán y La Habana" con Marisol Gómez. Es Ricardo Andrés
-       Ospina Beltrán; firma "Ricardo Ospina". Investigación en
-       docs/investigacion-ricardo-ospina.md. No está en el afiche: va de
-       último para no mover la escalera de caras del hero (catorce). */
-    slug: 'ricardo-ospina',
-    name: 'Ricardo Ospina',
-    credential: 'Director de noticias · Blu Radio',
-    bio: 'Director del servicio informativo de Blu Radio, donde presenta “Meridiano Blu” y “El Radar” y hace parte de la mesa de “Mañanas Blu”. Antes fue jefe del noticiero de Todelar y periodista de Caracol Radio, donde estuvo a cargo de la Unidad Investigativa. Ganó el Premio Simón Bolívar en 2017, con Néstor Morales, por la noticia de los dineros de Odebrecht en la campaña de Santos de 2010, y en 2025 por una investigación sobre los desaparecidos del Palacio de Justicia.',
-    en: {
-      credential: 'News director · Blu Radio',
-      bio: 'News director at Blu Radio, where he hosts “Meridiano Blu” and “El Radar” and sits on the “Mañanas Blu” panel. He previously ran the newscast at Todelar and worked at Caracol Radio, where he headed the investigative unit. He won the Simón Bolívar Award in 2017, with Néstor Morales, for the story on Odebrecht money in Santos\'s 2010 campaign, and in 2025 for an investigation into the disappeared of the Palace of Justice.',
-    },
-    /* Retrato oficial de Blu Radio (650 × 466, a color, fondo gris de
-       estudio; crédito "Foto Blu Radio"); recorte propio a 4:3. Pedir una
-       versión más grande. */
-    photo: photoRicardoOspina,
-    links: {
-      x: 'https://x.com/ricarospina',
-      web: 'https://www.bluradio.com/autor/ricardo-ospina',
     },
     confirmed: true,
   },

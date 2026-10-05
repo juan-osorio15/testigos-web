@@ -27,12 +27,15 @@ const lang = langOf(Astro.url.pathname);
    alineadas a la derecha sobre una grilla de siete columnas, y una base
    de siete a todo el ancho bajo el titular (2026-09-29: así caben los
    catorce panelistas, en el orden del afiche de speakers.ts). Desde el
-   2026-10-05 son quince: el hero muestra los catorce primeros y el
-   carrusel los tiene todos.
+   2026-10-05 son quince: la escalera pasa a 4, 4 y 7 (la segunda fila
+   empieza en la columna 4, que no toca el titular) y en móvil las quince
+   caras llenan las tres filas de cinco, sin la casilla de "ver todos".
+   Si algún día hay más, el hero muestra los primeros y el carrusel los
+   tiene todos.
    En móvil la escalera no aplica: cinco columnas a lo ancho (tres filas,
    como antes con doce en cuatro, para no bajar la franja de compra), y el
    hueco de la última fila lo llena un enlace a los panelistas. */
-const STAIR = [3, 4, 7] as const;
+const STAIR = [4, 4, 7] as const;
 const COLS = 7;
 const withPhoto = speakersFor(lang).filter((s) => s.photo !== null);
 const tiles = STAIR.flatMap((n, r) =>
@@ -728,8 +731,9 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     /* Cierra la última fila (catorce caras en cinco columnas) */
     /* min-width 0: la celda nunca más ancha que su columna (a 360 px mide
        ~72 px; "Conoce a los panelistas" empujaba la página, 2026-09-30) */
+    /* Con quince caras las tres filas quedan llenas: la casilla sobra */
     .hero-faces .hero-faces-more {
-      display: grid;
+      display: none;
       min-width: 0;
     }
     .hero-faces-more a {
