@@ -1,0 +1,78 @@
+# Revisión legal · casilla única para medición, públicos y contacto comercial
+
+Fecha: 2026-10-06. Autor: abogado interno (agente `abogado-eventalist`). Marco: Ley 1581 de 2012, Decreto 1377 de 2013 (compilado en el 1074 de 2015), Ley 2300 de 2023 (texto consultado en el Régimen Legal de Bogotá: art. 3 horarios y periodicidad, art. 5 extensión a mensajes comerciales).
+Contexto: diseño en `docs/medicion-embudo/diseno.md`. Restricción del titular, no negociable: una sola casilla en el checkout.
+
+**Veredicto**: la casilla única obligatoria es defendible con el alcance comercial recortado de B, los cambios de C y los controles de D. Con WhatsApp y "futuros eventos de Eventalist" sin límite, no se recomienda.
+
+## Puntos de partida
+
+- La política vigente promete tres cosas que dejan de ser ciertas: sección 3 ("Los datos de la compra no se usan para enviar publicidad ni información de otros eventos, salvo autorización separada del titular"), sección 10 ("Los datos de la compra de boletas no se transmiten a estos proveedores") y sección 12 de los términos ("salvo que el titular lo autorice por separado").
+- Quien compró antes del cambio aceptó bajo esas promesas: sus datos no se usan para las finalidades nuevas (art. 5 Dec. 1377).
+- La casilla única obligatoria es lícita en Colombia (Ley 1581 art. 4 lit. c y art. 9; Dec. 1377 art. 5). El punto débil: la cartilla de la SIC recomienda escoger cada finalidad, y la Ley 2300 art. 2 exige contactar solo por canales autorizados. Los recortes de B apuntan a eso.
+- El hash SHA-256 no saca el dato del régimen: el envío a Meta sigue siendo transferencia internacional (art. 26 Ley 1581).
+
+## A. Texto de la casilla (Pretix, campo Confirmation text)
+
+```markdown
+Soy mayor de edad, he leído la [política de tratamiento de datos](https://testigosdelamemoria.com/tratamiento-de-datos/) y autorizo a Eventalist S.A.S. a usar mis datos para gestionar esta compra, emitir la boleta y controlar el ingreso; a enviar a Meta y a Google, en Estados Unidos, los datos de este pedido, y a Meta además mi correo, teléfono y nombre convertidos en códigos SHA-256, para medir la publicidad del encuentro y mostrarme sus anuncios; a escribirme por correo con novedades de este encuentro, de sus próximas ediciones y de otros eventos culturales de Eventalist en Villa de Leyva; y, si doy mi teléfono, a escribirme por WhatsApp solo para recordarme completar el pago y avisarme novedades de este encuentro. Puedo dejar de recibir esos mensajes desde cada uno de ellos.
+```
+
+- "Soy mayor de edad" cubre el art. 12 del Dec. 1377 y coincide con la sección 7 de los términos.
+- Si la tienda se ofrece en inglés, el texto en inglés dice lo mismo.
+
+## B. Alcance comercial
+
+- Sólido: recordar el pago de un pedido pendiente; novedades de este encuentro.
+- Defendible: próximas ediciones de Testigos de la Memoria.
+- Defendible con riesgo moderado: otros eventos culturales de Eventalist en Villa de Leyva (coincide con el literal c) que la política ya tiene para el formulario).
+- No recomendado: "futuros eventos de Eventalist" sin límite de tema ni lugar.
+
+Recortes, ya reflejados en A:
+
+1. WhatsApp solo para el recordatorio de pago y este encuentro. Lo demás, solo por correo.
+2. El teléfono opcional es la elección de canal: sin número, no hay WhatsApp. El texto de ayuda del campo de teléfono en Pretix pasa a: "Opcional. Se usa para avisos sobre esta compra y para los mensajes por WhatsApp que se autorizan al final del pedido."
+3. Solo el comprador: los nombres de los demás asistentes nunca van a Meta ni a la base de contactos.
+4. Públicos de Meta solo para este encuentro (retargeting a quien no pagó, exclusión de compradores). No se usan para anuncios de otros eventos.
+5. Una baja no se revierte con una compra posterior.
+
+## C. Cambios en la política y los términos
+
+Política (`src/pages/tratamiento-de-datos.astro`):
+
+- **Párrafo inicial**, reemplazar las dos últimas frases por: "Quien compra una boleta en la tienda del encuentro entrega los datos necesarios para emitir y enviar la boleta, gestionar el pedido y controlar el ingreso, y autoriza además los mensajes y la medición publicitaria descritos en las secciones 3 y 10. Los datos no se venden. El sitio usa cookies de medición y de publicidad de Google y de Meta, y transmite a esos proveedores ciertos datos de cada pedido, según se explica en la sección 10."
+- **Sección 2, segundo párrafo**, añadir después de "validadas en la entrada": "Con cada pedido se registran además su estado (pendiente, vencido o pagado) y la campaña o fuente de la que proviene la visita: los parámetros de campaña de la dirección web y, si el visitante aceptó las cookies, los identificadores de Google Analytics y de Meta descritos en la sección 10."
+- **Sección 3, literal g)**, reemplazar por: "Medir la audiencia del sitio y la eficacia de la publicidad del encuentro, atribuir los pedidos a la campaña que los originó y mostrar anuncios del encuentro en las plataformas de Meta a quienes iniciaron una compra sin completarla, en los términos de la sección 10."
+- **Sección 3, literal h) nuevo**: "Recordar al comprador cuyo pedido quedó pendiente de pago que puede completar la compra, mientras la venta del encuentro esté abierta."
+- **Sección 3, párrafo final**, reemplazar por: "Las comunicaciones comerciales se envían por los canales que el titular autoriza. En el formulario, los que allí indique. En la tienda, el correo electrónico para las finalidades b), c) y h) y, solo si el comprador suministra su número, WhatsApp para las finalidades b) y h) respecto del encuentro en curso. Se envían conforme a los canales, horarios y periodicidad previstos en la Ley 2300 de 2023 e incluyen un mecanismo para dejar de recibirlas que no afecta la compra ni la boleta. Los mensajes sobre un pedido, como la confirmación, la boleta, los avisos de vencimiento que envía la tienda y los avisos de cambios de programación, son de carácter transaccional. Las comunicaciones comerciales se dirigen solo al comprador; los datos de los demás asistentes registrados en el pedido no se usan con fines comerciales ni se transmiten a Google ni a Meta. Las finalidades c), g) y h), en lo que se refiere a los datos de la tienda, se aplican a los pedidos realizados a partir del [fecha de publicación]; los datos de pedidos anteriores no se usan con esos fines."
+- **Sección 4, primera frase**, reemplazar por: "El responsable no vende los datos personales ni los cede a terceros, salvo la transmisión a Google LLC y a Meta Platforms, Inc. de los datos de navegación y de los datos de los pedidos descritos en la sección 10."
+- **Sección 5**: reemplazar "En la tienda de boletería, la autorización se otorga marcando una casilla del mismo tipo, sin marcar por defecto, antes de confirmar el pedido." por "En la tienda de boletería, la autorización se otorga antes de confirmar el pedido marcando una casilla sin marcar por defecto, cuyo texto identifica al responsable, las finalidades, los proveedores a los que se transmiten los datos y los canales de contacto. El responsable conserva la fecha del pedido y la versión del texto aceptado." Añadir al final: "La autorización para transmitir los datos de los pedidos a Google y a Meta se otorga en la casilla de la tienda. El titular puede revocar en cualquier momento la autorización para mensajes comerciales, desde el mecanismo incluido en cada mensaje o por el medio indicado en la sección 8, y la autorización para la transmisión con fines publicitarios, por ese mismo medio. La revocación no afecta la boleta ni el tratamiento necesario para la compra y el ingreso."
+- **Sección 6**, añadir: "Los datos de contacto del comprador se conservan en la base de contactos del responsable mientras esté vigente la autorización para mensajes comerciales. El número de teléfono se usa por WhatsApp con fines comerciales solo hasta la finalización del encuentro, y los pedidos no pagados se usan para el recordatorio solo mientras la venta esté abierta."
+- **Sección 10**: borrar "Los datos de la compra de boletas no se transmiten a estos proveedores." Insertar antes del párrafo de transferencia: "Cuando un pedido de la tienda se confirma y cuando se paga, el responsable transmite desde sus propios servidores a Meta Platforms, Inc. el correo electrónico, el número de teléfono, el nombre y el apellido del comprador, convertidos previamente mediante la función SHA-256 en códigos que no revelan el dato y que el proveedor solo puede cotejar con cuentas que ya conoce, junto con el estado, el valor, la moneda y los productos del pedido, la campaña de origen y, si el comprador aceptó las cookies, los identificadores _fbp y _fbc. A Google LLC transmite los mismos datos del pedido y de la campaña y, si el comprador aceptó las cookies, el identificador de Google Analytics, sin el nombre, el correo ni el teléfono. Las finalidades son atribuir el pedido a la campaña que lo originó, medir la eficacia de la publicidad del encuentro y, en el caso de Meta, mostrar anuncios del encuentro a quienes iniciaron una compra sin completarla y excluir de ellos a quienes ya compraron." **Nota de implementación**: el plugin también envía a Meta la dirección IP y el navegador del comprador; añadirlos a esa enumeración ("…los identificadores _fbp y _fbc, y la dirección IP y el tipo de navegador desde los que se hizo el pedido").
+- **Sección 10, último párrafo**, añadir: "El comprador puede pedir por el correo {DATA_CONTACT_EMAIL} que los datos de sus pedidos no se transmitan con fines publicitarios; desde ese momento el responsable deja de incluirlos en nuevas transmisiones."
+- **Sección 11**, añadir: "La base de contactos de compradores se mantiene vigente mientras subsistan las finalidades de la sección 3."
+- Actualizar `DATA_POLICY_EFFECTIVE` en `src/config.ts` y el comentario de cabecera (hoy dice que el envío a Google y Meta "se retiró"). Limitar las finalidades nuevas a pedidos posteriores evita el aviso previo de "cambio sustancial"; a los inscritos del formulario no les cambia nada.
+
+Términos (`src/pages/terminos-y-condiciones.astro`), sección 12:
+
+- **Primer párrafo**, reemplazar por: "Los datos que el comprador entrega en la tienda, es decir, el nombre del comprador y de cada asistente, el correo electrónico y, si lo indica, el teléfono, los trata {c.name} como responsable para emitir y enviar la boleta, gestionar el pedido y el pago, emitir la factura cuando corresponda, controlar el ingreso al encuentro y atender las solicitudes sobre la compra. Respecto del comprador, los trata además para las finalidades comerciales y de medición publicitaria que indica la casilla de autorización de la tienda, incluida la transmisión de los datos del pedido a Google LLC y a Meta Platforms, Inc. Todo ello conforme a la <a href={policyHref}>política de tratamiento de datos personales</a> publicada en este sitio, que detalla esas finalidades, los derechos del titular y el procedimiento para ejercerlos. La autorización se otorga en la casilla de la tienda antes de confirmar el pedido."
+- **Segundo párrafo**, reemplazar por: "Los mensajes sobre el pedido, como la confirmación, la boleta, los avisos de vencimiento que envía la tienda y los avisos de cambios de programación, son de carácter transaccional. Los mensajes comerciales que el comprador autoriza en la tienda se envían conforme a la Ley 2300 de 2023 e incluyen un mecanismo para dejar de recibirlos; su revocación no afecta la compra ni la boleta. Los datos de los asistentes distintos del comprador no se usan con fines comerciales."
+- Actualizar `TERMS_EFFECTIVE`.
+
+## D. Obligaciones operativas
+
+1. **T0**: momento en que el texto nuevo de la casilla queda guardado en Pretix, con política y términos ya publicados. El filtro va por fecha de creación del pedido: creado antes de T0 y pagado después no se envía a Meta, a GA4 ni a la base de contactos.
+2. **Prueba por pedido**: el plugin guarda en el pedido la versión de la casilla (ej. `tienda-2026-10-XX`), la vigencia de la política y la fecha del pedido. Cada cambio del texto en un commit propio y con su fecha en `docs/pretix-tienda-textos.md`. No depender de que Pretix guarde el texto mostrado.
+3. **Prueba por contacto**: origen, código de pedido, evento, versión de la casilla, fecha; correo con alcance "encuentro + ediciones + eventos culturales en Villa de Leyva"; WhatsApp solo si hay teléfono, alcance "solo este encuentro", vence el 8 de noviembre de 2026; fecha de baja por canal. Si la persona ya existía desde el formulario, ambos consentimientos se conservan por separado, sin fusionarlos ni ampliarlos.
+4. **Baja**: correo con enlace de un clic y encabezado List-Unsubscribe; WhatsApp con "Para no recibir más mensajes, responda BAJA", procesada automáticamente; baja por canal que detiene también los recordatorios; bajas que lleguen a hola@eventalist.co se cargan a mano; una compra posterior no revierte la baja.
+5. **Ley 2300** (art. 3, por el art. 5): hora de Bogotá, lunes a viernes 7:00 a. m. a 7:00 p. m., sábados 8:00 a. m. a 3:00 p. m., nada en domingos ni festivos (cercanos: 12 de octubre, 2 de noviembre, 16 de noviembre de 2026; el domingo 8 de noviembre no admite mensajes). Máximo un mensaje comercial por contacto al día. No usar varios canales con el mismo contacto en la misma semana. Los correos transaccionales de Pretix no cuentan.
+6. **Recordatorio de pago**: consultar el estado antes de cada envío; no enviar si está pagado o cancelado. Se detiene al empezar el encuentro (viernes 6 de noviembre, 3:00 p. m.). Máximo dos recordatorios por pedido, en semanas distintas si van por canales distintos. El aviso de vencimiento de Pretix es transaccional; WhatsApp y todo recordatorio después del vencimiento son comerciales.
+7. **Meta y GA4**: solo pedidos posteriores a T0 y solo datos del comprador; normalizar y hashear en el servidor; nunca el dato en claro en logs; a GA4 nada personal (ni correo, teléfono, nombre, hash ni user_id); `_ga`, `_fbp` y `_fbc` solo si se aceptaron las cookies; utm de la URL de la visita, y si se guardan en el navegador entre visitas, solo después de Aceptar; quien pida no ser incluido en publicidad se marca y se excluye de nuevos envíos.
+8. **Retención**: WhatsApp comercial termina con el encuentro; pedidos vencidos salen de recordatorios al cerrar la venta; públicos de Meta con retención que termine poco después del encuentro; regla interna no publicada: no escribir a quien no tenga compras ni interacción en 24 meses.
+9. **Pedidos anteriores a T0**: no van a Meta ni a GA4, no entran a la base de contactos con fines comerciales y no se les escribe para pedir autorización.
+10. **Registro Nacional de Bases de Datos**: si Eventalist supera el umbral del Decreto 090 de 2018, actualizar la base de compradores con la finalidad comercial y la transferencia a EE. UU. (no verificado).
+11. **Registro de Números Excluidos de la CRC**: confirmar si cubre WhatsApp antes de la primera campaña por WhatsApp (no verificado).
+
+## E. Riesgo residual
+
+El punto atacable es que una sola casilla obligatoria agrupa la compra con fines comerciales, contra la práctica que recomienda la SIC. Con el alcance acotado, el teléfono opcional como elección de canal, la baja en cada mensaje y los horarios cumplidos, lo más probable ante una queja es una orden de ajuste y no una multa. El riesgo sube mucho si se escribe por WhatsApp sobre otros eventos, si se envían pedidos anteriores a T0 o si no se puede mostrar la versión del texto que aceptó cada comprador.
