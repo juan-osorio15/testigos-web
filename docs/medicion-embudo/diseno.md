@@ -1,6 +1,6 @@
 # Embudo de venta por campaña · diseño
 
-Fecha: 2026-10-06. Estado: diseño aprobado en conversación; pendiente de revisión escrita del titular.
+Fecha: 2026-10-06. Estado: versión 2, tras la revisión de los agentes de `pretix-wompi` y `eventalist-backend` contra su código. **Esta carpeta es la fuente de verdad de los cambios en los tres repos**: cualquier cambio de contrato o de alcance se hace aquí primero y después en cada repo.
 Reemplaza la decisión del 2026-09-17 que retiró la capa de servidor (`docs/archivo-2027/`): el titular quiere que este evento deje lista la plantilla profesional de medición y retargeting para los siguientes.
 
 ## Qué se quiere ver
@@ -21,7 +21,9 @@ Y poder actuar sobre los pasos 4 y 5:
 ## Lo que se decidió y por qué
 
 - **Un plugin de Pretix hace el trabajo de servidor** (`pretix-eventalist-tracking`, en el repo `pretix-wompi`, al lado del plugin de Wompi). Envía directamente a GA4 (Measurement Protocol) y a Meta (Conversions API) usando los workers y el programador que ya corren en la instancia. Se activa y configura por evento desde el panel: para otro evento basta con activarlo y poner sus ID. Prompt: `prompt-pretix.md`.
-- **El backend de Eventalist solo recibe contactos y pedidos** en un endpoint nuevo, autenticado, y los guarda en `apps/marketing` (la misma base de `MarketingContact` y `Campaign` que alimenta el formulario de interesados), con el estado de compra de cada persona. No habla con Meta ni con Google. Prompt: `prompt-backend.md`.
+- **El backend de Eventalist recibe una foto del estado de cada pedido** cada vez que cambia, en un endpoint nuevo y autenticado, y la guarda en `apps/marketing` (la misma base de `MarketingContact` y `Campaign` que alimenta el formulario de interesados), con la etapa de compra de cada persona. Las autorizaciones pasan a un historial propio (`ContactConsent`) que sirve para la tienda, el formulario y las importaciones. No habla con Meta ni con Google. Prompt: `prompt-backend.md`.
+- **Seguridad de los pagos**: el plugin nunca puede deshacer la confirmación de un pago (Pretix avisa del pago dentro de su transacción y no atrapa errores de los plugins). Es la primera regla y la primera prueba del plugin.
+- **Antes del plugin, dos PR propios en `pretix-wompi`**: subir pretix a 2026.5.4 (la 2026.5.1 desplegada tiene una vulnerabilidad crítica) y recuperar el barrido de respaldo de Wompi, que hoy no confirma pagos si el webhook falla.
 - **El sitio** entrega al widget la campaña de la visita y los identificadores de GA4 y Meta, y separa los dos eventos de navegador del embudo. Detalle abajo.
 - **Sin casillas nuevas.** Decisión del titular: la casilla obligatoria que ya existe en el checkout se reescribe para cubrir medición, públicos de Meta y contacto comercial. El texto, el alcance defendible y los cambios de la política y los términos los da el abogado interno (ver "Condición legal").
 - **Se descartó**: el diseño archivado con webhook y backend enviando a Meta y GA4 (tres despliegues para lo que un plugin hace solo); el plugin comercial "Tracking codes" de pretix.eu (licencia, sin Conversions API); poner el píxel dentro de la tienda (exigiría otro aviso de cookies en la compra).
@@ -31,9 +33,9 @@ Y poder actuar sobre los pasos 4 y 5:
 1. **Visita** al sitio con `?utm_...`. GA4 registra la sesión (como hoy). El sitio guarda la campaña de la visita en `sessionStorage` de la pestaña.
 2. **Clic hacia boletas** (CTA a `#boletas`): GA4 `view_item_list`, Meta `ViewContent`.
 3. **"Comprar" en el widget**: GA4 `begin_checkout`, Meta `InitiateCheckout` (con `eventID`). En ese instante el `<pretix-widget>` ya tiene los atributos `data-tracking-*`, y Pretix los guarda en el carrito como `widget_data`.
-4. **Pedido confirmado en Pretix** (datos llenos, pago pendiente): el plugin guarda la atribución en el pedido y envía GA4 `add_payment_info`, Meta `AddPaymentInfo` (con correo y teléfono cifrados) y el contacto al backend con estado `pending`.
+4. **Pedido confirmado en Pretix** (datos llenos, pago pendiente): el plugin guarda la atribución en el pedido y envía GA4 `add_payment_info`, Meta `AddPaymentInfo` (con correo y teléfono cifrados) y la foto del pedido al backend (`pending`). Los pedidos gratis no tienen este paso.
 5. **Pago confirmado** por Wompi: GA4 `purchase`, Meta `Purchase` y backend con estado `paid`.
-6. **Pedido vencido o cancelado**: solo backend (`expired`, `canceled`). A Meta y GA4 no se envía nada; el público de Meta "confirmó y no pagó" se arma restando `Purchase` de `AddPaymentInfo`.
+6. **Cualquier otro cambio del pedido** (vencido, cancelado, reactivado, plazo extendido, total cambiado): solo una foto nueva al backend. A Meta y GA4 no se envía nada; el público de Meta "confirmó y no pagó" se arma restando `Purchase` de `AddPaymentInfo`.
 
 ## Parte del sitio (este repo)
 
@@ -46,7 +48,6 @@ Cambios en `src/measurement/` y en `TicketSection.astro`. Respetan las reglas de
   - `data-tracking-gclid`, `data-tracking-landing`
   - `data-tracking-ga-id`, `data-tracking-ga-sessid` (mismos nombres del plugin oficial de pretix.eu)
   - `data-tracking-fbp`, `data-tracking-fbc`
-  - `data-tracking-event-id-checkout` (el `eventId` del `begin_checkout` de esa página)
   - `data-tracking-consent` con valor `1` si el aviso de cookies está aceptado
   - Ningún atributo con valor vacío.
 - **Eventos de navegador**: el clic en un CTA a `#boletas` pasa de `begin_checkout` a `view_item_list` (GA4, `item_list_name: 'boletas'`) y `ViewContent` (Meta). `begin_checkout` e `InitiateCheckout` quedan solo para el envío del formulario del widget, una vez por página.
@@ -59,10 +60,12 @@ Regla que se conserva del arreglo del pago "cargando" (commit `8087686`, 2026-09
 
 Dictamen del abogado interno del 2026-10-06: `docs/revision-legal-2026-10-06-embudo.md`. La casilla única es defendible con el alcance recortado. Lo que eso significa para cada parte:
 
-- **Alcance de la casilla**: anuncios de Meta solo de este encuentro; correo con novedades de este encuentro, sus próximas ediciones y otros eventos culturales de Eventalist en Villa de Leyva; WhatsApp solo si la persona da su teléfono, solo para el recordatorio de pago y novedades de este encuentro, hasta el 8 de noviembre de 2026.
+- **Alcance de la casilla**: anuncios de Meta solo de este encuentro; correo con novedades de este encuentro, sus próximas ediciones y otros eventos culturales de Eventalist en Villa de Leyva; WhatsApp solo para el recordatorio de pago y novedades de este encuentro, hasta el 8 de noviembre de 2026.
+- **Teléfono obligatorio (decisión del titular, 2026-10-06)**: el checkout sigue pidiendo el teléfono como obligatorio, porque Wompi lo necesita para llegar con los datos llenos. Así todo comprador autoriza WhatsApp en esos términos, sin poder elegir el canal. El dictamen contaba con el teléfono opcional como atenuante; el titular asume ese riesgo. La casilla no cambia; el texto de ayuda del teléfono pierde la palabra "Opcional".
+- **Exclusión de publicidad**: quien la pida entra en una lista única del organizador en Pretix y deja de ir a Meta y a GA4 en todos los eventos.
 - **Fecha de corte (T0)**: hora en que se guarda la casilla nueva en Pretix, con política y términos ya publicados. Pedidos creados antes no van a ningún destino (ni GA4, ni Meta, ni backend), aunque se paguen después. En el plugin es `consent_since`.
 - **Solo el comprador**: los nombres de los asistentes nunca salen de Pretix.
-- **Prueba**: cada pedido guarda la versión de la casilla; cada contacto guarda cada autorización por separado, con canal, alcance y vencimiento.
+- **Prueba**: por pedido, el registro de consentimiento que Pretix ya guarda en su log más la versión en `api_meta`; por contacto, un historial de autorizaciones de solo inserción, con canal, alcance, campaña y vencimiento.
 - **Mensajes del equipo**: baja en cada mensaje, horarios de la Ley 2300, un mensaje comercial al día, no mezclar canales en la misma semana, máximo dos recordatorios por pedido, nada después de las 3:00 p. m. del 6 de noviembre. Van en la guía del equipo.
 - **Pendientes de verificar** (no bloquean el código): umbral del Registro Nacional de Bases de Datos y si el Registro de Números Excluidos de la CRC cubre WhatsApp, antes de la primera campaña por WhatsApp.
 
@@ -70,8 +73,8 @@ Dictamen del abogado interno del 2026-10-06: `docs/revision-legal-2026-10-06-emb
 
 - GA4: Administrar → Flujos de datos → el flujo web → "Secretos de la API de Measurement Protocol" → crear uno. Marcar `add_payment_info` y `purchase` como eventos clave.
 - Meta: Events Manager → el dataset → Configuración → Conversions API → generar token de acceso.
-- Pretix: activar el plugin en el evento y llenar sus ajustes; reescribir la casilla.
-- Backend: crear el token de servicio y ponerlo en Pretix.
+- Pretix: activar el plugin en el evento y llenar sus ajustes; en el organizador, la URL y el token del backend y la lista de exclusiones; reescribir la casilla y el texto de ayuda del teléfono.
+- Backend: crear el token de servicio y la campaña de ensayo `testigos-sandbox`.
 
 ## Informes y públicos (guía para el equipo, entregable de este repo)
 
@@ -85,9 +88,8 @@ Al terminar se escribe `docs/medicion-embudo/guia-informes-y-publicos.md`, en le
 
 ## Orden de entrega
 
-1. Abogado: casilla, política y términos (bloquea el envío de datos personales, no el código).
-2. Backend: endpoint y modelos (el plugin lo necesita para su prueba de punta a punta).
-3. Plugin de Pretix.
-4. Sitio: atributos del widget y eventos.
-5. Publicación coordinada: política nueva, casilla, `consent_since`, sitio. Cada despliegue con visto bueno del titular.
-6. Guía de informes y públicos.
+1. `pretix-wompi`: PR de pretix 2026.5.4 y PR del barrido de Wompi (independientes de todo lo demás; van primero porque son riesgos de hoy).
+2. Backend: endpoint, modelos y migración de autorizaciones. Plugin de Pretix contra un backend falso. Sitio: atributos del widget y eventos. Los tres en paralelo.
+3. Ensayo completo en el evento sandbox, con las tres piezas desplegadas.
+4. Publicación coordinada: política y términos nuevos, casilla, `consent_since`, sitio. Cada despliegue con visto bueno del titular.
+5. Guía de informes y públicos.

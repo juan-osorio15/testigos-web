@@ -3,6 +3,8 @@
 Fecha: 2026-10-06. Autor: abogado interno (agente `abogado-eventalist`). Marco: Ley 1581 de 2012, Decreto 1377 de 2013 (compilado en el 1074 de 2015), Ley 2300 de 2023 (texto consultado en el Régimen Legal de Bogotá: art. 3 horarios y periodicidad, art. 5 extensión a mensajes comerciales).
 Contexto: diseño en `docs/medicion-embudo/diseno.md`. Restricción del titular, no negociable: una sola casilla en el checkout.
 
+> **Decisión del titular posterior al dictamen (2026-10-06)**: el teléfono sigue siendo obligatorio en el checkout (Wompi lo necesita para llegar con los datos llenos). La casilla de A no cambia. El texto de ayuda del teléfono queda sin "Opcional": "Se usa para avisos sobre esta compra y para los mensajes por WhatsApp que se autorizan al final del pedido." Con esto se pierde el atenuante del recorte 2 de B (el teléfono opcional como elección de canal): todo comprador autoriza WhatsApp en los términos de la casilla. El titular asume ese riesgo.
+
 **Veredicto**: la casilla única obligatoria es defendible con el alcance comercial recortado de B, los cambios de C y los controles de D. Con WhatsApp y "futuros eventos de Eventalist" sin límite, no se recomienda.
 
 ## Puntos de partida
