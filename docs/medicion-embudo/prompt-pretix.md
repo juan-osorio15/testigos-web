@@ -109,7 +109,7 @@ Por cada etapa se crean filas en un modelo propio `Dispatch` (una por destino) y
 - Todos los destinos: pedido sin `api_meta.consent`, es decir, creado antes de `consent_since`, aunque se pague después. Motivo `anterior al consentimiento`. Se decide por la fecha de creación, nunca por la de pago.
 - `meta`: correo o teléfono del pedido en la lista `ad_exclusions` (personas que pidieron no ser incluidas en publicidad). Motivo `excluido a pedido`.
 - `meta` y `backend`: pedido sin correo ni teléfono.
-- Pedidos de prueba (`order.testmode`): `ga4` va al endpoint de depuración, `meta` solo si hay `meta_test_event_code` (y lo incluye), `backend` con `"testmode": true` (el backend decide qué hacer).
+- Pedidos de prueba (`order.testmode`, solo existen en el evento sandbox): `ga4` va al endpoint de depuración (valida el cuerpo sin ensuciar los informes), salvo que el ajuste `ga4_send_testmode` esté activo, que lo manda al endpoint normal con el parámetro `entorno: "prueba"` (se activa solo durante el ensayo para ver la atribución en Tiempo real, y se apaga después), `meta` solo si hay `meta_test_event_code` (y lo incluye), `backend` con `"testmode": true` (el backend decide qué hacer).
 - `meta` etapa paid: si pasaron más de 7 días desde el pago (Meta rechaza el lote).
 
 ### GA4 (Measurement Protocol)
@@ -191,6 +191,7 @@ Contrato completo en la sección "Contrato con el backend" más abajo. Una petic
 Formulario en Configuración del evento (seguir cómo `pretix_wompi` registra su navegación y formulario; guardar en `event.settings` con prefijo `eventalist_tracking_`). Los secretos se muestran enmascarados y no se registran en logs.
 
 - `ga4_measurement_id` (ej. `G-XJES5Z5EC9`), `ga4_api_secret`
+- `ga4_send_testmode` (casilla, apagada por defecto; ver pedidos de prueba)
 - `meta_dataset_id`, `meta_capi_token`, `meta_test_event_code` (opcional)
 - `backend_url` (ej. `https://<backend>/api/v1/marketing/ticket-orders/`), `backend_token`, `backend_campaign_slug` (ej. `testigos-memoria`)
 - `consent_since` (fecha y hora en que se guardó la casilla nueva; pedidos creados antes no se envían a ningún destino), `consent_version` (ej. `tienda-2026-10-12`) y `policy_effective` (fecha de vigencia de la política publicada)
@@ -260,17 +261,34 @@ Si faltan los datos de un destino, ese destino se omite sin error.
 
 ## Pruebas
 
-- Pruebas unitarias (pytest, como `tests/` de este repo): captura de `widget_data` (con y sin datos, valores largos, claves ajenas), normalización y hash (casos de Meta: correo con mayúsculas y espacios, teléfono colombiano, nombre con tildes), armado de los tres cuerpos, matriz de etapas, omisiones, idempotencia de `Dispatch`, backoff, `4xx` contra `5xx`.
-- Prueba de aceptación en la instancia, con el evento en modo prueba:
-  1. Página local con el widget y `data-tracking-utm-campaign="prueba"`, `data-tracking-ga-id` y `-ga-sessid` tomados del navegador, `data-tracking-fbc="fb.1.1.TEST123"`.
-  2. Pedido confirmado sin pagar: `api_meta.tracking` correcto; GA4 debug sin errores; Meta "Test events" muestra `AddPaymentInfo` con calidad de coincidencia; backend recibe `pending`.
-  3. Pagarlo en el sandbox de Wompi: `purchase`, `Purchase`, backend `paid`.
-  4. Dejar vencer otro pedido: backend `expired`; nada a Meta ni GA4.
-  5. Apagar el backend y confirmar un pedido: el checkout no se demora; la fila queda en `retry` y se envía al volver.
-  6. Pedido con un asistente de nombre distinto al de facturación: el nombre del asistente no aparece en ningún envío.
-  7. Con `consent_since` en el futuro: el pedido queda sin `api_meta.consent` y los tres destinos en `skipped`, también al pagarlo.
-  8. Correo en `ad_exclusions`: no va a Meta; GA4 y backend sí.
-  9. El checkout se ve y se comporta exactamente igual que antes.
+Criterio del titular: nada de pruebas que se sabe que van a pasar o que solo repiten lo que el código acaba de escribir. Lo que demuestra que esto funciona es una compra de verdad en el sandbox, con capturas. Las pruebas automáticas se limitan a lo que **falla en silencio** (nadie se entera hasta semanas después) o **tiene costo legal**.
+
+### Pruebas automáticas (pytest, pocas)
+
+1. **Cifrado para Meta.** Si la normalización está mal, Meta responde "ok" y nunca encuentra a nadie. Comparar contra hashes calculados a mano de casos reales colombianos: correo con mayúsculas y espacios; teléfono `+57 300 123 4567`, `3001234567` y `573001234567` (los tres dan el mismo hash); nombre con tildes y eñe (`Peña`, `José María`).
+2. **Cortes legales.** Un pedido creado antes de `consent_since` y pagado después no genera ningún envío. El nombre de un asistente distinto al de facturación no aparece en ningún cuerpo. Un correo en `ad_exclusions` no va a Meta. Nada de correo, teléfono ni hashes en el cuerpo de GA4.
+3. **El checkout no depende de nadie.** Con Meta, GA4 y el backend respondiendo con error o sin responder, la confirmación del pedido termina normal y en el mismo tiempo, y los envíos quedan pendientes en `Dispatch`.
+
+No escribir pruebas de: tiempos exactos de los reintentos, cada código de error HTTP, forma del JSON (lo cubren el endpoint de depuración de GA4 y "Test events" de Meta en el ensayo), formularios de ajustes ni plantillas.
+
+### Ensayo completo en el evento sandbox (la prueba principal)
+
+En la instancia real, en el **evento sandbox** que ya existe (clon de Testigos en modo prueba con llaves de prueba de Wompi; ver `docs/LOGISTICA-EVENTO.md` y `docs/CHECKOUT-TUNING.md` de este repo). **Nunca poner en modo prueba el evento de producción**: los compradores reales harían pedidos de prueba.
+
+Preparación: plugin activo en el sandbox con `consent_since` en el pasado, `meta_test_event_code` puesto, `ga4_send_testmode` activo solo durante el ensayo y `backend_campaign_slug` = `testigos-sandbox` (el backend acepta contactos de prueba solo para esa campaña). Una página HTML local con el widget del sandbox y los atributos `data-tracking-*` (`utm-campaign="ensayo"`, `ga-id` y `ga-sessid` reales tomados del navegador con GA4 cargado, `fbc="fb.1.1.TEST123"`), abierta con una URL con UTM.
+
+1. **Pedido pagado.** Comprar con la tarjeta de prueba de Wompi. Comprobar con captura: GA4 Tiempo real muestra `add_payment_info` y `purchase` con la campaña `ensayo`; Meta "Test events" muestra `AddPaymentInfo` y `Purchase` con calidad de coincidencia alta; el admin del backend muestra el pedido pagado y el contacto en `purchased`; la página "Ventas por campaña" de Pretix lo cuenta.
+2. **Pedido sin pagar.** Confirmar otro con un correo distinto y no pagar. Captura: backend en `order_pending`; Meta tiene `AddPaymentInfo` y no `Purchase`.
+3. **Pedido vencido.** Dejar vencer el anterior (o acortar el plazo en el sandbox). Captura: backend `expired`; nada nuevo en Meta ni GA4.
+4. **Backend caído.** Poner una `backend_url` que no responde, hacer un pedido y medir que el checkout tarda lo mismo. Restaurar la URL y ver que el envío pendiente sale solo en el siguiente ciclo de `pretixcron`.
+5. **Checkout igual.** Recorrer la compra con y sin el plugin activo: mismos pasos, mismos textos, mismos correos.
+
+### En producción, después del despliegue
+
+1. Activar el plugin en el evento real, con los ajustes reales.
+2. Una persona del equipo abre la tienda desde el sitio con una URL con UTM, elige una boleta, llena sus datos y llega a la pantalla de pago de Wompi **sin pagar**. Eso demuestra que la compra sigue funcionando sin gastar plata. Su correo va antes a `ad_exclusions` para no ensuciar los públicos.
+3. Revisar que ese pedido muestra la caja "Origen" con la campaña y que el backend lo recibió.
+4. Si alguien del equipo necesita una boleta de verdad, esa compra real es la prueba final del pago.
 
 ## Despliegue
 
@@ -281,4 +299,4 @@ Si faltan los datos de un destino, ese destino se omite sin error.
 
 ## Qué devolver al terminar
 
-Un `.md` corto: versión de pretix comprobada; nombre del plugin en el panel; firma real de `order_api_meta_from_request`; resultado de cada paso de la prueba de aceptación (JSON de `api_meta`, respuesta de GA4 debug, captura de Meta Test events, respuesta del backend); y cualquier diferencia con este documento marcada como **CAMBIO**. Se guarda en el repo del sitio como `docs/medicion-embudo/resultado-pretix.md`.
+Un `.md` corto: versión de pretix comprobada; nombre del plugin en el panel; firma real de `order_api_meta_from_request`; las capturas de cada paso del ensayo en el sandbox (GA4 Tiempo real, Meta Test events, admin del backend, Ventas por campaña) con el JSON de `api_meta` de un pedido; el tiempo del checkout con el backend caído; y cualquier diferencia con este documento marcada como **CAMBIO**. Sin listados de pruebas pasadas: solo qué se probó y qué se vio. Se guarda en el repo del sitio como `docs/medicion-embudo/resultado-pretix.md`.

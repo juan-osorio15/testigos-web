@@ -128,7 +128,7 @@ Todo en una transacción, en un servicio (`apps/marketing/services/ticket_order_
 
 1. **Idempotencia y orden.** Buscar el `TicketOrder` por la clave única. Si existe y su `status_changed_at` es posterior al `occurred_at` recibido, no cambiar el estado (evento fuera de orden) y responder `200`. Transiciones válidas: `pending` → `paid`, `expired`, `canceled`; `expired` → `paid` (Pretix deja pagar pedidos vencidos), `canceled`; `paid` → `canceled`. Cualquier otra: ignorar con `200` y registrar en el log.
 2. **Datos del pedido.** Crear o actualizar `TicketOrder` con lo recibido. La atribución se guarda la primera vez y no se sobrescribe.
-3. **Pedidos de prueba.** Si `testmode` es `true`: guardar el `TicketOrder` pero **no** crear ni tocar contactos, salvo que `PRETIX_TESTMODE_CREATES_CONTACTS=true` (solo staging).
+3. **Pedidos de prueba.** Si `testmode` es `true`: guardar el `TicketOrder` y crear contactos **solo** si la campaña está en `PRETIX_TESTMODE_CAMPAIGNS` (variable de entorno, slugs separados por comas; en producción, `testigos-sandbox`, una campaña de ensayo que se crea en el admin). En cualquier otra campaña, un pedido de prueba no crea ni toca contactos. Así el ensayo del evento sandbox de Pretix se ve completo en el admin sin mezclar al equipo con los contactos reales.
 4. **Contacto.** Buscar con `find_contact_by_email_or_phone`.
    - No existe: crear con `source=ticket_shop`, `source_detail` = nombre de la campaña, `consent_given=True`, `consent_method=checkout`, `consent_at` = `consent.accepted_at`, `preferred_language` de `contact.language`.
    - Existe: completar solo campos vacíos (nombre, apellido, correo o teléfono que falte, si no choca con otro contacto). No sobrescribir nada más.
@@ -150,19 +150,30 @@ El backend no envía mensajes. Los envía el equipo con las listas exportadas, y
 
 ## Pruebas
 
-- Endpoint: token válido, inválido, ausente y rotado; contrato distinto de `1`; campaña inexistente o inactiva; sin correo ni teléfono.
-- Proceso: pedido nuevo `pending` crea contacto y membresía `order_pending`; luego `paid` la pasa a `purchased`; repetir `paid` no cambia nada; `pending` que llega después de `paid` se ignora; `expired` → `paid`; dos pedidos de la misma persona (uno vencido, otro pagado) dejan `purchased`; `paid` → `canceled` baja a `order_pending`.
-- Contactos: existente del formulario de interesados pasa a `order_pending` sin perder sus datos y conserva su autorización del formulario aparte de la de la tienda; contacto con baja de WhatsApp no recupera el canal; `do_not_contact` no se toca; `testmode` no crea contactos.
-- Consentimientos: WhatsApp con `expires_at` pasado queda apagado tras `refresh_contact_consents`; la migración de datos crea los `ContactConsent` de los contactos existentes; la exportación de WhatsApp de otra campaña no incluye a compradores de Testigos.
-- Resumen: cifras correctas con pedidos de varias campañas y sin campaña.
+Criterio del titular: nada de pruebas que se sabe que van a pasar o que solo repiten lo que el código acaba de escribir. Pocas pruebas automáticas, solo de lo que haría daño sin que nadie lo note: mandar un recordatorio de pago a quien ya pagó, escribirle a quien se dio de baja, o perder la prueba de lo que la persona autorizó. La prueba de que todo funciona junto es el ensayo con Pretix.
+
+### Pruebas automáticas (pocas)
+
+1. **Avisos fuera de orden.** Pretix reintenta y los avisos pueden llegar desordenados. Un `pending` que llega después de `paid` no baja a nadie de `purchased`. Una persona con un pedido vencido y otro pagado queda en `purchased`. Un pedido vencido que se paga después pasa a `purchased`.
+2. **Lista "confirmó y no pagó".** La exportación no incluye a nadie con un pedido pagado en esa campaña, aunque tenga otro vencido.
+3. **Bajas.** Un contacto con baja de WhatsApp que vuelve a comprar sigue sin WhatsApp. Un `do_not_contact` no cambia.
+4. **Autorizaciones separadas.** Un interesado del formulario que luego compra conserva las dos autorizaciones por separado. El WhatsApp de la tienda queda apagado después de su `expires_at` al correr `refresh_contact_consents`.
+5. **Migración de datos.** Sobre una copia de la base de producción (o un volcado anonimizado), la migración crea un `ContactConsent` por cada canal autorizado y `email_consent` y `whatsapp_consent` quedan con los mismos valores que antes.
+
+No escribir pruebas de: cada variante del token, la cabecera de contrato, cada código de error, campos del serializer ni el admin.
+
+### Ensayo con Pretix (la prueba principal)
+
+Lo dirige el ensayo del plugin de Pretix en el evento sandbox (su prompt lo describe). Del lado del backend, comprobar con capturas del admin, contra el backend de producción y la campaña `testigos-sandbox`: el pedido pagado y su contacto en `purchased`; el pedido sin pagar en `order_pending`; el vencido en `expired`; el resumen de ventas cuenta lo correcto; la exportación "confirmó y no pagó" trae solo al segundo correo. Al terminar, borrar los contactos y pedidos de `testigos-sandbox`.
 
 ## Despliegue
 
-- Variables nuevas en Railway: `PRETIX_SERVICE_TOKEN` (aleatorio, 32+ bytes), `PRETIX_TESTMODE_CREATES_CONTACTS` (solo staging).
+- Variables nuevas en Railway: `PRETIX_SERVICE_TOKEN` (aleatorio, 32+ bytes) y `PRETIX_TESTMODE_CAMPAIGNS` (`testigos-sandbox`).
+- Crear en el admin la campaña `testigos-sandbox` ("Ensayo Testigos").
 - Cron diario en Railway para `refresh_contact_consents`.
 - La campaña `testigos-memoria` ya existe (la usa el formulario de interesados).
 - Ningún despliegue a producción sin visto bueno del titular.
 
 ## Qué devolver al terminar
 
-Un `.md` corto: URL final del endpoint en staging y producción, cómo se genera y rota el token, migraciones creadas, resultado de las pruebas, una petición y respuesta de ejemplo reales, y cualquier diferencia con este documento marcada como **CAMBIO**. Se guarda en el repo del sitio como `docs/medicion-embudo/resultado-backend.md`.
+Un `.md` corto: URL final del endpoint, cómo se genera y rota el token, migraciones creadas y el resultado de la migración de datos (cuántos `ContactConsent` creó), las capturas del admin durante el ensayo con Pretix, y cualquier diferencia con este documento marcada como **CAMBIO**. Se guarda en el repo del sitio como `docs/medicion-embudo/resultado-backend.md`.
