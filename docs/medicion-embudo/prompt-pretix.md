@@ -7,7 +7,7 @@
 Salieron en la revisión y son riesgos de producción que existen hoy, sin el plugin. Cada uno en su PR, con visto bueno del titular, **antes** del PR del plugin:
 
 1. **Subir pretix a 2026.5.4.** El `Dockerfile` y `docs/RAILWAY-DEPLOY.md` fijan 2026.5.1, afectada por la CVE-2026-13602 (crítica); `CLAUDE.md` prohíbe bajar de 2026.5.3. El plugin se desarrolla y prueba sobre 2026.5.4.
-2. **Recuperar el barrido de respaldo de Wompi.** Hoy, si un webhook de Wompi se pierde o falla, el barrido periódico no recupera el pago porque su consulta a Wompi no funciona con la llave actual. El dinero puede entrar y el pedido quedar sin pagar. Diagnosticar, corregir y demostrarlo en el evento sandbox (pago aprobado con el webhook bloqueado, el barrido lo confirma).
+2. **Recuperar el barrido de respaldo de Wompi.** Hoy, si un webhook de Wompi se pierde o falla, el pago puede no confirmarse nunca: el dinero entra y el pedido queda sin pagar. Dos causas (diagnóstico del 2026-10-06): (a) el barrido y la vista de retorno consultaban a Wompi con la llave pública y Wompi responde 404; ya corregido para usar la llave privada (rama `fix/wompi-sweep-private-key`); (b) el barrido solo revisa pagos cuyo id de transacción ya conoce, que llega por el webhook o cuando el comprador vuelve a la tienda; si el webhook falla y el comprador cierra la pestaña, nadie lo ve. Hace falta buscar en Wompi por `reference`. La documentación oficial de Wompi no menciona esa búsqueda: **comprobarla primero en el ambiente de pruebas de Wompi** y, si no existe, avisar antes de buscar otro camino. Demostración en el evento `testigos-sandbox`: pago aprobado con el webhook bloqueado y **sin volver a la tienda** (si el comprador vuelve, quien confirma es la vista de retorno, no el barrido); el barrido lo confirma.
 
 ## Contexto
 
@@ -132,7 +132,7 @@ Matriz de destinos:
 - Todos los destinos: pedido sin `api_meta.consent`. Motivo `anterior al consentimiento`. Se decide por la fecha de creación, nunca por la de pago.
 - `ga4` y `meta`: correo o teléfono del pedido en las exclusiones del organizador. Motivo `excluido a pedido`.
 - `meta` y `backend`: pedido sin correo ni teléfono.
-- Pedidos de prueba (`order.testmode`, solo existen en el evento sandbox): `ga4` va al endpoint de depuración (valida el cuerpo sin ensuciar los informes), salvo que el ajuste `ga4_send_testmode` esté activo, que lo manda al endpoint normal con el parámetro `entorno: "prueba"` (solo durante el ensayo, para ver la atribución en Tiempo real; se apaga después); `meta` solo si hay `meta_test_event_code` (y lo incluye); `backend` con `"testmode": true`.
+- Pedidos de prueba (`order.testmode`, solo existen en el evento `testigos-sandbox`): `ga4` va al endpoint de depuración (valida el cuerpo sin ensuciar los informes), salvo que el ajuste `ga4_send_testmode` esté activo, que lo manda al endpoint normal con el parámetro `entorno: "prueba"` (solo durante el ensayo, para ver la atribución en Tiempo real; se apaga después); `meta` solo si hay `meta_test_event_code` (y lo incluye); `backend` con `"testmode": true`.
 - `meta` etapa paid: si pasaron más de 7 días desde el pago (Meta rechaza el lote).
 
 ### GA4 (Measurement Protocol)
@@ -302,7 +302,9 @@ No escribir pruebas de: tiempos exactos de los reintentos, cada código de error
 
 Requiere las tres piezas desplegadas: este plugin, el endpoint del backend y el sitio con los atributos del widget. Mientras falte el backend, el plugin se desarrolla contra un servidor falso local; el ensayo se hace cuando estén las tres.
 
-En la instancia real, en el **evento sandbox** que ya existe (clon de Testigos en modo prueba con llaves de prueba de Wompi; ver `docs/LOGISTICA-EVENTO.md` y `docs/CHECKOUT-TUNING.md`). **Nunca poner en modo prueba el evento de producción**: los compradores reales harían pedidos de prueba.
+En la instancia real, en el evento **`testigos-sandbox`**: clon de `testigos-memoria` en modo prueba, con sus propios cupos, sin enlazar desde ningún sitio, con el ambiente de pruebas de Wompi y sus cuatro llaves de prueba, y con `https://pretix.eventalist.co/_wompi/webhook/` registrado como URL de eventos en el ambiente de pruebas de Wompi. **No existía a 2026-10-06** (la instancia solo tenía el evento de producción); lo crea el titular como paso 0 del diseño. Corregir también `docs/LOGISTICA-EVENTO.md` y `docs/CHECKOUT-TUNING.md` de este repo, que lo daban por existente. **Nunca poner en modo prueba el evento de producción**: los compradores reales harían pedidos de prueba.
+
+Ojo con los nombres: `testigos-sandbox` es a la vez el slug de este evento en Pretix y el slug de la campaña de ensayo en el backend (`backend_campaign_slug`). Es a propósito, pero son dos cosas distintas: un evento de Pretix y una campaña de `apps/marketing`.
 
 Preparación: plugin activo en el sandbox con `consent_since` en el pasado, `meta_test_event_code` puesto, `ga4_send_testmode` activo solo durante el ensayo y `backend_campaign_slug` = `testigos-sandbox` (el backend acepta contactos de prueba solo para esa campaña). Una página HTML local con el widget del sandbox y los atributos `data-tracking-*` (`utm-campaign="ensayo"`, `ga-id` y `ga-sessid` reales tomados del navegador con GA4 cargado, `fbc="fb.1.1.TEST123"`), abierta con una URL con UTM.
 

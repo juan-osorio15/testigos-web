@@ -203,7 +203,7 @@ No escribir pruebas de: cada variante del token, la cabecera de contrato, cada c
 
 ### Ensayo con Pretix (la prueba principal)
 
-Lo dirige el ensayo del plugin de Pretix en el evento sandbox. Del lado del backend, comprobar con capturas del admin, contra el backend de producción y la campaña `testigos-sandbox`: el pedido pagado y su contacto en `purchased`; el pedido sin pagar en `order_pending`; el vencido que pasa a `expired` y vuelve a `pending` al extenderle el plazo; el resumen de ventas cuenta lo correcto; la exportación "confirmó y no pagó" trae solo al segundo correo. Al terminar, borrar los contactos y pedidos de `testigos-sandbox`.
+Lo dirige el ensayo del plugin de Pretix en el evento `testigos-sandbox` de Pretix (lo crea el titular; mismo nombre que la campaña de ensayo de este backend, a propósito). Del lado del backend, comprobar con capturas del admin, contra el backend de producción y la campaña `testigos-sandbox`: el pedido pagado y su contacto en `purchased`; el pedido sin pagar en `order_pending`; el vencido que pasa a `expired` y vuelve a `pending` al extenderle el plazo; el resumen de ventas cuenta lo correcto; la exportación "confirmó y no pagó" trae solo al segundo correo. Al terminar, borrar los contactos y pedidos de `testigos-sandbox`.
 
 ## Despliegue
 

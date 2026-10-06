@@ -52,7 +52,7 @@ Cambios en `src/measurement/` y en `TicketSection.astro`. Respetan las reglas de
   - Ningún atributo con valor vacío.
 - **Eventos de navegador**: el clic en un CTA a `#boletas` pasa de `begin_checkout` a `view_item_list` (GA4, `item_list_name: 'boletas'`) y `ViewContent` (Meta). `begin_checkout` e `InitiateCheckout` quedan solo para el envío del formulario del widget, una vez por página.
 - **Textos legales**: política (`src/pages/tratamiento-de-datos.astro`) y términos (`src/pages/terminos-y-condiciones.astro`, sección 12) con los cambios del dictamen §C, incluida la IP y el navegador en la enumeración de la sección 10; nuevas `DATA_POLICY_EFFECTIVE` y `TERMS_EFFECTIVE` en `src/config.ts`; `docs/pretix-tienda-textos.md` con la casilla nueva, el texto de ayuda del teléfono y su fecha.
-- **Comprobación**: `npm run build` y `npm run check`. La prueba real es manual y de punta a punta: el sitio local apuntando al evento sandbox de Pretix (nunca poner en modo prueba el evento de producción), entrar con `?utm_campaign=ensayo`, aceptar cookies, comprar con la tarjeta de prueba de Wompi y ver en el pedido que `api_meta.tracking` trae la campaña y los identificadores. Repetir sin aceptar cookies: llegan las UTM y nada más. Tras publicar, una persona del equipo llega hasta la pantalla de pago de Wompi en producción sin pagar. Sin pruebas automáticas nuevas en este repo: lo que podrían cubrir ya lo garantiza TypeScript.
+- **Comprobación**: `npm run build` y `npm run check`. La prueba real es manual y de punta a punta: el sitio local apuntando al evento `testigos-sandbox` de Pretix (nunca poner en modo prueba el evento de producción), entrar con `?utm_campaign=ensayo`, aceptar cookies, comprar con la tarjeta de prueba de Wompi y ver en el pedido que `api_meta.tracking` trae la campaña y los identificadores. Repetir sin aceptar cookies: llegan las UTM y nada más. Tras publicar, una persona del equipo llega hasta la pantalla de pago de Wompi en producción sin pagar. Sin pruebas automáticas nuevas en este repo: lo que podrían cubrir ya lo garantiza TypeScript.
 
 Regla que se conserva del arreglo del pago "cargando" (commit `8087686`, 2026-09-16): el widget sigue con `disable-iframe`. Pretix guarda `widget_data` también en modo pestaña nueva (verificado en 002).
 
@@ -88,8 +88,9 @@ Al terminar se escribe `docs/medicion-embudo/guia-informes-y-publicos.md`, en le
 
 ## Orden de entrega
 
+0. Titular: crear en Pretix el evento `testigos-sandbox` (no existía; verificado desde el servidor el 2026-10-06): clonar `testigos-memoria`, modo prueba, sin enlazarlo desde ningún sitio; en su configuración de Wompi, ambiente de pruebas y las cuatro llaves de prueba; en el ambiente de pruebas de Wompi, registrar `https://pretix.eventalist.co/_wompi/webhook/` como URL de eventos (la de producción no se toca); una compra de prueba con la tarjeta 4242. Sin este evento no se puede probar nada: ni el PR del barrido, ni el plugin, ni el sitio.
 1. `pretix-wompi`: PR de pretix 2026.5.4 y PR del barrido de Wompi (independientes de todo lo demás; van primero porque son riesgos de hoy).
 2. Backend: endpoint, modelos y migración de autorizaciones. Plugin de Pretix contra un backend falso. Sitio: atributos del widget y eventos. Los tres en paralelo.
-3. Ensayo completo en el evento sandbox, con las tres piezas desplegadas.
+3. Ensayo completo en el evento `testigos-sandbox`, con las tres piezas desplegadas.
 4. Publicación coordinada: política y términos nuevos, casilla, `consent_since`, sitio. Cada despliegue con visto bueno del titular.
 5. Guía de informes y públicos.
