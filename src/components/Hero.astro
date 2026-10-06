@@ -79,7 +79,9 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
   <div class="hero-fixed">
     <div class="hero-head">
       <div class="hero-head-inner">
-        <LogoLockup class="hero-brand" aria-hidden="true" />
+        <span class="hero-brand-band">
+          <LogoLockup class="hero-brand" aria-hidden="true" />
+        </span>
         <p class="eyebrow hero-tagline">{t('hero.tagline')}</p>
         <h1 id="hero-title">
           <span class="sr-only">Testigos de la Memoria: </span>
@@ -299,9 +301,11 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     width: 100%;
   }
 
-  /* Logo pequeño solo en móvil, donde no hay bloque crema con el lockup */
-  .hero-brand {
+  /* Logo solo en móvil, donde no hay bloque crema con el lockup */
+  .hero-brand-band {
     display: none;
+  }
+  .hero-brand {
     width: 72px;
     height: auto;
     color: var(--ink);
@@ -775,11 +779,18 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
       margin-left: 0;
       gap: var(--space-2);
     }
-    /* Logo en crema: contrasta con el texto en tinta del bloque */
+    /* Franja crema a todo el ancho con el logo en tinta, como el bloque
+       del logo en escritorio: en crema sobre terracota se perdía
+       (2026-10-05). Los márgenes negativos anulan el padding del bloque. */
+    .hero-brand-band {
+      display: block;
+      margin: calc(-1 * var(--space-3)) calc(-1 * var(--gutter)) var(--space-1);
+      padding: var(--space-2) var(--gutter);
+      background-color: var(--cream);
+    }
     .hero-brand {
       display: block;
-      margin-bottom: var(--space-1);
-      color: var(--cream);
+      width: 96px;
     }
     h1 {
       font-size: min(clamp(1.7rem, 0.9rem + 5vw, 2.6rem), 6svh);
@@ -812,10 +823,20 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     .hero-fact-num {
       font-size: 1.5rem;
     }
-    /* Mes y lugar apilados junto a la cifra, sin punto entre líneas */
+    /* "5–8 NOVIEMBRE 2026" en una línea y el lugar debajo, desde el mismo
+       borde que la cifra (2026-10-05), sin punto entre líneas */
+    .hero-date {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: baseline;
+      column-gap: 0.5em;
+      row-gap: 0.3em;
+    }
     .hero-date .hero-fact-label {
-      flex-direction: column;
-      row-gap: 0.15em;
+      display: contents;
+    }
+    .hero-date .hero-after-sep {
+      grid-column: 1 / -1;
     }
     .hero-date .hero-after-sep::before {
       content: none;
