@@ -135,7 +135,14 @@ vive en la rama `feat/eventalist-tracking` y no está en `main`. No hay que reha
   - resumen de ventas por UTM en el admin de pedidos.
 
   Las siete diferencias con el prompt están marcadas como **CAMBIO** en el borrador del resultado.
-- **Pruebas automáticas:** pasan las 108 del proyecto (77 de `apps/marketing`), con base en memoria.
+- **Pruebas automáticas:** pasan las 119 del proyecto, con base en memoria.
+- **Revisión de código (2026-10-08):** se corrigieron, sin commit todavía:
+  - autorizaciones solo para el correo o el teléfono que la persona escribió (antes se creaban
+    para cualquier dato ya guardado del contacto);
+  - la etapa se actualiza en cada envío, aunque llegue sin `consent`;
+  - datos raros ya no responden `400` ni `500`;
+  - la exportación marca `no` a los contactos `do_not_contact`;
+  - en el CSV, nombres y ciudad que empiezan por `=`, `+`, `-` o `@` llevan un `'` delante.
 - **Ensayo local con el plugin real** (2026-10-08):
   - Pretix en Docker envía al backend en `http://host.docker.internal:8001`.
   - El backend usa una base SQLite desechable, no Neon. La campaña de ensayo es `testigos-sandbox` y
@@ -209,7 +216,9 @@ ningún repo ni mandarlo por chat. Ninguna otra variable cambia.
 1. En Neon, justo antes del merge: crear la rama `antes-de-016` desde producción. Es la copia para
    volver atrás.
 2. Merge de `016-pretix-ticket-orders` a `dev` y de `dev` a `master`, como en 014. El push a `master`
-   despliega.
+   despliega. Hacerlo a una hora de poco tráfico: mientras corren las migraciones, el servidor viejo
+   sigue atendiendo durante unos segundos, y un envío del formulario en ese momento puede fallar o
+   perder su autorización. Después del despliegue, revisar en el admin los contactos creados a esa hora.
 3. En los logs del despliegue en Railway deben aparecer:
    - `Applying marketing.0002…`, `0003…` y `0004…`;
    - la línea `ContactConsent created from 014 flags`, con números iguales a los del paso 2 (o
@@ -290,28 +299,29 @@ Lo confirmé en este repo el 2026-10-08:
 - `src/measurement/` no tiene `attribution.ts`;
 - el `<pretix-widget>` de `TicketSection.astro` no tiene atributos `data-tracking-*`.
 
-## testigos-web (actualizado 2026-10-08)
+## testigos-web (actualizado 2026-10-08, tarde)
 
-**La parte del sitio no está empezada.** Confirmado: `src/measurement/` no tiene `attribution.ts` y el
-`<pretix-widget>` de `TicketSection.astro` no tiene atributos `data-tracking-*`. Hoy el sitio solo manda
-`page_view` y `begin_checkout`/`InitiateCheckout` desde el navegador.
+**Planificado, sin código.** Feature `specs/003-embudo-sitio/` con Spec Kit hasta analyze (commits locales
+`b82147d`, `22b0b6b`, `b4135ac`; nada subido). La implementación espera el visto bueno del titular.
 
-- **Siguiente paso:** plan de implementación escrito (en este repo), revisado por el titular antes de
-  tocar código. Alcance, según `diseno.md`:
-  - `attribution.ts`: UTM, `gclid` y `fbclid` en `sessionStorage['tdm.attribution']`; `ga-id`,
-    `ga-sessid`, `fbp` y `fbc` solo con cookies aceptadas.
-  - Atributos `data-tracking-*` en el `<pretix-widget disable-iframe>`.
-  - Separar `view_item_list`/`ViewContent` (clic en el CTA) de `begin_checkout`/`InitiateCheckout`.
-  - Textos legales del §C del dictamen en `/tratamiento-de-datos/` y `/terminos-y-condiciones/`, y
-    actualizar `docs/pretix-tienda-textos.md` con la casilla nueva.
-- **Comprobación:** una compra en `testigos-sandbox` desde una vista previa local del sitio con
-  `?utm_campaign=ensayo`, y ver las UTM en el recuadro "Origen" del pedido. Es la tarea que
-  `pretix-wompi` pide para confirmar que los atributos llegan con `disable-iframe`.
-- **Orden de publicación:** el sitio puede publicarse antes que el plugin: si Pretix no tiene el plugin,
-  los atributos no hacen nada. La política y los términos nuevos sí tienen que estar publicados antes
-  de cambiar la casilla y fijar `consent_since`.
-- **Documentos de este repo actualizados hoy:** el slug de la campaña real en los ejemplos de
-  `prompt-pretix.md` pasa a `testigos-de-la-memoria-2026` (ver la pregunta del backend).
+- **Qué se construye:** `src/measurement/attribution.ts` (campaña en `sessionStorage`, atributos
+  `data-tracking-*` en el widget, identificadores solo con cookies aceptadas); `view_item_list`/`ViewContent`
+  en el clic a `#boletas` y `begin_checkout`/`InitiateCheckout` solo al pulsar "Comprar" en el widget;
+  política y términos con el §C del dictamen; `docs/pretix-tienda-textos.md` con la casilla nueva;
+  `PUBLIC_PRETIX_EVENT_URL` para apuntar el sitio local a `testigos-sandbox`.
+  Contrato del sitio: `specs/003-embudo-sitio/contracts/widget-tracking.md`.
+- **Decisiones del titular en clarify (2026-10-08), ya en `diseno.md`:** `landing` también en visitas sin
+  campaña; `view_item_list` una vez por página; `gclid` solo con cookies aceptadas; términos y política
+  ajustados al teléfono obligatorio ("y el teléfono"; WhatsApp sin el condicional), casilla sin cambios.
+- **Decisiones de detalle (regla de "La meta del titular"):** gana la última campaña de la pestaña;
+  `landing` es la ruta sin consulta; valores recortados a 200 caracteres; `begin_checkout` sin `value`.
+- **Para `pretix-wompi`:** el sitio deja de mandar `gclid` sin aceptación (el plugin no cambia: solo copia
+  lo que llega). Tras revocar cookies, las claves quitadas llegan `null` (pregunta de abajo, sigue abierta).
+- **Orden de publicación propuesto:** ensayo en `testigos-sandbox` con el plugin → el titular fija el día D →
+  un solo push con código y textos legales (vigencias = D) → ese día la casilla y `consent_since` →
+  verificación en producción sin pagar, con la campaña `verificacion` y cancelando el pedido.
+- **Para la guía de informes:** desde el día D, `begin_checkout` cuenta "Comprar" y no clics en los botones;
+  anotado en `diseno.md`.
 
 ## Preguntas abiertas
 
