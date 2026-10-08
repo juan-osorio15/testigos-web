@@ -121,7 +121,7 @@ vive en la rama `feat/eventalist-tracking` y no está en `main`. No hay que reha
 ## eventalist-backend (actualizado 2026-10-08)
 
 **Implementado y probado en local. No está en producción.** El trabajo está commiteado en la rama
-`016-pretix-ticket-orders` (commit `b1b6d06`), sin push ni merge. Spec, plan, tareas y borrador del resultado están en
+`016-pretix-ticket-orders` (commits `b1b6d06` y `6761a68`), sin push ni merge. Spec, plan, tareas y borrador del resultado están en
 `specs/016-pretix-ticket-orders/` del repo del backend. El resultado se copia aquí como
 `resultado-backend.md` al terminar el ensayo.
 
@@ -136,7 +136,7 @@ vive en la rama `feat/eventalist-tracking` y no está en `main`. No hay que reha
 
   Las siete diferencias con el prompt están marcadas como **CAMBIO** en el borrador del resultado.
 - **Pruebas automáticas:** pasan las 119 del proyecto, con base en memoria.
-- **Revisión de código (2026-10-08):** se corrigieron, sin commit todavía:
+- **Revisión de código (2026-10-08):** se corrigieron en el commit `6761a68`:
   - autorizaciones solo para el correo o el teléfono que la persona escribió (antes se creaban
     para cualquier dato ya guardado del contacto);
   - la etapa se actualiza en cada envío, aunque llegue sin `consent`;
@@ -299,10 +299,22 @@ Lo confirmé en este repo el 2026-10-08:
 - `src/measurement/` no tiene `attribution.ts`;
 - el `<pretix-widget>` de `TicketSection.astro` no tiene atributos `data-tracking-*`.
 
-## testigos-web (actualizado 2026-10-08, tarde)
+## testigos-web (actualizado 2026-10-08, noche)
 
-**Planificado, sin código.** Feature `specs/003-embudo-sitio/` con Spec Kit hasta analyze (commits locales
-`b82147d`, `22b0b6b`, `b4135ac`; nada subido). La implementación espera el visto bueno del titular.
+**Implementado en local, sin publicar.** Feature `specs/003-embudo-sitio/`. Commits locales en `main`
+(código `720a1eb`, política `00390c2`, términos `c8f7a10`, textos de la tienda `f2a74bf`); nada subido.
+Evidencia: `specs/003-embudo-sitio/capturas/comprobaciones-2026-10-08.md`.
+
+- **Comprobado contra la tienda real, sin comprar:** campaña y página de llegada en `widget_data` sin
+  cookies; con aceptación, `ga-id`, `ga-sessid`, `fbc` construido y `consent`; al revocar quedan `null`;
+  nunca las cadenas "null"/"undefined"; un solo `view_item_list` por página y un solo `begin_checkout`.
+- **Bloqueo para el ensayo:** la tienda de `testigos-sandbox` está **desactivada** ("La taquilla virtual
+  está actualmente desactivada"). Sin activarla no se puede pulsar "Comprar" ni hacer el ensayo con el
+  plugin. Es seguro activarla: el evento está en modo prueba.
+- **Textos legales:** política y términos con el §C y los ajustes aprobados por el abogado el 2026-10-08.
+  Falta fijar el día D (vigencias y versión de la casilla `tienda-<D>`).
+- La tienda real solo se ofrece en español: la casilla en inglés queda de reserva en
+  `docs/pretix-tienda-textos.md`.
 
 - **Qué se construye:** `src/measurement/attribution.ts` (campaña en `sessionStorage`, atributos
   `data-tracking-*` en el widget, identificadores solo con cookies aceptadas); `view_item_list`/`ViewContent`
