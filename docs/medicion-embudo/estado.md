@@ -503,3 +503,25 @@ Evidencia: `specs/003-embudo-sitio/capturas/comprobaciones-2026-10-08.md`.
   ignorar: solo le sirven las que empiezan por `tracking-`.
 - **testigos-web**: la parte del sitio sigue sin empezar. La va a hacer otro agente con Spec Kit
   (`specs/003-embudo-sitio/`), con el prompt `docs/medicion-embudo/prompt-sitio.md`.
+
+### Preguntas de testigos-web (2026-10-08, tercera tanda: guía de despliegue)
+
+El titular pidió una guía única de despliegue: `docs/medicion-embudo/guia-deploy-tracking.md`. Junta las
+guías de producción de esta página. Lo que falta para cerrarla:
+
+- **Para pretix-wompi: volver atrás del despliegue A.** Después de `pretix migrate` en 2026.5.4, ¿se puede
+  volver a 2026.5.1 con un revert de `main`, o solo restaurando el snapshot (perdiendo lo que entró
+  después)? El titular necesita poder volver a vender como antes si algo falla.
+- **Para pretix-wompi: `reference_sweep`.** ¿Dónde se activa en el panel? ¿Se activa también en
+  `testigos-memoria` o solo en el sandbox?
+- **Para pretix-wompi: lista de exclusión de publicidad.** Nombre exacto del campo en el organizador y
+  formato (¿correos uno por línea?).
+- **Para pretix-wompi: versión de la casilla.** La guía pone `tienda-2026-10-09` y vigencia de la política
+  `2026-10-09`. ¿Ese es el formato que esperan los campos del plugin?
+- **Para pretix-wompi: el sitio ya se puede publicar sin el plugin.** Comprobado el 2026-10-08 contra
+  `testigos-sandbox` (sin plugin): "Comprar" abre el carrito normal y no hay errores. Solo para que lo
+  sepan; no hace falta responder.
+- **Para eventalist-backend: URL pública.** ¿Es
+  `https://eventalist-backend-production.up.railway.app/api/v1/marketing/ticket-orders/`? ¿Algo cambia si
+  el backend se despliega antes que Pretix (no debería: nadie lo llama)?
+
