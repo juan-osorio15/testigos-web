@@ -469,3 +469,15 @@ Lo confirmé en este repo el 2026-10-08:
   "solo el comprador" de `diseno.md` y la prueba 3 de `prompt-pretix.md`; los corrige testigos-web,
   porque son documentos de ese repo.
 
+
+### Preguntas de testigos-web (2026-10-08, segunda tanda)
+
+- **Para pretix-wompi: valores `null` en `widget_data`.** Verificado en el sitio publicado: después de
+  construirse, el widget vigila los atributos `data-*` de su contenedor (`div.pretix-widget-wrapper`) y
+  los copia a `widget_data`. Si el sitio **quita** un atributo (por ejemplo `data-tracking-ga-id` cuando
+  la persona revoca las cookies), la clave no desaparece: queda con valor `null`. ¿El plugin trata
+  `null` como ausente (no lo copia a `api_meta.tracking` ni lo manda a GA4 o Meta)? Si no, hace falta
+  ese ajuste. Además llega una clave `astro-cid-…` (atributo interno de Astro) que el plugin debe
+  ignorar: solo le sirven las que empiezan por `tracking-`.
+- **testigos-web**: la parte del sitio sigue sin empezar. La va a hacer otro agente con Spec Kit
+  (`specs/003-embudo-sitio/`), con el prompt `docs/medicion-embudo/prompt-sitio.md`.
