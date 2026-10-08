@@ -3,6 +3,21 @@
 Fecha: 2026-10-06. Estado: versión 2, tras la revisión de los agentes de `pretix-wompi` y `eventalist-backend` contra su código. **Esta carpeta es la fuente de verdad de los cambios en los tres repos**: cualquier cambio de contrato o de alcance se hace aquí primero y después en cada repo.
 Reemplaza la decisión del 2026-09-17 que retiró la capa de servidor (`docs/archivo-2027/`): el titular quiere que este evento deje lista la plantilla profesional de medición y retargeting para los siguientes.
 
+## La meta del titular: un informe para decidir
+
+Todo este trabajo existe para que el titular tenga un informe claro que le sirva para decidir. El informe responde:
+
+- De dónde viene el tráfico y qué fuentes traen gente que se interesa.
+- Qué campañas y qué piezas (afiche, reel, etc.) terminan en ventas, cuáles no, y cuánto cuesta cada venta según lo invertido.
+- En qué paso del camino se pierde a la gente: visita, clic hacia las boletas, "Comprar", datos llenos sin pagar, pago.
+- A quién se le puede volver a hablar: anuncios de retargeting en Meta y contacto directo por correo y WhatsApp con quien no terminó de pagar, sin molestar a quien ya compró.
+
+Debe poder repetirse en los próximos eventos.
+
+**Regla para decisiones de detalle**: antes de preguntarle al titular, revisar si la opción cambia algo de ese informe o del retargeting. Si no cambia nada, elegir la opción más conservadora con los datos personales, anotarla aquí y seguir. Al titular solo se le pregunta lo que afecta lo que va a ver o hacer.
+
+Ejemplo, el `gclid`: las ventas por campaña salen de las UTM, que viajan siempre, y Testigos no pauta en Google Ads. El `gclid` no le suma nada al informe, así que viaja solo si se aceptaron las cookies, como los identificadores de Meta.
+
 ## Qué se quiere ver
 
 Para cualquier rango de fechas y por campaña UTM (fuente, medio, campaña, contenido):
@@ -41,16 +56,16 @@ Y poder actuar sobre los pasos 4 y 5:
 
 Cambios en `src/measurement/` y en `TicketSection.astro`. Respetan las reglas de 002: nada retrasa ni toca el comportamiento del widget, todo en `try/catch`, sin errores en consola.
 
-- **Captura de campaña** (`attribution.ts`, nuevo): en cada carga lee de la URL `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `gclid` y `fbclid`. Si hay alguno, los guarda en `sessionStorage['tdm.attribution']` junto con la página de llegada; si no hay, conserva lo guardado en la pestaña. No usa `localStorage` ni cookies: la campaña vive solo mientras dure la pestaña. Las UTM no identifican a nadie y viajan aunque la persona no acepte cookies; así el informe de ventas por campaña de Pretix y del backend queda completo.
+- **Captura de campaña** (`attribution.ts`, nuevo): en cada carga lee de la URL `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `gclid` y `fbclid`. Si hay alguno, los guarda en `sessionStorage['tdm.attribution']` junto con la página de llegada; si no hay, conserva lo guardado en la pestaña. Si la pestaña no tiene nada guardado, guarda solo la página de llegada, también en visitas sin campaña (decisión del titular, 2026-10-08: el informe ve por qué página entraron los pedidos orgánicos). No usa `localStorage` ni cookies: la campaña vive solo mientras dure la pestaña. Las UTM no identifican a nadie y viajan aunque la persona no acepte cookies; así el informe de ventas por campaña de Pretix y del backend queda completo.
 - **Identificadores de la visita**, solo si el aviso de cookies está aceptado: `client_id` y `session_id` de GA4 (`gtag('get', …)`, tope de 2 s) y las cookies `_fbp` y `_fbc` (si hay `fbclid` y no `_fbc`, se construye `fb.1.<ms>.<fbclid>`, formato oficial de Meta).
 - **Atributos del widget**: se ponen de inmediato al construir la sección y se completan cuando gtag responde. Nombres (el plugin les quita `tracking-` y cambia guiones por guion bajo):
   - `data-tracking-utm-source`, `-utm-medium`, `-utm-campaign`, `-utm-content`, `-utm-term`
-  - `data-tracking-gclid`, `data-tracking-landing`
+  - `data-tracking-landing`, y `data-tracking-gclid` solo con el aviso de cookies aceptado (decisión 2026-10-08, ver "La meta del titular")
   - `data-tracking-ga-id`, `data-tracking-ga-sessid` (mismos nombres del plugin oficial de pretix.eu)
   - `data-tracking-fbp`, `data-tracking-fbc`
   - `data-tracking-consent` con valor `1` si el aviso de cookies está aceptado
   - Ningún atributo con valor vacío.
-- **Eventos de navegador**: el clic en un CTA a `#boletas` pasa de `begin_checkout` a `view_item_list` (GA4, `item_list_name: 'boletas'`) y `ViewContent` (Meta). `begin_checkout` e `InitiateCheckout` quedan solo para el envío del formulario del widget, una vez por página.
+- **Eventos de navegador**: el clic en un CTA a `#boletas` pasa de `begin_checkout` a `view_item_list` (GA4, `item_list_name: 'boletas'`) y `ViewContent` (Meta), una vez por página (decisión del titular, 2026-10-08). `begin_checkout` e `InitiateCheckout` quedan solo para el envío del formulario del widget, una vez por página.
 - **Textos legales**: política (`src/pages/tratamiento-de-datos.astro`) y términos (`src/pages/terminos-y-condiciones.astro`, sección 12) con los cambios del dictamen §C, incluida la IP y el navegador en la enumeración de la sección 10; nuevas `DATA_POLICY_EFFECTIVE` y `TERMS_EFFECTIVE` en `src/config.ts`; `docs/pretix-tienda-textos.md` con la casilla nueva, el texto de ayuda del teléfono y su fecha.
 - **Comprobación**: `npm run build` y `npm run check`. La prueba real es manual y de punta a punta: el sitio local apuntando al evento `testigos-sandbox` de Pretix (nunca poner en modo prueba el evento de producción), entrar con `?utm_campaign=ensayo`, aceptar cookies, comprar con la tarjeta de prueba de Wompi y ver en el pedido que `api_meta.tracking` trae la campaña y los identificadores. Repetir sin aceptar cookies: llegan las UTM y nada más. Tras publicar, una persona del equipo llega hasta la pantalla de pago de Wompi en producción sin pagar. Sin pruebas automáticas nuevas en este repo: lo que podrían cubrir ya lo garantiza TypeScript.
 
