@@ -8,6 +8,7 @@
  * sección implementa el contrato pretix-embed.md al pie de la letra.
  */
 import { PRETIX_EVENT_URL, pretixReady } from '../config';
+import WhatsAppLink from './WhatsAppLink.astro';
 import { tFor } from '../ui';
 import LogoSymbol from '../assets/logo/logo-symbol.svg';
 import WaitlistForm from './WaitlistForm.astro';
@@ -116,6 +117,7 @@ const franjaNames = Object.fromEntries(
       {/* Calendario de venta: cuándo se vende cada cosa */}
       <SalesStages />
     </div>
+    <div class="tickets-shop">
     <div
       class="tickets-widget"
       data-notify-label={t('tickets.notify')}
@@ -146,6 +148,12 @@ const franjaNames = Object.fromEntries(
           </>
         )
       }
+    </div>
+    {/* Para quien se traba al comprar: una línea discreta bajo la tienda */}
+    <p class="tickets-help">
+      <span>{t('tickets.help')}</span>
+      <WhatsAppLink label={t('tickets.helpLink')} where="tickets" />
+    </p>
     </div>
   </div>
   {
@@ -309,8 +317,18 @@ const franjaNames = Object.fromEntries(
     align-self: stretch;
     max-height: calc(100vh - var(--header-h));
   }
-  .tickets-widget {
+  .tickets-shop {
     order: 1;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .tickets-help {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-1) var(--space-2);
+    font-size: var(--text-small);
+    font-weight: 600;
   }
   .tickets-eyes {
     display: block;
@@ -491,7 +509,7 @@ const franjaNames = Object.fromEntries(
       align-content: start;
       max-height: none;
     }
-    .tickets-widget {
+    .tickets-shop {
       order: 2;
     }
   }

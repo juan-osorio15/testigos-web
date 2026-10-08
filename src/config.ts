@@ -93,6 +93,13 @@ export const waitlistReady = EVENTALIST_CAMPAIGN.length > 0;
 export const DATA_CONTACT_EMAIL = 'hola@eventalist.co';
 
 /**
+ * WhatsApp de Eventalist para dudas de compra (enlace corto de WhatsApp
+ * Business con el mensaje ya escrito). Lo usa WhatsAppLink.astro, junto a la
+ * tienda y en el pie de página.
+ */
+export const WHATSAPP_URL = 'https://wa.me/message/TBC7DHDYB6ZDJ1';
+
+/**
  * Fecha de entrada en vigencia de la política de tratamiento de datos (ISO).
  * 2026-09-14: ampliación a la tienda de boletería y al control de ingreso.
  * 2026-09-17: sección 10 (cookies de analítica y publicidad), publicada

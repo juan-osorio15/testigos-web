@@ -198,6 +198,21 @@ export function initMeasurement(): void {
     { capture: true },
   );
 
+  // WhatsApp de dudas (WhatsAppLink.astro): cuánta gente se traba al comprar
+  document.addEventListener(
+    'click',
+    (e) => {
+      try {
+        const a = (e.target as Element | null)?.closest?.('a[data-contact]');
+        const where = a?.getAttribute('data-contact');
+        if (where) gtag('event', 'contact', { method: 'whatsapp', link_location: where });
+      } catch {
+        /* nada */
+      }
+    },
+    { capture: true },
+  );
+
   // "Comprar" en el widget: envío nativo (disable-iframe), sin cancelarlo.
   // Solo cuenta el formulario de la tienda, no el de interesados ni el modal.
   document.addEventListener(

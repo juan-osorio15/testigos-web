@@ -11,6 +11,7 @@ import { event } from '../data/event';
 import { organizerPartners, partnerGroups } from '../data/partners';
 import LogoSymbol from '../assets/logo/logo-symbol.svg';
 import { langOf } from '../i18n';
+import WhatsAppLink from './WhatsAppLink.astro';
 
 const t = tFor(Astro.url.pathname);
 /* Las páginas interiores solo existen en español: desde /en/ no se enlazan */
@@ -67,6 +68,10 @@ const renderHeight = { lg: 216, md: 168, sm: 120 } as const;
       }
     </div>
 
+    <div class="footer-group">
+      <p class="eyebrow">{t('footer.contact')}</p>
+      <WhatsAppLink label={t('footer.whatsapp')} where="footer" tone="dark" />
+    </div>
     {
       innerPages && (
         <nav class="footer-pages" aria-label={t('footer.pagesAria')}>
