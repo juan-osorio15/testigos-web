@@ -61,12 +61,31 @@ Solo para invitados, prensa y aliados. Si recibiste un código, escríbelo aquí
 Una sola casilla. Enlaza la política publicada en el sitio; no hace falta un
 texto legal largo dentro de la tienda.
 
+**Versión `tienda-<día D>`** (embudo de venta, feature 003; casilla A del dictamen del 2026-10-06,
+`docs/revision-legal-2026-10-06-embudo.md`). Se pega en Pretix el día D, después de que la
+política y los términos nuevos estén publicados, y a esa hora se fija `consent_since` en el plugin.
+La versión que el plugin guarda en cada pedido es `tienda-<día D>`; poner aquí la fecha real al
+publicarla.
+
+```markdown
+Soy mayor de edad, he leído la [política de tratamiento de datos](https://testigosdelamemoria.com/tratamiento-de-datos/) y autorizo a Eventalist S.A.S. a usar mis datos para gestionar esta compra, emitir la boleta y controlar el ingreso; a enviar a Meta y a Google, en Estados Unidos, los datos de este pedido, y a Meta además mi correo, teléfono y nombre convertidos en códigos SHA-256, para medir la publicidad del encuentro y mostrarme sus anuncios; a escribirme por correo con novedades de este encuentro, de sus próximas ediciones y de otros eventos culturales de Eventalist en Villa de Leyva; y, si doy mi teléfono, a escribirme por WhatsApp solo para recordarme completar el pago y avisarme novedades de este encuentro. Puedo dejar de recibir esos mensajes desde cada uno de ellos.
+```
+
+> La casilla no cambia por el teléfono obligatorio (decisión del titular, 2026-10-06): "si doy mi
+> teléfono" se cumple siempre. Si algún día se toca, quitar esa condición en todos los idiomas a la vez.
+>
+> Inglés: la tienda hoy solo se ofrece en español (verificado el 2026-10-08). Si se activa el inglés,
+> el abogado dejó esta traducción (2026-10-08), que se registra como una versión más con su fecha:
+>
+> ```markdown
+> I am of legal age, I have read the [personal data processing policy](https://testigosdelamemoria.com/tratamiento-de-datos/) (in Spanish) and I authorize Eventalist S.A.S. to use my data to manage this purchase, issue the ticket and control admission; to send to Meta and Google, in the United States, the data of this order, and to Meta also my email, phone number and name converted into SHA-256 codes, to measure the advertising of this event and show me its ads; to contact me by email with news about this event, its future editions and other cultural events by Eventalist in Villa de Leyva; and, if I provide my phone number, to contact me by WhatsApp only to remind me to complete the payment and to send me news about this event. I can stop receiving those messages from each of them.
+> ```
+
+Versión anterior (2026-09-14 a día D):
+
 ```markdown
 He leído la [política de tratamiento de datos](https://testigosdelamemoria.com/tratamiento-de-datos/) y autorizo a Eventalist S.A.S. a tratar mis datos para emitir y enviarme la boleta, gestionar esta compra y controlar mi ingreso al evento.
 ```
-
-> Sin cambios: la ampliación de la casilla para autorizar el envío de datos de compra a
-> Google y Meta (dictamen del 2026-09-15) se retiró el 2026-09-17 junto con esa capa.
 
 > Revisión legal del 7 de septiembre de 2026: la casilla sí hace falta (la Ley
 > 1581 no exime por ejecución de contrato) y esta redacción es suficiente. Pero
@@ -94,6 +113,20 @@ Aquí te enviamos la confirmación y la boleta. Revisa que esté bien escrito.
 ```
 
 ## Help text of the phone number field
+
+Desde el día D (nota inicial del dictamen del 2026-10-06; el teléfono sigue obligatorio):
+
+```markdown
+Se usa para avisos sobre esta compra y para los mensajes por WhatsApp que se autorizan al final del pedido.
+```
+
+Inglés, solo si se activa ese idioma en la tienda:
+
+```markdown
+Used for notices about this purchase and for the WhatsApp messages authorized at the end of the order.
+```
+
+Versión anterior (hasta el día D):
 
 ```markdown
 Opcional. Solo para avisos sobre esta compra o sobre cambios en la programación del evento.
