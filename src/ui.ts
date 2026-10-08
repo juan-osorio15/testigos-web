@@ -231,6 +231,15 @@ const es = {
   'consent.modalTitle': 'Usamos cookies para medir el sitio y la campaña',
   'consent.modalAccept': 'Aceptar y continuar',
   'consent.modalSkip': 'Seguir sin aceptar',
+  /* Segundo paso del modal ("Ver opciones"): por qué pedimos las cookies,
+     en tono cercano y sin prometer nada que no sea cierto (sí se usan para
+     anuncios del encuentro en Meta; no se venden datos). */
+  'consent.modalMore': 'Ver opciones',
+  'consent.optionsTitle': '¿Nos ayudas a saber cómo llegaste?',
+  'consent.optionsText':
+    'Con las cookies sabemos qué publicación o anuncio te trajo hasta aquí, y así invertimos en lo que de verdad acerca a la gente al encuentro. Si dejas la compra a medias, también nos permiten recordarte el encuentro en Instagram y Facebook. Nunca vendemos tus datos.',
+  'consent.optionsAccept': 'Aceptar',
+  'consent.optionsMore': 'Más detalles en la política de datos',
   'consent.close': 'Cerrar el aviso',
   'consent.prefsLink': 'Cookies y preferencias',
   'consent.prefsTitle': 'Cookies y preferencias',
@@ -482,6 +491,12 @@ const en: Record<UiKey, string> = {
   'consent.modalTitle': 'We use cookies to measure the site and the campaign',
   'consent.modalAccept': 'Accept and continue',
   'consent.modalSkip': 'Continue without accepting',
+  'consent.modalMore': 'See options',
+  'consent.optionsTitle': 'Can you help us see how you got here?',
+  'consent.optionsText':
+    "Cookies tell us which post or ad brought you here, so we can invest in what truly brings people to the event. If you leave your purchase halfway, they also let us remind you about the event on Instagram and Facebook. We never sell your data.",
+  'consent.optionsAccept': 'Accept',
+  'consent.optionsMore': 'More details in the data policy',
   'consent.close': 'Close this notice',
   'consent.prefsLink': 'Cookies and preferences',
   'consent.prefsTitle': 'Cookies and preferences',

@@ -4,8 +4,10 @@
  * 2026-09-15). Dos formas, según `measurement.consentUi`: 'bar' es un
  * bloque de tinta al pie de la pantalla, fijo hasta que se acepta o se
  * cierra; 'modal' (prueba del 2026-09-18) es un <dialog> centrado con un
- * solo botón grande de aceptar y, en pequeño, "Seguir sin aceptar" (que
- * hace lo mismo que cerrar la franja: no molesta más en la sesión). En
+ * solo botón grande de aceptar y, en pequeño, "Ver opciones". Ese segundo
+ * paso (2026-10-08) explica por qué pedimos las cookies, con "Aceptar" en
+ * grande y "Seguir sin aceptar" en pequeño al final (hace lo mismo que
+ * cerrar la franja: no molesta más en la sesión). En
  * ambos casos solo "Aceptar" acepta; Escape o clic fuera no aceptan. El gestor (<dialog>) lo abre
  * el enlace "Cookies y preferencias" del pie y permite retirar la
  * aceptación. Sin JS no aparece nada y no se carga ninguna etiqueta:
@@ -51,7 +53,7 @@ const enabled = !!(measurement.ga4Id || measurement.metaPixelId);
       {
         measurement.consentUi === 'modal' && (
           <dialog class="prefs consent-modal" data-consent-modal aria-labelledby="consent-modal-title">
-            <div class="prefs-body consent-modal-body">
+            <div class="prefs-body consent-modal-body" data-modal-step="1">
               <p class="eyebrow">{t('consent.modalEyebrow')}</p>
               <h2 id="consent-modal-title" class="prefs-title">
                 {t('consent.modalTitle')}
@@ -62,6 +64,18 @@ const enabled = !!(measurement.ga4Id || measurement.metaPixelId);
               <button type="button" class="consent-accept consent-modal-accept" data-modal-accept autofocus>
                 {t('consent.modalAccept')}
               </button>
+              <button type="button" class="consent-modal-skip" data-modal-more>
+                {t('consent.modalMore')}
+              </button>
+            </div>
+            <div class="prefs-body consent-modal-body" data-modal-step="2" hidden>
+              <p class="eyebrow">{t('consent.modalEyebrow')}</p>
+              <h2 class="prefs-title consent-options-title">{t('consent.optionsTitle')}</h2>
+              <p class="prefs-text">{t('consent.optionsText')}</p>
+              <button type="button" class="consent-accept consent-modal-accept" data-modal-accept>
+                {t('consent.optionsAccept')}
+              </button>
+              <a class="consent-options-policy" href={policyHref}>{t('consent.optionsMore')}</a>
               <button type="button" class="consent-modal-skip" data-modal-skip>
                 {t('consent.modalSkip')}
               </button>
@@ -226,9 +240,19 @@ const enabled = !!(measurement.ga4Id || measurement.metaPixelId);
           const close = () => {
             if (modal.open) modal.close();
           };
-          modal.querySelector('[data-modal-accept]')?.addEventListener('click', async () => {
-            await acceptConsent();
-            close();
+          modal.querySelectorAll('[data-modal-accept]').forEach((b) =>
+            b.addEventListener('click', async () => {
+              await acceptConsent();
+              close();
+            }),
+          );
+          // "Ver opciones": segundo paso, con el porqué y el "seguir sin aceptar"
+          modal.querySelector('[data-modal-more]')?.addEventListener('click', () => {
+            const [one, two] = modal.querySelectorAll<HTMLElement>('[data-modal-step]');
+            if (!one || !two) return;
+            one.hidden = true;
+            two.hidden = false;
+            two.querySelector<HTMLElement>('[data-modal-accept]')?.focus();
           });
           modal.querySelector('[data-modal-skip]')?.addEventListener('click', () => {
             dismiss();
@@ -369,6 +393,18 @@ const enabled = !!(measurement.ga4Id || measurement.metaPixelId);
   .consent-modal-skip:hover,
   .consent-modal-skip:focus-visible {
     opacity: 1;
+  }
+  .consent-modal-body[hidden] {
+    display: none;
+  }
+  /* Segundo paso: el título grande es la pregunta; el texto cuenta el porqué */
+  .consent-modal .consent-options-title {
+    font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  }
+  .consent-options-policy {
+    font-size: var(--text-small);
+    color: var(--ink);
+    text-underline-offset: 0.2em;
   }
 
   /* --- Gestor de preferencias: la misma tarjeta que el modal "avísame" */
