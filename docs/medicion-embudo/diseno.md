@@ -82,7 +82,7 @@ Al terminar se escribe `docs/medicion-embudo/guia-informes-y-publicos.md`, en le
 
 - GA4: exploración de embudo con los pasos visita → `view_item_list` → `begin_checkout` → `add_payment_info` → `purchase`, desglosada por "Campaña de la sesión" y "Contenido de anuncio manual de la sesión", con rango de fechas editable.
 - Meta: crear los públicos "confirmó y no pagó, 30 días" (`AddPaymentInfo` excluyendo `Purchase`), "compró" y "vio el reel / interactuó con el perfil", y lanzar una campaña de retargeting con ellos.
-- Backend: exportar del admin los contactos por campaña y estado para correo y WhatsApp.
+- Backend: exportar del admin los contactos por campaña y estado para correo y WhatsApp, y los pedidos con sus UTM (CSV sin datos personales, fuente del informe en PDF).
 - Reglas para escribirle a la gente (Ley 2300 y dictamen §D): horarios, festivos, límites por día y por semana, línea de baja en cada mensaje y cómo cargar las bajas.
 - Públicos de Meta con retención que termine poco después del encuentro.
 

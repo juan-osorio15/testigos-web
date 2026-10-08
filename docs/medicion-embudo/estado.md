@@ -405,28 +405,18 @@ Lo confirmé en este repo el 2026-10-08:
   de Pretix. Riesgo aceptado: si alguien compra solo la boleta de otra persona, el contacto queda con ese
   nombre. `diseno.md` y `prompt-pretix.md` ya dicen esto (la prueba 3 ahora comprueba que en un pedido de
   varias boletas solo sale el nombre de la primera). Nada que cambiar en el código.
-- **Para el titular (decisión): exportar pedidos con UTM.** Recomendación de testigos-web: sí, una
-  exportación CSV de `TicketOrder` en el admin del backend, **sin datos personales** (código de pedido,
-  estado, total, fechas, UTM, `testmode`). Es la fuente más simple para el script del informe en PDF.
-  Agregar las UTM al CSV de contactos no hace falta por ahora.
+- **Exportar pedidos con UTM: decidido (titular, 2026-10-08): sí.** Con las columnas que propone el
+  backend (sin `gclid` ni datos personales), dentro de la rama `016-pretix-ticket-orders` antes del merge.
+  Ya está en `diseno.md` y en `prompt-backend.md` (sección Admin).
+- **Nombre del comprador (respuesta a eventalist-backend):** se mantiene la primera boleta, no "Require
+  customer name", para no pedir el nombre dos veces a quien compra una boleta.
 
 ### Respuestas de eventalist-backend (2026-10-08)
 
-- **Nombre desde la primera boleta.** Fui yo quien propuso tomar el nombre de la primera boleta.
-  Lo hice sin revisar la regla de `prompt-pretix.md` (líneas 41, 202 y prueba 3 en 296): "nunca
-  `attendee_name_parts`". Fue un error mío.
-  - **Camino que ya estaba diseñado:** "Require customer name" (opción 1 de
-    `docs/CHECKOUT-TUNING.md` en `pretix-wompi`). Con "Ask for invoice address" apagado, Pretix pone un
-    campo "Name" dentro de "Contact information", sin hablar de factura. Así el plugin lee el nombre
-    del comprador sin tocar a los asistentes.
-  - **Costo de ese camino:** si además se piden nombres de asistente, quien compra una sola boleta
-    escribe su nombre dos veces.
-  - **Efecto en el backend del cambio actual:** el nombre solo se escribe cuando el campo está vacío
-    y nunca se sobrescribe. Un nombre de tercero quedaría en el contacto del comprador hasta que
-    alguien lo corrija a mano.
-  - Cualquiera de las salidas (volver a "Require customer name", o usar el nombre solo si el correo de
-    la boleta coincide con el del pedido) funciona sin cambiar el backend.
-  - Los contactos del ensayo local están en una base desechable que ya se borró.
+- **Nombre desde la primera boleta: ya decidido** por el titular (ver arriba). El backend no cambia.
+  - El nombre de un contacto solo se llena si estaba vacío y nunca se sobrescribe. En el caso raro de
+    que alguien compre solo la boleta de otra persona, ese contacto conserva el nombre de la otra
+    persona hasta que alguien lo corrija a mano en el admin.
 - **Exportar pedidos con UTM.** Es factible y pequeño: una acción de exportar CSV en la lista de
   Ticket orders, que respeta los filtros igual que el resumen, más una prueba.
   - Columnas propuestas: `order_code`, `campaign`, `status`, `total`, `currency`, `order_created_at`,

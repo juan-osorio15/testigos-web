@@ -174,6 +174,7 @@ Todo en una transacción, en un servicio (`apps/marketing/services/ticket_order_
 
 - **`TicketOrder`**: lista con código, campaña, estado, total, `utm_campaign`, `utm_content`, contacto y fecha; filtros por campaña, estado, `utm_source`, `utm_campaign`, `utm_content`, `testmode` y rango de fechas; solo lectura.
 - **Resumen de ventas por campaña**: vista de admin que, para el filtro actual, muestre por `utm_source` / `utm_campaign` / `utm_content` (con una fila "sin campaña"): pedidos confirmados, pagados, vencidos, cancelados, total pagado y tasa de pago (pagados sobre confirmados). Excluye `testmode`.
+- **Exportar pedidos a CSV** (decisión del titular, 2026-10-08): acción de exportar en la lista de Ticket orders que respeta los filtros, igual que el resumen. Columnas: `order_code`, `campaign`, `status`, `total`, `currency`, `order_created_at`, `first_paid_at`, `status_changed_at`, `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `landing`, `has_ga_session`, `testmode`. Sin contacto, correo, teléfono, nombre ni `gclid`. Es la fuente del informe en PDF del sitio. Entra en la rama `016-pretix-ticket-orders` antes del merge.
 - **Contactos**:
   - Filtro "etapa en la campaña" implementado como subconsulta sobre `CampaignMembership` (misma fila de campaña y etapa). Encadenarlo con el filtro `campaigns` existente haría que Django una membresías distintas y dé resultados equivocados.
   - Inline de membresías con la etapa; inline de solo lectura con el historial de `ContactConsent` más el alta manual.
