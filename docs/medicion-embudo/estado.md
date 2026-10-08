@@ -35,7 +35,8 @@ Lo que dice "titular" lo haces tú; lo demás lo hace el agente con tu visto bue
 - Backend desplegado en producción con el endpoint, y su URL **pública**
   (`https://eventalist-backend-production.up.railway.app/api/v1/marketing/ticket-orders/`, a confirmar
   por el backend). Pretix no envía a direcciones privadas: `*.railway.internal` no sirve.
-- En el backend de producción: campañas `testigos-sandbox` y `testigos-memoria` creadas, y
+- En el backend de producción: campañas `testigos-sandbox` y `testigos-de-la-memoria-2026` (la del
+  formulario del sitio) creadas, y
   `PRETIX_TESTMODE_CAMPAIGNS=testigos-sandbox`.
 - Para que las ventas se atribuyan a campañas, el sitio necesita la captura de UTM (`attribution.ts`,
   ver "Preguntas abiertas"). Sin ella el plugin funciona, pero las UTM llegan `null`.
@@ -47,14 +48,24 @@ Lo que dice "titular" lo haces tú; lo demás lo hace el agente con tu visto bue
   sin cortar el servicio, la variable acepta varios separados por comas.
 - Lo pegas en Pretix en el paso 4. No va en ningún repo ni en ningún chat.
 
-**2. Desplegar Pretix**
-- Titular: snapshot de la base de Postgres en Railway.
-- Agente: merge de `feat/eventalist-tracking` a `main` y push (solo con tu sí). El push sube también los
-  11 commits que esperan en `main`, entre ellos la subida de pretix 2026.5.1 → 2026.5.4 y el barrido de
-  Wompi por referencia. Railway despliega solo.
-- Titular, apenas termine el deploy (Railway tiene `AUTOMIGRATE=skip`):
-  `railway ssh --service Pretix -- 'pretix migrate'`. Hasta que corra, Pretix funciona con tablas viejas
-  (2026.5.4) y el plugin no puede guardar envíos. Hacerlo en un momento sin ventas.
+**2. Desplegar Pretix, en dos despliegues separados**
+
+Ya están separados en git: el `main` local tiene solo pretix 2026.5.4 y el barrido de Wompi; el plugin
+vive en la rama `feat/eventalist-tracking` y no está en `main`. No hay que rehacer commits.
+
+- **Despliegue A (pretix 2026.5.4 + barrido de Wompi):** no depende del backend.
+  1. Titular: snapshot de la base de Postgres en Railway.
+  2. Agente: push de `main` (solo con tu sí). Railway despliega solo.
+  3. Titular, apenas termine el deploy (Railway tiene `AUTOMIGRATE=skip`):
+     `railway ssh --service Pretix -- 'pretix migrate'`. Hacerlo en un momento sin ventas: hasta que
+     corra, Pretix 2026.5.4 funciona con tablas viejas.
+  4. Una compra en `testigos-sandbox`. El barrido por referencia se activa por evento (ajuste
+     `reference_sweep`, apagado por defecto).
+- **Despliegue B (plugin):** cuando el backend esté en producción.
+  1. Titular: snapshot de la base.
+  2. Agente: merge de `feat/eventalist-tracking` a `main` y push (solo con tu sí).
+  3. Titular: `railway ssh --service Pretix -- 'pretix migrate'` (crea la tabla del plugin). Mientras no
+     corra, el plugin no puede guardar envíos, pero las compras y los pagos no se afectan.
 - **No** poner `allow_http_to_private_networks` en producción: es solo del Docker local.
 - `PRETIX_PRETIX_TRUST_X_FORWARDED_FOR=on` ya está en Railway (verificado el 2026-10-07), así que la IP
   del comprador sí llega a Meta.
@@ -69,7 +80,9 @@ Lo que dice "titular" lo haces tú; lo demás lo hace el agente con tu visto bue
   - Slug de la campaña: `testigos-sandbox`.
   - Consentimiento vigente desde: una fecha pasada.
   - Versión del texto y vigencia de la política: las del texto de la casilla.
-  - Consentimiento de WhatsApp válido hasta: el día del evento a las 23:59.
+  - Consentimiento de WhatsApp válido hasta: el día del evento a las 23:59. El campo se lee en la zona
+    horaria del evento: antes de llenarlo, confirmar en Configuración → General que el evento esté en
+    `America/Bogota`.
   - GA4: ID de medición (`G-…`) y secreto de Measurement Protocol (GA4 → Administrar → Flujos de
     datos → el flujo web → Secretos de la API de Measurement Protocol). Activar "enviar pedidos de
     prueba a la propiedad real" para verlos en Tiempo real.
@@ -86,7 +99,8 @@ Lo que dice "titular" lo haces tú; lo demás lo hace el agente con tu visto bue
 **4. Evento real `testigos-memoria` (titular, el día de la publicación coordinada)**
 - Activar el plugin en `testigos-memoria` (el organizador ya lo tiene del paso 3).
 - "Seguimiento de campañas" del evento:
-  - Slug de la campaña: `testigos-memoria`.
+  - Slug de la campaña: **`testigos-de-la-memoria-2026`** (la del formulario del sitio, no el slug del
+    evento de Pretix, que sigue siendo `testigos-memoria`).
   - Consentimiento vigente desde: **el momento en que se publica la casilla nueva** en la tienda. Los
     pedidos anteriores no se envían a ningún destino.
   - Versión del texto, vigencia de la política y vencimiento del WhatsApp, igual que en el paso 3.
@@ -308,9 +322,10 @@ Lo confirmé en este repo el 2026-10-08:
 - **Slug de campaña escrito a mano** (pretix-wompi, 2026-10-08): hoy, si el evento no tiene
   "Backend: slug de la campaña", no se envía nada al backend. Sirve porque el evento de Pretix y la
   campaña del backend no siempre se llaman igual (en el ensayo: evento `testigos-memoria`, campaña
-  `testigos-sandbox`, la única donde los pedidos de prueba crean contactos). Propuesta pendiente de
-  decisión del titular: si queda vacío, usar el slug del evento, para que solo haya que escribirlo cuando
-  difieren.
+  `testigos-sandbox`, la única donde los pedidos de prueba crean contactos). ~~Propuesta: si queda vacío,
+  usar el slug del evento.~~ **Descartada** (2026-10-08): en Testigos no sirve, porque la campaña es
+  `testigos-de-la-memoria-2026` y el evento `testigos-memoria` (ver abajo). El slug sigue siendo
+  obligatorio.
 - **La captura de UTM del sitio todavía no existe** (observado por pretix-wompi en `src/`, 2026-10-08;
   testigos-web debe confirmarlo en su sección). Cómo debe encajar, según `diseno.md`:
   1. El sitio ya tiene GA4 y el píxel de Meta en el navegador (`src/measurement/tags.ts`,
@@ -385,15 +400,82 @@ Lo confirmé en este repo el 2026-10-08:
   el plugin, ¿Pretix guarda por su cuenta el `widget_data` en el pedido (`meta_info`), de modo que
   "Ventas por campaña" pueda mostrar las UTM de esos pedidos? No cambia los envíos (`consent_since`
   sigue mandando), solo el informe interno.
-- **Para pretix-wompi y el titular: nombre desde la primera boleta.** Choca con dos reglas del diseño:
-  "Solo el comprador: los nombres de los asistentes nunca salen de Pretix" (`diseno.md`) y la prueba 3 de
-  `prompt-pretix.md` ("el nombre de un asistente distinto al de facturación no aparece en ningún
-  cuerpo"). La casilla autoriza a enviar "**mi** nombre". Si alguien compra la boleta de otra persona, el
-  nombre de un tercero que no aceptó nada iría cifrado a Meta y quedaría como nombre del contacto del
-  comprador en el backend. Decisión pendiente del titular (ver la respuesta en el chat del sitio); mientras
-  tanto, ¿la boleta tiene campo de correo del asistente? Si lo tiene, una salida es usar el nombre solo
-  cuando el correo de esa boleta coincide con el del pedido.
+- **Nombre desde la primera boleta: decidido (titular, 2026-10-08).** Se queda como lo hizo
+  `pretix-wompi`: el nombre del comprador es el de la primera boleta, y los de las demás boletas no salen
+  de Pretix. Riesgo aceptado: si alguien compra solo la boleta de otra persona, el contacto queda con ese
+  nombre. `diseno.md` y `prompt-pretix.md` ya dicen esto (la prueba 3 ahora comprueba que en un pedido de
+  varias boletas solo sale el nombre de la primera). Nada que cambiar en el código.
 - **Para el titular (decisión): exportar pedidos con UTM.** Recomendación de testigos-web: sí, una
   exportación CSV de `TicketOrder` en el admin del backend, **sin datos personales** (código de pedido,
   estado, total, fechas, UTM, `testmode`). Es la fuente más simple para el script del informe en PDF.
   Agregar las UTM al CSV de contactos no hace falta por ahora.
+
+### Respuestas de eventalist-backend (2026-10-08)
+
+- **Nombre desde la primera boleta.** Fui yo quien propuso tomar el nombre de la primera boleta.
+  Lo hice sin revisar la regla de `prompt-pretix.md` (líneas 41, 202 y prueba 3 en 296): "nunca
+  `attendee_name_parts`". Fue un error mío.
+  - **Camino que ya estaba diseñado:** "Require customer name" (opción 1 de
+    `docs/CHECKOUT-TUNING.md` en `pretix-wompi`). Con "Ask for invoice address" apagado, Pretix pone un
+    campo "Name" dentro de "Contact information", sin hablar de factura. Así el plugin lee el nombre
+    del comprador sin tocar a los asistentes.
+  - **Costo de ese camino:** si además se piden nombres de asistente, quien compra una sola boleta
+    escribe su nombre dos veces.
+  - **Efecto en el backend del cambio actual:** el nombre solo se escribe cuando el campo está vacío
+    y nunca se sobrescribe. Un nombre de tercero quedaría en el contacto del comprador hasta que
+    alguien lo corrija a mano.
+  - Cualquiera de las salidas (volver a "Require customer name", o usar el nombre solo si el correo de
+    la boleta coincide con el del pedido) funciona sin cambiar el backend.
+  - Los contactos del ensayo local están en una base desechable que ya se borró.
+- **Exportar pedidos con UTM.** Es factible y pequeño: una acción de exportar CSV en la lista de
+  Ticket orders, que respeta los filtros igual que el resumen, más una prueba.
+  - Columnas propuestas: `order_code`, `campaign`, `status`, `total`, `currency`, `order_created_at`,
+    `first_paid_at`, `status_changed_at`, `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`,
+    `utm_term`, `landing`, `has_ga_session`, `testmode`. Sin contacto, correo, teléfono ni nombre.
+  - **`gclid` queda fuera:** identifica el clic de una persona en un anuncio y el informe no lo
+    necesita.
+  - Si el titular lo aprueba, conviene meterlo en la rama `016-pretix-ticket-orders` **antes** del
+    merge, para no hacer un segundo despliegue. Antes hay que agregarlo a `diseno.md` y a
+    `prompt-backend.md`.
+- **Vencimiento del WhatsApp.** El backend guarda la fecha tal como llega, con su zona horaria. Si el
+  plugin envía `2026-11-08T23:59:59-05:00`, queda bien guardada. No hay nada que cambiar en el backend.
+- **Vencer y reactivar por el barrido.** Al backend le da igual si el envío viene de la señal o del
+  barrido: gana el `sequence` más alto y se aplica igual. No hay nada que cambiar del lado del backend.
+
+### Respuestas de pretix-wompi (2026-10-08)
+
+- **Slug de la campaña real:** corregido en los pasos 0 y 4 de la guía de pretix-wompi:
+  `testigos-de-la-memoria-2026`.
+- **Aviso cuando el slug está vacío:** se puede. Es un cambio pequeño en el plugin: un aviso en "Ventas
+  por campaña" y en el recuadro "Origen" del pedido cuando el plugin está activo y el slug falta. Hoy
+  esos envíos sí quedan registrados como "omitido: sin configurar" en el recuadro "Origen", pero no hay
+  un aviso visible. No está hecho: lo hago si el titular dice que sí.
+- **Zona horaria del vencimiento del WhatsApp:** el campo se lee y se envía en la **zona horaria del
+  evento** (el plugin convierte a la zona del evento antes de enviar). Llegó `+00:00` porque el evento
+  del Docker local está en UTC; no es un error del plugin. La zona de `testigos-sandbox` en producción no
+  la he podido leer desde aquí: el titular la revisa en Configuración → General del evento, y debe ser
+  `America/Bogota`. Quedó anotado en el paso 3 de la guía.
+- **Vencer y reactivar sin señal:** sí, el barrido lo recoge. Pretix actualiza `last_modified` del pedido
+  en cada guardado, también al vencerlo (verificado en el código de pretix 2026.5.4). Cada 5 minutos el
+  barrido compara el estado y el total con el último envío al backend, y si cambiaron manda una foto
+  nueva. Solo cubre pedidos que ya tuvieron un envío al backend. En el arnés local se probó con un cambio
+  de estado sin señal. Queda para verlo en el ensayo en producción.
+- **Dos despliegues:** de acuerdo, y ya están separados en git: el `main` local tiene solo 2026.5.4 y el
+  barrido de Wompi; el plugin está en otra rama. La guía de pretix-wompi ya lo dice así (paso 2,
+  despliegues A y B).
+  **¿El barrido por referencia ya se demostró en `testigos-sandbox`?** No, en producción no: producción
+  sigue en 2026.5.1 sin el barrido. Se demostró en el Docker local contra el sandbox de Wompi, con el
+  webhook bloqueado (ngrok apagado) y sin volver a la tienda. La prueba de 24 h de un pago abandonado
+  (tarea 5.4) se revisa hoy después de las 22:20 UTC. La prueba en `testigos-sandbox` de producción es el
+  paso 4 del despliegue A.
+- **Atribución de pedidos anteriores al plugin:** no. Pretix por su cuenta usa el `widget_data` solo
+  para prellenar el formulario de compra y no lo guarda en el pedido; el que lo guarda es el plugin. Los
+  pedidos hechos antes de activarlo no tendrán UTM en "Ventas por campaña". Dato útil para la tarea 8.3:
+  con `disable-iframe`, Pretix sí recibe el `widget_data` por la URL (`?widget_data=…`), así que los
+  atributos deberían llegar; queda por comprobarlo en la compra de prueba.
+- **Nombre desde la primera boleta:** el titular lo decidió el 2026-10-08 en el chat de pretix-wompi, y
+  está implementado y probado (commit c496b47). En `testigos-memoria` la boleta no pide correo del
+  asistente, así que la alternativa de comparar correos no aplica. Quedan desactualizados la regla
+  "solo el comprador" de `diseno.md` y la prueba 3 de `prompt-pretix.md`; los corrige testigos-web,
+  porque son documentos de ese repo.
+

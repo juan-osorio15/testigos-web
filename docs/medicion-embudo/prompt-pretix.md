@@ -38,7 +38,7 @@ Es la primera prueba automática que se escribe (ver Pruebas).
 Vienen del dictamen del abogado interno del 2026-10-06 (`docs/revision-legal-2026-10-06-embudo.md` en el repo del sitio). La autorización es una sola casilla obligatoria del checkout, reescrita; el plugin no añade casillas.
 
 1. Solo pedidos creados en o después de `consent_since` van a cualquier destino. Los anteriores no se tocan, aunque se paguen después. Si `consent_since` está vacío, ningún pedido tiene consentimiento y no se envía nada.
-2. Solo datos del comprador. Nunca nombres de asistentes.
+2. Solo datos del comprador. El nombre del comprador se toma de la primera boleta (decisión del titular, 2026-10-08: la tienda no pide dirección de facturación). Nunca los nombres de las demás boletas.
 3. A GA4 nada personal: ni correo, ni teléfono, ni nombre, ni sus hashes, ni `user_id`.
 4. A Meta, correo, teléfono y nombre solo en SHA-256, normalizados en el servidor. Nunca en claro en logs.
 5. `_ga`, `_fbp` y `_fbc` solo existen en el pedido si la persona aceptó cookies en el sitio (el sitio no los pasa en otro caso).
@@ -199,7 +199,7 @@ Matriz de destinos:
 - `event_name`: `AddPaymentInfo` (placed) o `Purchase` (paid). `event_id`: `<código>-placed` o `<código>-paid`.
 - `external_id` por persona (no por pedido): Meta junta los eventos de la misma persona en varios pedidos.
 - Normalización antes del hash: correo en minúsculas sin espacios; teléfono solo dígitos con indicativo (`+57 300 123 4567` → `573001234567`; Pretix guarda el teléfono en E.164); nombre y apellido en minúsculas, sin tildes, sin espacios ni signos; país `co` (o el del pedido si existe). SHA-256 en hex minúsculas.
-- **Solo datos del comprador**: correo y teléfono del pedido; nombre de `order.invoice_address.name_parts` (lo llena "Require customer name", ver `docs/CHECKOUT-TUNING.md`). Solo si trae nombre y apellido por separado (`given_name` y `family_name`); con el esquema `full` (un solo campo) se omiten `fn` y `ln`: dividir por espacios sale mal con dos apellidos, y correo y teléfono bastan para la coincidencia. **Nunca** `attendee_name_parts`.
+- **Solo datos del comprador**: correo y teléfono del pedido; nombre y apellido de la primera boleta (`positionid` menor, `attendee_name_parts`), que se toma como el nombre del comprador porque la tienda no pide dirección de facturación (decisión del titular, 2026-10-08). Solo si trae nombre y apellido por separado (`given_name` y `family_name`); con el esquema `full` (un solo campo) se omiten `fn` y `ln`: dividir por espacios sale mal con dos apellidos, y correo y teléfono bastan para la coincidencia. **Nunca** los nombres de las demás boletas.
 - Nada personal en los logs: ni en claro ni en hash. `response` y `last_error` se guardan sin el cuerpo enviado.
 - `fbp`, `fbc`, IP y user-agent sin hash. Campos vacíos se omiten (nunca cadenas vacías). No inventar `fbc`.
 - `test_event_code` solo si el ajuste existe.
@@ -280,7 +280,7 @@ Si faltan los datos de un destino, ese destino se omite sin error.
 - `sequence`: `pk` de la fila `Dispatch`; crece con cada cambio del pedido. El backend aplica la foto con el `sequence` mayor y descarta las menores. `occurred_at` es informativo (momento del cambio).
 - `total` e `items`: los actuales del pedido.
 - `consent`: copia de `api_meta.consent` más `channels` según el texto de la casilla: `email` si hay correo (alcance `event_series_and_local_events`: este encuentro, sus próximas ediciones y otros eventos culturales de Eventalist en Villa de Leyva; sin vencimiento); `whatsapp` si hay teléfono (alcance `this_event`: recordatorio de pago y novedades de este encuentro; vence en `whatsapp_consent_until`). Como solo se envían pedidos con consentimiento, `consent` siempre va.
-- `contact` es siempre el comprador. Los asistentes no se envían. `phone` en E.164 o `null`; igual `email`; al menos uno (si no, la fila se omite). Nombre solo si viene separado (ver Meta); si no, `null`.
+- `contact` es siempre el comprador; su nombre es el de la primera boleta. Los nombres de las demás boletas no se envían. `phone` en E.164 o `null`; igual `email`; al menos uno (si no, la fila se omite). Nombre solo si viene separado (ver Meta); si no, `null`.
 - `attribution` con todas las claves; `null` donde no hay dato.
 
 **Respuestas**: `200` `{"status": "ok"}` (también repeticiones y fotos viejas descartadas); `400` cuerpo que no se puede interpretar (`failed`); `401` token malo (`failed`); `409` slug de campaña que no existe (`failed`, visible aparte en "Ventas por campaña"); `5xx` o timeout: reintentar. Un teléfono raro no produce `400`: el backend guarda el pedido igual.
@@ -293,7 +293,7 @@ Criterio del titular: nada de pruebas que se sabe que van a pasar o que solo rep
 
 1. **Un error del plugin no deshace un pago.** Forzar una excepción (y aparte un error de base de datos) dentro del receptor de `order_paid` y comprobar que el pago queda confirmado y el pedido pagado. Es la prueba más importante.
 2. **Cifrado para Meta.** Si la normalización está mal, Meta responde "ok" y nunca encuentra a nadie. Comparar contra hashes calculados a mano de casos reales colombianos: correo con mayúsculas y espacios; teléfono `+57 300 123 4567`, `3001234567` y `573001234567` (los tres dan el mismo hash); nombre con tildes y eñe (`Peña`, `José María`).
-3. **Cortes legales.** Un pedido creado antes de `consent_since` y pagado después no genera ningún envío; con `consent_since` vacío, ninguno. El nombre de un asistente distinto al de facturación no aparece en ningún cuerpo. Un correo excluido no va a Meta ni a GA4. Nada de correo, teléfono ni hashes en el cuerpo de GA4.
+3. **Cortes legales.** Un pedido creado antes de `consent_since` y pagado después no genera ningún envío; con `consent_since` vacío, ninguno. En un pedido de varias boletas, solo aparece el nombre de la primera. Un correo excluido no va a Meta ni a GA4. Nada de correo, teléfono ni hashes en el cuerpo de GA4.
 4. **El checkout no depende de nadie.** Con Meta, GA4 y el backend respondiendo con error o sin responder, la confirmación del pedido termina normal y en el mismo tiempo, y los envíos quedan pendientes en `Dispatch`.
 
 No escribir pruebas de: tiempos exactos de los reintentos, cada código de error HTTP, forma del JSON (lo cubren el endpoint de depuración de GA4 y "Test events" de Meta en el ensayo), formularios de ajustes ni plantillas.
