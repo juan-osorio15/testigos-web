@@ -35,6 +35,21 @@ ningún carrito ni pedido.
   pero fuera del wrapper: ningún evento.
 - Consola sin errores en todas estas páginas.
 
+## Contra `testigos-sandbox` con la tienda en línea (noche del 2026-10-08, sin plugin)
+
+- Entrada con `?utm_source=prueba&utm_campaign=ensayo&fbclid=TEST123`, aviso cerrado con "Ver opciones" →
+  "Seguir sin aceptar": `widget_data` con `tracking-utm-source`, `tracking-utm-campaign` y
+  `tracking-landing: /`, sin identificadores. Consola sin errores.
+- Pase completo, cantidad 1, "Comprar" real dos veces: se abren dos pestañas de la tienda del sandbox
+  (paso 1 de 3, carrito creado, URL con las UTM) y `dataLayer` registra **un solo** `begin_checkout`
+  (`currency: COP`, `event_id`). Las pestañas se cerraron sin confirmar pedido; los carritos vencen solos.
+- **Hallazgo y arreglo**: los CTA de la portada apuntaban a `/#boletas`. Con UTM en la URL, el clic
+  recargaba toda la página (la URL cambiaba) en vez de bajar a las boletas: fricción para quien llega
+  de un anuncio y riesgo de perder `view_item_list`. `src/links.ts` ahora usa `#boletas` dentro de la
+  portada (13 enlaces en `/` y en `/en/`); desde otras páginas sigue `/#boletas`. Comprobado: dos clics
+  (hero y cabecera) → sin recarga, URL con las UTM, un solo `view_item_list`.
+- Sin el plugin no hay recuadro "Origen" en el pedido: eso queda para el ensayo conjunto.
+
 ## Build
 
 - `npm run check`: 0 errores, 0 avisos, 2 pistas (las mismas de la línea base).
@@ -47,6 +62,5 @@ ningún carrito ni pedido.
 
 ## Pendiente
 
-- Con la tienda del sandbox activa: "Comprar" real (§7.2 y §7.3), §2 en pestaña privada, §8 con
-  bloqueador y el caso sin almacenamiento.
+- §8 con bloqueador y el caso sin almacenamiento.
 - Ensayo conjunto con el plugin (§10) y verificación en producción (§11).
