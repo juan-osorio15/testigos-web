@@ -214,7 +214,7 @@ Contrato completo en "Contrato con el backend".
 
 - `ga4_measurement_id` (ej. `G-XJES5Z5EC9`), `ga4_api_secret`, `ga4_send_testmode` (casilla, apagada por defecto)
 - `meta_dataset_id`, `meta_capi_token`, `meta_test_event_code` (opcional)
-- `backend_campaign_slug` (ej. `testigos-memoria`)
+- `backend_campaign_slug` (ej. `testigos-de-la-memoria-2026`, la campaña del formulario del sitio; el slug del evento de Pretix es otro)
 - `consent_since` (fecha y hora en que se guardó la casilla nueva; vacío = sin consentimiento), `consent_version` (ej. `tienda-2026-10-12`) y `policy_effective` (vigencia de la política publicada)
 - `whatsapp_consent_until` (vence la autorización de WhatsApp; para Testigos, `2026-11-08T23:59:59-05:00`)
 - `event_source_url` (opcional; por defecto la URL pública de la tienda del evento)
@@ -242,7 +242,7 @@ Si faltan los datos de un destino, ese destino se omite sin error.
   "instance": "pretix.eventalist.co",
   "organizer": "eventalist",
   "event": "testigos-memoria",
-  "campaign": "testigos-memoria",
+  "campaign": "testigos-de-la-memoria-2026",
   "order_code": "ABC12",
   "status": "pending",
   "sequence": 48213,

@@ -88,6 +88,8 @@ Al terminar se escribe `docs/medicion-embudo/guia-informes-y-publicos.md`, en le
 
 ## Orden de entrega
 
+En qué punto va cada repo: `estado.md` (cada repo actualiza su sección).
+
 0. Titular (paso a paso en `titular/evento-sandbox.md`): crear en Pretix el evento `testigos-sandbox` (no existía; verificado desde el servidor el 2026-10-06): clonar `testigos-memoria`, modo prueba, sin enlazarlo desde ningún sitio; en su configuración de Wompi, ambiente de pruebas y las cuatro llaves de prueba; en el ambiente de pruebas de Wompi, registrar `https://pretix.eventalist.co/_wompi/webhook/` como URL de eventos (la de producción no se toca); una compra de prueba con la tarjeta 4242. Sin este evento no se puede probar nada: ni el PR del barrido, ni el plugin, ni el sitio.
 1. `pretix-wompi`: PR de pretix 2026.5.4 y PR del barrido de Wompi (independientes de todo lo demás; van primero porque son riesgos de hoy).
 2. Backend: endpoint, modelos y migración de autorizaciones. Plugin de Pretix contra un backend falso. Sitio: atributos del widget y eventos. Los tres en paralelo.
