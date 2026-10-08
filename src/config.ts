@@ -97,11 +97,19 @@ export const DATA_CONTACT_EMAIL = 'hola@eventalist.co';
  * 2026-09-14: ampliación a la tienda de boletería y al control de ingreso.
  * 2026-09-17: sección 10 (cookies de analítica y publicidad), publicada
  * el mismo día que entra GA4 en producción.
+ * 2026-10-09: embudo de venta (feature 003, dictamen del 2026-10-06):
+ * transmisión de los datos de los pedidos a Google y Meta, mensajes
+ * comerciales al comprador y campaña de origen de cada pedido. También es
+ * la fecha desde la que aplican esas finalidades ("[fecha de publicación]").
  */
-export const DATA_POLICY_EFFECTIVE = '2026-09-17';
+export const DATA_POLICY_EFFECTIVE = '2026-10-09';
 
-/** Fecha de entrada en vigencia de los términos y condiciones de compra (ISO). Sin cambios desde el 14 de septiembre. */
-export const TERMS_EFFECTIVE = '2026-09-14';
+/**
+ * Fecha de entrada en vigencia de los términos y condiciones de compra (ISO).
+ * 2026-09-14: versión inicial.
+ * 2026-10-09: sección 12 con el embudo de venta (dictamen del 2026-10-06).
+ */
+export const TERMS_EFFECTIVE = '2026-10-09';
 
 /**
  * Responsable del tratamiento. Solo razón social y nombre comercial: por
