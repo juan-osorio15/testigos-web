@@ -53,3 +53,11 @@ Lo único nuevo que roza este contrato es que los precios del marcado JSON-LD y 
 texto plano salen de `ticketOffers` en `src/data/event.ts` (antes `ticketOffer`), y
 que el clic en los botones de compra se cuenta como intención de compra en GA4 y
 Meta sin alterar el widget. Todo lo demás sigue vigente.
+
+## Nota (feature 003, 2026-10-08)
+
+Desde 003 el widget **sí** recibe atributos `data-tracking-*` (campaña de la visita y, con cookies
+aceptadas, identificadores de GA4 y Meta), que Pretix guarda como `widget_data` y el plugin de
+Eventalist copia al pedido. Contrato: `specs/003-embudo-sitio/contracts/widget-tracking.md`. El
+comportamiento del widget no cambia: `disable-iframe` se mantiene, nada espera ni cancela el envío y
+la página sigue sin leer precios ni carrito.

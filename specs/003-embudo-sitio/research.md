@@ -63,6 +63,14 @@ Cada punto: decisión, por qué y qué más se consideró. Los hechos sobre el w
 
 - **Decisión**: los dos ajustes del teléfono (clarify) se pasan al abogado interno (`abogado-eventalist`) antes del commit. También se le pregunta por una frase que el dictamen no tocó: la sección 10 dice que GA4 mide la "intención de compra (el paso a la sección de boletas)"; desde esta feature, la intención de compra es pulsar "Comprar" en la tienda. Solo se cambia si él lo aprueba.
 - **Por qué**: el dictamen es la fuente del texto. Cualquier frase que no salga de él necesita su visto bueno.
+- **Respuesta del abogado (2026-10-08)**, con el encuadre del titular de no agregar fricción a la compra:
+  - Términos, "el correo electrónico y el teléfono": aprobado.
+  - Política, sección 3: aprobado con una coma y "solo": "En la tienda, el correo electrónico para las finalidades b), c) y h), y WhatsApp solo para las finalidades b) y h) respecto del encuentro en curso." Sin la coma, el límite "encuentro en curso" podía leerse también sobre el correo.
+  - Sección 10: sí se ajusta, "(el paso a la sección de boletas y el inicio de la compra en la tienda)".
+  - Casilla y ayuda del teléfono en inglés: traducción entregada; la tienda hoy solo está en español, así que quedan de reserva en `docs/pretix-tienda-textos.md`.
+  - UTM en `sessionStorage` sin aceptación: sin problema con §D.7 (dura la pestaña, no es "entre visitas").
+  - Ninguna casilla, aviso ni texto nuevo en la tienda.
+- **Ajuste consecuente aplicado** (mismo criterio del teléfono obligatorio): la sección 2 de la política decía "y, si este lo indica, su número de teléfono"; queda "y su número de teléfono".
 
 ## R-11 · Orden de publicación
 

@@ -1,5 +1,7 @@
 # Contrato: medición en el navegador y consentimiento
 
+> **Reemplazado en parte por la feature 003 (2026-10-08)**: los eventos del embudo y los atributos del widget están en `specs/003-embudo-sitio/contracts/widget-tracking.md`. El clic en un CTA hacia `#boletas` ya no es `begin_checkout` sino `view_item_list`/`ViewContent`; `begin_checkout`/`InitiateCheckout` se disparan solo al pulsar "Comprar" en el widget, sin `value`; y el widget sí recibe atributos `data-tracking-*`. Lo marcado abajo como reemplazado se conserva como registro.
+
 Cubre FR-001, FR-002, FR-006, FR-007, FR-008, FR-010 y R-02, R-03, R-04. No hay lado servidor (retirado el 2026-09-17; archivo en `docs/archivo-2027/`).
 
 ## Configuración (`src/config.ts`)
@@ -52,7 +54,7 @@ En la propiedad GA4: Google Signals apagado, personalización de anuncios apagad
 | Aceptación del aviso | `consent_granted` `{ version }` | — | — |
 | Intención de compra | `begin_checkout` `{ currency: 'COP', value, items? }` | `InitiateCheckout` `{ currency: 'COP', value }` + `{ eventID }` | `eventId` idéntico en ambos |
 
-Disparadores de intención de compra (una vez por página, el primero que ocurra):
+Disparadores de intención de compra (una vez por página, el primero que ocurra). **Reemplazado por 003**: ver la nota del principio.
 - `click` en cualquier CTA que lleve a `#boletas` desde header, hero, panelistas, agenda o cierre.
 - `submit` del formulario del widget de Pretix (botón "Comprar" de la lista de productos) capturado por delegación en `.tickets-widget` (el widget pinta en el DOM del host, sin shadow DOM; verificado en TicketSection).
 - `value`: si el submit lleva cantidades legibles del widget, suma de precios de `ticketOffers` por producto; si no, se omite `value` (nunca se inventa).
@@ -74,7 +76,7 @@ Disparadores de intención de compra (una vez por página, el primero que ocurra
 ## Degradación (FR-006)
 
 - Todos los accesos a `gtag`, `fbq`, `localStorage` van en `try/catch`; nunca se lanza ni se escribe en consola de error.
-- El widget de Pretix no se toca: ni atributos, ni espera, ni lectura de su estado.
+- El widget de Pretix no se toca: ni atributos, ni espera, ni lectura de su estado. **Reemplazado por 003**: recibe atributos `data-tracking-*`; sigue sin esperas ni lectura de su estado.
 
 ## Rendimiento (FR-010)
 
