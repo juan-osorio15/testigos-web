@@ -124,7 +124,7 @@ El equipo levanta el sitio en local apuntando al evento `testigos-sandbox` para 
 ### Edge Cases
 
 - El script del widget carga `async`: puede construirse antes o después del script del sitio. Los atributos se escriben en el elemento que exista en ese momento (`<pretix-widget>` antes de construirse, `div.pretix-widget-wrapper` después) y se vuelven a sincronizar al construirse.
-- Quitar un atributo deja la clave con valor `null` en `widget_data`. El tratamiento de `null` como ausente depende de la respuesta de `pretix-wompi` (pregunta abierta en `estado.md`).
+- Quitar un atributo deja la clave con valor `null` en `widget_data`. `pretix-wompi` confirmó (2026-10-08) que el plugin trata el `null` de JSON, los valores vacíos y los de solo espacios como ausentes. En cambio, las cadenas "null" o "undefined" sí las guarda y las envía: el sitio nunca debe escribirlas (FR-005).
 - El atributo de consentimiento nunca se llama `data-consent`: esa clave la reserva Pretix para su propio aviso.
 - `sessionStorage` no disponible (navegación privada estricta, bloqueo): la campaña se toma solo de la URL de la página actual; nada falla.
 - Parámetros de campaña muy largos o con caracteres raros: se pasan tal cual, recortados a 200 caracteres, sin romper el widget.
@@ -146,10 +146,10 @@ Captura de campaña:
 Atributos del widget:
 
 - **FR-004**: El widget MUST recibir los atributos de la lista de `diseno.md` ("Atributos del widget"), con esos nombres exactos, y ningún otro atributo `data-tracking-*`.
-- **FR-005**: Ningún atributo MUST tener valor vacío: un dato ausente se omite.
+- **FR-005**: Un atributo MUST escribirse solo si su valor es texto que no queda vacío después de quitar espacios; un dato ausente se omite. Nunca MUST aparecer como valor la cadena "null" ni "undefined" (el plugin las enviaría como datos reales).
 - **FR-006**: Sin aceptación de cookies vigente, el widget MUST llevar solo las UTM presentes y `tracking-landing`. MUST NOT llevar `gclid`, `ga-id`, `ga-sessid`, `fbp`, `fbc` ni `consent`.
 - **FR-007**: Con aceptación vigente, el widget MUST llevar además `tracking-consent="1"`, `tracking-gclid` si la pestaña lo tiene, y los identificadores de la visita que existan: client_id y session_id de GA4 (consulta asíncrona con tope de 2 s) y las cookies `_fbp` y `_fbc`. Si hay `fbclid` y no hay `_fbc`, `fbc` MUST construirse con el formato oficial de Meta `fb.1.<ms>.<fbclid>`.
-- **FR-008**: Los atributos MUST escribirse en `<pretix-widget>` si el widget aún no se construyó, o en `div.pretix-widget-wrapper` si ya se construyó, y MUST volver a sincronizarse: al construirse el widget, al aceptar o revocar cookies, al responder GA4 y en la primera interacción con el widget (`pointerdown` o `focusin`) antes de "Comprar".
+- **FR-008**: Los atributos MUST escribirse en `<pretix-widget>` si el widget aún no se construyó, o en `div.pretix-widget-wrapper` si ya se construyó, y MUST volver a sincronizarse: al construirse el widget, al aceptar o revocar cookies, al responder GA4 y en cada interacción con el widget (`pointerdown` o `focusin`), lo que asegura una sincronización antes de "Comprar"; solo se toca el DOM si algo cambió.
 - **FR-009**: Al revocar la aceptación, MUST quitarse los atributos `gclid`, de identificadores y de consentimiento; las UTM y la página de llegada MUST mantenerse.
 - **FR-010**: El widget MUST seguir con `disable-iframe` y su comportamiento MUST NOT cambiar ni retrasarse. Todo el código nuevo MUST correr en `try/catch`, sin errores ni avisos en la consola.
 
@@ -204,7 +204,7 @@ Pruebas y publicación:
 
 ## Dependencies
 
-- `pretix-wompi`: respuesta sobre valores `null` en `widget_data` y plugin desplegado para el ensayo conjunto.
+- `pretix-wompi`: plugin desplegado para el ensayo conjunto. La pregunta de los valores `null` quedó resuelta el 2026-10-08.
 - Titular: fecha de publicación de política y términos (después la casilla y `consent_since`).
 
 ## Out of Scope
@@ -212,4 +212,4 @@ Pruebas y publicación:
 - El plugin de Pretix, el backend y la configuración de GA4, Meta y Pretix.
 - La guía de informes y públicos (`docs/medicion-embudo/guia-informes-y-publicos.md`), entregable posterior. Desde esta feature se anota para ella que `begin_checkout` cambia de significado el día de la publicación.
 - Captura de datos antes de confirmar el pedido (versión futura, `estado.md`).
-- Textos legales en inglés.
+- Páginas legales del sitio en inglés. La casilla de la tienda sí va en inglés si la tienda se ofrece en ese idioma (dictamen §A).

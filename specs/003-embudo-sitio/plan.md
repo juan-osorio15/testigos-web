@@ -22,7 +22,7 @@ Que cada pedido de Pretix llegue con la campaña de la visita y, con cookies ace
 
 **Project Type**: sitio estático con integraciones de terceros.
 
-**Performance Goals**: cero esperas nuevas antes de que el widget sea usable o antes de "Comprar". El módulo nuevo pesa menos de 3 KB comprimido.
+**Performance Goals**: cero esperas nuevas antes de que el widget sea usable o antes de "Comprar" (comparación con el sitio publicado en T019). El módulo nuevo pesa menos de 3 KB comprimido (medido en T028).
 
 **Constraints**: `disable-iframe` se queda; todo en `try/catch` y sin consola; nada de `localStorage` ni cookies para la campaña; textos visibles en español sin " — "; un archivo por `git add`; commits legales separados.
 
@@ -92,7 +92,7 @@ Para la guía de informes: D es la fecha en que `begin_checkout` cambia de signi
 
 ## Riesgos
 
-- **Claves `null` tras revocar**: depende de la respuesta de `pretix-wompi`. Si el plugin no las trata como ausentes, el ajuste es suyo; el sitio no puede borrar claves.
+- **Valores basura**: el plugin ignora el `null` de JSON pero envía las cadenas "null" y "undefined" (pretix-wompi, 2026-10-08). El sitio valida el tipo de cada valor antes de escribirlo (research R-05b) y el quickstart lo revisa en §5 y §6.
 - **Momento de los identificadores**: si alguien acepta y pulsa "Comprar" antes de que exista `_fbp`, ese pedido va sin `fbp`. Es aceptable: el plugin manda igual con correo y teléfono cifrados.
 - **Clases internas del widget** (`pretix-widget-wrapper`): si Pretix las cambia en una actualización, la sincronización cae al `<pretix-widget>` original, que ya no existe. El ensayo tras cada actualización de Pretix lo detecta (quickstart §5).
 - **Verificación en producción**: el pedido de prueba sin pagar dispara `AddPaymentInfo` en Meta y entra al backend antes de cancelarlo. Usar la campaña `verificacion` para filtrarlo.

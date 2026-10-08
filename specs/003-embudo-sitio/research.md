@@ -30,7 +30,12 @@ Cada punto: decisión, por qué y qué más se consideró. Los hechos sobre el w
 
 - **Decisión**: al revocar se quitan los atributos (`removeAttribute`). En `widget_data` quedan con `null` si el widget ya estaba construido.
 - **Por qué**: no existe forma de borrar una clave desde fuera del widget. Escribir un valor vacío viola "ningún atributo vacío" y un valor ficticio sería peor.
-- **Dependencia**: `pretix-wompi` debe tratar `null` como ausente (pregunta abierta en `estado.md`). Si responde que no, el ajuste es del plugin, no del sitio.
+- **Resuelto (pretix-wompi, 2026-10-08)**: el plugin trata como ausentes el `null` de JSON, los valores vacíos y los de solo espacios, e ignora las claves sin el prefijo `tracking-` (como `astro-cid-…`). Lo que sí envía como dato real son las cadenas "null" y "undefined".
+
+## R-05b · Nada de "null" ni "undefined" en los atributos
+
+- **Decisión**: un atributo se escribe solo si el valor es de tipo `string` y no queda vacío tras `trim()`. Nunca `String(x)` ni plantillas sobre un valor que pueda faltar. Las respuestas de `gtag('get', …)` se validan antes de guardarlas: texto no vacío se acepta; un número finito se acepta convirtiéndolo explícitamente; `undefined`, `null` u otro tipo se descartan. Una cookie `_fbp` o `_fbc` ausente deja el atributo sin escribir. El `fbc` construido solo se arma si `fbclid` y `capturedAt` son válidos.
+- **Por qué**: `setAttribute` convierte todo a texto, y un `undefined` llegaría a Meta o GA4 como un `gclid` o `fbc` basura.
 
 ## R-06 · Disparador de `begin_checkout`
 

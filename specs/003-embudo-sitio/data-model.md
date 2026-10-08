@@ -33,4 +33,6 @@ Proyección de lo anterior sobre el elemento del widget. Contrato completo en [c
 
 - **Sin aceptación**: UTM presentes y `landing`.
 - **Con aceptación**: lo anterior más `gclid`, `ga-id`, `ga-sessid`, `fbp`, `fbc` (los que existan) y `consent=1`.
-- **Revocada**: vuelve al primer estado; en el widget ya construido las claves quitadas quedan `null` (research R-05).
+- **Revocada**: vuelve al primer estado; en el widget ya construido las claves quitadas quedan `null`, que el plugin trata como ausentes (research R-05).
+
+Validación común: un valor solo existe si es texto no vacío tras `trim()`; nunca las cadenas "null" ni "undefined" (research R-05b).

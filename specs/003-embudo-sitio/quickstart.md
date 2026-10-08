@@ -22,6 +22,8 @@ Esperado: el widget muestra el evento de prueba. Sin la variable, `npm run build
 
 Esperado: `tracking-utm-source`, `tracking-utm-campaign` y `tracking-landing: "/"`. Ninguna clave `tracking-gclid`, `tracking-ga-*`, `tracking-fb*` ni `tracking-consent`. Consola sin errores. Captura.
 
+Sin almacenamiento: en Chrome, configuración del sitio de `localhost` → bloquear cookies y datos del sitio (con eso `sessionStorage` lanza error). Recargar con los mismos parámetros. Esperado: la campaña de la URL actual igual llega a `widget_data` y no hay errores en consola. Al navegar a otra página sin parámetros se pierde, y es lo esperado. Quitar el bloqueo al terminar.
+
 ## 3. Navegar y volver
 
 Ir a `/panelistas/`, luego a otra ficha y volver a la portada por el menú. Repetir la consulta.
@@ -38,19 +40,22 @@ Esperado: solo `tracking-landing: "/programacion/"`.
 
 En la pestaña del paso 2, abrir "Cookies y preferencias" y aceptar. Esperar unos segundos, tocar una boleta del widget y repetir la consulta.
 
-Esperado: además `tracking-ga-id`, `tracking-ga-sessid`, `tracking-fbp`, `tracking-fbc` que termina en `.TEST123` y `tracking-consent: "1"`. Captura.
+Esperado: además `tracking-gclid` (si la URL lo trajo), `tracking-ga-id`, `tracking-ga-sessid`, `tracking-fbp`, `tracking-fbc` que termina en `.TEST123` y `tracking-consent: "1"`. Ningún valor es la cadena "null" ni "undefined": comprobarlo con `Object.entries(JSON.parse(document.querySelector('.tickets-widget input[name=widget_data]').value)).filter(([, v]) => v === 'null' || v === 'undefined')`, que debe dar `[]`, y dejarlo en la captura.
+
+Aceptación anterior: cerrar la pestaña y abrir otra (no privada, el mismo navegador) en `http://localhost:4321/`. Sin volver a aceptar, los identificadores y `tracking-consent` aparecen tras tocar el widget. Captura.
 
 ## 6. Revocar
 
 "Cookies y preferencias" → "Retirar la aceptación". Repetir la consulta.
 
-Esperado: las claves de identificadores y `tracking-consent` sin valor (`null` o ausentes); UTM y `landing` intactas. Captura.
+Esperado: las claves de `gclid`, identificadores y `tracking-consent` con `null` (el `null` de JSON, que el plugin ignora) o ausentes; UTM y `landing` intactas. El mismo filtro de §5 da `[]`: ningún valor es la cadena "null" ni "undefined". Captura con el resultado.
 
 ## 7. Eventos en la pestaña Red
 
 Filtro `collect` (GA4) y `facebook.com/tr` (Meta), con cookies aceptadas.
 
 1. Clic en "Comprar boleta" del hero y luego en el de la cabecera: un solo `view_item_list` y un solo `ViewContent`; ningún `begin_checkout`.
+1b. En cargas nuevas de la página, un clic por vez en el CTA de panelistas, el de la agenda y el del cierre: cada uno produce su `view_item_list` (comprueba que el selector cubre los cinco lugares).
 2. Elegir una boleta y pulsar "Comprar" dos veces (cerrando la pestaña que abre): un solo `begin_checkout` y un solo `InitiateCheckout`, con el mismo identificador de evento.
 3. En la tienda abierta, comprobar que la URL lleva `widget_data` con la campaña.
 

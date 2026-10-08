@@ -4,7 +4,7 @@ Reemplaza, para estos dos temas, lo que dicen `specs/002-seo-medicion-visibilida
 
 ## Atributos `data-tracking-*`
 
-Lista exacta de `diseno.md`. Nunca con valor vacío; un dato que falta no se escribe.
+Lista exacta de `diseno.md`. Un atributo se escribe solo si su valor es texto no vacío tras `trim()`; un dato que falta no se escribe. Nunca con las cadenas "null" ni "undefined", que el plugin enviaría como datos reales (research R-05b). Una clave quitada queda `null` en `widget_data` y el plugin la ignora.
 
 Siempre que exista el dato:
 

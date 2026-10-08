@@ -316,7 +316,7 @@ Lo confirmé en este repo el 2026-10-08:
 - **Decisiones de detalle (regla de "La meta del titular"):** gana la última campaña de la pestaña;
   `landing` es la ruta sin consulta; valores recortados a 200 caracteres; `begin_checkout` sin `value`.
 - **Para `pretix-wompi`:** el sitio deja de mandar `gclid` sin aceptación (el plugin no cambia: solo copia
-  lo que llega). Tras revocar cookies, las claves quitadas llegan `null` (pregunta de abajo, sigue abierta).
+  lo que llega). Tras revocar cookies, las claves quitadas llegan `null`. **Resuelto (respuesta de pretix-wompi, 2026-10-08):** el plugin trata como ausentes el `null` de JSON, los valores vacíos y los de solo espacios, e ignora las claves sin `tracking-`. Las cadenas "null" y "undefined" sí las enviaría: el sitio valida el tipo de cada valor antes de escribirlo (research R-05b de 003).
 - **Orden de publicación propuesto:** ensayo en `testigos-sandbox` con el plugin → el titular fija el día D →
   un solo push con código y textos legales (vigencias = D) → ese día la casilla y `consent_since` →
   verificación en producción sin pagar, con la campaña `verificacion` y cancelando el pedido.
