@@ -8,8 +8,19 @@ export const SITE_URL = 'https://testigosdelamemoria.com';
 /**
  * Tienda real del evento en la instancia de Pretix de Eventalist (entregada
  * el 2026-09-07). Widget v2 en español; el CSS lo sirve el propio evento.
+ *
+ * Solo para pruebas locales (feature 003): PUBLIC_PRETIX_EVENT_URL apunta el
+ * sitio al evento de ensayo, sin editar este archivo. Se pasa en la línea de
+ * comandos, nunca en un archivo .env:
+ *   PUBLIC_PRETIX_EVENT_URL=https://pretix.eventalist.co/eventalist/testigos-sandbox/ npm run dev
+ * El workflow de publicación no la define: lo publicado siempre usa el evento real.
  */
-export const PRETIX_EVENT_URL = 'https://pretix.eventalist.co/eventalist/testigos-memoria/';
+const PRETIX_EVENT_URL_REAL = 'https://pretix.eventalist.co/eventalist/testigos-memoria/';
+const pretixEventOverride = import.meta.env.PUBLIC_PRETIX_EVENT_URL;
+export const PRETIX_EVENT_URL =
+  typeof pretixEventOverride === 'string' && pretixEventOverride.startsWith('https://pretix.eventalist.co/')
+    ? pretixEventOverride
+    : PRETIX_EVENT_URL_REAL;
 export const PRETIX_WIDGET_SCRIPT = 'https://pretix.eventalist.co/widget/v2.es.js';
 export const PRETIX_WIDGET_CSS = `${PRETIX_EVENT_URL}widget/v2.css`;
 

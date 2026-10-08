@@ -243,8 +243,9 @@ const consentBootstrap = ga4
       );
       document.querySelectorAll('[data-reveal]').forEach((el) => revealer.observe(el));
 
-      // 4. Medición: consentimiento, etiquetas e intención de compra
-      //    (feature 002). Nada viaja al widget de Pretix.
+      // 4. Medición: consentimiento, etiquetas y eventos del embudo
+      //    (features 002 y 003). La campaña viaja al widget de Pretix
+      //    desde src/measurement/attribution.ts.
       initMeasurement();
     </script>
   </body>
