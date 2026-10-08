@@ -9,10 +9,9 @@
  * decisión del titular no lleva colofón con NIT, dirección ni teléfono: esa
  * identificación (art. 50 lit. a) va en la configuración del organizador de
  * Pretix, que es el medio donde se vende. Se enlaza desde la casilla de
- * términos de la tienda y desde el pie del sitio. La ampliación de la
- * sección 12 con la atribución de compras (dictamen del 2026-09-15) se
- * retiró el 2026-09-17 junto con esa capa; el texto vuelve al del 14 de
- * septiembre.
+ * términos de la tienda y desde el pie del sitio. Sección 12: datos del
+ * embudo de venta (feature 003, dictamen del 2026-10-06, sección C), con el
+ * teléfono obligatorio (decisión del titular).
  */
 import LegalLayout from '../layouts/LegalLayout.astro';
 import { DATA_CONTACT_EMAIL, DATA_CONTROLLER, TERMS_EFFECTIVE } from '../config';
@@ -293,18 +292,23 @@ const policyHref = `${base}tratamiento-de-datos/`;
     <h2>12. Datos personales</h2>
     <p>
       Los datos que el comprador entrega en la tienda, es decir, el nombre del comprador y de cada
-      asistente, el correo electrónico y, si lo indica, el teléfono, los trata {c.name} como
-      responsable, para emitir y enviar la boleta, gestionar el pedido y el pago, emitir la factura
-      cuando corresponda, controlar el ingreso al encuentro y atender las solicitudes sobre la
-      compra, conforme a la <a href={policyHref}>política de tratamiento de datos personales</a>
-      publicada en este sitio, que detalla los derechos del titular y el procedimiento para
-      ejercerlos. La autorización se otorga en la casilla de la tienda antes de confirmar el pedido.
+      asistente, el correo electrónico y el teléfono, los trata {c.name} como responsable para
+      emitir y enviar la boleta, gestionar el pedido y el pago, emitir la factura cuando
+      corresponda, controlar el ingreso al encuentro y atender las solicitudes sobre la compra.
+      Respecto del comprador, los trata además para las finalidades comerciales y de medición
+      publicitaria que indica la casilla de autorización de la tienda, incluida la transmisión de
+      los datos del pedido a Google LLC y a Meta Platforms, Inc. Todo ello conforme a la
+      <a href={policyHref}>política de tratamiento de datos personales</a> publicada en este sitio,
+      que detalla esas finalidades, los derechos del titular y el procedimiento para ejercerlos. La
+      autorización se otorga en la casilla de la tienda antes de confirmar el pedido.
     </p>
     <p>
-      Los mensajes sobre el pedido, como la confirmación, la boleta, los recordatorios y los avisos
-      de cambios de programación, son de carácter transaccional. {c.brand} no usa los datos de la
-      compra para enviar publicidad ni información de otros eventos, salvo que el titular lo
-      autorice por separado.
+      Los mensajes sobre el pedido, como la confirmación, la boleta, los avisos de vencimiento que
+      envía la tienda y los avisos de cambios de programación, son de carácter transaccional. Los
+      mensajes comerciales que el comprador autoriza en la tienda se envían conforme a la Ley 2300
+      de 2023 e incluyen un mecanismo para dejar de recibirlos; su revocación no afecta la compra ni
+      la boleta. Los datos de los asistentes distintos del comprador no se usan con fines
+      comerciales.
     </p>
     <p>
       Los datos del medio de pago los trata Wompi conforme a su propia política. El comprador que
