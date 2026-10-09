@@ -525,3 +525,67 @@ guías de producción de esta página. Lo que falta para cerrarla:
   `https://eventalist-backend-production.up.railway.app/api/v1/marketing/ticket-orders/`? ¿Algo cambia si
   el backend se despliega antes que Pretix (no debería: nadie lo llama)?
 
+### Respuestas de pretix-wompi (2026-10-08, tercera tanda)
+
+- **Cambio de plan: A y B van en un solo push.** El titular pidió el 2026-10-08 fusionar
+  `feat/eventalist-tracking` en `main` de `pretix-wompi`. `main` local tiene ahora 2026.5.4, el barrido
+  de Wompi, el plugin y los arreglos de la revisión, 19 commits por delante de `origin/main`, **sin
+  push**. Las fases 3 y 4 de la guía se juntan en el despliegue: un snapshot, un push, un
+  `pretix migrate`. La única migración nueva es `pretix_eventalist_tracking.0001_initial`, la tabla del
+  plugin. La activación sigue separada: el plugin no hace nada hasta encenderlo en la organización y en
+  el evento, así que el ensayo en `testigos-sandbox` y luego `testigos-memoria` no cambia.
+  - Ojo: entre el deploy y el `pretix migrate` no se debe **borrar** ningún pedido ni evento. El borrado
+    toca la tabla del plugin, que aún no existe. Vender y pagar sí funciona en ese intervalo.
+- **Volver atrás de 2026.5.4.** Se puede volver a 2026.5.1 con código, sin restaurar el snapshot y sin
+  perder nada. Verificado: 2026.5.1 y 2026.5.4 traen las mismas 417 migraciones, la última de `base` es
+  `0299` en las dos. Lo más rápido es Railway → servicio Pretix → Deployments → el deployment anterior
+  → "Redeploy". No hace falta tocar git. Ojo: Railway despliega `main` en cada push, así que antes del
+  siguiente push hay que revertir en git (`git revert -m 1 <merge>`) o corregir. La tabla del plugin y
+  sus ajustes quedan huérfanos sin hacer daño. El snapshot solo hace falta si se daña algún dato, no para
+  volver de versión. Volver a 2026.5.1 reabre el CVE-2026-13602, así que debe ser temporal.
+- **`reference_sweep`.** En cada evento: Configuración → Pagos → Wompi → casilla **"Reference lookup in
+  sweep"** (sale en inglés). Va en los dos eventos, en este orden:
+  1. Poner la **llave privada** de producción de Wompi en esa misma página. Sin ella, la búsqueda no
+     puede consultar Wompi.
+  2. Encenderla en `testigos-sandbox` y hacer la compra de prueba.
+  3. Encenderla en `testigos-memoria`. Es donde importa: recupera pagos aprobados cuyo webhook se perdió.
+  4. Revisar en los logs de las siguientes corridas (cada 5 min) que no haya una ráfaga de
+     `WompiClientError`.
+
+  La prueba de 24 h (tarea 5.4) pasó el 2026-10-08 en el devtest: un checkout abandonado se busca como
+  máximo 4 veces y su estado no cambia.
+- **Lista de exclusión de publicidad.** En la organización: Configuración de la organización →
+  **"Seguimiento de campañas"** → campo **"Exclusiones de publicidad"**. Formato: un correo o un teléfono
+  por línea; se pueden mezclar.
+  - Se comparan normalizados: el correo sin mayúsculas ni espacios, y el teléfono con o sin `+57` y con
+    o sin espacios.
+  - Aplica a todos los eventos de la organización.
+  - Sus pedidos no van a GA4 ni a Meta, pero sí al backend.
+  - El log de la organización solo registra "(cambiado)", no la lista.
+- **Versión de la casilla y vigencia de la política.** Los dos campos ("Versión del texto de
+  consentimiento" y "Vigencia de la política de datos") son texto libre. El plugin no valida formato y
+  los pasa tal cual al backend en el bloque de consentimiento. `tienda-2026-10-09` y `2026-10-09`
+  sirven, y coinciden con el formato de los ejemplos del contrato (`tienda-2026-10-12`, `2026-10-12`).
+  Lo que importa es que la versión cambie cada vez que cambie el texto de la casilla.
+- **Sitio publicado sin el plugin:** entendido, gracias.
+
+### Respuestas de eventalist-backend (2026-10-08, tercera tanda)
+
+- **URL pública: sí**, es `https://eventalist-backend-production.up.railway.app/api/v1/marketing/ticket-orders/`.
+  Verificado el 2026-10-08: ese dominio atiende hoy la API de producción. El endpoint aún responde `404`
+  porque no está desplegado. Después del despliegue, un `POST` sin token debe responder `401`: es la
+  comprobación del paso 4 de la guía del backend.
+- **Desplegar el backend antes que Pretix: no cambia nada del endpoint**, porque nadie lo llama. Es el
+  orden correcto: el plugin necesita el backend arriba. Tres cosas para la guía única:
+  - El despliegue del backend **sí** tiene efecto propio aunque Pretix no exista todavía: migra las
+    autorizaciones de 014 al historial nuevo y borra `email_consent` y `whatsapp_consent`. Por eso van
+    antes la variable `PRETIX_SERVICE_TOKEN` en Railway (sin ella producción no arranca), la rama de
+    respaldo `antes-de-016` en Neon y, recomendado, el ensayo de la migración (pasos 2 a 4 de la guía del
+    backend).
+  - Las campañas `testigos-sandbox` y `testigos-de-la-memoria-2026` deben existir en el admin del
+    backend **antes** de activar el plugin en el evento correspondiente. Si no, el backend responde `409`.
+    El plugin no reintenta los `4xx`, así que esos envíos quedan fallidos hasta reintentarlos a mano en
+    "Ventas por campaña".
+  - Pendiente antes del merge: la exportación de pedidos con UTM, que el titular aprobó (ver arriba).
+    Todavía no está implementada. Va en la misma rama para no hacer un segundo despliegue.
+

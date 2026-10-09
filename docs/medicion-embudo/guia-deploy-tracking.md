@@ -4,26 +4,29 @@ Para el titular. Junta en un solo orden lo que hay que publicar en los tres repo
 a mano en Pretix, Railway, Neon, GA4 y Meta. El detalle técnico de cada repo sigue en su sección de
 `estado.md`. Si algo de aquí choca con `diseno.md`, manda `diseno.md`.
 
-Fecha: 2026-10-08. Lo marcado **PENDIENTE** espera respuesta de otro repo (preguntas en `estado.md`).
+Fecha: 2026-10-08. Completa: los otros dos repos respondieron todas las preguntas (tercera tanda de
+`estado.md`). Lo único abierto es trabajo del backend, no una duda: la exportación de pedidos con UTM
+(ver fase 2).
 
 ## Principio: cada pieza aguanta sola
 
 - **El sitio** funciona igual con o sin el plugin. Pretix sin plugin recibe los `tracking-*` y no hace
   nada con ellos (comprobado el 2026-10-08 en `testigos-sandbox`, que no tiene el plugin).
-- **El backend** solo agrega un endpoint y tablas. Si nadie lo llama, no pasa nada.
+- **El backend** agrega un endpoint y tablas que nadie llama hasta activar el plugin. Pero su despliegue
+  sí migra datos propios (ver fase 2), por eso lleva respaldo.
 - **El plugin** se apaga desde el panel de Pretix, sin desplegar nada. Es el botón de emergencia.
-- **La subida de Pretix a 2026.5.4** es lo único que no se deshace con un clic, porque migra la base.
-  Ver "Cómo volver atrás".
+- **La subida de Pretix a 2026.5.4** se deshace con "Redeploy" del deployment anterior en Railway, sin
+  perder datos. Ver "Cómo volver atrás".
 
 ## Orden
 
 1. Fase 1 · esta noche (2026-10-08): sitio y casilla.
 2. Fase 2 · backend en producción.
-3. Fase 3 · Pretix 2026.5.4 y barrido de Wompi (despliegue A).
-4. Fase 4 · plugin (despliegue B) y ensayo en `testigos-sandbox`.
+3. Fase 3 · Pretix: 2026.5.4, barrido de Wompi y plugin en un solo despliegue.
+4. Fase 4 · activar el plugin y ensayo en `testigos-sandbox`.
 5. Fase 5 · activar el plugin en `testigos-memoria`.
 
-Las fases 2 y 3 son independientes entre sí y pueden ir en cualquier orden. La 4 necesita la 2 y la 3.
+Las fases 2 y 3 son independientes entre sí. La 4 necesita las dos.
 
 ---
 
@@ -43,6 +46,7 @@ define en el workflow de GitHub Pages.
    - El aviso de cookies muestra "Ver opciones" y, dentro, "¿Nos ayudas a saber cómo llegaste?".
    - Entrar con `?utm_source=prueba&utm_campaign=verificacion`, pulsar "Comprar boletas": baja a las
      boletas sin recargar la página.
+   - Bajo la tienda aparece el botón de WhatsApp (en celular, "¿Dudas? Escríbenos").
 3. **Pretix, evento `testigos-memoria`, antes de las 12:00 a. m.** (*Settings → General → Texts*; los
    textos están en `docs/pretix-tienda-textos.md`):
    - "Confirmation text": la casilla nueva, versión `tienda-2026-10-09`.
@@ -63,6 +67,13 @@ el carrito y nadie la guarda todavía.
 
 Detalle: sección `eventalist-backend` de `estado.md`, "Guía para poner el backend en producción".
 
+**Antes del merge, falta trabajo del backend:** la exportación de pedidos con UTM que aprobaste todavía
+no está implementada. Va en la misma rama para no desplegar dos veces.
+
+**Ojo:** este despliegue tiene efecto propio aunque Pretix no haya cambiado. Migra las autorizaciones de
+014 al historial nuevo y borra `email_consent` y `whatsapp_consent`. Por eso van primero la variable, el
+ensayo y la rama de respaldo.
+
 **Variables de entorno (Railway, servicio del backend):**
 
 - `PRETIX_SERVICE_TOKEN`: un token **nuevo** de 32 caracteres o más.
@@ -81,15 +92,18 @@ Pasos:
    `master` despliega y migra.
 6. En los logs: `Applying marketing.0002…`, `0003…`, `0004…` y `ContactConsent created from 014 flags`.
 7. `POST https://eventalist-backend-production.up.railway.app/api/v1/marketing/ticket-orders/` sin token
-   responde `401`. **PENDIENTE**: que el backend confirme que esa es la URL pública.
+   responde `401` (URL confirmada por el backend; antes del despliegue responde `404`).
 8. Admin del backend: crear la campaña `testigos-sandbox` ("Ensayo Testigos") y confirmar que existe
-   `testigos-de-la-memoria-2026`.
+   `testigos-de-la-memoria-2026`. **Las dos deben existir antes de activar el plugin en su evento**: si
+   no, el backend responde `409` y el plugin no reintenta esos envíos (quedan fallidos hasta reintentarlos
+   a mano en "Ventas por campaña").
 
 ---
 
-## Fase 3 · Pretix 2026.5.4 y barrido de Wompi (despliegue A)
+## Fase 3 · Pretix: 2026.5.4, barrido de Wompi y plugin (un solo despliegue)
 
-Detalle: sección `pretix-wompi` de `estado.md`, paso 2.
+Detalle: sección `pretix-wompi` de `estado.md`. `main` local de `pretix-wompi` ya tiene todo junto
+(2026.5.4, el barrido, el plugin y los arreglos de la revisión), sin push.
 
 **Variables de entorno (Railway, servicio de Pretix):** no cambian.
 
@@ -102,32 +116,42 @@ Pasos:
 1. Snapshot de la base de Postgres de Pretix en Railway.
 2. Push de `main` de `pretix-wompi` (lo hace su agente con tu sí). Railway despliega.
 3. Apenas termine, a una hora sin ventas:
-   `railway ssh --service Pretix -- 'pretix migrate'`.
+   `railway ssh --service Pretix -- 'pretix migrate'`. La única migración nueva es la tabla del plugin.
+   - Entre el despliegue y este paso **no borrar** pedidos ni eventos (el borrado toca la tabla que aún
+     no existe). Vender y pagar sí funciona.
 4. Una compra con la tarjeta 4242 en `testigos-sandbox`.
-5. Barrido de respaldo de Wompi: se activa por evento con el ajuste `reference_sweep` (apagado por
-   defecto). **PENDIENTE**: dónde está en el panel y si se activa también en `testigos-memoria`.
+
+El plugin queda instalado pero apagado: no hace nada hasta la fase 4.
 
 ---
 
-## Fase 4 · Plugin y ensayo en `testigos-sandbox` (despliegue B)
+## Fase 4 · Activar el plugin y ensayo en `testigos-sandbox`
 
 Requiere las fases 2 y 3.
 
-1. Snapshot de la base de Pretix.
-2. Merge de `feat/eventalist-tracking` a `main` de `pretix-wompi` y push (su agente, con tu sí).
-3. `railway ssh --service Pretix -- 'pretix migrate'` (crea la tabla del plugin).
+**Barrido de Wompi** (en cada evento: Configuración → Pagos → Wompi; los textos salen en inglés):
 
-**Configuración en el panel de Pretix:**
+1. Poner la **llave privada** de producción de Wompi en esa página. Sin ella el barrido no puede
+   consultar Wompi.
+2. Encender **"Reference lookup in sweep"** en `testigos-sandbox` y hacer una compra de prueba.
+3. Encenderla en `testigos-memoria`. Ahí es donde importa: recupera pagos aprobados cuyo aviso de Wompi
+   se perdió.
+4. En los logs de las siguientes corridas (cada 5 min), confirmar que no hay una ráfaga de
+   `WompiClientError`.
+
+**Configuración del plugin en el panel de Pretix:**
 
 Organizador `eventalist`:
 
 - Configuración → Plugins: activar "Eventalist tracking".
 - "Seguimiento de campañas":
-  - URL del backend: la pública de la fase 2 (no `*.railway.internal`).
+  - URL del backend: `https://eventalist-backend-production.up.railway.app` (la pública, no
+    `*.railway.internal`).
   - Token: el `PRETIX_SERVICE_TOKEN` de la fase 2. El campo muestra `*****`; guardar sin tocarlo lo
     conserva.
-  - Lista de exclusión de publicidad (quien pida no ir a Meta ni a GA4). **PENDIENTE**: nombre exacto
-    del campo y formato.
+  - **"Exclusiones de publicidad"**: quien pida no ir a Meta ni a GA4. Un correo o un teléfono por línea,
+    mezclados. Se comparan sin mayúsculas ni espacios, y el teléfono con o sin `+57`. Aplica a todos los
+    eventos; esos pedidos sí van al backend.
 
 Evento `testigos-sandbox`:
 
@@ -136,7 +160,8 @@ Evento `testigos-sandbox`:
 - "Seguimiento de campañas":
   - Slug de la campaña: `testigos-sandbox`.
   - Consentimiento vigente desde: una fecha pasada.
-  - Versión del texto: `tienda-2026-10-09`. Vigencia de la política: `2026-10-09`.
+  - Versión del texto: `tienda-2026-10-09`. Vigencia de la política: `2026-10-09`. Son texto libre; lo
+    que importa es cambiar la versión cada vez que cambie el texto de la casilla.
   - Consentimiento de WhatsApp válido hasta: `2026-11-08 23:59`.
   - GA4: ID `G-XJES5Z5EC9` y el secreto de Measurement Protocol (GA4 → Administrar → Flujos de datos →
     el flujo web → Secretos de la API de Measurement Protocol → crear uno).
@@ -186,12 +211,15 @@ En GA4, una sola vez: marcar `add_payment_info` y `purchase` como eventos clave.
 - **Algo raro con las compras:** desactivar "Eventalist tracking" en el evento (Configuración →
   Plugins). Pretix vuelve a comportarse como antes al instante; los envíos pendientes esperan. El sitio
   no se toca.
+- **El barrido de Wompi:** apagar "Reference lookup in sweep" en el evento.
 - **El sitio:** revertir los commits en `main` de `testigos-web` y push. No depende de lo demás.
 - **El backend:** revertir el merge en `master` y, si hace falta, restaurar la rama `antes-de-016` de
   Neon.
-- **Pretix 2026.5.4:** **PENDIENTE**. Después de `pretix migrate` no se sabe si se puede volver a
-  2026.5.1 con un revert o si hay que restaurar el snapshot (y perder lo que entró después).
-  Preguntado a `pretix-wompi`.
+- **Pretix 2026.5.4:** Railway → servicio Pretix → Deployments → el deployment anterior → "Redeploy".
+  No se pierden datos ni hace falta el snapshot (2026.5.1 y 2026.5.4 tienen las mismas migraciones; la
+  tabla del plugin queda huérfana sin hacer daño). Antes del siguiente push a `main` de `pretix-wompi`
+  hay que revertir en git (`git revert -m 1 <merge>`), porque Railway despliega cada push. Volver a
+  2026.5.1 reabre el CVE-2026-13602: que sea temporal. El snapshot solo sirve si se daña algún dato.
 - **La casilla:** se puede volver al texto anterior en Pretix en cualquier momento; está en
   `docs/pretix-tienda-textos.md` como "Versión anterior".
 
@@ -200,4 +228,5 @@ En GA4, una sola vez: marcar `add_payment_info` y `purchase` como eventos clave.
 - El plugin nunca bloquea una compra ni un pago. Reintenta a los 5 min, 15 min, 1 h, 6 h y 24 h.
 - `401`: el token de Pretix y el de Railway no coinciden. Comparar los primeros 12 caracteres del
   SHA-256 de cada uno.
-- `409`: la campaña no existe en el backend.
+- `409`: la campaña no existe en el backend. Crearla y reintentar a mano en "Ventas por campaña" (el
+  plugin no reintenta los `4xx`).
