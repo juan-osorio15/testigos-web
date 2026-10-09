@@ -9,6 +9,8 @@
  */
 import { PRETIX_EVENT_URL, pretixReady } from '../config';
 import WhatsAppLink from './WhatsAppLink.astro';
+import { WHATSAPP_URL } from '../config';
+import { WHATSAPP_ICON_PATH } from '../data/whatsapp-icon';
 import { tFor } from '../ui';
 import LogoSymbol from '../assets/logo/logo-symbol.svg';
 import WaitlistForm from './WaitlistForm.astro';
@@ -149,12 +151,44 @@ const franjaNames = Object.fromEntries(
         )
       }
     </div>
-    {/* Para quien se traba al comprar: una línea discreta bajo la tienda */}
-    <p class="tickets-help">
-      <span>{t('tickets.help')}</span>
-      <WhatsAppLink label={t('tickets.helpLink')} where="tickets" />
-    </p>
+    {/* Dudas de compra en pantallas pequeñas: solo un botón bajo la tienda.
+        En escritorio lo reemplaza la burbuja de la columna derecha. */}
+    <div class="tickets-help">
+      <WhatsAppLink label={t('tickets.helpLink')} where="tickets" variant="button" />
     </div>
+    </div>
+    {/* Dudas de compra en escritorio: botón bajo la tienda. Ocupa su propio
+        espacio (la sección crece) y aparece con el mismo fundido de las
+        secciones al entrar en pantalla. */}
+    {
+      live && (
+        <a
+          class="tickets-bubble"
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener"
+          data-contact="tickets-bubble"
+          data-reveal
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d={WHATSAPP_ICON_PATH} />
+          </svg>
+          <span class="tickets-bubble-text">
+            <strong>{t('tickets.bubbleTitle')}</strong>
+            <span>{t('tickets.bubbleText')}</span>
+          </span>
+        </a>
+      )
+    }
+    {/* Segundas comillas, en tinta, bajo el calendario: miran al lado
+        contrario de las de arriba (2026-10-08, pedido del titular) */}
+    {
+      live && (
+        <div class="tickets-eyes-bottom">
+          <LogoSymbol aria-hidden="true" />
+        </div>
+      )
+    }
   </div>
   {
     live && (
@@ -320,15 +354,81 @@ const franjaNames = Object.fromEntries(
   .tickets-shop {
     order: 1;
     display: grid;
-    gap: var(--space-3);
+    gap: var(--space-2);
+  }
+  /* Escritorio: fila 1, la tienda y el texto (pegado al bajar); fila 2, la
+     burbuja bajo la tienda y las segundas comillas bajo el calendario */
+  .tickets-shop {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .tickets-intro {
+    grid-column: 2;
+    grid-row: 1;
   }
   .tickets-help {
+    display: none;
+  }
+
+  /* Botón de dudas: crema con marco en tinta y esquinas rectas. El logo de
+     WhatsApp va solo en tinta. */
+  .tickets-bubble {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: start;
+    justify-self: start;
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-1) var(--space-2);
+    gap: 0.9rem;
+    max-width: 26rem;
+    margin-top: calc(var(--space-3) - var(--space-5));
+    padding: 0.9rem 1.2rem;
+    background-color: var(--cream);
+    color: var(--ink);
+    border: var(--border) var(--ink);
+    text-decoration: none;
+  }
+  /* Segundas comillas: centradas con el botón de dudas y con su borde
+     derecho en el del calendario de venta (que mide como máximo 44ch) */
+  .tickets-eyes-bottom {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: center;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    max-width: 44ch;
+    margin-top: calc(var(--space-3) - var(--space-5));
+    color: var(--ink);
+  }
+  .tickets-eyes-bottom svg {
+    --eyes-w: clamp(7rem, 5rem + 6vw, 11rem);
+    display: block;
+    width: var(--eyes-w);
+    height: calc(var(--eyes-w) * 49 / 188);
+  }
+  .tickets-bubble svg {
+    flex: none;
+    width: 1.9rem;
+    height: 1.9rem;
+  }
+  .tickets-bubble-text {
+    display: grid;
+    gap: 0.15em;
     font-size: var(--text-small);
-    font-weight: 600;
+    line-height: 1.35;
+  }
+  .tickets-bubble-text strong {
+    font-weight: 800;
+  }
+  .tickets-bubble-text span {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+  .tickets-bubble:hover .tickets-bubble-text span,
+  .tickets-bubble:focus-visible .tickets-bubble-text span {
+    text-decoration-thickness: 2px;
   }
   .tickets-eyes {
     display: block;
@@ -509,8 +609,28 @@ const franjaNames = Object.fromEntries(
       align-content: start;
       max-height: none;
     }
+    .tickets-shop,
+    .tickets-intro {
+      grid-column: auto;
+      grid-row: auto;
+    }
     .tickets-shop {
       order: 2;
+    }
+    .tickets-help {
+      display: block;
+      text-align: center;
+    }
+    /* Botón del ancho de su texto, centrado bajo la tienda; solo en
+       pantallas muy angostas el texto se parte */
+    .tickets-help :global(.wa-link) {
+      max-width: 100%;
+      white-space: normal;
+      font-size: var(--text-small);
+    }
+    .tickets-bubble,
+    .tickets-eyes-bottom {
+      display: none;
     }
   }
 </style>
