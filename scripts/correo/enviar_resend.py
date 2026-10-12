@@ -97,16 +97,18 @@ def imagenes_incrustadas(plantilla: Path, html: str) -> dict[str, Path]:
     return imagenes
 
 
-def enviar(llave: str, para: str, asunto: str, html: str, imagenes: dict[str, Path]) -> str:
+def enviar(llave: str, para: str, asunto: str, html: str, imagenes: dict[str, Path],
+           remitente: str, cabecera_baja: bool) -> str:
     cuerpo = {
-        "from": REMITENTE,
+        "from": remitente,
         "to": [para],
         "reply_to": RESPONDER_A,
         "subject": asunto,
         "html": html,
         "text": a_texto(html),
-        "headers": {"List-Unsubscribe": f"<mailto:{RESPONDER_A}?subject=BAJA>"},
     }
+    if cabecera_baja:
+        cuerpo["headers"] = {"List-Unsubscribe": f"<mailto:{RESPONDER_A}?subject=BAJA>"}
     if imagenes:
         cuerpo["attachments"] = [
             {"filename": archivo.name, "content": base64.b64encode(archivo.read_bytes()).decode(), "content_id": nombre}
@@ -140,6 +142,10 @@ def main() -> None:
     parser.add_argument("--registro", required=True, help="CSV con los envíos hechos (se crea si no existe)")
     parser.add_argument("--prueba", help="Mandar un solo correo de muestra a esta dirección en vez de a las personas")
     parser.add_argument("--enviar", action="store_true", help="Enviar de verdad (sin esto solo hay vistas previas)")
+    parser.add_argument("--remitente", default=REMITENTE,
+                        help=f'Nombre y correo del remitente (por defecto "{REMITENTE}")')
+    parser.add_argument("--sin-cabecera-baja", action="store_true",
+                        help="No agregar la cabecera List-Unsubscribe (la usan los envíos masivos; la baja sigue en el texto)")
     parser.add_argument("--ignorar-horario", action="store_true",
                         help="Enviar aunque sea fuera del horario de la Ley 2300 (decisión explícita del titular)")
     args = parser.parse_args()
@@ -206,7 +212,7 @@ def main() -> None:
             escritor.writerow(["fecha", "correo", "pedido", "plantilla", "prueba", "id_resend"])
         for correo, codigo, asunto, html in pendientes:
             destino = args.prueba or correo
-            identificador = enviar(llave, destino, asunto, html, imagenes)
+            identificador = enviar(llave, destino, asunto, html, imagenes, args.remitente, not args.sin_cabecera_baja)
             escritor.writerow([datetime.now(BOGOTA).isoformat(timespec="seconds"), correo, codigo,
                                nombre_plantilla, "si" if args.prueba else "no", identificador])
             archivo.flush()
