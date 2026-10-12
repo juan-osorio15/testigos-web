@@ -23,7 +23,11 @@ Cómo saberlo: si en `https://business.facebook.com/wa/manage/home/` aparece el 
 - [ ] Cuerpo, pegar tal cual:
 
 ```
-Hola. Te escribimos del equipo de Testigos de la Memoria (Eventalist S.A.S.). Tu pedido {{1}} de boletas para el encuentro del 5 al 8 de noviembre en Villa de Leyva no alcanzó a completarse y la reserva se venció. ¿Tuviste algún problema con el pago? Si quieres, te ayudamos por aquí a terminar la compra.
+Hola. Te escribimos del equipo de Testigos de la Memoria (Eventalist S.A.S.). Tu pedido {{1}} de boletas no alcanzó a completarse y la reserva se venció.
+
+Del 6 al 8 de noviembre, en la Hospedería Duruelo, en lo alto de Villa de Leyva, Daniel Samper Pizano, Cecilia Orozco, Yolanda Ruiz, Fidel Cano y otros periodistas que cubrieron los últimos cincuenta años de Colombia cuentan en persona lo que vieron de cerca: el Bogotazo, el Caguán y La Habana, el narcotráfico, los magnicidios. Y responden tus preguntas.
+
+¿Tuviste algún problema con el pago? Escríbenos por aquí y te ayudamos a terminar la compra.
 ```
 
 - [ ] Ejemplo de la variable `{{1}}`: `ABC12`

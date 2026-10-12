@@ -65,9 +65,7 @@ Pasos del titular, concretos: `titular/correo-resend.md` y `titular/plantilla-wh
 
 Categoría **Marketing**, idioma español. La exportación de Pretix no trae nombres, así que no saluda por nombre. Nombre: `pedido_expirado_ayuda`.
 
-> Hola. Te escribimos del equipo de Testigos de la Memoria (Eventalist S.A.S.). Tu pedido {{1}} de boletas para el encuentro del 5 al 8 de noviembre en Villa de Leyva no alcanzó a completarse y la reserva se venció. ¿Tuviste algún problema con el pago? Si quieres, te ayudamos por aquí a terminar la compra.
->
-> Para no recibir más mensajes, responde BAJA.
+El cuerpo vigente está en `titular/plantilla-whatsapp.md` (paso 1): el aviso del pedido vencido, un párrafo antojador con sede, panelistas y temas, y la oferta de ayuda con el pago. Sin plazo ni precio. Pie: "Para no recibir más mensajes, responde BAJA."
 
 - Variable {{1}}: código del pedido (columna `pedidos`, el último).
 - Botón de enlace "Ver boletas" → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=recuperacion&utm_campaign=expirados-2026#boletas`
