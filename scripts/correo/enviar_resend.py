@@ -23,6 +23,7 @@ Protecciones:
   domingos ni festivos).
 - --registro guarda cada envío; a quien ya aparece ahí no se le vuelve a
   escribir con la misma plantilla.
+  --ignorar-horario lo salta, solo por decisión explícita del titular.
 - --prueba manda todos los correos a una sola dirección, para revisarlos.
 """
 
@@ -120,6 +121,8 @@ def main() -> None:
     parser.add_argument("--registro", required=True, help="CSV con los envíos hechos (se crea si no existe)")
     parser.add_argument("--prueba", help="Mandar todo a esta dirección en vez de a las personas")
     parser.add_argument("--enviar", action="store_true", help="Enviar de verdad (sin esto solo hay vistas previas)")
+    parser.add_argument("--ignorar-horario", action="store_true",
+                        help="Enviar aunque sea fuera del horario de la Ley 2300 (decisión explícita del titular)")
     args = parser.parse_args()
 
     plantilla = Path(args.plantilla).read_text(encoding="utf-8")
@@ -161,7 +164,9 @@ def main() -> None:
         return
 
     motivo = horario_permitido(datetime.now(BOGOTA))
-    if motivo:
+    if motivo and args.ignorar_horario:
+        print(f"Aviso: {motivo}; se envía igual por --ignorar-horario.")
+    elif motivo:
         sys.exit(f"No se envía: {motivo} (Ley 2300 de 2023).")
     llave = os.environ.get("RESEND_API_KEY")
     if not llave:

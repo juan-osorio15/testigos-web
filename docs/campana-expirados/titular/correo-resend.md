@@ -30,18 +30,19 @@ python3 scripts/pretix/expirados_sin_compra.py ~/Downloads/testigos-memoria_orde
 ```
 
 - [ ] Leer el resumen: cuántas personas quedan a contactar. Si alguien compró desde la última vez, ya no sale.
+- [ ] Tú siempre quedas en la lista (última fila, `prueba = si`, pedido `PRUEBA`), así recibes cada envío real. Sale del archivo `scripts/pretix/incluir.local.csv`, que está solo en este computador (git lo ignora porque el repo es público). Para sumar a alguien más del equipo, agregarle una fila con `nombre,correo,telefono`.
 
 ## Paso 4. Ver cómo queda el correo (no envía nada)
 
 ```sh
-python3 scripts/correo/enviar_resend.py ~/Downloads/expirados-hoy.csv --plantilla scripts/correo/plantillas/expirado.html --asunto "Tu pedido de Testigos de la Memoria" --grupo todos --previas ~/Downloads/previas-expirados --registro ~/Downloads/envios-expirados.csv
+python3 scripts/correo/enviar_resend.py ~/Downloads/expirados-hoy.csv --plantilla scripts/correo/plantillas/expirado.html --asunto "Último día del pase completo a \$310.000" --grupo todos --previas ~/Downloads/previas-expirados --registro ~/Downloads/envios-expirados.csv
 ```
 
 - [ ] Abrir cualquiera de los archivos de `~/Downloads/previas-expirados/` con el navegador y revisar el texto.
 
 ## Paso 5. Mandarte una prueba a ti
 
-Solo en horario permitido (lunes a viernes de 7:00 a. m. a 7:00 p. m., sábados de 8:00 a. m. a 3:00 p. m.; no domingos ni festivos). Fuera de ese horario el script no envía.
+Fuera del horario de la Ley 2300 (lunes a viernes de 7:00 a. m. a 7:00 p. m., sábados de 8:00 a. m. a 3:00 p. m.; no domingos ni festivos) el script no envía, salvo que se le agregue `--ignorar-horario` al final. **Envío del 12 de octubre de 2026:** es festivo y la etapa 1 termina a la medianoche; el titular decidió enviar hoy, así que los comandos de los pasos 5 y 6 llevan `--ignorar-horario`. En otro envío, quitarlo.
 
 - [ ] En la misma terminal, cargar la llave solo para esta sesión (pegarla donde dice `re_...`):
 
@@ -52,7 +53,7 @@ export RESEND_API_KEY=re_...
 - [ ] Mandar todos los correos a tu propio correo (cambia `tu@correo.com`):
 
 ```sh
-python3 scripts/correo/enviar_resend.py ~/Downloads/expirados-hoy.csv --plantilla scripts/correo/plantillas/expirado.html --asunto "Tu pedido de Testigos de la Memoria" --grupo todos --previas ~/Downloads/previas-expirados --registro ~/Downloads/envios-expirados.csv --prueba tu@correo.com --enviar
+python3 scripts/correo/enviar_resend.py ~/Downloads/expirados-hoy.csv --plantilla scripts/correo/plantillas/expirado.html --asunto "Último día del pase completo a \$310.000" --grupo todos --previas ~/Downloads/previas-expirados --registro ~/Downloads/envios-expirados.csv --prueba tu@correo.com --enviar --ignorar-horario
 ```
 
 - [ ] Revisar en el celular y en el computador: que se vea bien, que el botón "Ver boletas" abra la tienda y que no haya caído en spam.
@@ -62,7 +63,7 @@ python3 scripts/correo/enviar_resend.py ~/Downloads/expirados-hoy.csv --plantill
 - [ ] El mismo comando del paso 5 **sin** `--prueba tu@correo.com`:
 
 ```sh
-python3 scripts/correo/enviar_resend.py ~/Downloads/expirados-hoy.csv --plantilla scripts/correo/plantillas/expirado.html --asunto "Tu pedido de Testigos de la Memoria" --grupo todos --previas ~/Downloads/previas-expirados --registro ~/Downloads/envios-expirados.csv --enviar
+python3 scripts/correo/enviar_resend.py ~/Downloads/expirados-hoy.csv --plantilla scripts/correo/plantillas/expirado.html --asunto "Último día del pase completo a \$310.000" --grupo todos --previas ~/Downloads/previas-expirados --registro ~/Downloads/envios-expirados.csv --enviar --ignorar-horario
 ```
 
 - [ ] Debe decir "Enviado a ..." una vez por persona. Si se corre otra vez por error, no repite a nadie (lo evita el registro `envios-expirados.csv`).

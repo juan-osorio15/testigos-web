@@ -44,7 +44,7 @@ Hola. Te escribimos del equipo de Testigos de la Memoria (Eventalist S.A.S.). Tu
 
 Desde la herramienta que maneja el número (la plataforma del chatbot o el envío de plantillas de WhatsApp Manager):
 
-- [ ] Sacar la lista del día (paso 3 de `correo-resend.md`) y tomar solo las filas con `desde_fecha = si`.
+- [ ] Sacar la lista del día (paso 3 de `correo-resend.md`) y tomar solo las filas con `desde_fecha = si`. Tu número va incluido (fila `prueba = si`): mándate primero a ti para ver cómo llega.
 - [ ] Confirmar en Pretix que el pedido de cada una aceptó la casilla `tienda-2026-10-09` y sigue sin comprar.
 - [ ] Destino: columna `whatsapp` (número con 57 adelante). Variable `{{1}}`: el último código de la columna `pedidos`.
 - [ ] En horario: lunes a viernes de 7:00 a. m. a 7:00 p. m., sábados de 8:00 a. m. a 3:00 p. m.; no domingos ni festivos. Y no el mismo día que el correo.

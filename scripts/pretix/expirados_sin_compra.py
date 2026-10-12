@@ -17,6 +17,11 @@ Uso:
 expirado en esa fecha o después; sirve para separar los pedidos hechos
 bajo una política de datos que autoriza el recordatorio de los anteriores.
 
+Contactos de prueba: si existe scripts/pretix/incluir.local.csv (columnas
+nombre,correo,telefono; ignorado por git porque el repo es público), cada
+fila se agrega al final de la salida con el código de pedido PRUEBA y
+desde_fecha = si, para que esa persona reciba todos los envíos.
+
 Solo usa la biblioteca estándar. Falla con un mensaje claro si la
 exportación no tiene el formato esperado, en vez de adivinar.
 """
@@ -29,6 +34,9 @@ import re
 import sys
 from collections import defaultdict
 from dataclasses import dataclass
+from pathlib import Path
+
+INCLUIR = Path(__file__).with_name("incluir.local.csv")
 
 # Encabezados posibles por campo (exportación en español y en inglés).
 # La exportación trae columnas repetidas ("Nombre", "Estado"); siempre se toma
@@ -232,6 +240,36 @@ def main() -> None:
             }
         )
     filas.sort(key=lambda f: f["ultimo_intento"], reverse=True)
+    for fila in filas:
+        fila["prueba"] = "no"
+
+    pruebas = 0
+    if INCLUIR.exists():
+        with open(INCLUIR, encoding="utf-8-sig", newline="") as archivo:
+            for contacto in csv.DictReader(archivo):
+                correo = normalizar_correo(contacto["correo"])
+                telefono = normalizar_telefono(contacto["telefono"])
+                filas = [f for f in filas if f["correo"] != correo and f["telefono"] != telefono]
+                filas.append(
+                    {
+                        "correo": correo,
+                        "telefono": telefono,
+                        "whatsapp": telefono.lstrip("+"),
+                        "otros_correos": "",
+                        "otros_telefonos": "",
+                        **({"desde_fecha": "si"} if args.desde else {}),
+                        "intentos_expirados": 0,
+                        "tambien_cancelado": "no",
+                        "primer_intento": "",
+                        "ultimo_intento": "",
+                        "boletas_ultimo_intento": "",
+                        "total_ultimo_intento": "",
+                        "pedidos": "PRUEBA",
+                        "evento": "",
+                        "prueba": "si",
+                    }
+                )
+                pruebas += 1
 
     campos = list(filas[0].keys()) if filas else ["correo", "telefono", "whatsapp"]
     with open(args.salida, "w", encoding="utf-8-sig", newline="") as archivo:
@@ -247,11 +285,13 @@ def main() -> None:
     if args.excluir:
         print(f"Personas excluidas a mano (--excluir): {descartados_lista}")
     print(f"Personas solo con cancelados, sin expirados (fuera de esta lista): {solo_cancelados}")
-    print(f"Personas a contactar: {len(filas)} -> {args.salida}")
+    print(f"Personas a contactar: {len(filas) - pruebas} -> {args.salida}")
+    if pruebas:
+        print(f"  Más {pruebas} contacto(s) de prueba de {INCLUIR.name} (columna prueba = si)")
     if args.desde:
-        dentro = sum(1 for f in filas if f["desde_fecha"] == "si")
-        print(f"  Con pedido expirado desde {args.desde}: {dentro} · antes: {len(filas) - dentro}")
-    sin_telefono = sum(1 for f in filas if not f["telefono"])
+        dentro = sum(1 for f in filas if f["desde_fecha"] == "si" and f["prueba"] == "no")
+        print(f"  Con pedido expirado desde {args.desde}: {dentro} · antes: {len(filas) - pruebas - dentro}")
+    sin_telefono = sum(1 for f in filas if not f["telefono"] and f["prueba"] == "no")
     if sin_telefono:
         print(f"  De ellas, sin teléfono (solo correo): {sin_telefono}")
 
