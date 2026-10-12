@@ -10,6 +10,7 @@ Siempre que exista el dato:
 
 - `data-tracking-utm-source`, `data-tracking-utm-medium`, `data-tracking-utm-campaign`, `data-tracking-utm-content`, `data-tracking-utm-term`
 - `data-tracking-landing`
+- `data-tracking-referrer`: dominio desde el que se llegó (enmienda del 2026-10-12, abajo)
 
 Solo con el aviso de cookies aceptado (versión vigente):
 
@@ -31,6 +32,7 @@ Lo que recibe Pretix (ejemplo con aceptación):
   "tracking-utm-source": "prueba",
   "tracking-utm-campaign": "ensayo",
   "tracking-landing": "/",
+  "tracking-referrer": "instagram.com",
   "tracking-ga-id": "1234567890.1700000000",
   "tracking-ga-sessid": "1700000000",
   "tracking-fbp": "fb.1.1700000000000.1234567890",
@@ -38,6 +40,16 @@ Lo que recibe Pretix (ejemplo con aceptación):
   "tracking-consent": "1"
 }
 ```
+
+## Enmienda 2026-10-12 · dominio de referencia
+
+Para la v2 del plugin (`pretix-wompi`, `docs/propuestas/2026-10-09-tracking-v2.md` punto 3), que clasifica los pedidos sin UTM en directo, orgánico, social o referido. Dentro del widget el referrer es la página del sitio, así que solo el sitio puede verlo.
+
+- `data-tracking-referrer`: el `hostname` de `document.referrer`, en minúsculas y sin `www.`; sin ruta ni consulta; recortado a 200 caracteres. Va siempre que exista, con o sin UTM y sin depender del aviso de cookies, como las UTM.
+- No se guarda si es el propio dominio del sitio (con o sin `www`), `pretix.eventalist.co` o `checkout.wompi.co`: volver de la tienda o de la pasarela no es una fuente.
+- Gana la última llegada con campaña; una llegada desde otro sitio sin campaña solo reemplaza una visita que tampoco la tenía (reglas en `data-model.md`). El plugin no repite esta lógica: toma lo que trae el carrito.
+- Compatibilidad confirmada por `pretix-wompi`: el plugin v1 guarda cualquier `tracking-*` en el pedido (recortado a 512) y no lo envía a GA4, Meta ni al backend, porque esos envíos usan campos explícitos. Se puede publicar antes que la v2.
+- Política: la sección 2 dice ahora "el sitio desde el que se llegó".
 
 ## Eventos de navegador
 

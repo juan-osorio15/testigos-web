@@ -5,8 +5,9 @@
  *
  * - La campaña (UTM, gclid, fbclid y página de llegada) vive solo en
  *   sessionStorage de la pestaña. Nada de localStorage ni cookies propias.
- * - Las UTM y la página de llegada viajan siempre. gclid y los
- *   identificadores de GA4 y Meta, solo con el aviso de cookies aceptado.
+ * - Las UTM, la página de llegada y el dominio de referencia viajan siempre.
+ *   gclid y los identificadores de GA4 y Meta, solo con el aviso de cookies
+ *   aceptado.
  * - Se escriben como data-tracking-* en el widget; Pretix los guarda en el
  *   carrito como widget_data y el plugin de Eventalist los copia al pedido.
  * - Un valor solo se escribe si es texto no vacío: el plugin ignora el null
@@ -22,9 +23,14 @@ const PREFIX = 'data-tracking-';
 const PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid'] as const;
 type Param = (typeof PARAMS)[number];
 
+/** Volver de la tienda o de la pasarela no es una fuente de la visita */
+const IGNORED_REFERRERS = ['pretix.eventalist.co', 'checkout.wompi.co'];
+
 export type Attribution = Partial<Record<Param, string>> & {
   landing: string;
   capturedAt: number;
+  /** Solo el dominio desde el que se llegó, sin ruta ni consulta */
+  referrer?: string;
 };
 
 interface VisitIds {
@@ -58,6 +64,8 @@ function fromStorage(): Attribution | null {
       const c = clean(o[p]);
       if (c) a[p] = c;
     }
+    const r = clean(o.referrer);
+    if (r) a.referrer = r;
     return a;
   } catch {
     return null;
@@ -74,9 +82,36 @@ function save(a: Attribution): void {
 
 let current: Attribution | null = null;
 
-/** Reglas de data-model.md: gana la última campaña de la pestaña */
+function bareHost(host: string): string {
+  const h = host.toLowerCase();
+  return h.startsWith('www.') ? h.slice(4) : h;
+}
+
+/** Dominio externo de document.referrer, o nada si es el propio sitio o la compra */
+function externalReferrer(): string | undefined {
+  try {
+    if (!document.referrer) return undefined;
+    const host = bareHost(new URL(document.referrer).hostname);
+    if (!host || host === bareHost(location.hostname) || IGNORED_REFERRERS.includes(host)) return undefined;
+    return clean(host);
+  } catch {
+    return undefined;
+  }
+}
+
+function hasCampaign(a: Attribution): boolean {
+  return PARAMS.some((p) => a[p] !== undefined);
+}
+
+/**
+ * Reglas de data-model.md: gana la última llegada con campaña; una llegada
+ * desde otro sitio sin campaña solo reemplaza una visita que tampoco la tenía,
+ * para que lo orgánico no borre lo pagado.
+ */
 export function captureAttribution(): Attribution {
   const fresh: Attribution = { landing: location.pathname.slice(0, MAX) || '/', capturedAt: Date.now() };
+  const referrer = externalReferrer();
+  if (referrer) fresh.referrer = referrer;
   let hasParams = false;
   try {
     const q = new URLSearchParams(location.search);
@@ -96,7 +131,7 @@ export function captureAttribution(): Attribution {
     return fresh;
   }
   const stored = fromStorage();
-  if (stored) {
+  if (stored && !(referrer && !hasCampaign(stored))) {
     current = stored;
     return stored;
   }
@@ -186,6 +221,7 @@ export function desiredAttributes(a: Attribution, ids: VisitIds | null): Map<str
   put('utm-content', a.utm_content);
   put('utm-term', a.utm_term);
   put('landing', a.landing);
+  put('referrer', a.referrer);
   if (ids) {
     put('gclid', ids.gclid);
     put('ga-id', ids.gaId);
