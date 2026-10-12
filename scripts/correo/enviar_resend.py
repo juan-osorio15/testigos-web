@@ -26,7 +26,7 @@ Protecciones:
 - --registro guarda cada envío; a quien ya aparece ahí no se le vuelve a
   escribir con la misma plantilla.
   --ignorar-horario lo salta, solo por decisión explícita del titular.
-- --prueba manda todos los correos a una sola dirección, para revisarlos.
+- --prueba manda un solo correo de muestra (con un pedido real) a esa dirección.
 """
 
 from __future__ import annotations
@@ -138,7 +138,7 @@ def main() -> None:
                         help="Filtra por la columna desde_fecha (si, no) o toma a todos")
     parser.add_argument("--previas", required=True, help="Carpeta donde dejar una vista previa HTML por persona")
     parser.add_argument("--registro", required=True, help="CSV con los envíos hechos (se crea si no existe)")
-    parser.add_argument("--prueba", help="Mandar todo a esta dirección en vez de a las personas")
+    parser.add_argument("--prueba", help="Mandar un solo correo de muestra a esta dirección en vez de a las personas")
     parser.add_argument("--enviar", action="store_true", help="Enviar de verdad (sin esto solo hay vistas previas)")
     parser.add_argument("--ignorar-horario", action="store_true",
                         help="Enviar aunque sea fuera del horario de la Ley 2300 (decisión explícita del titular)")
@@ -185,6 +185,10 @@ def main() -> None:
     if not args.enviar:
         print("No se envió nada (falta --enviar).")
         return
+
+    if args.prueba and pendientes:
+        # Una sola muestra, con el código de un pedido real si lo hay.
+        pendientes = [next((p for p in pendientes if p[1] != "PRUEBA"), pendientes[0])]
 
     motivo = horario_permitido(datetime.now(BOGOTA))
     if motivo and args.ignorar_horario:
