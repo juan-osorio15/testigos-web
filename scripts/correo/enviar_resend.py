@@ -4,6 +4,8 @@
 La lista es la salida de scripts/pretix/expirados_sin_compra.py (columnas
 correo, pedidos y, si se usó --desde, desde_fecha). En la plantilla HTML,
 {{codigo}} se cambia por el último código de pedido de cada persona.
+Las imágenes con src="cid:NOMBRE" se adjuntan incrustadas desde
+NOMBRE.png en la carpeta de la plantilla (el logo no tiene URL pública).
 
 Por defecto NO envía nada: escribe una vista previa por persona en la
 carpeta indicada con --previas. Para enviar de verdad hay que pasar
@@ -30,6 +32,7 @@ Protecciones:
 from __future__ import annotations
 
 import argparse
+import base64
 import csv
 import html as html_lib
 import re
@@ -83,7 +86,18 @@ def a_texto(html: str) -> str:
     return html_lib.unescape(re.sub(r"\n{3,}", "\n\n", "\n".join(lineas)).strip())
 
 
-def enviar(llave: str, para: str, asunto: str, html: str) -> str:
+def imagenes_incrustadas(plantilla: Path, html: str) -> dict[str, Path]:
+    """Busca src="cid:NOMBRE" y devuelve NOMBRE -> archivo NOMBRE.png junto a la plantilla."""
+    imagenes = {}
+    for nombre in sorted(set(re.findall(r'src="cid:([\w-]+)"', html))):
+        archivo = plantilla.parent / f"{nombre}.png"
+        if not archivo.exists():
+            sys.exit(f"La plantilla usa cid:{nombre} pero no existe {archivo}")
+        imagenes[nombre] = archivo
+    return imagenes
+
+
+def enviar(llave: str, para: str, asunto: str, html: str, imagenes: dict[str, Path]) -> str:
     cuerpo = {
         "from": REMITENTE,
         "to": [para],
@@ -93,6 +107,11 @@ def enviar(llave: str, para: str, asunto: str, html: str) -> str:
         "text": a_texto(html),
         "headers": {"List-Unsubscribe": f"<mailto:{RESPONDER_A}?subject=BAJA>"},
     }
+    if imagenes:
+        cuerpo["attachments"] = [
+            {"filename": archivo.name, "content": base64.b64encode(archivo.read_bytes()).decode(), "content_id": nombre}
+            for nombre, archivo in imagenes.items()
+        ]
     pedido = urllib.request.Request(
         "https://api.resend.com/emails",
         data=json.dumps(cuerpo).encode(),
@@ -126,6 +145,7 @@ def main() -> None:
     args = parser.parse_args()
 
     plantilla = Path(args.plantilla).read_text(encoding="utf-8")
+    imagenes = imagenes_incrustadas(Path(args.plantilla), plantilla)
     nombre_plantilla = Path(args.plantilla).name
     with open(args.lista, encoding="utf-8-sig", newline="") as archivo:
         filas = list(csv.DictReader(archivo))
@@ -156,7 +176,10 @@ def main() -> None:
     previas = Path(args.previas).expanduser()
     previas.mkdir(parents=True, exist_ok=True)
     for correo, codigo, asunto, html in pendientes:
-        (previas / f"{codigo}.html").write_text(html, encoding="utf-8")
+        vista = html
+        for nombre, archivo in imagenes.items():
+            vista = vista.replace(f"cid:{nombre}", archivo.resolve().as_uri())
+        (previas / f"{codigo}.html").write_text(vista, encoding="utf-8")
     print(f"{len(pendientes)} correos listos. Vistas previas en {previas}")
 
     if not args.enviar:
@@ -179,7 +202,7 @@ def main() -> None:
             escritor.writerow(["fecha", "correo", "pedido", "plantilla", "prueba", "id_resend"])
         for correo, codigo, asunto, html in pendientes:
             destino = args.prueba or correo
-            identificador = enviar(llave, destino, asunto, html)
+            identificador = enviar(llave, destino, asunto, html, imagenes)
             escritor.writerow([datetime.now(BOGOTA).isoformat(timespec="seconds"), correo, codigo,
                                nombre_plantilla, "si" if args.prueba else "no", identificador])
             archivo.flush()
