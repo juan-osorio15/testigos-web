@@ -46,7 +46,7 @@ Una sola vez, el día en que se crea. Nada de esto es retroactivo. Rutas de men�
 
 ## Lo demás que ya es estándar
 
-- Enlaces con UTM según `guia-utm.md`, desde el primer anuncio.
+- Quien maneja las redes sigue `guia-manager-redes.md` desde el día en que se crean los perfiles.
 - Evento sandbox en Pretix por cada evento (`titular/evento-sandbox.md`).
 - Plugin de Pretix activo en el evento real antes de la primera venta, para que ningún pedido quede sin campaña.
 - Campaña guardada en el navegador hasta 30 días (`src/measurement/attribution.ts`), con su frase en la política (en Testigos, pendiente de publicar al 2026-10-13).

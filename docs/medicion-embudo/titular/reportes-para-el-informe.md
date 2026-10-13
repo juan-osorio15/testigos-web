@@ -13,7 +13,7 @@ Lista de lo que hay que exportar para que Claude escriba la guía del informe y 
 - **Backend:** Ticket orders, con filtros y resumen por campaña, y la exportación a CSV cuando esté desplegada.
 - **GA4:** `add_payment_info` (pedido confirmado) y `purchase` (pedido pagado) llegan desde el plugin y quedan unidos a la visita con su campaña. Solo pasa si la persona aceptó las cookies (ver "Entender Google Analytics").
 
-Los pedidos anteriores al 9 de octubre no tienen campaña y aparecen como "Sin campaña". Hay además un límite conocido: hasta que se publique la campaña guardada 30 días (ver `../guia-utm.md`), la campaña se pierde si la persona compra en otra visita. Del 9 al 12 de octubre solo 1 de unos 23 pedidos llegó con UTM. Las ventas totales siguen saliendo de Pretix.
+Los pedidos anteriores al 9 de octubre no tienen campaña y aparecen como "Sin campaña". Hay además un límite conocido: hasta que se publique la campaña guardada 30 días (ver `../guia-manager-redes.md`), la campaña se pierde si la persona compra en otra visita. Del 9 al 12 de octubre solo 1 de unos 23 pedidos llegó con UTM. Las ventas totales siguen saliendo de Pretix.
 
 ## Google Analytics 4
 
@@ -91,7 +91,7 @@ Esta parte no es para exportar nada. Es para que sepas qué mirar en GA4 cada se
 - **Fuente:** de dónde vino la visita (`ig`, `instagram`, `google`, `whatsapp`).
 - **Medio:** qué tipo de enlace era (`paid_social`, `social`, `organic`, `referral`).
 - **Campaña:** el nombre que le pusimos (`etapa2-2026`, `bio`). Fuente, medio y campaña salen de las UTM del enlace; sin UTM, GA4 los adivina con el sitio de donde vino la persona.
-- **Grupo de canales:** la clasificación que GA4 hace con fuente y medio: Paid Social, Organic Social, Organic Search, Direct, Referral, Email. Las reglas están en `../guia-utm.md`.
+- **Grupo de canales:** la clasificación que GA4 hace con fuente y medio: Paid Social, Organic Social, Organic Search, Direct, Referral, Email. Las reglas están en `../guia-manager-redes.md`.
 - **"De la sesión" y "del primer usuario":** muchas dimensiones existen en dos versiones. "Fuente de la sesión" es cómo llegó esa visita. "Fuente del primer usuario" es cómo llegó ese navegador la primera vez. Para campañas casi siempre interesa la de la sesión.
 - **Directo, o `(direct) / (none)`:** GA4 no sabe de dónde vino: la persona escribió la dirección, usó un favorito o abrió el enlace desde una app que no deja rastro. Cuando una visita directa viene después de una con campaña, GA4 le pone la campaña anterior (hasta 90 días) en los informes de sesión.
 - **`(not set)`:** el dato no llegó. Es normal en una porción pequeña; si crece, algo está mal configurado.
