@@ -23,6 +23,7 @@ Para exportar cualquier informe: icono de compartir (arriba a la derecha) → "D
 - [ ] **2. Fuente / medio.** El mismo informe, cambiando la dimensión (flecha junto al nombre de la primera columna) a "Fuente/medio de la sesión".
 - [ ] **3. Campañas.** El mismo informe con la dimensión "Campaña de la sesión".
 - [ ] **3b. Compras por campaña en GA4.** El mismo informe de campañas. En la columna "Eventos clave", abrir la flecha y elegir solo `purchase`; hacer lo mismo con `add_payment_info` y exportar otro CSV. Solo cuenta compras de quien aceptó las cookies; el total real de ventas sale de Pretix.
+- [ ] **3c. Interesados por campaña en GA4.** El mismo informe de campañas, con la columna "Eventos clave" filtrada a `generate_lead`. Exportar en CSV. Solo existe desde que se publicó ese evento.
 - [ ] **4. Exploración por campaña y contenido.** Explorar → Exploración libre.
   - En Variables, con el "+" de Dimensiones, importar: Campaña de la sesión, Fuente/medio de la sesión, Contenido de anuncio manual de la sesión.
   - Con el "+" de Métricas, importar: Sesiones, Usuarios activos, Sesiones con interacción, Tasa de interacción, Duración media de la sesión.
@@ -58,9 +59,9 @@ El "píxel" no es otra plataforma: es el código instalado en el sitio. Sus dato
 - [ ] **13. Panel del evento.** Captura de pantalla del resumen de ventas por producto en el panel del evento.
 - [ ] **13b. Ventas por campaña.** Evento de producción → "Ventas por campaña", con el mismo rango de fechas. **Captura de pantalla**: la página no se puede descargar. Muestra por fuente, campaña y contenido los pedidos confirmados, pagados, vencidos y cancelados, y el total pagado.
 
-## Backend (formulario de interesados)
+## Backend (interesados y pedidos)
 
-- [ ] **14. Contactos de la campaña Testigos.** Exportar desde el admin la lista de contactos de la campaña. Solo se necesitan la fecha de registro y el origen. **Borrar nombre, correo y teléfono antes de pasarlo.**
+- [ ] **14. Contactos de la campaña Testigos.** Exportar desde el admin la lista de contactos de la campaña. Se necesitan la fecha de registro, el origen y la etapa (interesado, confirmó y no pagó, compró). **Borrar nombre, correo y teléfono antes de pasarlo.** Es la única fuente completa de los interesados: GA4 solo los cuenta desde que se publicó `generate_lead` y solo si aceptaron cookies.
 - [ ] **15. Pedidos con campaña.** Admin → Ticket orders → filtrar la campaña de Testigos y el rango de fechas → seleccionar todos → acción "Export selected orders as CSV". Ya viene sin datos personales. Si la acción no aparece, es que la exportación todavía no está desplegada: en ese caso, una captura del resumen que sale encima de la lista.
 
 ## Datos que solo tú tienes
@@ -98,7 +99,8 @@ Esta parte no es para exportar nada. Es para que sepas qué mirar en GA4 cada se
 ## Qué ve GA4 y qué no
 
 - GA4 solo registra en detalle a quien **aceptó las cookies**. De quien no acepta recibe avisos sin identificador que no aparecen en los informes. Por eso GA4 siempre muestra menos visitas y menos ventas que la realidad. **Las ventas reales las cuenta Pretix.** GA4 sirve para comparar campañas y ver tendencias, no para el total.
-- El sitio le manda tres eventos propios:
+- El sitio le manda cuatro eventos propios:
+  - `generate_lead`: alguien se inscribió en la lista de interesados (el formulario que va al backend de Eventalist). Lleva de dónde se inscribió (`lead_source`: `aviso_franja` si fue en el modal "Avísame" de una franja, `lista_interesados` si fue en el formulario general) y, en el modal, qué franja (`franja`). Nunca datos de la persona. Al píxel de Meta va el mismo aviso como `Lead`.
   - `view_item_list`: la persona pulsó un botón que lleva a la sección de boletas.
   - `begin_checkout`: pulsó "Comprar" en la tienda.
   - `contact`: pulsó el enlace de WhatsApp de dudas.
@@ -108,15 +110,16 @@ Esta parte no es para exportar nada. Es para que sepas qué mirar en GA4 cada se
 - El valor (`value`) es el total del pedido **con comisiones**. Por eso los ingresos de GA4 no coinciden con la suma de precios de los productos.
 - El plugin no le manda la campaña a GA4. Le manda el identificador del navegador y el de la visita, y GA4 une la compra con esa visita, que ya tiene su fuente, medio y campaña. Cuando la persona no aceptó cookies, el pedido llega sin esos identificadores, con el parámetro `atribucion` = `sin_sesion`. Todavía no sabemos en qué fila de los informes aparecen esos pedidos (probablemente `(direct)` o `(not set)`).
 - Nunca se envían a GA4 correo, teléfono, nombre, IP ni navegador.
-- El formulario de interesados nunca le avisó nada a GA4. Esos contactos se cuentan en el backend.
+- El formulario de interesados no le avisaba nada a GA4 hasta que se publicó `generate_lead`. Los anteriores, y los de quien no acepta cookies, se cuentan en el backend.
 - GA4 no da nombres. Para saber **quién** dejó una compra a medias se usan el backend (etapa "confirmó y no pagó") y los pedidos vencidos de Pretix.
 
 ## Configuración pendiente en GA4 (una sola vez)
 
 Todo está en **Administrar** (engranaje abajo a la izquierda). Ninguno de estos cambios es retroactivo: valen desde el día en que se hacen, así que conviene hacerlos ya.
 
-- [ ] **Eventos clave.** Administrar → Visualización de datos → Eventos → pestaña "Eventos recientes". Poner la estrella a `add_payment_info`. `purchase` ya es clave por defecto. En la pestaña "Eventos clave", quitar la estrella a `close_convert_lead` y `qualify_lead`: son sugerencias de GA4 que nada envía. `begin_checkout` es opcional: con más de dos o tres eventos clave los informes cuestan más de leer.
+- [ ] **Eventos clave.** Administrar → Visualización de datos → Eventos → pestaña "Eventos recientes". Poner la estrella a `generate_lead` y a `add_payment_info`. `purchase` ya es clave por defecto. `generate_lead` solo aparece en la lista después de la primera inscripción publicada; si no está, volver a mirar después. En la pestaña "Eventos clave", quitar la estrella a `close_convert_lead` y `qualify_lead`: son sugerencias de GA4 que nada envía. `begin_checkout` es opcional: con más de dos o tres eventos clave los informes cuestan más de leer.
 - [ ] **Dimensión personalizada `atribucion`.** Administrar → Visualización de datos → Definiciones personalizadas → "Crear dimensión personalizada". Nombre: `Atribución`. Ámbito: Evento. Parámetro del evento: `atribucion`. Sin esto GA4 recibe el dato pero no deja verlo. Sirve para saber cuántas compras llegaron sin visita (`sin_sesion`) y dónde las pone GA4.
+- [ ] **Dimensiones `lead_source` y `franja`.** Igual que la anterior, dos veces: nombre `Origen del interesado`, parámetro `lead_source`; nombre `Franja de interés`, parámetro `franja`. Ámbito: Evento. Con ellas se ve qué franjas despiertan más interés antes de abrir su venta.
 - [ ] **Conservación de datos a 14 meses.** Administrar → Recogida y modificación de datos → Conservación de datos → "Conservación de datos de eventos": 14 meses → Guardar. Por defecto son 2 meses, y las exploraciones (la parte de Explorar) no pueden mirar más atrás que eso. Para comparar con la edición 2027 hace falta el máximo.
 - [ ] **Referencias no deseadas.** Administrar → Recogida y modificación de datos → Flujos de datos → el flujo web → "Configurar ajustes de etiquetas" → "Mostrar todo" → "Especificar referencias no deseadas". Agregar `pretix.eventalist.co` y `checkout.wompi.co`. Así, quien vuelve de la tienda o de la pasarela al sitio no aparece como si lo hubiera traído Pretix o Wompi.
 - [ ] **"Configuración de atribución"** (el botón junto a "Crear evento"): dejarla como está. Ahí se elige cómo GA4 reparte el crédito de una compra entre varias visitas; la opción por defecto sirve.
