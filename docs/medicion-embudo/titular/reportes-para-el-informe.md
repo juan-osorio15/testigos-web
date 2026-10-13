@@ -7,7 +7,13 @@ Lista de lo que hay que exportar para que Claude escriba la guía del informe y 
 - [ ] Elegir el rango de fechas y usar **el mismo en todos los reportes**: desde el día en que empezó la venta (o el primer anuncio) hasta ayer. Anotarlo aquí: `____ a ____`.
 - [ ] Crear la carpeta `~/Downloads/reporte-testigos/` y guardar ahí cada archivo con un nombre que diga qué es (por ejemplo `ga4-campanas.csv`, `meta-anuncios-region.csv`).
 
-**Qué se puede medir hoy y qué no.** Hoy ningún dato dice qué campaña generó cada compra; eso lo agrega el plugin de Pretix cuando se publique, y solo desde ese día en adelante. Con estos reportes el informe muestra tráfico, interacción y clics en "comprar" por campaña, y al lado las ventas totales por día según Pretix. Cuando el plugin esté publicado, el mismo informe suma las compras por campaña.
+**Qué se puede medir y desde cuándo.** El plugin de Pretix está activo en `testigos-memoria` desde el 8 de octubre de 2026 a las 11:41 p. m. Desde entonces cada pedido guarda la campaña con la que llegó la persona, y el informe puede decir qué campaña generó cada compra en tres lugares:
+
+- **Pretix:** recuadro "Origen" de cada pedido y la página "Ventas por campaña" del evento. Esa página solo se ve en pantalla; no se descarga.
+- **Backend:** Ticket orders, con filtros y resumen por campaña, y la exportación a CSV cuando esté desplegada.
+- **GA4:** `add_payment_info` (pedido confirmado) y `purchase` (pedido pagado) llegan desde el plugin y quedan unidos a la visita con su campaña. Solo pasa si la persona aceptó las cookies (ver "Entender Google Analytics").
+
+Los pedidos anteriores al 9 de octubre no tienen campaña y aparecen como "Sin campaña". Hay además un límite conocido: hasta que se publique la campaña guardada 30 días (ver `../guia-utm.md`), la campaña se pierde si la persona compra en otra visita. Del 9 al 12 de octubre solo 1 de unos 23 pedidos llegó con UTM. Las ventas totales siguen saliendo de Pretix.
 
 ## Google Analytics 4
 
@@ -16,6 +22,7 @@ Para exportar cualquier informe: icono de compartir (arriba a la derecha) → "D
 - [ ] **1. Canales.** Informes → Adquisición → Adquisición de tráfico. Dimensión "Grupo de canales principal de la sesión". Ya existe uno, pero hay que repetirlo con el rango completo.
 - [ ] **2. Fuente / medio.** El mismo informe, cambiando la dimensión (flecha junto al nombre de la primera columna) a "Fuente/medio de la sesión".
 - [ ] **3. Campañas.** El mismo informe con la dimensión "Campaña de la sesión".
+- [ ] **3b. Compras por campaña en GA4.** El mismo informe de campañas. En la columna "Eventos clave", abrir la flecha y elegir solo `purchase`; hacer lo mismo con `add_payment_info` y exportar otro CSV. Solo cuenta compras de quien aceptó las cookies; el total real de ventas sale de Pretix.
 - [ ] **4. Exploración por campaña y contenido.** Explorar → Exploración libre.
   - En Variables, con el "+" de Dimensiones, importar: Campaña de la sesión, Fuente/medio de la sesión, Contenido de anuncio manual de la sesión.
   - Con el "+" de Métricas, importar: Sesiones, Usuarios activos, Sesiones con interacción, Tasa de interacción, Duración media de la sesión.
@@ -49,10 +56,12 @@ El "píxel" no es otra plataforma: es el código instalado en el sitio. Sus dato
 
 - [ ] **12. Pedidos.** Evento de producción → Pedidos → Exportar → "Lista de pedidos" (CSV o Excel). Se necesitan: código, fecha, estado, total, producto y medio de pago. **Antes de pasarlo, borrar las columnas de nombre, correo y teléfono.**
 - [ ] **13. Panel del evento.** Captura de pantalla del resumen de ventas por producto en el panel del evento.
+- [ ] **13b. Ventas por campaña.** Evento de producción → "Ventas por campaña", con el mismo rango de fechas. **Captura de pantalla**: la página no se puede descargar. Muestra por fuente, campaña y contenido los pedidos confirmados, pagados, vencidos y cancelados, y el total pagado.
 
 ## Backend (formulario de interesados)
 
 - [ ] **14. Contactos de la campaña Testigos.** Exportar desde el admin la lista de contactos de la campaña. Solo se necesitan la fecha de registro y el origen. **Borrar nombre, correo y teléfono antes de pasarlo.**
+- [ ] **15. Pedidos con campaña.** Admin → Ticket orders → filtrar la campaña de Testigos y el rango de fechas → seleccionar todos → acción "Export selected orders as CSV". Ya viene sin datos personales. Si la acción no aparece, es que la exportación todavía no está desplegada: en ese caso, una captura del resumen que sale encima de la lista.
 
 ## Datos que solo tú tienes
 
@@ -65,3 +74,87 @@ Escribirlos aquí mismo o en un mensaje:
 ## Cuando esté todo
 
 Pasarle a Claude la carpeta `~/Downloads/reporte-testigos/` y las respuestas de arriba. Claude revisa qué trae cada archivo y recién entonces escribe la guía del informe y el script del PDF, sin suponer columnas que no existan.
+
+---
+
+# Entender Google Analytics
+
+Esta parte no es para exportar nada. Es para que sepas qué mirar en GA4 cada semana, qué significan las palabras que usa y dónde aparece lo que le mandan el sitio y el plugin de Pretix. Datos del plugin confirmados por `pretix-wompi` el 2026-10-13.
+
+## Las palabras que más vas a ver
+
+- **Usuario:** un navegador, no una persona. La misma persona en el celular y en el computador son dos usuarios.
+- **Sesión:** una visita. Empieza cuando alguien entra y termina tras 30 minutos sin actividad.
+- **Evento:** cualquier cosa que pasa en una visita y se registra: ver una página, pulsar "Comprar", pagar.
+- **Evento clave:** un evento que marcaste con estrella porque importa para el negocio. GA4 los cuenta aparte en casi todos los informes, en la columna "Eventos clave".
+- **Fuente:** de dónde vino la visita (`ig`, `instagram`, `google`, `whatsapp`).
+- **Medio:** qué tipo de enlace era (`paid_social`, `social`, `organic`, `referral`).
+- **Campaña:** el nombre que le pusimos (`etapa2-2026`, `bio`). Fuente, medio y campaña salen de las UTM del enlace; sin UTM, GA4 los adivina con el sitio de donde vino la persona.
+- **Grupo de canales:** la clasificación que GA4 hace con fuente y medio: Paid Social, Organic Social, Organic Search, Direct, Referral, Email. Las reglas están en `../guia-utm.md`.
+- **"De la sesión" y "del primer usuario":** muchas dimensiones existen en dos versiones. "Fuente de la sesión" es cómo llegó esa visita. "Fuente del primer usuario" es cómo llegó ese navegador la primera vez. Para campañas casi siempre interesa la de la sesión.
+- **Directo, o `(direct) / (none)`:** GA4 no sabe de dónde vino: la persona escribió la dirección, usó un favorito o abrió el enlace desde una app que no deja rastro. Cuando una visita directa viene después de una con campaña, GA4 le pone la campaña anterior (hasta 90 días) en los informes de sesión.
+- **`(not set)`:** el dato no llegó. Es normal en una porción pequeña; si crece, algo está mal configurado.
+
+## Qué ve GA4 y qué no
+
+- GA4 solo registra en detalle a quien **aceptó las cookies**. De quien no acepta recibe avisos sin identificador que no aparecen en los informes. Por eso GA4 siempre muestra menos visitas y menos ventas que la realidad. **Las ventas reales las cuenta Pretix.** GA4 sirve para comparar campañas y ver tendencias, no para el total.
+- El sitio le manda tres eventos propios:
+  - `view_item_list`: la persona pulsó un botón que lleva a la sección de boletas.
+  - `begin_checkout`: pulsó "Comprar" en la tienda.
+  - `contact`: pulsó el enlace de WhatsApp de dudas.
+- El plugin de Pretix le manda dos, desde el servidor de Pretix:
+  - `add_payment_info`: se confirmó un pedido (datos llenos, pago pendiente). Lleva el valor del pedido, el producto y el medio de pago (`wompi`).
+  - `purchase`: se pagó el pedido. Lleva el valor, el producto y el código del pedido.
+- El valor (`value`) es el total del pedido **con comisiones**. Por eso los ingresos de GA4 no coinciden con la suma de precios de los productos.
+- El plugin no le manda la campaña a GA4. Le manda el identificador del navegador y el de la visita, y GA4 une la compra con esa visita, que ya tiene su fuente, medio y campaña. Cuando la persona no aceptó cookies, el pedido llega sin esos identificadores, con el parámetro `atribucion` = `sin_sesion`. Todavía no sabemos en qué fila de los informes aparecen esos pedidos (probablemente `(direct)` o `(not set)`).
+- Nunca se envían a GA4 correo, teléfono, nombre, IP ni navegador.
+- El formulario de interesados nunca le avisó nada a GA4. Esos contactos se cuentan en el backend.
+- GA4 no da nombres. Para saber **quién** dejó una compra a medias se usan el backend (etapa "confirmó y no pagó") y los pedidos vencidos de Pretix.
+
+## Configuración pendiente en GA4 (una sola vez)
+
+Todo está en **Administrar** (engranaje abajo a la izquierda). Ninguno de estos cambios es retroactivo: valen desde el día en que se hacen, así que conviene hacerlos ya.
+
+- [ ] **Eventos clave.** Administrar → Visualización de datos → Eventos → pestaña "Eventos recientes". Poner la estrella a `add_payment_info`. `purchase` ya es clave por defecto. En la pestaña "Eventos clave", quitar la estrella a `close_convert_lead` y `qualify_lead`: son sugerencias de GA4 que nada envía. `begin_checkout` es opcional: con más de dos o tres eventos clave los informes cuestan más de leer.
+- [ ] **Dimensión personalizada `atribucion`.** Administrar → Visualización de datos → Definiciones personalizadas → "Crear dimensión personalizada". Nombre: `Atribución`. Ámbito: Evento. Parámetro del evento: `atribucion`. Sin esto GA4 recibe el dato pero no deja verlo. Sirve para saber cuántas compras llegaron sin visita (`sin_sesion`) y dónde las pone GA4.
+- [ ] **Conservación de datos a 14 meses.** Administrar → Recogida y modificación de datos → Conservación de datos → "Conservación de datos de eventos": 14 meses → Guardar. Por defecto son 2 meses, y las exploraciones (la parte de Explorar) no pueden mirar más atrás que eso. Para comparar con la edición 2027 hace falta el máximo.
+- [ ] **Referencias no deseadas.** Administrar → Recogida y modificación de datos → Flujos de datos → el flujo web → "Configurar ajustes de etiquetas" → "Mostrar todo" → "Especificar referencias no deseadas". Agregar `pretix.eventalist.co` y `checkout.wompi.co`. Así, quien vuelve de la tienda o de la pasarela al sitio no aparece como si lo hubiera traído Pretix o Wompi.
+- [ ] **"Configuración de atribución"** (el botón junto a "Crear evento"): dejarla como está. Ahí se elige cómo GA4 reparte el crédito de una compra entre varias visitas; la opción por defecto sirve.
+
+## Qué mirar cada semana
+
+Usa siempre el selector de fechas de arriba a la derecha y, si quieres ver la evolución, la opción "Comparar" con la semana anterior.
+
+1. **Informes → Tiempo real.** Para comprobar al momento que un enlace nuevo llega con sus UTM: lo abres desde el celular y en menos de un minuto aparece con su fuente y campaña. No es para medir, es para verificar.
+2. **Informes → Adquisición → Adquisición de tráfico.** El informe principal. Una fila por canal (o por fuente/medio o campaña si cambias la dimensión) con sesiones, interacción, eventos clave e ingresos. Responde "¿qué campaña trae visitas que terminan comprando?". En la columna "Eventos clave" puedes elegir uno solo (`purchase` o `add_payment_info`) con la flecha del encabezado.
+3. **Informes → Adquisición → Adquisición de usuarios.** Lo mismo, pero con la primera visita de cada navegador. Sirve para ver qué canal **trae gente nueva**, aunque después compren por otro camino.
+4. **Informes → Interacción → Páginas y pantallas.** Qué páginas se ven más y cuánto tiempo. Útil para saber si la gente lee la agenda o los panelistas antes de comprar.
+5. **Informes → Interacción → Eventos.** Cuántas veces pasó cada evento. Es la manera rápida de ver el embudo completo: `view_item_list`, `begin_checkout`, `add_payment_info` y `purchase` uno al lado del otro.
+6. **Informes → Monetización.** Ingresos y compras por producto (Pase Completo, franjas). Recuerda que solo cuenta a quien aceptó cookies.
+7. **Informes → Usuario → Detalles demográficos** y **Tecnología.** De qué ciudades llegan y con qué dispositivo. Casi todo será celular: si una página se ve mal en celular, se pierde gente.
+
+## El embudo de compra
+
+Muestra en qué paso se cae la gente. Se arma una vez y queda guardado.
+
+1. Explorar → "Exploración de embudo".
+2. En "Pasos", editar y crear cinco:
+   - Visita: evento `session_start`.
+   - Fue a boletas: evento `view_item_list`.
+   - Pulsó Comprar: evento `begin_checkout`.
+   - Confirmó pedido: evento `add_payment_info`.
+   - Pagó: evento `purchase`.
+3. Dejarlo como "embudo abierto" (botón en la configuración), porque mucha gente entra directo a la tienda sin pasar por los primeros pasos.
+4. En "Desglose", poner "Campaña de la sesión" para ver el embudo de cada campaña.
+
+Cómo leerlo:
+- **Mucha caída entre "Visita" y "Fue a boletas":** la página no está llevando a la compra (contenido, botones).
+- **Entre "Pulsó Comprar" y "Confirmó pedido":** la tienda pide algo que frena (datos, teléfono, precio con comisión).
+- **Entre "Confirmó pedido" y "Pagó":** problema en la pasarela o gente que se arrepiente. Es el público de la campaña a expirados.
+
+## Errores de lectura comunes
+
+- Sumar usuarios de varios días: un mismo navegador cuenta en cada día. Para el total del periodo, se cambia el rango de fechas, no se suma.
+- Comparar ingresos de GA4 con Pretix: nunca van a cuadrar (cookies no aceptadas y comisiones). Se compara la **proporción** entre campañas, no el monto.
+- Leer los datos de hoy: GA4 tarda hasta 24 a 48 horas en procesar todo. Para decisiones, mirar hasta ayer.
+- Confiar en una campaña con muy pocas visitas: con menos de unas 50 sesiones, cualquier diferencia puede ser casualidad.
