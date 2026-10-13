@@ -83,6 +83,17 @@ Pasarle a Claude la carpeta `~/Downloads/reporte-testigos/` y las respuestas de 
 
 Esta parte no es para exportar nada. Es para que sepas qué mirar en GA4 cada semana, qué significan las palabras que usa y dónde aparece lo que le mandan el sitio y el plugin de Pretix. Datos del plugin confirmados por `pretix-wompi` el 2026-10-13.
 
+## Etiquetas: qué son y dónde están
+
+- **Etiqueta (tag):** el script de una plataforma que se carga en la página y le manda datos. Funciona con tres piezas: el script, **cuándo** se dispara (abrir una página, pulsar "Comprar") y **qué datos** manda con cada aviso.
+- **Las etiquetas de Testigos son dos:**
+  - **GA4**, con el ID de medición `G-XJES5Z5EC9`. Ese ID se crea en GA4: Administrar → Recogida y modificación de datos → Flujos de datos → el flujo web. El script se descarga de `googletagmanager.com`, pero eso no significa que usemos Google Tag Manager.
+  - **Píxel de Meta**, con el ID `1858161698687866`. Se crea en el Administrador de eventos de Meta, como conjunto de datos. Solo se carga después de que la persona acepta las cookies.
+- **Dónde están en el código:** el sitio las carga y define cuándo se dispara cada evento (`src/layouts/EventLayout.astro` y `src/measurement/tags.ts`). Cambiar o agregar un evento requiere un cambio en el sitio y un despliegue.
+- **Google Tag Manager (GTM)** es otro producto, con IDs `GTM-...`: un panel para administrar etiquetas sin tocar el código. **No lo usamos.** Solo valdría la pena si alguien que no toca código necesitara agregar o cambiar etiquetas por su cuenta.
+- **Las compras no salen de ninguna etiqueta.** Las manda el plugin de Pretix desde su servidor, con el valor real del pedido (ver "Qué ve GA4 y qué no").
+- **Las UTM no son de Meta.** Son un estándar para cualquier enlace: anuncios de Meta o Google, WhatsApp, correo, la bio de Instagram, el QR de un afiche. GA4 las lee solo, y el sitio además se las pasa a Pretix. Meta no las necesita para medir (usa su píxel y el `fbclid`), ni Google Ads (usa el `gclid`). Son para que nosotros sepamos de dónde vino cada visita, en GA4 y en Pretix.
+
 ## Las palabras que más vas a ver
 
 - **Usuario:** un navegador, no una persona. La misma persona en el celular y en el computador son dos usuarios.
@@ -100,11 +111,12 @@ Esta parte no es para exportar nada. Es para que sepas qué mirar en GA4 cada se
 ## Qué ve GA4 y qué no
 
 - GA4 solo registra en detalle a quien **aceptó las cookies**. De quien no acepta recibe avisos sin identificador que no aparecen en los informes. Por eso GA4 siempre muestra menos visitas y menos ventas que la realidad. **Las ventas reales las cuenta Pretix.** GA4 sirve para comparar campañas y ver tendencias, no para el total.
-- El sitio le manda cuatro eventos propios:
+- El sitio le manda cinco eventos propios:
   - `generate_lead`: alguien se inscribió en la lista de interesados (el formulario que va al backend de Eventalist). Lleva de dónde se inscribió (`lead_source`: `aviso_franja` si fue en el modal "Avísame" de una franja, `lista_interesados` si fue en el formulario general) y, en el modal, qué franja (`franja`). Nunca datos de la persona. Al píxel de Meta va el mismo aviso como `Lead`.
   - `view_item_list`: la persona pulsó un botón que lleva a la sección de boletas.
   - `begin_checkout`: pulsó "Comprar" en la tienda.
   - `contact`: pulsó el enlace de WhatsApp de dudas.
+  - `consent_granted`: aceptó las cookies. No sirve para los informes; queda como registro.
 - El plugin de Pretix le manda dos, desde el servidor de Pretix:
   - `add_payment_info`: se confirmó un pedido (datos llenos, pago pendiente). Lleva el valor del pedido, el producto y el medio de pago (`wompi`).
   - `purchase`: se pagó el pedido. Lleva el valor, el producto y el código del pedido.
