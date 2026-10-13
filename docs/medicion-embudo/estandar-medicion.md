@@ -8,6 +8,20 @@ Además de vender el evento, el producto de Eventalist es que el cliente que nos
 
 **Regla:** nada que capture personas o intención de compra se publica sin su evento de medición, su lugar en el informe y la revisión legal.
 
+## Medir desde el principio
+
+Principio adoptado el 2026-10-13. En Testigos la medición llegó cuando el sitio ya vendía y las campañas ya corrían. Las primeras visitas, los primeros interesados y las primeras ventas quedaron sin campaña, y eso no se recupera. No se repite: el mercadeo se decide con números, no adivinando qué funciona.
+
+Cuándo entra cada pieza en un evento nuevo:
+
+1. **Al crear las cuentas y las redes.** La propiedad de GA4, el conjunto de datos de Meta (en el portafolio del cliente, decidido antes de crearlo) y la convención de UTM de `guia-manager-redes.md`. Todo enlace que se publique lleva UTM, desde el primero de la bio.
+2. **Primera versión del sitio.** Mientras se experimenta con el diseño, sin medición: es prematuro. La versión que el cliente aprueba y se publica sale con GA4, el píxel, el aviso de cookies y la política que los cubre. No existe "publicamos y después medimos".
+3. **Primer punto de captura** (lista de interesados, WhatsApp). Con su evento desde el día en que se publica.
+4. **Antes de la primera venta.** El embudo completo hasta la compra probado en el sandbox, y el plugin de Pretix activo en el evento real.
+5. **Desde la primera campaña.** Cada anuncio o pieza con su `utm_content` propio, para comparar versiones (pruebas A/B) con datos y no con gustos.
+
+En Testigos rige desde ahora para lo que falta: lo nuevo nace medido y lo anterior no se reescribe. Las specs 001 a 003 quedan como se hicieron.
+
 ## La escalera de números
 
 Es el orden en que se presenta el informe al cliente, de lo más amplio a la venta. Para cada escalón, de dónde sale el número.
