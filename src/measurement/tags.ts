@@ -148,6 +148,18 @@ export function trackBeginCheckout(): void {
   fbq('track', 'InitiateCheckout', params, { eventID: id });
 }
 
+/**
+ * Inscripción en la lista de interesados (WaitlistForm.astro, evento
+ * tdm:lead tras el 200 del backend). Sin datos de la persona: solo dónde se
+ * inscribió y, en el modal "avísame", qué franja.
+ */
+export function trackLead(location: string, item?: string): void {
+  const params: Record<string, string> = { lead_source: location };
+  if (item) params.franja = item.slice(0, 100);
+  gtag('event', 'generate_lead', params);
+  fbq('track', 'Lead', params);
+}
+
 /* ---------- Consentimiento ---------- */
 
 export const consentConfig = cfg;
@@ -197,6 +209,18 @@ export function initMeasurement(): void {
     },
     { capture: true },
   );
+
+  // Lista de interesados: cuánta gente queda cerca de comprar sin comprar
+  document.addEventListener('tdm:lead', (e) => {
+    try {
+      const d = (e as CustomEvent<unknown>).detail;
+      if (!d || typeof d !== 'object') return;
+      const { location, item } = d as Record<string, unknown>;
+      if (typeof location === 'string') trackLead(location, typeof item === 'string' ? item : undefined);
+    } catch {
+      /* nada */
+    }
+  });
 
   // WhatsApp de dudas (WhatsAppLink.astro): cuánta gente se traba al comprar
   document.addEventListener(

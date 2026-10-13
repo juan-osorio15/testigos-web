@@ -145,6 +145,15 @@ const base = import.meta.env.BASE_URL.endsWith('/')
         if (res.status === 200) {
           form.reset();
           say(d.msgSuccess!, 'success');
+          // Para la medición (tags.ts): dónde se inscribió y, en el modal
+          // "avísame", qué franja. Ningún dato de la persona.
+          const notify = form.closest('[data-notify]');
+          const item = notify?.querySelector('[data-notify-item]')?.textContent?.trim();
+          document.dispatchEvent(
+            new CustomEvent('tdm:lead', {
+              detail: { location: notify ? 'aviso_franja' : 'lista_interesados', item: item || undefined },
+            }),
+          );
         } else if (res.status === 400 && body && typeof body === 'object') {
           showErrors(body as Record<string, unknown>);
         } else if (res.status === 429) {
