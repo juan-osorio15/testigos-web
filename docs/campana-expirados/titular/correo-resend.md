@@ -2,28 +2,28 @@
 
 Resend es el servicio que ya usa Pretix para mandar los correos de la tienda. El dominio `eventalist.co` ya está verificado ahí y el plan gratis da 100 correos al día, de sobra para 7. No hay que conectar nada nuevo: solo sacar una llave para el script.
 
-Contexto y textos en `../plan.md`.
+Contexto y textos en `../plan.md`. Se usa la plantilla con forma de pedido, que fue la que llegó a Principal en Gmail (ver sección 5 del plan).
 
 ## Paso 1. Sacar una llave de Resend (una sola vez)
 
-- [ ] Entrar a `https://resend.com/login` con la cuenta de Eventalist donde está el dominio `eventalist.co` (es la misma que se usó para el correo de Pretix).
-- [ ] Ir a **Domains** y confirmar que `eventalist.co` aparece como **Verified**. Si no aparece verificado, parar y avisar.
-- [ ] Ir a **API Keys** → **Create API Key**.
+- [x] Entrar a `https://resend.com/login` con la cuenta de Eventalist donde está el dominio `eventalist.co` (es la misma que se usó para el correo de Pretix).
+- [x] Ir a **Domains** y confirmar que `eventalist.co` aparece como **Verified**. Si no aparece verificado, parar y avisar.
+- [x] Ir a **API Keys** → **Create API Key**.
   - Name: `campanas-correo`
   - Permission: **Sending access**
   - Domain: `eventalist.co`
-- [ ] Copiar la llave (empieza por `re_`). Resend solo la muestra una vez. Guardarla en el gestor de contraseñas, no en chats ni documentos.
+- [x] Copiar la llave (empieza por `re_`). Resend solo la muestra una vez. Guardarla en el gestor de contraseñas, no en chats ni documentos.
 
 La llave de Pretix no se toca: esta es otra, aparte, y se puede borrar cuando termine la campaña.
 
 ## Paso 2. Confirmar que hola@eventalist.co recibe respuestas
 
-- [ ] Desde un correo personal, escribirle a `hola@eventalist.co` y confirmar que llega. Las respuestas de los compradores van a llegar ahí.
+- [x] Desde un correo personal, escribirle a `hola@eventalist.co` y confirmar que llega. Las respuestas de los compradores van a llegar ahí.
 
 ## Paso 3. Sacar la lista actualizada (el día del envío)
 
-- [ ] En Pretix: evento `testigos-memoria` → **Pedidos** → **Exportar** → **Lista de pedidos** → formato CSV. Queda en Descargas como `testigos-memoria_orders.csv`.
-- [ ] En la terminal de VS Code, en la carpeta `testigos-web`:
+- [x] En Pretix: evento `testigos-memoria` → **Pedidos** → **Exportar** → **Lista de pedidos** → formato CSV. Queda en Descargas como `testigos-memoria_orders.csv`.
+- [x] En la terminal de VS Code, en la carpeta `testigos-web`:
 
 ```sh
 python3 scripts/pretix/expirados_sin_compra.py ~/Downloads/testigos-memoria_orders.csv -o ~/Downloads/expirados-hoy.csv --desde 2026-10-09
@@ -35,7 +35,7 @@ python3 scripts/pretix/expirados_sin_compra.py ~/Downloads/testigos-memoria_orde
 ## Paso 4. Ver cómo queda el correo (no envía nada)
 
 ```sh
-python3 scripts/correo/enviar_resend.py ~/Downloads/expirados-hoy.csv --plantilla scripts/correo/plantillas/expirado.html --asunto "Último día del pase completo a \$310.000" --grupo todos --previas ~/Downloads/previas-expirados --registro ~/Downloads/envios-expirados.csv
+python3 scripts/correo/enviar_resend.py ~/Downloads/expirados-hoy.csv --plantilla scripts/correo/plantillas/expirado-pedido.html --asunto "Tu pedido {{codigo}} de Testigos de la Memoria" --remitente "Juan de Testigos de la Memoria <hola@eventalist.co>" --sin-cabecera-baja --grupo todos --previas ~/Downloads/previas-expirados --registro ~/Downloads/envios-expirados.csv
 ```
 
 - [ ] Abrir cualquiera de los archivos de `~/Downloads/previas-expirados/` con el navegador y revisar el texto.
@@ -50,10 +50,10 @@ Fuera del horario de la Ley 2300 (lunes a viernes de 7:00 a. m. a 7:00 p. m., s�
 export RESEND_API_KEY=re_...
 ```
 
-- [ ] Mandar todos los correos a tu propio correo (cambia `tu@correo.com`):
+- [ ] Mandarte un solo correo de muestra, con el código de un pedido real (cambia `tu@correo.com`):
 
 ```sh
-python3 scripts/correo/enviar_resend.py ~/Downloads/expirados-hoy.csv --plantilla scripts/correo/plantillas/expirado.html --asunto "Último día del pase completo a \$310.000" --grupo todos --previas ~/Downloads/previas-expirados --registro ~/Downloads/envios-expirados.csv --prueba tu@correo.com --enviar --ignorar-horario
+python3 scripts/correo/enviar_resend.py ~/Downloads/expirados-hoy.csv --plantilla scripts/correo/plantillas/expirado-pedido.html --asunto "Tu pedido {{codigo}} de Testigos de la Memoria" --remitente "Juan de Testigos de la Memoria <hola@eventalist.co>" --sin-cabecera-baja --grupo todos --previas ~/Downloads/previas-expirados --registro ~/Downloads/envios-expirados.csv --prueba tu@correo.com --enviar --ignorar-horario
 ```
 
 - [ ] Revisar en el celular y en el computador: que se vea bien, que el botón "Ver boletas" abra la tienda y que no haya caído en spam.
@@ -63,7 +63,7 @@ python3 scripts/correo/enviar_resend.py ~/Downloads/expirados-hoy.csv --plantill
 - [ ] El mismo comando del paso 5 **sin** `--prueba tu@correo.com`:
 
 ```sh
-python3 scripts/correo/enviar_resend.py ~/Downloads/expirados-hoy.csv --plantilla scripts/correo/plantillas/expirado.html --asunto "Último día del pase completo a \$310.000" --grupo todos --previas ~/Downloads/previas-expirados --registro ~/Downloads/envios-expirados.csv --enviar --ignorar-horario
+python3 scripts/correo/enviar_resend.py ~/Downloads/expirados-hoy.csv --plantilla scripts/correo/plantillas/expirado-pedido.html --asunto "Tu pedido {{codigo}} de Testigos de la Memoria" --remitente "Juan de Testigos de la Memoria <hola@eventalist.co>" --sin-cabecera-baja --grupo todos --previas ~/Downloads/previas-expirados --registro ~/Downloads/envios-expirados.csv --enviar --ignorar-horario
 ```
 
 - [ ] Debe decir "Enviado a ..." una vez por persona. Si se corre otra vez por error, no repite a nadie (lo evita el registro `envios-expirados.csv`).

@@ -75,11 +75,18 @@ El cuerpo vigente está en `titular/plantilla-whatsapp.md` (paso 1): el aviso de
 
 Se manda con Resend (el mismo proveedor que usa Pretix, dominio eventalist.co ya verificado, plan gratis de 100 correos al día) usando `scripts/correo/enviar_resend.py`, uno por persona.
 
-- Remitente: `Testigos de la Memoria <hola@eventalist.co>`; las respuestas llegan a hola@eventalist.co.
-- Asunto: "Último día del pase completo a $310.000".
-- HTML: `scripts/correo/plantillas/expirado.html`, con la gramática de bloques de la página: terracota con el titular ("Hoy es el último día del pase completo a su mejor precio", remate en serif "Hasta las 11:59 p. m."), franja cielo con $310.000 y el botón "Completar mi compra", la imagen de las caras del sitio, bloque blanco con los panelistas y bloque ladrillo con la ayuda para el pago. Pie con la baja; sin dirección física.
+- Remitente: `Juan de Testigos de la Memoria <hola@eventalist.co>` (`--remitente`); las respuestas llegan a hola@eventalist.co.
+- Asunto: "Tu pedido {{codigo}} de Testigos de la Memoria".
+- HTML: `scripts/correo/plantillas/expirado-pedido.html`, con forma de seguimiento de pedido: logo de texto y "PEDIDO {{codigo}}", terracota con el titular ("Hoy es el último día del pase completo a su mejor precio", remate "Hasta las 11:59 p. m."), franja cielo con $310.000 y el botón "Completar mi compra" (el único enlace), bloque blanco con los panelistas y bloque ladrillo con la ayuda para el pago. Pie con la baja por respuesta; sin dirección física.
+- Sin la cabecera `List-Unsubscribe` (`--sin-cabecera-baja`); la baja queda en el texto.
 - **Decisión del titular (2026-10-12):** el correo sale el mismo 12 de octubre, festivo, porque la etapa 1 termina esa medianoche y es la última oportunidad real del mejor precio. Se envía con `--ignorar-horario`. El tono es vendedor a propósito: la urgencia es cierta. `{{codigo}}` se cambia por el código del pedido de cada persona.
-- El script también arma la versión en texto plano, agrega el encabezado `List-Unsubscribe` y guarda cada envío en un registro para no repetir.
+- El script también arma la versión en texto plano y guarda cada envío en un registro para no repetir.
+
+### Principal o Promociones en Gmail
+
+La primera plantilla (`expirado.html`, con la imagen grande de las caras, enlace a WhatsApp y a la política, remitente de marca, asunto con el precio y cabecera de baja) cayó en Promociones en las pruebas. La variante de pedido, con todo lo anterior quitado, llegó a Principal en la prueba del 12 de octubre. Gmail decide por destinatario, así que no hay garantía, pero para recuperar pedidos se parte de la variante: un solo enlace, sin imágenes enlazadas, asunto con el código del pedido y remitente con nombre de persona. `expirado.html` queda como referencia.
+
+El envío real del 12 de octubre (16:24, 7 personas más el titular) salió con una versión anterior de la variante que decía "los cuatro días" y "del jueves 5 al domingo 8"; el pase cubre los conversatorios del 6 al 8. La plantilla ya está corregida.
 
 ## 6. Cómo saber si funcionó
 
