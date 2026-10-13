@@ -74,7 +74,7 @@ Vienen del dictamen del abogado interno del 2026-10-06 (`docs/revision-legal-202
     ]
   },
   "attribution": {
-    "utm_source": "meta", "utm_medium": "paid", "utm_campaign": "preventa",
+    "utm_source": "ig", "utm_medium": "paid_social", "utm_campaign": "preventa",
     "utm_content": "afiche", "utm_term": null,
     "landing": "/", "gclid": null, "has_ga_session": true
   }

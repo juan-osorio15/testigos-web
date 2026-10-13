@@ -65,7 +65,7 @@ Receptor de `pretix.presale.signals.order_api_meta_from_request` (recibe solo `r
 ```python
 {"tracking": {
     # claves de widget_data que empiezan por "tracking-": sin el prefijo, guiones -> "_"
-    "utm_source": "meta", "utm_medium": "paid", "utm_campaign": "preventa", "utm_content": "afiche",
+    "utm_source": "ig", "utm_medium": "paid_social", "utm_campaign": "preventa", "utm_content": "afiche",
     "ga_id": "...", "ga_sessid": "...", "fbp": "...", "fbc": "...", "gclid": "...",
     "landing": "/", "consent": "1",
     # siempre, aunque no haya widget_data:
@@ -269,7 +269,7 @@ Si faltan los datos de un destino, ese destino se omite sin error.
     ]
   },
   "attribution": {
-    "utm_source": "meta", "utm_medium": "paid", "utm_campaign": "preventa",
+    "utm_source": "ig", "utm_medium": "paid_social", "utm_campaign": "preventa",
     "utm_content": "afiche", "utm_term": null,
     "landing": "/", "gclid": null, "has_ga_session": true
   }
