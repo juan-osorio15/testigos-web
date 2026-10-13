@@ -161,3 +161,56 @@ Cómo leerlo:
 - Comparar ingresos de GA4 con Pretix: nunca van a cuadrar (cookies no aceptadas y comisiones). Se compara la **proporción** entre campañas, no el monto.
 - Leer los datos de hoy: GA4 tarda hasta 24 a 48 horas en procesar todo. Para decisiones, mirar hasta ayer.
 - Confiar en una campaña con muy pocas visitas: con menos de unas 50 sesiones, cualquier diferencia puede ser casualidad.
+
+---
+
+# Entender Meta
+
+Igual que la sección de GA4: qué mirar en Meta, qué significan sus números y por qué nunca van a coincidir con GA4.
+
+## Dos lugares distintos
+
+- **Administrador de anuncios:** lo que pasó **con los anuncios** (cuánta gente los vio, cuántos tocaron, cuánto costó). Es donde trabaja quien arma las campañas.
+- **Administrador de eventos:** lo que le llega a Meta **desde el sitio y desde Pretix** (visitas, compras). Ahí se revisa que la medición funcione.
+
+## Las palabras que más vas a ver
+
+- **Alcance:** personas distintas que vieron el anuncio al menos una vez.
+- **Impresiones:** veces que se mostró el anuncio. Una persona puede sumar varias.
+- **Frecuencia:** impresiones dividido alcance. Por encima de 3 o 4 en una semana, la gente se cansa del anuncio.
+- **Clics (todos):** cualquier toque en el anuncio: abrir el perfil, ver más texto, dar like, ampliar la foto. **No son visitas al sitio.**
+- **Clics en el enlace:** toques en el botón o enlace que lleva al sitio. Se cuentan en el momento del toque, aunque la página nunca termine de cargar.
+- **Visitas a la página de destino:** personas que tocaron el enlace **y** la página alcanzó a cargar y avisarle al píxel. Es el número de Meta más parecido a una visita. Como el píxel solo carga cuando la persona acepta las cookies, también se queda corto.
+- **CTR:** porcentaje de quienes vieron el anuncio y tocaron el enlace. En Instagram, por encima de 1 % es razonable.
+- **CPC:** cuánto costó cada clic en el enlace.
+- **Resultados:** depende del objetivo con que se creó la campaña (clics, visitas, compras, mensajes). Siempre hay que mirar qué está contando antes de citar el número.
+- **Configuración de atribución:** Meta se atribuye una compra si la persona tocó el anuncio en los 7 días anteriores o lo vio en el día anterior, aunque haya llegado al sitio por otro camino. Por eso Meta puede reclamar compras que GA4 o Pretix ponen en otra campaña.
+
+## Qué le llega a Meta desde Testigos
+
+- Desde el navegador (píxel, solo con cookies aceptadas): `PageView` (cada página), `ViewContent` (fue a boletas), `Lead` (se inscribió como interesado), `InitiateCheckout` (pulsó "Comprar").
+- Desde Pretix (plugin, por Conversions API): `AddPaymentInfo` (pedido confirmado) y `Purchase` (pedido pagado), con el correo, el teléfono y el nombre del comprador convertidos en códigos que no revelan el dato. Con esos códigos Meta reconoce al comprador aunque no haya aceptado cookies, si tiene cuenta en Facebook o Instagram. Por eso **Meta puede ver más compras que GA4**.
+
+## Por qué Meta y GA4 nunca coinciden
+
+De mayor a menor, cada paso pierde gente:
+
+1. **Clics en el enlace** (Meta): toques, no visitas.
+2. **Visitas a la página de destino** (Meta): la página cargó. Se pierden quienes cerraron antes, sobre todo en el navegador interno de Instagram, que es lento.
+3. **Sesiones en GA4**: solo las de quien aceptó las cookies. Quien no acepta no aparece en los informes.
+4. **De esas, las que GA4 pone en Meta**: solo las que llegan con UTM bien puestas. Sin UTM, una visita desde un anuncio puede quedar como `l.instagram.com`, Organic Social o directa.
+
+Ninguno de los números está "inflado": cada plataforma cuenta una cosa distinta. Para el informe se usa cada uno para lo suyo: Meta para el alcance y el costo, GA4 para comparar campañas en el sitio, Pretix y el backend para los totales de ventas e interesados.
+
+## Qué mirar cada semana
+
+1. **Administrador de anuncios, pestaña Anuncios**, con el preset "Informe Testigos" del reporte 9: importe gastado, alcance, frecuencia, clics en el enlace, visitas a la página de destino, CTR y CPC por anuncio. Responde "¿qué pieza funciona mejor por cada peso?".
+2. **Desglose → Por entrega → Plataforma** (Facebook o Instagram) y **Ubicación** (feed, historias, reels): dónde rinde más el presupuesto.
+3. **Administrador de eventos → el píxel → Información general**: que lleguen `PageView`, `ViewContent`, `Lead`, `InitiateCheckout`, `AddPaymentInfo` y `Purchase`. Si un evento deja de llegar varios días, algo se rompió.
+4. **Administrador de eventos → Purchase → "Calidad de la coincidencia de eventos"**: qué tan bien reconoce Meta a los compradores que manda Pretix. De 6 en adelante está bien.
+
+## Errores de lectura comunes
+
+- Decir "mandamos 2.000 personas al sitio" con clics (todos) o clics en el enlace. Lo correcto es "2.000 clics en el enlace" y, al lado, las visitas a la página de destino.
+- Comparar el alcance de Meta con los usuarios de GA4: alcance es gente que **vio** el anuncio, no que entró.
+- Sumar las compras de Meta y de GA4: son las mismas compras vistas desde dos lados. El total es el de Pretix.
