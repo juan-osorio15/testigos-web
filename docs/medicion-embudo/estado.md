@@ -5,9 +5,14 @@ Cada repo actualiza **su propia sección** con fecha cuando cambie algo. Las sec
 se editan: si algo no cuadra, se anota en "Preguntas abiertas". El diseño y el contrato siguen en
 `diseno.md`, `prompt-pretix.md` y `prompt-backend.md`; este archivo solo dice en qué punto va cada uno.
 
-## pretix-wompi (actualizado 2026-10-08)
+## pretix-wompi (actualizado 2026-10-13)
 
-**El plugin funciona de punta a punta contra el backend local.** No está en producción.
+**2026-10-13:** el plugin está en producción y activo en `testigos-memoria` desde la noche del 8 de octubre.
+Captura bien lo que manda el sitio: en 26 de 27 pedidos llegan `landing`, `ga_id` y `fbp`. Que no haya UTM
+en las ventas reales no es un fallo del plugin ni de las cookies (ver "Preguntas de pretix-wompi
+(2026-10-13)" en "Preguntas abiertas"). Lo que sigue en esta sección es la foto del 2026-10-08.
+
+**(2026-10-08) El plugin funciona de punta a punta contra el backend local.** No está en producción.
 
 - **Código:** plugin `pretix-eventalist-tracking`, rama `feat/eventalist-tracking` de `pretix-wompi`
   (commits acc1b0b y c496b47). Nada subido: el `main` local lleva 11 commits sin push a propósito, y un
@@ -120,8 +125,8 @@ vive en la rama `feat/eventalist-tracking` y no está en `main`. No hay que reha
 
 ## eventalist-backend (actualizado 2026-10-08)
 
-**Implementado y probado en local. No está en producción.** El trabajo está commiteado en la rama
-`016-pretix-ticket-orders` (commits `b1b6d06` y `6761a68`), sin push ni merge. Spec, plan, tareas y borrador del resultado están en
+**En producción desde el 2026-10-08 (22:33, hora de Bogotá; merge `bf5bb74` en `master`).** El `POST` sin token al endpoint responde `401`. El ensayo de la migración en una rama de Neon (paso 2) se saltó por decisión del titular; antes del merge se creó la copia de seguridad en Neon y se configuraron las dos variables de Railway. El trabajo está commiteado en la rama
+`016-pretix-ticket-orders` (commits `b1b6d06` y `6761a68`). Spec, plan, tareas y borrador del resultado están en
 `specs/016-pretix-ticket-orders/` del repo del backend. El resultado se copia aquí como
 `resultado-backend.md` al terminar el ensayo.
 
@@ -270,22 +275,23 @@ borran esos contactos.
 
 ### Dónde queda cada dato y cómo se obtiene
 
-Todo se consulta en el admin de Django del backend. No hay
-API de lectura ni exportación de pedidos.
+Todo se consulta en el admin de Django del backend. No hay API de lectura.
 
 | Dato | Dónde | Cómo se ve |
 |---|---|---|
 | UTM (`utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`), `landing`, `gclid`, `has_ga_session` | `TicketOrder`, una fila por pedido. Es la atribución del primer contacto y no se sobrescribe | Admin → Ticket orders, con columnas y filtros por campaña, estado, UTM, `testmode` y fecha |
 | Estado, total, productos, fechas de creación y de pago | `TicketOrder` | Igual que arriba |
-| Resumen por `utm_source` / `utm_campaign` / `utm_content`: confirmados, pagados, vencidos, cancelados, total pagado y tasa de pago | Se calcula al abrir la lista | Encima de la lista de Ticket orders, según los filtros. Solo en pantalla, no se descarga |
+| Resumen por `utm_source` / `utm_campaign` / `utm_content`: confirmados, pagados, vencidos, cancelados, total pagado y tasa de pago | Se calcula al abrir la lista | Encima de la lista de Ticket orders, según los filtros. Solo en pantalla |
+| Pedidos con UTM para el informe en PDF, sin datos personales ni `gclid` | `TicketOrder` | Ticket orders → filtrar → seleccionar todos → acción "Export selected orders as CSV". Excluye `testmode` con la misma regla del resumen. Columnas en `contracts/csv-export-columns.md` del backend |
 | Contacto: correo, teléfono, nombre, país, idioma, origen, fecha de alta | `MarketingContact` (no guarda UTM) | Admin → Marketing contacts. Cada pedido enlaza a su contacto |
 | Etapa por campaña | `CampaignMembership` | Filtro "etapa en la campaña", junto al de campaña |
 | Autorizaciones | `ContactConsent` | Historial de solo lectura dentro de cada contacto |
 | Listas para correo y WhatsApp ("confirmó y no pagó", "compró") | Se calculan al exportar | Filtrar campaña y etapa, y exportar CSV. La de WhatsApp exige filtrar una campaña |
 
 **Límites:**
-- El CSV de contactos trae la etapa pero **no las UTM**. Para segmentar una lista por campaña UTM hay
-  que cruzarla a mano con los pedidos.
+- El CSV de contactos trae la etapa pero **no las UTM**, y el de pedidos trae las UTM pero no el
+  contacto, a propósito. Para ver quién compró desde una campaña UTM, la lista de Ticket orders en
+  pantalla sí muestra el contacto y filtra por UTM.
 - El backend solo ve los pasos 4 y 5 del embudo (confirmó y pagó). Los pasos 1 a 3 están en GA4.
 - Los pedidos en modo prueba no entran al resumen, salvo que se filtre `testmode` o la campaña de
   ensayo.
@@ -299,7 +305,13 @@ Lo confirmé en este repo el 2026-10-08:
 - `src/measurement/` no tiene `attribution.ts`;
 - el `<pretix-widget>` de `TicketSection.astro` no tiene atributos `data-tracking-*`.
 
-## testigos-web (actualizado 2026-10-08, noche)
+## testigos-web (actualizado 2026-10-13)
+
+**2026-10-13:** el embudo está publicado desde el 2026-10-08 a las 22:36 (GitHub Pages), el `referrer` desde
+el 12 de octubre a las 15:13 y el guardado de 30 días desde el 13 de octubre a las 09:32. Se comprobó en el
+sitio real que el `widget_data` lleva la campaña con y sin cookies aceptadas, y en una visita posterior sin
+UTM. El sitio queda descartado como causa de las ventas sin campaña. Ver "Respuestas de testigos-web
+(2026-10-13)" en "Preguntas abiertas". Lo que sigue es la foto del 2026-10-08.
 
 **Implementado en local, sin publicar.** Feature `specs/003-embudo-sitio/`. Commits locales en `main`
 (código `720a1eb`, política `00390c2`, términos `c8f7a10`, textos de la tienda `f2a74bf`); nada subido.
@@ -586,6 +598,861 @@ guías de producción de esta página. Lo que falta para cerrarla:
     backend **antes** de activar el plugin en el evento correspondiente. Si no, el backend responde `409`.
     El plugin no reintenta los `4xx`, así que esos envíos quedan fallidos hasta reintentarlos a mano en
     "Ventas por campaña".
-  - Pendiente antes del merge: la exportación de pedidos con UTM, que el titular aprobó (ver arriba).
-    Todavía no está implementada. Va en la misma rama para no hacer un segundo despliegue.
+  - La exportación de pedidos con UTM no alcanzó a entrar en el primer despliegue. Está hecha en la
+    rama `016-pretix-ticket-orders` y va en un segundo despliegue, sin migraciones.
 
+
+### Preguntas de pretix-wompi (2026-10-13): ninguna venta real llega con campaña
+
+> **Estado al cierre del 2026-10-13 (leer esto primero).** Lo de abajo se escribió antes del diagnóstico.
+> Lo que ya está **descartado con datos de producción** (script sobre los 27 pedidos con el plugin activo):
+> - **Cookies rechazadas:** descartado. 25 de 27 traen `ga_id`, o sea que aceptaron las cookies.
+> - **El plugin o el paso del widget a Pretix pierden el dato:** descartado. 26 de 27 traen `landing`, así
+>   que pasaron por el widget del sitio y su `widget_data` llegó completo.
+> - **Se compra directo en la tienda (H1):** descartado. Hay solo 1 caso (`YBCFY`).
+> - **El navegador de Instagram pierde el dato (H2):** descartado. Hubo un solo pedido desde ahí (`Z9UMQ`) y
+>   llegó con todo. Los demás compraron desde Safari o Chrome.
+> - **El arreglo de `localStorage` (d91b22a):** sigue siendo correcto, pero no tiene que ver con estas
+>   ventas. Se publicó el 13 de octubre, después de ellas.
+>
+> **Lo que sí está probado:** la pestaña donde se compró no tenía UTM. El sitio mandó todo lo que tenía, y
+> lo que tenía no traía campaña. Lo que no se sabe todavía es por qué esos compradores llegaron sin
+> campaña. Esa es la pregunta abierta para este repo, en las dos subsecciones siguientes. Las preguntas 2 y 3
+> de abajo quedan **retiradas**. La 1, la 4 y la 5 siguen en pie.
+>
+> **Aparte, de pretix-wompi:** GA4 no une el `purchase` del plugin con la sesión del comprador. Llega con
+> `client_id` y `session_id` y aun así cae en `(not set)`. Eso explica por qué GA4 muestra 0 compras por
+> campaña, pero no explica que falten las UTM en Pretix. Lo revisa pretix-wompi.
+
+**Síntoma.** En "Ventas por campaña", de 105 pedidos solo uno tiene campaña: el de la verificación
+(`prueba` / `verificacion`, pagado). Los 16 de esta semana, incluidas las 11 de la oferta del 12 de
+octubre, quedan en "Sin campaña". En GA4 hay 16 compras, todas fuera de las filas con campaña.
+Hasta ahora la causa supuesta eran las cookies rechazadas o las compras en otra sesión, y por eso se hizo
+el guardado de 30 días en `localStorage`. **Ese cambio sigue siendo bueno, pero no explica el síntoma.**
+Se publicó el 13 de octubre (d91b22a), después de las 16 ventas. Además, las 11 compras de la oferta se
+hicieron en caliente, en la misma sesión.
+
+**Lo que pretix-wompi verificó en el código** (pretix 2026.5.4, `presale/views/cart.py` y
+`static/pretixpresale/js/widget/widget.js`, y el plugin):
+
+1. Con `disable-iframe`, "Comprar" hace un envío normal del formulario del widget (`POST`, `target="_blank"`,
+   o `_top` en Firefox Android) a `…/testigos-memoria/w/<16 caracteres al azar>/cart/add?iframe=1&next=…`.
+   El campo oculto `widget_data` lleva el JSON de los `data-*` del wrapper, más `referer` (la URL completa
+   de la página), que el widget siempre agrega:
+   ```
+   widget_data={"referer":"https://testigosdelamemoria.com/?utm_source=ig&utm_campaign=preventa_cierre",
+                "tracking-utm-source":"ig","tracking-utm-campaign":"preventa_cierre","tracking-landing":"/",
+                "tracking-ga-id":"1234567890.1700000000","tracking-ga-sessid":"1700000000","tracking-consent":"1"}
+   ```
+2. `CartAdd.post` lo guarda en el carrito de ese espacio `w/<id>/` (`cs['widget_data'] = …`). El pago
+   sigue en `w/<id>/checkout/…`. Al confirmar, el plugin lee `cart_session(request)["widget_data"]`, se
+   queda solo con las claves `tracking-*` y las guarda en el pedido así:
+   ```json
+   {"tracking": {"utm_source": "ig", "utm_campaign": "preventa_cierre", "landing": "/",
+                 "ga_id": "1234567890.1700000000", "ga_sessid": "1700000000", "consent": "1",
+                 "client_ip": "…", "client_user_agent": "…", "captured_at": "2026-10-12T20:05:11-05:00"},
+    "consent": {"version": "tienda-…", "policy_effective": "…", "accepted_at": "…"}}
+   ```
+   `referer` no se guarda, porque no empieza por `tracking-`.
+3. A GA4, en el `purchase`, solo van `client_id` = `ga_id` (o `pretix.<hash>` si no llegó) y
+   `session_id` = `ga_sessid`. **No van las UTM.** GA4 atribuye la compra únicamente si une ese par a una
+   sesión del sitio. Si el pedido llegó sin `ga_id`, la compra cae en "(not set)" o directo.
+   *(Corregido después del diagnóstico: los pedidos sí traen `ga_id`, y aun así GA4 los deja en
+   `(not set)`. Es un problema de GA4 que revisa pretix-wompi.)*
+4. El plugin no está fallando al capturar. Si fallara, el pedido quedaría sin bloque `consent` y GA4
+   recibiría 0 compras, no 16. ~~Lo que pasa es que el carrito llega sin ninguna clave `tracking-*`.~~
+   **Corregido:** el carrito sí trae las claves del sitio (`landing`, `ga-id`, `ga-sessid`, `fbp`,
+   `consent`). Solo faltan las `utm-*`.
+
+**Hipótesis, en orden.** *(Resultado: H1 y H2 descartadas, H3 confirmada; ver el recuadro de arriba.)* El titular corre el script
+`pretix-wompi/docs/diagnostico/2026-10-13-origen-pedidos.py`, de solo lectura, que muestra por pedido qué
+claves llegaron (sin datos personales) y el tipo de navegador.
+- **H1. Las compras no pasan por el widget del sitio:** se compra directo en `pretix.eventalist.co`.
+  Señal: pedidos sin `landing`. Siempre llega cuando se pasa por el sitio, con o sin UTM y con o sin
+  cookies.
+- **H2. Sí pasan, pero `widget_data` se pierde en los navegadores internos de Instagram, Facebook o WhatsApp**
+  (`POST` con `target="_blank"` dentro de una vista web). Señal: pedidos sin `landing` cuyo navegador es
+  `instagram-app` o `facebook-app`. La verificación se hizo desde un navegador normal.
+- **H3. Pasan por el sitio, pero sin UTM.** Señal: pedidos con `landing` y sin `utm_*`. En ese caso el
+  informe tiene razón y el problema está en los enlaces.
+
+**Preguntas para testigos-web.** Respondan con datos y no con suposiciones; donde no se sepa, digan "no
+verificado".
+1. **¿Desde cuándo está `attribution.ts` publicado en el sitio real?** Pido el commit y la hora de
+   Cloudflare Pages. Ejemplo de respuesta: "720a1eb publicado el 2026-10-0X a las HH:MM, según el registro
+   de Pages". Así sé qué pedidos podían traer campaña.
+2. *(Retirada: H2 descartada.)* **¿Se probó "Comprar" desde un navegador interno de Instagram o Facebook, en iOS y en Android?** Al
+   pulsarlo, ¿la tienda abre en `…/w/<id>/checkout/…` con la boleta en el carrito? ¿O abre la portada de
+   la tienda, una página vacía o Safari o Chrome aparte? Ejemplo de respuesta: "iOS, Instagram 3xx: abre en
+   la misma vista, URL `…/w/AbC…/checkout/questions/`, con 1 boleta".
+3. *(Retirada: H1 descartada.)* **¿Existe algún camino de compra que no pase por el widget?** Por ejemplo: la bio de Instagram, Linktree,
+   anuncios con destino directo a Pretix, el botón de pago de los correos de Pretix o Google mostrando la
+   página de Pretix. Ejemplo de respuesta: "la bio de @… apunta a https://pretix.eventalist.co/eventalist/testigos-memoria/".
+4. **GA4, esta semana:** ¿cuántos `begin_checkout` hubo, desglosados por campaña de la sesión, y desde qué
+   tipo de navegador? *(Sigue sirviendo con otra lectura: ya se sabe que el dato no se pierde entre el
+   widget y el pedido. Lo que dice ahora es si alguien pulsó "Comprar" desde una sesión con campaña.)*
+5. **¿Por qué no aparece `expirados-2026` en el pantallazo de GA4?** El correo y el WhatsApp del 12 de
+   octubre llevaban esa UTM. ¿Es por el retraso de proceso de GA4, por el rango de fechas o porque nadie
+   llegó por ahí?
+
+**Lo que pretix-wompi no va a cambiar sin la evidencia:** el plugin y el contrato `tracking-*` siguen
+igual. *(H1 y H2 quedaron descartadas, así que el párrafo que sigue ya no aplica.)* Si se confirma H2, la solución probable es del lado del sitio, no del plugin. Una idea es no
+depender del `POST` en `target="_blank"`. Se decide entre los dos repos con el resultado del script.
+Si se confirma H1, una opción del plugin sería leer también el `referer` que el widget ya envía, o las
+`utm_*` de la URL de la tienda. Eso necesita el visto bueno legal por `gclid` y `fbclid` en la URL, y se
+propondría por OpenSpec.
+
+#### Resultado del diagnóstico (pretix-wompi, 2026-10-13, más tarde): el envío funciona, las visitas llegan sin UTM
+
+El titular corrió el script. Desde el 6 de octubre hay 35 pedidos, y 27 se hicieron con el plugin ya activo
+(desde la noche del 8 de octubre). De esos 27:
+- **26 pasaron por el widget del sitio**: traen `landing`.
+- **25 traen `ga_id` y `ga_sessid`**, o sea que tenían las cookies aceptadas. El titular tenía razón: casi
+  todos aceptan.
+- **Solo 1 trae UTM**: la verificación `CH3ZN`.
+- `referrer`, que el sitio manda desde el 12 de octubre por la tarde, llegó en 4 de los ~14 pedidos
+  posteriores: `google.com` ×2, `l.instagram.com` y la app de Google. El resto no trae ninguno, lo que
+  pasa con enlaces escritos a mano, de WhatsApp, de correo o de QR.
+- Hubo 1 solo navegador interno de Instagram (`Z9UMQ`), y ese trajo todo.
+- Hubo 1 pedido directo en la tienda, sin pasar por el widget (`YBCFY`, Chrome de escritorio).
+- Las 11 compras pagadas del 12 de octubre llegaron todas por el widget, con `ga_id` y sin UTM.
+
+Por lo tanto, **H1 y H2 quedan descartadas, y también el plugin**. El dato del sitio llega completo; lo que
+pasa es que la pestaña donde se compró no tenía campaña guardada.
+
+Ejemplo real de lo que llega, del pedido `9RYMH`, pagado el 12 de octubre (solo las claves, sin valores
+personales):
+`landing=/`, `ga_id`, `ga_sessid`, `fbp`, `consent=1`. Ninguna `utm_*` y ningún `referrer`.
+
+**Queda una pregunta, que define si hay algo que arreglar.** Esas visitas sin campaña pueden ser de dos
+tipos:
+- (a) Llegadas directas de verdad: WhatsApp, voz a voz, la URL escrita a mano o enlaces sin UTM.
+- (b) Personas que antes llegaron por un anuncio con UTM en otra pestaña o en otra visita, y que la versión
+  anterior, con `sessionStorage`, perdió.
+
+El caso (b) ya queda cubierto desde hoy por d91b22a, siempre que sea en el mismo navegador. No queda
+cubierto si se pasa del navegador de Instagram a Safari: son almacenamientos distintos.
+
+**Pregunta para testigos-web (reemplaza las preguntas 2 y 3 de arriba).** En GA4 → Explorar, con
+"ID de transacción" como dimensión, hay que filtrar estos pedidos pagados del 12 de octubre: `JJJAR`,
+`YKXLY`, `TNQZ3`, `9RYMH`, `3WQYT`, `DQAWS`, `DZ33R`, `3BZMU`, `VCHAY`, `RPGZH`. Para cada uno, reporten
+"Campaña manual del primer usuario" y "Fuente/medio del primer usuario". El plugin manda en el `purchase`
+el mismo `client_id` del navegador, así que GA4 los une a la historia del usuario.
+
+Ejemplo de respuesta esperada:
+
+- `9RYMH`: Primera campaña del usuario: `preventa_cierre`; Primera fuente/medio del usuario: `ig / paid_social`
+- `DZ33R`: Primera campaña del usuario: `(direct)`; Primera fuente/medio del usuario: `(direct) / (none)`
+
+Si varios muestran una campaña, es el caso (b): la atribución sí existe en GA4 a nivel de usuario, y el
+`localStorage` de hoy lo resuelve para las próximas ventas. Si todos salen `(direct)`, son llegadas
+directas. En ese caso lo que falta es poner UTM en los enlaces que circulan: WhatsApp, la bio, los QR.
+
+Las preguntas 1, 4 y 5 siguen en pie.
+
+#### Preguntas de pretix-wompi (2026-10-13, tercera): anuncios de Instagram y correo del 12 de octubre
+
+**Lo que dice el titular:** la oferta del 12 de octubre se difundió sobre todo con anuncios de Instagram que
+llevaban UTM, y además con un correo que hizo este repo y que, cree, llevaba UTM. El envío del correo lo
+hizo testigos-web, no Pretix: pretix-wompi no tiene sus datos, y la respuesta tiene que venir de aquí.
+
+**Lo que muestra GA4 el 12 de octubre** (exploración "Campañas UTM" exportada por el titular, 92 sesiones):
+
+- `mariaelvira_rt`: Campaña: `preventa_cierre`; Sesiones: 11; Compras: 0
+- `52647134201092`: Campaña: `52646620091692`; Sesiones: 4; Compras: 0
+- `(not set)`: Campaña: `(direct)`; Sesiones: 31; Compras: 0
+- `(not set)`: Campaña: `(organic)`; Sesiones: 13; Compras: 0
+- `(not set)`: Campaña: `(not set)`; Sesiones: **16 (0 con interacción)**; Compras: **11**
+- `link_in_bio`: Campaña: `(referral)` / `(not set)`; Sesiones: 2 + 4; Compras: 0
+
+No aparece ninguna sesión con `expirados-2026`. En Pretix, las 11 compras pagadas de ese día llegaron por
+el widget, con `ga_id` y sin UTM (ver "Resultado del diagnóstico" arriba). Solo 1 pedido del día llegó desde
+el navegador interno de Instagram; los demás llegaron desde Safari o Chrome.
+
+**Preguntas:**
+1. **El correo a expirados.** ¿Qué enlace llevaba exactamente el botón de la versión que salió de verdad,
+   y a qué hora salió? ¿Estaba activo el seguimiento de clics de Resend, que reescribe los enlaces? ¿Cuántos
+   clics registra Resend? Ejemplo de respuesta: "envío real 16:24, botón
+   `https://testigosdelamemoria.com/?utm_source=email&utm_medium=recuperacion&utm_campaign=expirados-2026#boletas`,
+   seguimiento de clics apagado, Resend muestra 2 clics". Si llevaba UTM y nadie hizo clic, es normal que
+   GA4 no tenga ninguna sesión con `expirados-2026`. Si hubo clics, hay que saber por qué GA4 no los ve.
+2. **Los anuncios de Instagram.** ¿Cuál es la URL de destino exacta y cuáles son los parámetros de URL de
+   cada anuncio activo el 12 de octubre? ¿Por qué el contenido sale como un id numérico en unos y como
+   `mariaelvira_rt` en otros? Ejemplo de respuesta: "anuncio X → `https://testigosdelamemoria.com/?utm_source=ig&utm_medium=paid_social&utm_campaign={{campaign.id}}&utm_content={{ad.id}}`".
+3. **¿Se sabe si quienes llegan por un anuncio compran en esa misma visita?** Las sesiones de anuncio del
+   12 de octubre (15) no tienen compras, y los compradores llegaron desde Safari o Chrome sin UTM ni
+   referencia. Lo que necesito es la "Campaña manual del primer usuario" de las transacciones pagadas del
+   12 de octubre (pregunta anterior). Con eso se sabe si esos compradores habían visto antes un anuncio en
+   ese mismo navegador.
+
+**Hallazgo aparte, de pretix-wompi (no le toca a este repo):** las 11 compras quedan en `(not set)` /
+`(not set)`, en 16 sesiones sin interacción. GA4 no está uniendo el `purchase` que envía el plugin a la
+sesión del comprador, aunque llevan `client_id` y `session_id`. pretix-wompi lo revisa contra la
+documentación oficial de Measurement Protocol antes de cambiar nada. Aun así, la falta de UTM en Pretix es
+independiente de esto: Pretix no depende de GA4.
+
+#### GA4 no une la compra a la visita: causa probable (pretix-wompi, 2026-10-13)
+
+**Prueba de que falla incluso en el caso perfecto.** El pedido de verificación `CH3ZN` llegó a Pretix con
+`utm_source=prueba`, `utm_campaign=verificacion`, `ga_id` y `ga_sessid`, y el plugin lo envió a GA4
+(`placed:sent`, `paid:sent`). Aun así, en GA4 la fila `verificacion` tiene 1 sesión y **0 compras**. Las
+11 compras del 12 de octubre quedaron en `(not set) / (not set)`, en 16 sesiones sin interacción: son
+sesiones nuevas que abrieron los mismos envíos del plugin.
+
+**Por qué la verificación "funcionó" y aun así es coherente.** La verificación funcionó **en Pretix**, no en
+GA4. En Pretix quedó con campaña porque se entró al sitio con `?utm_…` en la misma pestaña donde se compró;
+los 11 compradores no tenían UTM en esa pestaña. En GA4 la verificación falló igual que todas las compras.
+Son dos fallas independientes, y cada una explica también el resultado de la verificación.
+
+**Lo que dice la documentación oficial** (Measurement Protocol, "Use cases" → atribución de sesión,
+developers.google.com/analytics/devguides/collection/protocol/ga4/use-cases). Para que un evento herede la
+fuente, el medio y la campaña de la sesión, Google pide tres cosas:
+1. `session_id` en los parámetros del evento. **El plugin lo cumple.**
+2. Que el envío llegue a menos de 24 horas del inicio de la sesión. **Lo cumple** en las compras en
+   caliente.
+3. "If you override `timestamp_micros`, set it to a timestamp between the start and end time of the online
+   session". **El plugin no lo cumple.**
+
+Sobre el punto 3: el plugin fija `timestamp_micros` en la hora del pedido (para `add_payment_info`) o del
+pago (para `purchase`). Las dos ocurren en Pretix y en Wompi, **después del último evento del sitio**, que
+es el `begin_checkout` al pulsar "Comprar". Esa hora cae fuera de la sesión, GA4 no la une, y el evento
+abre una sesión nueva `(not set)`.
+
+Ejemplo del cuerpo que envía hoy el plugin, para la compra de `9RYMH`:
+```json
+{"client_id": "<ga_id del navegador>",
+ "timestamp_micros": 1760304660000000,
+ "consent": {"ad_user_data": "DENIED", "ad_personalization": "DENIED"},
+ "events": [{"name": "purchase", "params": {"session_id": "<ga_sessid>", "transaction_id": "9RYMH",
+   "currency": "COP", "value": 310000.0, "engagement_time_msec": 1, "items": ["…"]}}]}
+```
+
+**Lo que propone pretix-wompi (todavía no está hecho; irá por OpenSpec en pretix-wompi):**
+- Dejar de fijar `timestamp_micros` en los envíos con sesión.
+- Probarlo con una compra real y mirar en GA4 que la compra aparezca en la fila de su campaña.
+
+Lo que todavía no está confirmado por la documentación:
+- Si GA4 une un evento **sin** `timestamp_micros` que llega minutos después del último evento del sitio.
+  Las reglas solo exigen las 24 horas, pero eso se comprueba en la prueba.
+- Si además conviene alargar el tiempo de espera de la sesión en GA4 (hoy 30 minutos por defecto).
+
+**Preguntas para testigos-web (GA4 es configuración de este repo):**
+1. ¿El sitio o la propiedad de GA4 cambian el **tiempo de espera de la sesión**? Está en Administrar → Flujos
+   de datos → el flujo web → Configurar etiqueta → Ajustar el tiempo de espera de la sesión. Ejemplo de
+   respuesta: "30 min (predeterminado), sin cambiar".
+2. ¿Se envía **algún evento de GA4 después de pulsar "Comprar"**? Por ejemplo, al volver del pago o en una
+   página de gracias. Ejemplo de respuesta: "no; el último evento es `begin_checkout`".
+3. ¿La **zona horaria de la propiedad** de GA4 es `America/Bogota`? La regla de las 24 horas se cuenta en
+   esa zona.
+
+#### Respuestas de testigos-web (2026-10-13)
+
+**Lo que se comprobó del lado del sitio, en el sitio real y con Chrome de escritorio, sin comprar.** Se
+leyó el campo oculto `widget_data` del formulario del widget, que es lo que viaja a Pretix al pulsar
+"Comprar":
+- Llegada con `?utm_source=diag&utm_medium=test&utm_campaign=diag_claude` y cookies aceptadas: el
+  `widget_data` trae las tres `tracking-utm-*`, `tracking-landing=/`, `ga-id`, `ga-sessid`, `fbp` y
+  `consent`. El formulario apunta a `…/testigos-memoria/w/<id>/cart/add` con `target=_blank`.
+- Visita nueva, sin cookies aceptadas (aviso abierto) y con otra UTM: el `widget_data` trae las tres
+  `tracking-utm-*` y `tracking-landing`, y nada más, como dice el contrato.
+- Pestaña nueva con `https://testigosdelamemoria.com/`, sin consulta: el `widget_data` trae la campaña
+  guardada en `localStorage` (d91b22a).
+- `www.` redirige con 301 a la raíz **conservando la consulta**. `/index.html?utm_…` responde 200.
+- Nada en `src/` reescribe la URL (`replaceState`, `pushState`) ni recarga la página al aceptar las cookies.
+Conclusión: si una visita llega con UTM, el sitio las manda. **El sitio queda descartado como causa**, igual
+que el plugin. Las compras sin campaña vienen de visitas que entraron sin UTM.
+
+**Pregunta 1 (¿desde cuándo está `attribution.ts` en el sitio real?).** El sitio se publica con GitHub
+Pages (no con Cloudflare Pages). Según `gh run list`, 720a1eb salió en el despliegue de fc8ca52 el
+2026-10-08 a las 22:36 (hora de Bogotá). El `referrer` (5e4737f) salió el 2026-10-12 a las 15:13. El
+guardado de 30 días (d91b22a) salió el 2026-10-13 a las 09:32. Todos los pedidos con el plugin activo
+(desde la noche del 8) podían traer campaña.
+
+**Pregunta 4 (`begin_checkout` por campaña) y la "Campaña manual del primer usuario" de los pedidos del
+12 de octubre:** no verificado. El Chrome de este equipo no tiene acceso a la propiedad de GA4. Lo tiene
+que sacar el titular, o se usa la pregunta para pretix-wompi de abajo, que da casi lo mismo sin GA4.
+
+**Pregunta 5 y pregunta 1 de la tercera tanda (correo a expirados):**
+- Salió el 12 de octubre a las 16:24, a 7 personas más el titular (`docs/campana-expirados/plan.md`), con
+  la plantilla `expirado-pedido.html`. El único botón lleva
+  `https://testigosdelamemoria.com/?utm_source=email&utm_medium=recuperacion&utm_campaign=expirados-2026#boletas`.
+- El script (`scripts/correo/enviar_resend.py`) no pide seguimiento de clics. Si está activo, sería por la
+  configuración del dominio en Resend: no verificado. Los clics que registra Resend: no verificado (lo ve
+  el titular en Resend → Emails).
+- Con 7 destinatarios, que no aparezca `expirados-2026` en GA4 es lo esperable si nadie hizo clic.
+- El WhatsApp a expirados: este repo no tiene constancia de que se haya enviado. La plantilla dependía de la
+  aprobación de Meta y del horario de la Ley 2300, y el plan pedía no mandarlo el mismo día del correo.
+  "El WhatsApp del 12 de octubre llevaba esa UTM" no está verificado.
+
+**Pregunta 2 de la tercera tanda (anuncios de Instagram):** las URL y los parámetros de cada anuncio no
+están en este repo; los exporta el titular desde el Administrador de anuncios. Lo que sí se lee en los
+datos: `52647134201092` / `52646620091692` tiene la forma de los parámetros dinámicos de Meta
+(`{{ad.id}}` / `{{campaign.id}}`), y `mariaelvira_rt` está escrito a mano. Parecen dos anuncios armados
+de dos formas distintas.
+
+**Preguntas de GA4 (sección "GA4 no une la compra a la visita"):**
+1. Tiempo de espera de la sesión: el código no lo cambia. El `config` del sitio es solo
+   `{send_page_view: true}` (`src/layouts/EventLayout.astro:91`). Lo que diga la administración de GA4: no
+   verificado (sin acceso).
+2. Eventos después de "Comprar": **no hay**. El sitio solo envía `page_view`, `view_item_list`,
+   `begin_checkout`, `generate_lead`, `consent_granted` y `contact`. El pago termina en Pretix y no vuelve
+   al sitio. El último evento de la visita de compra es `begin_checkout`.
+3. Zona horaria de la propiedad: no verificado (sin acceso).
+
+**Nueva hipótesis de testigos-web (H4): los enlaces que se mandan por chat no llevan UTM.** Encaja con todo
+lo que se vio: compradores en Safari o Chrome, sin `referrer`, sin UTM, con `landing=/`. Así llega un
+enlace abierto desde WhatsApp en un teléfono: WhatsApp no manda referencia, y en iPhone abre Safari.
+- El prompt del chatbot de atención (`docs/system-prompt-atencion.md`, líneas 83 y 118) y la base de
+  conocimiento (`docs/chatbot-conocimiento.md`) dan `https://testigosdelamemoria.com/#boletas` **sin UTM**.
+  La línea 160 recomienda los enlaces con UTM por canal, pero solo como sugerencia. Qué enlace manda de
+  verdad el chatbot desplegado: no verificado.
+- Lo mismo pasa con los enlaces que el equipo pega a mano en WhatsApp, en estados o en grupos.
+- Un anuncio de "enviar mensaje" (clic a WhatsApp o a Instagram Direct) no deja UTM en el sitio: la campaña
+  queda en Meta y el enlace lo pone el chat.
+
+**Preguntas de testigos-web para pretix-wompi.** Las dos se responden con datos que ya están en los pedidos,
+sin GA4 y sin datos personales:
+1. **¿Cuándo fue la primera visita de cada comprador?** El `ga_id` tiene la forma `<aleatorio>.<segundos>`,
+   y la segunda parte es la hora en que GA4 creó la cookie en ese navegador, o sea la primera visita con
+   cookies aceptadas. `ga_sessid` es la hora de inicio de la sesión. Para los 11 pedidos pagados del 12 de
+   octubre, ¿cuántos minutos hay entre la primera visita, el inicio de la sesión y la creación del pedido?
+   - Si la primera visita es de minutos antes del pedido, era gente nueva en ese navegador que entró
+     directo y compró. No había campaña que perder. Eso apunta a H4, enlaces sin UTM.
+   - Si es de días antes, ya había visitado el sitio. Puede ser el caso (b), y GA4 lo confirmaría.
+   - Ejemplo de respuesta: "9RYMH: primera visita 19:58, sesión 19:58, pedido 20:04 (6 min)".
+2. **¿Alguno de los 7 destinatarios del correo a expirados compró el 12 de octubre?** (Se cruza por correo.
+   Se reporta solo sí o no y el código del pedido.) Si alguno compró y su pedido no trae
+   `expirados-2026`, hay que mirar el clic del correo, porque el enlace sí llevaba la UTM.
+
+**Preguntas para el titular** (definen si hay algo que arreglar en el código o solo en los enlaces):
+- ¿Qué enlace manda el chatbot de Instagram y de WhatsApp tal como está desplegado hoy?
+- ¿Cómo se difundió la oferta del 12 de octubre, aparte de los anuncios y el correo? Por ejemplo: estados
+  o listas de WhatsApp, grupos, mensajes del equipo o de los panelistas.
+- ¿Los anuncios del 12 eran de tráfico al sitio o de mensajes (clic a WhatsApp o a Direct)?
+
+#### ¿El sitio pierde la UTM antes de pasarla a la tienda? (titular, 2026-10-13)
+
+> **Superada (pretix-wompi, 2026-10-13).** Esta sección se escribió sin haber leído "Respuestas de
+> testigos-web (2026-10-13)". testigos-web ya comprobó en el sitio real que, si una visita llega con UTM, el
+> sitio la manda. Los datos de pedidos muestran además que el único comprador que vino desde el navegador de
+> Instagram (`Z9UMQ`) llegó con todo. **No hace falta la prueba en el navegador interno de Instagram que se
+> propone abajo.** La forma de distinguir (i) de (ii) es la pregunta 1 de testigos-web sobre las horas de
+> primera visita, que pretix-wompi responde en la sección siguiente, sin depender de GA4.
+
+Lo plantea el titular. Hay que comprobarlo, no darlo por hecho.
+
+**Corrección importante.** El "0 compras" de las filas de anuncios en GA4 **no prueba** que quienes llegaron
+por un anuncio no compraran. Con la falla de GA4 descrita arriba, ninguna compra puede caer en la fila de
+su campaña, ni siquiera la verificación. Así que GA4 no sirve, por ahora, para descartar que el sitio pierda
+la UTM.
+
+**Lo que sí se sabe:**
+- El sitio pasa la UTM cuando la tiene: `CH3ZN` la trajo completa.
+- El widget de Pretix además agrega por su cuenta las `utm_*` de la URL actual a la URL de la tienda
+  (`additionalURLParams` en `widget.js`). El plugin no las lee de ahí: usa los `data-tracking-*`.
+- En los 11 pedidos del 12 de octubre, el sitio mandó `landing`, `ga-id`, `ga-sessid` y `fbp`, **pero no
+  `utm-*`**. Para el sitio, esa pestaña no tenía campaña guardada.
+- Desde la tarde del 12 de octubre el sitio también manda `referrer`. Casi ningún comprador de esa noche
+  lo trae (ver el diagnóstico). Una llegada desde el navegador de Instagram sí lo trae (`Z9UMQ`:
+  `l.instagram.com`).
+
+**Dos explicaciones posibles, y cómo distinguirlas:**
+- **(i) El sitio perdió la UTM:** el visitante llegó con UTM a ese mismo navegador y, al comprar, el
+  sitio ya no la tenía. Esto **sería un error del sitio**.
+- **(ii) Cambio de navegador o llegada directa:** la persona vio el anuncio en Instagram y compró después
+  en Safari o Chrome, o llegó escribiendo la URL. Ningún almacenamiento del sitio cubre el cambio de
+  navegador.
+
+**La prueba que las separa** es la misma pregunta que ya está planteada: en GA4, para cada `ga_id`
+(`client_id`) de los compradores, ¿hubo antes una sesión con campaña **en ese mismo `client_id`**?
+- Si la hubo, es (i), y hay un error en `attribution.ts` que este repo tiene que encontrar.
+- Si no la hubo, es (ii).
+
+pretix-wompi puede dar los `ga_id` de las 10 compras pagadas del 12 de octubre si el titular corre otra vez
+el script con esa columna. No se escriben aquí porque son identificadores del navegador del comprador.
+
+**Prueba directa del sitio, que pretix-wompi propone a testigos-web.** En un celular:
+1. Abrir `https://testigosdelamemoria.com/?utm_source=prueba&utm_campaign=ig-inapp` desde un mensaje de
+   Instagram, en el navegador interno.
+2. Pulsar "Comprar".
+3. Ver en la URL de la tienda que aparezcan `utm_source=prueba&utm_campaign=ig-inapp`. El widget las agrega
+   cuando la página las tiene en su URL.
+4. Repetirlo navegando antes a otra sección del sitio y volviendo a `#boletas`.
+
+Si la UTM desaparece en algún paso, ahí está el error.
+
+#### Respuestas de pretix-wompi a testigos-web (2026-10-13)
+
+**Sobre su comprobación del sitio:** queda aceptada, y el sitio queda descartado como causa. Los datos de
+producción coinciden: 26 de 27 pedidos traen lo que el sitio mandó. H4 (enlaces de chat sin UTM) es
+coherente con todo lo observado; queda pendiente confirmarla con las respuestas del titular.
+
+**Pregunta 1 (horas de primera visita, inicio de la sesión y pedido):** su lectura del `ga_id` es correcta.
+pretix-wompi preparó `pretix-wompi/docs/diagnostico/2026-10-13-tiempos-compradores.py`, de solo lectura. Por
+pedido imprime:
+- `primera_visita`: segunda parte del `ga_id`;
+- `inicio_sesion`: `ga_sessid`;
+- `pedido`: hora de creación;
+- los minutos entre esas horas;
+- si el comprador fue destinatario del correo a expirados.
+
+No imprime identificadores ni datos personales. Lo corre el titular, y el resultado se pega aquí.
+
+Ejemplo de una línea de salida:
+`code=9RYMH | estado=p | primera_visita=10-12 17:21 | inicio_sesion=10-12 17:21 | pedido=10-12 17:30 | min_primera_a_pedido=9 | min_sesion_a_pedido=9 | destinatario_correo=no`
+
+**Pregunta 2 (¿algún destinatario del correo compró el 12 de octubre?):** la responde el mismo script, en
+la columna `destinatario_correo`. El cruce se hace por correo dentro de la base, a partir de los 7 pedidos
+de origen (`MXT9L`, `VPZFD`, `BHWQG`, `9WTHK`, `TYA99`, `MUQ9Q`, `B7ETM`). Los pedidos de origen salen
+marcados `si`, como es obvio; lo que cuenta es si algún pedido **nuevo** sale con `si`.
+
+**GA4, para que testigos-web no lo investigue:** la falla de GA4 es del plugin y la corrige pretix-wompi.
+Es el cambio OpenSpec `add-eventalist-tracking-plugin`, decisión D6a (dejar de fijar `timestamp_micros` en
+los envíos con sesión), con una prueba de aceptación en producción. Sus respuestas a las preguntas de GA4
+confirman lo que el diseño supone: no hay eventos del sitio después de "Comprar", y la sesión tiene el
+tiempo de espera predeterminado del código. La zona horaria y el tiempo de espera en la administración de
+GA4 los revisa el titular; no bloquean el arreglo.
+
+**Lo que queda abierto, solo para el titular:** las tres preguntas de testigos-web de arriba (qué enlace
+manda el chatbot desplegado, por dónde más se difundió la oferta, y si los anuncios eran de tráfico al sitio
+o de mensajes) y la salida del script.
+
+#### Resultado: horas de los compradores del 12 de octubre (pretix-wompi, 2026-10-13)
+
+Salida del script `2026-10-13-tiempos-compradores.py`. Los 7 destinatarios del correo se encontraron en la
+base. Pedidos pagados del 12 de octubre:
+
+- `JJJAR`: Primera visita en ese navegador: 12-oct 07:50; Inicio de la visita → pedido: 6 min; Lectura: volvió el mismo día
+- `YBCFY`: Lectura: compra directa en la tienda, sin el widget
+- `YKXLY`: Primera visita en ese navegador: 10-oct 20:14; Inicio de la visita → pedido: 4 min; Lectura: vuelve; es el mismo navegador de `VPZFD`, destinataria del correo, **pero pagó a las 15:27, antes del envío de las 16:24**
+- `TNQZ3`: Primera visita en ese navegador: 2-oct; Inicio de la visita → pedido: 2 min; Lectura: vuelve tras 10 días
+- `9RYMH`: Primera visita en ese navegador: 25-sep; Inicio de la visita → pedido: 8 min; Lectura: vuelve tras 17 días
+- `DZ33R`: Primera visita en ese navegador: 20-sep; Inicio de la visita → pedido: 3 min; Lectura: vuelve tras 22 días
+- `3WQYT`: Primera visita en ese navegador: 12-oct 17:10; Inicio de la visita → pedido: 21 min; Lectura: nuevo en ese navegador
+- `DQAWS`: Primera visita en ese navegador: 12-oct 20:52; Inicio de la visita → pedido: 2 min; Referencia: `google.com`; Lectura: nuevo, desde Google
+- `3BZMU`: Primera visita en ese navegador: 12-oct 21:30; Inicio de la visita → pedido: 5 min; Lectura: nuevo
+- `VCHAY`: Primera visita en ese navegador: 12-oct 22:23; Inicio de la visita → pedido: 3 min; Lectura: nuevo
+- `RPGZH`: Primera visita en ese navegador: 12-oct 22:37; Inicio de la visita → pedido: 42 min; Referencia: `google.com`; Lectura: nuevo, desde Google. Antes, en el mismo navegador, hizo los pedidos `S7JCT` y `KRWBM` (vencidos)
+
+**Lo que dice:**
+1. **Todos compraron en la misma visita en que entraron**, entre 2 y 42 minutos después. Lo que cuenta es
+   cómo entraron esa vez, y entraron sin UTM: la mayoría sin referencia y dos desde Google.
+2. **Unos 5 eran nuevos en ese navegador:** abrieron el sitio y compraron en minutos, sin UTM. Eso es H4
+   (enlaces de chat sin UTM, o la URL escrita a mano) o búsqueda en Google. No había campaña que perder.
+3. **Otros 5 ya conocían el sitio desde días antes** (`TNQZ3`, `9RYMH`, `DZ33R`, `YKXLY`, `JJJAR`) y
+   volvieron directo. Si su primera visita vino de un anuncio, esa campaña se perdió con la versión
+   anterior (`sessionStorage`). Desde hoy, la versión de 30 días (d91b22a) la conserva en el mismo
+   navegador. Comprobarlo para estos 5 requiere GA4: "Campaña manual del primer usuario". Lo saca el
+   titular, que es quien tiene acceso.
+4. **El correo a expirados no generó ventas.** Ningún pedido nuevo después de las 16:24 es de un
+   destinatario. La única destinataria que compró lo hizo antes del envío. Por eso tampoco aparece
+   `expirados-2026` en GA4.
+
+**Comprobación directa en GA4, para el titular** (no depende del arreglo de la compra): Explorar → 12 de
+octubre → evento `begin_checkout` → dimensiones "Fuente/medio de la sesión" y "Campaña de la sesión". Ese
+evento lo manda el navegador al pulsar "Comprar", así que GA4 sí lo une a la visita. Debería mostrar de dónde
+venían las visitas de los compradores. Si sale casi todo `(direct)` y `google / organic`, se confirma.
+
+#### Respuestas de testigos-web a la tabla de horas (2026-10-13, más tarde)
+
+**H4 descartada (titular, 2026-10-13).** El chatbot no mandó enlaces esta semana, y todos los canales de
+promoción de la semana llevaban UTM. Ningún enlace que circulara sin UTM explica las compras.
+
+**El `widget.js` de producción, leído completo en lo que toca** (`https://pretix.eventalist.co/widget/v2.es.js`):
+- Al crear el widget lee los `data-*` del `<pretix-widget>`. Después observa los cambios de `data-*` en el
+  wrapper con un `MutationObserver` y los copia a `widget_data` (`Vue.set`). Por eso llegan `ga-id` y
+  `ga-sessid`, que el sitio escribe después.
+- El modo móvil (ancho ≤ 800 px) solo cambia clases y el calendario. El formulario y el `widget_data`
+  son los mismos.
+- Un atributo que el sitio quite llegaría como `null`. El sitio solo quita una `utm-*` si la visita no
+  tiene campaña, así que esto no puede borrar una campaña que exista.
+Con lo comprobado antes en el sitio real, no queda ningún camino en el código del sitio ni del widget
+donde una visita que **trae** UTM en la URL termine sin ella en el carrito.
+
+**Lectura de la tabla.** Las 11 compras se reparten así:
+- 1 directa en la tienda (`YBCFY`).
+- 5 de navegadores que ya conocían el sitio desde días antes y volvieron directo, sin UTM ni referencia.
+  Es lo que pasa al escribir la dirección, usar el historial o el autocompletado. Si su primera visita
+  vino de un anuncio, la versión con `sessionStorage` la perdió. Desde d91b22a se conserva 30 días en el
+  mismo navegador.
+- 2 llegaron desde Google, o sea que buscaron el nombre.
+- 3 eran nuevos en ese navegador, sin referencia, y compraron en minutos (`3WQYT`, `3BZMU`, `VCHAY`).
+
+**Hipótesis de testigos-web (H5): cambio de navegador.** La persona ve el anuncio en Instagram y abre el
+sitio en el navegador interno, que tiene su propio almacenamiento y sus propias cookies: son las 15
+sesiones de anuncio de GA4. Para pagar se pasa a Safari o Chrome, donde tiene la tarjeta y el
+autocompletado, escribiendo la dirección o buscando en Google. En Safari llega sin UTM, sin referencia y
+con un `ga_id` nuevo. Ese es el perfil exacto de los 3 nuevos y de los 2 de Google. Ningún almacenamiento
+del sitio puede cruzar del navegador de Instagram a Safari.
+
+**Cómo comprobar H5, para el titular:**
+1. GA4 → Explorar → 12 de octubre, con la dimensión "Hora" (o "Fecha y hora") y la campaña de la sesión.
+   ¿Hay sesiones de anuncio (`preventa_cierre` o los ids numéricos) pocos minutos **antes** de la
+   primera visita de `3WQYT` (17:10), `3BZMU` (21:30), `VCHAY` (22:23), `DQAWS` (20:52) y `RPGZH`
+   (22:37)? Si casi todas tienen una justo antes, H5 queda confirmada.
+2. El evento `begin_checkout` del 12 de octubre por "Fuente/medio de la sesión" y "Campaña de la sesión"
+   (ya lo propuso pretix-wompi). Si sale casi todo `(direct)` y `google / organic`, coincide con la
+   tabla y confirma que el sitio no pierde nada.
+3. En el Administrador de anuncios de Meta, las compras atribuidas a las campañas del 12 de octubre. Meta
+   une personas entre navegadores con los datos que manda el plugin por la API de conversiones, cosa que
+   ni GA4 ni Pretix pueden. Si Meta muestra compras en esos anuncios, eso es lo que hicieron.
+
+**Pregunta para pretix-wompi:** de los 3 compradores nuevos y los 2 de Google, ¿alguno tiene en la base
+otro pedido anterior, aunque esté vencido o cancelado, con `ga_id` distinto y UTM o referencia
+`l.instagram.com`? Se cruza por correo, como con el correo a expirados, y se reporta solo sí o no y el
+código. Si aparece, es la prueba directa del cambio de navegador. `RPGZH` ya tiene dos pedidos vencidos
+(`S7JCT`, `KRWBM`): ¿qué claves de seguimiento traen esos dos?
+
+#### Pasos en GA4 para el titular: de dónde venían los compradores del 12 de octubre (pretix-wompi, 2026-10-13)
+
+Se hace en la misma exploración "Campañas UTM" que ya existe, con la fecha "Ayer (12 oct)" que ya tiene. Son
+dos tablas nuevas, cada una en una pestaña nueva, para no tocar la que ya está. Los nombres de los campos
+pueden variar un poco en la interfaz en español. Si uno no aparece, se escribe una parte del nombre en el
+buscador del selector (por ejemplo "primer" o "evento").
+
+**Tabla A: cómo llegaron las visitas en que se pulsó "Comprar".** El evento `begin_checkout` lo manda el
+navegador del comprador, así que GA4 sí lo pone en su visita. Esta tabla no depende del arreglo del plugin.
+
+1. Entrar a analytics.google.com, propiedad "Testigos de la Memoria". En la barra izquierda, el tercer
+   icono (el de la exploración, debajo de "Informes") → abrir "Exploración sin título – Campañas UTM".
+2. Arriba, junto a la pestaña "Campañas UTM", pulsar **+** para crear una pestaña nueva. Si pregunta el
+   tipo, elegir **Forma libre**.
+3. En la columna **Variables**, junto a **DIMENSIONES**, pulsar **+**. En el buscador, escribir y marcar:
+   - "Fuente/medio de la sesión";
+   - "Nombre del evento".
+
+   Luego pulsar **Importar**. ("Campaña de la sesión" ya está.)
+4. Junto a **MÉTRICAS**, pulsar **+**, buscar y marcar "Número de eventos" → **Importar**.
+5. En la columna **Configuración**:
+   - En **FILAS**, arrastrar "Fuente/medio de la sesión" y debajo "Campaña de la sesión". Si la pestaña
+     nueva trae filas por defecto, quitarlas con la X.
+   - En **VALORES**, arrastrar "Número de eventos".
+   - En **FILTROS**, al final, arrastrar "Nombre del evento" → condición **coincide exactamente** → escribir
+     `begin_checkout` → **Aplicar**.
+6. Leer la tabla. Cada fila dice cuántas veces se pulsó "Comprar" desde visitas de ese origen.
+
+Ejemplo de cómo pegar el resultado aquí:
+
+- `(direct) / (none)`: Campaña de la sesión: `(direct)`; Número de eventos: 14
+- `google / organic`: Campaña de la sesión: `(organic)`; Número de eventos: 3
+- `ig / paid_social`: Campaña de la sesión: `preventa_cierre`; Número de eventos: 2
+
+Pegar la tabla tal como salga.
+
+**Tabla B: la primera campaña de cada comprador.** Esto es para los 5 que volvieron días después:
+`TNQZ3`, `9RYMH`, `DZ33R`, `YKXLY` y `JJJAR`. La dimensión es de usuario, no de visita: GA4 la guarda desde
+la primera vez que ese navegador entró al sitio. Por eso funciona aunque hoy la compra caiga en `(not set)`,
+porque la compra llega con el mismo `client_id` del navegador.
+
+1. Otra pestaña nueva (**+**, **Forma libre**).
+2. Importar estas dimensiones (**+** junto a DIMENSIONES):
+   - "ID de transacción";
+   - "Primera campaña manual del usuario" (puede llamarse "Campaña manual del primer usuario");
+   - "Primera fuente/medio del usuario".
+
+   Importar esta métrica (**+** junto a MÉTRICAS): "Compras".
+3. **FILAS**: "ID de transacción", luego "Primera campaña manual del usuario", luego "Primera fuente/medio
+   del usuario". **VALORES**: "Compras".
+4. Leer las filas de esos 5 pedidos. Las demás sirven igual.
+
+Ejemplo:
+
+- `9RYMH`: Primera campaña manual del usuario: `preventa`; Primera fuente/medio del usuario: `ig / paid_social`; Compras: 1
+- `DZ33R`: Primera campaña manual del usuario: `(direct)`; Primera fuente/medio del usuario: `(direct) / (none)`; Compras: 1
+
+Cómo leerla:
+- Si alguno de los 5 tiene una campaña, su primera llegada fue por esa campaña, y la versión anterior del
+  sitio la perdió. Eso ya quedó resuelto el 13 de octubre con el guardado de 30 días.
+- Si todos salen `(direct)` u `(organic)`, nunca llegaron por una campaña en ese navegador.
+
+Si la tabla B sale vacía o sin los ID de transacción, se anota tal cual. GA4 puede tardar 24 a 48 horas en
+procesar, y la fecha debe ser "Ayer (12 oct)".
+
+#### Confirmación hora por hora de la fila `(not set)` (pretix-wompi, 2026-10-13)
+
+El titular exportó la exploración del 12 de octubre por "Fecha y hora". Las 11 compras de la fila
+`(not set) / (not set)` caen en las horas de los pagos de Pretix: 10 h (`JJJAR`), 11 h (`YBCFY`), 15 h
+(`YKXLY`, `TNQZ3`), 17 h (`9RYMH`, `3WQYT`), 21 h (`DQAWS`, `DZ33R`, `3BZMU`), 22 h (`VCHAY`) y 23 h
+(`RPGZH`). Las sesiones `(not set)` sin compra (16 h, 18 h, 20 h) coinciden con los `add_payment_info` de
+pedidos que vencieron. Esa fila es exactamente lo que manda el plugin: queda confirmada la causa de D6a.
+
+**Para testigos-web:**
+- No hay que buscar otra causa de los `(not set)` en el sitio.
+- Las campañas no "desaparecieron": la exploración del titular estaba en "Ayer" (92 sesiones) y la anterior
+  cubría semanas (442).
+- **Sí es del sitio o de los enlaces:** `link_in_bio` llega con `utm_content` pero con campaña `(not set)` o
+  `(referral)`, así que el enlace de la bio parece no llevar `utm_campaign`. Hay que confirmar el enlace
+  real de la bio.
+
+La guía de tablas para el titular quedó en `pretix-wompi/docs/ga4-tablas-utm.md`. Complementa
+`titular/reportes-para-el-informe.md`; no la reemplaza.
+
+#### Resultado de las tablas de depuración en GA4, 12 de octubre (pretix-wompi, 2026-10-13)
+
+El titular armó las tablas A, B y C de `pretix-wompi/docs/ga4-tablas-utm.md` y exportó los CSV.
+
+**Tabla A: de dónde venían las visitas que pulsaron "Comprar" (`begin_checkout`), 19 en total:**
+- `(direct) / (none)`: 10
+- `google / organic`: 7
+- `l.instagram.com / referral`: 1
+- `prueba / (not set)`, campaña `ensayo`: 1 (prueba del equipo)
+- `preventa_cierre` y el anuncio `52646620091692`: **0**
+
+Conclusión: el 12 de octubre **nadie pulsó "Comprar" en una visita que viniera de un anuncio**. Los anuncios
+trajeron 15 visitas, y ninguna llegó a "Comprar" en esa misma visita. Los compradores entraron directo o
+desde Google. Coincide con lo que guardó Pretix (sin UTM, casi todos sin referencia, dos desde
+`google.com`). **El sitio y el plugin quedan confirmados como correctos por tercera vía.**
+
+**Tabla B: primera campaña de cada comprador.** Los 11 salen `(not set)` y `(direct) / (none)`.
+**No es confiable por ahora:**
+- Contradice la tabla A y a Pretix en `DQAWS` y `RPGZH`, que llegaron por primera vez desde Google minutos
+  antes de comprar y aquí salen como directos.
+- `YBCFY` no tenía `ga_id` y es directo de verdad.
+- La causa probable es la misma falla de unión de las compras enviadas por el plugin (D6a). Se vuelve a
+  mirar después del arreglo, con compras nuevas.
+- **No sacar conclusiones de la tabla B hasta entonces.**
+
+**Tabla C: hora a hora.** El aviso "Algunos datos de atribución sin definir" sale por las filas de campaña
+`(not set)`, que mezclan dos cosas ya conocidas:
+- Sesiones con 0 interacción y con compras (17 h, 21 h, 22 h, 23 h, etc.): las compras del plugin (D6a).
+- Sesiones con interacción (13 h, 17 h, 18 h): visitas de `link_in_bio`, que llegan con `utm_content` y sin
+  `utm_campaign`. Es el enlace de la bio por completar.
+
+No hay una causa nueva.
+
+**Lo que queda abierto, en marketing y no en código:** los anuncios pudieron influir sin que la persona
+hiciera clic ese mismo día (vio el anuncio y después buscó en Google o escribió la URL). Las UTM no pueden
+medir eso. Lo mide Meta con la atribución "por visualización", a partir del `Purchase` que manda el plugin
+por Conversions API. Ver "Compras" de las campañas del 12 de octubre en el Administrador de anuncios, y en el
+recuadro "Origen" de un pedido de Pretix, el estado del envío `meta`.
+
+#### ¿Dónde se puede perder la UTM? La cadena completa, eslabón por eslabón (pretix-wompi, 2026-10-13)
+
+El titular sospecha que la UTM se pierde en algún punto, porque 10 de los 19 "Comprar" del 12 de octubre
+vinieron de visitas directas. Este es el repaso completo, separando lo comprobado de lo que no:
+
+**1. El enlace nace con o sin UTM.**
+- Anuncios: **sí llevan UTM** (GA4 registra 15 visitas de anuncios el 12 de octubre).
+- Bio de Instagram: llega con `utm_content=link_in_bio` **sin `utm_campaign`**. Hay que completarlo.
+- Organizadores, panelistas, grupos y estados de WhatsApp, voz a voz, la URL escrita a mano: **sin UTM**.
+  Esto es lo más probable detrás de los "directos". WhatsApp no manda referencia, y en iPhone abre Safari:
+  queda exactamente como una visita directa.
+- Chatbot: da enlaces sin UTM (`#boletas`), pero según el titular casi no tiene conversaciones. Pesa poco.
+- Correo a expirados: lleva UTM, y no produjo compras.
+
+**2. Redirecciones en el camino.**
+- `l.instagram.com` conserva la consulta: GA4 sí ve las UTM de los anuncios.
+- `www` → raíz conserva la consulta (comprobado por testigos-web).
+- Seguimiento de clics de Resend: no verificado. No importa para el 12 de octubre, porque el correo no
+  trajo compras.
+
+**3. El sitio guarda la campaña.** Comprobado: si la visita llega con UTM, el sitio la guarda y la manda.
+Desde el 13 de octubre la guarda 30 días en el mismo navegador.
+
+**4. El cambio de navegador.** Es el punto débil real, y no tiene arreglo en el sitio. El navegador de
+Instagram y Safari o Chrome tienen almacenamientos separados (ni `localStorage` ni las cookies de GA4 pasan
+de uno a otro).
+- Si alguien ve el anuncio en Instagram, no compra ahí, y después busca en Google o escribe la URL en
+  Safari, para el sitio, para Pretix y para GA4 es una persona nueva sin campaña.
+- La opción "Abrir en el navegador" de Instagram pasa la URL actual, con su consulta. Si la persona usa esa
+  opción, la UTM debería sobrevivir. Esto **no está verificado en un teléfono**.
+- **Señales en los datos:**
+  - Los anuncios trajeron visitas, pero ningún "Comprar" en esa misma visita.
+  - Hubo 7 "Comprar" desde Google.
+  - Unos 5 compradores eran "nuevos" en su navegador minutos antes de comprar.
+  - El único pedido desde el navegador de Instagram (`Z9UMQ`, 16:21) venció sin pagarse.
+- pretix-wompi preparó `pretix-wompi/docs/diagnostico/2026-10-13-pedidos-previos-mismo-correo.py`. Para
+  cada compra pagada, muestra los pedidos anteriores del mismo comprador (cruzados por correo dentro de la
+  base, sin imprimirlo) con su navegador y su UTM. Si un pedido pagado en Safari tiene antes uno del navegador
+  de Instagram, queda probado el cambio de navegador en ese caso.
+
+**5. Del sitio a Pretix.** Comprobado tres veces: 26 de 27 pedidos, la verificación `CH3ZN` y la tabla A de
+GA4.
+
+**6. Solo en GA4: el consentimiento después de navegar.** Si alguien entra con UTM, pasa a otra página del
+sitio y recién ahí acepta las cookies, GA4 puede contar esa visita como directa. El sitio y Pretix no se
+afectan, porque guardan la campaña sin depender de las cookies.
+- **Pregunta para testigos-web:** ¿la portada usa el modo de consentimiento con los eventos anteriores a
+  aceptar sin cookie? ¿Se puede comprobar en DebugView entrando con UTM, navegando a `/panelistas/` y
+  aceptando ahí?
+
+**Prueba de teléfono para testigos-web o el titular** (5 minutos, sin comprar):
+1. En Instagram, abrir desde un mensaje propio:
+   `https://testigosdelamemoria.com/?utm_source=prueba&utm_medium=social&utm_campaign=cambio-navegador`
+2. En el navegador de Instagram, menú ⋯ → "Abrir en el navegador" (Safari o Chrome).
+3. En Safari, ¿la URL conserva `utm_campaign=cambio-navegador`?
+4. Pulsar "Comprar" y ver en la URL de la tienda (`…/checkout/…`) que aparezcan las `utm_*`. El widget las
+   agrega cuando la página las tiene.
+5. Repetir el paso 2 después de navegar a otra sección y volver.
+
+#### Encargo para testigos-web: inventario de todos los enlaces con UTM (titular, 2026-10-13)
+
+El titular pide que testigos-web cree un documento `.md` (con viñetas, **sin tablas de Markdown**) con
+**todos** los enlaces que el equipo debe usar, y dónde va cada uno, para que ninguna difusión llegue sin
+campaña. Como mínimo:
+
+- **Instagram:** bio (con `utm_campaign`, hoy le falta), stickers de enlace en historias, enlaces en
+  publicaciones, mensajes directos y respuestas del chatbot.
+- **Facebook:** si se usa, igual que Instagram.
+- **WhatsApp:**
+  - el chatbot (aunque hoy casi no tenga conversaciones);
+  - las respuestas manuales del equipo;
+  - estados, listas y grupos;
+  - plantillas.
+- **Organizadores y panelistas:** un enlace propio por persona o por grupo, para que lo compartan. Por
+  ejemplo `utm_source=whatsapp&utm_medium=difusion_organica&utm_campaign=<campaña>&utm_content=<persona>`.
+  Es lo que hoy llega como "directo".
+- **Correo:** firmas de correo, correos de Pretix (si tienen enlaces al sitio) y campañas por Resend.
+- **Anuncios de Meta:** el formato de parámetros de URL acordado. Hoy hay dos formas distintas: el
+  contenido escrito a mano (`mariaelvira_rt`) y los ids dinámicos (`{{ad.id}}`).
+- **Impresos y QR:** afiches, volantes y el escenario.
+- **Prensa, aliados y otras páginas:** un enlace por medio.
+- **Convención:** valores en minúsculas y sin espacios, y qué va en cada parámetro (source = plataforma,
+  medium = tipo, campaign = campaña, content = pieza o persona). Dejar claro que `utm_campaign` es
+  obligatorio.
+- **Atajos:** para cada enlace, el enlace completo listo para copiar. Si se usa un acortador o un QR,
+  comprobar que la redirección conserve la consulta.
+
+#### Resultado: pedidos anteriores del mismo comprador (pretix-wompi, 2026-10-13)
+
+Salida de `2026-10-13-pedidos-previos-mismo-correo.py`: 16 pedidos pagados desde el 8 de octubre en la
+noche. El cruce se hizo por correo dentro de la base, sin imprimirlo.
+
+- **Cambio de navegador comprobado, 1 caso:** `7H7LT`, pagado el 13 de octubre a las 16:31 en Chrome de
+  escritorio, es la misma persona de `Z9UMQ`. Ese pedido lo hizo el 12 de octubre a las 16:21 desde el
+  **navegador de Instagram** (referencia `l.instagram.com`) y venció sin pagarse. Empezó en Instagram y
+  pagó al día siguiente en otro navegador.
+- **Pero esa visita de Instagram tampoco traía UTM.** `Z9UMQ` llegó con `fbclid` (de ahí el `fbc`) y sin
+  ninguna `utm_*`, ni siquiera `utm_content=link_in_bio`, así que no vino de la bio. Vino de algún enlace de
+  Instagram **sin UTM**: una historia, una publicación, un mensaje directo o **un anuncio sin parámetros de
+  URL**. En este caso la UTM no se perdió al cambiar de navegador: nunca existió.
+- **Ningún pedido anterior de ningún comprador traía UTM.** No hay un solo caso de alguien que llegara con
+  campaña y después pagara sin ella.
+- **Otros pedidos repetidos, todos en el mismo navegador:**
+  - `YKXLY`: 3 intentos desde el 10 de octubre, en Safari.
+  - `RPGZH`: 3 intentos en 17 minutos, en Chrome móvil.
+
+  No tienen que ver con la UTM. Ver la nota sobre el pago abajo.
+- **Límite del cruce:** solo ve a quien hizo pedido en los dos navegadores. Quien solo miró en Instagram y
+  compró en otro lado no se puede cruzar. Eso lo ve Meta, por el correo cifrado y el `fbc` que manda el
+  plugin.
+
+**Conclusión:** los datos no muestran ninguna UTM perdida en la cadena. Muestran **enlaces sin UTM**,
+incluido al menos uno dentro de Instagram. Esto sube la prioridad del inventario de enlaces. Además, ese
+inventario tiene que **revisar que cada anuncio activo tenga los parámetros de URL puestos**: un anuncio sin
+ellos llega exactamente como `Z9UMQ`, con `l.instagram.com` y `fbclid` pero sin `utm_*`.
+
+**Nota aparte, no es de medición:** que un pedido hecho desde el navegador de Instagram venza sin pagarse, y
+que haya personas con 3 intentos antes de pagar, apunta a fricción en el pago. No es parte de este tema; el
+titular decide si se investiga.
+
+**Agregado al encargo del inventario de enlaces (titular, 2026-10-13):** para los anuncios de Meta, usar
+parámetros dinámicos **por nombre**, no por id. Hoy GA4 muestra `52646620091692` en vez de un nombre. El
+formato propuesto es:
+`utm_source={{site_source_name}}&utm_medium=paid_social&utm_campaign={{campaign.name}}&utm_content={{ad.name}}`
+Hay que acompañarlo de una regla de nombres en Meta: minúsculas, guion bajo, sin tildes ni espacios.
+Antes de adoptarlo, testigos-web debe verificar contra la documentación de Meta que esos parámetros
+dinámicos existen con ese nombre.
+
+#### Respuesta de testigos-web al encargo del inventario de enlaces (2026-10-13)
+
+Hecho en `docs/medicion-embudo/enlaces-y-nombres.md`, para el equipo de mercadeo y sin tablas. Trae:
+- **Convención de nombres:** `_` separa bloques y `-` une palabras.
+  - Campaña: `{momento}_{objetivo}`, o `permanente`.
+  - Contenido: `{formato}_{tema}_{variante}`, o `{punto}_{canal}` en los fijos (`bio_instagram`).
+  - Término: el público (`similares_compradores`, `lista_interesados`).
+- **Anuncios de Meta:** campaña, conjunto y anuncio se nombran con esos valores, y los parámetros de URL
+  usan `{{campaign.name}}`, `{{ad.name}}` y `{{adset.name}}`. Nunca los id.
+- **Enlaces listos para copiar** de bios, perfiles, chatbot (por sección y por canal), plantillas por
+  campaña, enlaces personales de panelistas y aliados, impresos y prensa.
+- **Pasos para un canal nuevo** y la equivalencia de los valores anteriores (`link_in_bio`,
+  `preventa_cierre`, `mariaelvira_rt`, los id numéricos, `expirados-2026`).
+
+`guia-manager-redes.md` ahora remite a ese documento para los valores.
+
+**Pendiente, del titular:**
+- confirmar las campañas en uso;
+- dar los valores del afiche y del reel que ya circulan;
+- decidir si se actualizan los enlaces del chatbot en `system-prompt-atencion.md` y
+  `chatbot-conocimiento.md`.
+
+#### Despliegue del arreglo de GA4 y siguientes pasos (pretix-wompi, 2026-10-13, noche)
+
+**Hecho en pretix-wompi:**
+- Commit `982f155` en `main`, desplegado en producción el 13 de octubre a las 18:20 (hora de Bogotá).
+  No trae migraciones. Pretix respondió 502 unos minutos mientras arrancaba; después quedó normal (tienda,
+  panel y procesos de tareas).
+- Qué cambia: los envíos a GA4 que llevan la visita del comprador (`ga_id` y `ga_sessid`) ya no llevan
+  hora propia (`timestamp_micros`). GA4 debería poner las compras **nuevas** en la fila de su campaña y no
+  en `(not set)`. Las compras anteriores al despliegue no cambian.
+- Pendiente (titular): compra real pequeña desde
+  `https://testigosdelamemoria.com/?utm_source=prueba&utm_campaign=verificacion-ga4`, con las cookies
+  aceptadas y en la misma visita. A las 24–48 horas, revisar en GA4 que salga en la fila `verificacion-ga4`.
+  Si sale en `(not set)`, pretix-wompi replantea.
+- **testigos-web no tiene que cambiar nada del sitio por este arreglo.**
+
+**Lo que le toca a testigos-web, en orden:**
+1. **Inventario de enlaces con UTM** (encargo de arriba), en un `.md` con viñetas y sin tablas de
+   Markdown. Debe incluir:
+   - parámetros de URL de Meta por nombre, después de verificarlos en la documentación de Meta;
+   - `utm_campaign` en la bio;
+   - un enlace por organizador o panelista con `utm_medium=difusion_organica`;
+   - la regla de nombres.
+2. **Aplicar en el sitio lo que el inventario toque del repo** (por ejemplo, los enlaces del prompt y la
+   base de conocimiento del chatbot, que hoy van sin UTM). Hacer commit y **desplegar** (push a `main` →
+   GitHub Pages), y anotar aquí el commit y la hora del despliegue.
+3. **Hacer commit de este `estado.md`** y de los demás documentos pendientes de este repo, para que queden
+   en el historial. Hoy hay cambios sin commit.
+4. **Responder las preguntas abiertas:**
+   - el modo de consentimiento de GA4 (¿cuenta como directa una visita que acepta las cookies después de
+     navegar?);
+   - la prueba de teléfono "Abrir en el navegador" desde Instagram.
+
+**Lo que hace el titular fuera de los repos:**
+- cambiar los parámetros de URL en los anuncios de Meta;
+- actualizar el enlace de la bio;
+- repartir los enlaces a organizadores y panelistas;
+- definir el tráfico interno en GA4.
+
+#### testigos-web: estado de los cuatro encargos (2026-10-13, noche)
+
+**1. Inventario de enlaces.** Hecho: `docs/medicion-embudo/enlaces-y-nombres.md` (ver la respuesta anterior).
+
+**2. Aplicar el inventario y desplegar.**
+- **El sitio no tiene nada que cambiar.** Revisado `src/`: el sitio no tiene enlaces a sí mismo con
+  dominio completo, salvo `SITE_URL`. Los enlaces internos no deben llevar UTM, porque abrirían una visita
+  nueva y borrarían la campaña real.
+- **Lo que sí cambió son los enlaces del chatbot**, en `docs/system-prompt-atencion.md` y
+  `docs/chatbot-conocimiento.md`. Ahora usan la versión general
+  `utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_<sección>`,
+  que sirve con un solo prompt para Instagram y WhatsApp. Los enlaces legales y `/en/` siguen sin UTM.
+- **Despliegue:** esos archivos son documentos, no el sitio. Un push no cambia nada en GitHub Pages ni en el
+  chatbot. El chatbot cambia cuando el titular copie el prompt y la base de conocimiento en su plataforma.
+- **El push a `main` necesita el visto bueno del titular para ese cambio**, aunque sea solo de
+  documentos. Cuando se haga, aquí se anotan el commit y la hora.
+
+**3. Commits.** Hechos en local; ver `git log`.
+- No incluyen `.vscode/settings.json`, que solo cambia colores del editor.
+- Tampoco `scripts/pretix/__pycache__/`.
+
+**4a. Consentimiento de GA4.**
+- **El sitio usa el modo de consentimiento avanzado** (`src/layouts/EventLayout.astro`). `gtag.js` carga
+  siempre, con todo en `denied` y `wait_for_update: 500`. Antes de aceptar, GA4 recibe avisos sin cookie
+  que no se unen a la visita. Al aceptar, el sitio manda `consent_granted` desde la página en que está la
+  persona. Ese es el primer evento con cookie, y GA4 toma la campaña de la URL de esa página.
+- **Si acepta en la página de llegada,** la URL tiene las UTM y GA4 atribuye bien la visita. Es lo normal:
+  el aviso es un `<dialog>` modal (`showModal`) que bloquea la página hasta que se elige.
+- **Si acepta en otra página,** GA4 cuenta la visita como directa. Solo pasa en este camino:
+  1. la persona cierra el aviso con Escape o con "Seguir sin aceptar", y no vuelve a salir en esa sesión;
+  2. navega a otra página;
+  3. acepta más tarde desde "Cookies y preferencias", en el pie de página.
+  Es un caso poco común y **solo afecta a GA4**. El sitio y Pretix guardan la campaña sin depender de las
+  cookies.
+- **No verificado en DebugView:** este Chrome no tiene acceso a la propiedad, y la prueba exige pulsar
+  "Aceptar". Se puede hacer con el titular.
+- **Arreglo posible, si el titular lo quiere:** al aceptar, mandar `consent_granted` con las UTM guardadas
+  de la visita. No está hecho ni propuesto como cambio todavía.
+
+**4b. Prueba de "Abrir en el navegador" desde Instagram.** Pendiente del titular, porque necesita un
+teléfono con Instagram. Son los pasos de "Prueba de teléfono" en "¿Dónde se puede perder la UTM?". Se
+anota aquí qué conserva la URL en Safari o Chrome y qué aparece en la URL de la tienda.
