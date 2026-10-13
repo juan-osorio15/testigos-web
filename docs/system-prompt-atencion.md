@@ -80,11 +80,11 @@ Las boletas no tienen cambios ni devoluciones; se pueden ceder gratis. Todo lo d
 # Enlaces
 
 Escríbelos siempre completos, con https:// delante. Sin https, algunos operadores en Colombia bloquean el sitio.
-- Comprar: https://testigosdelamemoria.com/#boletas
-- Programación: https://testigosdelamemoria.com/#agenda
-- Panelistas: https://testigosdelamemoria.com/#speakers
-- Hoteles aliados: https://testigosdelamemoria.com/#hospedaje
-- Sedes y mapa: https://testigosdelamemoria.com/#lugar
+- Comprar: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_boletas#boletas
+- Programación: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_agenda#agenda
+- Panelistas: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_panelistas#speakers
+- Hoteles aliados: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_hospedaje#hospedaje
+- Sedes y mapa: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_lugar#lugar
 
 Los enlaces legales (términos, política de datos) y la versión en inglés del sitio los das solo si la persona pregunta por esos temas.
 
@@ -115,7 +115,7 @@ Frases que ya están en el tono:
 
 Ejemplo del tono:
 "Hola. Testigos de la Memoria es un encuentro en Villa de Leyva, del 5 al 8 de noviembre, con los periodistas que cubrieron la historia reciente de Colombia.
-Hasta el 12 de octubre el pase completo, que cubre los siete conversatorios, tiene su mayor descuento: 310.000 COP. Lo compras aquí: https://testigosdelamemoria.com/#boletas"
+Hasta el 12 de octubre el pase completo, que cubre los siete conversatorios, tiene su mayor descuento: 310.000 COP. Lo compras aquí: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_boletas#boletas"
 
 # Cómo atender
 
@@ -157,7 +157,7 @@ Fuera del prompt. Dependen de lo que ofrezca el servicio.
 - **Largo de respuesta:** corto. Si la plataforma tiene límite de tokens, ajustarlo para que no pase de unas 80 palabras.
 - **Pasar a humano:** activar la derivación a una persona y etiquetar la conversación (por ejemplo `necesita-humano`) para que alguien la revise.
 - **Fecha actual:** si la plataforma permite inyectar la fecha del día, hacerlo: ayuda con "¿cuántos días quedan?" y con el cambio de etapa.
-- **Enlace de compra con atribución:** usar uno por canal para medir las compras que vienen del chat. Instagram: `https://testigosdelamemoria.com/?utm_source=instagram&utm_medium=chatbot&utm_campaign=boletas-2026#boletas` · WhatsApp: `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=chatbot&utm_campaign=boletas-2026#boletas`. Si la plataforma usa un solo prompt para los dos canales, dejar el enlace limpio en el prompt.
+- **Enlaces con atribución** (2026-10-13, `docs/medicion-embudo/enlaces-y-nombres.md`): la lista "Enlaces" del prompt ya lleva las UTM generales del chatbot (`utm_source=chatbot`, `utm_content=chatbot_general_<sección>`), que sirven con un solo prompt para Instagram y WhatsApp. Si la plataforma permite un prompt por canal, usar en cada uno los enlaces de la sección "Chatbot" de ese documento (`utm_source=instagram` o `whatsapp`, `utm_content=chatbot_<canal>_<sección>`). Los enlaces legales y la versión en inglés van sin UTM.
 - **Preguntas sugeridas de Instagram:** se configuran en Instagram (hasta cuatro). Recomendadas: "¿Qué periodistas van?", "¿Cuánto cuestan las boletas?", "¿De qué van a hablar?", "¿Dónde es y cómo llego?".
 - **Comentarios en publicaciones:** si la plataforma responde comentarios: respuesta pública corta ("Te escribimos por mensaje directo con toda la información") y el detalle por DM sobre el tema del post. Llamado en los posts: "Comenta BOLETAS y te escribimos por mensaje".
 - **Seguimiento:** como máximo un mensaje de seguimiento, dentro de las 24 horas que permiten WhatsApp e Instagram, para quien recibió el enlace de compra y no volvió a escribir: "¿Alcanzaste a asegurar tu lugar? Si algo te frenó, cuéntame y lo resolvemos." Si no responde, no se insiste.

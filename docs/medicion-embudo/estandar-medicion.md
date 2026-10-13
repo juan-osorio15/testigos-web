@@ -14,7 +14,7 @@ Principio adoptado el 2026-10-13. En Testigos la medición llegó cuando el siti
 
 Cuándo entra cada pieza en un evento nuevo:
 
-1. **Al crear las cuentas y las redes.** La propiedad de GA4, el conjunto de datos de Meta (en el portafolio del cliente, decidido antes de crearlo) y la convención de UTM de `guia-manager-redes.md`. Todo enlace que se publique lleva UTM, desde el primero de la bio.
+1. **Al crear las cuentas y las redes.** La propiedad de GA4, el conjunto de datos de Meta (en el portafolio del cliente, decidido antes de crearlo) y la convención de UTM de `enlaces-y-nombres.md`. Todo enlace que se publique lleva UTM, desde el primero de la bio.
 2. **Primera versión del sitio.** Mientras se experimenta con el diseño, sin medición: es prematuro. La versión que el cliente aprueba y se publica sale con GA4, el píxel, el aviso de cookies y la política que los cubre. No existe "publicamos y después medimos".
 3. **Primer punto de captura** (lista de interesados, WhatsApp). Con su evento desde el día en que se publica.
 4. **Antes de la primera venta.** El embudo completo hasta la compra probado en el sandbox, y el plugin de Pretix activo en el evento real.
