@@ -72,9 +72,9 @@ const base = import.meta.env.BASE_URL.endsWith('/')
       electrónico del comprador y su número de teléfono, junto con el código del pedido y el
       registro de las boletas validadas en la entrada. Con cada pedido se registran además su estado
       (pendiente, vencido o pagado) y la campaña o fuente de la que proviene la visita: los
-      parámetros de campaña de la dirección web, el sitio desde el que se llegó y, si el visitante
-      aceptó las cookies, los
-      identificadores de Google Analytics y de Meta descritos en la sección 10. Los datos del medio de pago los
+      parámetros de campaña de la dirección web, la página de llegada, el dominio del sitio desde
+      el que se llegó y, si el visitante aceptó las cookies, los identificadores de Google
+      Analytics, de Meta y de clic descritos en la sección 10. Los datos del medio de pago los
       recibe y trata directamente la pasarela de pagos conforme a su propia política; el responsable
       no los recibe ni los almacena. Durante el encuentro se captan fotografías y grabaciones de
       video de las sesiones y del público, que pueden incluir la imagen de los asistentes.
@@ -274,6 +274,15 @@ const base = import.meta.env.BASE_URL.endsWith('/')
       en su primera visita; hasta entonces el sitio no instala cookies de analítica ni de
       publicidad. La aceptación se registra en el navegador del visitante con la fecha, la hora y
       la versión del aviso aceptado, y el responsable conserva el texto de cada versión del aviso.
+    </p>
+    <p>
+      Para atribuir cada pedido a la campaña que lo originó, aunque la compra se haga en una visita
+      posterior, el sitio guarda en el almacenamiento local del navegador los parámetros de campaña
+      del enlace de llegada, la página de llegada y el dominio de referencia, y los tiene en cuenta
+      durante un máximo de treinta (30) días y nunca después de la finalización del encuentro. Esta
+      información no identifica al visitante y solo se asocia a una persona si esta realiza un
+      pedido, conforme a la autorización otorgada en la tienda. Los identificadores de clic de
+      Google y Meta se conservan entre visitas únicamente si el visitante acepta las cookies.
     </p>
     <p>
       Cuando un pedido de la tienda se confirma y cuando se paga, el responsable transmite desde sus
