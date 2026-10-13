@@ -13,7 +13,7 @@ Un enlace sin las etiquetas de campaña (las UTM) hace invisible ese trabajo: la
 Una UTM es un pedazo que se agrega al final del enlace, después de un `?`:
 
 ```
-https://testigosdelamemoria.com/?utm_source=instagram&utm_medium=social&utm_campaign=permanente&utm_content=bio_instagram
+https://testigosdelamemoria.com/?utm_source=instagram&utm_medium=social&utm_campaign=permanente&utm_content=bio
 ```
 
 No cambia la página que se abre. Solo le dice al sitio de dónde viene la visita.
@@ -31,12 +31,12 @@ No cambia la página que se abre. Solo le dice al sitio de dónde viene la visit
 
 ## En cada anuncio de Meta
 
-1. Antes de publicar, nombrar la campaña, el conjunto de anuncios y el anuncio con los valores de `enlaces-y-nombres.md`: campaña = `utm_campaign`, conjunto = público (`utm_term`), anuncio = pieza (`utm_content`).
+1. Antes de publicar, nombrar la campaña y cada anuncio con la filosofía de `enlaces-y-nombres.md`: la campaña con su nombre corto y el anuncio con la pieza y lo que la distingue de las demás (por ejemplo, la audiencia: `reel-panelistas_frio`).
 2. En "URL del sitio web": solo `https://testigosdelamemoria.com/`.
 3. En "Parámetros de URL" (a nivel de anuncio), copiar exacto:
 
 ```
-utm_source={{site_source_name}}&utm_medium=paid_social&utm_campaign={{campaign.name}}&utm_content={{ad.name}}&utm_term={{adset.name}}
+utm_source={{site_source_name}}&utm_medium=paid_social&utm_campaign={{campaign.name}}&utm_content={{ad.name}}
 ```
 
 4. Revisar que **todos** los anuncios activos tengan el campo lleno. Un anuncio sin parámetros llega sin campaña.

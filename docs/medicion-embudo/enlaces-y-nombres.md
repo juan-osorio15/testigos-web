@@ -1,52 +1,62 @@
 # Enlaces y nombres de campañas
 
-Fecha: 2026-10-13. Para el equipo de mercadeo: quien publica, arma anuncios, manda mensajes o reparte material impreso. Es la fuente única de los valores de UTM y de los enlaces listos para copiar. `guia-manager-redes.md` dice cuándo usar cada enlace; este documento dice cómo se escribe.
+Fecha: 2026-10-13. Para el equipo de mercadeo y para la IA que le ayuda a nombrar: quien publica, arma anuncios, manda mensajes o reparte material impreso. Es la fuente única de los valores de UTM y de los enlaces listos para copiar. `guia-manager-redes.md` dice cuándo usar cada enlace; este documento dice cómo se escribe.
 
-## La idea
+## La filosofía de los nombres
 
-Cada enlace al sitio responde cinco preguntas, una por etiqueta. En GA4 cada etiqueta es una columna, así que una fila de la tabla se lee como una frase:
+Los nombres existen para **decidir rápido**: mirar la tabla de GA4 o del Administrador de anuncios y saber qué funcionó mejor y por qué. Por eso un nombre lleva **solo lo que distingue** a una pieza de las demás, y nada más.
 
-- **Dónde** se tocó el enlace: `utm_source`.
-- **Cómo** llegó: `utm_medium`.
-- **Por qué** existe el enlace (la campaña): `utm_campaign`.
-- **Qué pieza** se tocó: `utm_content`.
-- **A quién** se le mostró: `utm_term`.
+**Lleva:**
+- Qué es la pieza, en las palabras con que el equipo la reconoce: `reel-panelistas`, `carrusel-agenda`, `historia-sede`.
+- **Las variables que se están comparando.** Si dos reels iguales se mostraron a audiencias distintas, la audiencia es la variable y va en el nombre: `reel-panelistas_frio` y `reel-panelistas_caliente`. Si cambia el gancho, va el gancho: `reel-panelistas_precio` y `reel-panelistas_cupos`. Quien crea la pieza es quien sabe qué cambió entre una versión y otra, así que es quien escribe la variable.
 
-Ejemplo de fila:
+**No lleva** (es ruido: ya está en otra columna, o el equipo ya lo sabe):
+- La plataforma o el canal (`instagram`, `ig`, `whatsapp`): ya está en la columna Fuente.
+- El tipo de enlace (`pagado`, `organico`, `ad`, `post`): ya está en la columna Medio.
+- La etapa, el mes o el año (`etapa2`, `octubre`, `2026`): el equipo sabe en qué momento está, y la fecha ya está en GA4.
+- El nombre de la campaña repetido dentro del contenido.
+- Palabras de relleno: `campana`, `utm`, `link`, `version`, `nuevo`, `final`.
+- Números de Meta (`{{ad.id}}`, `{{campaign.id}}`): en la tabla salen como `52647134201092` y nadie sabe qué son.
+- Datos de una persona (correo, teléfono, nombre de un cliente). Los nombres de panelistas y aliados sí, porque son figuras públicas del evento.
 
-`ig / paid_social` · `etapa2_venta` · `reel_panelistas_a` · `similares_compradores`
+**La prueba del nombre:** se pone al lado de sus hermanos (las otras piezas de la misma campaña) y se pregunta "¿se ve de un vistazo en qué se diferencian?". Si sobra una palabra que todos comparten, se quita. Si dos nombres se ven iguales, falta la variable.
 
-Se lee: "anuncio en Instagram, campaña de venta de la etapa 2, reel de panelistas en su versión A, mostrado a personas parecidas a los compradores". Si una fila no se puede leer así de rápido, el nombre está mal.
+Ejemplo de una campaña con cuatro anuncios:
 
-## Reglas de escritura
+- Bien: `reel-panelistas_frio`, `reel-panelistas_caliente`, `carrusel-agenda_frio`, `carrusel-agenda_caliente`. Se lee la pieza y la audiencia, y se compara en dos ejes.
+- Mal: `etapa2_ig_reel_panelistas_frio_v1`. Repite la etapa, la plataforma y una versión que nadie compara.
+- Mal: `reel1`, `reel2`. No dice qué es ni en qué se diferencian.
+
+## Cómo se escriben
 
 - Todo en minúsculas, sin tildes, sin ñ, sin espacios.
-- **`_` separa bloques** y **`-` une palabras dentro de un bloque**: `etapa2_venta`, `reel_maria-elvira-samper_b`.
-- Cada valor sale de las listas de este documento. Un valor nuevo se agrega aquí **antes** de usarlo.
-- Valores cortos: máximo unos 40 caracteres cada uno.
-- Nunca números de Meta (`{{ad.id}}`, `{{campaign.id}}`): en la tabla salen como `52647134201092` y nadie sabe qué son.
-- Nunca datos de una persona (correo, teléfono, nombre de un cliente). Los nombres de panelistas y aliados sí, porque son figuras públicas del evento.
+- **`-` une las palabras de una misma idea** y **`_` separa la pieza de cada variable**: `reel-panelistas_frio`, `historia-maria-elvira-samper_cuenta-regresiva`.
+- Cortos: dos a cuatro palabras en total suelen bastar.
+- Una pieza sin variantes no lleva variable: `afiche-plaza-villa-de-leyva`.
 - Siempre `https://` (en Colombia el sitio no responde por http).
 - Si el enlace baja a la tienda, `#boletas` va **al final**, después de las etiquetas.
 - `utm_campaign` es obligatoria. Sin ella la fila sale `(not set)`, como pasó con la bio el 12 de octubre.
 
-## Las cinco etiquetas
+## Las cuatro etiquetas
 
-### utm_source: dónde se tocó
+En GA4 cada etiqueta es una columna. Fuente y medio son listas cerradas y técnicas, y casi nunca se piensan. Campaña y contenido son los nombres que el equipo inventa con la filosofía de arriba.
+
+### utm_source: dónde se tocó (lista cerrada)
 
 - `ig` y `fb`: anuncios de Meta. Los pone Meta solo con `{{site_source_name}}`. Ver "Anuncios de Meta".
-- `instagram`: publicaciones, historias, bio, mensajes directos y chatbot de Instagram.
+- `instagram`: publicaciones, historias, bio y mensajes directos de Instagram.
 - `facebook`: publicaciones, página y mensajes de Facebook.
-- `whatsapp`: mensajes, estados, grupos, perfil y chatbot de WhatsApp.
+- `whatsapp`: mensajes, estados, grupos y perfil de WhatsApp.
+- `chatbot`: el chatbot, cuando un solo prompt atiende Instagram y WhatsApp.
 - `email`: cualquier correo.
 - `impreso`: QR de afiches, volantes, pendones y escenario.
 - `google`: perfil de Google y anuncios de Google (futuro).
-- Prensa y páginas de terceros: el nombre del medio o del sitio, con guiones (`el-espectador`, `revista-arcadia`).
+- Prensa y páginas de terceros: el nombre del medio o del sitio, con guiones (`el-espectador`).
 - `prueba`: solo pruebas del equipo. Se filtra en los informes.
 
 Canales futuros, con el mismo criterio de nombrar la plataforma: `tiktok`, `youtube`, `linkedin`, `x`. Para agregar un canal, ver "Canal nuevo".
 
-### utm_medium: cómo llegó
+### utm_medium: cómo llegó (lista cerrada)
 
 - `paid_social`: anuncios pagados en redes.
 - `paid_search`: anuncios pagados en Google (futuro).
@@ -59,81 +69,48 @@ Canales futuros, con el mismo criterio de nombrar la plataforma: `tiktok`, `yout
 - `organic`: solo el perfil de Google (así GA4 lo cuenta como búsqueda orgánica).
 - `referral`: artículos de prensa y páginas de terceros.
 
-### utm_campaign: por qué existe el enlace
+### utm_campaign: la iniciativa
 
-Formato: `{momento}_{objetivo}`.
+El nombre corto con que el equipo se refiere a la campaña, sin etapa ni fecha: `cierre-preventa`, `lanzamiento-franjas`, `panelistas`, `expirados`, `remarketing`. Si la campaña se crea en Meta, es el mismo nombre de la campaña en Meta.
 
-- **Momento:** `preventa`, `etapa1`, `etapa2`, `franjas`, `semana-evento`, `evento`, `post-evento`.
-- **Objetivo:**
-  - `venta`: vender;
-  - `lanzamiento`: anunciar algo nuevo;
-  - `remarketing`: volver a mostrarle algo a quien ya visitó;
-  - `recuperacion`: quien empezó una compra y no la terminó;
-  - `interesados`: sumar a la lista de interesados;
-  - `cierre`: fin de una etapa o de un precio;
-  - `recordatorio`: logística, para quien ya compró.
-- **`permanente`**, sola, para los enlaces que no cambian con las campañas: bios, perfiles, chatbot, firma de correo y QR genéricos.
+- `permanente` para los enlaces que no cambian con las campañas: bios, perfiles, chatbot, firma de correo y QR genéricos.
+- Si dos campañas de momentos distintos se llamarían igual, se agrega solo lo que las distingue (`cierre-preventa` y `cierre-venta`), no la etapa por costumbre.
+- Una campaña nueva se anota en la lista de abajo el día en que se crea, para que todo el equipo use la misma grafía.
 
-En uso desde el 13 de octubre (el titular confirma o ajusta):
+Campañas en uso (el equipo agrega aquí las suyas):
 
 - `permanente`
-- `etapa2_venta`
-- `etapa2_remarketing`
-- `franjas_lanzamiento`: apertura de las boletas de medio día.
-- `etapa2_recuperacion`: correos y WhatsApp a pedidos vencidos.
+- `expirados`: correos y WhatsApp a pedidos vencidos.
 
-No lleva el año: cada evento tiene su propia propiedad de GA4 y su evento en Pretix. Si una edición futura de Testigos usa la misma propiedad, se antepone el año (`2027_etapa1_venta`).
+### utm_content: la pieza y sus variables
 
-### utm_content: qué pieza
+`{pieza}` o `{pieza}_{variable}`, con la filosofía de arriba.
 
-**Piezas** (publicaciones, anuncios, mensajes, impresos): `{formato}_{tema}`, y `_{variante}` al final si se compara con otra versión.
+- **Pieza:** lo que es, como lo llama el equipo: `reel-panelistas`, `carrusel-agenda`, `historia-sede`, `afiche-plaza-villa-de-leyva`, `correo-pedido`, `plantilla-ultimo-dia`.
+- **Variable:** lo que cambia entre versiones que se comparan:
+  - audiencia: `frio`, `caliente`, `seguidores`, `compradores`;
+  - gancho o mensaje: `precio`, `cupos`, `testimonio`;
+  - formato, si se compara: `vertical`, `cuadrado`;
+  - con dos variables, una tras otra: `reel-panelistas_frio_precio`.
+- **Puntos fijos:** el punto, sin el canal, porque el canal ya está en la Fuente: `bio`, `perfil`, `firma`. Si un punto tiene varios enlaces, lo que lleva cada uno: `boletas`, `agenda`, `panelistas` (chatbot, página de varios enlaces).
+- **Personas:** `persona-NOMBRE` o `repost-NOMBRE`, con el nombre como en `src/data/speakers.ts` (`repost-maria-elvira-samper`).
 
-- **Formato:**
-  - redes: `reel`, `historia`, `post`, `carrusel`, `video`, `imagen`, `en-vivo`;
-  - mensajes y correos: `mensaje`, `plantilla`, `estado`, `correo`;
-  - impresos: `afiche`, `volante`, `pendon`;
-  - otros: `articulo`, `repost`, `persona`.
-- **Tema:** `panelistas`, el nombre del panelista como en `src/data/speakers.ts` (`maria-elvira-samper`, `daniel-samper-pizano`), `agenda`, `sede`, `precio`, `cuenta-regresiva`, `testimonio`, `hospedaje`, `ultimos-cupos`. Un tema nuevo se agrega aquí.
-- **Variante:** `a`, `b`, `c`. Las variantes de una prueba comparten formato y tema, y solo cambia la letra: `reel_panelistas_a` y `reel_panelistas_b`.
-- **Lugar, en impresos:** el lugar va como tema: `afiche_plaza-villa-de-leyva`, `volante_universidad-javeriana`.
-
-**Puntos fijos** (bios, perfiles, chatbot, firmas): `{punto}_{canal}`, y `_{seccion}` si hay varios enlaces en el mismo punto.
-
-- `bio_instagram`, `bio_facebook`, `perfil_whatsapp`, `perfil_google`, `firma_correo`.
-- `chatbot_instagram_boletas`, `chatbot_whatsapp_agenda`.
-- Página de varios enlaces (tipo Linktree): `bio_instagram_boletas`, `bio_instagram_agenda`.
-
-### utm_term: a quién se le mostró
-
-Solo cuando se eligió un público: anuncios, listas, grupos. En publicaciones abiertas a cualquiera se omite.
-
-Formato: `{tipo}_{detalle}`.
-
-- `frio_{interes}`: gente nueva, por intereses (`frio_historia-colombia`, `frio_periodismo`).
-- `similares_{base}`: parecidos a una lista (`similares_compradores`).
-- `remarketing_{base}`: quien ya pasó por el sitio (`remarketing_visitantes`, `remarketing_pulso-comprar`).
-- `lista_{nombre}`: listas propias (`lista_interesados`, `lista_expirados`, `lista_compradores`).
-- `grupo_{nombre}`: grupos de WhatsApp o comunidades (`grupo_periodistas-bogota`).
-- `seguidores`: anuncio mostrado solo a los seguidores de la cuenta.
-
-Si el público tiene un lugar, se agrega como bloque final: `frio_historia-colombia_bogota`.
-
-Dónde se ve: en GA4 es la columna "Término manual de la sesión" (se agrega a la exploración junto a campaña y contenido). Pretix, en "Ventas por campaña", no la muestra; la exportación del backend sí.
+`utm_term` no se usa: la audiencia, cuando importa, ya va como variable en el contenido.
 
 ## Anuncios de Meta
 
 El truco es nombrar **una sola vez, en Meta**, y que GA4 copie los nombres solos:
 
-- Nombre de la **campaña** en Meta = un valor de `utm_campaign` (`etapa2_venta`).
-- Nombre del **conjunto de anuncios** = un valor de `utm_term` (`similares_compradores`).
-- Nombre del **anuncio** = un valor de `utm_content` (`reel_panelistas_a`).
+- Nombre de la **campaña** en Meta = `utm_campaign` (`cierre-preventa`).
+- Nombre del **anuncio** = `utm_content`: la pieza y sus variables (`reel-panelistas_frio`). Si el mismo video va en dos conjuntos con audiencias distintas, cada anuncio lleva su audiencia en el nombre.
+- El conjunto de anuncios se nombra como el equipo quiera; no viaja al sitio.
 
 En "URL del sitio web": `https://testigosdelamemoria.com/`
 
 En "Parámetros de URL" de cada anuncio, exacto:
 
 ```
-utm_source={{site_source_name}}&utm_medium=paid_social&utm_campaign={{campaign.name}}&utm_content={{ad.name}}&utm_term={{adset.name}}
+utm_source={{site_source_name}}&utm_medium=paid_social&utm_campaign={{campaign.name}}&utm_content={{ad.name}}
 ```
 
 - Los nombres quedan bien escritos **antes de publicar**. Meta puede seguir mandando el nombre viejo si se renombra después.
@@ -145,88 +122,89 @@ utm_source={{site_source_name}}&utm_medium=paid_social&utm_campaign={{campaign.n
 ### Permanentes
 
 - Bio de Instagram:
-  `https://testigosdelamemoria.com/?utm_source=instagram&utm_medium=social&utm_campaign=permanente&utm_content=bio_instagram`
+  `https://testigosdelamemoria.com/?utm_source=instagram&utm_medium=social&utm_campaign=permanente&utm_content=bio`
 - Bio y botón de la página de Facebook:
-  `https://testigosdelamemoria.com/?utm_source=facebook&utm_medium=social&utm_campaign=permanente&utm_content=bio_facebook`
+  `https://testigosdelamemoria.com/?utm_source=facebook&utm_medium=social&utm_campaign=permanente&utm_content=bio`
 - Perfil y catálogo de WhatsApp Business:
-  `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=social&utm_campaign=permanente&utm_content=perfil_whatsapp`
+  `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=social&utm_campaign=permanente&utm_content=perfil`
 - Firma de correo del equipo:
-  `https://testigosdelamemoria.com/?utm_source=email&utm_medium=email&utm_campaign=permanente&utm_content=firma_correo`
+  `https://testigosdelamemoria.com/?utm_source=email&utm_medium=email&utm_campaign=permanente&utm_content=firma`
 - Perfil de Google, si se crea:
-  `https://testigosdelamemoria.com/?utm_source=google&utm_medium=organic&utm_campaign=permanente&utm_content=perfil_google`
+  `https://testigosdelamemoria.com/?utm_source=google&utm_medium=organic&utm_campaign=permanente&utm_content=perfil`
+- Página de varios enlaces en la bio (tipo Linktree): un enlace por botón, con lo que lleva cada uno en el contenido (`utm_content=boletas`, `utm_content=agenda`).
 
 ### Chatbot
 
-Desde el 2026-10-13, `docs/system-prompt-atencion.md` y `docs/chatbot-conocimiento.md` llevan la versión general (`utm_source=chatbot`, al final de esta sección), que sirve con un solo prompt para los dos canales. **El chatbot desplegado sigue con los enlaces anteriores hasta que se copien el prompt y la base de conocimiento en su plataforma.** Si la plataforma permite un prompt por canal, se usan estos:
+`docs/system-prompt-atencion.md` y `docs/chatbot-conocimiento.md` llevan la versión de un solo prompt para los dos canales. **El chatbot desplegado sigue con los enlaces anteriores hasta que se copien el prompt y la base de conocimiento en su plataforma.**
 
-Instagram:
+Un solo prompt para Instagram y WhatsApp:
 
-- Comprar: `https://testigosdelamemoria.com/?utm_source=instagram&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_instagram_boletas#boletas`
-- Programación: `https://testigosdelamemoria.com/?utm_source=instagram&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_instagram_agenda#agenda`
-- Panelistas: `https://testigosdelamemoria.com/?utm_source=instagram&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_instagram_panelistas#speakers`
-- Hoteles: `https://testigosdelamemoria.com/?utm_source=instagram&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_instagram_hospedaje#hospedaje`
-- Sedes: `https://testigosdelamemoria.com/?utm_source=instagram&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_instagram_lugar#lugar`
+- Comprar: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=boletas#boletas`
+- Programación: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=agenda#agenda`
+- Panelistas: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=panelistas#speakers`
+- Hoteles: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=hospedaje#hospedaje`
+- Sedes: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=lugar#lugar`
 
-WhatsApp: los mismos, cambiando `utm_source=instagram` por `utm_source=whatsapp` e `instagram` por `whatsapp` dentro de `utm_content` (`chatbot_whatsapp_boletas`).
+GA4 pone `chatbot` en "Unassigned", pero la campaña y el contenido se leen igual. Si la plataforma permite un prompt por canal, en cada uno se cambia `utm_source=chatbot` por `utm_source=instagram` o `utm_source=whatsapp`, y lo demás queda igual.
 
-Si la plataforma usa un solo prompt para los dos canales: `utm_source=chatbot` y `utm_content=chatbot_general_boletas` (y así con cada sección). GA4 pondrá esas visitas en "Unassigned", pero la campaña y el contenido se leen igual.
+### Plantillas por campaña
 
-### Por campaña (plantillas)
-
-Se cambia lo que está en MAYÚSCULAS por valores de las listas.
+Se cambia lo que está en MAYÚSCULAS: `CAMPAÑA` por el nombre de la campaña y `PIEZA` por la pieza con sus variables, según la filosofía de arriba.
 
 - Historia con sticker de enlace:
-  `https://testigosdelamemoria.com/?utm_source=instagram&utm_medium=social&utm_campaign=CAMPAÑA&utm_content=historia_TEMA`
+  `https://testigosdelamemoria.com/?utm_source=instagram&utm_medium=social&utm_campaign=CAMPAÑA&utm_content=PIEZA`
 - Publicación de Facebook con enlace:
-  `https://testigosdelamemoria.com/?utm_source=facebook&utm_medium=social&utm_campaign=CAMPAÑA&utm_content=post_TEMA`
+  `https://testigosdelamemoria.com/?utm_source=facebook&utm_medium=social&utm_campaign=CAMPAÑA&utm_content=PIEZA`
 - Estado de WhatsApp:
-  `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=social&utm_campaign=CAMPAÑA&utm_content=estado_TEMA`
+  `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=social&utm_campaign=CAMPAÑA&utm_content=PIEZA`
 - Mensaje del equipo por WhatsApp o lista de difusión:
-  `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=CAMPAÑA&utm_content=mensaje_TEMA&utm_term=PUBLICO`
+  `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=CAMPAÑA&utm_content=PIEZA`
 - Mensaje directo de Instagram enviado por el equipo:
-  `https://testigosdelamemoria.com/?utm_source=instagram&utm_medium=mensaje&utm_campaign=CAMPAÑA&utm_content=mensaje_TEMA`
+  `https://testigosdelamemoria.com/?utm_source=instagram&utm_medium=mensaje&utm_campaign=CAMPAÑA&utm_content=PIEZA`
 - Correo masivo (Resend):
-  `https://testigosdelamemoria.com/?utm_source=email&utm_medium=email&utm_campaign=CAMPAÑA&utm_content=correo_TEMA&utm_term=lista_NOMBRE#boletas`
+  `https://testigosdelamemoria.com/?utm_source=email&utm_medium=email&utm_campaign=CAMPAÑA&utm_content=PIEZA#boletas`
 - Plantilla de WhatsApp a una lista:
-  `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=CAMPAÑA&utm_content=plantilla_TEMA&utm_term=lista_NOMBRE#boletas`
+  `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=CAMPAÑA&utm_content=PIEZA#boletas`
 
-En Instagram, el texto de una publicación o de un reel no admite enlaces. Ahí el llamado es "enlace en la bio", y la visita se cuenta como `bio_instagram`. Si se quiere medir una publicación en particular, se acompaña con una historia que tenga su sticker.
+Ejemplos de `PIEZA`: `historia-sede`, `historia-panelistas_cuenta-regresiva`, `estado-ultimo-dia`, `correo-pedido`, `plantilla-ultimo-dia_frio` y `plantilla-ultimo-dia_caliente` si la misma plantilla va a dos listas distintas.
+
+En Instagram, el texto de una publicación o de un reel no admite enlaces. Ahí el llamado es "enlace en la bio", y la visita se cuenta como la bio. Si se quiere medir una publicación en particular, se acompaña con una historia que tenga su sticker.
 
 ### Panelistas, organizadores y aliados
 
 Cada persona recibe **su** enlace, uno para WhatsApp y otro para sus redes. Es lo que hoy llega como "directo".
 
 - WhatsApp:
-  `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=CAMPAÑA&utm_content=persona_NOMBRE`
+  `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=CAMPAÑA&utm_content=persona-NOMBRE`
 - Historias o publicaciones en sus redes:
-  `https://testigosdelamemoria.com/?utm_source=instagram&utm_medium=aliados&utm_campaign=CAMPAÑA&utm_content=persona_NOMBRE`
+  `https://testigosdelamemoria.com/?utm_source=instagram&utm_medium=aliados&utm_campaign=CAMPAÑA&utm_content=persona-NOMBRE`
 
-`NOMBRE` va como en `src/data/speakers.ts` (`maria-elvira-samper`). Para un organizador o patrocinador, su nombre o el de la entidad con el mismo formato. Si comparten una pieza nuestra, se usa `repost_NOMBRE` en vez de `persona_NOMBRE`.
+`NOMBRE` va como en `src/data/speakers.ts` (`maria-elvira-samper`). Para un organizador o patrocinador, su nombre o el de la entidad con el mismo formato. Si comparten una pieza nuestra, `repost-NOMBRE`.
 
 ### Impresos
 
-`https://testigosdelamemoria.com/?utm_source=impreso&utm_medium=qr&utm_campaign=CAMPAÑA&utm_content=FORMATO_LUGAR`
+`https://testigosdelamemoria.com/?utm_source=impreso&utm_medium=qr&utm_campaign=CAMPAÑA&utm_content=PIEZA-LUGAR`
 
-Ejemplo: `utm_content=afiche_plaza-villa-de-leyva`. Un QR distinto por lugar. El QR se genera **estático**, con el enlace completo: los QR "dinámicos" pasan por otra página y pueden perder las etiquetas. Si el impreso no tiene campaña, se usa `permanente`.
+Ejemplo: `utm_content=afiche-plaza-villa-de-leyva`. Un QR distinto por lugar, porque el lugar es lo que se compara. El QR se genera **estático**, con el enlace completo: los QR "dinámicos" pasan por otra página y pueden perder las etiquetas. Si el impreso no tiene campaña, se usa `permanente`.
 
 ### Prensa y páginas de terceros
 
-`https://testigosdelamemoria.com/?utm_source=MEDIO&utm_medium=referral&utm_campaign=CAMPAÑA&utm_content=articulo_TEMA`
+`https://testigosdelamemoria.com/?utm_source=MEDIO&utm_medium=referral&utm_campaign=CAMPAÑA&utm_content=PIEZA`
 
-Se le manda al medio el enlace ya armado, junto con el comunicado.
+Ejemplo: `utm_source=el-espectador`, `utm_content=entrevista-daniel-samper-pizano`. Se le manda al medio el enlace ya armado, junto con el comunicado.
 
 ## Canal nuevo
 
 Antes de publicar el primer enlace en un canal nuevo (TikTok, LinkedIn, un grupo, un aliado nuevo):
 
 - [ ] Agregar su `utm_source` a la lista de arriba, con el nombre de la plataforma.
-- [ ] Si tiene perfil o bio, crear su enlace permanente `bio_CANAL` o `perfil_CANAL` y agregarlo a "Permanentes".
-- [ ] Si tiene un público propio (un grupo, una lista), agregar su `utm_term`.
+- [ ] Si tiene perfil o bio, crear su enlace permanente (`utm_campaign=permanente&utm_content=bio`) y agregarlo a "Permanentes".
 - [ ] Abrir el enlace desde el celular y comprobarlo en GA4 → Informes → Tiempo real.
 
 ## Antes de publicar cualquier enlace
 
-- [ ] Las cinco etiquetas salen de las listas de este documento, o se agregaron aquí antes.
+- [ ] Fuente y medio salen de las listas cerradas.
+- [ ] Campaña y contenido pasan "la prueba del nombre": junto a sus hermanos, se ve de un vistazo en qué se diferencian, y no repiten canal, etapa ni fecha.
 - [ ] Se abre desde el celular y llega a la página correcta.
 - [ ] En GA4 → Tiempo real aparece con su campaña.
 - [ ] Si pasa por un acortador, la URL final conserva las etiquetas.
@@ -238,12 +216,12 @@ Para armar enlaces sin errores sirve el constructor oficial de Google: https://g
 
 No se renombran: el histórico queda como está. Así se leen:
 
-- `link_in_bio` sin campaña: la bio de Instagram antes del enlace con UTM. Equivale a `bio_instagram`.
-- `bio`: campaña de la bio en la versión anterior de esta guía. Equivale a `permanente`.
+- `link_in_bio` sin campaña: la bio de Instagram antes del enlace con UTM. Equivale a `permanente` / `bio`.
+- `bio` como campaña: la bio en la versión anterior de la guía. Equivale a `permanente` / `bio`.
 - `boletas-2026`: enlace del chatbot en la versión anterior. Equivale a `permanente`; el chatbot no lo llegó a usar.
-- `preventa_cierre`: anuncios del cierre de la etapa 1 (12 de octubre). Equivale a `etapa1_cierre`.
-- `mariaelvira_rt`: repost de María Elvira Samper el 12 de octubre. Equivale a `repost_maria-elvira-samper`.
+- `preventa_cierre`: anuncios del cierre de la preventa (12 de octubre). Equivale a `cierre-preventa`.
+- `mariaelvira_rt`: repost de María Elvira Samper el 12 de octubre. Equivale a `repost-maria-elvira-samper`.
 - `52647134201092` / `52646620091692`: anuncio con los números de Meta en vez de nombres. Se identifica en el Administrador de anuncios buscando ese id.
-- `expirados-2026` con medio `recuperacion`: correo a pedidos vencidos del 12 de octubre. Equivale a `etapa1_recuperacion` con medio `email`.
+- `expirados-2026` con medio `recuperacion`: correo a pedidos vencidos del 12 de octubre. Equivale a `expirados` con medio `email`.
 - `ensayo`, `verificacion`, `prueba`, `diag_claude`, `diag_fresh`: pruebas del equipo. Se filtran.
 - El afiche y el reel con UTM que ya circulan: anotar aquí sus valores cuando el titular los confirme.

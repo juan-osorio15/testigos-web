@@ -13,12 +13,12 @@ Todo sale del sitio, que es la fuente de verdad. Si algo cambia, se cambia prime
 **Qué es Testigos de la Memoria**
 Así lo preguntan: ¿De qué se trata el evento? · ¿Qué es esto? · ¿Cuándo y dónde es? · Quiero info del evento
 Encuentro en Villa de Leyva, Boyacá, del jueves 5 al domingo 8 de noviembre de 2026. Primera edición. Los periodistas que cubrieron los últimos cincuenta años de Colombia cuentan, en persona, los hechos que vivieron de frente.
-Ejemplo: "Es un encuentro en Villa de Leyva, del 5 al 8 de noviembre, donde periodistas como Daniel Samper Pizano y Yolanda Ruiz cuentan lo que vieron. Todo está aquí: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_inicio"
+Ejemplo: "Es un encuentro en Villa de Leyva, del 5 al 8 de noviembre, donde periodistas como Daniel Samper Pizano y Yolanda Ruiz cuentan lo que vieron. Todo está aquí: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=inicio"
 
 **Para quién es · no soy periodista**
 Así lo preguntan: ¿Es solo para periodistas? · ¿Puedo ir si no soy periodista? · ¿A quién está dirigido? · ¿Es para estudiantes de comunicación?
 No hace falta ser periodista. Es para quien quiere entender mejor la Colombia que hemos vivido: lectores de historia, crónica y no ficción.
-Ejemplo: "No hace falta. Esta no es una reunión para periodistas: es una conversación para quienes quieren entender mejor el país que hemos vivido, contada por quienes estaban ahí. Si te gusta la historia, es para ti. https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_inicio"
+Ejemplo: "No hace falta. Esta no es una reunión para periodistas: es una conversación para quienes quieren entender mejor el país que hemos vivido, contada por quienes estaban ahí. Si te gusta la historia, es para ti. https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=inicio"
 
 **Quién organiza · primera edición**
 Así lo preguntan: ¿Quién organiza? · ¿Quién está detrás del evento? · ¿Es la primera vez que lo hacen? · ¿Hubo ediciones anteriores?
@@ -28,7 +28,7 @@ Ejemplo: "Lo organizan Fernando Cordovez y Darío Restrepo, y es la primera edic
 **Charlas abiertas y conversatorios · qué es gratis**
 Así lo preguntan: ¿Es gratis? · ¿Qué tiene costo y qué no? · ¿Hay algo sin boleta? · ¿Cuál es la diferencia entre charla y conversatorio?
 Charlas abiertas: jueves 5 y viernes 6 en la mañana, Casa Museo Antonio Nariño, entrada libre y sin boleta. Conversatorios: del viernes 6 en la tarde al domingo 8, Hospedería Duruelo, con boleta y aforo limitado.
-Ejemplo: "Las charlas abiertas del jueves y el viernes en la mañana son gratis. Los conversatorios con los panelistas, del viernes en la tarde al domingo, van con boleta: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_boletas#boletas"
+Ejemplo: "Las charlas abiertas del jueves y el viernes en la mañana son gratis. Los conversatorios con los panelistas, del viernes en la tarde al domingo, van con boleta: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=boletas#boletas"
 
 **Cómo son los conversatorios · se puede preguntar**
 Así lo preguntan: ¿Cómo es la dinámica? · ¿Puedo hacer preguntas? · ¿Es tipo conferencia? · ¿Qué voy a encontrar?
@@ -41,8 +41,8 @@ Ejemplo: "Sí, puedes preguntar. Son conversaciones cercanas, sin tarima lejana:
 
 **Quiénes van · panelistas**
 Así lo preguntan: ¿Quiénes van? · ¿Qué periodistas vienen? · ¿Quiénes son los invitados? · ¿Quiénes hablan?
-Quince periodistas. Los más conocidos: Daniel Samper Pizano, Yolanda Ruiz, María Elvira Samper, Cecilia Orozco, Fidel Cano y León Valencia. La lista actualizada está en https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_panelistas#speakers
-Ejemplo: "La lista actualizada está aquí: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_panelistas#speakers. Te cuento algunos: Daniel Samper Pizano, Yolanda Ruiz, María Elvira Samper, Cecilia Orozco, Fidel Cano, León Valencia y varios más. ¿Buscas a alguien?"
+Quince periodistas. Los más conocidos: Daniel Samper Pizano, Yolanda Ruiz, María Elvira Samper, Cecilia Orozco, Fidel Cano y León Valencia. La lista actualizada está en https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=panelistas#speakers
+Ejemplo: "La lista actualizada está aquí: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=panelistas#speakers. Te cuento algunos: Daniel Samper Pizano, Yolanda Ruiz, María Elvira Samper, Cecilia Orozco, Fidel Cano, León Valencia y varios más. ¿Buscas a alguien?"
 
 **Panelistas · Samper Pizano, Fidel Cano, Orozco, Ruiz, Samper**
 Así lo preguntan: ¿Va Daniel Samper? · ¿Viene Yolanda Ruiz? · ¿Cuándo habla Cecilia Orozco? · ¿Quién es Fidel Cano? · ¿Va María Elvira?
@@ -62,7 +62,7 @@ Ejemplo: "Jorge Cardona es el narrador: abre cada conversatorio y va tejiendo el
 **Panelista que no está en la lista**
 Así lo preguntan: ¿Va [nombre que no está]? · ¿Van a invitar a alguien más? · ¿Por qué no está tal periodista?
 Si preguntan por alguien que no está entre los quince, no se dice "no va" ni "está por confirmar". Se remite a la lista oficial y se ofrece a alguien parecido.
-Ejemplo: "Ese nombre no lo tengo en la programación confirmada, que está aquí: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_panelistas#speakers. Si te interesa ese tema, te puede gustar el conversatorio de [tema] con [panelista]."
+Ejemplo: "Ese nombre no lo tengo en la programación confirmada, que está aquí: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=panelistas#speakers. Si te interesa ese tema, te puede gustar el conversatorio de [tema] con [panelista]."
 
 ---
 
@@ -71,7 +71,7 @@ Ejemplo: "Ese nombre no lo tengo en la programación confirmada, que está aquí
 **Temas del encuentro**
 Así lo preguntan: ¿De qué van a hablar? · ¿Qué temas tocan? · ¿Hablan del narcotráfico? · ¿Van a hablar de la paz?
 Siete conversatorios, en orden: Bogotazo, dictadura y Frente Nacional · Surgimiento de las guerrillas · Negociaciones de paz, el Caguán y La Habana · Narcotráfico y paramilitarismo · Las reelecciones de Uribe y Santos · Magnicidios y víctimas de la violencia · Mujeres periodistas y conflicto.
-Ejemplo: "Va en orden, como pasó: del Bogotazo a la paz, el narcotráfico y los magnicidios. Agenda: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_agenda#agenda"
+Ejemplo: "Va en orden, como pasó: del Bogotazo a la paz, el narcotráfico y los magnicidios. Agenda: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=agenda#agenda"
 
 **Programación · viernes 6 de noviembre**
 Así lo preguntan: ¿Qué hay el viernes? · ¿A qué hora empieza el viernes? · ¿Cuándo es lo del Bogotazo?
@@ -110,12 +110,12 @@ Ejemplo: "El jueves es gratis en la Casa Museo: charla de reportería en la mañ
 **Charlas abiertas · viernes 6 e inscripción**
 Así lo preguntan: ¿Hay que inscribirse a las charlas gratis? · ¿Qué hay el viernes en la mañana? · ¿Hay cupos para lo gratuito?
 Viernes 6, 10:00 a.m., Casa Museo Antonio Nariño: Charla de periodismo digital, con Javier Sneider Bautista, magíster en Comunicación Digital. Entrada libre, sujeta al aforo del lugar. Los detalles de cupos e inscripción se publicarán en el sitio.
-Ejemplo: "Es de entrada libre, sin boleta. Si hay inscripción o cupos, lo publicamos en https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_inicio"
+Ejemplo: "Es de entrada libre, sin boleta. Si hay inscripción o cupos, lo publicamos en https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=inicio"
 
 **La programación puede cambiar**
 Así lo preguntan: ¿Puede cambiar la agenda? · ¿Qué pasa si un panelista no va? · ¿Me avisan si hay cambios?
 La participación de cada panelista depende de su disponibilidad. Cambios de panelista, de título, de orden o de horario dentro de la misma franja no dan lugar a devolución. Se avisan en el sitio y, si es posible, al correo del pedido.
-Ejemplo: "Si algo cambia, lo publicamos en https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_inicio y te escribimos al correo de tu compra."
+Ejemplo: "Si algo cambia, lo publicamos en https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=inicio y te escribimos al correo de tu compra."
 
 ---
 
@@ -124,7 +124,7 @@ Ejemplo: "Si algo cambia, lo publicamos en https://testigosdelamemoria.com/?utm_
 **Precios · qué boletas hay hoy**
 Así lo preguntan: ¿Cuánto vale? · ¿Cuánto cuestan las boletas? · ¿Qué boletas hay? · Precio
 Etapa 1, hasta el lunes 12 de octubre: solo el pase completo, 310.000 COP, con el mayor descuento. Desde el martes 13 de octubre se abren las boletas de medio día, a 90.000 COP cada una.
-Ejemplo: "Hoy se vende el pase completo: 310.000 COP por los siete conversatorios, con el mayor descuento, hasta el 12 de octubre. Lo compras aquí: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_boletas#boletas"
+Ejemplo: "Hoy se vende el pase completo: 310.000 COP por los siete conversatorios, con el mayor descuento, hasta el 12 de octubre. Lo compras aquí: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=boletas#boletas"
 
 **Pase completo · qué incluye**
 Así lo preguntan: ¿Qué incluye el pase? · ¿El pase cubre todo? · ¿Incluye hotel o comida? · ¿Vale la pena el pase?
@@ -138,13 +138,13 @@ Ejemplo: "Salen el 13 de octubre a 90.000 cada una. Si piensas ir a más de una,
 
 **No puedo comprar un solo día todavía**
 Así lo preguntan: ¿Por qué no me deja comprar un día? · Dice "aún no disponible" · ¿Cuándo salen las boletas por día?
-La venta va por etapas. En la etapa 1, hasta el 12 de octubre, solo se vende el pase completo. Las boletas de medio día salen el 13 de octubre. En https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_boletas#boletas, el botón "Avísame cuando abra" guarda los datos para avisar.
+La venta va por etapas. En la etapa 1, hasta el 12 de octubre, solo se vende el pase completo. Las boletas de medio día salen el 13 de octubre. En https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=boletas#boletas, el botón "Avísame cuando abra" guarda los datos para avisar.
 Ejemplo: "Por ahora solo está el pase, con su mayor descuento. Si prefieres un medio día, en la página puedes pedir que te avisemos cuando abran."
 
 **El pase después del 13 de octubre**
 Así lo preguntan: ¿El pase sube de precio? · ¿Puedo comprar el pase después del 12? · ¿Cuánto vale el pase en la etapa 2?
 No está definido qué pasa con el pase completo desde el 13 de octubre. No se dice que sigue ni que se retira, y no se dan precios futuros. Lo cierto: el mayor descuento del pase es el de la etapa 1, hasta el 12 de octubre.
-Ejemplo: "Lo que te puedo decir es que el mayor descuento del pase es el de ahora, hasta el 12 de octubre: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_boletas#boletas"
+Ejemplo: "Lo que te puedo decir es que el mayor descuento del pase es el de ahora, hasta el 12 de octubre: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=boletas#boletas"
 
 **Descuentos, estudiantes, grupos, códigos**
 Así lo preguntan: ¿Hay descuento para estudiantes? · ¿Tarifa para adultos mayores? · ¿Precio para grupos? · ¿Tienen código promocional?
@@ -162,8 +162,8 @@ Ejemplo: "No hay sillas numeradas, así que conviene llegar un poco antes de cad
 
 **Cómo comprar**
 Así lo preguntan: ¿Cómo compro? · ¿Dónde compro las boletas? · Pásame el link · Quiero comprar
-Solo en la tienda del sitio: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_boletas#boletas. Se escoge la boleta, se escriben los datos, se paga y la boleta llega al correo en PDF. Los precios están en pesos e incluyen impuestos.
-Ejemplo: "Es rápido: entras a https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_boletas#boletas, escoges el pase, pagas y te llega la boleta al correo."
+Solo en la tienda del sitio: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=boletas#boletas. Se escoge la boleta, se escriben los datos, se paga y la boleta llega al correo en PDF. Los precios están en pesos e incluyen impuestos.
+Ejemplo: "Es rápido: entras a https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=boletas#boletas, escoges el pase, pagas y te llega la boleta al correo."
 
 **Pago seguro y medios de pago**
 Así lo preguntan: ¿Es seguro pagar? · ¿Aceptan PSE o Nequi? · ¿Puedo pagar con tarjeta? · ¿Es confiable la página?
@@ -173,7 +173,7 @@ Ejemplo: "Sí, es seguro: el pago va por Wompi, del Grupo Bancolombia, y ahí ve
 **Pagar por el chat, transferencia o efectivo**
 Así lo preguntan: ¿Puedo pagar por aquí? · ¿Les hago una transferencia? · ¿Puedo pagar en efectivo?
 No. La compra se hace únicamente en la tienda del sitio. Por el chat no se reciben pagos ni datos de tarjeta. Las boletas compradas fuera de la tienda oficial no son válidas.
-Ejemplo: "Por aquí no recibimos pagos. Te dejo la tienda oficial, que es el único lugar de compra: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_boletas#boletas"
+Ejemplo: "Por aquí no recibimos pagos. Te dejo la tienda oficial, que es el único lugar de compra: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=boletas#boletas"
 
 **Comprar para otros · menores de edad**
 Así lo preguntan: ¿Puedo comprar varias boletas? · ¿Puedo regalar una boleta? · ¿Pueden ir niños? · ¿Hay edad mínima?
@@ -225,7 +225,7 @@ Ejemplo: "Si hubiera un cambio de fecha, tu boleta sigue valiendo para la nueva.
 
 **Dónde es · las sedes**
 Así lo preguntan: ¿Dónde es? · ¿Cuál es la dirección? · ¿Dónde queda Duruelo? · ¿Las sedes están cerca?
-Conversatorios: Hospedería Duruelo, carrera 3 n.º 12-88, en lo alto del pueblo. Charlas abiertas: Casa Museo Antonio Nariño, carrera 9 n.º 10-25. Las dos a pocas cuadras de la Plaza Mayor de Villa de Leyva, a unos 850 metros una de otra. Mapa: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_lugar#lugar
+Conversatorios: Hospedería Duruelo, carrera 3 n.º 12-88, en lo alto del pueblo. Charlas abiertas: Casa Museo Antonio Nariño, carrera 9 n.º 10-25. Las dos a pocas cuadras de la Plaza Mayor de Villa de Leyva, a unos 850 metros una de otra. Mapa: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=lugar#lugar
 Ejemplo: "Es en Villa de Leyva. Los conversatorios son en la Hospedería Duruelo y las charlas abiertas en la Casa Museo; las dos quedan cerca de la plaza."
 
 **Cómo llegar en carro**
@@ -249,7 +249,7 @@ Ejemplo: "La boleta es el acceso a los conversatorios. Entre la mañana y la tar
 
 **Dónde quedarse · hoteles aliados**
 Así lo preguntan: ¿Dónde me quedo? · ¿Qué hotel me recomiendan? · ¿Tienen convenio con hoteles? · ¿Dónde dormir en Villa de Leyva?
-Dos aliados con oferta solo para asistentes. Hospedería Duruelo, sede de los conversatorios: paquete especial, Jazmín Casallas, WhatsApp 311 506 4410. Hotel La Posada de San Antonio, centro histórico: 10 % de descuento, WhatsApp 310 280 7326. Hay que decir que se va a Testigos de la Memoria. Más: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=chatbot_general_hospedaje#hospedaje
+Dos aliados con oferta solo para asistentes. Hospedería Duruelo, sede de los conversatorios: paquete especial, Jazmín Casallas, WhatsApp 311 506 4410. Hotel La Posada de San Antonio, centro histórico: 10 % de descuento, WhatsApp 310 280 7326. Hay que decir que se va a Testigos de la Memoria. Más: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=hospedaje#hospedaje
 Ejemplo: "Tenemos dos aliados con oferta para asistentes. ¿Te paso el contacto?"
 
 **Hospedería Duruelo · paquete para asistentes**

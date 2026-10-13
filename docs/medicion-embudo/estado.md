@@ -1456,3 +1456,17 @@ Hecho en `docs/medicion-embudo/enlaces-y-nombres.md`, para el equipo de mercadeo
 **4b. Prueba de "Abrir en el navegador" desde Instagram.** Pendiente del titular, porque necesita un
 teléfono con Instagram. Son los pasos de "Prueba de teléfono" en "¿Dónde se puede perder la UTM?". Se
 anota aquí qué conserva la URL en Safari o Chrome y qué aparece en la URL de la tienda.
+
+#### testigos-web: cambio en la convención de nombres (titular, 2026-10-13, noche)
+
+El titular pidió nombres **sin ruido**. Un nombre lleva solo lo que distingue una pieza de las demás: qué
+es y las variables que se comparan, por ejemplo la audiencia (`reel-panelistas_frio` frente a
+`reel-panelistas_caliente`). No repite canal, medio, etapa ni fecha.
+
+`enlaces-y-nombres.md` queda así:
+- **Campaña:** su nombre corto (`cierre-preventa`, `expirados`) o `permanente`, sin `{momento}_{objetivo}`.
+- **Contenido:** `{pieza}_{variable}`. En los puntos fijos va el punto sin el canal (`bio`, `perfil`,
+  `firma`, `boletas`).
+- **`utm_term`:** no se usa, y se quitó de los parámetros de Meta.
+
+Los enlaces del chatbot pasan a `utm_content=<sección>` (`boletas`, `agenda`…).
