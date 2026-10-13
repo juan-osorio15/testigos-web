@@ -3,8 +3,12 @@
  * 003, contrato specs/003-embudo-sitio/contracts/widget-tracking.md; diseño
  * en docs/medicion-embudo/diseno.md). Corre en el navegador.
  *
- * - La campaña (UTM, gclid, fbclid y página de llegada) vive solo en
- *   sessionStorage de la pestaña. Nada de localStorage ni cookies propias.
+ * - La campaña de la última visita (UTM, página de llegada y dominio de
+ *   referencia) se guarda en localStorage hasta por 30 días, y nunca después
+ *   del fin del evento (measurement.attributionDays y attributionUntil;
+ *   decisión del 2026-10-12, docs/medicion-embudo/diseno.md). gclid y fbclid
+ *   pasan a localStorage solo con el aviso de cookies aceptado; sin él viven
+ *   en sessionStorage de la pestaña, como antes. Nada de cookies propias.
  * - Las UTM, la página de llegada y el dominio de referencia viajan siempre.
  *   gclid y los identificadores de GA4 y Meta, solo con el aviso de cookies
  *   aceptado.
@@ -22,6 +26,9 @@ const MAX = 200;
 const PREFIX = 'data-tracking-';
 const PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid'] as const;
 type Param = (typeof PARAMS)[number];
+/** Identificadores de clic: entre visitas solo con cookies aceptadas */
+const CLICK_IDS = ['gclid', 'fbclid'] as const;
+const DAY_MS = 24 * 60 * 60 * 1000;
 
 /** Volver de la tienda o de la pasarela no es una fuente de la visita */
 const IGNORED_REFERRERS = ['pretix.eventalist.co', 'checkout.wompi.co'];
@@ -50,15 +57,26 @@ function clean(v: unknown): string | undefined {
 
 /* ---------- Captura de la campaña ---------- */
 
-function fromStorage(): Attribution | null {
+/** Vence a los attributionDays de capturada o al terminar el evento, lo que llegue antes */
+function expired(capturedAt: number): boolean {
+  const now = Date.now();
+  const until = Date.parse(measurement.attributionUntil);
+  return now - capturedAt > measurement.attributionDays * DAY_MS || (!Number.isNaN(until) && now >= until);
+}
+
+function read(store: Storage): Attribution | null {
   try {
-    const raw = sessionStorage.getItem(KEY);
+    const raw = store.getItem(KEY);
     if (!raw) return null;
     const v: unknown = JSON.parse(raw);
     if (!v || typeof v !== 'object') return null;
     const o = v as Record<string, unknown>;
     const landing = clean(o.landing);
     if (!landing || typeof o.capturedAt !== 'number') return null;
+    if (expired(o.capturedAt)) {
+      store.removeItem(KEY);
+      return null;
+    }
     const a: Attribution = { landing, capturedAt: o.capturedAt };
     for (const p of PARAMS) {
       const c = clean(o[p]);
@@ -72,11 +90,35 @@ function fromStorage(): Attribution | null {
   }
 }
 
+/** La pestaña tiene la copia completa; entre visitas, la del navegador */
+function fromStorage(): Attribution | null {
+  try {
+    return read(sessionStorage) ?? read(localStorage);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * La pestaña guarda todo. El navegador guarda gclid y fbclid solo con las
+ * cookies aceptadas; al terminar el evento no guarda nada y borra lo que haya.
+ */
 function save(a: Attribution): void {
   try {
     sessionStorage.setItem(KEY, JSON.stringify(a));
   } catch {
     /* sin almacenamiento: se trabaja en memoria con la URL de esta página */
+  }
+  try {
+    if (expired(a.capturedAt)) {
+      localStorage.removeItem(KEY);
+      return;
+    }
+    const kept: Attribution = { ...a };
+    if (!accepted()) for (const p of CLICK_IDS) delete kept[p];
+    localStorage.setItem(KEY, JSON.stringify(kept));
+  } catch {
+    /* sin almacenamiento persistente: queda la copia de la pestaña */
   }
 }
 
@@ -283,12 +325,15 @@ export function initAttribution(): void {
     }
     document.addEventListener('submit', () => syncWidgetAttributes(), { capture: true });
 
+    /* Aceptar o retirar las cookies cambia qué guarda el navegador entre visitas */
     document.addEventListener(CONSENT_EVENT, () => {
+      if (current) save(current);
       gaAsked = false;
       requestGaIds();
       syncWidgetAttributes();
     });
     document.addEventListener(REVOKE_EVENT, () => {
+      if (current) save(current);
       gaId = undefined;
       gaSessId = undefined;
       gaAsked = false;

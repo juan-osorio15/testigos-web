@@ -69,6 +69,14 @@ export const measurement = {
    * basta con volver a 'bar'.
    */
   consentUi: 'modal' as 'modal' | 'bar',
+  /** Días que el navegador conserva la campaña de la última visita (attribution.ts) */
+  attributionDays: 30,
+  /**
+   * Fin del evento (event.endDateTime de src/data/event.ts, copiado aquí para
+   * no llevar las imágenes de event.ts al script del navegador). Desde ese
+   * momento el sitio deja de conservar la campaña y borra la guardada.
+   */
+  attributionUntil: '2026-11-08T13:00:00-05:00',
 } as const;
 
 /**
