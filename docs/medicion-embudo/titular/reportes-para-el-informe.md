@@ -13,7 +13,7 @@ Lista de lo que hay que exportar para que Claude escriba la guía del informe y 
 - **Backend:** Ticket orders, con filtros y resumen por campaña, y la exportación a CSV cuando esté desplegada.
 - **GA4:** `add_payment_info` (pedido confirmado) y `purchase` (pedido pagado) llegan desde el plugin y quedan unidos a la visita con su campaña. Solo pasa si la persona aceptó las cookies (ver "Entender Google Analytics").
 
-Los pedidos anteriores al 9 de octubre no tienen campaña y aparecen como "Sin campaña". Hay además un límite conocido: hasta que se publique la campaña guardada 30 días (ver `../guia-manager-redes.md`), la campaña se pierde si la persona compra en otra visita. Del 9 al 12 de octubre solo 1 de unos 23 pedidos llegó con UTM. Las ventas totales siguen saliendo de Pretix.
+Los pedidos anteriores al 9 de octubre no tienen campaña y aparecen como "Sin campaña". Hay además un límite conocido: hasta el 13 de octubre la campaña se perdía si la persona compraba en otra visita, y del 9 al 12 de octubre solo 1 de unos 23 pedidos llegó con UTM. Desde el 13 de octubre el sitio la recuerda hasta 30 días en el mismo navegador. Las ventas totales siguen saliendo de Pretix.
 
 ## Google Analytics 4
 

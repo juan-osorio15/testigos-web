@@ -160,4 +160,4 @@ Fuentes: [Grupos de canales predeterminados de GA4](https://support.google.com/a
 
 ## Qué guarda el sitio
 
-El sitio guarda la campaña de la visita y la pasa a la tienda con el pedido. Cuando se publique el cambio aprobado el 2026-10-12, la recordará hasta 30 días (y nunca después del 8 de noviembre): quien llegue por un anuncio y compre días después en el mismo navegador conservará la campaña. Quien sale del navegador interno de Instagram a Safari o Chrome la pierde; eso no lo arregla ningún almacenamiento.
+El sitio guarda la campaña de la visita y la pasa a la tienda con el pedido. Desde el 2026-10-13 la recuerda hasta 30 días (y nunca después del 8 de noviembre): quien llega por un anuncio y compra días después en el mismo navegador conserva la campaña. Quien sale del navegador interno de Instagram a Safari o Chrome la pierde; eso no lo arregla ningún almacenamiento.
