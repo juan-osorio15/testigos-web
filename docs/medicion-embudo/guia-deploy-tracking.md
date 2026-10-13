@@ -145,8 +145,10 @@ Organizador `eventalist`:
 
 - Configuración → Plugins: activar "Eventalist tracking".
 - "Seguimiento de campañas":
-  - URL del backend: `https://eventalist-backend-production.up.railway.app` (la pública, no
-    `*.railway.internal`).
+  - "Backend: URL de pedidos": la URL **completa**, con la ruta:
+    `https://eventalist-backend-production.up.railway.app/api/v1/marketing/ticket-orders/` (la pública,
+    no `*.railway.internal`). El plugin hace el `POST` a esa URL tal cual; sin la ruta, el backend
+    responde 404 y el envío queda "falló".
   - Token: el `PRETIX_SERVICE_TOKEN` de la fase 2. El campo muestra `*****`; guardar sin tocarlo lo
     conserva.
   - **"Exclusiones de publicidad"**: quien pida no ir a Meta ni a GA4. Un correo o un teléfono por línea,
