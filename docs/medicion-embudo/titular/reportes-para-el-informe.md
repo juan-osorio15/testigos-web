@@ -26,13 +26,14 @@ Para exportar cualquier informe: icono de compartir (arriba a la derecha) → "D
 - [ ] **3c. Interesados por campaña en GA4.** El mismo informe de campañas, con la columna "Eventos clave" filtrada a `generate_lead`. Exportar en CSV. Solo existe desde que se publicó ese evento.
 - [ ] **4. Exploración por campaña y contenido.** Explorar → Exploración libre.
   - En Variables, con el "+" de Dimensiones, importar: Campaña de la sesión, Fuente/medio de la sesión, Contenido de anuncio manual de la sesión.
-  - Con el "+" de Métricas, importar: Sesiones, Usuarios activos, Sesiones con interacción, Tasa de interacción, Duración media de la sesión.
-  - Arrastrar las tres dimensiones a "Filas" y las cinco métricas a "Valores".
+  - Con el "+" de Métricas, importar: Sesiones, Usuarios activos, Sesiones con interacción, Tasa de interacción, Duración media de la sesión, Compras en comercio electrónico e Ingresos por compras (escribir "compras" en el buscador del selector; están en el grupo "Comercio electrónico").
+  - Arrastrar las tres dimensiones a "Filas" y las siete métricas a "Valores".
   - En "Filas", subir "Mostrar filas" a 100 para que no se corte.
   - Exportar: icono de descarga arriba a la derecha de la exploración → CSV.
-- [ ] **5. Clics en "comprar" por campaña.** Duplicar la exploración anterior (clic derecho en la pestaña → Duplicar).
-  - Importar la dimensión "Nombre del evento" y la métrica "Recuento de eventos"; poner la métrica en "Valores".
-  - En "Filtros": "Nombre del evento" coincide exactamente con `begin_checkout`.
+- [ ] **5. Embudo por campaña.** Nueva pestaña de Exploración libre (el "+" junto a la pestaña).
+  - Filas: "Campaña de la sesión". Columnas: "Nombre del evento". Valores: "Recuento de eventos".
+  - En "Filtros": "Nombre del evento" coincide con la expresión regular `view_item_list|generate_lead|begin_checkout|add_payment_info|purchase`.
+  - Queda una tabla con una fila por campaña y una columna por paso: fue a boletas, se inscribió, pulsó Comprar, confirmó pedido, pagó. `add_payment_info` no tiene métrica propia en el selector; esta es la manera de verlo por campaña.
   - Exportar en CSV.
 - [ ] **6. Tendencia diaria.** Nueva pestaña de Exploración libre.
   - Filas: "Fecha".
