@@ -175,7 +175,7 @@ Los talleres de periodismo del jueves 5 y el viernes 6 de noviembre, en la Casa 
 
 ```markdown
 **Los siete conversatorios, del viernes 6 al domingo 8.**
-Precio de la etapa 1, con el mayor descuento, hasta el 12 de octubre.
+No te pierdes de nada y pagas menos que por franjas.
 ```
 
 > 2026-09-30: el descuento es de la etapa 1. Desde el 13 de octubre el pase
@@ -194,7 +194,7 @@ Precio de la etapa 1, con el mayor descuento, hasta el 12 de octubre.
 
 ```markdown
 3:00 p.m. · Bienvenida y presentación
-**Darío Restrepo**
+**Darío Restrepo y Jorge Cardona**
 
 3:30 a 6:00 p.m. · Bogotazo, dictadura y Frente Nacional (1958-1974)
 **Daniel Samper Pizano y Darío Restrepo**
@@ -209,7 +209,7 @@ Precio de la etapa 1, con el mayor descuento, hasta el 12 de octubre.
 **León Valencia y Ana María Echeverri**
 
 11:00 a.m. a 12:30 p.m. · Negociaciones de paz, el Caguán y La Habana
-**Marisol Gómez**
+**Marisol Gómez y Ricardo Ospina**
 
 *7 de noviembre*
 ```
@@ -220,8 +220,8 @@ Precio de la etapa 1, con el mayor descuento, hasta el 12 de octubre.
 3:00 a 4:30 p.m. · Narcotráfico y paramilitarismo
 **Luz María Sierra y Martha Soto**
 
-5:00 a 6:30 p.m. · Reelecciones
-**Cecilia Orozco**
+5:00 a 6:30 p.m. · Las reelecciones de Uribe y Santos
+**Fidel Cano y Cecilia Orozco**
 
 *7 de noviembre*
 ```
@@ -236,6 +236,7 @@ Precio de la etapa 1, con el mayor descuento, hasta el 12 de octubre.
 **Yolanda Ruiz y María Elvira Samper**
 
 12:30 a 1:00 p.m. · Cierre
+**Jorge Cardona**
 
 *8 de noviembre*
 ```
