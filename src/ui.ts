@@ -228,11 +228,13 @@ const es = {
   'footer.pagesAria': 'Páginas del sitio',
 
   // --- Aviso de cookies y preferencias (dictamen legal 2026-09-15) ---
-  /* Estándar desde el 2026-10-15: una línea que nombra al responsable, los
-     proveedores y la finalidad, y enlaza la política (arts. 14 y 15 del
-     Decreto 1377). El detalle vive en la sección 10 de la política. */
+  /* Estándar desde el 2026-10-15, en dos capas: aquí el responsable y la
+     finalidad en tono tranquilo, sin prometer menos anuncios (quien acepta
+     puede ver anuncios del encuentro); los proveedores (Google y Meta) van
+     en "Configurar" y en la sección 10 de la política (arts. 14 y 15 del
+     Decreto 1377). */
   'consent.text':
-    'Eventalist usa cookies de Google y Meta para mejorar tu experiencia en el sitio, medir las visitas y mostrar anuncios del encuentro. No vendemos tus datos a terceros.',
+    'Eventalist usa cookies para saber qué funciona en el sitio y para que no veas el mismo anuncio una y otra vez, ni lo sigas viendo si ya compraste. No vendemos tus datos.',
   'consent.more': 'Política de datos',
   'consent.accept': 'Aceptar',
   'consent.modalTitle': 'Usamos cookies',
@@ -242,7 +244,7 @@ const es = {
   'consent.analytics': 'Analítica',
   'consent.analyticsText': 'Google Analytics. Cuenta las visitas y de dónde llegan.',
   'consent.advertising': 'Publicidad',
-  'consent.advertisingText': 'Meta y Google. Mide los anuncios y permite mostrarlos.',
+  'consent.advertisingText': 'Meta y Google. Evita que veas anuncios repetidos o que ya no te sirven.',
   'consent.acceptAll': 'Aceptar todas',
   'consent.save': 'Guardar',
   'consent.close': 'Cerrar el aviso',
@@ -495,7 +497,7 @@ const en: Record<UiKey, string> = {
   'footer.pagesAria': 'Site pages',
 
   'consent.text':
-    'Eventalist uses Google and Meta cookies to improve your experience on the site, measure visits and show ads for the event. We never sell your data to third parties.',
+    "Eventalist uses cookies to see what works on the site and so you don't see the same ad over and over, or keep seeing it after you've bought. We never sell your data.",
   'consent.more': 'Data policy',
   'consent.accept': 'Accept',
   'consent.modalTitle': 'We use cookies',
@@ -504,7 +506,7 @@ const en: Record<UiKey, string> = {
   'consent.analytics': 'Analytics',
   'consent.analyticsText': 'Google Analytics. Counts visits and where they come from.',
   'consent.advertising': 'Advertising',
-  'consent.advertisingText': 'Meta and Google. Measures ads and allows them to be shown.',
+  'consent.advertisingText': "Meta and Google. Keeps you from seeing repeated ads or ones you no longer need.",
   'consent.acceptAll': 'Accept all',
   'consent.save': 'Save',
   'consent.close': 'Close this notice',
