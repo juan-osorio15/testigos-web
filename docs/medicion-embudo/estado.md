@@ -151,3 +151,136 @@ Cada línea remite a la sección de `estado-historial.md` con el detalle.
   los tenga), enlace de la bio con `utm_campaign`, repartir los enlaces a organizadores y panelistas, y
   definir el tráfico interno en GA4.
 - Las respuestas marcadas "Responde: titular" en "Preguntas abiertas".
+
+---
+
+## INVESTIGACIÓN NUEVA: Meta reporta unas 7 veces más visitas que GA4 (abierta el 2026-10-13)
+
+Para un agente nuevo de testigos-web. Es una investigación aparte de la de UTM, que está resumida más abajo.
+Seguir la regla de siempre: verificar en la documentación oficial y con pruebas, no suponer. Anotar aquí cada
+resultado con fecha.
+
+**El dato:**
+- Meta, del 13 de septiembre al 12 de octubre: unas **4.800 "vistas de la página de destino"** (3.029 de los
+  dos anuncios "Video Maria Elvira"), según el reporte exportado del Administrador de anuncios.
+- GA4, del 15 de septiembre al 12 de octubre: **685 usuarios activos** (informe panorámico). La exploración
+  "Campañas UTM" muestra 34 sesiones de `mariaelvira_rt` en un período parecido.
+
+**Por qué no es obvio:** en el sitio, el píxel solo carga **después** de aceptar las cookies (`loadPixel` en
+`src/measurement/tags.ts`), y quien acepta también queda medido en GA4. Si "vista de la página de destino"
+requiere que cargue el píxel, Meta no debería superar a GA4.
+
+**Hipótesis, de la más barata de comprobar a la más cara:**
+
+1. **El píxel carga antes del consentimiento en el sitio publicado**, aunque el código diga lo contrario (por
+   un error del build o una etiqueta vieja).
+   - Prueba: ventana de incógnito → `testigosdelamemoria.com` → no tocar el aviso de cookies → Herramientas de
+     desarrollador → Red → filtrar `facebook` → ¿se pide `fbevents.js` o `tr?id=`? Es la prueba que propuso
+     la persona que maneja los anuncios.
+   - Si se pide, además del conteo hay un problema legal.
+2. **El mismo píxel o conjunto de datos está instalado en otra página o dominio** (otro sitio de Eventalist,
+   una página vieja, un Linktree).
+   - Prueba: Administrador de eventos → el conjunto de datos → ver los dominios y URL que mandan `PageView`.
+3. **Meta define "vista de la página de destino" distinto de lo que creemos**, por ejemplo con medición propia
+   de su navegador interno, sin depender del píxel.
+   - Prueba: documentación oficial de Meta. Citarla aquí.
+4. **GA4 no carga o no cuenta en el navegador de Instagram**: `gtag` bloqueado o lento, o la persona cierra
+   antes de que cargue.
+   - Prueba: desde un teléfono, abrir el enlace de un anuncio en Instagram y mirar GA4 → Tiempo real o
+     DebugView. Repetir en Android y en iPhone.
+5. **GA4 no muestra a quien no acepta las cookies.** Con el modo de consentimiento, esas visitas mandan avisos
+   sin cookie que GA4 no cuenta como usuarios sin modelado, y el modelado necesita mucho volumen.
+   - Prueba: documentación de GA4 sobre el modo de consentimiento y sus requisitos. Además, Administrar →
+     Configuración de datos → ¿hay datos modelados?
+   - Esto explica que GA4 cuente menos, pero **no** que Meta cuente más, si el píxel también espera el
+     consentimiento. Hay que combinarla con la 1 o la 3.
+6. **Clics accidentales y abandono** (deslizar sin querer, el navegador de Instagram lento, salir antes de
+   que cargue). Es la hipótesis del titular.
+   - Esto infla los **clics** de Meta. Si inflara también las "vistas de la página de destino", la página
+     tendría que cargar el píxel, lo que vuelve a la 1 o la 3.
+7. **Diferencias de período, zona horaria o conteo** (Meta por fecha de la impresión, GA4 por fecha de la
+   visita; vistas contra usuarios contra sesiones). Pueden mover un 10–30 %, no 7 veces.
+
+**Fuentes para cruzar, independientes de las cookies:**
+- **Administrador de eventos de Meta:** `PageView` recibidos desde `testigosdelamemoria.com`, por día. Es
+  la comparación directa con GA4.
+- **Registros del widget de Pretix.** Cada carga de la portada pide a `pretix.eventalist.co` el script del
+  widget y la lista de boletas. Es un conteo del lado del servidor, sin cookies, de cuántas veces cargó la
+  portada. pretix-wompi puede revisar si los registros de nginx en Railway guardan esas peticiones, y por
+  cuántos días. **No verificado.** Pedírselo al titular para que abra un agente de pretix-wompi.
+- **Cloudflare**, si el dominio pasa por Cloudflare: sus estadísticas cuentan visitas sin cookies.
+  Preguntar al titular cómo está configurado el DNS.
+- **GitHub Pages** no ofrece estadísticas de visitas del sitio publicado. Confirmarlo, pero no contar con
+  ellas.
+
+**Resultado esperado:** una explicación con cifras de por qué difieren y cuál número usar en los informes
+para cada cosa (alcance de anuncios, visitas reales, compras). Hasta entonces, no comparar en los informes
+los clics ni las visitas de Meta con los de GA4.
+
+---
+
+## RESUMEN: investigación de "ventas sin campaña" (2026-10-13)
+
+**El problema:** en "Ventas por campaña" de Pretix, de 105 pedidos solo uno tenía campaña: la verificación
+`CH3ZN`. En GA4, todas las compras caían en `(not set)`.
+
+**Lo que se descartó al 100 %, con datos de producción:**
+- **Cookies rechazadas:** 25 de 27 pedidos (desde que el plugin está activo, el 8 de octubre en la noche)
+  traen el identificador de GA4, o sea que aceptaron las cookies.
+- **El plugin o el paso del sitio a la tienda pierden la UTM:** 26 de 27 pedidos traen lo que el sitio
+  mandó (página de llegada, identificadores). La verificación con UTM llegó completa. testigos-web lo
+  comprobó en el sitio real, y GA4 (tabla A) lo confirma.
+- **Compras directas en la tienda, sin el sitio:** 1 caso (`YBCFY`).
+- **El navegador de Instagram pierde los datos:** su único pedido (`Z9UMQ`) llegó con todo.
+- **La pasarela de pago "borra" la UTM:** nadie vuelve al sitio después de pagar. La compra se la manda a GA4
+  y a Meta el servidor de Pretix.
+- **El correo a expirados como fuente de ventas:** llevaba UTM, y ninguno de sus destinatarios compró
+  después del envío.
+- **El guardado de 30 días como explicación:** es correcto, pero se publicó el 13 de octubre, después de
+  esas ventas.
+
+**Lo que se encontró:**
+1. **Los compradores llegaron sin UTM.** El 12 de octubre se pulsó "Comprar" 19 veces:
+   - 10 desde visitas directas;
+   - 7 desde Google;
+   - 1 desde Instagram sin UTM;
+   - 1 fue una prueba;
+   - **0 desde los anuncios** en esa misma visita.
+
+   Todos compraron en la misma visita en que entraron (de 2 a 42 minutos). Unos 5 eran nuevos en su
+   navegador; otros 5 ya conocían el sitio desde días antes y volvieron directo.
+2. **Hay enlaces sin UTM**, incluso dentro de Instagram: `Z9UMQ` llegó desde `l.instagram.com` con `fbclid`
+   y sin `utm_*`. La bio lleva `utm_content` pero no `utm_campaign`. Lo que comparten el equipo, los
+   panelistas y los grupos de WhatsApp va sin UTM.
+3. **El único cambio de navegador comprobado:** `Z9UMQ` (Instagram, 12 de octubre) → `7H7LT` (Chrome de
+   escritorio, pagado el 13 de octubre). Su visita de Instagram tampoco traía UTM.
+4. **GA4 ponía todas las compras en `(not set)` por un error del plugin:** les ponía la hora del pago, que
+   queda fuera de la visita del comprador. Se comprobó hora por hora. **Corregido y desplegado el 13 de
+   octubre a las 18:20** (`982f155`). Falta la compra de prueba que lo confirme.
+5. **Meta atribuye 1 sola compra a los anuncios** en todo el período, al video de María Elvira. Meta cruza
+   personas entre navegadores, así que la mayoría de las ventas no vino de los anuncios.
+
+**Cómo se comporta el sistema hoy:**
+- El sitio guarda la campaña 30 días en el mismo navegador y se la pasa a la tienda.
+- Pretix guarda en cada pedido lo que llegó.
+- El plugin manda a GA4 (ahora con la visita bien unida), a Meta (por persona, con correo y teléfono
+  cifrados) y al backend.
+- "Sin campaña" en Pretix significa que la pestaña donde se compró no tenía UTM.
+
+**Limitaciones actuales (no son errores):**
+- **El cambio de navegador no se puede seguir** con UTM ni con GA4: el navegador de Instagram y
+  Safari/Chrome no comparten nada. Solo Meta lo ve, y solo para sus propios anuncios.
+- **Ver el anuncio sin hacer clic y entrar después** por Google o escribiendo la dirección: lo mide solo Meta
+  ("por visualización").
+- **Las compras anteriores al 13 de octubre** siguen en `(not set)` en GA4. No se corrigen hacia atrás.
+- **La tabla de GA4 "primera campaña del usuario"** no es confiable para compras anteriores al arreglo.
+- **GA4 no ve a quien no acepta las cookies.** El sitio y Pretix sí guardan su UTM.
+
+**Pendiente:**
+- Titular: compra de prueba `verificacion-ga4` y su revisión a las 24–48 horas; parámetros de URL de Meta
+  por nombre; enlace de la bio; enlaces para organizadores y panelistas; tráfico interno en GA4; revisar las
+  compras en el Administrador de eventos de Meta.
+- testigos-web: inventario de enlaces con UTM y su despliegue; preguntas de consentimiento y de "Abrir en el
+  navegador"; la investigación nueva de Meta contra GA4 (arriba).
+- pretix-wompi: cerrar la tarea 9.3 cuando llegue la prueba; si se pide, contar las cargas del widget en los
+  registros de nginx.
