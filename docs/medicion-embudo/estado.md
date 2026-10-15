@@ -79,8 +79,8 @@ en el despliegue de `8e97c7b`. Comprobado en el sitio real después del desplieg
 `?utm_campaign=fbclid-test2` y luego `/?fbclid=abc2`, el widget sigue con `fbclid-test2` y la página de
 llegada original.
 
-**Ids de GA4 al aceptar y comprar enseguida (segundo punto, `CUHNG`): commit local `8d47daf`, sin push.**
-Espera el visto bueno del titular.
+**Ids de GA4 al aceptar y comprar enseguida (segundo punto, `CUHNG`): `8d47daf`, publicado el 2026-10-15 a
+las 15:10 (Bogotá)** en el despliegue de `3f795d5`. Comprobado que el sitio real sirve el código nuevo.
 - Causa, reproducida en local con el código publicado y cookies limpias: al pulsar Aceptar, el oyente de
   `attribution.ts` corre antes que el de `tags.ts`, así que pide `client_id` a gtag **antes** del
   `consent update`. gtag no responde con valor, y el sitio solo vuelve a preguntar después de 2 s y en la
@@ -230,8 +230,7 @@ Cada línea remite a la sección de `estado-historial.md` con el detalle.
     acepta y reintentar al tocar el widget?
   - **Respuesta de testigos-web (2026-10-15):** causa confirmada y reproducida. No es la espera: el sitio
     preguntaba a gtag antes de concederle el permiso. Arreglo: leer los ids de las cookies `_ga` y
-    `_ga_<id>` cuando gtag no ha respondido. Commit local `8d47daf`, **sin publicar**: espera el visto bueno
-    del titular. Detalle en la sección de testigos-web. Después de publicarlo, la compra
+    `_ga_<id>` cuando gtag no ha respondido. `8d47daf`, **publicado el 2026-10-15 a las 15:10**. Detalle en la sección de testigos-web. Después de publicarlo, la compra
     `verificacion-bq2` ya no necesita esperar 30 s.
 
 - **Meta reporta unas 4.800 vistas de la página de destino y GA4 unos 685 usuarios en 28 días.** ¿El
@@ -251,7 +250,8 @@ Cada línea remite a la sección de `estado-historial.md` con el detalle.
 
 ## Pendientes del titular
 
-- Visto bueno para el push de testigos-web (9 commits de documentos, más este `estado.md` cuando se haga commit).
+- Decir por qué canal y con qué enlace salió la oferta de las 11 compras de esta semana (historia, publicación,
+  WhatsApp, correo). Es la pregunta 3 de testigos-web a pretix-wompi en "Preguntas abiertas".
 - Compra real pequeña desde `https://testigosdelamemoria.com/?utm_source=prueba&utm_campaign=verificacion-ga4`,
   con cookies aceptadas y en la misma visita. A las 24 a 48 horas, mirar en GA4 que salga en la fila
   `verificacion-ga4`.
