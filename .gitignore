@@ -17,3 +17,6 @@ docs/seguridad-*.md
 
 # Contactos de prueba de las campañas (datos personales, no se suben)
 *.local.csv
+
+# Informes por edición: exportaciones con datos personales y cifras del cliente (el repositorio es público)
+informes/
