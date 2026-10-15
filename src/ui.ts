@@ -231,7 +231,8 @@ const es = {
   /* Estándar desde el 2026-10-15: una línea que nombra al responsable, los
      proveedores y la finalidad, y enlaza la política (arts. 14 y 15 del
      Decreto 1377). El detalle vive en la sección 10 de la política. */
-  'consent.text': 'Eventalist usa cookies de Google y Meta para medir las visitas y mostrar anuncios del encuentro.',
+  'consent.text':
+    'Eventalist usa cookies de Google y Meta para mejorar tu experiencia en el sitio, medir las visitas y mostrar anuncios del encuentro. No vendemos tus datos a terceros.',
   'consent.more': 'Política de datos',
   'consent.accept': 'Aceptar',
   'consent.modalTitle': 'Usamos cookies',
@@ -493,7 +494,8 @@ const en: Record<UiKey, string> = {
   'footer.terms': 'Terms and conditions',
   'footer.pagesAria': 'Site pages',
 
-  'consent.text': 'Eventalist uses Google and Meta cookies to measure visits and show ads for the event.',
+  'consent.text':
+    'Eventalist uses Google and Meta cookies to improve your experience on the site, measure visits and show ads for the event. We never sell your data to third parties.',
   'consent.more': 'Data policy',
   'consent.accept': 'Accept',
   'consent.modalTitle': 'We use cookies',
