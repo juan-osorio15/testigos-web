@@ -105,7 +105,7 @@ export const DATA_CONTACT_EMAIL = 'hola@eventalist.co';
  * Business con el mensaje ya escrito). Lo usa WhatsAppLink.astro, junto a la
  * tienda y en el pie de página.
  */
-export const WHATSAPP_URL = 'https://wa.me/message/TBC7DHDYB6ZDJ1';
+export const WHATSAPP_URL = 'https://wa.me/message/VJNUOS3MM3WLE1';
 
 /**
  * Fecha de entrada en vigencia de la política de tratamiento de datos (ISO).
