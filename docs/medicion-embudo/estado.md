@@ -14,24 +14,45 @@ Documentos con los datos operativos (no se copian aquí):
 - Scripts de diagnóstico (solo lectura): `pretix-wompi/docs/diagnostico/`.
 - Qué dato queda en qué modelo del backend: historial, "Dónde queda cada dato y cómo se obtiene".
 
-## pretix-wompi (actualizado 2026-10-13)
+## pretix-wompi (actualizado 2026-10-15)
 
 **En producción:**
 - Plugin `pretix-eventalist-tracking` activo en `testigos-memoria` desde la noche del 2026-10-08.
-  Salió en un solo push junto con pretix 2026.5.4 y el barrido de Wompi (los despliegues A y B se
-  fusionaron). Commit y hora de ese push: no verificado en este archivo.
-- Arreglo de GA4 (D6a): commit `982f155` en `main`, desplegado el 2026-10-13 a las 18:20 (Bogotá), sin
-  migraciones. Los envíos con `ga_id` y `ga_sessid` ya no fijan `timestamp_micros`. Solo afecta a compras nuevas.
-- Captura comprobada: de 27 pedidos con el plugin activo, 26 traen `landing` y 25 traen `ga_id`.
+- Arreglo de GA4 (D6a): commit `982f155`, desplegado el 2026-10-13 a las 18:20 (Bogotá). Los envíos con
+  `ga_id` y `ga_sessid` ya no fijan `timestamp_micros`.
+
+**Resultado del arreglo D6a (2026-10-15): no basta.** Las 4 compras pagadas después del despliegue
+(`PREEY`, `SFWWK`, `DVUGA`, `7M3LX`) siguen en `(not set)` en GA4.
+- Pretix tenía `ga_id` y `ga_sessid` con forma correcta en las 4, y el pago fue entre 5 y 45 min después del
+  inicio de la sesión.
+- El plugin envió en el mismo minuto del pago, sin `timestamp_micros`, y GA4 respondió 204. El
+  `measurement_id` del plugin es el del sitio (`G-XJES5Z5EC9`).
+- GA4 sí reconoce al usuario (región, aparato y, en 3 de 4, primera fuente `(direct)`), pero no une la
+  compra a la sesión.
+- Scripts: `docs/diagnostico/2026-10-15-compras-despues-del-arreglo.py` y `2026-10-15-llegada-compradores.py`.
+- pretix-wompi lee GA4 con la Data API (propiedad `properties/554842243`, cuenta de servicio
+  `claude-lector`, solo lectura).
+
+**BigQuery (2026-10-15):** vinculado por el titular a las ~14:40, con exportación diaria, sin streaming y
+sin facturación, al proyecto `eventalist-analytics`. `claude-lector` puede leerlo.
+- El dataset `analytics_554842243` aparece con la primera exportación, normalmente al día siguiente.
+- Sirve para ver con qué `ga_session_id` guarda GA4 cada compra del plugin, al lado de la visita. Es lo
+  que falta para cerrar la causa del `(not set)`. El sitio no tiene nada que hacer en esto.
+- No verificado: si la primera exportación incluye el 15 completo. Si lo incluye, también estarán `DVUGA`
+  y `7M3LX`.
+
+**Compra de prueba `CUHNG` (2026-10-15 14:47): no sirve para D6a.**
+- Llegó con `utm_campaign=verificacion-bq` pero sin `ga_id` ni `ga_sessid`. Las cookies se aceptaron y se
+  pulsó "Comprar" en el mismo minuto (ver el segundo punto del encargo a testigos-web en "Preguntas
+  abiertas").
+- El plugin la envió a las 14:47 (204) con un `client_id` propio. Saldrá sin visita en GA4, como se espera.
+- Pendiente del titular: repetir la compra (`?utm_source=prueba&utm_campaign=verificacion-bq2`, aceptar,
+  esperar unos 30 s, comprar en la misma pestaña). pretix-wompi confirma en Pretix que trae los ids y la
+  revisa en BigQuery al día siguiente.
 
 **Falta:**
-- Confirmar con la compra `verificacion-ga4` (ver "Pendientes del titular") que GA4 ya pone la compra en
-  la fila de su campaña. Si sale en `(not set)`, pretix-wompi replantea.
+- La causa del `(not set)` de las compras: espera la exportación a BigQuery y la compra `verificacion-bq2`.
 - Aviso visible cuando el slug de campaña del evento está vacío: factible, no hecho. Espera el sí del titular.
-- No verificado en este archivo: ensayo en producción con `testigos-sandbox` (vencer y extender plazo,
-  `expired` → `pending`) y si `reference_sweep` quedó encendido en los dos eventos.
-
-**En curso:** nada más, aparte de esperar el resultado de `verificacion-ga4`.
 
 ## eventalist-backend (actualizado 2026-10-08)
 
@@ -51,7 +72,20 @@ Documentos con los datos operativos (no se copian aquí):
 
 **En curso:** no verificado.
 
-## testigos-web (actualizado 2026-10-13)
+## testigos-web (actualizado 2026-10-15)
+
+**Arreglo del `fbclid` (encargo del 2026-10-15): commit local `d6f44ac`, sin push.** Espera el visto bueno
+del titular. Al publicarlo se anotan aquí la hora y el commit de despliegue.
+- Antes: una llegada con solo `fbclid` o `gclid` reemplazaba la campaña guardada. Reproducido en el sitio
+  real: después de `/?fbclid=abc`, `localStorage` y el widget quedan sin `utm_campaign`.
+- Ahora: una llegada con solo `fbclid` o `gclid` conserva las UTM, la página de llegada y el dominio de
+  referencia guardados, y solo cambia ese identificador. Sin UTM guardadas, se comporta como antes.
+  Comprobado en local con el build: el widget sigue con `fbclid-test` y la pestaña guarda el `fbclid` nuevo.
+- Regla nueva en `specs/003-embudo-sitio/data-model.md`.
+- Las 9 entregas de documentos que esta sección daba como "sin push" ya están en `origin/main`. Sin push
+  queda además `c1f4992` (plan de Google Ads, solo documento).
+
+**Lo de abajo es la foto del 2026-10-13:**
 
 **En producción (GitHub Pages, push a `main`):**
 - Embudo del sitio (`attribution.ts`, `720a1eb`): publicado el 2026-10-08 a las 22:36, en el despliegue de `fc8ca52`.
@@ -120,6 +154,66 @@ Cada línea remite a la sección de `estado-historial.md` con el detalle.
 - **Captura antes de confirmar el pedido:** versión futura, fuera de alcance. ("Preguntas abiertas", 2026-10-08.)
 
 ## Preguntas abiertas
+
+- **ENCARGO PARA testigos-web (2026-10-15): el sitio pierde la campaña cuando la persona vuelve desde
+  Facebook con solo `fbclid`.** Responde y arregla: testigos-web. Esto **reabre en parte** la conclusión
+  "El sitio no pierde la UTM": no la pierde en una visita normal, pero sí en este caso.
+  - Caso real, pedido `DVUGA`, 2026-10-15, con datos de GA4 (Data API, evento `page_view`) y de Pretix:
+    - 06:39, primera página:
+      `https://testigosdelamemoria.com/programacion/bogotazo-frente-nacional/?utm_source=fb&utm_medium=paid_social&utm_campaign=ventas&utm_content=afiche-general_frio&fbclid=…&utm_id=52648250355692&utm_term=52648250355892`,
+      referrer `http://m.facebook.com/`.
+    - 06:50, misma sesión de GA4: `https://testigosdelamemoria.com/?fbclid=…` (sin ningún `utm_`),
+      referrer `https://lm.facebook.com/`. Vuelve a pasar a las 06:58.
+    - 06:58, `begin_checkout`. GA4 lo pone en la campaña `ventas`.
+    - Pretix recibió `landing=/`, `referrer=lm.facebook.com`, `fbc`, `ga_id`, `ga_sessid` y **ninguna
+      clave `utm_`**.
+  - Causa probable, en el código: en `attribution.ts`, `PARAMS` incluye `gclid` y `fbclid`. Por eso, en
+    `captureAttribution`, una llegada con solo `fbclid` cuenta como "llegada con campaña" (`hasParams`)
+    y reemplaza la atribución guardada, que sí tenía las UTM.
+  - Por qué importa: `lm.facebook.com` es el redirector de Facebook para enlaces en publicaciones,
+    comentarios y Messenger. Facebook agrega `fbclid` a todos esos enlaces, aunque no lleven UTM. Lo mismo
+    pasa con Instagram (`ig / social` con solo `fbclid`).
+  - Regla propuesta (decide testigos-web): solo las `utm_*` cuentan como campaña. Una llegada con solo
+    `gclid` o `fbclid` actualiza ese identificador de clic, pero conserva las UTM guardadas, igual que hoy
+    una llegada desde otro sitio sin campaña.
+  - Reproducción esperada:
+    1. Abrir `/programacion/bogotazo-frente-nacional/?utm_source=prueba&utm_campaign=fbclid-test`.
+    2. En la misma pestaña, abrir `/?fbclid=abc`.
+    3. El `widget_data` debe seguir con `tracking-utm-campaign: "fbclid-test"` y llevar el `fbclid` nuevo.
+       Hoy, según el código, sale sin campaña.
+  - Al terminar, anotar aquí el commit y la hora de publicación. pretix-wompi lo verifica en el siguiente
+    pedido que llegue desde un anuncio.
+  - **Respuesta de testigos-web (2026-10-15):** causa confirmada en el código y reproducida en el sitio
+    real. Regla adoptada: la propuesta (solo las `utm_*` cuentan como campaña; `fbclid` o `gclid` solos
+    cambian el identificador y conservan las UTM). Commit local `d6f44ac`, **sin publicar**: espera el
+    visto bueno del titular. Detalle en la sección de testigos-web.
+  - **Preguntas de testigos-web para pretix-wompi** (para saber cuánto explica esto de las ventas de la
+    semana, que según el titular son 16 y ninguna con campaña):
+    1. Para cada pedido pagado del 2026-10-09 al 2026-10-15: `landing`, `referrer`, si trae `fbc` y si
+       trae alguna `utm_`. ¿Cuántos tienen `referrer` de `facebook.com`, `lm.facebook.com`,
+       `l.instagram.com` o `instagram.com`? Esos son los que este error pudo vaciar.
+    2. Con la Data API de GA4: de esos compradores, ¿cuántos tuvieron antes, en la misma sesión o en
+       sesiones anteriores, un `page_view` con `utm_campaign`? Es la cifra de ventas que el error borró.
+       El resto llegó de verdad sin campaña.
+    3. Las 11 compras de la oferta: ¿por qué canal salió la oferta (historia, publicación, WhatsApp,
+       correo) y con qué enlace? Si fue por publicaciones de Instagram o Facebook sin UTM, llegaron con
+       solo `fbclid` y quedan "sin campaña" con o sin este arreglo. (Pregunta también para el titular.)
+    4. En el plugin, para el `(not set)` de GA4: ¿el `purchase` lleva `session_id` y
+       `engagement_time_msec` dentro de `params`, y `client_id` tal cual lo da `gtag('get', …,
+       'client_id')` (forma `123.456`, sin el `GA1.1.` de la cookie)? El sitio manda `ga-id` y
+       `ga-sessid` así; se puede ver en cualquier pedido.
+- **Segundo punto para testigos-web (2026-10-15, compra de prueba `CUHNG`): sin `ga_id` ni `ga_sessid` cuando
+  se aceptan las cookies justo antes de comprar.** Responde: testigos-web.
+  - Pretix recibió `consent`, `landing=/` y `utm_source=prueba`, `utm_campaign=verificacion-bq`, pero **ni
+    `ga_id` ni `ga_sessid`** (tampoco `fbp`).
+  - En GA4 (tiempo real), `consent_granted` y `begin_checkout` cayeron en el mismo minuto.
+  - Lectura del código: `askGa` llama a `gtag('get', …)` sin esperar la respuesta. Si llega después del
+    `submit`, el `widget_data` ya salió sin los ids. Sin ellos, el plugin manda la compra con un
+    `client_id` propio, y GA4 no puede unirla a la visita.
+  - Pasó en 2 de 27 pedidos antes del 13 de octubre. Es más probable cuando se acepta y se compra de
+    inmediato, que es justo lo que hace una prueba.
+  - Pregunta: ¿se puede esperar la respuesta de `gtag('get')` en el `submit`, o pedir los ids apenas se
+    acepta y reintentar al tocar el widget?
 
 - **Meta reporta unas 4.800 vistas de la página de destino y GA4 unos 685 usuarios en 28 días.** ¿El
   píxel está en otro dominio? ¿Cómo define Meta esa vista en su navegador interno? ¿GA4 deja de contar
