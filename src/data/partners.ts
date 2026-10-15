@@ -83,7 +83,7 @@ export const partnerGroups: PartnerGroup[] = [
       { name: 'Hotel La Posada de San Antonio', logo: logoPosada, shape: 'square' },
       { name: 'Casa Boutique El Carmel', logo: logoElCarmel, shape: 'square' },
       { name: 'Icono Editorial', logo: logoIcono },
-      { name: 'Casa Boutique Villa de Leyva', logo: logoCasaBoutique },
+      { name: 'Casa Boutique Hotel', logo: logoCasaBoutique },
       { name: 'Hotel Mesón de los Virreyes', logo: logoMeson, shape: 'square' },
       { name: 'Alma Bazar', logo: logoAlmaBazar, shape: 'square' },
       /* Trazo fino y lema pequeño: al alto de los apaisados no se leía */
