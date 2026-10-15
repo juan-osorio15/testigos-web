@@ -6,7 +6,7 @@
  *
  * - GA4 lo carga el layout en <head> (async) con Consent Mode en `denied`;
  *   aquí se pasa a `granted` al aceptar y se vuelve a `denied` al revocar.
- * - El píxel de Meta SOLO se inyecta tras la aceptación, en idle.
+ * - El píxel de Meta SOLO se inyecta tras aceptar la publicidad, en idle.
  * - Clic hacia #boletas: `view_item_list` (GA4) y `ViewContent` (Meta).
  *   "Comprar" en el widget: `begin_checkout` (GA4) e `InitiateCheckout`
  *   (Meta), con el mismo eventId. Cada uno una vez por página.
@@ -16,7 +16,16 @@
  * - Degradación silenciosa: nada lanza ni escribe errores en consola.
  */
 import { measurement } from '../config';
-import { CONSENT_EVENT, REVOKE_EVENT, accept, isAccepted, revoke, type ConsentConfig } from './consent';
+import {
+  CONSENT_EVENT,
+  REVOKE_EVENT,
+  accept,
+  acceptedScope,
+  isAccepted,
+  revoke,
+  type ConsentConfig,
+  type ConsentScope,
+} from './consent';
 import { initAttribution } from './attribution';
 
 declare global {
@@ -30,12 +39,12 @@ declare global {
 
 const cfg: ConsentConfig = { version: measurement.consentVersion };
 
-const GRANTED = {
-  analytics_storage: 'granted',
-  ad_storage: 'granted',
-  ad_user_data: 'granted',
-  ad_personalization: 'granted',
-};
+/* Analítica → analytics_storage; publicidad → las tres señales de anuncios */
+function consentFor(scope: ConsentScope[]): Record<string, 'granted' | 'denied'> {
+  const a = scope.includes('analytics') ? 'granted' : 'denied';
+  const ad = scope.includes('advertising') ? 'granted' : 'denied';
+  return { analytics_storage: a, ad_storage: ad, ad_user_data: ad, ad_personalization: ad };
+}
 const DENIED = {
   analytics_storage: 'denied',
   ad_storage: 'denied',
@@ -109,10 +118,10 @@ function deleteCookie(name: string): void {
   }
 }
 
-function clearMeasurementCookies(): void {
+function clearMeasurementCookies(pattern = /^(_ga|_gid|_gat|_fbp|_fbc)/): void {
   try {
     const names = document.cookie.split(';').map((c) => c.trim().split('=')[0] ?? '');
-    for (const n of names) if (/^(_ga|_gid|_gat|_fbp|_fbc)/.test(n)) deleteCookie(n);
+    for (const n of names) if (pattern.test(n)) deleteCookie(n);
   } catch {
     /* nada */
   }
@@ -164,8 +173,12 @@ export function trackLead(location: string, item?: string): void {
 
 export const consentConfig = cfg;
 
-export function acceptConsent(): Promise<unknown> {
-  return accept(cfg);
+export function acceptConsent(scope?: ConsentScope[]): Promise<unknown> {
+  return accept(cfg, scope);
+}
+
+export function consentScope(): ConsentScope[] {
+  return acceptedScope(cfg.version);
 }
 
 export function revokeConsent(): Promise<void> {
@@ -185,16 +198,20 @@ export function initMeasurement(): void {
   const enabled = !!(measurement.ga4Id || measurement.metaPixelId);
 
   document.addEventListener(CONSENT_EVENT, () => {
-    gtag('consent', 'update', GRANTED);
-    gtag('event', 'consent_granted', { version: cfg.version });
-    whenIdle(loadPixel);
+    const scope = consentScope();
+    gtag('consent', 'update', consentFor(scope));
+    gtag('event', 'consent_granted', { version: cfg.version, scope: scope.join(',') });
+    // Lo que se desmarca en "Configurar" deja de guardarse desde ya
+    if (!scope.includes('analytics')) clearMeasurementCookies(/^(_ga|_gid|_gat)/);
+    if (scope.includes('advertising')) whenIdle(loadPixel);
+    else clearMeasurementCookies(/^(_fbp|_fbc)/);
   });
   document.addEventListener(REVOKE_EVENT, () => {
     gtag('consent', 'update', DENIED);
     clearMeasurementCookies();
   });
 
-  if (enabled && consentAccepted()) whenIdle(loadPixel);
+  if (enabled && consentScope().includes('advertising')) whenIdle(loadPixel);
 
   // Botones de compra: primer clic hacia #boletas
   document.addEventListener(

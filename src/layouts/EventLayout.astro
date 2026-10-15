@@ -76,18 +76,13 @@ const heroPreload = hero
 
 /* Medición: solo con identificadores; sin ellos el HTML no menciona a Google ni a Meta. */
 const ga4 = measurement.ga4Id;
-const consentGranted = JSON.stringify({
-  analytics_storage: 'granted',
-  ad_storage: 'granted',
-  ad_user_data: 'granted',
-  ad_personalization: 'granted',
-});
-/* Consent Mode antes de gtag: todo denegado; concedido si ya hay aceptación
-   vigente guardada (dictamen legal: sin cookies antes de Aceptar). */
+/* Consent Mode antes de gtag: todo denegado; concedido por categoría si ya
+   hay aceptación vigente guardada (dictamen legal: sin cookies antes de
+   Aceptar). Misma correspondencia que consentFor() de measurement/tags.ts. */
 const consentBootstrap = ga4
   ? `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;` +
     `gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',wait_for_update:500});` +
-    `try{var c=JSON.parse(localStorage.getItem('tdm.consent')||'null');if(c&&c.version===${JSON.stringify(measurement.consentVersion)}&&c.acceptedAt){gtag('consent','update',${consentGranted});}}catch(e){}` +
+    `try{var c=JSON.parse(localStorage.getItem('tdm.consent')||'null');if(c&&c.version===${JSON.stringify(measurement.consentVersion)}&&c.acceptedAt){var s=c.scope||[],a=s.indexOf('analytics')>-1?'granted':'denied',d=s.indexOf('advertising')>-1?'granted':'denied';gtag('consent','update',{analytics_storage:a,ad_storage:d,ad_user_data:d,ad_personalization:d});}}catch(e){}` +
     `gtag('js',new Date());gtag('config',${JSON.stringify(ga4)},{send_page_view:true});`
   : '';
 

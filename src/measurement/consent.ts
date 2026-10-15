@@ -2,7 +2,10 @@
  * Estado del aviso de cookies (feature 002, contrato measurement-events.md,
  * dictamen legal 2026-09-15). Corre en el navegador.
  *
- * - Solo "Aceptar" acepta. Cerrar, ignorar o navegar no cambian nada.
+ * - Solo "Aceptar" (o "Guardar" con alguna categoría marcada en
+ *   "Configurar") acepta. Cerrar, ignorar o navegar no cambian nada.
+ * - Desde el 2026-10-15 la aceptación tiene alcance: 'analytics',
+ *   'advertising' o ambas (las aceptaciones anteriores traen las dos).
  * - La aceptación se guarda en el navegador del visitante (variante B del
  *   dictamen legal): identificador aleatorio, versión, alcance y fechas.
  *   Sin registro en servidor (capa retirada el 2026-09-17).
@@ -24,7 +27,8 @@ export interface ConsentConfig {
 
 const KEY = 'tdm.consent';
 const DISMISSED_KEY = 'tdm.consent.dismissed';
-export const SCOPE = ['analytics', 'advertising'];
+export type ConsentScope = 'analytics' | 'advertising';
+export const SCOPE: ConsentScope[] = ['analytics', 'advertising'];
 
 export const CONSENT_EVENT = 'tdm:consent';
 export const REVOKE_EVENT = 'tdm:revoke';
@@ -69,6 +73,13 @@ export function isAccepted(version: string): boolean {
   return !!s && s.version === version && !!s.acceptedAt;
 }
 
+/** Categorías aceptadas en la aceptación vigente (vacío si no hay) */
+export function acceptedScope(version: string): ConsentScope[] {
+  const s = read();
+  if (!isAccepted(version) || !s) return [];
+  return SCOPE.filter((k) => s.scope.includes(k));
+}
+
 export function wasDismissed(): boolean {
   try {
     return sessionStorage.getItem(DISMISSED_KEY) === '1';
@@ -97,11 +108,11 @@ function uuid(): string {
   });
 }
 
-export async function accept(cfg: ConsentConfig): Promise<ConsentState> {
+export async function accept(cfg: ConsentConfig, scope: ConsentScope[] = SCOPE): Promise<ConsentState> {
   const state: ConsentState = {
-    id: uuid(),
+    id: read()?.id ?? uuid(),
     version: cfg.version,
-    scope: [...SCOPE],
+    scope: SCOPE.filter((k) => scope.includes(k)),
     acceptedAt: new Date().toISOString(),
   };
   write(state);

@@ -16,15 +16,17 @@ const es = {
   'cta.live': 'Vivir Testigos de la Memoria',
 
   // --- Navegación ---
-  /* Prueba 2026-09-09 (sugerencia externa): etiquetas en pregunta. Para
-     volver: 'El encuentro', 'Panelistas', 'Agenda', 'Lugar', 'Preguntas'. */
-  'nav.opportunity': '¿Qué voy a vivir?',
-  'nav.speakers': '¿Quiénes estarán?',
-  'nav.schedule': '¿Qué voy a escuchar?',
-  'nav.venue': '¿Dónde?',
+  /* Etiquetas estándar (2026-10-15): las preguntas de la prueba del
+     2026-09-09 interrumpían; la gente busca las palabras de siempre. */
+  'nav.opportunity': 'El encuentro',
+  'nav.speakers': 'Panelistas',
+  'nav.schedule': 'Programación',
+  'nav.venue': 'Lugar',
   'nav.faq': 'Preguntas',
   'nav.lodging': 'Hospedaje',
   'nav.aria': 'Navegación principal',
+  'nav.menu': 'Menú',
+  'nav.close': 'Cerrar menú',
 
   // --- Hero ---
   'hero.tagline': 'Periodistas en la Historia',
@@ -225,35 +227,24 @@ const es = {
   'footer.pagesAria': 'Páginas del sitio',
 
   // --- Aviso de cookies y preferencias (dictamen legal 2026-09-15) ---
-  /* Corto y sin énfasis, como es habitual: nombra al responsable, los
-     proveedores y la finalidad, y enlaza la política (arts. 14 y 15 del
-     Decreto 1377). El detalle vive en la sección 10 de la política. */
-  'consent.text':
-    'Eventalist usa cookies de analítica y publicidad (Google y Meta) para medir las visitas y la campaña de boletas. Al aceptar autorizas ese uso según la política de datos.',
+  /* Aviso estándar (2026-10-15): una línea, "Configurar" y "Aceptar". Nombra
+     al responsable, los proveedores y la finalidad, y enlaza la política
+     (arts. 14 y 15 del Decreto 1377). El detalle vive en la sección 10. */
+  'consent.text': 'Eventalist usa cookies de Google y Meta para medir las visitas y mostrar anuncios del encuentro.',
   'consent.more': 'Política de datos',
   'consent.accept': 'Aceptar',
-  'consent.modalEyebrow': 'Cookies',
-  'consent.modalTitle': 'Usamos cookies para medir el sitio y la campaña',
-  'consent.modalAccept': 'Aceptar y continuar',
-  'consent.modalSkip': 'Seguir sin aceptar',
-  /* Segundo paso del modal ("Ver opciones"): por qué pedimos las cookies,
-     en tono cercano y sin prometer nada que no sea cierto (sí se usan para
-     anuncios del encuentro en Meta; no se venden datos). */
-  'consent.modalMore': 'Ver opciones',
-  'consent.optionsTitle': '¿Nos ayudas a saber cómo llegaste?',
-  'consent.optionsText':
-    'Con las cookies sabemos qué publicación o anuncio te trajo hasta aquí, y así invertimos en lo que de verdad acerca a la gente al encuentro. Si dejas la compra a medias, también nos permiten recordarte el encuentro en Instagram y Facebook. Nunca vendemos tus datos.',
-  'consent.optionsAccept': 'Aceptar',
-  'consent.optionsMore': 'Más detalles en la política de datos',
+  'consent.configure': 'Configurar',
   'consent.close': 'Cerrar el aviso',
   'consent.prefsLink': 'Cookies y preferencias',
-  'consent.prefsTitle': 'Cookies y preferencias',
-  'consent.prefsAccepted': 'Aceptaste el uso de cookies de analítica y publicidad el {date}',
-  'consent.prefsNone': 'No has aceptado el uso de cookies de analítica y publicidad en este navegador.',
-  'consent.prefsId': 'Identificador de tu aceptación (para consultas o reclamos):',
-  'consent.revoke': 'Retirar la aceptación',
-  'consent.revoked': 'Listo. Las cookies de analítica y publicidad quedaron desactivadas en este navegador.',
-  'consent.policy': 'Leer la política de tratamiento de datos',
+  'consent.prefsTitle': 'Configurar cookies',
+  'consent.analytics': 'Analítica',
+  'consent.analyticsText': 'Google Analytics. Cuenta las visitas y de dónde llegan.',
+  'consent.advertising': 'Publicidad',
+  'consent.advertisingText': 'Meta y Google. Mide los anuncios y permite mostrarlos.',
+  'consent.save': 'Guardar',
+  'consent.acceptAll': 'Aceptar todas',
+  'consent.prefsId': 'Identificador de tu aceptación:',
+  'consent.policy': 'Política de datos',
 
   // --- Migas de pan y páginas interiores ---
   'crumb.home': 'Inicio',
@@ -282,7 +273,7 @@ const es = {
   // --- Programación ---
   'schedule.paid': 'Con boleta',
   'schedule.full': 'Ver la programación completa',
-  'schedule.freeCta': 'Quiero saber más',
+  'schedule.freeCta': 'Más información',
   'schedule.legendTalks': 'Charlas abiertas · Entrada libre',
   'schedule.legendPanels': 'Conversatorios · Con boleta',
   'schedule.venueMap': 'Ver en el mapa',
@@ -326,13 +317,15 @@ const en: Record<UiKey, string> = {
   'cta.secure': 'Secure my ticket',
   'cta.live': 'Experience Testigos de la Memoria',
 
-  'nav.opportunity': 'What will I experience?',
-  'nav.speakers': 'Who will be there?',
-  'nav.schedule': 'What will I hear?',
-  'nav.venue': 'Where?',
+  'nav.opportunity': 'About',
+  'nav.speakers': 'Speakers',
+  'nav.schedule': 'Program',
+  'nav.venue': 'Venue',
   'nav.faq': 'FAQ',
   'nav.lodging': 'Where to stay',
   'nav.aria': 'Main navigation',
+  'nav.menu': 'Menu',
+  'nav.close': 'Close menu',
 
   'hero.tagline': 'Journalists in History',
   'hero.dates': 'November 5–8, 2026',
@@ -493,29 +486,21 @@ const en: Record<UiKey, string> = {
   'footer.terms': 'Terms and conditions',
   'footer.pagesAria': 'Site pages',
 
-  'consent.text':
-    'Eventalist uses analytics and advertising cookies (Google and Meta) to measure visits and the ticket campaign. By accepting, you authorize that use under the data policy.',
+  'consent.text': 'Eventalist uses Google and Meta cookies to measure visits and show ads for the event.',
   'consent.more': 'Data policy',
   'consent.accept': 'Accept',
-  'consent.modalEyebrow': 'Cookies',
-  'consent.modalTitle': 'We use cookies to measure the site and the campaign',
-  'consent.modalAccept': 'Accept and continue',
-  'consent.modalSkip': 'Continue without accepting',
-  'consent.modalMore': 'See options',
-  'consent.optionsTitle': 'Can you help us see how you got here?',
-  'consent.optionsText':
-    "Cookies tell us which post or ad brought you here, so we can invest in what truly brings people to the event. If you leave your purchase halfway, they also let us remind you about the event on Instagram and Facebook. We never sell your data.",
-  'consent.optionsAccept': 'Accept',
-  'consent.optionsMore': 'More details in the data policy',
+  'consent.configure': 'Settings',
   'consent.close': 'Close this notice',
   'consent.prefsLink': 'Cookies and preferences',
-  'consent.prefsTitle': 'Cookies and preferences',
-  'consent.prefsAccepted': 'You accepted analytics and advertising cookies on {date}',
-  'consent.prefsNone': 'You have not accepted analytics and advertising cookies in this browser.',
-  'consent.prefsId': 'Your acceptance ID (for inquiries or claims):',
-  'consent.revoke': 'Withdraw acceptance',
-  'consent.revoked': 'Done. Analytics and advertising cookies are now disabled in this browser.',
-  'consent.policy': 'Read the personal data policy',
+  'consent.prefsTitle': 'Cookie settings',
+  'consent.analytics': 'Analytics',
+  'consent.analyticsText': 'Google Analytics. Counts visits and where they come from.',
+  'consent.advertising': 'Advertising',
+  'consent.advertisingText': 'Meta and Google. Measures ads and allows them to be shown.',
+  'consent.save': 'Save',
+  'consent.acceptAll': 'Accept all',
+  'consent.prefsId': 'Your acceptance ID:',
+  'consent.policy': 'Data policy',
 
   'crumb.home': 'Home',
   'crumb.speakers': 'Speakers',
@@ -540,7 +525,7 @@ const en: Record<UiKey, string> = {
 
   'schedule.paid': 'Ticket required',
   'schedule.full': 'See the full program',
-  'schedule.freeCta': 'Tell me more',
+  'schedule.freeCta': 'More information',
   'schedule.legendTalks': 'Open talks · Free admission',
   'schedule.legendPanels': 'Panel conversations · Ticket required',
   'schedule.venueMap': 'See on the map',
