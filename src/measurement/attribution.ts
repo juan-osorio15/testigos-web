@@ -256,9 +256,28 @@ function requestGaIds(): void {
   askGa('session_id', (v) => (gaSessId = v));
 }
 
+/**
+ * Las mismas cifras que da gtag('get'), leídas de sus cookies: _ga es
+ * "GA1.1.<client_id>" y _ga_<id> es "GS2.1.s<session_id>$…" (o "GS1.1.<session_id>.…").
+ * Sirven cuando se acepta y se compra antes de que gtag responda (pedido CUHNG).
+ */
+function gaCookieIds(): { gaId?: string; gaSessId?: string } {
+  if (!measurement.ga4Id) return {};
+  const client = /^GA\d+\.\d+\.(\d+\.\d+)$/.exec(cookie('_ga') ?? '');
+  const session = /^GS\d+\.\d+\.s?(\d+)/.exec(cookie(`_ga_${measurement.ga4Id.replace(/^G-/, '')}`) ?? '');
+  return { gaId: client?.[1], gaSessId: session?.[1] };
+}
+
 function visitIds(a: Attribution): VisitIds | null {
   if (!accepted()) return null;
-  const ids: VisitIds = { gclid: a.gclid, gaId, gaSessId, fbp: cookie('_fbp'), fbc: cookie('_fbc') };
+  const fromCookies = gaId && gaSessId ? {} : gaCookieIds();
+  const ids: VisitIds = {
+    gclid: a.gclid,
+    gaId: gaId ?? fromCookies.gaId,
+    gaSessId: gaSessId ?? fromCookies.gaSessId,
+    fbp: cookie('_fbp'),
+    fbc: cookie('_fbc'),
+  };
   if (!ids.fbc && a.fbclid) ids.fbc = clean(`fb.1.${a.capturedAt}.${a.fbclid}`);
   return ids;
 }
