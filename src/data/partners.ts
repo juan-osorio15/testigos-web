@@ -12,6 +12,12 @@
  * sobre blanco, con la distancia al blanco como alfa, el 2026-10-05; Casa
  * Boutique El Carmel desde su PNG blanco con transparencia, teñido al
  * crema, el 2026-10-05; el original mide 150 px y no hay uno mayor).
+ * El 2026-10-15: El Carmel otra vez, desde su PDF nuevo (tinta café sobre
+ * beige, con la tinta como alfa); El Ático y Casa Boutique igual, desde
+ * tinta sobre blanco; Icono Editorial desde su PNG con círculo verde, solo
+ * con las letras; Mesón de los Virreyes desde su bloque granate, que pasa
+ * a crema con el dibujo calado; El Riachuelo desde su JPEG en colores, con
+ * la maceta en crema y el letrero calado.
  */
 import type { UiKey } from '../ui';
 import logoConexion from '../assets/partners/conexion-zaquencipa.png';
@@ -23,6 +29,11 @@ import logoAlmaBazar from '../assets/partners/alma-bazar.png';
 import logoPosada from '../assets/partners/posada-san-antonio.png';
 import logoOjoDeAgua from '../assets/partners/ojo-de-agua.png';
 import logoElCarmel from '../assets/partners/el-carmel.png';
+import logoIcono from '../assets/partners/icono-editorial.png';
+import logoCasaBoutique from '../assets/partners/casa-boutique.png';
+import logoMeson from '../assets/partners/meson-virreyes.png';
+import logoAtico from '../assets/partners/el-atico.png';
+import logoRiachuelo from '../assets/partners/el-riachuelo.png';
 
 export interface Partner {
   name: string;
@@ -60,17 +71,25 @@ export const partnerGroups: PartnerGroup[] = [
   },
   {
     /* Apoyo menor (decisión del 2026-09-18): aquí se suman los comercios
-       y entidades locales que apoyen, a menor tamaño que las sedes */
+       y entidades locales que apoyen, a menor tamaño que las sedes. Orden
+       del 2026-10-15: primero Relato, el Centro Cultural de Tunja, la
+       Posada y El Carmel; luego los demás, de los más elegantes a los
+       menos. */
     label: 'footer.supportedBy',
     size: 'sm',
     partners: [
       { name: 'Relato, Librería y Centro Cultural', logo: logoRelato },
       { name: 'Centro Cultural Banco de la República, Tunja', logo: logoBanrepTunja },
-      { name: 'Alma Bazar', logo: logoAlmaBazar, shape: 'square' },
       { name: 'Hotel La Posada de San Antonio', logo: logoPosada, shape: 'square' },
+      { name: 'Casa Boutique El Carmel', logo: logoElCarmel, shape: 'square' },
+      { name: 'Icono Editorial', logo: logoIcono },
+      { name: 'Casa Boutique Villa de Leyva', logo: logoCasaBoutique },
+      { name: 'Hotel Mesón de los Virreyes', logo: logoMeson, shape: 'square' },
+      { name: 'Alma Bazar', logo: logoAlmaBazar, shape: 'square' },
       /* Trazo fino y lema pequeño: al alto de los apaisados no se leía */
       { name: 'Cabañas Ojo de Agua', logo: logoOjoDeAgua, shape: 'square' },
-      { name: 'Casa Boutique El Carmel', logo: logoElCarmel, shape: 'square' },
+      { name: 'El Ático', logo: logoAtico },
+      { name: 'El Riachuelo Cocina', logo: logoRiachuelo, shape: 'square' },
     ],
   },
 ];

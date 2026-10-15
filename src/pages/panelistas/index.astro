@@ -16,7 +16,7 @@ import LogoSymbol from '../../assets/logo/logo-symbol.svg';
 const tones = ['olive', 'sky', 'brick'] as const;
 ---
 
-<InnerLayout path="/panelistas/" eyebrow={t('crumb.speakers')} heading="¿Quiénes estarán?" lead={t('speaker.indexLead')} tone="sky">
+<InnerLayout path="/panelistas/" eyebrow={t('facts.when')} heading={t('crumb.speakers')} lead={t('speaker.indexLead')} tone="sky">
   <div class="container">
     <ul class="tiles" role="list">
       {
@@ -44,7 +44,7 @@ const tones = ['olive', 'sky', 'brick'] as const;
       }
     </ul>
     <div class="tiles-cta">
-      <CtaButton label="cta.beThere" />
+      <CtaButton />
     </div>
   </div>
 </InnerLayout>

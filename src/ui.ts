@@ -69,7 +69,7 @@ const es = {
 
   // --- Sección de compra ---
   /* Junto a la tienda: explicar sin adornos las dos formas de comprar */
-  'tickets.heading': 'Asegura tu lugar',
+  'tickets.heading': 'Boletas',
   'tickets.title': 'Hay dos formas de comprar.',
   'tickets.passName': 'Pase completo',
   /* "Medio día" en vez de "franja" (2026-09-18): la palabra franja no se
@@ -169,7 +169,7 @@ const es = {
 
   // --- Venue ---
   'venue.directions': 'Cómo llegar',
-  'stay.heading': '¿Y dónde me voy a quedar?',
+  'stay.heading': 'Hospedaje',
   'stay.intro':
     'Si vienes de Bogotá o de más lejos, no tienes que buscar hotel. Estos dos aliados tienen una oferta solo para asistentes: escríbeles por WhatsApp y ellos te arman la reserva.',
   'stay.onlyAttendees': 'Solo para asistentes',
@@ -187,7 +187,8 @@ const es = {
   'venue.mapOf': 'Mapa de Google:',
 
   // --- "Qué es" (Opportunity) ---
-  'opp.eyebrow': 'Primera edición',
+  /* Igual que su enlace del menú (2026-10-15) */
+  'opp.eyebrow': 'El encuentro',
   /* Pregunta del banco aprobado (spec §2) */
   'opp.heading': 'Una oportunidad de escuchar de primera mano a quienes estuvieron allí cuando la historia estaba ocurriendo.',
   'opp.lead':
@@ -227,24 +228,30 @@ const es = {
   'footer.pagesAria': 'Páginas del sitio',
 
   // --- Aviso de cookies y preferencias (dictamen legal 2026-09-15) ---
-  /* Aviso estándar (2026-10-15): una línea, "Configurar" y "Aceptar". Nombra
-     al responsable, los proveedores y la finalidad, y enlaza la política
-     (arts. 14 y 15 del Decreto 1377). El detalle vive en la sección 10. */
+  /* Estándar desde el 2026-10-15: una línea que nombra al responsable, los
+     proveedores y la finalidad, y enlaza la política (arts. 14 y 15 del
+     Decreto 1377). El detalle vive en la sección 10 de la política. */
   'consent.text': 'Eventalist usa cookies de Google y Meta para medir las visitas y mostrar anuncios del encuentro.',
   'consent.more': 'Política de datos',
   'consent.accept': 'Aceptar',
+  'consent.modalTitle': 'Usamos cookies',
   'consent.configure': 'Configurar',
-  'consent.close': 'Cerrar el aviso',
-  'consent.prefsLink': 'Cookies y preferencias',
-  'consent.prefsTitle': 'Configurar cookies',
+  /* Paso "Configurar": las dos categorías vienen activadas */
+  'consent.optionsTitle': 'Configurar cookies',
   'consent.analytics': 'Analítica',
   'consent.analyticsText': 'Google Analytics. Cuenta las visitas y de dónde llegan.',
   'consent.advertising': 'Publicidad',
   'consent.advertisingText': 'Meta y Google. Mide los anuncios y permite mostrarlos.',
-  'consent.save': 'Guardar',
   'consent.acceptAll': 'Aceptar todas',
-  'consent.prefsId': 'Identificador de tu aceptación:',
-  'consent.policy': 'Política de datos',
+  'consent.save': 'Guardar',
+  'consent.close': 'Cerrar el aviso',
+  'consent.prefsLink': 'Cookies y preferencias',
+  'consent.prefsTitle': 'Cookies y preferencias',
+  'consent.prefsAccepted': 'Guardaste tus preferencias de cookies el {date}',
+  'consent.prefsNone': 'No has aceptado cookies de analítica ni de publicidad en este navegador.',
+  'consent.prefsId': 'Identificador de tu aceptación (para consultas o reclamos):',
+  'consent.saved': 'Listo. Guardamos tus preferencias en este navegador.',
+  'consent.policy': 'Leer la política de tratamiento de datos',
 
   // --- Migas de pan y páginas interiores ---
   'crumb.home': 'Inicio',
@@ -360,7 +367,7 @@ const en: Record<UiKey, string> = {
   'keyfacts.formatsDetail':
     'Free open talks at Casa Museo Antonio Nariño and ticketed panel conversations at Hospedería Duruelo.',
 
-  'tickets.heading': 'Secure your seat',
+  'tickets.heading': 'Tickets',
   'tickets.title': 'There are two ways to buy.',
   'tickets.passName': 'Full pass',
   'tickets.passText': 'All seven panel conversations, from Friday afternoon to Sunday morning, on a single ticket.',
@@ -436,7 +443,7 @@ const en: Record<UiKey, string> = {
   'links.wikipedia': 'Wikipedia',
 
   'venue.directions': 'Get directions',
-  'stay.heading': 'And where do I stay?',
+  'stay.heading': 'Where to stay',
   'stay.intro':
     'Coming from Bogotá or farther away? No need to hunt for a hotel. These two partners have an offer for attendees only: message them on WhatsApp and they will set up your booking.',
   'stay.onlyAttendees': 'Attendees only',
@@ -453,7 +460,7 @@ const en: Record<UiKey, string> = {
   'venue.logoAlt': 'Logo of',
   'venue.mapOf': 'Google map:',
 
-  'opp.eyebrow': 'First edition',
+  'opp.eyebrow': 'About',
   'opp.heading': 'A chance to hear first-hand from the people who were there while history was happening.',
   'opp.lead':
     "The events that shaped the country have front-row witnesses: the reporters who covered them. Over four days, some of the biggest names in Colombian journalism sit down to tell what they saw, how they reported it and what that past teaches us about what's ahead.",
@@ -489,18 +496,23 @@ const en: Record<UiKey, string> = {
   'consent.text': 'Eventalist uses Google and Meta cookies to measure visits and show ads for the event.',
   'consent.more': 'Data policy',
   'consent.accept': 'Accept',
+  'consent.modalTitle': 'We use cookies',
   'consent.configure': 'Settings',
-  'consent.close': 'Close this notice',
-  'consent.prefsLink': 'Cookies and preferences',
-  'consent.prefsTitle': 'Cookie settings',
+  'consent.optionsTitle': 'Cookie settings',
   'consent.analytics': 'Analytics',
   'consent.analyticsText': 'Google Analytics. Counts visits and where they come from.',
   'consent.advertising': 'Advertising',
   'consent.advertisingText': 'Meta and Google. Measures ads and allows them to be shown.',
-  'consent.save': 'Save',
   'consent.acceptAll': 'Accept all',
-  'consent.prefsId': 'Your acceptance ID:',
-  'consent.policy': 'Data policy',
+  'consent.save': 'Save',
+  'consent.close': 'Close this notice',
+  'consent.prefsLink': 'Cookies and preferences',
+  'consent.prefsTitle': 'Cookies and preferences',
+  'consent.prefsAccepted': 'You saved your cookie preferences on {date}',
+  'consent.prefsNone': 'You have not accepted analytics or advertising cookies in this browser.',
+  'consent.prefsId': 'Your acceptance ID (for inquiries or claims):',
+  'consent.saved': 'Done. Your preferences are saved in this browser.',
+  'consent.policy': 'Read the personal data policy',
 
   'crumb.home': 'Home',
   'crumb.speakers': 'Speakers',
