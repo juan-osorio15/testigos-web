@@ -145,10 +145,17 @@ function hasCampaign(a: Attribution): boolean {
   return PARAMS.some((p) => a[p] !== undefined);
 }
 
+function hasUtm(a: Attribution): boolean {
+  return PARAMS.some((p) => p.startsWith('utm_') && a[p] !== undefined);
+}
+
 /**
- * Reglas de data-model.md: gana la última llegada con campaña; una llegada
- * desde otro sitio sin campaña solo reemplaza una visita que tampoco la tenía,
- * para que lo orgánico no borre lo pagado.
+ * Reglas de data-model.md: gana la última llegada con UTM; una llegada desde
+ * otro sitio sin campaña solo reemplaza una visita que tampoco la tenía, para
+ * que lo orgánico no borre lo pagado. Una llegada con solo gclid o fbclid
+ * (Facebook e Instagram ponen fbclid en todo enlace, lleve UTM o no) cambia
+ * ese identificador y conserva las UTM guardadas (enmienda 2026-10-15,
+ * pedido DVUGA).
  */
 export function captureAttribution(): Attribution {
   const fresh: Attribution = { landing: location.pathname.slice(0, MAX) || '/', capturedAt: Date.now() };
@@ -167,12 +174,19 @@ export function captureAttribution(): Attribution {
   } catch {
     /* URL ilegible: sin campaña */
   }
+  const stored = fromStorage();
+  if (hasParams && !hasUtm(fresh) && stored && hasUtm(stored)) {
+    const merged: Attribution = { ...stored };
+    for (const p of CLICK_IDS) if (fresh[p]) merged[p] = fresh[p];
+    save(merged);
+    current = merged;
+    return merged;
+  }
   if (hasParams) {
     save(fresh);
     current = fresh;
     return fresh;
   }
-  const stored = fromStorage();
   if (stored && !(referrer && !hasCampaign(stored))) {
     current = stored;
     return stored;

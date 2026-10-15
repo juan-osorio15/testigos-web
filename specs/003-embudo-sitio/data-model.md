@@ -14,7 +14,8 @@ JSON con estos campos, todos opcionales salvo `landing` y `capturedAt`:
 
 Reglas (spec FR-001 a FR-003):
 
-- La URL trae al menos un parámetro con valor → se reemplaza todo el objeto con lo de esta URL y su ruta.
+- La URL trae solo `gclid` o `fbclid` (ninguna `utm_*`) y el objeto guardado tiene UTM → se conserva el objeto y solo se cambia ese identificador de clic (enmienda 2026-10-15: Facebook e Instagram ponen `fbclid` en todo enlace; pedido `DVUGA` perdió su campaña así).
+- La URL trae al menos un parámetro con valor (en cualquier otro caso) → se reemplaza todo el objeto con lo de esta URL y su ruta.
 - La URL no trae parámetros, llega desde otro sitio y el objeto guardado no tiene campaña (ni UTM, ni `gclid`, ni `fbclid`) → se reemplaza con esta llegada y su `referrer`. Lo orgánico no borra lo pagado.
 - La URL no trae parámetros y ya hay objeto (en cualquier otro caso) → no se toca.
 - La URL no trae parámetros y no hay objeto → se guarda `{ landing, capturedAt, referrer? }`.
