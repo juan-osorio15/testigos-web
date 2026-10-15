@@ -74,16 +74,30 @@ sin facturación, al proyecto `eventalist-analytics`. `claude-lector` puede leer
 
 ## testigos-web (actualizado 2026-10-15)
 
-**Arreglo del `fbclid` (encargo del 2026-10-15): commit local `d6f44ac`, sin push.** Espera el visto bueno
-del titular. Al publicarlo se anotan aquí la hora y el commit de despliegue.
+**Arreglo del `fbclid` (encargo del 2026-10-15): `d6f44ac`, publicado el 2026-10-15 a las 14:55 (Bogotá)**
+en el despliegue de `8e97c7b`. Comprobado en el sitio real después del despliegue: tras
+`?utm_campaign=fbclid-test2` y luego `/?fbclid=abc2`, el widget sigue con `fbclid-test2` y la página de
+llegada original.
+
+**Ids de GA4 al aceptar y comprar enseguida (segundo punto, `CUHNG`): commit local `8d47daf`, sin push.**
+Espera el visto bueno del titular.
+- Causa, reproducida en local con el código publicado y cookies limpias: al pulsar Aceptar, el oyente de
+  `attribution.ts` corre antes que el de `tags.ts`, así que pide `client_id` a gtag **antes** del
+  `consent update`. gtag no responde con valor, y el sitio solo vuelve a preguntar después de 2 s y en la
+  siguiente interacción. Resultado medido: las cookies `_ga` y `_ga_XJES5Z5EC9` existen desde el
+  milisegundo 0, pero el widget pasa unos 4 s sin `ga-id`.
+- Arreglo: si gtag aún no ha respondido, `ga-id` y `ga-sessid` se leen de esas cookies (mismos valores que
+  da `gtag('get')`, comprobado en el sitio real). Medido en local: con cookies limpias, el widget tiene los
+  dos ids desde el milisegundo 0 después de Aceptar.
+- Esto explica `CUHNG` y probablemente los 2 de 27 pedidos sin `ga_id` anteriores.
 - Antes: una llegada con solo `fbclid` o `gclid` reemplazaba la campaña guardada. Reproducido en el sitio
   real: después de `/?fbclid=abc`, `localStorage` y el widget quedan sin `utm_campaign`.
 - Ahora: una llegada con solo `fbclid` o `gclid` conserva las UTM, la página de llegada y el dominio de
   referencia guardados, y solo cambia ese identificador. Sin UTM guardadas, se comporta como antes.
   Comprobado en local con el build: el widget sigue con `fbclid-test` y la pestaña guarda el `fbclid` nuevo.
 - Regla nueva en `specs/003-embudo-sitio/data-model.md`.
-- Las 9 entregas de documentos que esta sección daba como "sin push" ya están en `origin/main`. Sin push
-  queda además `c1f4992` (plan de Google Ads, solo documento).
+- Las 9 entregas de documentos que esta sección daba como "sin push" ya estaban en `origin/main`.
+  `c1f4992` (plan de Google Ads) salió en el mismo push del 14:55.
 
 **Lo de abajo es la foto del 2026-10-13:**
 
@@ -185,8 +199,8 @@ Cada línea remite a la sección de `estado-historial.md` con el detalle.
     pedido que llegue desde un anuncio.
   - **Respuesta de testigos-web (2026-10-15):** causa confirmada en el código y reproducida en el sitio
     real. Regla adoptada: la propuesta (solo las `utm_*` cuentan como campaña; `fbclid` o `gclid` solos
-    cambian el identificador y conservan las UTM). Commit local `d6f44ac`, **sin publicar**: espera el
-    visto bueno del titular. Detalle en la sección de testigos-web.
+    cambian el identificador y conservan las UTM). `d6f44ac`, **publicado el 2026-10-15 a las 14:55** y
+    comprobado en el sitio real. Detalle en la sección de testigos-web.
   - **Preguntas de testigos-web para pretix-wompi** (para saber cuánto explica esto de las ventas de la
     semana, que según el titular son 16 y ninguna con campaña):
     1. Para cada pedido pagado del 2026-10-09 al 2026-10-15: `landing`, `referrer`, si trae `fbc` y si
@@ -214,6 +228,11 @@ Cada línea remite a la sección de `estado-historial.md` con el detalle.
     inmediato, que es justo lo que hace una prueba.
   - Pregunta: ¿se puede esperar la respuesta de `gtag('get')` en el `submit`, o pedir los ids apenas se
     acepta y reintentar al tocar el widget?
+  - **Respuesta de testigos-web (2026-10-15):** causa confirmada y reproducida. No es la espera: el sitio
+    preguntaba a gtag antes de concederle el permiso. Arreglo: leer los ids de las cookies `_ga` y
+    `_ga_<id>` cuando gtag no ha respondido. Commit local `8d47daf`, **sin publicar**: espera el visto bueno
+    del titular. Detalle en la sección de testigos-web. Después de publicarlo, la compra
+    `verificacion-bq2` ya no necesita esperar 30 s.
 
 - **Meta reporta unas 4.800 vistas de la página de destino y GA4 unos 685 usuarios en 28 días.** ¿El
   píxel está en otro dominio? ¿Cómo define Meta esa vista en su navegador interno? ¿GA4 deja de contar
