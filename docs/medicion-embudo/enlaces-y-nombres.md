@@ -145,6 +145,8 @@ Por grupo (Grupo de anuncios → Configuración → Opciones de URL del grupo de
 - **Panelistas con intención.** URL final: la página del panelista, como `https://testigosdelamemoria.com/panelistas/daniel-samper-pizano/`
   Sufijo: `utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=panelistas`
 
+Sitelinks y demás recursos con URL: sus URL van limpias, sin etiquetas. Heredan el sufijo de la campaña (o el del grupo, si están en un grupo), y la página de llegada ya dice cuál se tocó.
+
 Para el ensayo antes de lanzar se abre a mano la URL final con su sufijo y `utm_source=prueba` en vez de `google`, por ejemplo:
 `https://testigosdelamemoria.com/?utm_source=prueba&utm_medium=paid_search&utm_campaign=buscador&utm_content=plan-villa-de-leyva`
 
