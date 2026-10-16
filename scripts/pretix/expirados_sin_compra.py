@@ -366,11 +366,9 @@ def main() -> None:
     con_numero = [f for f in filas if f["whatsapp"]]
     with open(salida_whatsapp, "w", encoding="utf-8-sig", newline="") as archivo:
         escritor = csv.writer(archivo)
-        escritor.writerow(["whatsapp", "pedidos_expirados", "ultimo_pedido", "ultimo_intento",
-                           *(["desde_fecha"] if args.desde else []), "prueba"])
+        escritor.writerow(["whatsapp", "pedidos_expirados", "ultimo_pedido", "ultimo_intento", "prueba"])
         for f in con_numero:
-            escritor.writerow([f["whatsapp"], f["pedidos"], f["pedidos"].split()[-1], f["ultimo_intento"],
-                               *([f["desde_fecha"]] if args.desde else []), f["prueba"]])
+            escritor.writerow([f["whatsapp"], f["pedidos"], f["pedidos"].split()[-1], f["ultimo_intento"], f["prueba"]])
 
     por_estado: dict[str, int] = defaultdict(int)
     for p in pedidos:
