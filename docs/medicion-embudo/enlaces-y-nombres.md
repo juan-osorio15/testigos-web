@@ -50,7 +50,7 @@ En GA4 cada etiqueta es una columna. Fuente y medio son listas cerradas y técni
 - `chatbot`: el chatbot, cuando un solo prompt atiende Instagram y WhatsApp.
 - `email`: cualquier correo.
 - `impreso`: QR de afiches, volantes, pendones y escenario.
-- `google`: perfil de Google y anuncios de Google (futuro).
+- `google`: perfil de Google y anuncios de Google.
 - Prensa y páginas de terceros: el nombre del medio o del sitio, con guiones (`el-espectador`).
 - `prueba`: solo pruebas del equipo. Se filtra en los informes.
 
@@ -59,7 +59,7 @@ Canales futuros, con el mismo criterio de nombrar la plataforma: `tiktok`, `yout
 ### utm_medium: cómo llegó (lista cerrada)
 
 - `paid_social`: anuncios pagados en redes.
-- `paid_search`: anuncios pagados en Google (futuro).
+- `paid_search`: anuncios pagados en Google.
 - `social`: lo que publican las cuentas del evento (publicaciones, historias, bio, perfiles).
 - `aliados`: lo que comparten panelistas, organizadores y patrocinadores desde sus cuentas o su WhatsApp.
 - `mensaje`: mensajes del equipo, uno a uno, por lista de difusión o por plantilla.
@@ -81,6 +81,7 @@ Campañas en uso (el equipo agrega aquí las suyas):
 
 - `permanente`
 - `expirados`: correos y WhatsApp a pedidos vencidos.
+- `buscador`: anuncios de Búsqueda en Google (prueba del 16 de octubre al 7 de noviembre de 2026).
 
 ### utm_content: la pieza y sus variables
 
@@ -116,6 +117,36 @@ utm_source={{site_source_name}}&utm_medium=paid_social&utm_campaign={{campaign.n
 - Los nombres quedan bien escritos **antes de publicar**. Meta puede seguir mandando el nombre viejo si se renombra después.
 - Así, el Administrador de anuncios y GA4 muestran los mismos nombres, y se comparan sin traducir.
 - Revisar **cada** anuncio activo. Un anuncio sin parámetros llega como `l.instagram.com / referral`, sin campaña (le pasó a `Z9UMQ` el 12 de octubre).
+
+## Anuncios de Google
+
+En Google las etiquetas **no se pegan en la URL final**. La URL final es la página limpia a la que llega la persona, y las etiquetas van aparte, en el campo **"Sufijo de URL final"**. Google las une solas en el momento del clic. Así la URL final se puede cambiar sin tocar las etiquetas, y Google revisa la página sin parámetros.
+
+El etiquetado automático (que agrega el `gclid`) va activado. No reemplaza las UTM: el `gclid` solo lo lee Google, y Pretix guarda la campaña por las UTM.
+
+- Nombre de la **campaña** en Google Ads = `utm_campaign` (`buscador`).
+- Nombre del **grupo de anuncios** = `utm_content` (`plan-villa-de-leyva`, `periodismo`, `panelistas`).
+- Las URL finales van **sin `#boletas`**.
+
+**El sufijo de un grupo reemplaza al de la campaña, no se suma.** Por eso cada grupo lleva el sufijo completo, con las cuatro etiquetas.
+
+Sufijo de la campaña (Configuración de la campaña → Opciones de URL de la campaña → Sufijo de URL final). Es el respaldo si un grupo queda sin el suyo:
+
+```
+utm_source=google&utm_medium=paid_search&utm_campaign=buscador
+```
+
+Por grupo (Grupo de anuncios → Configuración → Opciones de URL del grupo de anuncios → Sufijo de URL final):
+
+- **Plan en Villa de Leyva.** URL final: `https://testigosdelamemoria.com/`
+  Sufijo: `utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=plan-villa-de-leyva`
+- **Periodismo e historia.** URL final: `https://testigosdelamemoria.com/`. La palabra "bogotazo conversatorio" lleva su propia URL final: `https://testigosdelamemoria.com/programacion/bogotazo-frente-nacional/`
+  Sufijo: `utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=periodismo`
+- **Panelistas con intención.** URL final: la página del panelista, como `https://testigosdelamemoria.com/panelistas/daniel-samper-pizano/`
+  Sufijo: `utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=panelistas`
+
+Para el ensayo antes de lanzar se abre a mano la URL final con su sufijo y `utm_source=prueba` en vez de `google`, por ejemplo:
+`https://testigosdelamemoria.com/?utm_source=prueba&utm_medium=paid_search&utm_campaign=buscador&utm_content=plan-villa-de-leyva`
 
 ## Enlaces listos para copiar
 
