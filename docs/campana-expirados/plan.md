@@ -55,17 +55,17 @@ Dictamen del abogado interno del 12 de octubre de 2026 y decisión del titular e
 Con 7 personas esto se hace a mano. Antes de cada paso: nueva exportación de Pretix y volver a correr el script de la sección 1.
 
 1. **Correo a las 7 personas** (sección 5), en horario. Es lo único que no depende de la aprobación de Meta.
-2. **WhatsApp a las 2 personas con pedido desde el 2026-10-09** que no hayan respondido ni comprado, en otro día, cuando la plantilla esté aprobada.
+2. **WhatsApp a quien tenga pedido desde el 2026-10-09** (el 12 de octubre eran 2; la lista del día manda) que no hayan respondido ni comprado, en otro día. La plantilla se aprobó el 2026-10-16; pasos en `titular/whatsapp.md`.
 3. Si alguien responde: se le atiende en la conversación (dentro de las 24 horas de servicio de WhatsApp se escribe libremente) y se le manda el enlace de compra.
 4. Fin. No hay tercer mensaje.
 
-Pasos del titular, concretos: `titular/correo-resend.md` y `titular/plantilla-whatsapp.md`.
+Pasos del titular, concretos: `titular/correo-resend.md` y `titular/whatsapp.md`.
 
 ## 4. Plantilla de WhatsApp (solo pedidos desde el 2026-10-09)
 
 Categoría **Marketing**, idioma español. La exportación de Pretix no trae nombres, así que no saluda por nombre. Nombre: `pedido_expirado_ayuda`.
 
-El cuerpo vigente está en `titular/plantilla-whatsapp.md` (paso 1): el aviso del pedido vencido, un párrafo antojador con sede, panelistas y temas, y la oferta de ayuda con el pago. Sin plazo ni precio. Pie: "Para no recibir más mensajes, responde BAJA."
+Aprobada por Meta el 2026-10-16. El cuerpo vigente está en `titular/whatsapp.md` (al final): el aviso del pedido vencido, un párrafo antojador con sede, panelistas y temas, y la oferta de ayuda con el pago. Sin plazo ni precio. Pie: "Para no recibir más mensajes, responde BAJA."
 
 - Variable {{1}}: código del pedido (columna `pedidos`, el último).
 - Botón de enlace "Ver boletas" → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=recuperacion&utm_campaign=expirados-2026#boletas`
