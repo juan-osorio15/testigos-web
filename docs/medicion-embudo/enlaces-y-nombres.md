@@ -161,6 +161,7 @@ Para el ensayo antes de lanzar se abre a mano la URL con `utm_source=prueba` en 
 
 Un solo prompt para Instagram y WhatsApp:
 
+- Inicio: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=inicio`
 - Comprar: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=boletas#boletas`
 - Programación: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=agenda#agenda`
 - Panelistas: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=panelistas#speakers`

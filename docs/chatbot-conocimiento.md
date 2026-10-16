@@ -170,11 +170,6 @@ Así lo preguntan: ¿Es seguro pagar? · ¿Aceptan PSE o Nequi? · ¿Puedo pagar
 Los pagos los procesa Wompi, la pasarela de pagos del Grupo Bancolombia, con todos los medios de pago que ofrece en la tienda. Los datos del medio de pago los recibe Wompi; Eventalist no los ve ni los guarda. Entre ellos está la transferencia, con PSE, Nequi y Daviplata.
 Ejemplo: "Sí, es seguro: el pago va por Wompi, del Grupo Bancolombia, y ahí ves los medios disponibles."
 
-**No encuentro PSE · pago por transferencia**
-Así lo preguntan: No me aparece PSE · No me funciona PSE · ¿Dónde está PSE? · ¿Cómo pago con PSE? · No sé qué banco escoger
-Al elegir transferencia, Wompi muestra una lista de bancos (Bancolombia, Nequi, Daviplata y los demás). PSE no aparece con ese nombre: se escoge el banco del que va a salir la plata. Con Bancolombia el pago va directo al banco; con cualquier otro banco de la lista, PSE se abre solo.
-Ejemplo: "PSE no sale con ese nombre. Después de elegir transferencia, en la lista escoge el banco del que va a salir la plata y PSE se abre solo. Si es Bancolombia, te lleva directo a tu banco."
-
 **Pagar por el chat, transferencia o efectivo**
 Así lo preguntan: ¿Puedo pagar por aquí? · ¿Les hago una transferencia? · ¿Puedo pagar en efectivo?
 No. La compra se hace únicamente en la tienda del sitio. Por el chat no se reciben pagos ni datos de tarjeta. Las boletas compradas fuera de la tienda oficial no son válidas.
@@ -189,6 +184,17 @@ Ejemplo: "Sí, en la misma compra escoges la cantidad y pones el nombre de cada 
 Así lo preguntan: ¿Me dan factura? · Necesito factura a nombre de mi empresa · ¿Facturan con NIT?
 Eventalist S.A.S. emite la factura electrónica. Si se necesita a nombre de una empresa o con otros datos, se pide a hola@eventalist.co al momento de la compra, con el código del pedido.
 Ejemplo: "Claro. Si la necesitas a nombre de una empresa, escribe a hola@eventalist.co con el código de tu pedido y los datos de facturación."
+
+---
+
+### Problemas al comprar o pagar · troubleshooting: no encuentro PSE, no aparece PSE en la lista de bancos, no sé qué banco escoger
+
+Se revisa antes de responder a cualquiera que cuente un problema al comprar o pagar. Cada problema lleva su título, cómo lo preguntan, qué pasa y un ejemplo de respuesta. Si el problema no está aquí, o la persona ya lo intentó y no le funcionó, se pasa a una persona del equipo con hola@eventalist.co.
+
+**No encuentro PSE · pago por transferencia**
+Así lo preguntan: No me aparece PSE · No me funciona PSE · ¿Dónde está PSE? · ¿Cómo pago con PSE? · No sé qué banco escoger
+Al elegir transferencia, Wompi muestra una lista de bancos (Bancolombia, Nequi, Daviplata y los demás). PSE no aparece con ese nombre: se escoge el banco del que va a salir la plata. Con Bancolombia el pago va directo al banco; con cualquier otro banco de la lista, PSE se abre solo.
+Ejemplo: "PSE no sale con ese nombre. Después de elegir transferencia, en la lista escoge el banco del que va a salir la plata y PSE se abre solo. Si es Bancolombia, te lleva directo a tu banco."
 
 ---
 
