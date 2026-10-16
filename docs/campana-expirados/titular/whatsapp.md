@@ -1,10 +1,49 @@
 # Mandar el WhatsApp a los pedidos expirados
 
-La plantilla `pedido_expirado_ayuda` ya está aprobada por Meta (2026-10-16). Esta guía es para enviarla. Contexto y reglas en `../plan.md`.
+La plantilla `pedido_expirado_ayuda` ya está aprobada por Meta (2026-10-16). Se envía con `scripts/whatsapp/enviar_plantilla.py`, que habla directo con la API de WhatsApp de Meta (Cloud API), número por número, con el código de pedido de cada persona. Contexto y reglas en `../plan.md`.
 
-Solo va a quien hizo el pedido desde el 2026-10-09 (columna `desde_fecha = si` de la lista): la casilla anterior no autorizaba WhatsApp.
+Solo va a quien hizo el pedido desde el 2026-10-09 (columna `desde_fecha = si` de la lista): la casilla anterior no autorizaba WhatsApp. El script toma solo esas filas.
 
-## Paso 1. Sacar la lista del día
+Por qué así: WhatsApp Manager no tiene un botón de "enviar a una lista" para números conectados a la API. Meta lo resuelve con la API, y para usarla hace falta un usuario del sistema: una cuenta sin persona detrás, dentro del portafolio, cuyo token le da al script permiso de enviar desde el número. Tevit no se toca: las respuestas le siguen llegando a Tevit y el chatbot las atiende como siempre.
+
+## Paso 1. Dar permiso de envío (una sola vez)
+
+Todo con la cuenta de Facebook que administra el portafolio "Testigos de la Memoria".
+
+### 1a. Crear una app de Meta
+
+El token siempre va atado a una app. Esta es solo para las campañas; no recibe mensajes ni cambia nada de Tevit.
+
+- [ ] Entrar a `https://developers.facebook.com/apps/` → **Crear app**.
+- [ ] Caso de uso: **Otro** → tipo **Negocio** (Business).
+- [ ] Nombre: `eventalist-campanas`. Portafolio comercial: **Testigos de la Memoria**.
+- [ ] Dentro de la app, en **Agregar productos**, buscar **WhatsApp** → **Configurar**. Si pide escoger una cuenta de WhatsApp Business, escoger la del encuentro.
+- [ ] **No** tocar Webhooks ni registrar el número desde esta app. El número ya está registrado y sus mensajes entrantes van a Tevit; si se cambia eso, Tevit deja de recibirlos.
+
+### 1b. Crear el usuario del sistema
+
+- [ ] Entrar a `https://business.facebook.com/settings/system-users` (Configuración del negocio → Usuarios → **Usuarios del sistema**), con el portafolio Testigos de la Memoria elegido arriba.
+- [ ] **Agregar**. Nombre: `campanas`. Rol: **Empleado**.
+- [ ] Con `campanas` seleccionado → **Asignar activos**:
+  - **Apps** → `eventalist-campanas` → **Control total** (o "Desarrollar app").
+  - **Cuentas de WhatsApp** → la del encuentro → **Control total**.
+- [ ] Guardar.
+
+### 1c. Sacar el token
+
+- [ ] En el mismo usuario `campanas` → **Generar token**.
+- [ ] App: `eventalist-campanas`.
+- [ ] Caducidad: **60 días** (la campaña es corta; si se necesita después, se genera otro).
+- [ ] Permisos: marcar solo `whatsapp_business_messaging` (enviar) y `whatsapp_business_management` (leer la plantilla y el número).
+- [ ] Copiar el token. Meta lo muestra una sola vez. Guardarlo en el gestor de contraseñas, nunca en chats, documentos ni en el repo.
+
+### 1d. Copiar el identificador de la cuenta de WhatsApp
+
+- [ ] Entrar a `https://business.facebook.com/wa/manage/home/`. Arriba, junto al nombre de la cuenta de WhatsApp del encuentro, aparece su identificador (un número largo). Copiarlo.
+
+El identificador del número no hace falta: el script lo busca solo en esa cuenta.
+
+## Paso 2. Sacar la lista del día
 
 Justo antes de enviar, no antes: alguien puede haber comprado desde la última vez.
 
@@ -15,67 +54,78 @@ Justo antes de enviar, no antes: alguien puede haber comprado desde la última v
 python3 scripts/pretix/expirados_sin_compra.py ~/Downloads/testigos-memoria_orders.csv -o ~/Downloads/expirados-hoy.csv --desde 2026-10-09
 ```
 
-- [ ] Leer el resumen: dice cuántas personas tienen pedido desde el 2026-10-09. Esas son las del WhatsApp.
-- [ ] Abrir `~/Downloads/expirados-hoy.csv` y quedarse solo con las filas `desde_fecha = si`. Tu fila va al final (`prueba = si`, pedido `PRUEBA`).
+- [ ] Leer el resumen: dice cuántas personas tienen pedido desde el 2026-10-09. Tu número va al final (`prueba = si`, pedido `PRUEBA`), así recibes el envío real.
 
-## Paso 2. Revisar a cada persona en Pretix
+## Paso 3. Revisar a cada persona en Pretix
 
 Por cada fila con `desde_fecha = si` (menos la tuya):
 
 - [ ] Buscar en Pretix el último código de la columna `pedidos` y abrir el pedido.
-- [ ] Confirmar que aceptó la casilla de la política `tienda-2026-10-09`. Si no aparece aceptada, esa persona no recibe WhatsApp.
-- [ ] Confirmar que no respondió BAJA ni pidió no recibir mensajes al correo del 12 de octubre (revisar hola@eventalist.co). Si lo pidió, fuera.
+- [ ] Confirmar que aceptó la casilla de la política `tienda-2026-10-09`. Si no, borrar esa fila de `expirados-hoy.csv`.
+- [ ] Confirmar en hola@eventalist.co que no pidió la baja después del correo del 12 de octubre. Si la pidió, borrar la fila.
 
-Quien recibió el correo del 12 de octubre llega con este WhatsApp al segundo y último mensaje. Nada más después.
+Quien recibió el correo del 12 de octubre llega con este WhatsApp al segundo y último mensaje.
 
-## Paso 3. Revisar el horario
+## Paso 4. Ver cómo queda (no envía nada)
 
-Ley 2300, hora de Bogotá:
+- [ ] En la misma terminal, cargar las dos llaves solo para esta sesión (pegar donde dice `...`):
 
-- Lunes a viernes de 7:00 a. m. a 7:00 p. m.
-- Sábados de 8:00 a. m. a 3:00 p. m.
-- Nunca domingos ni festivos.
+```sh
+export WHATSAPP_TOKEN=...
+export WHATSAPP_WABA_ID=...
+```
 
-No mandarlo el mismo día que un correo a la misma persona.
+- [ ] Correr:
 
-## Paso 4. Mandarte la prueba a ti
+```sh
+python3 scripts/whatsapp/enviar_plantilla.py ~/Downloads/expirados-hoy.csv --plantilla pedido_expirado_ayuda --registro ~/Downloads/envios-whatsapp-expirados.csv
+```
 
-En la plataforma que maneja el número de WhatsApp del encuentro (la del chatbot), donde se envían plantillas o campañas:
+El script lee la plantilla en Meta, confirma que está aprobada y muestra el mensaje de cada persona con su código. Si dice que la plantilla no está en el idioma `es`, muestra en cuál está: repetir con `--idioma` y ese código (por ejemplo `--idioma es_CO`).
 
-- [ ] Nueva campaña o envío de plantilla → plantilla `pedido_expirado_ayuda`, idioma español.
-- [ ] Destinatario: solo tu número (columna `whatsapp` de tu fila).
-- [ ] Variable `{{1}}`: `PRUEBA`.
-- [ ] Enviar y revisar en el celular:
-  - Que llegue con el nombre de Testigos de la Memoria.
-  - Que el botón **Ver boletas** abra la tienda en `testigosdelamemoria.com` en la sección de boletas.
-  - Que el botón **Necesito ayuda** llegue como respuesta a la conversación y la atienda el chatbot o una persona.
+## Paso 5. Mandarte una prueba a ti
 
-Si algo de esto falla, parar y avisar antes de mandarle a nadie más.
+En horario (Ley 2300, hora de Bogotá): lunes a viernes de 7:00 a. m. a 7:00 p. m., sábados de 8:00 a. m. a 3:00 p. m.; nunca domingos ni festivos. Fuera de ese horario el script no envía.
 
-## Paso 5. Enviar de verdad
+- [ ] El mismo comando con tu número (57 adelante, sin `+` ni espacios) y `--enviar`:
 
-Un envío por persona, para que cada una reciba su propio código de pedido:
+```sh
+python3 scripts/whatsapp/enviar_plantilla.py ~/Downloads/expirados-hoy.csv --plantilla pedido_expirado_ayuda --registro ~/Downloads/envios-whatsapp-expirados.csv --prueba 57XXXXXXXXXX --enviar
+```
 
-- [ ] Destinatario: columna `whatsapp` (número con 57 adelante, sin `+` ni espacios).
-- [ ] Variable `{{1}}`: el último código de la columna `pedidos` de esa persona.
-- [ ] Revisar número y código antes de cada envío. Un código equivocado le muestra a alguien el pedido de otra persona.
+- [ ] Revisar en el celular:
+  - Que llegue de Testigos de la Memoria, con el código de un pedido real.
+  - Que el botón **Ver boletas** abra la tienda en la sección de boletas.
+  - Que al tocar **Necesito ayuda**, Tevit conteste algo que tenga sentido. El chatbot recibe "Necesito ayuda" sin saber que viene de esta plantilla; si contesta mal, avisar antes de seguir.
 
-Si la plataforma pide subir los contactos en un archivo, armar uno nuevo en Descargas con solo dos columnas, `telefono` y `codigo`, y una fila por persona. No reutilizar `expirados-hoy.csv` completo: lleva correos y datos que la plataforma no necesita.
+Si algo falla, parar y avisar.
 
-- [ ] Anotar en `~/Downloads/envios-whatsapp-expirados.csv` cada envío: número, código y fecha y hora. Así no se le escribe dos veces a nadie si el envío se repite otro día.
+## Paso 6. Enviar de verdad
 
-## Paso 6. Después
+- [ ] El mismo comando **sin** `--prueba`:
 
-- [ ] En la plataforma, revisar el estado de cada mensaje (enviado, entregado, leído, fallido). Si alguno falla, no reintentar con otro número ni por otro canal.
-- [ ] Quien responda: atenderlo en la conversación. Durante 24 horas desde su respuesta se le puede escribir libremente; mandarle el enlace de compra y ayudarle con el pago.
+```sh
+python3 scripts/whatsapp/enviar_plantilla.py ~/Downloads/expirados-hoy.csv --plantilla pedido_expirado_ayuda --registro ~/Downloads/envios-whatsapp-expirados.csv --enviar
+```
+
+- [ ] Debe decir "Enviado a ..." una vez por persona y, al final, cuántos salieron y cuántos fallaron.
+- [ ] Si Meta rechaza un número (no tiene WhatsApp, o Meta frena mensajes de marketing a esa persona), el script lo anota como fallido y sigue con los demás. Si rechaza el token, los permisos o la plantilla, se detiene sin enviar a nadie más.
+- [ ] Si se corre otra vez por error, no repite a nadie (lo evita el registro). A los fallidos sí lo intenta otra vez: no correrlo de nuevo el mismo día solo por ellos.
+
+Todo queda en `~/Downloads/envios-whatsapp-expirados.csv`: fecha y hora, número, pedido, plantilla, si fue prueba, estado y el id de Meta. Cuando el backend tenga el registro de envíos, este archivo se importa allá.
+
+## Paso 7. Después
+
+- [ ] Las respuestas llegan a Tevit, como cualquier mensaje. Si alguien pide ayuda con el pago, atenderlo ahí y mandarle el enlace de compra (durante 24 horas desde su respuesta se le puede escribir libremente).
 - [ ] Quien responda BAJA o "no me interesa": anotarlo y no volver a escribirle por ningún canal.
 - [ ] Nada de un segundo WhatsApp.
-- [ ] Los archivos de Descargas (`expirados-hoy.csv`, `envios-whatsapp-expirados.csv` y el de contactos si se armó) tienen datos personales: borrarlos cuando termine la campaña. Nunca se suben al repo.
-- [ ] A los 7 días: nueva exportación y volver a correr el script. Quien compró ya no sale en la lista. En GA4, las visitas con `utm_source=whatsapp` y `utm_medium=recuperacion`.
+- [ ] Cada mensaje de una plantilla de Marketing entregado lo cobra Meta a la cuenta de WhatsApp. Con pocas personas es poco, pero la cuenta necesita un método de pago en WhatsApp Manager; si no lo tiene, Meta rechaza el envío y el script se detiene.
+- [ ] Cuando termine la campaña: borrar los archivos de Descargas con datos personales (`expirados-hoy.csv`, `envios-whatsapp-expirados.csv`) o pasarlos al backend. Nunca se suben al repo.
+- [ ] A los 7 días: nueva exportación y volver a correr el script de expirados. Quien compró ya no sale en la lista. En GA4, las visitas con `utm_source=whatsapp` y `utm_medium=recuperacion`.
 
 ## La plantilla aprobada, como referencia
 
-Nombre `pedido_expirado_ayuda`, categoría Marketing, español. Si el texto aprobado en Meta difiere de este, manda el de Meta.
+Nombre `pedido_expirado_ayuda`, categoría Marketing, español. El script siempre usa el texto aprobado en Meta; este es solo para consulta.
 
 ```
 Hola. Te escribimos del equipo de Testigos de la Memoria (Eventalist S.A.S.). Tu pedido {{1}} de boletas no alcanzó a completarse y la reserva se venció.
