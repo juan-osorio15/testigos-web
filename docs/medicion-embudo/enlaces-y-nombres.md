@@ -120,34 +120,23 @@ utm_source={{site_source_name}}&utm_medium=paid_social&utm_campaign={{campaign.n
 
 ## Anuncios de Google
 
-En Google las etiquetas **no se pegan en la URL final**. La URL final es la página limpia a la que llega la persona, y las etiquetas van aparte, en el campo **"Sufijo de URL final"**. Google las une solas en el momento del clic. Así la URL final se puede cambiar sin tocar las etiquetas, y Google revisa la página sin parámetros.
-
-El etiquetado automático (que agrega el `gclid`) va activado. No reemplaza las UTM: el `gclid` solo lo lee Google, y Pretix guarda la campaña por las UTM.
+Cada URL final va **completa, con sus UTM**, y se pega tal cual en Google Ads. El sufijo de URL final y la plantilla de seguimiento quedan vacíos en la cuenta, la campaña, el grupo y el anuncio, para que las etiquetas no salgan dos veces. El etiquetado automático (`gclid`) va activado y se suma solo; no reemplaza las UTM, porque el `gclid` solo lo lee Google y Pretix guarda la campaña por las UTM.
 
 - Nombre de la **campaña** en Google Ads = `utm_campaign` (`buscador`).
 - Nombre del **grupo de anuncios** = `utm_content` (`plan-villa-de-leyva`, `periodismo`, `panelistas`).
+- **Sitelinks:** `utm_content=sitelink-` y el tema (`sitelink-bogotazo-frente-nacional`).
+- Siempre `?` antes de la primera etiqueta. Sin él (`.com/utm_source=...`) la página no existe y Google rechaza el anuncio por "Destino que no funciona", como pasó el 16 de octubre.
 - Las URL finales van **sin `#boletas`**.
 
-**El sufijo de un grupo reemplaza al de la campaña, no se suma.** Por eso cada grupo lleva el sufijo completo, con las cuatro etiquetas.
+Anuncio de cada grupo:
 
-Sufijo de la campaña (Configuración de la campaña → Opciones de URL de la campaña → Sufijo de URL final). Es el respaldo si un grupo queda sin el suyo:
+- `plan-villa-de-leyva`: `https://testigosdelamemoria.com/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=plan-villa-de-leyva`
+- `periodismo`: `https://testigosdelamemoria.com/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=periodismo`
+- `panelistas`: `https://testigosdelamemoria.com/panelistas/daniel-samper-pizano/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=panelistas`
 
-```
-utm_source=google&utm_medium=paid_search&utm_campaign=buscador
-```
+Las URL de las palabras con página propia y de los nueve sitelinks están completas en `docs/campana-google-ads/plan.md`, sección "Anuncios".
 
-Por grupo (Grupo de anuncios → Configuración → Opciones de URL del grupo de anuncios → Sufijo de URL final):
-
-- **Plan en Villa de Leyva.** URL final: `https://testigosdelamemoria.com/`
-  Sufijo: `utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=plan-villa-de-leyva`
-- **Periodismo e historia.** URL final: `https://testigosdelamemoria.com/`. La palabra "bogotazo conversatorio" lleva su propia URL final: `https://testigosdelamemoria.com/programacion/bogotazo-frente-nacional/`
-  Sufijo: `utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=periodismo`
-- **Panelistas con intención.** URL final: la página del panelista, como `https://testigosdelamemoria.com/panelistas/daniel-samper-pizano/`
-  Sufijo: `utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=panelistas`
-
-Sitelinks y demás recursos con URL: sus URL van limpias, sin etiquetas. Heredan el sufijo de la campaña (o el del grupo, si están en un grupo), y la página de llegada ya dice cuál se tocó.
-
-Para el ensayo antes de lanzar se abre a mano la URL final con su sufijo y `utm_source=prueba` en vez de `google`, por ejemplo:
+Para el ensayo antes de lanzar se abre a mano la URL con `utm_source=prueba` en vez de `google`, por ejemplo:
 `https://testigosdelamemoria.com/?utm_source=prueba&utm_medium=paid_search&utm_campaign=buscador&utm_content=plan-villa-de-leyva`
 
 ## Enlaces listos para copiar
