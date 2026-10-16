@@ -45,23 +45,42 @@ El identificador del número no hace falta: el script lo busca solo en esa cuent
 
 ## Paso 2. Sacar la lista del día
 
-Justo antes de enviar, no antes: alguien puede haber comprado desde la última vez.
+El script le pide los pedidos directamente a Pretix: no hay que exportar ni borrar nada. Cada lista queda con la fecha y la hora en el nombre, en `~/Documents/eventalist/datos/testigos-memoria/`, fuera del repo.
 
-- [ ] En Pretix: evento `testigos-memoria` → **Pedidos** → **Exportar** → **Lista de pedidos** → CSV. Queda en Descargas como `testigos-memoria_orders.csv` (si ya había uno, borrar el viejo antes para que no quede con otro nombre).
-- [ ] En la terminal de VS Code, en la carpeta `testigos-web`:
+### 2a. Token de Pretix (una sola vez)
+
+- [ ] En Pretix: organizador **eventalist** → **Equipos** → **Crear equipo**.
+  - Nombre: `lectura-campanas`.
+  - Eventos: **Todos los eventos** (así sirve para los próximos).
+  - Permisos: solo **Puede ver pedidos**. Nada de cambiar pedidos ni configuración.
+- [ ] Guardar, entrar al equipo → pestaña **Tokens de la API** → crear uno llamado `campanas`. Copiarlo.
+- [ ] Guardarlo en el llavero del Mac. En la terminal (pide el token; pegarlo y Enter, no se ve al escribir):
 
 ```sh
-python3 scripts/pretix/expirados_sin_compra.py ~/Downloads/testigos-memoria_orders.csv -o ~/Downloads/expirados-hoy.csv --desde 2026-10-09
+security add-generic-password -a "$USER" -s eventalist-pretix -w
 ```
 
-- [ ] Leer el resumen: dice cuántas personas tienen pedido desde el 2026-10-09. Tu número va al final (`prueba = si`, pedido `PRUEBA`), así recibes el envío real.
+Desde ahí el script lo toma solo, en cualquier terminal.
+
+### 2b. Correr el script
+
+Justo antes de enviar, no antes: alguien puede haber comprado desde la última vez. En la terminal de VS Code, en la carpeta `testigos-web`:
+
+```sh
+python3 scripts/pretix/expirados_sin_compra.py --evento testigos-memoria --desde 2026-10-09
+LISTA=$(ls -t ~/Documents/eventalist/datos/testigos-memoria/expirados-*[0-9].csv | head -1)
+```
+
+- [ ] Leer el resumen: cuántas personas quedan y cuántas tienen pedido desde el 2026-10-09. Tu número va al final (`prueba = si`, pedido `PRUEBA`), así recibes el envío real.
+- [ ] La segunda línea guarda en `LISTA` la lista recién sacada; los comandos de abajo la usan. Si se abre otra terminal, volver a correr esa línea.
+- [ ] Al lado queda la versión corta, terminada en `-whatsapp.csv`: número, todos los códigos expirados y el último.
 
 ## Paso 3. Revisar a cada persona en Pretix
 
 Por cada fila con `desde_fecha = si` (menos la tuya):
 
 - [ ] Buscar en Pretix el último código de la columna `pedidos` y abrir el pedido.
-- [ ] Confirmar que aceptó la casilla de la política `tienda-2026-10-09`. Si no, borrar esa fila de `expirados-hoy.csv`.
+- [ ] Confirmar que aceptó la casilla de la política `tienda-2026-10-09`. Si no, borrar esa fila de la lista.
 - [ ] Confirmar en hola@eventalist.co que no pidió la baja después del correo del 12 de octubre. Si la pidió, borrar la fila.
 
 Quien recibió el correo del 12 de octubre llega con este WhatsApp al segundo y último mensaje.
@@ -78,7 +97,7 @@ export WHATSAPP_WABA_ID=...
 - [ ] Correr:
 
 ```sh
-python3 scripts/whatsapp/enviar_plantilla.py ~/Downloads/expirados-hoy.csv --plantilla pedido_expirado_ayuda --registro ~/Downloads/envios-whatsapp-expirados.csv
+python3 scripts/whatsapp/enviar_plantilla.py "$LISTA" --plantilla pedido_expirado_ayuda --registro ~/Documents/eventalist/datos/testigos-memoria/envios-whatsapp.csv
 ```
 
 El script lee la plantilla en Meta, confirma que está aprobada y muestra el mensaje de cada persona con su código. Si dice que la plantilla no está en el idioma `es`, muestra en cuál está: repetir con `--idioma` y ese código (por ejemplo `--idioma es_CO`).
@@ -90,7 +109,7 @@ En horario (Ley 2300, hora de Bogotá): lunes a viernes de 7:00 a. m. a 7:00 p. 
 - [ ] El mismo comando con tu número (57 adelante, sin `+` ni espacios) y `--enviar`:
 
 ```sh
-python3 scripts/whatsapp/enviar_plantilla.py ~/Downloads/expirados-hoy.csv --plantilla pedido_expirado_ayuda --registro ~/Downloads/envios-whatsapp-expirados.csv --prueba 57XXXXXXXXXX --enviar
+python3 scripts/whatsapp/enviar_plantilla.py "$LISTA" --plantilla pedido_expirado_ayuda --registro ~/Documents/eventalist/datos/testigos-memoria/envios-whatsapp.csv --prueba 57XXXXXXXXXX --enviar
 ```
 
 - [ ] Revisar en el celular:
@@ -105,14 +124,14 @@ Si algo falla, parar y avisar.
 - [ ] El mismo comando **sin** `--prueba`:
 
 ```sh
-python3 scripts/whatsapp/enviar_plantilla.py ~/Downloads/expirados-hoy.csv --plantilla pedido_expirado_ayuda --registro ~/Downloads/envios-whatsapp-expirados.csv --enviar
+python3 scripts/whatsapp/enviar_plantilla.py "$LISTA" --plantilla pedido_expirado_ayuda --registro ~/Documents/eventalist/datos/testigos-memoria/envios-whatsapp.csv --enviar
 ```
 
 - [ ] Debe decir "Enviado a ..." una vez por persona y, al final, cuántos salieron y cuántos fallaron.
 - [ ] Si Meta rechaza un número (no tiene WhatsApp, o Meta frena mensajes de marketing a esa persona), el script lo anota como fallido y sigue con los demás. Si rechaza el token, los permisos o la plantilla, se detiene sin enviar a nadie más.
 - [ ] Si se corre otra vez por error, no repite a nadie (lo evita el registro). A los fallidos sí lo intenta otra vez: no correrlo de nuevo el mismo día solo por ellos.
 
-Todo queda en `~/Downloads/envios-whatsapp-expirados.csv`: fecha y hora, número, pedido, plantilla, si fue prueba, estado y el id de Meta. Cuando el backend tenga el registro de envíos, este archivo se importa allá.
+Todo queda en `~/Documents/eventalist/datos/testigos-memoria/envios-whatsapp.csv`: fecha y hora, número, pedido, plantilla, si fue prueba, estado y el id de Meta. Cuando el backend tenga el registro de envíos, este archivo se importa allá.
 
 ## Paso 7. Después
 
@@ -120,7 +139,7 @@ Todo queda en `~/Downloads/envios-whatsapp-expirados.csv`: fecha y hora, número
 - [ ] Quien responda BAJA o "no me interesa": anotarlo y no volver a escribirle por ningún canal.
 - [ ] Nada de un segundo WhatsApp.
 - [ ] Cada mensaje de una plantilla de Marketing entregado lo cobra Meta a la cuenta de WhatsApp. Con pocas personas es poco, pero la cuenta necesita un método de pago en WhatsApp Manager; si no lo tiene, Meta rechaza el envío y el script se detiene.
-- [ ] Cuando termine la campaña: borrar los archivos de Descargas con datos personales (`expirados-hoy.csv`, `envios-whatsapp-expirados.csv`) o pasarlos al backend. Nunca se suben al repo.
+- [ ] Los archivos de `~/Documents/eventalist/datos/` tienen datos personales: nunca se suben a ningún repo. Cuando el backend tenga el registro de envíos, `envios-whatsapp.csv` se importa allá; las listas viejas se pueden borrar cuando termine el evento.
 - [ ] A los 7 días: nueva exportación y volver a correr el script de expirados. Quien compró ya no sale en la lista. En GA4, las visitas con `utm_source=whatsapp` y `utm_medium=recuperacion`.
 
 ## La plantilla aprobada, como referencia

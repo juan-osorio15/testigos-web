@@ -1,17 +1,24 @@
 #!/usr/bin/env python3
 """Personas con órdenes expiradas en Pretix que nunca lograron comprar.
 
-Lee la exportación de pedidos de Pretix ("Lista de pedidos", CSV) y devuelve
-una fila por persona que tuvo al menos un pedido expirado y ningún pedido
-pagado ni pendiente.
+Lee los pedidos de un evento directamente de la API de Pretix (--evento) o de
+la exportación "Lista de pedidos" en CSV, y devuelve una fila por persona que
+tuvo al menos un pedido expirado y ningún pedido pagado ni pendiente.
 
 Una "persona" se arma uniendo pedidos que comparten correo O teléfono: si
 alguien expiró con un correo y pagó con otro pero con el mismo teléfono,
 cuenta como la misma persona y no se contacta.
 
 Uso:
-    python3 scripts/pretix/expirados_sin_compra.py ORDENES.csv -o SALIDA.csv \
+    python3 scripts/pretix/expirados_sin_compra.py --evento testigos-memoria \
         [--desde 2026-10-09] [--excluir correo@x.co] [--excluir +573001234567]
+    python3 scripts/pretix/expirados_sin_compra.py ORDENES.csv -o SALIDA.csv ...
+
+Con --evento, el token de Pretix sale de la variable PRETIX_TOKEN o, si no
+está, del llavero de macOS (servicio "eventalist-pretix"). Sin -o, la lista
+queda en ~/Documents/eventalist/datos/<evento>/ con la fecha y la hora en el
+nombre, fuera de cualquier repositorio. Junto a ella sale una versión corta
+solo con WhatsApp y códigos (mismo nombre, terminado en -whatsapp.csv).
 
 --desde marca (columna "desde_fecha") a quienes tienen al menos un pedido
 expirado en esa fecha o después; sirve para separar los pedidos hechos
@@ -30,13 +37,26 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
+import os
 import re
+import subprocess
 import sys
+import urllib.error
+import urllib.request
 from collections import defaultdict
 from dataclasses import dataclass
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 INCLUIR = Path(__file__).with_name("incluir.local.csv")
+DATOS = Path.home() / "Documents" / "eventalist" / "datos"
+PRETIX = "https://pretix.eventalist.co"
+ORGANIZADOR = "eventalist"
+LLAVERO = "eventalist-pretix"
+BOGOTA = timezone(timedelta(hours=-5))
+# Estados de la API de Pretix, con el mismo nombre que trae la exportación en español.
+ESTADOS_API = {"n": "pendiente", "p": "pagado", "e": "expirado", "c": "cancelado"}
 
 # Encabezados posibles por campo (exportación en español y en inglés).
 # La exportación trae columnas repetidas ("Nombre", "Estado"); siempre se toma
@@ -140,6 +160,60 @@ def leer_pedidos(ruta: str) -> list[Pedido]:
     return pedidos
 
 
+def token_pretix() -> str:
+    token = os.environ.get("PRETIX_TOKEN")
+    if token:
+        return token
+    try:
+        return subprocess.run(
+            ["security", "find-generic-password", "-s", LLAVERO, "-w"],
+            capture_output=True, text=True, check=True,
+        ).stdout.strip()
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        sys.exit(
+            "Falta el token de Pretix: guardarlo una vez con\n"
+            f"  security add-generic-password -a \"$USER\" -s {LLAVERO} -w\n"
+            "o ponerlo en la variable PRETIX_TOKEN."
+        )
+
+
+def leer_pedidos_api(evento: str) -> list[Pedido]:
+    """Todos los pedidos reales del evento (sin modo prueba), página por página."""
+    token = token_pretix()
+    url = f"{PRETIX}/api/v1/organizers/{ORGANIZADOR}/events/{evento}/orders/?testmode=false"
+    pedidos = []
+    while url:
+        pedido = urllib.request.Request(url, headers={"Authorization": f"Token {token}"})
+        try:
+            with urllib.request.urlopen(pedido, timeout=30) as respuesta:
+                pagina = json.load(respuesta)
+        except urllib.error.HTTPError as error:
+            sys.exit(f"Pretix respondió {error.code} al pedir los pedidos de {evento}: {error.read().decode()[:300]}")
+        for orden in pagina["results"]:
+            estado = ESTADOS_API.get(orden["status"])
+            if not estado:
+                sys.exit(f"Estado desconocido en el pedido {orden['code']}: {orden['status']!r}. Revisar antes de seguir.")
+            creado = datetime.fromisoformat(orden["datetime"]).astimezone(BOGOTA)
+            pedidos.append(
+                Pedido(
+                    codigo=orden["code"],
+                    estado=estado,
+                    correo=normalizar_correo(orden.get("email") or ""),
+                    telefono=normalizar_telefono(orden.get("phone") or ""),
+                    fecha=creado.strftime("%Y-%m-%d"),
+                    hora=creado.strftime("%H:%M:%S"),
+                    total=str(orden["total"]).replace(".", ","),
+                    posiciones=str(len(orden.get("positions") or [])),
+                    enlace=orden.get("url") or "",
+                    evento=evento,
+                )
+            )
+        url = pagina["next"]
+    if not pedidos:
+        sys.exit(f"Pretix no devolvió pedidos para {evento}. Revisar el nombre del evento y los permisos del token.")
+    return pedidos
+
+
 def agrupar_personas(pedidos: list[Pedido]) -> list[list[Pedido]]:
     """Une pedidos que comparten correo o teléfono (union-find)."""
     padre = list(range(len(pedidos)))
@@ -168,8 +242,10 @@ def agrupar_personas(pedidos: list[Pedido]) -> list[list[Pedido]]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("ordenes", help="CSV exportado de Pretix (Lista de pedidos)")
-    parser.add_argument("-o", "--salida", required=True, help="CSV de salida con las personas a contactar")
+    parser.add_argument("ordenes", nargs="?", help="CSV exportado de Pretix (Lista de pedidos), si no se usa --evento")
+    parser.add_argument("--evento", help="Slug del evento en Pretix: lee los pedidos directo de la API")
+    parser.add_argument("-o", "--salida",
+                        help="CSV de salida (por defecto ~/Documents/eventalist/datos/<evento>/expirados-<fecha-hora>.csv)")
     parser.add_argument(
         "--excluir",
         action="append",
@@ -184,7 +260,15 @@ def main() -> None:
     if args.desde and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", args.desde):
         sys.exit("--desde debe tener el formato AAAA-MM-DD.")
 
-    pedidos = leer_pedidos(args.ordenes)
+    if bool(args.ordenes) == bool(args.evento):
+        sys.exit("Indicar --evento (API de Pretix) o el CSV exportado, uno de los dos.")
+    pedidos = leer_pedidos_api(args.evento) if args.evento else leer_pedidos(args.ordenes)
+    if args.salida:
+        salida = Path(args.salida).expanduser()
+    else:
+        evento = args.evento or pedidos[0].evento
+        salida = DATOS / evento / f"expirados-{datetime.now(BOGOTA):%Y-%m-%d-%H%M}.csv"
+        salida.parent.mkdir(parents=True, exist_ok=True)
     excluidos = {normalizar_correo(x) for x in args.excluir} | {
         normalizar_telefono(x) for x in args.excluir if re.search(r"\d", x)
     }
@@ -272,10 +356,21 @@ def main() -> None:
                 pruebas += 1
 
     campos = list(filas[0].keys()) if filas else ["correo", "telefono", "whatsapp"]
-    with open(args.salida, "w", encoding="utf-8-sig", newline="") as archivo:
+    with open(salida, "w", encoding="utf-8-sig", newline="") as archivo:
         escritor = csv.DictWriter(archivo, fieldnames=campos)
         escritor.writeheader()
         escritor.writerows(filas)
+
+    # Versión corta para WhatsApp: número, códigos expirados y el último (variable {{1}} de la plantilla).
+    salida_whatsapp = salida.with_name(salida.stem + "-whatsapp.csv")
+    con_numero = [f for f in filas if f["whatsapp"]]
+    with open(salida_whatsapp, "w", encoding="utf-8-sig", newline="") as archivo:
+        escritor = csv.writer(archivo)
+        escritor.writerow(["whatsapp", "pedidos_expirados", "ultimo_pedido", "ultimo_intento",
+                           *(["desde_fecha"] if args.desde else []), "prueba"])
+        for f in con_numero:
+            escritor.writerow([f["whatsapp"], f["pedidos"], f["pedidos"].split()[-1], f["ultimo_intento"],
+                               *([f["desde_fecha"]] if args.desde else []), f["prueba"]])
 
     por_estado: dict[str, int] = defaultdict(int)
     for p in pedidos:
@@ -285,7 +380,8 @@ def main() -> None:
     if args.excluir:
         print(f"Personas excluidas a mano (--excluir): {descartados_lista}")
     print(f"Personas solo con cancelados, sin expirados (fuera de esta lista): {solo_cancelados}")
-    print(f"Personas a contactar: {len(filas) - pruebas} -> {args.salida}")
+    print(f"Personas a contactar: {len(filas) - pruebas} -> {salida}")
+    print(f"Solo WhatsApp ({len(con_numero)} números): {salida_whatsapp}")
     if pruebas:
         print(f"  Más {pruebas} contacto(s) de prueba de {INCLUIR.name} (columna prueba = si)")
     if args.desde:

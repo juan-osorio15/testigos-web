@@ -8,13 +8,13 @@ Este documento no lleva datos personales (el repositorio es público). La lista 
 
 ### Cómo se saca la lista
 
-1. En Pretix: Pedidos → Exportar → "Lista de pedidos" en CSV (la exportación por defecto, en español).
-2. Correr el script con esa exportación:
+El script lee los pedidos directamente de la API de Pretix, con un token de solo lectura guardado en el llavero del Mac (pasos en `titular/whatsapp.md`, paso 2a):
 
 ```sh
-python3 scripts/pretix/expirados_sin_compra.py ~/Downloads/testigos-memoria_orders.csv \
-  -o ~/Downloads/testigos-expirados-sin-compra-AAAA-MM-DD.csv --desde 2026-10-09
+python3 scripts/pretix/expirados_sin_compra.py --evento testigos-memoria --desde 2026-10-09
 ```
+
+La lista queda en `~/Documents/eventalist/datos/<evento>/expirados-<fecha-hora>.csv`, fuera de cualquier repo, con una versión corta al lado (`-whatsapp.csv`: número, códigos expirados y el último). Cada corrida es un archivo nuevo; no hay que borrar nada. Sigue sirviendo con la exportación "Lista de pedidos" en CSV: `python3 scripts/pretix/expirados_sin_compra.py ORDENES.csv -o SALIDA.csv`.
 
 Qué hace:
 
