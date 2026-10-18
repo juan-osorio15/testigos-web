@@ -13,7 +13,7 @@ Datos de referencia para calificar (no se le dan al bot):
 
 - Pase completo: 340.000 COP. Siete conversatorios más la bienvenida y el cierre. La etapa 1 (310.000 COP, solo el pase) terminó el 12 de octubre.
 - Boleta de medio día: 90.000 COP cada una. Viernes tarde, sábado mañana, sábado tarde, domingo mañana. Las cuatro suman 360.000.
-- Charlas abiertas, entrada libre, Casa Museo Antonio Nariño (carrera 9 n.º 10-25): jueves 5 a las 10:00 a.m. (reportería, Daniel Esteban Alvarado) y a las 3:00 p.m. (documental de Sady González, codirigido por Guillermo González Uribe y Margarita Díaz Granados), y viernes 6 a las 10:00 a.m. (periodismo digital, Javier Sneider Bautista).
+- Charlas abiertas, entrada libre, Casa Museo Antonio Nariño (carrera 9 n.º 10-25): jueves 5 a las 10:00 a.m. (reportería, Daniel Esteban Alvarado) y a las 3:00 p.m. (documental de Sady González, codirigido por Guillermo González Uribe y Margarita Carrillo Diazgranados), y viernes 6 a las 10:00 a.m. (periodismo digital, Javier Sneider Bautista).
 - Conversatorios con boleta, Hospedería Duruelo (carrera 3 n.º 12-88): la programación completa está en la memoria "Conversatorios" del chatbot.
 - Hoteles: Duruelo, paquete especial sin porcentaje publicado (Jazmín Casallas, 311 506 4410); La Posada de San Antonio, 10 % (310 280 7326); Mesón de los Virreyes, 20 % (310 852 1719).
 - Contacto de compras: hola@eventalist.co. Enlaces siempre con https://.
@@ -99,7 +99,7 @@ Falla si: inventa una duración o un foro.
 
 **2.4 Quién hizo el documental**
 Usuario: "¿Quién dirigió el documental de Sady González?"
-Debe: Guillermo González Uribe y Margarita Díaz Granados, codirectores. Guillermo lo presenta.
+Debe: Guillermo González Uribe y Margarita Carrillo Diazgranados, codirectores. Guillermo lo presenta.
 Falla si: da otro nombre o solo a uno de los dos.
 
 ---
