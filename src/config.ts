@@ -86,6 +86,14 @@ export const measurement = {
  * slug de campaña. El origen del sitio debe estar registrado en Eventalist
  * (si todo devuelve 403, es eso).
  */
+/**
+ * Sitio de Eventalist, enlazado desde el pie ("evento producido por
+ * Eventalist", 2026-10-18). Lleva UTM para que Eventalist vea las visitas
+ * que llegan desde aquí (guía de enlaces: referral, campaña permanente).
+ */
+export const EVENTALIST_SITE_URL =
+  'https://www.eventalist.co/?utm_source=testigosdelamemoria&utm_medium=referral&utm_campaign=permanente&utm_content=pie';
+
 export const EVENTALIST_BACKEND = 'https://eventalist-backend-production.up.railway.app';
 export const EVENTALIST_CAMPAIGN = 'testigos-de-la-memoria-2026';
 export const WAITLIST_ENDPOINT = `${EVENTALIST_BACKEND}/api/v1/marketing/contacts/submit/`;

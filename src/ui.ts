@@ -221,6 +221,8 @@ const es = {
   'tickets.bubbleText': 'Te podemos ayudar por WhatsApp.',
   'tickets.helpLink': '¿Dudas? Escríbenos',
   'footer.rights': 'Testigos de la Memoria · Villa de Leyva, 2026',
+  /* Relación del evento con Eventalist, visible para Meta (activos comerciales, 2026-10-18) */
+  'footer.producedBy': 'Testigos de la Memoria es un evento producido por',
   'footer.privacy': 'Tratamiento de datos personales',
   'footer.terms': 'Términos y condiciones',
   'footer.pagesAria': 'Páginas del sitio',
@@ -488,6 +490,7 @@ const en: Record<UiKey, string> = {
   'tickets.bubbleText': 'We can help you on WhatsApp.',
   'tickets.helpLink': 'Questions? Message us',
   'footer.rights': 'Testigos de la Memoria · Villa de Leyva, 2026',
+  'footer.producedBy': 'Testigos de la Memoria is an event produced by',
   'footer.privacy': 'Personal data policy',
   'footer.terms': 'Terms and conditions',
   'footer.pagesAria': 'Site pages',

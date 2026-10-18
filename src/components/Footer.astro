@@ -12,6 +12,7 @@ import { organizerPartners, partnerGroups } from '../data/partners';
 import LogoSymbol from '../assets/logo/logo-symbol.svg';
 import { langOf } from '../i18n';
 import WhatsAppLink from './WhatsAppLink.astro';
+import { EVENTALIST_SITE_URL } from '../config';
 
 const t = tFor(Astro.url.pathname);
 /* Las páginas interiores solo existen en español: desde /en/ no se enlazan */
@@ -83,6 +84,10 @@ const renderHeight = { lg: 216, md: 168, sm: 120 } as const;
       )
     }
 
+    <p class="footer-producer">
+      {t('footer.producedBy')}{' '}
+      <a href={EVENTALIST_SITE_URL} target="_blank" rel="noopener">Eventalist</a>.
+    </p>
     <p class="footer-small">
       {t('footer.rights')} · <a href={`${base}tratamiento-de-datos/`}>{t('footer.privacy')}</a> ·
       <a href={`${base}terminos-y-condiciones/`}>{t('footer.terms')}</a> ·
@@ -171,6 +176,16 @@ const renderHeight = { lg: 216, md: 168, sm: 120 } as const;
     text-decoration: underline;
   }
 
+  .footer-producer {
+    font-size: var(--text-body);
+  }
+  .footer-producer a {
+    font-weight: 700;
+    text-underline-offset: 0.2em;
+  }
+  .footer-producer a:hover {
+    color: var(--terracotta);
+  }
   .footer-small {
     font-size: var(--text-small);
     opacity: 0.7;

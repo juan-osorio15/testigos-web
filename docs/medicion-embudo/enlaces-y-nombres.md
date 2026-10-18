@@ -219,6 +219,18 @@ Ejemplo: `utm_content=afiche-plaza-villa-de-leyva`. Un QR distinto por lugar, po
 
 Ejemplo: `utm_source=el-espectador`, `utm_content=entrevista-daniel-samper-pizano`. Se le manda al medio el enlace ya armado, junto con el comunicado.
 
+### Del sitio hacia Eventalist
+
+El pie del sitio dice "Testigos de la Memoria es un evento producido por Eventalist" (2026-10-18) y enlaza al sitio de Eventalist con UTM, para que Eventalist vea las visitas que le llegan desde aquí:
+
+- `https://www.eventalist.co/?utm_source=testigosdelamemoria&utm_medium=referral&utm_campaign=permanente&utm_content=pie`
+
+Si otro evento enlaza a Eventalist, usa la misma forma con su dominio como fuente.
+
+Y de vuelta, el enlace desde la página de eventos de Eventalist hacia el sitio:
+
+- `https://testigosdelamemoria.com/?utm_source=eventalist&utm_medium=referral&utm_campaign=permanente&utm_content=eventos`
+
 ## Canal nuevo
 
 Antes de publicar el primer enlace en un canal nuevo (TikTok, LinkedIn, un grupo, un aliado nuevo):
