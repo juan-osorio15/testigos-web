@@ -9,6 +9,7 @@
  */
 import { tFor } from '../ui';
 import { sectionHref } from '../links';
+import { WHATSAPP_URL } from '../config';
 import CtaButton from './CtaButton.astro';
 import LogoLockup from '../assets/logo/logo-lockup.svg';
 
@@ -57,6 +58,9 @@ const navItems = [
     </a>
     <nav aria-label={t('nav.aria')} class="nav" id="site-nav">
       {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+      {/* Contacto (2026-10-17): el mismo WhatsApp del pie y de la tienda,
+          medido como `contact` con el lugar "nav" */}
+      <a href={WHATSAPP_URL} target="_blank" rel="noopener" data-contact="nav">{t('nav.contact')}</a>
     </nav>
     <div class="header-actions">
       <CtaButton variant="header" />
@@ -244,10 +248,10 @@ const navItems = [
     transform: rotate(-45deg);
   }
 
-  /* Con las etiquetas estándar (2026-10-15) los cinco enlaces, el logo y
-     el CTA caben juntos desde ~960 px; por debajo los enlaces pasan al
+  /* Los seis enlaces (con "Contáctanos" desde el 2026-10-17), el logo y
+     el CTA caben juntos desde ~1025 px; por debajo los enlaces pasan al
      panel que despliega el botón "Menú". */
-  @media (max-width: 60rem) {
+  @media (max-width: 64rem) {
     .nav {
       display: none;
       position: absolute;
