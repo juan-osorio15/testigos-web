@@ -626,11 +626,18 @@ const franjaNames = Object.fromEntries(
       text-align: center;
     }
     /* Botón del ancho de su texto, centrado bajo la tienda; solo en
-       pantallas muy angostas el texto se parte */
+       pantallas muy angostas el texto se parte. Grande y con el logo
+       destacado (2026-10-17): en el celular apenas se veía */
     .tickets-help :global(.wa-link) {
       max-width: 100%;
       white-space: normal;
-      font-size: var(--text-small);
+      font-size: var(--text-body);
+      padding: 0.75em 1.25em;
+      gap: 0.75em;
+    }
+    .tickets-help :global(.wa-mark svg) {
+      width: 2.25em;
+      height: 2.25em;
     }
     .tickets-bubble,
     .tickets-eyes-bottom {
