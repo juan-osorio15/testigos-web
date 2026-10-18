@@ -167,6 +167,9 @@ Un solo prompt para Instagram y WhatsApp:
 - Panelistas: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=panelistas#speakers`
 - Hoteles: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=hospedaje#hospedaje`
 - Sedes: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=lugar#lugar`
+- Términos (solo si preguntan): `https://testigosdelamemoria.com/terminos-y-condiciones/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=terminos`
+- Política de datos (solo si preguntan): `https://testigosdelamemoria.com/tratamiento-de-datos/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=datos`
+- Sitio en inglés (solo si preguntan): `https://testigosdelamemoria.com/en/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=en`
 
 GA4 pone `chatbot` en "Unassigned", pero la campaña y el contenido se leen igual. Si la plataforma permite un prompt por canal, en cada uno se cambia `utm_source=chatbot` por `utm_source=instagram` o `utm_source=whatsapp`, y lo demás queda igual.
 

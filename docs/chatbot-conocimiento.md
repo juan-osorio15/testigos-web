@@ -91,7 +91,7 @@ Ejemplo: "La tarde del sábado es intensa: narcotráfico y paramilitarismo con L
 **Programación · domingo 8**
 Así lo preguntan: ¿Qué hay el domingo? · ¿A qué hora termina? · ¿Cuándo es lo de las mujeres periodistas?
 Hospedería Duruelo. 9:00 a 10:30 a.m.: Magnicidios y víctimas de la violencia, con Guillermo González Uribe y Marta Ruiz. 11:00 a.m. a 12:30 p.m.: Mujeres periodistas y conflicto, con Yolanda Ruiz y María Elvira Samper. 12:30 a 1:00 p.m.: Cierre, con Jorge Cardona.
-Ejemplo: "El domingo cierran Yolanda Ruiz y María Elvira Samper con las mujeres que cubrieron la guerra. Termina a la 1:00 p.m."
+Ejemplo: "El domingo Yolanda Ruiz y María Elvira Samper hablan de las mujeres que cubrieron la guerra, y Jorge Cardona cierra el encuentro. Termina a la 1:00 p.m."
 
 ---
 
@@ -284,23 +284,23 @@ Ejemplo: "Para cualquier tema de tu compra, escribe a hola@eventalist.co con el 
 
 **Datos personales**
 Así lo preguntan: ¿Qué hacen con mis datos? · ¿Me van a mandar publicidad? · Quiero que borren mis datos
-Los datos de la compra los trata Eventalist S.A.S. para emitir la boleta, gestionar el pedido y la factura, controlar el ingreso y atender solicitudes. No se usan para publicidad salvo autorización aparte, y no se comparten ni se venden. Consultas, correcciones o retiro de la autorización: hola@eventalist.co. Política completa: https://testigosdelamemoria.com/tratamiento-de-datos/
-Ejemplo: "Tus datos solo se usan para tu boleta y tu ingreso, no para publicidad. Si quieres leer la política completa, está aquí: https://testigosdelamemoria.com/tratamiento-de-datos/"
+Los datos de la compra los trata Eventalist S.A.S. para emitir la boleta, gestionar el pedido y la factura, controlar el ingreso y atender solicitudes. Con la casilla de la tienda, quien compra autoriza además correos con novedades de este encuentro, de sus próximas ediciones y de otros eventos culturales de Eventalist en Villa de Leyva; mensajes por WhatsApp solo para recordar un pago pendiente y avisar novedades de este encuentro; y el envío a Google y Meta de los datos del pedido para medir la publicidad del encuentro. Los datos no se venden. Se puede dejar de recibir los mensajes desde cada uno. Consultas, correcciones o retiro de la autorización: hola@eventalist.co. Política completa: https://testigosdelamemoria.com/tratamiento-de-datos/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=datos
+Ejemplo: "Tus datos se usan para tu boleta, tu ingreso y los avisos que autorizaste al comprar, y no se venden. Puedes dejar de recibir los mensajes desde cualquiera de ellos. La política completa está aquí: https://testigosdelamemoria.com/tratamiento-de-datos/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=datos"
 
 **Términos y condiciones de compra**
 Así lo preguntan: ¿Dónde están los términos? · ¿Cuáles son las condiciones? · ¿Qué dice la letra pequeña?
-Las condiciones de compra (cambios, devoluciones, cesión, cancelación, uso de imagen, grabaciones) están en https://testigosdelamemoria.com/terminos-y-condiciones/
-Ejemplo: "Las condiciones completas de compra están aquí: https://testigosdelamemoria.com/terminos-y-condiciones/. Si me dices qué te preocupa, te lo explico."
+Las condiciones de compra (cambios, devoluciones, cesión, cancelación, uso de imagen, grabaciones) están en https://testigosdelamemoria.com/terminos-y-condiciones/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=terminos
+Ejemplo: "Si me dices qué te preocupa, te lo explico. Las condiciones completas de compra están aquí: https://testigosdelamemoria.com/terminos-y-condiciones/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=terminos"
 
 **Sitio en inglés**
 Así lo preguntan: Do you have the site in English? · Is it in English? · Página en inglés
-El sitio tiene versión en inglés: https://testigosdelamemoria.com/en/. Las sesiones del encuentro son en español; si hay traducción no está confirmado.
-Ejemplo: "Sure, here is the English version of the site: https://testigosdelamemoria.com/en/"
+Las sesiones del encuentro son en español; si hay traducción no está confirmado. El sitio tiene versión en inglés: https://testigosdelamemoria.com/en/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=en
+Ejemplo: "Sure, here is the English version of the site: https://testigosdelamemoria.com/en/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=en"
 
 ---
 
 ### Temas que todavía no están confirmados
 
 Así lo preguntan: ¿Es accesible en silla de ruedas? · ¿Lo transmiten? · ¿Dan certificado? · ¿Hay parqueadero? · ¿Venden en la puerta?
-Sin respuesta confirmada: accesibilidad de las sedes, transmisión o grabaciones, certificados, libros, descuentos, venta en puerta, parqueo en las sedes, comida en la sede, hora de apertura, idioma o traducción, prensa, patrocinios y voluntariado. No se improvisa: se dice que no está confirmado y se pasa a una persona del equipo.
+Sin respuesta confirmada: accesibilidad de las sedes, transmisión o grabaciones, certificados, libros, descuentos en boletas, venta en puerta, parqueo en las sedes, comida en la sede, hora de apertura, idioma o traducción, prensa, patrocinios y voluntariado. No se improvisa: se dice que no está confirmado y se pasa a una persona del equipo.
 Ejemplo: "Eso todavía no lo tengo confirmado. ¿Quieres que le pase tu pregunta a alguien del equipo?"
