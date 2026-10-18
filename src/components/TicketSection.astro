@@ -584,19 +584,30 @@ const franjaNames = Object.fromEntries(
      840px y no cabe bajo el header. Primero se reduce el aire entre
      bloques (las comillas no se tocan: encogidas se montan sobre la
      etiqueta); si aun así no cabe (portátiles de 13"), la columna deja
-     de pegarse y fluye con la página. Medido el 2026-09-15. */
+     de pegarse y fluye con la página. Medido el 2026-09-15. Solo aplica
+     con el calendario (etapa 1): sin él la columna mide unos 490px y se
+     pega en cualquier portátil (2026-10-17); se suelta solo por debajo
+     de 640px de alto. */
   @media (min-width: 64rem) and (max-height: 60rem) {
-    .tickets-intro {
+    :global(.tickets-intro:has(.stages)) {
       gap: var(--space-1);
     }
   }
   @media (min-width: 64rem) and (max-height: 57rem) {
-    .tickets-intro {
+    :global(.tickets-intro:has(.stages)) {
       position: static;
       align-self: auto;
       align-content: start;
       max-height: none;
       gap: var(--space-2);
+    }
+  }
+  @media (min-width: 64rem) and (max-height: 40rem) {
+    .tickets-intro {
+      position: static;
+      align-self: auto;
+      align-content: start;
+      max-height: none;
     }
   }
 
