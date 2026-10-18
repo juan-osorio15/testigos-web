@@ -17,9 +17,9 @@
  * 5504 × 3998, recorte 3:2 a 1920 px).
  *
  * Mesón de los Virreyes (2026-10-17): 20 % de descuento dado por el
- * usuario. Contacto provisional, el de reservas del sitio oficial
- * (hotelmesondelosvirreyes.com: WhatsApp 310 852 1719 y correo); el
- * usuario va a dar el contacto definitivo. Dirección y reseña del mismo
+ * usuario. Contacto de reservas del sitio oficial (hotelmesondelosvirreyes.com:
+ * WhatsApp 310 852 1719, del botón de WhatsApp del sitio, y correo), que el
+ * usuario aprobó como definitivo. Dirección y reseña del mismo
  * sitio (páginas de inicio, historia y contacto). Foto del patio colonial
  * desde el segundo piso, del sitio oficial (1570 × 900, recorte 3:2).
  */

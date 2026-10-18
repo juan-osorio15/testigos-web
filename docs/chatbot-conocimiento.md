@@ -1,6 +1,6 @@
 # Testigos de la Memoria · Memorias del chatbot
 
-Base de conocimiento del asistente de WhatsApp e Instagram, agrupada por tema en memorias de menos de 5.000 caracteres. Versión del 1 de octubre de 2026.
+Base de conocimiento del asistente de WhatsApp e Instagram, agrupada por tema en memorias de menos de 5.000 caracteres. Versión del 17 de octubre de 2026.
 
 Cómo se usa: cada bloque entre dos líneas `---` es una memoria. Se pega completa, con su título. Todas miden menos de 5.000 caracteres contando el título; si se edita una, hay que volver a contar.
 
