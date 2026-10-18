@@ -104,7 +104,7 @@ Ejemplo: "Los conversatorios van del viernes a las 3:00 p.m. al domingo a la 1:0
 
 **Charlas abiertas · jueves 5**
 Así lo preguntan: ¿Qué hay el jueves? · ¿Lo del jueves es gratis? · ¿Cuándo es el documental de Sady González?
-Casa Museo Antonio Nariño, carrera 9 n.º 10-25, entrada libre. 10:00 a.m. a 12:00 m.: Charla de reportería, con Daniel Esteban Alvarado, de la Universidad de Boyacá. 3:00 p.m.: documental "Sady González, una luz en la memoria", sobre el fotógrafo del 9 de abril, presentado por Guillermo González Uribe.
+Casa Museo Antonio Nariño, carrera 9 n.º 10-25, entrada libre. 10:00 a.m. a 12:00 m.: Charla de reportería, con Daniel Esteban Alvarado, de la Universidad de Boyacá. 3:00 p.m.: documental "Sady González, una luz en la memoria", sobre el fotógrafo del 9 de abril, codirigido por Guillermo González Uribe y Margarita Díaz Granados y presentado por Guillermo González Uribe.
 Ejemplo: "El jueves es gratis en la Casa Museo: charla de reportería en la mañana y el documental de Sady González en la tarde."
 
 **Charlas abiertas · viernes 6 e inscripción**
