@@ -107,10 +107,10 @@ export const agenda: AgendaSlot[] = [
     venueId: 'casa-museo',
     speakerSlugs: ['guillermo-gonzalez'],
     /* Codirectora con el nombre que dieron los organizadores (2026-10-17) */
-    note: 'La historia del fotógrafo Sady González, pionero de la reportería gráfica en Colombia, y de Esperanza Uribe, creadora del archivo Foto Sady. La Bogotá de los años cuarenta y cincuenta, con las imágenes del 9 de abril de 1948. Lo codirigieron Guillermo González Uribe, que lo presenta, y Margarita Díaz Granados.',
+    note: 'La historia del fotógrafo Sady González, pionero de la reportería gráfica en Colombia, y de Esperanza Uribe, creadora del archivo Foto Sady. La Bogotá de los años cuarenta y cincuenta, con las imágenes del 9 de abril de 1948. Codirigido por Guillermo González Uribe y Margarita Díaz Granados.',
     en: {
       title: 'Documentary: Sady González, a light in memory',
-      note: 'The story of photographer Sady González, a pioneer of photojournalism in Colombia, and of Esperanza Uribe, creator of the Foto Sady archive. Bogotá in the 1940s and 1950s, with the images of April 9, 1948. Co-directed by Guillermo González Uribe, who presents it, and Margarita Díaz Granados.',
+      note: 'The story of photographer Sady González, a pioneer of photojournalism in Colombia, and of Esperanza Uribe, creator of the Foto Sady archive. Bogotá in the 1940s and 1950s, with the images of April 9, 1948. Co-directed by Guillermo González Uribe and Margarita Díaz Granados.',
     },
     intro: {
       summary:
