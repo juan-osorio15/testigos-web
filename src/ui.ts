@@ -8,12 +8,9 @@
 import { langOf, type Lang } from './i18n';
 
 const es = {
-  // --- Compra: textos del CTA (FR-010, ajuste 2026-09-09). Todos llevan a
-  //     #boletas; el header y la franja del hero usan siempre 'cta.buy'. ---
+  // --- Compra: un solo texto para todos los botones de compra, que llevan
+  //     a #boletas (2026-10-17: nada de variantes creativas). ---
   'cta.buy': 'Comprar boletas',
-  'cta.beThere': 'Quiero estar ahí',
-  'cta.secure': 'Asegurar mi boleta',
-  'cta.live': 'Vivir Testigos de la Memoria',
 
   // --- Navegación ---
   /* Etiquetas estándar (2026-10-15): las preguntas de la prueba del
@@ -171,7 +168,7 @@ const es = {
   'venue.directions': 'Cómo llegar',
   'stay.heading': 'Hospedaje',
   'stay.intro':
-    'Si vienes de Bogotá o de más lejos, no tienes que buscar hotel. Estos dos aliados tienen una oferta solo para asistentes: escríbeles por WhatsApp y ellos te arman la reserva.',
+    'Si vienes de Bogotá o de más lejos, no tienes que buscar hotel. Estos tres aliados tienen una oferta solo para asistentes: escríbeles por WhatsApp y ellos te arman la reserva.',
   'stay.onlyAttendees': 'Solo para asistentes',
   'stay.askFor': 'Pregunta por',
   'stay.writeTo': 'Te atienden directamente en recepción.',
@@ -323,9 +320,6 @@ export type UiKey = keyof typeof es;
  */
 const en: Record<UiKey, string> = {
   'cta.buy': 'Buy tickets',
-  'cta.beThere': 'I want to be there',
-  'cta.secure': 'Secure my ticket',
-  'cta.live': 'Experience Testigos de la Memoria',
 
   'nav.opportunity': 'About',
   'nav.speakers': 'Speakers',
@@ -448,7 +442,7 @@ const en: Record<UiKey, string> = {
   'venue.directions': 'Get directions',
   'stay.heading': 'Where to stay',
   'stay.intro':
-    'Coming from Bogotá or farther away? No need to hunt for a hotel. These two partners have an offer for attendees only: message them on WhatsApp and they will set up your booking.',
+    'Coming from Bogotá or farther away? No need to hunt for a hotel. These three partners have an offer for attendees only: message them on WhatsApp and they will set up your booking.',
   'stay.onlyAttendees': 'Attendees only',
   'stay.askFor': 'Ask for',
   'stay.writeTo': 'The front desk will help you directly.',

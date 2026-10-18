@@ -18,11 +18,11 @@ export const faqs: Faq[] = [
   {
     question: '¿Qué es gratis y qué requiere boleta?',
     answer:
-      'Las charlas abiertas del jueves 5 y del viernes 6 en la mañana, en la Casa Museo Antonio Nariño, son de entrada libre. Los conversatorios, del viernes 6 en la tarde al domingo 8, en la Hospedería Duruelo, requieren boleta: habrá pase completo y boletas por franja, con aforo limitado.',
+      'Las charlas abiertas del jueves 5 y del viernes 6 en la mañana, en la Casa Museo Antonio Nariño, son de entrada libre. Los conversatorios, del viernes 6 en la tarde al domingo 8, en la Hospedería Duruelo, requieren boleta: pase completo o boletas de medio día, con aforo limitado.',
     en: {
       question: 'What is free and what requires a ticket?',
       answer:
-        'The open talks on Thursday, November 5 and Friday morning, November 6, at Casa Museo Antonio Nariño, are free to attend. The panel conversations, from Friday afternoon, November 6, through Sunday, November 8, at Hospedería Duruelo, require a ticket: there will be a full pass and half-day tickets, with limited seating.',
+        'The open talks on Thursday, November 5 and Friday morning, November 6, at Casa Museo Antonio Nariño, are free to attend. The panel conversations, from Friday afternoon, November 6, through Sunday, November 8, at Hospedería Duruelo, require a ticket: a full pass or half-day tickets, with limited seating.',
     },
   },
   {
@@ -48,11 +48,11 @@ export const faqs: Faq[] = [
   {
     question: '¿Dónde me hospedo?',
     answer:
-      'Villa de Leyva tiene una oferta amplia de hoteles y hospederías a pocas cuadras de ambas sedes. El evento cae en fin de semana, así que conviene reservar con anticipación.',
+      'Tres hoteles aliados tienen una oferta solo para asistentes: la Hospedería Duruelo, sede de los conversatorios, con un paquete especial; el Hotel La Posada de San Antonio, con 10 % de descuento, y el Hotel Mesón de los Virreyes, con 20 % de descuento. Los contactos están en la sección de hospedaje. El encuentro cae en fin de semana, así que conviene reservar con anticipación.',
     en: {
       question: 'Where do I stay?',
       answer:
-        'Villa de Leyva has a wide range of hotels and guesthouses a few blocks from both venues. The event falls on a weekend, so it\'s best to book in advance.',
+        'Three partner hotels have an offer for attendees only: Hospedería Duruelo, the venue for the panel conversations, with a special package; Hotel La Posada de San Antonio, with 10% off; and Hotel Mesón de los Virreyes, with 20% off. Their contacts are in the lodging section. The event falls on a weekend, so it\'s best to book in advance.',
     },
   },
   {

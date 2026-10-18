@@ -38,6 +38,10 @@ const stage1Until = new Intl.DateTimeFormat(localeOf(lang), {
 }).format(new Date(`${salesStages.stage1End}T12:00:00-05:00`));
 const stagePriceNote = t('tickets.stagePrice').replace('{date}', stage1Until);
 const stageSwitchAt = Date.parse(`${salesStages.stage2Start}T00:00:00-05:00`);
+/* Desde la etapa 2 (2026-10-17) todo está a la venta: el calendario de
+   etapas y el "se venden desde la etapa 2" ya no dicen nada cierto y se
+   omiten en el build. Se quedan los componentes para la próxima edición. */
+const stage2Live = Date.now() >= stageSwitchAt;
 const passProduct = ticketOffers.find((o) => o.id === 'pase-completo')!.pretixProduct;
 
 /* `pretixReady` (config.ts) decide tienda o formulario. La hoja de estilos
@@ -112,12 +116,12 @@ const franjaNames = Object.fromEntries(
           </dt>
           <dd>
             {t('tickets.slotText')}
-            <span class="tickets-option-note">{t('tickets.slotSoon')}</span>
+            {!stage2Live && <span class="tickets-option-note">{t('tickets.slotSoon')}</span>}
           </dd>
         </div>
       </dl>
-      {/* Calendario de venta: cuándo se vende cada cosa */}
-      <SalesStages />
+      {/* Calendario de venta: cuándo se vende cada cosa (solo en la etapa 1) */}
+      {!stage2Live && <SalesStages />}
     </div>
     <div class="tickets-shop">
     <div

@@ -171,7 +171,7 @@ Descripción de la categoría:
 Los talleres de periodismo del jueves 5 y el viernes 6 de noviembre, en la Casa Museo Antonio Nariño, son de entrada libre y no necesitan boleta.
 ```
 
-### Pase completo · 310.000 COP
+### Pase completo · 340.000 COP (etapa 2; 310.000 en la etapa 1)
 
 ```markdown
 **Los siete conversatorios, del viernes 6 al domingo 8.**
@@ -252,10 +252,11 @@ No te pierdes de nada y pagas menos que por franjas.
 > Pretix convierte cada salto de línea simple en `<br>` (extensión nl2br), así
 > que no hacen falta dos espacios al final de línea.
 
-Nombres cortos para el checkout, el correo y el PDF (campo *Name*), desde
-el 2026-09-30: `Pase completo`, `Viernes PM`, `Sábado AM`, `Sábado PM`,
-`Domingo AM`. Deben coincidir con `pretixProduct` en `src/data/event.ts`:
-el sitio reconoce cada producto del widget por ese nombre.
+Nombres en Pretix (campo *Name*, leídos en la API el 2026-10-17):
+`Pase Completo`, `Viernes Tarde`, `Sábado Mañana`, `Sábado Tarde`,
+`Domingo Mañana`. Deben coincidir con `pretixProduct` en `src/data/event.ts`:
+el sitio reconoce cada producto del widget por ese nombre (sin distinguir
+mayúsculas ni tildes, y también con la forma `Sábado AM`).
 Para no perder la fecha en la boleta, conviene el nombre con fecha:
 `Franja · Viernes 6, tarde`, etcétera.
 

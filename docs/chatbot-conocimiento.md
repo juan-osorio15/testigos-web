@@ -123,33 +123,28 @@ Ejemplo: "Si algo cambia, lo publicamos en https://testigosdelamemoria.com/?utm_
 
 **Precios · qué boletas hay hoy**
 Así lo preguntan: ¿Cuánto vale? · ¿Cuánto cuestan las boletas? · ¿Qué boletas hay? · Precio
-Etapa 1, hasta el lunes 12 de octubre: solo el pase completo, 310.000 COP, con el mayor descuento. Desde el martes 13 de octubre se abren las boletas de medio día, a 90.000 COP cada una.
-Ejemplo: "Hoy se vende el pase completo: 310.000 COP por los siete conversatorios, con el mayor descuento, hasta el 12 de octubre. Lo compras aquí: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=boletas#boletas"
+Desde el martes 13 de octubre está todo a la venta: el pase completo, a 340.000 COP, y las boletas de medio día, a 90.000 COP cada una.
+Ejemplo: "El pase completo cuesta 340.000 COP y cubre los siete conversatorios. Si solo puedes una mañana o una tarde, la boleta de medio día cuesta 90.000. Las compras aquí: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=boletas#boletas"
 
 **Pase completo · qué incluye**
 Así lo preguntan: ¿Qué incluye el pase? · ¿El pase cubre todo? · ¿Incluye hotel o comida? · ¿Vale la pena el pase?
-Los siete conversatorios en la Hospedería Duruelo, del viernes 6 en la tarde al domingo 8, con la bienvenida y el cierre, en una sola boleta. Las cuatro boletas de medio día suman 360.000 COP; el pase cuesta 310.000 en la etapa 1. No incluye alojamiento, transporte ni comida.
-Ejemplo: "El pase te da los siete conversatorios y te sale más barato que comprar por partes: 310.000 frente a 360.000."
+Los siete conversatorios en la Hospedería Duruelo, del viernes 6 en la tarde al domingo 8, con la bienvenida y el cierre, en una sola boleta. Las cuatro boletas de medio día suman 360.000 COP; el pase cuesta 340.000. No incluye alojamiento, transporte ni comida.
+Ejemplo: "El pase te da los siete conversatorios y te sale más barato que comprar por partes: 340.000 frente a 360.000."
 
 **Boletas de medio día**
 Así lo preguntan: ¿Puedo ir un solo día? · ¿Venden por día? · ¿Cuánto vale solo el sábado? · ¿Qué es una franja?
-Una mañana o una tarde con sus dos o tres conversatorios: viernes en la tarde, sábado en la mañana, sábado en la tarde o domingo en la mañana. 90.000 COP cada una, a la venta desde el martes 13 de octubre, con el aforo que quede. En los términos se llaman "boletas por franja".
-Ejemplo: "Salen el 13 de octubre a 90.000 cada una. Si piensas ir a más de una, el pase de hoy te sale mejor."
+Una mañana o una tarde con sus dos o tres conversatorios: viernes en la tarde, sábado en la mañana, sábado en la tarde o domingo en la mañana. 90.000 COP cada una, a la venta desde el martes 13 de octubre, hasta agotar el aforo. En los términos se llaman "boletas por franja".
+Ejemplo: "Cuestan 90.000 cada una. Si piensas ir a más de una, el pase te sale mejor."
 
-**No puedo comprar un solo día todavía**
-Así lo preguntan: ¿Por qué no me deja comprar un día? · Dice "aún no disponible" · ¿Cuándo salen las boletas por día?
-La venta va por etapas. En la etapa 1, hasta el 12 de octubre, solo se vende el pase completo. Las boletas de medio día salen el 13 de octubre. En https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=boletas#boletas, el botón "Avísame cuando abra" guarda los datos para avisar.
-Ejemplo: "Por ahora solo está el pase, con su mayor descuento. Si prefieres un medio día, en la página puedes pedir que te avisemos cuando abran."
-
-**El pase después del 13 de octubre**
-Así lo preguntan: ¿El pase sube de precio? · ¿Puedo comprar el pase después del 12? · ¿Cuánto vale el pase en la etapa 2?
-No está definido qué pasa con el pase completo desde el 13 de octubre. No se dice que sigue ni que se retira, y no se dan precios futuros. Lo cierto: el mayor descuento del pase es el de la etapa 1, hasta el 12 de octubre.
-Ejemplo: "Lo que te puedo decir es que el mayor descuento del pase es el de ahora, hasta el 12 de octubre: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=boletas#boletas"
+**Etapas de venta**
+Así lo preguntan: ¿Todavía hay precio de etapa 1? · ¿El pase subió? · ¿Por qué el pase ya no vale 310.000? · ¿Puedo comprar el pase después del 12?
+La etapa 1 terminó el lunes 12 de octubre: en ella se vendía solo el pase, a 310.000 COP. Desde el martes 13 de octubre el pase sigue a la venta, a 340.000 COP, y se abrieron las boletas de medio día. Quien compró en la etapa 1 conserva su boleta; el precio pagado no se ajusta.
+Ejemplo: "El precio de la etapa 1 fue hasta el 12 de octubre. Hoy el pase completo cuesta 340.000 y sigue saliendo más barato que las cuatro boletas de medio día: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=boletas#boletas"
 
 **Descuentos, estudiantes, grupos, códigos**
 Así lo preguntan: ¿Hay descuento para estudiantes? · ¿Tarifa para adultos mayores? · ¿Precio para grupos? · ¿Tienen código promocional?
 No hay tarifas especiales ni códigos publicados. Los precios son los de la tienda. Si un código existe, es de un solo uso y no se cambia por dinero. Para grupos o instituciones, se pasa a una persona del equipo.
-Ejemplo: "Por ahora no hay tarifas especiales publicadas; el mejor precio es el del pase en la etapa 1. Si vienes con un grupo, le paso tu mensaje a alguien del equipo."
+Ejemplo: "Por ahora no hay tarifas especiales publicadas; el pase completo sale más barato que las cuatro boletas de medio día. Si vienes con un grupo, le paso tu mensaje a alguien del equipo."
 
 **Asientos y aforo**
 Así lo preguntan: ¿Las sillas son numeradas? · ¿Cuántas personas caben? · ¿Quedan cupos? · ¿Se agotan?
@@ -260,8 +255,8 @@ Ejemplo: "La boleta es el acceso a los conversatorios. Entre la mañana y la tar
 
 **Dónde quedarse · hoteles aliados**
 Así lo preguntan: ¿Dónde me quedo? · ¿Qué hotel me recomiendan? · ¿Tienen convenio con hoteles? · ¿Dónde dormir en Villa de Leyva?
-Dos aliados con oferta solo para asistentes. Hospedería Duruelo, sede de los conversatorios: paquete especial, Jazmín Casallas, WhatsApp 311 506 4410. Hotel La Posada de San Antonio, centro histórico: 10 % de descuento, WhatsApp 310 280 7326. Hay que decir que se va a Testigos de la Memoria. Más: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=hospedaje#hospedaje
-Ejemplo: "Tenemos dos aliados con oferta para asistentes. ¿Te paso el contacto?"
+Tres aliados con oferta solo para asistentes. Hospedería Duruelo, sede de los conversatorios: paquete especial, Jazmín Casallas, WhatsApp 311 506 4410. Hotel La Posada de San Antonio, centro histórico: 10 % de descuento, WhatsApp 310 280 7326. Hotel Mesón de los Virreyes, a una cuadra de la Plaza Mayor: 20 % de descuento, WhatsApp 310 852 1719. Hay que decir que se va a Testigos de la Memoria. Más: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=hospedaje#hospedaje
+Ejemplo: "Tenemos tres hoteles aliados con oferta para asistentes. ¿Te paso el contacto?"
 
 **Hospedería Duruelo · paquete para asistentes**
 Así lo preguntan: ¿Me puedo quedar en Duruelo? · ¿Cuál es el paquete de Duruelo? · ¿Con quién hablo en Duruelo?
@@ -272,6 +267,11 @@ Ejemplo: "Escríbele a Jazmín al 311 506 4410, dile que vas a Testigos de la Me
 Así lo preguntan: ¿Cuál es el descuento de la Posada? · ¿La Posada de San Antonio tiene desayuno? · ¿Cómo reservo en la Posada?
 Tres casas coloniales restauradas en el centro histórico, a pocas cuadras de la Casa Museo. Desayuno incluido, spa y restaurante. 10 % de descuento para asistentes. WhatsApp 310 280 7326, correo reservas@hotellaposadadesanantonio.com, carrera 8 n.º 11-80. La reserva y el pago se hacen con el hotel.
 Ejemplo: "Tiene 10 % para asistentes: escríbeles al 310 280 7326 y diles que vas al encuentro."
+
+**Hotel Mesón de los Virreyes · 20 %**
+Así lo preguntan: ¿Cuál es el descuento del Mesón? · ¿El Mesón de los Virreyes tiene piscina? · ¿Cómo reservo en el Mesón?
+Casona colonial sobre la calle Caliente, a una cuadra de la Plaza Mayor. Piscina climatizada, sauna, turco y restaurante. 20 % de descuento para asistentes. WhatsApp 310 852 1719, correo reservas@hotelmesondelosvirreyes.com, carrera 9 n.º 14-51. La reserva y el pago se hacen con el hotel.
+Ejemplo: "Tiene 20 % para asistentes: escríbeles al 310 852 1719 y diles que vas al encuentro."
 
 ---
 

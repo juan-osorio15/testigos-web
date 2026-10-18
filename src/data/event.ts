@@ -54,8 +54,8 @@ export interface TicketOffer {
   /** Nombre visible y del marcado */
   name: string;
   /**
-   * Nombre literal del producto en Pretix (confirmado por el usuario el
-   * 2026-09-16). Es la clave con la que TicketSection y la intención de
+   * Nombre literal del producto en Pretix (leído en la API el 2026-10-17).
+   * Es la clave con la que TicketSection y la intención de
    * compra reconocen el producto en el widget.
    */
   pretixProduct: string;
@@ -91,8 +91,9 @@ export const ticketOffers: TicketOffer[] = [
   {
     id: 'pase-completo',
     name: 'Pase completo',
-    pretixProduct: 'Pase completo',
-    price: 310000,
+    pretixProduct: 'Pase Completo',
+    /* Precio de la etapa 2, el mismo de Pretix (leído en la API el 2026-10-17) */
+    price: 340000,
     currency: 'COP',
     /** Día en que la tienda quedó a la venta en la portada (commit 74f7049) */
     validFrom: '2026-09-09',
@@ -104,7 +105,7 @@ export const ticketOffers: TicketOffer[] = [
   {
     id: 'viernes-tarde',
     name: 'Viernes en la tarde',
-    pretixProduct: 'Viernes PM',
+    pretixProduct: 'Viernes Tarde',
     price: 90000,
     currency: 'COP',
     validFrom: salesStages.stage2Start,
@@ -115,7 +116,7 @@ export const ticketOffers: TicketOffer[] = [
   {
     id: 'sabado-manana',
     name: 'Sábado en la mañana',
-    pretixProduct: 'Sábado AM',
+    pretixProduct: 'Sábado Mañana',
     price: 90000,
     currency: 'COP',
     validFrom: salesStages.stage2Start,
@@ -126,7 +127,7 @@ export const ticketOffers: TicketOffer[] = [
   {
     id: 'sabado-tarde',
     name: 'Sábado en la tarde',
-    pretixProduct: 'Sábado PM',
+    pretixProduct: 'Sábado Tarde',
     price: 90000,
     currency: 'COP',
     validFrom: salesStages.stage2Start,
@@ -137,7 +138,7 @@ export const ticketOffers: TicketOffer[] = [
   {
     id: 'domingo-manana',
     name: 'Domingo en la mañana',
-    pretixProduct: 'Domingo AM',
+    pretixProduct: 'Domingo Mañana',
     price: 90000,
     currency: 'COP',
     validFrom: salesStages.stage2Start,
@@ -147,7 +148,7 @@ export const ticketOffers: TicketOffer[] = [
   },
 ];
 
-/** Formato de precio en texto plano: "310.000 COP" (en inglés, "310,000 COP") */
+/** Formato de precio en texto plano: "340.000 COP" (en inglés, "340,000 COP") */
 export function formatPrice(offer: Pick<TicketOffer, 'price' | 'currency'>, lang: Lang = 'es'): string {
   return `${offer.price.toLocaleString(lang === 'en' ? 'en-US' : 'es-CO')} ${offer.currency}`;
 }

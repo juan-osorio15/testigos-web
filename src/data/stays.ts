@@ -15,10 +15,18 @@
  * Duruelo, suite Segovia 401 con techo de vigas y chimenea (duruelo.com.co,
  * 1280 × 960, recorte 3:2; cambiada por el usuario el 2026-09-30); Posada, patio colonial (hotellaposadadesanantonio.com,
  * 5504 × 3998, recorte 3:2 a 1920 px).
+ *
+ * Mesón de los Virreyes (2026-10-17): 20 % de descuento dado por el
+ * usuario. Contacto provisional, el de reservas del sitio oficial
+ * (hotelmesondelosvirreyes.com: WhatsApp 310 852 1719 y correo); el
+ * usuario va a dar el contacto definitivo. Dirección y reseña del mismo
+ * sitio (páginas de inicio, historia y contacto). Foto del patio colonial
+ * desde el segundo piso, del sitio oficial (1570 × 900, recorte 3:2).
  */
 import type { Lang } from '../i18n';
 import photoDuruelo from '../assets/venues/duruelo-suite.jpg';
 import photoPosada from '../assets/venues/posada-san-antonio.jpg';
+import photoMeson from '../assets/venues/meson-virreyes.jpg';
 
 export interface Stay {
   id: string;
@@ -93,6 +101,32 @@ export const stays: Stay[] = [
       whatsappText:
         'Hello. I am attending Testigos de la Memoria in Villa de Leyva (November 5–8) and would like to book with the 10% attendee discount.',
       photoAlt: 'Colonial courtyard at La Posada de San Antonio, with wooden balconies, flowers and a stone fountain',
+    },
+  },
+  {
+    id: 'meson-virreyes',
+    name: 'Hotel Mesón de los Virreyes',
+    offer: '20 % de descuento',
+    pitch:
+      'Una casona colonial sobre la calle Caliente, a una cuadra de la Plaza Mayor. Tiene piscina climatizada, sauna, turco y restaurante.',
+    contact: null,
+    phone: '310 852 1719',
+    whatsappText:
+      'Hola. Voy a Testigos de la Memoria en Villa de Leyva (5 al 8 de noviembre) y quiero reservar con el 20 % de descuento para asistentes.',
+    email: 'reservas@hotelmesondelosvirreyes.com',
+    address: 'Carrera 9 n.º 14-51, Villa de Leyva',
+    mapsUrl:
+      'https://www.google.com/maps/search/?api=1&query=Hotel+Mes%C3%B3n+de+los+Virreyes+Villa+de+Leyva',
+    photo: photoMeson,
+    photoAlt: 'Patio colonial del Mesón de los Virreyes visto desde el segundo piso, con tejados de barro, balcones de madera y una sombrilla',
+    en: {
+      offer: '20% off',
+      pitch:
+        'A colonial house on Calle Caliente, one block from the Plaza Mayor. It has a heated pool, sauna, steam room and a restaurant.',
+      contact: null,
+      whatsappText:
+        'Hello. I am attending Testigos de la Memoria in Villa de Leyva (November 5–8) and would like to book with the 20% attendee discount.',
+      photoAlt: 'Colonial courtyard at Mesón de los Virreyes seen from the second floor, with clay tile roofs, wooden balconies and a parasol',
     },
   },
 ];
