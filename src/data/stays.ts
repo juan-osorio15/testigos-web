@@ -20,8 +20,9 @@
  * usuario. Contacto de reservas del sitio oficial (hotelmesondelosvirreyes.com:
  * WhatsApp 310 852 1719, del botón de WhatsApp del sitio, y correo), que el
  * usuario aprobó como definitivo. Dirección y reseña del mismo
- * sitio (páginas de inicio, historia y contacto). Foto del patio colonial
- * desde el segundo piso, del sitio oficial (1570 × 900, recorte 3:2).
+ * sitio (páginas de inicio, historia y contacto). Foto principal del
+ * patio con la fuente, dada por el usuario el 2026-10-17 (2744 × 1536,
+ * recorte 3:2 a 1920 px, sin la marca de agua de la esquina).
  */
 import type { Lang } from '../i18n';
 import photoDuruelo from '../assets/venues/duruelo-suite.jpg';
@@ -118,7 +119,7 @@ export const stays: Stay[] = [
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=Hotel+Mes%C3%B3n+de+los+Virreyes+Villa+de+Leyva',
     photo: photoMeson,
-    photoAlt: 'Patio colonial del Mesón de los Virreyes visto desde el segundo piso, con tejados de barro, balcones de madera y una sombrilla',
+    photoAlt: 'Patio colonial del Mesón de los Virreyes, con una fuente de piedra en el centro, piso de ladrillo, balcones de madera y sombrillas',
     en: {
       offer: '20% off',
       pitch:
@@ -126,7 +127,7 @@ export const stays: Stay[] = [
       contact: null,
       whatsappText:
         'Hello. I am attending Testigos de la Memoria in Villa de Leyva (November 5–8) and would like to book with the 20% attendee discount.',
-      photoAlt: 'Colonial courtyard at Mesón de los Virreyes seen from the second floor, with clay tile roofs, wooden balconies and a parasol',
+      photoAlt: 'Colonial courtyard at Mesón de los Virreyes, with a stone fountain in the center, brick floor, wooden balconies and parasols',
     },
   },
 ];
