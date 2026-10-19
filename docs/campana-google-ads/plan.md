@@ -1,267 +1,445 @@
-# Google Ads: prueba de búsqueda con 100.000 COP
+# Google Ads para Testigos de la Memoria
 
-Fecha: 2026-10-15. Primera vez que Testigos de la Memoria pauta en Google (el 2026-09-16 se había decidido pautar solo en Meta). Es una prueba pequeña, para aprender, no para llenar el encuentro.
+Fecha: 2026-10-15. Qué es Google Ads, qué funciona en la venta de boletas para eventos, cómo se vería una campaña en tres niveles de inversión y el plan de la prueba con la que arrancamos (100.000 COP).
 
-Parte de una investigación externa que se rehízo con los datos del proyecto: la original hablaba de un festival en Bogotá con 12 periodistas, abono y sesiones de 50.000 COP, y recomendaba un plugin de Pretix que aquí ya se descartó. Lo que no es del proyecto se verificó en la ayuda oficial de Google (fuentes al final).
+## 1. Cómo funciona Google Ads
 
-## 1. Google Ads en pocas palabras
+### Qué se paga
 
-### Qué se compra
+En Google Ads no se compra un espacio ni una palabra. En los anuncios de búsqueda se paga **cada clic**. Las palabras clave le dicen a Google **en qué búsquedas** mostrar el anuncio.
 
-En Google Ads no se compra un espacio ni una palabra. Se paga **cada vez que alguien hace clic** en el anuncio (en Búsqueda, casi siempre es así). Las palabras clave son la forma de decirle a Google **en qué búsquedas** quieres que aparezca el anuncio.
-
-Cada vez que alguien busca, Google hace una **subasta** en milisegundos entre todos los anunciantes que eligieron palabras parecidas. No gana el que más paga: gana la combinación de cuánto ofreces por el clic y qué tan bueno es tu anuncio para esa búsqueda (el **Nivel de Calidad**, de 1 a 10). Un anuncio muy relevante, con una página que carga rápido y responde lo que se buscó, sale más arriba y paga menos por clic que uno mediocre que ofrece más.
+Cada búsqueda abre una **subasta** entre los anunciantes que eligieron palabras parecidas. No gana el que más ofrece: gana la combinación de lo que ofreces por el clic y qué tan útil es tu anuncio para esa búsqueda (el **Nivel de Calidad**, de 1 a 10). Un anuncio relevante, con una página rápida que responde lo que se buscó, sale más arriba y paga menos que uno mediocre que ofrece más.
 
 ### Cómo se organiza una cuenta
 
-De mayor a menor:
-
-1. **Cuenta:** la de Eventalist, con la forma de pago y la información fiscal.
-2. **Campaña:** define el tipo de anuncio, el presupuesto, la zona donde se muestra, el idioma y cómo se puja. Una campaña tiene un solo presupuesto.
-3. **Grupo de anuncios:** un tema dentro de la campaña. Junta unas palabras clave parecidas con los anuncios que les responden.
-4. **Palabras clave y anuncios:** lo que se busca y lo que se muestra.
-
-Ejemplo de esta prueba: una campaña "buscador", con un grupo "plan en Villa de Leyva" que tiene palabras como "qué hacer en villa de leyva" y un anuncio que habla del plan de noviembre.
+1. **Cuenta:** forma de pago e información fiscal.
+2. **Campaña:** tipo de anuncio, presupuesto, zona, idioma y forma de pujar.
+3. **Grupo de anuncios:** un tema dentro de la campaña, con sus palabras clave y los anuncios que les responden.
+4. **Palabras clave y anuncios.**
 
 ### Los tipos de campaña
 
-"Comprar palabras" es un tipo de campaña, la de **Búsqueda**, no el único. Google tiene varios, según dónde sale el anuncio:
+Comprar palabras es solo un tipo, el de **Búsqueda**. Los demás no usan palabras sino públicos:
 
-- **Búsqueda (Search):** anuncios de texto arriba de los resultados de Google cuando alguien busca algo. Se eligen palabras clave. Llega a quien **ya está buscando** algo parecido, así que tiene la mayor intención de compra. No crea interés nuevo: si nadie busca, no hay a quién mostrarle. **Es la que usa esta prueba.**
-- **Demand Gen:** anuncios con imagen o video en YouTube (incluidos los Shorts), en Discover (las noticias del celular) y en Gmail. No se eligen palabras: se elige un público, por ejemplo "personas que buscaron en Google a Daniel Samper Pizano o la memoria histórica". Sirve para que te conozca gente que no te buscaba, como Meta. Necesita videos verticales y bastante más presupuesto.
-- **Video de YouTube:** anuncios antes o en medio de los videos. Sirve para que vean un teaser, no para vender directo.
-- **Display:** banners en sitios web de terceros. Barato, pero de poca calidad. Descartado.
-- **Performance Max:** una sola campaña que Google reparte sola entre todos los lugares anteriores. Funciona en cuentas con mucho historial de ventas; en una cuenta nueva y con poco dinero se va a lo más barato y se aprende poco.
-- **Shopping y App:** para tiendas con catálogo de productos y para aplicaciones. No aplican.
+- **Búsqueda:** texto arriba de los resultados de Google. Llega a quien **ya busca** algo parecido; es lo de más intención de compra. No crea interés: si nadie busca, no hay a quién mostrar.
+- **Demand Gen:** imagen o video en YouTube (incluidos los Shorts), Discover y Gmail, a un público elegido. Por ejemplo, "personas que buscaron en Google a Daniel Samper Pizano o la memoria histórica". Crea demanda, como Meta.
+- **Video de YouTube:** anuncios antes o durante los videos. Sirve para que vean un teaser y recuerden el nombre.
+- **Display:** banners en sitios de terceros. Barato y de poca calidad.
+- **Performance Max:** Google reparte solo una campaña entre todo lo anterior. Rinde en cuentas con mucho historial de ventas.
 
-### Cómo se escogen las búsquedas: las concordancias
+### Concordancias y palabras negativas
 
-Cada palabra clave tiene una **concordancia** que dice qué tan parecida debe ser la búsqueda:
+- **Exacta** `[qué hacer en villa de leyva]`: búsquedas con el mismo significado.
+- **Frase** `"qué hacer en villa de leyva"`: búsquedas que contienen esa idea ("qué hacer en villa de leyva en noviembre").
+- **Amplia** `qué hacer en villa de leyva`: Google decide qué se parece, y puede salir en "hoteles en Boyacá". Solo funciona bien con muchas ventas de la cuenta para aprender.
+- **Negativas:** búsquedas en las que no se quiere salir. Para este evento son vitales: "testigos" trae a quien busca a los Testigos de Jehová.
 
-- **Exacta** `[qué hacer en villa de leyva]`: búsquedas con el mismo significado. La más precisa.
-- **Frase** `"qué hacer en villa de leyva"`: búsquedas que incluyen esa idea, como "qué hacer en villa de leyva en noviembre".
-- **Amplia** `qué hacer en villa de leyva`: Google decide qué se le parece, y puede mostrarlo en "hoteles en Boyacá". Funciona solo si Google tiene muchas ventas de la cuenta para aprender.
-
-Las **palabras negativas** son lo contrario: búsquedas en las que no quieres salir. Aquí son vitales, porque "testigos" trae a mucha gente que busca a los Testigos de Jehová.
+**AI Max** es una opción dentro de las campañas de Búsqueda que agrega concordancia amplia, títulos escritos por Google y páginas de destino elegidas por Google. Desde finales de septiembre de 2026 Google lo activa solo en campañas que tenían anuncios dinámicos o concordancia amplia de campaña.
 
 ### Cómo se puja
 
-La puja es cuánto ofreces por cada clic. Google tiene estrategias automáticas:
+- **Maximizar clics**, con un tope por clic: para cuentas sin ventas medidas.
+- **Maximizar conversiones:** Google busca a quien tiene más probabilidad de comprar. Necesita ventas medidas.
+- **CPA objetivo o ROAS objetivo:** se fija cuánto pagar por venta o cuánto retorno se espera. Necesita unas 30 ventas al mes por campaña.
 
-- **Maximizar clics:** Google busca el mayor número de clics con el presupuesto, y uno pone un tope por clic. Es la de una cuenta nueva sin ventas medidas.
-- **Maximizar conversiones:** Google busca a quien tiene más probabilidad de comprar. Necesita ventas medidas para aprender.
-- **CPA objetivo o ROAS objetivo:** le dices a Google cuánto quieres pagar por venta o cuánto retorno esperas. Necesita de 15 a 30 ventas al mes por campaña.
+Las estrategias automáticas tienen un **aprendizaje** de una a dos semanas, y cada cambio grande lo reinicia.
 
-Cada estrategia automática tiene un **periodo de aprendizaje** de una a dos semanas. Si se cambia mucho (estrategia, presupuesto, objetivo), vuelve a empezar.
+### Qué es una conversión
 
-### Qué es una conversión y por qué importa
+La acción que cuenta como éxito: aquí, una compra pagada, con su valor en pesos. Sin conversiones medidas, Google solo puede buscar clics y el resultado se juzga a ciegas.
 
-Una **conversión** es la acción que cuenta como éxito: aquí, una compra pagada en Pretix. Si Google Ads no sabe qué clics terminaron en compra, solo puede optimizar clics, y el éxito se juzga a ciegas. Esta prueba ya llega con la compra medida (sección 3).
+## 2. Qué funciona en eventos
 
-### Qué hace exitosa a una campaña de Búsqueda
+**Google captura la demanda; Meta la crea.** Las agencias de eventos ponen a Meta en el centro del descubrimiento (40-50% de la pauta) y a Google a recoger a quien ya busca (25-35%). Las dos se refuerzan: quien vio un video del encuentro en Instagram luego busca el nombre en Google.
 
-1. **Conversiones medidas desde el primer día**, con el valor de cada compra.
-2. **Pocas campañas y pocos grupos**, para que el presupuesto no se reparta en migajas.
-3. **Palabras con intención**, en frase o exacta, y una lista larga de negativas que crece cada semana.
-4. **Anuncios que responden lo que se buscó**, con la fecha, el lugar, el precio y una URL que lleva a la página de eso mismo.
-5. **Revisar el informe de términos de búsqueda** (lo que la gente escribió de verdad) cada dos o tres días al principio.
-6. **No tocar todo cada día:** decidir con datos de varios días.
-7. **Juzgar por costo por venta frente al valor de la venta**, no por clics ni por impresiones.
+**Se empieza temprano y se gasta al final.** El modelo más usado por agencias europeas de eventos tiene cuatro fases: expectativa (8 a 12 semanas antes, 10-15% del presupuesto), preventa (6 a 8 semanas, 20-25%), venta principal (2 a 6 semanas, 40-45%) y última hora (0 a 2 semanas, 15-20%). En la última fase la mayor parte va a retargeting. La búsqueda sigue encendida hasta el día del evento, porque muchos compran a última hora.
 
-Los errores más comunes de los anunciantes pequeños son los contrarios: lanzar sin medir compras, usar concordancia amplia sin datos, aceptar en bloque las "recomendaciones" que Google muestra en la cuenta (casi siempre suben el gasto), dejar encendida la Red de Display dentro de la campaña de Búsqueda y mostrar el anuncio a quien tiene "interés" en una ciudad en vez de a quien está en ella.
+**Presupuesto según la venta esperada.** La referencia es destinar a pauta entre el 8% y el 12% del ingreso esperado por boletas, en todos los canales juntos.
 
-## 2. El encuentro, en lo que importa para los anuncios
+**Pocas campañas, bien alimentadas.** Con presupuesto pequeño, una o dos campañas rinden más que muchas con migajas. Una campaña se divide solo si necesita otro presupuesto u otra meta.
 
-- **Qué es:** Testigos de la Memoria · Periodistas en la Historia. Los periodistas que cubrieron los últimos cincuenta años de Colombia cuentan y analizan, en persona, los hechos que vivieron de frente.
-- **Cuándo y dónde:** del jueves 5 al domingo 8 de noviembre de 2026, en Villa de Leyva, Boyacá.
-  - Charlas abiertas, de entrada libre, el jueves 5 y el viernes 6 en la mañana, en la Casa Museo Antonio Nariño. No se pautan: no venden.
-  - Conversatorios con boleta del viernes 6 en la tarde (bienvenida a las 3:00 p. m.) al domingo 8 en la mañana, en la Hospedería Duruelo. Son siete: "Bogotazo, dictadura y Frente Nacional (1958-1974)", "Surgimiento de las guerrillas", "Negociaciones de paz, el Caguán y La Habana", "Narcotráfico y paramilitarismo", "Las reelecciones de Uribe y Santos", "Magnicidios y víctimas de la violencia" y "Mujeres periodistas y conflicto".
+**Empezar cerrado y abrir con datos.** Frase y exacta al inicio; amplia y AI Max solo cuando haya ventas medidas (las agencias hablan de 30 a 50 al mes). Google reporta más conversiones con AI Max, pero las pruebas independientes dan resultados mixtos en cuentas pequeñas.
+
+**El anuncio responde a la búsqueda.** La palabra buscada va en el primer título, y la página de destino es la de eso mismo: quien busca a una panelista llega a su página, con el botón de compra a la vista. Más del 60% del tráfico de eventos llega desde el celular.
+
+**La urgencia, solo si es verdad.** Cuenta regresiva, fechas y aforo limitado son hechos. Los mensajes cambian con cada etapa de venta.
+
+**La marca: depende de quién más puje.** Las plataformas de boletería recomiendan pujar por el nombre del evento (clics baratos que convierten mucho). Los estudios de pausa de anuncios matizan: si el sitio ya sale primero gratis y nadie más puja, el anuncio de marca trae pocas ventas nuevas (Google Research, 2012; *Marketing Science*, 2018). Si otro anunciante aparece encima, sí vale.
+
+**Lo que se mide es el costo por venta frente al valor de la venta**, por campaña y por palabra, no clics ni impresiones. Y el **informe de términos de búsqueda** (lo que la gente escribió de verdad) se revisa cada dos o tres días al principio.
+
+**Errores típicos de cuentas pequeñas:** lanzar sin medir compras; concordancia amplia sin datos; aceptar en bloque las "recomendaciones" de Google, que casi siempre suben el gasto; dejar la Red de Display dentro de la campaña de Búsqueda; mostrar el anuncio a quien tiene "interés" en una ciudad en vez de a quien está en ella; tocarlo todo cada día.
+
+## 3. El encuentro y su público
+
+- **Qué es:** Testigos de la Memoria · Periodistas en la Historia. Los periodistas que cubrieron los últimos cincuenta años de Colombia cuentan, en persona, los hechos que vivieron de frente.
+- **Cuándo y dónde:** del 5 al 8 de noviembre de 2026 en Villa de Leyva, Boyacá. Charlas abiertas de entrada libre el jueves 5 y el viernes 6 en la mañana (Casa Museo Antonio Nariño). Siete conversatorios con boleta del viernes 6 en la tarde al domingo 8 en la mañana (Hospedería Duruelo): el Bogotazo y el Frente Nacional, las guerrillas, las negociaciones de paz, narcotráfico y paramilitarismo, las reelecciones, magnicidios y víctimas, y mujeres periodistas y conflicto.
 - **Panelistas (15):** Daniel Samper Pizano, Fidel Cano, Luz María Sierra, León Valencia, Cecilia Orozco, Yolanda Ruiz, María Elvira Samper, Guillermo González Uribe, Marta Ruiz, Darío Restrepo, Marisol Gómez, Jorge Cardona, Ricardo Ospina, Martha Soto y Ana María Echeverri.
-- **Boletas en Pretix (consultado el 2026-10-15 en la tienda pública):**
-  - Pase completo, con los siete conversatorios: **340.000 COP**.
-  - Boletas de medio día, a **90.000 COP** cada una: viernes en la tarde, sábado en la mañana, sábado en la tarde y domingo en la mañana. Las cuatro suman 360.000.
-  - Sin cambios ni devoluciones. El aforo no se publica.
-- **Dónde se compra:** en la portada de https://testigosdelamemoria.com, con la tienda de Pretix de Eventalist y pago con Wompi. Las páginas interiores tienen el botón "Comprar boletas".
-- **Quién compra (informe del 2026-10-13, `informes/2026-10-13-cliente/`):**
-  - Bogotá trae 6 de cada 10 personas nuevas y 10 de las 16 compras medidas.
-  - Boyacá trae casi 2 de cada 10 y es la región con más intención: 40 clics en "Comprar" por cada 100 personas, frente a 30 en Bogotá.
-  - Casi tres de cada cuatro visitas llegan desde el celular.
-  - La búsqueda orgánica de Google, en la semana del informe, trajo 27 sesiones con interacción y 10 compras iniciadas: poco volumen y mucha intención. Es la razón para probar Búsqueda.
-  - Lo más visto después de la portada: los panelistas, con Daniel Samper Pizano a la cabeza, y los conversatorios del Bogotazo y de mujeres periodistas.
+- **Boletas:** pase completo (siete conversatorios) a 340.000 COP; boletas de medio día a 90.000 COP (viernes tarde, sábado mañana, sábado tarde, domingo mañana). Se compran en la portada de https://testigosdelamemoria.com.
+- **Quién compra (informe del 13 de octubre):** Bogotá trae 6 de cada 10 personas nuevas y 10 de cada 16 compras. Boyacá trae casi 2 de cada 10 y tiene la mayor intención: 40 clics en "Comprar" por cada 100 personas, frente a 30 en Bogotá. Tres de cada cuatro visitas llegan por celular. La búsqueda orgánica trajo, en una semana, 27 sesiones con interacción y 10 compras iniciadas: poco volumen y mucha intención.
+- **Lo que más interesa:** los panelistas (Daniel Samper Pizano a la cabeza) y los conversatorios del Bogotazo y de mujeres periodistas.
+- **Medición lista:** la compra pagada llega a GA4 con su valor y la visita de origen, y cada pedido de Pretix guarda la campaña (UTM) por la que llegó la persona. Para Google Ads basta con enlazar GA4 e importar la compra.
 
-## 3. Lo que ya está hecho y lo que falta
+## 4. Tres niveles de inversión
 
-**Hecho:**
-- **Medición de la compra.** El plugin `pretix-eventalist-tracking` envía la compra pagada a GA4 (`purchase`, con el valor en COP, el código de pedido y el `client_id` y `session_id` de la visita) y a Meta. El sitio pasa a la tienda la campaña de cada visita (UTM), y Pretix la guarda en el pedido (`docs/medicion-embudo/diseno.md`). Por eso no hace falta el plugin comercial "Tracking codes" ni etiquetas de Google Ads en el sitio.
-- **El aviso de cookies** ya nombra a Google en la categoría de publicidad, y GA4 corre en Consent Mode.
-- **Datos estructurados del evento** (Google Events): el sitio publica el evento con sus sesiones, las ofertas en COP y un evento propio para las charlas abiertas.
-- **Nombres de UTM:** `google` y `paid_search` ya están reservados en `docs/medicion-embudo/enlaces-y-nombres.md`.
+### Estándar de oro
 
-**Falta:**
-- No hay cuenta de Google Ads.
-- **El precio del pase en el sitio está desactualizado:** `src/data/event.ts` dice 310.000 COP y Pretix cobra 340.000 desde la etapa 2. Ese número sale en el marcado que lee Google y en el texto plano de precios. También siguen en 310.000 `docs/chatbot-conocimiento.md` y `docs/system-prompt-atencion.md`. Hay que corregirlo antes de pautar, porque Google compara el precio del anuncio con el de la página.
-- El arreglo de GA4 que une la compra con la visita (pretix-wompi, 2026-10-13) aún espera la compra de verificación. Si GA4 no une bien, Google Ads tampoco verá las compras.
+Lo que haría una agencia especializada con un evento como este, empezando a tiempo.
 
-## 4. La prueba
+- **Calendario:** de 10 a 12 semanas antes del evento, con las cuatro fases de la sección 2.
+- **Presupuesto:** 8-12% del ingreso esperado por boletas en pauta, y de eso un 25-35% para Google. Por cada 100 pases esperados (34 millones de pesos), entre 2,7 y 4,1 millones de pauta en total, y entre 700.000 y 1,4 millones en Google.
+- **Búsqueda, todo el ciclo:**
+  - Una campaña de marca en exacta, pequeña y siempre encendida, con enlaces a panelistas, programación y boletas.
+  - Una campaña sin marca con grupos de plan en Villa de Leyva, periodismo e historia, y panelistas con intención.
+  - Maximizar clics las primeras dos semanas; Maximizar conversiones cuando haya ventas medidas; AI Max solo después, en prueba.
+- **Demand Gen en YouTube y Discover, desde la expectativa:**
+  - Clips verticales de 15 a 30 segundos de los panelistas, con el gancho en los primeros 3 segundos y subtítulos (en Discover y Gmail se ven sin sonido).
+  - Públicos de personas que buscaron en Google a los panelistas, a los medios donde escriben o temas de memoria y periodismo.
+  - Retargeting de quien visitó el sitio y no compró (Google exige desde 2025 solo 100 personas activas en la lista).
+  - Públicos similares a los compradores, cuando haya al menos 1.000 personas reconocibles en la lista de origen.
+- **Creatividades:** de 8 a 12 piezas por fase y 3 o 4 nuevas en cada una, para que no se gasten.
+- **Lectura:** costo por venta y retorno por campaña, por grupo y por región; compras iniciadas por página de destino.
 
-### Qué se quiere aprender
+### Precio razonable
 
-Con 100.000 COP no hay conclusiones estadísticas. La prueba responde tres preguntas:
+Para una edición con 5 o 6 semanas de venta y videos ya hechos para Meta.
 
-1. Cuánto cuesta de verdad un clic en estas búsquedas.
-2. Qué escribe la gente que llega (el informe de términos de búsqueda).
-3. Si alguien que llega por Google pulsa "Comprar" y si alguna compra se cierra.
+- **Presupuesto en Google:** de 1,5 a 2,5 millones de pesos.
+- **Búsqueda (70%):** una sola campaña sin marca con los tres grupos, más marca en exacta solo si otro anunciante aparece. Frase y exacta. Maximizar clics con tope, y Maximizar conversiones al pasar de unas 15 compras medidas.
+- **Demand Gen (30%):** solo en YouTube y Discover, con los clips verticales de Meta, a retargeting y a públicos de búsquedas de los panelistas. Maximizar clics: la puja por conversiones en Demand Gen pide un presupuesto diario de 10 veces el costo por venta buscado, que en este nivel no alcanza.
+- **Las dos últimas semanas:** el doble de presupuesto diario en Búsqueda y cuenta regresiva en los anuncios.
 
-Con eso se decide si Google merece presupuesto en la próxima edición o en otro evento de Eventalist, y con qué palabras.
+### Punto de partida: la prueba de 100.000 COP
 
-### Por qué solo Búsqueda
+Una sola campaña de Búsqueda, del 16 de octubre al 7 de noviembre. No va a llenar el encuentro. Sirve para:
 
-- La gente que compra boletas busca planes y nombres: hay demanda que capturar.
-- Demand Gen necesita un presupuesto diario de al menos 10 veces el costo por venta que se busca. Con un costo por venta de 30.000 COP serían 300.000 diarios; la prueba entera es un tercio de un día.
-- Performance Max y Display no aprenden nada útil con este dinero.
+1. Conocer el costo real de un clic en estas búsquedas.
+2. Ver qué escribe la gente que llega.
+3. Saber si alguien que llega por Google compra, y con qué palabras.
 
-### Cuentas del presupuesto
+Ojalá traiga una o dos ventas. Lo que sí deja seguro es la lista de búsquedas que funcionan para posicionar el encuentro en la próxima edición. El plan detallado está en la sección 5.
 
-- **IVA:** si la cuenta no registra la información fiscal de Eventalist S.A.S., Google suma el 19% a la factura. De 100.000 COP quedarían unos 84.000 para clics. Registrar el NIT y la condición frente al IVA en el perfil de pagos, y confirmar con el contador si se puede tomar como descontable.
-- **Clics esperados:** con un clic de 800 a 1.500 COP (cifras de agencias colombianas, no de Google), entre 55 y 105 clics.
-- **Ventas esperadas:** el sitio cierra unas 2,5 compras por cada 100 sesiones con interacción (16 de 650 en el informe del 13 de octubre). La búsqueda trae más intención; se puede esperar de 1 a 3 compras. Una boleta de medio día ya paga la prueba; un pase la paga cuatro veces.
-- **Duración:** desde el día en que se lance (16 o 17 de octubre) hasta el sábado 7 de noviembre a las 9:00 a. m. Las boletas de medio día se venden hasta el final.
-- **Presupuesto:** si la pantalla de presupuesto ofrece "presupuesto total de campaña" (beta abierta en Búsqueda desde enero de 2026), se usa con 84.000 COP y la fecha de fin; Google reparte el gasto y nunca cobra más del total. Solo se elige al crear la campaña. Si no aparece, presupuesto diario de 4.000 COP, y 6.000 desde el lunes 2 de noviembre si quedan fondos.
+## 5. Plan de la prueba
+
+### Las cuentas
+
+- **IVA:** sin la información fiscal de Eventalist S.A.S. en la cuenta, Google suma el 19%. De 100.000 COP quedan unos 84.000 para clics.
+- **Clics:** con un costo de 800 a 1.500 COP por clic (cifras de agencias colombianas), entre 55 y 105.
+- **Ventas posibles:** el sitio cierra unas 2,5 compras por cada 100 visitas con interacción, y la búsqueda trae más intención. Se pueden esperar de 1 a 3. Una boleta de medio día paga la prueba; un pase la paga cuatro veces.
+- **Presupuesto:** "presupuesto total de campaña" de 84.000 COP con fecha de fin el 7 de noviembre, si la cuenta lo ofrece (se elige al crear la campaña). Si no, 4.000 COP diarios, y 6.000 desde el 2 de noviembre si queda saldo.
 
 ### Antes de lanzar
 
-1. **Corregir el precio del pase** en el sitio (sección 3) y publicar, con visto bueno.
-2. **Crear la cuenta** a nombre de Eventalist, en COP y con la zona horaria de Bogotá. Saltar el asistente de "campaña inteligente" (Smart) y pasar al modo experto.
-3. **Información fiscal** en el perfil de pagos.
-4. **Enlazar GA4 con Google Ads** (propiedad `G-XJES5Z5EC9`) e importar desde GA4 `purchase` como conversión principal y `begin_checkout` como secundaria. No se agrega la etiqueta de conversión de Google Ads al sitio: así la compra no se cuenta dos veces.
-5. **Activar el etiquetado automático** (el `gclid` en la URL).
-6. **Revisar que estén apagados:** AI Max, la concordancia amplia a nivel de campaña, los recursos creados automáticamente, los socios de búsqueda y la Red de Display. Google pasó a AI Max, a finales de septiembre de 2026, las campañas con anuncios dinámicos, recursos automáticos o concordancia amplia de campaña.
-7. **Sufijo de URL final** con las UTM, según `enlaces-y-nombres.md`:
-   - En la campaña: `utm_source=google&utm_medium=paid_search&utm_campaign=buscador` (sin `?` al inicio).
-   - En cada grupo, el mismo sufijo con su `utm_content`: `plan-villa-de-leyva`, `periodismo` o `panelistas`. El sufijo del grupo reemplaza al de la campaña, así que va completo.
-   - Las URL finales van sin `#boletas`: Google no documenta cómo junta el sufijo con un ancla.
-   - Anotar `buscador` en la lista de campañas en uso de `enlaces-y-nombres.md`.
-8. **Ensayo:** con la campaña en borrador, abrir una URL final con su sufijo y `utm_source=prueba` en lugar de `google`, llegar hasta la pantalla de pago de Wompi sin pagar y ver en el pedido que trae la campaña.
-9. **Vista previa de anuncios:** buscar "testigos de la memoria" con la herramienta de vista previa de Google Ads para ver si otro anunciante puja por el nombre (sección "Marca").
-10. **Legal:** la casilla del checkout habla de "anuncios de Meta". El abogado interno confirma que importar la compra de GA4 a Google Ads queda cubierto por la política del 9 de octubre, que ya incluye el envío de los datos de los pedidos a Google, sin agregar casillas ni textos a la compra.
+1. Revisar que el precio del pase publicado en el sitio sea el de Pretix (340.000 COP): Google compara el anuncio con la página.
+2. Crear la cuenta de Eventalist en COP, con zona horaria de Bogotá y en modo experto (no "campaña inteligente"). Registrar la información fiscal.
+3. Enlazar GA4 (`G-XJES5Z5EC9`) e importar `purchase` como conversión principal y `begin_checkout` como secundaria. Sin etiqueta de Google Ads en el sitio, para no contar dos veces.
+4. Activar el etiquetado automático.
+5. Dejar apagados AI Max, la concordancia amplia de campaña, los recursos automáticos, los socios de búsqueda y la Red de Display.
+6. URL finales completas, con sus UTM (sección "Anuncios"), y sin sufijo de URL final ni plantilla de seguimiento en ningún nivel. URL finales sin `#boletas`. Anotar `buscador` en la lista de campañas.
+7. Ensayo: abrir una URL final con `utm_source=prueba` en vez de `google`, llegar a la pantalla de pago de Wompi sin pagar y ver que el pedido trae la campaña.
+8. Revisar con la vista previa de anuncios si alguien más puja por "testigos de la memoria".
+9. Confirmar con el abogado interno que importar la compra de GA4 a Google Ads queda cubierto por la política de datos, sin agregar nada a la compra.
 
-### Dos límites de la medición
+### Configuración
 
-- El `gclid` solo viaja a la tienda si la persona aceptó las cookies. A quien no acepte, Google Ads no le atribuye la compra (o la estima con modelos), pero la UTM sí queda en Pretix.
-- La compra llega a GA4 desde el servidor. Si no se une a la visita, GA4 la pone en `(not set)` y Google Ads no la ve.
+- **Búsqueda**, solo en la Red de Búsqueda de Google.
+- **Ubicaciones:** Bogotá y Boyacá, con "Presencia: personas que están o suelen estar en tus ubicaciones".
+- **Idioma:** español. **Dispositivos y horario:** todos.
+- **Puja:** Maximizar clics con tope de 1.500 COP. No se cambia durante la prueba, salvo subir el tope a 2.000 si casi no hay impresiones.
 
-**Por eso la cifra que manda es la de Pretix por `utm_campaign=buscador`, no la de Google Ads.**
+### Grupos y palabras clave
 
-### Configuración de la campaña
+En frase (`"así"`) y exacta (`[así]`), una por línea. La lista de cada grupo se pega completa en el cuadro de palabras clave de su grupo; las comillas y los corchetes se escriben a mano y Google los lee al guardar (en la lista de palabras, la columna "Tipo de concordancia" lo confirma). Si Google marca alguna con volumen bajo, se deja: no gasta si nadie la busca, y al cierre se quitan las que no tuvieron impresiones.
 
-- **Tipo:** Búsqueda, solo en la Red de Búsqueda de Google.
-- **Ubicaciones:** Bogotá y el departamento de Boyacá, con "Presencia: personas que están o suelen estar en tus ubicaciones". No "Presencia o interés", que es la opción por defecto.
-- **Idioma:** español.
-- **Puja:** Maximizar clics con un tope de 1.500 COP por clic. No se cambia durante la prueba, salvo subir el tope si casi no hay impresiones.
-- **Dispositivos y horario:** todos y todo el día.
+**Plan en Villa de Leyva** (grupo `plan-villa-de-leyva`, página: la portada). Es el de más volumen y el más disperso (hoteles, paseos). Se revisa a diario la primera semana.
 
-### Grupos de anuncios y palabras clave
+"qué hacer en villa de leyva"
+[qué hacer en villa de leyva]
+"planes en villa de leyva"
+[planes en villa de leyva]
+"eventos en villa de leyva"
+[eventos en villa de leyva]
+"villa de leyva noviembre"
+[villa de leyva noviembre]
+"agenda cultural villa de leyva"
+[agenda cultural villa de leyva]
+"fin de semana en villa de leyva"
+[fin de semana en villa de leyva]
+"actividades en villa de leyva"
+[actividades en villa de leyva]
+"eventos villa de leyva 2026"
+[eventos villa de leyva 2026]
 
-Tres grupos, en frase y exacta. Son un punto de partida: antes de lanzar se mira el volumen en el Planificador de palabras clave y se quitan las que no tengan búsquedas. Google normaliza tildes, así que "que hacer en villa de leyva" entra igual.
+"villa de leyva este fin de semana"
+"evento cultural villa de leyva"
+"conversatorio villa de leyva"
+"eventos en boyacá noviembre"
 
-**1. Plan en Villa de Leyva** (URL final: la portada)
-- "qué hacer en villa de leyva"
-- "planes en villa de leyva"
-- "eventos en villa de leyva"
-- "villa de leyva noviembre"
-- "agenda cultural villa de leyva"
-- "eventos culturales boyacá"
+Las cuatro últimas, agregadas el 16 de octubre, van solo en frase: la frase ya cubre la búsqueda exacta. Quitadas el mismo día porque Google las marcó como no aptas (lo usual es por volumen bajo): "eventos culturales boyacá", "plan fin de semana villa de leyva" y "planes culturales cerca de bogotá".
 
-Es el de más volumen y el más disperso: mucha gente busca hoteles o paseos. Se revisa a diario los primeros días.
+**Periodismo e historia** (grupo `periodismo`, página: la portada). "bogotazo conversatorio" lleva su propia URL final, en la configuración de la palabra: `https://testigosdelamemoria.com/programacion/bogotazo-frente-nacional/`.
 
-**2. Periodismo e historia** (URL final: la portada, o el conversatorio)
-- "encuentro de periodistas"
-- "conversatorio de periodismo"
-- "festival de periodismo"
-- "bogotazo conversatorio" → /programacion/bogotazo-frente-nacional/
-- "historia de colombia conversatorio"
-- "periodismo e historia de colombia"
+"encuentro de periodistas"
+[encuentro de periodistas]
+"conversatorio de periodismo"
+[conversatorio de periodismo]
+"festival de periodismo"
+[festival de periodismo]
+"historia de colombia conversatorio"
+[historia de colombia conversatorio]
+"periodismo e historia de colombia"
+[periodismo e historia de colombia]
+"bogotazo conversatorio"
+[bogotazo conversatorio]
 
-**3. Panelistas con intención** (URL final: la página del panelista)
-- "daniel samper pizano villa de leyva" → /panelistas/daniel-samper-pizano/
-- "daniel samper pizano conversatorio"
-- "maría elvira samper conversatorio"
-- "fidel cano conversatorio"
-- "yolanda ruiz conversatorio"
+**Panelistas con intención** (grupo `panelistas`, página: la del panelista, como `https://testigosdelamemoria.com/panelistas/daniel-samper-pizano/`). Siempre nombre más palabra de evento: el nombre solo trae a quien busca noticias.
 
-Solo nombres con una palabra de evento al lado: el nombre solo trae a quien busca noticias o columnas.
+"daniel samper pizano villa de leyva"
+[daniel samper pizano villa de leyva]
+"daniel samper pizano conversatorio"
+[daniel samper pizano conversatorio]
+"maría elvira samper conversatorio"
+[maría elvira samper conversatorio]
+"fidel cano conversatorio"
+[fidel cano conversatorio]
+"yolanda ruiz conversatorio"
+[yolanda ruiz conversatorio]
 
-**Marca:** sin grupo propio. El sitio ya sale primero gratis en "testigos de la memoria", y pagar por esa búsqueda casi no trae ventas nuevas. Si en la vista previa aparece otro anunciante (reventa, otra plataforma), se abre un grupo en exacta con 1.000 COP diarios.
+**Marca:** sin grupo, salvo que otro anunciante aparezca en la vista previa. En ese caso, exacta y 1.000 COP diarios.
 
-### Palabras negativas (desde el día 1)
+### Negativas desde el primer día
 
-- **Testigos de Jehová:** jehová, jehova, jw, salón del reino, atalaya.
-- **Judiciales:** testigo protegido, testigo de cargo, juicio, fiscalía, declaración.
-- **Hospedaje y paseos:** hotel, hoteles, hostal, glamping, cabañas, airbnb, tour, clima.
-- **Otros eventos del pueblo:** festival de luces, cometas, astronomía.
-- **Genéricas:** empleo, trabajo, curso, pdf, libro, película, serie, gratis.
+A nivel de campaña (Palabras clave → Palabras clave negativas), sin comillas ni corchetes. Agrupan a los Testigos de Jehová, el lenguaje judicial, el turismo y los otros eventos de Villa de Leyva, y lo gratuito (las charlas abiertas no venden).
 
-"Gratis" va como negativa porque las charlas abiertas no venden y no deben gastar clics. Se revisa el informe de términos de búsqueda cada dos días y se agregan negativas.
+jehová
+jehova
+jw
+salón del reino
+atalaya
+testigo protegido
+testigo de cargo
+juicio
+fiscalía
+declaración
+hotel
+hoteles
+hostal
+glamping
+cabañas
+airbnb
+tour
+clima
+festival de luces
+cometas
+astronomía
+empleo
+trabajo
+curso
+pdf
+libro
+película
+serie
+gratis
+hospedaje
+alojamiento
+finca
+fincas
+restaurante
+restaurantes
 
 ### Anuncios
 
-Un anuncio adaptable por grupo. Google combina hasta 15 títulos (máximo 30 caracteres) y 4 descripciones (máximo 90). Ejemplos ya medidos:
+Un anuncio adaptable por grupo, con 15 títulos y 4 descripciones.
 
-- Títulos:
-  - "Testigos de la Memoria" (22)
-  - "Periodistas en la Historia" (26)
-  - "Villa de Leyva, 5 al 8 nov" (26)
-  - "15 periodistas en persona" (25)
-  - "Conversatorios con preguntas" (28)
-  - "Boletas desde 90.000 COP" (24)
-  - "Con Daniel Samper Pizano" (24)
-  - "El Bogotazo, contado de cerca" (29)
-  - "Los que contaron a Colombia" (27)
-  - "Un plan distinto en noviembre" (29)
-  - "Compra tu boleta en línea" (25)
-- Descripciones:
-  - "Los periodistas que cubrieron 50 años de Colombia cuentan lo que vivieron de frente." (84)
-  - "Conversatorios en la Hospedería Duruelo, Villa de Leyva, del 6 al 8 de noviembre." (81)
-  - "Pase completo con los siete conversatorios o boletas de medio día. Pago en línea." (81)
-  - "Daniel Samper Pizano, María Elvira Samper, Fidel Cano y más, con derecho a preguntas." (85)
-- **Cuenta regresiva:** un título con `{=GLOBAL_COUNTDOWN("2026/11/06 15:00:00","es",7)}`, que usa la hora de la cuenta (Bogotá) y se muestra desde 7 días antes. El anuncio con cuenta regresiva deja de salir al llegar la fecha, así que el grupo conserva su anuncio sin ella.
-- **Recursos:**
-  - Enlaces de sitio: Panelistas (/panelistas/), Programación (/programacion/bienvenida/), Lugar (/como-llegar/).
-  - Precios: pase completo y boleta de medio día, con los precios de Pretix.
-  - Textos destacados: "Aforo limitado", "Pago seguro con Wompi", "15 periodistas".
-  - Fragmento estructurado "Temas": Bogotazo, guerrillas, paz, narcotráfico, mujeres periodistas.
+**Cómo los arma Google** (ayuda de Google Ads, "Acerca de los anuncios de búsqueda adaptables" y "Acerca de la calidad del anuncio"):
 
-El tono es el del encuentro: datos claros, sin urgencia agresiva. "Aforo limitado" y la cuenta regresiva son hechos; "¡últimos cupos!" no va.
+- Muestra 2 o 3 títulos y 1 o 2 descripciones, en cualquier orden y combinación. El segundo y el tercer título no siempre salen.
+- Por eso **cada título se sostiene solo**: una idea completa, que tenga sentido junto a cualquier otro. Nada que empiece una frase y la termine otro.
+- La "calidad del anuncio" (Ad Strength) mira que las palabras clave del grupo estén **completas dentro de un título**, que los títulos sean distintos entre sí (sin repetir palabras ni ideas) y que no haya nada fijado. Seis o más sitelinks también la suben.
+- La calidad del anuncio **no afecta** el Ranking del anuncio, el Nivel de Calidad ni si el anuncio sale. Es una guía. "Promedio" no impide nada.
+- Nada fijado con el pin. Si Google pone mayúsculas a cada palabra ("Testigos De La Memoria"), se corrige. Sin símbolos raros (como "·"): el punto basta.
 
-### Cómo leer la prueba
+**La mezcla de cada grupo:** el nombre del encuentro; cinco o seis títulos con las palabras clave del grupo; quiénes (periodistas, panelistas); cuándo y dónde; precio; y una invitación a comprar. Así cualquier par dice algo útil: "Qué hacer en Villa de Leyva | 15 periodistas en persona", "Testigos de la Memoria | Boletas desde 90.000 COP".
 
-- **A los 7 días:**
-  - Porcentaje de clics (CTR) por grupo. Por debajo de 3%, se cambian títulos o se quitan palabras.
-  - Términos de búsqueda: se agregan negativas y se pausan las palabras que solo traen basura.
-  - Costo real por clic frente al tope. Si casi no hay impresiones, el tope sube a 2.000 COP.
-- **A mitad:** si un grupo gastó más de 25.000 COP sin un solo "Comprar" en GA4 (`begin_checkout` con campaña `buscador`), se pausa y su dinero pasa a los otros.
-- **Al cierre (8 de noviembre):**
-  - Compras y valor en Pretix por `utm_campaign=buscador`, separadas en pase y medio día.
-  - Costo por compra frente al valor de la compra.
-  - Compras iniciadas por cada 100 clics, por grupo.
-  - Los términos de búsqueda que trajeron compras: es el resultado más valioso para la próxima edición.
-- **Cruce con Meta:** cada pedido guarda una sola campaña de origen (gana la última visita con campaña), así que Google y Meta no se cuentan dos veces en Pretix. Meta sigue con el descubrimiento social y el retargeting; en Google no se monta remarketing.
+**Títulos del grupo `plan-villa-de-leyva`** (máximo 30, uno por casilla):
 
-## 5. Para una próxima edición
+Testigos de la Memoria
+Planes en Villa de Leyva
+Qué hacer en Villa de Leyva
+Eventos en Villa de Leyva
+Agenda cultural Villa de Leyva
+Eventos culturales Boyacá
+Actividades en Villa de Leyva
+Un plan distinto en noviembre
+Del 6 al 8 de noviembre
+15 periodistas en persona
+Conversatorios con preguntas
+Con Daniel Samper Pizano
+Historia de Colombia en vivo
+Boletas desde 90.000 COP
+Compra tu boleta en línea
 
-- Empezar Búsqueda de 4 a 6 semanas antes, con la lista de términos que vendieron en esta prueba.
-- Con videos verticales de los panelistas y más presupuesto, probar Demand Gen en YouTube con públicos de personas que buscaron a los panelistas o temas de memoria y periodismo.
-- Con 15 a 30 ventas al mes medidas en Google Ads, pasar a Maximizar conversiones.
+**Títulos del grupo `periodismo`** (máximo 30, uno por casilla):
+
+Testigos de la Memoria
+Encuentro de periodistas
+Conversatorio de periodismo
+Periodismo e historia
+Conversatorio del Bogotazo
+Periodistas en la Historia
+Los que contaron a Colombia
+15 periodistas en persona
+Conversatorios con preguntas
+Con Daniel Samper Pizano
+El Bogotazo, contado de cerca
+En Villa de Leyva, Boyacá
+Del 6 al 8 de noviembre
+Boletas desde 90.000 COP
+Compra tu boleta en línea
+
+**Títulos del grupo `panelistas`** (máximo 30, uno por casilla):
+
+Testigos de la Memoria
+Con Daniel Samper Pizano
+Daniel Samper Pizano en vivo
+María Elvira Samper en vivo
+Conversatorio con Fidel Cano
+Conversatorio con Yolanda Ruiz
+Luz María Sierra y Martha Soto
+15 periodistas en persona
+Conversatorios con preguntas
+Los que contaron a Colombia
+Periodistas en la Historia
+En Villa de Leyva, Boyacá
+Del 6 al 8 de noviembre
+Boletas desde 90.000 COP
+Compra tu boleta en línea
+
+**Descripciones (máximo 90), las mismas en los tres:**
+
+Los periodistas que cubrieron 50 años de Colombia cuentan lo que vivieron de frente.
+Conversatorios en la Hospedería Duruelo, Villa de Leyva, del 6 al 8 de noviembre.
+Pase completo con los siete conversatorios o boletas de medio día. Pago en línea.
+Daniel Samper Pizano, María Elvira Samper, Fidel Cano y más, con derecho a preguntas.
+
+**URL final del anuncio**, completa con sus UTM. Se pega tal cual en "URL final"; el sufijo de URL final y la plantilla de seguimiento quedan **vacíos** en la cuenta, la campaña, el grupo y el anuncio, para que las etiquetas no salgan dos veces.
+
+Grupo plan-villa-de-leyva:
+https://testigosdelamemoria.com/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=plan-villa-de-leyva
+
+Grupo periodismo:
+https://testigosdelamemoria.com/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=periodismo
+
+Grupo panelistas:
+https://testigosdelamemoria.com/panelistas/daniel-samper-pizano/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=panelistas
+
+Palabras con URL propia (en la columna "URL final" de la palabra):
+
+"bogotazo conversatorio" y [bogotazo conversatorio]:
+https://testigosdelamemoria.com/programacion/bogotazo-frente-nacional/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=periodismo
+
+"maría elvira samper conversatorio" y [maría elvira samper conversatorio]:
+https://testigosdelamemoria.com/panelistas/maria-elvira-samper/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=panelistas
+
+"fidel cano conversatorio" y [fidel cano conversatorio]:
+https://testigosdelamemoria.com/panelistas/fidel-cano/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=panelistas
+
+"yolanda ruiz conversatorio" y [yolanda ruiz conversatorio]:
+https://testigosdelamemoria.com/panelistas/yolanda-ruiz/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=panelistas
+
+**Ruta visible** (Display path, máximo 15 caracteres por campo; solo se ve, no cambia a dónde llega la persona):
+
+- `plan-villa-de-leyva`: `villa-de-leyva` / `noviembre`
+- `periodismo`: `periodismo` / `historia`
+- `panelistas`: `panelistas` / `conversatorios`
+
+**Opciones de URL de la campaña** (Campaign URL options, el lápiz): todo vacío (Tracking template, Final URL suffix y Custom parameters). Las UTM ya van en cada URL final.
+
+**Sitelinks** (a nivel de campaña). Su URL va completa, con `utm_content=sitelink-` y el tema, para ver en Pretix y GA4 cuál se tocó. Cada uno lleva a una página distinta entre sí y distinta de la del anuncio. Google pide al menos dos, muestra hasta cuatro en computador y más en celular, y elige cuáles según la búsqueda; con los siete conversatorios puede mostrar el que más se acerque a lo buscado.
+
+Cada sitelink en cuatro líneas: texto (máximo 25), descripción 1 y descripción 2 (máximo 35 cada una) y URL final.
+
+Sitelink 1
+Panelistas
+Los 15 periodistas del encuentro
+Pase completo o medio día
+https://testigosdelamemoria.com/panelistas/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=sitelink-panelistas
+
+Sitelink 2
+Programación
+Siete conversatorios, 6 al 8 nov
+Boletas desde 90.000 COP
+https://testigosdelamemoria.com/programacion/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=sitelink-programacion
+
+Sitelink 3
+El Bogotazo
+Con Daniel Samper Pizano
+Viernes 6 de noviembre, 3:30 p.m.
+https://testigosdelamemoria.com/programacion/bogotazo-frente-nacional/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=sitelink-bogotazo-frente-nacional
+
+Sitelink 4
+Las guerrillas
+León Valencia y Ana María Echeverri
+Sábado 7 de noviembre, 9:00 a.m.
+https://testigosdelamemoria.com/programacion/guerrillas/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=sitelink-guerrillas
+
+Sitelink 5
+Negociaciones de paz
+Con Marisol Gómez y Ricardo Ospina
+Sábado 7 de noviembre, 11:00 a.m.
+https://testigosdelamemoria.com/programacion/negociaciones-de-paz/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=sitelink-negociaciones-de-paz
+
+Sitelink 6
+Narcotráfico y paras
+Con Luz María Sierra y Martha Soto
+Sábado 7 de noviembre, 3:00 p.m.
+https://testigosdelamemoria.com/programacion/narcotrafico-paramilitarismo/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=sitelink-narcotrafico-paramilitarismo
+
+Sitelink 7
+Las reelecciones
+Con Fidel Cano y Cecilia Orozco
+Sábado 7 de noviembre, 5:00 p.m.
+https://testigosdelamemoria.com/programacion/reelecciones/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=sitelink-reelecciones
+
+Sitelink 8
+Magnicidios y víctimas
+Con G. González Uribe y Marta Ruiz
+Domingo 8 de noviembre, 9:00 a.m.
+https://testigosdelamemoria.com/programacion/magnicidios-victimas/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=sitelink-magnicidios-victimas
+
+Sitelink 9
+Mujeres periodistas
+Yolanda Ruiz y María Elvira Samper
+Domingo 8 de noviembre, 11:00 a.m.
+https://testigosdelamemoria.com/programacion/mujeres-periodistas/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=sitelink-mujeres-periodistas
+
+**Opcionales** (se agregan después de crear la campaña si el asistente los complica):
+
+- **Textos destacados (callouts, máximo 25 caracteres), uno por casilla:**
+
+Aforo limitado
+Pago seguro con Wompi
+Con derecho a preguntas
+Pase completo o medio día
+
+- **Precios** (Google pide al menos tres): `Pase completo`, 340.000 COP, `Siete conversatorios`; `Medio día viernes`, 90.000 COP, `Viernes 6 en la tarde`; `Medio día sábado`, 90.000 COP, `Mañana o tarde`. URL: la portada.
+- **Fragmento estructurado:** Bogotazo, guerrillas, paz, narcotráfico y mujeres periodistas, si Google ofrece un encabezado que les sirva. Si no, se omite.
+- **Cuenta regresiva:** desde el 30 de octubre, un título con `{=GLOBAL_COUNTDOWN("2026/11/06 15:00:00","es",7)}`, que usa la hora de Bogotá. Ese anuncio deja de salir al llegar la fecha, así que el grupo conserva otro sin ella.
+
+### Cómo se lee
+
+- **Primera semana:** porcentaje de clics por grupo (por debajo de 3%, se cambian títulos o palabras); términos de búsqueda (negativas nuevas); costo real por clic frente al tope.
+- **A mitad:** un grupo que gastó 25.000 COP sin ningún "Comprar" en GA4 se pausa y su saldo pasa a los otros.
+- **Al cierre:** compras y valor en Pretix por `utm_campaign=buscador`, separadas en pase y medio día; costo por compra frente al valor; compras iniciadas por cada 100 clics; y la lista de términos que trajeron compras.
+
+**La cifra que manda es la de Pretix por UTM.** El `gclid` solo viaja a la tienda si la persona aceptó las cookies, y Google Ads solo ve la compra si GA4 la une a la visita. Pretix guarda la campaña siempre, y una sola por pedido, así que Google y Meta no se cuentan dos veces.
 
 ## Fuentes
 
-- Google Ads, cuenta regresiva en anuncios: https://support.google.com/google-ads/answer/6193743
-- Google Ads, presupuestos totales de campaña: https://support.google.com/google-ads/answer/10486938 y https://blog.google/products/ads-commerce/campaign-total-budgets/
-- Google Ads, paso de anuncios dinámicos a AI Max: https://blog.google/products/ads-commerce/dsa-upgrade-to-ai-max-2026/
-- Google Ads, concordancias de palabras clave: https://support.google.com/google-ads/answer/7478529
-- Google, datos estructurados de eventos: https://developers.google.com/search/docs/appearance/structured-data/event
-- GA4, Measurement Protocol (envío de la compra desde el servidor): https://developers.google.com/analytics/devguides/collection/protocol/ga4/changelog
-- IVA de Google en Colombia: https://knowledge.workspace.google.com/admin/billing/taxes-in-your-region
-- Costo por clic en Colombia, cifras de agencias: https://ranknroll.co/blog/cuanto-cuesta-google-ads-colombia/
-- Incrementalidad de los anuncios de marca: Chan y Van Alstine (Google Research, 2012) y Simonov, Nosko y Rao (*Marketing Science*, 2018).
-- Datos del encuentro: `src/data/event.ts`, `src/data/agenda.ts`, `src/data/speakers.ts`, la tienda pública de Pretix y `informes/2026-10-13-cliente/`.
+- Agencias y plataformas de eventos: [Ostend Digital, venta de boletas con anuncios (2026)](https://ostend.digital/event-marketing-performance-ads/); [Ticket Fairy, Google Ads para eventos (2026)](https://www.ticketfairy.com/blog/mastering-google-ads-for-event-promotion-in-2026-reaching-high-intent-ticket-buyers/); [Marketing Agency SG, Google Ads para eventos](https://marketingagency.sg/google-ads-for-events/).
+- Estructura de cuentas pequeñas: [WordStream (2026)](https://www.wordstream.com/blog/google-ads-account-structure); [Prose Media (2026)](https://www.prosemedia.com/blog/google-ads-account-structure-2026-templates).
+- AI Max: [Google, paso de anuncios dinámicos a AI Max](https://blog.google/products/ads-commerce/dsa-upgrade-to-ai-max-2026/); [e-dialog, experiencia con AI Max](https://e-dialog.group/en/event/ai-max-for-search/).
+- Demand Gen y públicos: [Google, públicos similares](https://developers.google.com/google-ads/api/docs/remarketing/audience-segments/lookalike-audiences); [Google, tamaño mínimo de listas](https://support.google.com/google-ads/answer/2472738); [Strike Social, Demand Gen para venta de boletas](https://strikesocial.com/blog/driving-ticket-sales-through-demand-gen-ad-strategy/).
+- Funciones de Google Ads: [concordancias](https://support.google.com/google-ads/answer/7478529); [cuenta regresiva](https://support.google.com/google-ads/answer/6193743); [presupuesto total de campaña](https://support.google.com/google-ads/answer/10486938); [sufijo de URL final](https://support.google.com/adwords/answer/9054021).
+- Colombia: [costo por clic según agencias locales](https://ranknroll.co/blog/cuanto-cuesta-google-ads-colombia/); [IVA de Google](https://knowledge.workspace.google.com/admin/billing/taxes-in-your-region).
+- Anuncios de marca: Chan y Van Alstine, Google Research (2012); Simonov, Nosko y Rao, *Marketing Science* (2018).

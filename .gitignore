@@ -20,3 +20,6 @@ docs/seguridad-*.md
 
 # Informes por edición: exportaciones con datos personales y cifras del cliente (el repositorio es público)
 informes/
+
+# Llaves de las campañas y otros servicios (el repositorio es público)
+creds.txt
