@@ -27,6 +27,7 @@ class Pedido:
     creado: datetime  # hora de Bogotá
     total: str
     boletas: int
+    asistente: str  # nombre del primer asistente; puede no ser quien compra
 
 
 def leer_pedidos(evento: str) -> list[Pedido]:
@@ -48,6 +49,7 @@ def leer_pedidos(evento: str) -> list[Pedido]:
                 creado=datetime.fromisoformat(orden["datetime"]).astimezone(BOGOTA),
                 total=str(orden["total"]).replace(".", ","),
                 boletas=len(orden.get("positions") or []),
+                asistente=next((p.get("attendee_name") or "" for p in orden.get("positions") or []), ""),
             ))
         url = pagina["next"]
     if not pedidos:

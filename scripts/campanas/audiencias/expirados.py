@@ -2,6 +2,8 @@
 
 - Une los pedidos por persona (correo o teléfono) y descarta a quien tenga
   algún pedido pagado o pendiente.
+- Saludo: el nombre que dejó en el backend o el del asistente de un pedido
+  de una sola boleta; si no, "Hola.".
 - Correo: a todos (decisión del titular del 2026-10-12), salvo que el
   backend conozca ese correo y diga que no se le puede escribir (baja).
 - WhatsApp: solo si el backend dice que la persona autorizó WhatsApp para la
@@ -14,6 +16,7 @@ Parámetros: campana_backend (slug de la campaña en el backend).
 from __future__ import annotations
 
 from audiencias import Resultado
+from comun import saludo
 from fuentes import backend, pretix
 from lista import Destinatario
 from personas import agrupar
@@ -23,6 +26,7 @@ def armar(evento: str, parametros: dict, excluir: set[str]) -> Resultado:
     pedidos = pretix.leer_pedidos(evento)
     contactos = backend.leer_contactos(parametros["campana_backend"])
     correo_ok = {c.correo: c.correo_ok for c in contactos if c.correo}
+    nombre_backend = {d: c.nombre for c in contactos for d in (c.correo, c.telefono) if d and c.nombre}
     whatsapp_ok = {c.telefono for c in contactos if c.telefono and c.whatsapp_ok}
 
     destinatarios = []
@@ -46,9 +50,10 @@ def armar(evento: str, parametros: dict, excluir: set[str]) -> Resultado:
             continue
         expirados = sorted((p for p in grupo if p.estado == "expirado"), key=lambda p: p.creado)
         ultimo = expirados[-1]
+        nombre = nombre_de(grupo, correos + telefonos, nombre_backend)
         destinatarios.append(Destinatario(
-            saludo="Hola.",  # la API de pedidos no trae un nombre confiable
-            nombre="",
+            saludo=saludo(nombre),
+            nombre=nombre,
             correo=correo,
             whatsapp=telefono.lstrip("+"),
             variables={"codigo": ultimo.codigo},
@@ -77,3 +82,13 @@ def armar(evento: str, parametros: dict, excluir: set[str]) -> Resultado:
     if excluir:
         resumen.append(f"Excluidos a mano (--excluir): {a_mano}")
     return Resultado(destinatarios, resumen, variables_titular={"codigo": "PRUEBA"})
+
+
+def nombre_de(grupo: list[pretix.Pedido], datos: list[str], nombre_backend: dict[str, str]) -> str:
+    """El nombre que la persona dejó en el backend; si no, el del asistente de un pedido de una
+    sola boleta (con varias, el primer asistente puede ser otra persona); si no, vacío ("Hola.")."""
+    for dato in datos:
+        if dato in nombre_backend:
+            return nombre_backend[dato]
+    solos = sorted((p for p in grupo if p.boletas == 1 and p.asistente), key=lambda p: p.creado)
+    return solos[-1].asistente if solos else ""
