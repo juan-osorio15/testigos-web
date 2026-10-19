@@ -90,7 +90,7 @@ def enviar(nombre: str, config: dict, nombre_canal: str, args: argparse.Namespac
         hoy = datetime.now(BOGOTA).date().isoformat()
         pendientes, omitidos = [], Counter()
         for d in destinatarios:
-            motivo = reglas.motivo_para_no_enviar(d, nombre, nombre_canal, envios, hoy)
+            motivo = reglas.motivo_para_no_enviar(d, nombre, nombre_canal, medio.plantilla, envios, hoy)
             if motivo:
                 omitidos[motivo] += 1
             else:

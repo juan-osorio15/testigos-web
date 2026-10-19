@@ -7,9 +7,8 @@
   },
   "canales": {
     "correo": {
-      "activo": false,
-      "nota": "Enviado el 2026-10-12. La plantilla habla del último día de la etapa 1 y del precio de ese día: actualizarla antes de volver a activarla.",
-      "plantilla": "expirado-pedido.html",
+      "activo": true,
+      "plantilla": "expirado-recordatorio.html",
       "asunto": "Tu pedido {{codigo}} de Testigos de la Memoria",
       "remitente": "Juan de Testigos de la Memoria <hola@eventalist.co>"
     },
@@ -17,7 +16,9 @@
       "activo": true,
       "plantilla": "pedido_expirado_ayuda",
       "idioma": "es",
-      "variables": ["codigo"]
+      "variables": [
+        "codigo"
+      ]
     }
   }
 }

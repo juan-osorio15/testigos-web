@@ -73,7 +73,20 @@ Aprobada por Meta el 2026-10-16. El cuerpo vigente está en `titular/whatsapp.md
 
 ## 5. Correo
 
-Se manda con Resend (el mismo proveedor que usa Pretix, dominio eventalist.co ya verificado, plan gratis de 100 correos al día) uno por persona, con el script de entonces (hoy `scripts/campanas/campana.py correo expirados`, desactivado hasta actualizar el texto).
+### Recordatorio (desde el 19 de octubre)
+
+Decisión del titular del 2026-10-19: el correo del 12 de octubre ya no aplica (hablaba del último día del precio de la etapa 1). El nuevo es un recordatorio: la reserva se venció, todavía hay boletas y ahora hay dos formas de ir. La escasez es el aforo limitado, no el precio.
+
+- Plantilla: `scripts/campanas/plantillas/expirado-recordatorio.html`. Asunto "Tu pedido {{codigo}} de Testigos de la Memoria" (el mismo que llegó a Principal), remitente `Juan de Testigos de la Memoria <hola@eventalist.co>`, sin cabecera `List-Unsubscribe`.
+- Contenido: logo y "PEDIDO {{codigo}}" en crema; en terracota "TU RESERVA SE VENCIÓ ANTES DEL PAGO", el titular "Todavía puedes asegurar tu lugar." y el remate "El aforo es limitado."; franja cielo con "6 al 8 de noviembre · Hospedería Duruelo, Villa de Leyva" y el botón "Retomar mi compra" (único enlace); en blanco las dos formas de ir (pase completo $340.000, medio día $90.000 con las cuatro franjas) y los panelistas; en ladrillo la ayuda con el pago.
+- Enlace: `utm_source=email&utm_medium=email&utm_campaign=expirados&utm_content=correo-recordatorio`.
+- Comandos: `python3 scripts/campanas/campana.py correo expirados` (vista previa), luego con `--prueba tu@correo.com --enviar` y con `--enviar`.
+
+A quién le llega, con el registro de envíos: a toda la lista del día. Para las 6 personas que recibieron el correo del 12 de octubre y no han comprado (el 19 de octubre), este es el segundo y último mensaje: las reglas ya no les dejan mandar el WhatsApp. Las 5 que expiraron después reciben este correo y, otro día, el WhatsApp. Si se prefiere que esas 6 reciban el WhatsApp en vez del correo, mandar primero el WhatsApp.
+
+### Primer correo (12 de octubre, ya enviado)
+
+Se manda con Resend (el mismo proveedor que usa Pretix, dominio eventalist.co ya verificado, plan gratis de 100 correos al día) uno por persona, con el script de entonces.
 
 - Remitente: `Juan de Testigos de la Memoria <hola@eventalist.co>` (`--remitente`); las respuestas llegan a hola@eventalist.co.
 - Asunto: "Tu pedido {{codigo}} de Testigos de la Memoria".

@@ -2,7 +2,8 @@
 
 - Horario: lunes a viernes de 7:00 a 19:00 y sábados de 8:00 a 15:00, hora
   de Bogotá; nunca domingos ni festivos.
-- Un mismo mensaje (campaña y canal) no se repite.
+- Un mismo mensaje (campaña, canal y plantilla) no se repite. Una plantilla
+  nueva en la misma campaña es otro mensaje, y cuenta para el máximo.
 - Máximo de mensajes por persona sumando todas las campañas (por defecto 2).
 - Nunca dos mensajes a la misma persona el mismo día.
 
@@ -44,11 +45,11 @@ def motivo_fuera_de_horario(momento: datetime) -> str | None:
     return None
 
 
-def motivo_para_no_enviar(d: Destinatario, campana: str, canal: str, envios: list[Envio],
+def motivo_para_no_enviar(d: Destinatario, campana: str, canal: str, plantilla: str, envios: list[Envio],
                           hoy: str, maximo: int = MAXIMO_POR_PERSONA) -> str | None:
     """Por qué no se le escribe a esta persona por este canal, o None si se puede."""
     suyos = [e for e in envios if e.estado == "enviado" and e.es_de(d.correo, d.whatsapp)]
-    if any(e.campana == campana and e.canal == canal and e.tipo == d.tipo for e in suyos):
+    if any(e.campana == campana and e.canal == canal and e.plantilla == plantilla and e.tipo == d.tipo for e in suyos):
         return "ya recibió este mensaje"
     if d.tipo == "titular":
         return None

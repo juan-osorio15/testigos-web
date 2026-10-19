@@ -62,7 +62,7 @@ Los comandos de envío vuelven a armarla en el momento: alguien puede comprar en
 
 Lo que hizo llegar a Principal el correo de expirados, aplicado aquí:
 
-- Un solo enlace (el botón). Nada de redes, WhatsApp ni política enlazados.
+- Un solo destino: dos botones a la tienda ("Escoger mi franja" arriba y "Comprar mi boleta" al final, pedido del titular el 2026-10-19) y ningún otro enlace. Nada de redes, WhatsApp ni política enlazados.
 - Sin imágenes descargadas de internet: el logo va incrustado.
 - Remitente con nombre de persona y respuestas a hola@eventalist.co.
 - Asunto y primera línea que responden a algo que la persona pidió ("Tu aviso", "Nos pediste que te avisáramos"), con su nombre en el cuerpo. Sin precio en el asunto ni palabras de oferta.
@@ -93,7 +93,7 @@ Si no sabes cuál escoger, escríbenos por aquí y te ayudamos.
 ## 6. Medición
 
 - Campaña `interesados` (anotada en `docs/medicion-embudo/enlaces-y-nombres.md`).
-- Correo: `utm_source=email&utm_medium=email&utm_campaign=interesados&utm_content=correo-aviso`.
+- Correo: `utm_source=email&utm_medium=email&utm_campaign=interesados&utm_content=correo-aviso` en el botón de arriba y `correo-aviso_boton-final` en el de abajo, para ver cuál usan.
 - WhatsApp: `utm_source=whatsapp&utm_medium=mensaje&utm_campaign=interesados&utm_content=plantilla-aviso`.
 - A los 7 días: `python3 scripts/campanas/campana.py lista interesados`. Quien compró ya no sale; la diferencia contra la lista del envío es la conversión de la campaña. En GA4, las visitas y compras con `utm_campaign=interesados`.
 
