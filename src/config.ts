@@ -111,9 +111,9 @@ export const DATA_CONTACT_EMAIL = 'hola@eventalist.co';
 /**
  * WhatsApp de Eventalist para dudas de compra (enlace corto de WhatsApp
  * Business con el mensaje ya escrito). Lo usa WhatsAppLink.astro, junto a la
- * tienda y en el pie de página.
+ * tienda y en el pie de página. Desde el 2026-10-19, el número +1 711-136-9321.
  */
-export const WHATSAPP_URL = 'https://wa.me/message/VJNUOS3MM3WLE1';
+export const WHATSAPP_URL = 'https://wa.me/message/CIRY6GT77KJOA1';
 
 /**
  * Fecha de entrada en vigencia de la política de tratamiento de datos (ISO).

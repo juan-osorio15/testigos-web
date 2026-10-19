@@ -223,9 +223,9 @@ Hay que mandarlas antes de 30 minutos sin actividad en la visita.
   unos 4 s sin `ga-id` (pedido `CUHNG`; probablemente también los 2 de 27 anteriores sin `ga_id`). Ahora, si
   gtag no ha respondido, los ids se leen de las cookies `_ga` y `_ga_XJES5Z5EC9`, con los mismos valores.
   Reproducido en local con cookies limpias, antes y después; comprobado que el sitio real sirve el código.
-- **Botones de WhatsApp (`eca1131`): 2026-10-15 a las 15:19.** Apuntaban a un número equivocado. Ahora van a
-  `https://wa.me/message/VJNUOS3MM3WLE1` (Testigos de la Memoria, +1 555-406-8726). También la plantilla
-  del correo a expirados. El correo del 12 de octubre salió con el enlace viejo.
+- **Botones de WhatsApp (`eca1131`): 2026-10-15 a las 15:19.** Apuntaban a un número equivocado. Desde el
+  2026-10-19 van al número nuevo de Testigos de la Memoria, +1 711-136-9321:
+  `https://wa.me/message/CIRY6GT77KJOA1`. También la plantilla del correo a expirados. El correo del 12 de octubre salió con el enlace viejo.
 - Consentimiento de GA4 en modo avanzado (`EventLayout.astro`). Si alguien cierra el aviso, navega y
   acepta después en otra página, GA4 cuenta la visita como directa. Solo afecta a GA4.
 
@@ -310,7 +310,7 @@ Cada línea remite al historial. "(C-15)" es la sección "Compactación del 2026
 - Copiar el prompt y la base de conocimiento del chatbot (`docs/system-prompt-atencion.md`,
   `docs/chatbot-conocimiento.md`) en su plataforma.
 - Cambiar el enlace de WhatsApp fuera del sitio donde esté el viejo (tienda de Pretix, bio, perfiles):
-  el correcto es `https://wa.me/message/VJNUOS3MM3WLE1`.
+  el correcto es `https://wa.me/message/CIRY6GT77KJOA1` (+1 711-136-9321, desde el 2026-10-19).
 - Fuera de los repos: parámetros de URL por nombre en los anuncios de Meta (y revisar que cada anuncio activo
   los tenga), enlace de la bio con `utm_campaign`, repartir los enlaces a organizadores y panelistas, y
   definir el tráfico interno en GA4.
