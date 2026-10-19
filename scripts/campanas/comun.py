@@ -24,6 +24,8 @@ PLANTILLAS = AQUI / "plantillas"
 # Ignorado por git (*.local.csv) porque el repositorio es público.
 INCLUIR = AQUI / "incluir.local.csv"
 DATOS = Path.home() / "Documents" / "eventalist" / "datos"
+# Llaves del titular (NOMBRE=valor por línea), en la raíz del repo e ignorado por git.
+CREDS = AQUI.parent.parent / "creds.txt"
 BOGOTA = timezone(timedelta(hours=-5))  # Colombia no tiene horario de verano
 
 
@@ -57,8 +59,8 @@ def saludo(nombre: str | None) -> str:
 
 
 def llave(variable: str, servicio: str | None = None) -> str:
-    """Lee una llave de la variable de entorno o, si no está, del llavero de macOS."""
-    valor = os.environ.get(variable)
+    """Lee una llave de la variable de entorno, de creds.txt o del llavero de macOS, en ese orden."""
+    valor = os.environ.get(variable) or desde_creds(variable)
     if valor:
         return valor
     if servicio:
@@ -69,11 +71,21 @@ def llave(variable: str, servicio: str | None = None) -> str:
             ).stdout.strip()
         except (FileNotFoundError, subprocess.CalledProcessError):
             sys.exit(
-                f"Falta la llave {variable}: guardarla una vez con\n"
+                f"Falta la llave {variable}: ponerla en {CREDS.name} ({variable}=...), guardarla con\n"
                 f"  security add-generic-password -a \"$USER\" -s {servicio} -w\n"
                 f"o ponerla en la variable {variable}."
             )
-    sys.exit(f"Falta la variable de entorno {variable}.")
+    sys.exit(f"Falta la llave {variable}: ponerla en {CREDS.name} ({variable}=...) o en la variable de entorno.")
+
+
+def desde_creds(variable: str) -> str:
+    if not CREDS.exists():
+        return ""
+    for linea in CREDS.read_text(encoding="utf-8").splitlines():
+        nombre, igual, valor = linea.partition("=")
+        if igual and nombre.strip() == variable:
+            return valor.strip().strip('"').strip("'")
+    return ""
 
 
 def pedir_json(url: str, cabeceras: dict[str, str], servicio: str) -> dict:
