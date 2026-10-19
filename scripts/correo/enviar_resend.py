@@ -2,8 +2,11 @@
 """Envía un correo HTML a cada persona de una lista, uno por uno, con Resend.
 
 La lista es la salida de scripts/pretix/expirados_sin_compra.py (columnas
-correo, pedidos y, si se usó --desde, desde_fecha). En la plantilla HTML,
-{{codigo}} se cambia por el último código de pedido de cada persona.
+correo, pedidos y, si se usó --desde, desde_fecha) o de
+scripts/backend/interesados_sin_compra.py (correo, saludo). En la plantilla
+HTML y en el asunto, {{codigo}} se cambia por el último código de pedido de
+cada persona y {{columna}} por el valor de esa columna en su fila (por
+ejemplo {{saludo}}). Si queda una marca sin llenar, no se envía nada.
 Las imágenes con src="cid:NOMBRE" se adjuntan incrustadas desde
 NOMBRE.png en la carpeta de la plantilla (el logo no tiene URL pública).
 
@@ -86,6 +89,12 @@ def a_texto(html: str) -> str:
     return html_lib.unescape(re.sub(r"\n{3,}", "\n\n", "\n".join(lineas)).strip())
 
 
+def rellenar(texto: str, valores: dict[str, str]) -> str:
+    for clave, valor in valores.items():
+        texto = texto.replace(f"{{{{{clave}}}}}", html_lib.escape(valor))
+    return texto
+
+
 def imagenes_incrustadas(plantilla: Path, html: str) -> dict[str, Path]:
     """Busca src="cid:NOMBRE" y devuelve NOMBRE -> archivo NOMBRE.png junto a la plantilla."""
     imagenes = {}
@@ -133,9 +142,9 @@ def enviar(llave: str, para: str, asunto: str, html: str, imagenes: dict[str, Pa
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("lista", help="CSV de expirados_sin_compra.py")
-    parser.add_argument("--plantilla", required=True, help="HTML con {{codigo}}")
-    parser.add_argument("--asunto", required=True, help="Asunto; también admite {{codigo}}")
+    parser.add_argument("lista", help="CSV de expirados_sin_compra.py o de interesados_sin_compra.py")
+    parser.add_argument("--plantilla", required=True, help="HTML con {{codigo}} o {{columna}}")
+    parser.add_argument("--asunto", required=True, help="Asunto; admite las mismas marcas")
     parser.add_argument("--grupo", choices=["si", "no", "todos"], required=True,
                         help="Filtra por la columna desde_fecha (si, no) o toma a todos")
     parser.add_argument("--previas", required=True, help="Carpeta donde dejar una vista previa HTML por persona")
@@ -169,23 +178,27 @@ def main() -> None:
     pendientes = []
     for fila in filas:
         if not fila["correo"]:
-            print(f"Sin correo, se omite: {fila['pedidos']}")
+            print(f"Sin correo, se omite: {fila.get('pedidos') or fila.get('whatsapp') or fila.get('nombre')}")
             continue
         if (fila["correo"], nombre_plantilla) in ya_enviados and not args.prueba:
             print(f"Ya se le envió esta plantilla, se omite: {fila['correo']}")
             continue
-        codigo = fila["pedidos"].split()[-1]
-        pendientes.append((fila["correo"], codigo,
-                           args.asunto.replace("{{codigo}}", codigo),
-                           plantilla.replace("{{codigo}}", codigo)))
+        codigo = fila["pedidos"].split()[-1] if fila.get("pedidos") else ""
+        valores = {**fila, "codigo": codigo}
+        asunto = html_lib.unescape(rellenar(args.asunto, valores))
+        html = rellenar(plantilla, valores)
+        sin_llenar = set(re.findall(r"\{\{(\w+)\}\}", asunto + html))
+        if sin_llenar:
+            sys.exit(f"La plantilla o el asunto usan {sorted(sin_llenar)} y la lista no trae esas columnas.")
+        pendientes.append((fila["correo"], codigo, asunto, html))
 
     previas = Path(args.previas).expanduser()
     previas.mkdir(parents=True, exist_ok=True)
-    for correo, codigo, asunto, html in pendientes:
+    for numero, (correo, codigo, asunto, html) in enumerate(pendientes, start=1):
         vista = html
         for nombre, archivo in imagenes.items():
             vista = vista.replace(f"cid:{nombre}", archivo.resolve().as_uri())
-        (previas / f"{codigo}.html").write_text(vista, encoding="utf-8")
+        (previas / f"{codigo or f'{numero:03d}'}.html").write_text(vista, encoding="utf-8")
     print(f"{len(pendientes)} correos listos. Vistas previas en {previas}")
 
     if not args.enviar:
@@ -193,8 +206,10 @@ def main() -> None:
         return
 
     if args.prueba and pendientes:
-        # Una sola muestra, con el código de un pedido real si lo hay.
-        pendientes = [next((p for p in pendientes if p[1] != "PRUEBA"), pendientes[0])]
+        # Una sola muestra: con el código de un pedido real si la lista los trae;
+        # si no, la última fila (la de prueba de incluir.local.csv).
+        reales = [p for p in pendientes if p[1] and p[1] != "PRUEBA"]
+        pendientes = [reales[0] if reales else pendientes[-1]]
 
     motivo = horario_permitido(datetime.now(BOGOTA))
     if motivo and args.ignorar_horario:

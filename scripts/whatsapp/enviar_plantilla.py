@@ -2,8 +2,10 @@
 """Envía una plantilla aprobada de WhatsApp a cada persona de una lista, una por una, con la Cloud API de Meta.
 
 La lista es la salida de scripts/pretix/expirados_sin_compra.py (columnas
-whatsapp, pedidos, desde_fecha y prueba). La variable {{1}} del cuerpo se
-llena con el último código de pedido de cada persona.
+whatsapp, pedidos, desde_fecha y prueba) o de
+scripts/backend/interesados_sin_compra.py (whatsapp y prueba, con --grupo
+todos). Si la plantilla tiene la variable {{1}}, se llena con el último
+código de pedido de cada persona; también sirven plantillas sin variables.
 
 Por defecto NO envía nada: lee la plantilla en Meta, comprueba que esté
 aprobada y muestra cómo queda el mensaje de cada persona. Para enviar de
@@ -98,7 +100,7 @@ def leer_plantilla(token: str, waba: str, nombre: str, idioma: str) -> str:
         sys.exit(f"La plantilla {nombre} ({idioma}) está en estado {elegida['status']}, no aprobada.")
     cuerpo = next(c["text"] for c in elegida["components"] if c["type"] == "BODY")
     variables = set(re.findall(r"\{\{(\w+)\}\}", cuerpo))
-    if variables != {"1"}:
+    if variables - {"1"}:
         sys.exit(f"El script llena solo {{{{1}}}} y la plantilla usa: {sorted(variables)}.")
     pie = next((c["text"] for c in elegida["components"] if c["type"] == "FOOTER"), "")
     return cuerpo + (f"\n\n{pie}" if pie else "")
@@ -115,7 +117,7 @@ def elegir_numero(token: str, waba: str) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("lista", help="CSV de expirados_sin_compra.py")
+    parser.add_argument("lista", help="CSV de expirados_sin_compra.py o de interesados_sin_compra.py")
     parser.add_argument("--plantilla", required=True, help="Nombre de la plantilla aprobada en Meta")
     parser.add_argument("--idioma", default="es", help="Código de idioma de la plantilla (por defecto es)")
     parser.add_argument("--grupo", choices=["si", "no", "todos"], default="si",
@@ -138,9 +140,10 @@ def main() -> None:
 
     with open(args.lista, encoding="utf-8-sig", newline="") as archivo:
         filas = list(csv.DictReader(archivo))
-    if filas and "desde_fecha" not in filas[0]:
-        sys.exit("La lista no tiene la columna desde_fecha: correr expirados_sin_compra.py con --desde.")
     if args.grupo != "todos":
+        if filas and "desde_fecha" not in filas[0]:
+            sys.exit("La lista no tiene la columna desde_fecha: correr expirados_sin_compra.py con --desde, "
+                     "o usar --grupo todos si la lista es de interesados.")
         filas = [f for f in filas if f["desde_fecha"] == args.grupo]
 
     registro = Path(args.registro).expanduser()
@@ -150,18 +153,22 @@ def main() -> None:
             ya_enviados = {(r["whatsapp"], r["plantilla"]) for r in csv.DictReader(archivo)
                            if r["prueba"] == "no" and r["estado"] == "enviado"}
 
+    con_variable = "{{1}}" in cuerpo
+    if con_variable and filas and "pedidos" not in filas[0]:
+        sys.exit("La plantilla usa {{1}} (código de pedido) y la lista no trae la columna pedidos.")
+
     pendientes = []
     for fila in filas:
         if not fila["whatsapp"]:
-            print(f"Sin teléfono, se omite: {fila['pedidos']}")
+            print(f"Sin teléfono, se omite: {fila.get('pedidos') or fila.get('correo')}")
             continue
         if (fila["whatsapp"], args.plantilla) in ya_enviados and not args.prueba:
             print(f"Ya se le envió esta plantilla, se omite: {fila['whatsapp']}")
             continue
-        pendientes.append((fila["whatsapp"], fila["pedidos"].split()[-1]))
+        pendientes.append((fila["whatsapp"], fila["pedidos"].split()[-1] if con_variable else ""))
 
     for numero, codigo in pendientes:
-        print(f"\n--- {numero} · pedido {codigo}")
+        print(f"\n--- {numero}" + (f" · pedido {codigo}" if codigo else ""))
         print(cuerpo.replace("{{1}}", codigo))
     print(f"\n{len(pendientes)} mensajes listos.")
 
@@ -198,9 +205,12 @@ def main() -> None:
                 "template": {
                     "name": args.plantilla,
                     "language": {"code": args.idioma},
-                    "components": [{"type": "body", "parameters": [{"type": "text", "text": codigo}]}],
                 },
             }
+            if con_variable:
+                mensaje["template"]["components"] = [
+                    {"type": "body", "parameters": [{"type": "text", "text": codigo}]}
+                ]
             ahora = datetime.now(BOGOTA).isoformat(timespec="seconds")
             prueba = "si" if args.prueba else "no"
             try:

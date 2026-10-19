@@ -81,6 +81,7 @@ Campañas en uso (el equipo agrega aquí las suyas):
 
 - `permanente`
 - `expirados`: correos y WhatsApp a pedidos vencidos.
+- `interesados`: correo y WhatsApp a quien pidió aviso de las franjas en el sitio (desde el 19 de octubre).
 - `buscador`: anuncios de Búsqueda en Google (prueba del 16 de octubre al 7 de noviembre de 2026).
 
 ### utm_content: la pieza y sus variables
