@@ -1,0 +1,24 @@
+{
+  "descripcion": "Quien pidió en el sitio que le avisáramos de las boletas de medio día y no ha comprado. Plan en docs/campana-interesados/plan.md.",
+  "evento": "testigos-memoria",
+  "audiencia": "interesados",
+  "parametros": {
+    "campana_backend": "testigos-de-la-memoria-2026",
+    "origen": "website",
+    "desde": "2026-09-09"
+  },
+  "canales": {
+    "correo": {
+      "activo": true,
+      "plantilla": "interesado-aviso.html",
+      "asunto": "Tu aviso de Testigos de la Memoria: ya abrieron las boletas de medio día",
+      "remitente": "Juan de Testigos de la Memoria <hola@eventalist.co>"
+    },
+    "whatsapp": {
+      "activo": true,
+      "plantilla": "aviso_boletas_medio_dia",
+      "idioma": "es",
+      "variables": []
+    }
+  }
+}

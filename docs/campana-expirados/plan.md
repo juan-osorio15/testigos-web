@@ -2,32 +2,31 @@
 
 Plan del 12 de octubre de 2026. Objetivo: escribirle a quien intentó comprar boletas, dejó vencer el pedido y nunca volvió a comprar, para ayudarle a terminar la compra. A quien expiró y después compró no se le escribe.
 
-Este documento no lleva datos personales (el repositorio es público). La lista sale del script y se guarda fuera del repo.
+Este documento no lleva datos personales (el repositorio es público). La lista sale del comando de la sección 1 y se guarda fuera del repo.
 
 ## 1. Quiénes
 
 ### Cómo se saca la lista
 
-El script lee los pedidos directamente de la API de Pretix, con un token de solo lectura guardado en el llavero del Mac (pasos en `titular/whatsapp.md`, paso 2a):
-
 ```sh
-python3 scripts/pretix/expirados_sin_compra.py --evento testigos-memoria --desde 2026-10-09
+python3 scripts/campanas/campana.py lista expirados
 ```
 
-La lista queda en `~/Documents/eventalist/datos/<evento>/expirados-<fecha-hora>.csv`, fuera de cualquier repo, con una versión corta al lado (`-whatsapp.csv`: número, códigos expirados y el último). Cada corrida es un archivo nuevo; no hay que borrar nada. Sigue sirviendo con la exportación "Lista de pedidos" en CSV: `python3 scripts/pretix/expirados_sin_compra.py ORDENES.csv -o SALIDA.csv`.
+La campaña es `scripts/campanas/config/expirados.json` y sus reglas, `scripts/campanas/audiencias/expirados.py` (cómo encaja todo: `docs/campanas/README.md`). Hasta el 19 de octubre esto lo hacía `scripts/pretix/expirados_sin_compra.py`, que ya no existe.
 
 Qué hace:
 
-- Toma los pedidos con estado `expirado`.
+- Lee los pedidos directamente de la API de Pretix, con el token de solo lectura del llavero.
+- Toma a quien tiene algún pedido `expirado`.
 - Une los pedidos de una misma persona por correo **o** por teléfono (si expiró con un correo y pagó con otro, pero con el mismo celular, es la misma persona).
-- Descarta a toda persona con algún pedido `pagado` o `pendiente`.
-- Antes de escribir la salida comprueba que nadie de la lista comparta correo o teléfono con un pedido pagado o pendiente; si pasa, se detiene.
-- Una fila por persona: correo, teléfono en formato +57, número para WhatsApp, cuántos intentos expirados, fechas, boletas y total del último intento, códigos de pedido.
-- `--desde` marca en la columna `desde_fecha` a quien tiene un pedido expirado desde esa fecha (ver sección 2).
-- `--excluir` deja por fuera correos o teléfonos del equipo o de pruebas. Se puede repetir.
-- Si la exportación cambia de formato (faltan columnas o aparece un estado desconocido), el script falla con un mensaje en vez de adivinar.
+- Descarta a toda persona con algún pedido `pagado` o `pendiente`, y comprueba al final que nadie de la lista comparta correo o teléfono con uno; si pasa, se detiene.
+- Le pregunta al backend por qué canal se le puede escribir a cada persona (sección 2).
+- Una fila por persona: correo, número para WhatsApp, el código del último pedido expirado (variable de las plantillas), cuántos intentos, fechas, boletas y total del último intento.
+- Si Pretix trae un estado desconocido, se detiene con un mensaje en vez de adivinar.
 
-**Volver a exportar y correr el script justo antes de cada envío.** Alguien de la lista puede comprar entre un paso y otro.
+Los comandos de envío la vuelven a armar en el momento: alguien de la lista puede comprar entre un paso y otro.
+
+Comparación del 19 de octubre entre el script viejo y el comando nuevo, con los mismos datos: las mismas personas por correo. Por WhatsApp, una persona más con el nuevo: hizo su pedido el 6 de octubre (antes de la casilla de la tienda), pero ese mismo día llenó el formulario del sitio, que sí autoriza WhatsApp.
 
 ### Resultado con la exportación del 12 de octubre
 
@@ -42,7 +41,8 @@ Qué hace:
 Dictamen del abogado interno del 12 de octubre de 2026 y decisión del titular el mismo día.
 
 - **Correo: el mismo a las 7 personas.** El abogado recomendaba, para quien hizo el pedido antes del 2026-10-09 (política anterior), un solo correo de servicio más neutro o no escribirle. El titular decidió mandar a todos el mismo correo: es el primer evento, son personas que claramente querían la boleta y el correo es un solo mensaje sobre su propio pedido.
-- **WhatsApp: solo a quien hizo el pedido desde el 2026-10-09** (`desde_fecha = si`, hoy 2 personas). La casilla anterior no autorizaba WhatsApp. Antes de enviar, confirmar en Pretix que el pedido aceptó la casilla `tienda-2026-10-09`.
+- **WhatsApp: solo a quien lo autorizó.** La casilla de la tienda autoriza WhatsApp desde el 2026-10-09 (`tienda-2026-10-09`); la anterior no. Desde el 19 de octubre el comando se lo pregunta al backend, que guarda la casilla de cada pedido desde esa fecha y la del formulario del sitio, con sus bajas y su vencimiento. Ya no se revisa a mano en Pretix.
+- **Correo y bajas:** si el backend conoce el correo de la persona y dice que no se le puede escribir (baja), queda sin correo.
 - Horario de la Ley 2300, hora de Bogotá: lunes a viernes de 7:00 a. m. a 7:00 p. m., sábados de 8:00 a. m. a 3:00 p. m., nunca domingos ni festivos. El lunes 12 de octubre de 2026 es festivo. El script de correo se niega a enviar fuera de ese horario.
 - Cada mensaje identifica a Eventalist S.A.S. y trae cómo darse de baja (BAJA en WhatsApp; enlace en el correo).
 - Máximo dos toques por persona en total, en días distintos. Quien pida la baja no vuelve a recibir nada.
@@ -52,7 +52,7 @@ Dictamen del abogado interno del 12 de octubre de 2026 y decisión del titular e
 
 ## 3. Secuencia
 
-Con 7 personas esto se hace a mano. Antes de cada paso: nueva exportación de Pretix y volver a correr el script de la sección 1.
+Cada paso es un comando (sección 1); el comando arma la lista de nuevo en el momento y aplica el límite de dos mensajes y días distintos.
 
 1. **Correo a las 7 personas** (sección 5), en horario. Es lo único que no depende de la aprobación de Meta.
 2. **WhatsApp a quien tenga pedido desde el 2026-10-09** (el 12 de octubre eran 2; la lista del día manda) que no hayan respondido ni comprado, en otro día. La plantilla se aprobó el 2026-10-16; pasos en `titular/whatsapp.md`.
@@ -73,11 +73,11 @@ Aprobada por Meta el 2026-10-16. El cuerpo vigente está en `titular/whatsapp.md
 
 ## 5. Correo
 
-Se manda con Resend (el mismo proveedor que usa Pretix, dominio eventalist.co ya verificado, plan gratis de 100 correos al día) usando `scripts/correo/enviar_resend.py`, uno por persona.
+Se manda con Resend (el mismo proveedor que usa Pretix, dominio eventalist.co ya verificado, plan gratis de 100 correos al día) uno por persona, con el script de entonces (hoy `scripts/campanas/campana.py correo expirados`, desactivado hasta actualizar el texto).
 
 - Remitente: `Juan de Testigos de la Memoria <hola@eventalist.co>` (`--remitente`); las respuestas llegan a hola@eventalist.co.
 - Asunto: "Tu pedido {{codigo}} de Testigos de la Memoria".
-- HTML: `scripts/correo/plantillas/expirado-pedido.html`, con forma de seguimiento de pedido: logo de texto y "PEDIDO {{codigo}}", terracota con el titular ("Hoy es el último día del pase completo a su mejor precio", remate "Hasta las 11:59 p. m."), franja cielo con $310.000 y el botón "Completar mi compra" (el único enlace), bloque blanco con los panelistas y bloque ladrillo con la ayuda para el pago. Pie con la baja por respuesta; sin dirección física.
+- HTML: `scripts/campanas/plantillas/expirado-pedido.html`, con forma de seguimiento de pedido: logo de texto y "PEDIDO {{codigo}}", terracota con el titular ("Hoy es el último día del pase completo a su mejor precio", remate "Hasta las 11:59 p. m."), franja cielo con $310.000 y el botón "Completar mi compra" (el único enlace), bloque blanco con los panelistas y bloque ladrillo con la ayuda para el pago. Pie con la baja por respuesta; sin dirección física.
 - Sin la cabecera `List-Unsubscribe` (`--sin-cabecera-baja`); la baja queda en el texto.
 - **Decisión del titular (2026-10-12):** el correo sale el mismo 12 de octubre, festivo, porque la etapa 1 termina esa medianoche y es la última oportunidad real del mejor precio. Se envía con `--ignorar-horario`. El tono es vendedor a propósito: la urgencia es cierta. `{{codigo}}` se cambia por el código del pedido de cada persona.
 - El script también arma la versión en texto plano y guarda cada envío en un registro para no repetir.
@@ -90,9 +90,9 @@ El envío real del 12 de octubre (16:24, 7 personas más el titular) salió con 
 
 ## 6. Cómo saber si funcionó
 
-- A los 7 días: nueva exportación de Pretix y cruce de las 7 personas contra los pedidos pagados (el mismo script: quien compró ya no sale en la lista).
+- A los 7 días: `python3 scripts/campanas/campana.py lista expirados` (quien compró ya no sale en la lista).
 - En GA4, las visitas con `utm_medium=recuperacion`.
 
 ## 7. Para otros eventos
 
-El script sirve para cualquier evento de Pretix con la exportación "Lista de pedidos". Lo que cambia por evento es la fecha de `--desde` (la de la política que autoriza el recordatorio) y los textos de las plantillas. Cuando el backend de Eventalist tenga el contacto directo por estado de pedido (`docs/medicion-embudo/diseno.md`), este proceso manual pasa a ser un respaldo.
+Para otro evento: copiar `scripts/campanas/config/expirados.json` y cambiar el evento, la campaña del backend y las plantillas (ver `docs/campanas/README.md`). Los textos de las plantillas son de este evento.

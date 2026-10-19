@@ -1,6 +1,6 @@
 # Plantillas de WhatsApp para vender
 
-Borradores para mandar a aprobación de Meta. Se envían igual que `pedido_expirado_ayuda`: con `scripts/whatsapp/enviar_plantilla.py` y los pasos de `docs/campana-expirados/titular/whatsapp.md`.
+Borradores para mandar a aprobación de Meta. Se envían igual que `pedido_expirado_ayuda`: con `scripts/campanas/campana.py whatsapp <campaña>` (ver `docs/campanas/README.md`) y los pasos de `docs/campana-expirados/titular/whatsapp.md`.
 
 ## Reglas para todas
 

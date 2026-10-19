@@ -1,5 +1,7 @@
 # Prompt · lectura de contactos de una campaña (repo `eventalist-backend`)
 
+> **Implementado y en producción desde el 2026-10-19.** El contrato vigente está en `docs/campanas/README.md`; este prompt queda como historia.
+>
 > Copiar este documento completo como instrucción al agente que trabaja en `eventalist-backend`. Es autocontenido. Fecha: 2026-10-19. Si algo aquí contradice el código de `apps/marketing`, avisar antes de desviarse. Sigue el flujo de specs del repo (`specs/017-...`).
 
 ## Contexto
