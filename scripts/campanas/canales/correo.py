@@ -1,6 +1,6 @@
 """Canal correo: un correo HTML por persona con Resend (dominio eventalist.co verificado).
 
-Llave en la variable RESEND_API_KEY. En la plantilla y el asunto, {{columna}}
+Llave en la variable RESEND_API_KEY o en el llavero, servicio "eventalist-resend". En la plantilla y el asunto, {{columna}}
 se cambia por el valor de esa columna de la lista ({{saludo}}, {{codigo}}).
 Las imágenes src="cid:NOMBRE" se adjuntan incrustadas desde NOMBRE.png en la
 carpeta de plantillas: sin imágenes descargadas de internet, que empujan el
@@ -74,7 +74,7 @@ class Correo:
 
     def enviar(self, mensaje: Mensaje, destino: str) -> str:
         if not self._llave:
-            self._llave = llave("RESEND_API_KEY")
+            self._llave = llave("RESEND_API_KEY", "eventalist-resend")
         asunto, html = mensaje.contenido
         cuerpo = {
             "from": self.remitente,

@@ -1,6 +1,7 @@
 """Canal WhatsApp: una plantilla aprobada por persona, con la Cloud API de Meta.
 
-Variables de entorno (de dónde salen: docs/campanas/README.md):
+Variables de entorno, o el llavero de macOS (servicios eventalist-whatsapp y
+eventalist-whatsapp-cuenta); de dónde salen: docs/campanas/README.md
     WHATSAPP_TOKEN     token del usuario del sistema "campanas"
     WHATSAPP_WABA_ID   identificador de la cuenta de WhatsApp Business
     WHATSAPP_PHONE_ID  identificador del número (opcional si la cuenta tiene uno solo)
@@ -110,7 +111,7 @@ class WhatsApp:
 
     def waba(self) -> str:
         if not self._waba:
-            self._waba = llave("WHATSAPP_WABA_ID")
+            self._waba = llave("WHATSAPP_WABA_ID", "eventalist-whatsapp-cuenta")
         return self._waba
 
     def numero(self) -> str:
@@ -132,7 +133,7 @@ class WhatsApp:
 
     def _llamar(self, ruta: str, cuerpo: dict | None = None) -> dict:
         if not self._token:
-            self._token = llave("WHATSAPP_TOKEN")
+            self._token = llave("WHATSAPP_TOKEN", "eventalist-whatsapp")
         pedido = urllib.request.Request(
             f"{GRAPH}/{ruta}",
             data=json.dumps(cuerpo).encode() if cuerpo is not None else None,

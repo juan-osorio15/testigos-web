@@ -46,8 +46,8 @@ Si un envío falla por la persona (un número sin WhatsApp), queda anotado como 
 
 - **Pretix**: token del equipo `lectura-campanas` (solo "Puede ver pedidos"), en el llavero, servicio `eventalist-pretix`. Pasos en `docs/campana-expirados/titular/whatsapp.md`, paso 2a.
 - **Backend**: token de lectura, en el llavero, servicio `eventalist-backend-lectura`.
-- **Resend**: llave `campanas-correo` (pasos en `docs/campana-expirados/titular/correo-resend.md`, paso 1). Se carga en cada terminal con `export RESEND_API_KEY=re_...`.
-- **WhatsApp**: token del usuario del sistema `campanas` y el identificador de la cuenta (pasos en `docs/campana-expirados/titular/whatsapp.md`, paso 1). Se cargan con `export WHATSAPP_TOKEN=...` y `export WHATSAPP_WABA_ID=...`.
+- **Resend**: llave `campanas-correo` (pasos en `docs/campana-expirados/titular/correo-resend.md`, paso 1). Se guarda una vez en el llavero, servicio `eventalist-resend`.
+- **WhatsApp**: token del usuario del sistema `campanas` y el identificador de la cuenta (pasos en `docs/campana-expirados/titular/whatsapp.md`, paso 1). Se guardan una vez en el llavero, servicios `eventalist-whatsapp` (el token) y `eventalist-whatsapp-cuenta` (el identificador de la cuenta).
 
 Para guardar una llave en el llavero (la pide; pegarla y Enter):
 
