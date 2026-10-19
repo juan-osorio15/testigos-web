@@ -61,7 +61,7 @@ Es solo para mirar: el comando de envío vuelve a armar la lista en el momento, 
 
 - [ ] Confirmar en hola@eventalist.co que nadie de la lista pidió la baja después del correo del 12 de octubre. Si alguien la pidió, marcarlo en el admin del backend (**Opt out of WhatsApp** o **Mark as do-not-contact**) y volver al paso 2.
 
-Quien recibió el correo del 12 de octubre llega con este WhatsApp al segundo y último mensaje. Ese correo está en el registro de envíos, así que el comando cuenta los dos solo.
+Desde el 19 de octubre no hay límite de mensajes por persona: el WhatsApp le llega también a quien recibió los correos. El comando solo evita repetir el mismo mensaje.
 
 ## Paso 4. Ver cómo queda (no envía nada)
 

@@ -11,7 +11,7 @@ Cada pieza hace una sola cosa y no sabe de las demás:
 - **Audiencias** (`audiencias/`): las reglas de quién entra en una campaña y por qué canal se le puede escribir. Usan las fuentes y entregan una lista. No envían nada. Hoy: `expirados.py` e `interesados.py`.
 - **Lista** (`lista.py`): el formato único entre audiencias y canales. Columnas fijas `saludo`, `nombre`, `correo`, `whatsapp`, `tipo`; después las variables de las plantillas (como `codigo`) y el detalle para revisar a mano. Un correo o un WhatsApp vacío es un canal cerrado para esa persona.
 - **Canales** (`canales/`): solo envían. `correo.py` (Resend) y `whatsapp.py` (Cloud API de Meta). Reciben la lista y la configuración del canal.
-- **Reglas** (`reglas.py`): las mismas para toda campaña y canal. Horario de la Ley 2300, no repetir un mensaje, máximo dos mensajes por persona sumando todas las campañas, nunca dos el mismo día.
+- **Reglas** (`reglas.py`): las mismas para toda campaña y canal. Horario de la Ley 2300 y no repetir un mismo mensaje. Sin límite de mensajes por persona ni por día (decisión del titular del 2026-10-19); una campaña puede ponerse límites en su configuración con `"reglas": {"maximo_por_persona": 2, "uno_por_dia": true}`.
 - **Registro** (`registro.py`): un solo archivo con cada envío de todas las campañas, `~/Documents/eventalist/datos/registro-envios.csv`. Con él funcionan las reglas. Cuando el backend tenga el registro central de envíos, este archivo se importa allá.
 - **Configuración** (`scripts/campanas/config/<campaña>.json`): una campaña es un archivo, no un script. Dice el evento, la audiencia y sus parámetros, y por cada canal la plantilla, el asunto, el remitente o las variables, y si está activo.
 

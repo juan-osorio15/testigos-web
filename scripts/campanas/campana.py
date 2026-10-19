@@ -89,8 +89,12 @@ def enviar(nombre: str, config: dict, nombre_canal: str, args: argparse.Namespac
         envios = registro.leer()
         hoy = datetime.now(BOGOTA).date().isoformat()
         pendientes, omitidos = [], Counter()
+        limites = config.get("reglas", {})
         for d in destinatarios:
-            motivo = reglas.motivo_para_no_enviar(d, nombre, nombre_canal, medio.plantilla, envios, hoy)
+            motivo = reglas.motivo_para_no_enviar(
+                d, nombre, nombre_canal, medio.plantilla, envios, hoy,
+                maximo=limites.get("maximo_por_persona"), uno_por_dia=limites.get("uno_por_dia", False),
+            )
             if motivo:
                 omitidos[motivo] += 1
             else:

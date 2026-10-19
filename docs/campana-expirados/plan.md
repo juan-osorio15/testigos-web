@@ -45,19 +45,19 @@ Dictamen del abogado interno del 12 de octubre de 2026 y decisión del titular e
 - **Correo y bajas:** si el backend conoce el correo de la persona y dice que no se le puede escribir (baja), queda sin correo.
 - Horario de la Ley 2300, hora de Bogotá: lunes a viernes de 7:00 a. m. a 7:00 p. m., sábados de 8:00 a. m. a 3:00 p. m., nunca domingos ni festivos. El lunes 12 de octubre de 2026 es festivo. El script de correo se niega a enviar fuera de ese horario.
 - Cada mensaje identifica a Eventalist S.A.S. y trae cómo darse de baja (BAJA en WhatsApp; enlace en el correo).
-- Máximo dos toques por persona en total, en días distintos. Quien pida la baja no vuelve a recibir nada.
+- Máximo dos toques por persona en total, en días distintos. **Reemplazado el 2026-10-19:** Decisión del titular (2026-10-19): sin límite de mensajes por persona ni por día; se escribe por todos los canales. El límite anterior de dos venía del dictamen del abogado del 2026-10-12. Quien pida la baja no vuelve a recibir nada.
 - Sin precio, descuentos ni urgencia por el cambio de etapa (también por tono: el evento no se vende con presión).
 - Pendiente de confirmar si el Registro de Números Excluidos de la CRC cubre WhatsApp.
 - Pie de los mensajes: solo "Eventalist S.A.S. · hola@eventalist.co". Nunca la dirección física ni datos personales del titular.
 
 ## 3. Secuencia
 
-Cada paso es un comando (sección 1); el comando arma la lista de nuevo en el momento y aplica el límite de dos mensajes y días distintos.
+Cada paso es un comando (sección 1); el comando arma la lista de nuevo en el momento y no repite un mismo mensaje.
 
 1. **Correo a las 7 personas** (sección 5), en horario. Es lo único que no depende de la aprobación de Meta.
 2. **WhatsApp a quien tenga pedido desde el 2026-10-09** (el 12 de octubre eran 2; la lista del día manda) que no hayan respondido ni comprado, en otro día. La plantilla se aprobó el 2026-10-16; pasos en `titular/whatsapp.md`.
 3. Si alguien responde: se le atiende en la conversación (dentro de las 24 horas de servicio de WhatsApp se escribe libremente) y se le manda el enlace de compra.
-4. Fin. No hay tercer mensaje.
+4. Sin límite de mensajes por persona desde el 19 de octubre; cada mensaje nuevo es una plantilla nueva.
 
 Pasos del titular, concretos: `titular/correo-resend.md` y `titular/whatsapp.md`.
 
@@ -82,7 +82,7 @@ Decisión del titular del 2026-10-19: el correo del 12 de octubre ya no aplica (
 - Enlace: `utm_source=email&utm_medium=email&utm_campaign=expirados&utm_content=correo-recordatorio`.
 - Comandos: `python3 scripts/campanas/campana.py correo expirados` (vista previa), luego con `--prueba tu@correo.com --enviar` y con `--enviar`.
 
-A quién le llega, con el registro de envíos: a toda la lista del día. Para las 6 personas que recibieron el correo del 12 de octubre y no han comprado (el 19 de octubre), este es el segundo y último mensaje: las reglas ya no les dejan mandar el WhatsApp. Las 5 que expiraron después reciben este correo y, otro día, el WhatsApp. Si se prefiere que esas 6 reciban el WhatsApp en vez del correo, mandar primero el WhatsApp.
+A quién le llega, con el registro de envíos: a toda la lista del día. Para las 6 personas que recibieron el correo del 12 de octubre y no han comprado (el 19 de octubre), este es su segundo correo. Sin límite de mensajes (decisión del 19 de octubre), a quien tenga WhatsApp autorizado le llega también el WhatsApp, el mismo día o después.
 
 ### Primer correo (12 de octubre, ya enviado)
 

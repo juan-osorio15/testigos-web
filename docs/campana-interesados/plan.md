@@ -11,7 +11,7 @@ Las personas que dejaron nombre, teléfono y correo en el modal "Avísame" de la
 Quedan fuera:
 
 - Quien ya pagó o tiene un pedido pendiente en Pretix (por correo **o** por teléfono, igual que en expirados).
-- Quien dejó expirar un pedido: ya le escribió la campaña de expirados, y el límite es de dos mensajes por persona.
+- Quien dejó expirar un pedido: le escribe la campaña de expirados, con un mensaje pensado para su caso.
 - Quien se dio de baja en el backend. Si se dio de baja de un solo canal, sale sin ese dato.
 - Quien se inscribió antes del 9 de septiembre en la lista general de la preventa ("te escribiremos en cuanto abra la venta"). Si el titular decide incluirlos, se cambia `desde` en `scripts/campanas/config/interesados.json`.
 
@@ -40,16 +40,16 @@ Los comandos de envío vuelven a armarla en el momento: alguien puede comprar en
 - **Decisión del titular (2026-10-19):** se le escribe a todo inscrito, sin separar por versión de la política. Son personas que pidieron este aviso; no habérselo mandado el 13 de octubre fue un error nuestro.
 - Horario de la Ley 2300, hora de Bogotá: lunes a viernes de 7:00 a. m. a 7:00 p. m., sábados de 8:00 a. m. a 3:00 p. m., nunca domingos ni festivos. El comando se niega a enviar fuera de ese horario. El lunes 2 de noviembre es festivo.
 - Cada mensaje identifica a Eventalist S.A.S. y trae cómo darse de baja (BAJA).
-- Máximo dos toques por persona, en días distintos, sumando todas las campañas. El comando lo cumple solo con el registro único de envíos. Quien pida la baja no vuelve a recibir nada por ningún canal.
+- Decisión del titular (2026-10-19): sin límite de mensajes por persona ni por día; se escribe por todos los canales. El límite anterior de dos venía del dictamen del abogado del 2026-10-12. El comando no repite un mismo mensaje. Quien pida la baja no vuelve a recibir nada por ningún canal.
 - Sin urgencia ni cuenta regresiva. El precio sí va: es información que la persona pidió.
 - Pie: solo "Eventalist S.A.S. · hola@eventalist.co". Nunca la dirección física ni datos personales del titular.
 
 ## 3. Secuencia
 
 1. **Correo** a todos los de la lista con correo (sección 4).
-2. **WhatsApp**, otro día, a quien tenga WhatsApp y no haya comprado, con la lista sacada de nuevo ese día. Requiere que Meta apruebe la plantilla de la sección 5 (suele tardar de minutos a un día).
+2. **WhatsApp**, el mismo día o después, a quien tenga WhatsApp y no haya comprado, con la lista sacada de nuevo ese día. Requiere que Meta apruebe la plantilla de la sección 5 (suele tardar de minutos a un día).
 3. Si alguien responde, se le atiende en la conversación.
-4. Fin. No hay tercer mensaje.
+4. Sin límite de mensajes por persona: si hace falta otro, es una plantilla nueva.
 
 ## 4. Correo
 

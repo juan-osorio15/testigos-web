@@ -54,7 +54,7 @@ python3 scripts/campanas/campana.py correo interesados --enviar
 
 ## Paso 4. WhatsApp (otro día, con la plantilla aprobada)
 
-Las reglas no dejan mandar el WhatsApp el mismo día del correo: si se intenta, el comando omite a esas personas y lo dice.
+Puede salir el mismo día del correo o después; no hay límite de mensajes por persona.
 
 ```sh
 export WHATSAPP_TOKEN=...
@@ -81,7 +81,6 @@ Quien compró después del correo ya no sale. Si Meta rechaza un número, queda 
 ## Paso 5. Después
 
 - [ ] Quien responda BAJA o "no me interesa", por correo o por WhatsApp: marcarlo en el admin del backend (acciones **Opt out of email**, **Opt out of WhatsApp** o **Mark as do-not-contact**). Desde ahí ninguna campaña lo vuelve a sacar.
-- [ ] Nada de un tercer mensaje (las reglas tampoco lo dejan).
 - [ ] Para ver cuántos salieron: `python3 scripts/campanas/campana.py registro interesados`.
 - [ ] A los 7 días: `python3 scripts/campanas/campana.py lista interesados`. Quien compró ya no sale. En GA4, las visitas y compras con `utm_campaign=interesados`.
 - [ ] Los archivos de `~/Documents/eventalist/datos/` tienen datos personales: nunca se suben a ningún repo.
