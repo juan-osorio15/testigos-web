@@ -1,7 +1,9 @@
 ---
 /**
- * Enlace a WhatsApp de Eventalist para dudas de compra (2026-10-08). El logo
- * de WhatsApp va en tinta dentro de un bloque de color de esquinas rectas,
+ * Enlace al canal de contacto para dudas de compra (2026-10-08; desde el
+ * 2026-10-19 el canal sale de CONTACT_CHANNEL en src/config.ts: Instagram
+ * mientras WhatsApp siga en pruebas). El logo del canal va en tinta dentro
+ * de un bloque de color de esquinas rectas,
  * como el resto de la marca: crema sobre el terracota de la sección de
  * boletas, terracota sobre la tinta del pie (`tone="dark"`). Sin el verde
  * de WhatsApp y sin botones flotantes. `variant="button"`: botón con marco
@@ -9,8 +11,8 @@
  * Cada clic se mide en GA4 como `contact` (src/measurement/tags.ts), con el
  * lugar en `data-contact`.
  */
-import { WHATSAPP_URL } from '../config';
-import { WHATSAPP_ICON_PATH } from '../data/whatsapp-icon';
+import { CONTACT_CHANNEL, CONTACT_URL } from '../config';
+import { CONTACT_ICON_PATH } from '../data/contact-icon';
 
 interface Props {
   label: string;
@@ -21,12 +23,12 @@ interface Props {
 const { label, where, tone = 'light', variant = 'inline' } = Astro.props;
 ---
 
-<a class:list={['wa-link', `wa-link--${tone}`, variant === 'button' && 'wa-link--button']} href={WHATSAPP_URL} target="_blank" rel="noopener" data-contact={where}>
+<a class:list={['wa-link', `wa-link--${tone}`, variant === 'button' && 'wa-link--button']} href={CONTACT_URL} target="_blank" rel="noopener" data-contact={where} data-contact-method={CONTACT_CHANNEL}>
   <span class="wa-mark" aria-hidden="true">
     <svg viewBox="0 0 24 24" focusable="false">
       <path
         fill="currentColor"
-        d={WHATSAPP_ICON_PATH}
+        d={CONTACT_ICON_PATH}
       ></path>
     </svg>
   </span>

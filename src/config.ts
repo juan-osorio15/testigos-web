@@ -110,10 +110,23 @@ export const DATA_CONTACT_EMAIL = 'hola@eventalist.co';
 
 /**
  * WhatsApp de Eventalist para dudas de compra (enlace corto de WhatsApp
- * Business con el mensaje ya escrito). Lo usa WhatsAppLink.astro, junto a la
- * tienda y en el pie de página. Desde el 2026-10-19, el número +1 711-136-9321.
+ * Business con el mensaje ya escrito). Desde el 2026-10-19, el número
+ * +1 711-136-9321; pronto cambia a un número colombiano con el mismo chatbot.
+ * PENDIENTE DE CONFIRMACIÓN (2026-10-19): el chatbot responde mal por este
+ * canal y sigue en pruebas, así que el sitio no lo ofrece (CONTACT_CHANNEL).
  */
 export const WHATSAPP_URL = 'https://wa.me/message/CIRY6GT77KJOA1';
+
+/** Mensajes directos de la cuenta de Instagram del encuentro (event.socialProfiles) */
+export const INSTAGRAM_DM_URL = 'https://ig.me/m/testigosdelamemoria';
+
+/**
+ * Canal de los botones de contacto del sitio (menú, tienda y pie). Lo usa
+ * ContactLink.astro. Instagram mientras WhatsApp siga en pruebas (decisión
+ * del titular, 2026-10-19); para volver a WhatsApp basta cambiar esta línea.
+ */
+export const CONTACT_CHANNEL: 'instagram' | 'whatsapp' = 'instagram';
+export const CONTACT_URL = CONTACT_CHANNEL === 'instagram' ? INSTAGRAM_DM_URL : WHATSAPP_URL;
 
 /**
  * Fecha de entrada en vigencia de la política de tratamiento de datos (ISO).

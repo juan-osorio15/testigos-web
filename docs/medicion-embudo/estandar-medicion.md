@@ -30,7 +30,7 @@ Es el orden en que se presenta el informe al cliente, de lo más amplio a la ven
 2. **Visitas al sitio.** GA4, Adquisición de tráfico, por canal y campaña.
 3. **Fueron a ver las boletas.** GA4, evento `view_item_list` (Meta `ViewContent`).
 4. **Dejaron sus datos como interesados.** Backend de Eventalist, contactos de la campaña (número completo). GA4, evento `generate_lead` (Meta `Lead`), para saber de qué campaña vinieron.
-5. **Preguntaron por WhatsApp.** GA4, evento `contact`, y las conversaciones del chatbot.
+5. **Preguntaron por el canal de contacto.** GA4, evento `contact` (con el canal en `method`: Instagram o WhatsApp, según `CONTACT_CHANNEL`), y las conversaciones del chatbot.
 6. **Pulsaron "Comprar".** GA4, evento `begin_checkout` (Meta `InitiateCheckout`).
 7. **Confirmaron un pedido sin pagar.** Pretix y backend (etapa "confirmó y no pagó"). GA4 `add_payment_info` y Meta `AddPaymentInfo`, desde el plugin.
 8. **Pagaron.** Pretix (fuente de verdad del total) y backend. GA4 `purchase` y Meta `Purchase`, desde el plugin.

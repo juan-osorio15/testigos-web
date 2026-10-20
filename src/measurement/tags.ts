@@ -239,14 +239,15 @@ export function initMeasurement(): void {
     }
   });
 
-  // WhatsApp de dudas (WhatsAppLink.astro): cuánta gente se traba al comprar
+  // Contacto de dudas (ContactLink.astro, menú y tienda): cuánta gente se
+  // traba al comprar. El canal sale de data-contact-method (CONTACT_CHANNEL).
   document.addEventListener(
     'click',
     (e) => {
       try {
         const a = (e.target as Element | null)?.closest?.('a[data-contact]');
         const where = a?.getAttribute('data-contact');
-        if (where) gtag('event', 'contact', { method: 'whatsapp', link_location: where });
+        if (where) gtag('event', 'contact', { method: a?.getAttribute('data-contact-method') ?? 'whatsapp', link_location: where });
       } catch {
         /* nada */
       }

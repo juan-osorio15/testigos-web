@@ -9,7 +9,7 @@
  */
 import { tFor } from '../ui';
 import { sectionHref } from '../links';
-import { WHATSAPP_URL } from '../config';
+import { CONTACT_CHANNEL, CONTACT_URL } from '../config';
 import CtaButton from './CtaButton.astro';
 import LogoLockup from '../assets/logo/logo-lockup.svg';
 
@@ -58,9 +58,9 @@ const navItems = [
     </a>
     <nav aria-label={t('nav.aria')} class="nav" id="site-nav">
       {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
-      {/* Contacto (2026-10-17): el mismo WhatsApp del pie y de la tienda,
-          medido como `contact` con el lugar "nav" */}
-      <a href={WHATSAPP_URL} target="_blank" rel="noopener" data-contact="nav">{t('nav.contact')}</a>
+      {/* Contacto (2026-10-17): el mismo canal del pie y de la tienda
+          (CONTACT_CHANNEL), medido como `contact` con el lugar "nav" */}
+      <a href={CONTACT_URL} target="_blank" rel="noopener" data-contact="nav" data-contact-method={CONTACT_CHANNEL}>{t('nav.contact')}</a>
     </nav>
     <div class="header-actions">
       <CtaButton variant="header" />

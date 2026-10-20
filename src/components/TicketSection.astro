@@ -8,9 +8,9 @@
  * sección implementa el contrato pretix-embed.md al pie de la letra.
  */
 import { PRETIX_EVENT_URL, pretixReady } from '../config';
-import WhatsAppLink from './WhatsAppLink.astro';
-import { WHATSAPP_URL } from '../config';
-import { WHATSAPP_ICON_PATH } from '../data/whatsapp-icon';
+import ContactLink from './ContactLink.astro';
+import { CONTACT_CHANNEL, CONTACT_URL } from '../config';
+import { CONTACT_ICON_PATH } from '../data/contact-icon';
 import { tFor } from '../ui';
 import LogoSymbol from '../assets/logo/logo-symbol.svg';
 import WaitlistForm from './WaitlistForm.astro';
@@ -158,7 +158,7 @@ const franjaNames = Object.fromEntries(
     {/* Dudas de compra en pantallas pequeñas: solo un botón bajo la tienda.
         En escritorio lo reemplaza la burbuja de la columna derecha. */}
     <div class="tickets-help">
-      <WhatsAppLink label={t('tickets.helpLink')} where="tickets" variant="button" />
+      <ContactLink label={t('tickets.helpLink')} where="tickets" variant="button" />
     </div>
     </div>
     {/* Dudas de compra en escritorio: botón bajo la tienda. Ocupa su propio
@@ -168,18 +168,19 @@ const franjaNames = Object.fromEntries(
       live && (
         <a
           class="tickets-bubble"
-          href={WHATSAPP_URL}
+          href={CONTACT_URL}
           target="_blank"
           rel="noopener"
           data-contact="tickets-bubble"
+          data-contact-method={CONTACT_CHANNEL}
           data-reveal
         >
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path fill="currentColor" d={WHATSAPP_ICON_PATH} />
+            <path fill="currentColor" d={CONTACT_ICON_PATH} />
           </svg>
           <span class="tickets-bubble-text">
             <strong>{t('tickets.bubbleTitle')}</strong>
-            <span>{t('tickets.bubbleText')}</span>
+            <span>{t(`tickets.bubbleText.${CONTACT_CHANNEL}`)}</span>
           </span>
         </a>
       )
