@@ -23,6 +23,18 @@ El titular quiere dos cosas, en este orden:
 - `specs/004-fuentes-de-verdad/diagnostico.md`: entregable 1, con los inventarios y los problemas ordenados por riesgo. Si un hallazgo cambia, se cambia primero ahí.
 - `docs/punto-de-partida.md` y `/Users/juandev/Documents/eventalist/investigacion-testigos-web.md` (secciones 3.1, 3.4 y 4): contexto.
 
+## Clarifications
+
+### Session 2026-10-19 (revisión del diagnóstico)
+
+- Q: ¿Cómo se cuentan las franjas al público? → A: "Franja" es un nombre interno; al público se le dice "boletas de medio día", y así está bien. Las campañas a interesados y expirados ya salieron; no se manda corrección. Las campañas y sus plantillas entran en el sistema centralizado como consumidores de la fuente.
+- Q: ¿"Talleres de periodismo" o "charlas abiertas"? → A: "Charlas abiertas" en todas partes. Incluyen la proyección del documental, porque después se conversa con su codirectora.
+- Q: ¿Pretix entra en la centralización? → A: No: Pretix es su propio sistema. Pero las reglas del repo (`CLAUDE.md`) deben decir que todo pedido de textos para Pretix es una señal inmediata de cotejar con la fuente de verdad.
+- Q: ¿Hay venta en la puerta? → A: Sí, dentro del hotel, para casos puntuales (alguien llega con un acompañante). Es un hecho de la fuente, pero no se publicita.
+- Q: ¿Canales de atención? → A: Hoy funcionan Instagram y el correo. El chatbot está conectado a WhatsApp e Instagram, pero el canal de WhatsApp funciona mal y sigue en pruebas: en la fuente queda como "pendiente de confirmación". Los botones de contacto por WhatsApp del sitio probablemente deban apagarse mientras tanto (se decide en la propuesta).
+- Q: ¿El número +1 711-136-9321 es correcto? → A: Sí, por ahora. Pronto cambia a un número colombiano que atenderá el mismo chatbot: es el caso de prueba del sistema.
+- Q: ¿Aforo publicable? → A: La sede de las charlas tiene una capacidad máxima de 300 asistentes.
+
 ## Entregables y paradas
 
 1. Diagnóstico (`diagnostico.md`). **Parada: revisión del titular.**

@@ -105,7 +105,15 @@ En ninguno queda constancia de qué versión se pegó ni cuándo.
 
 ## 9. Preguntas al titular
 
-No corrijo ninguna pieza afectada hasta tener estas respuestas.
+Respondidas el 2026-10-19; las respuestas están en `spec.md`, sección Clarifications. Lo que cambia frente al diagnóstico:
+
+- "Franja" es interno; al público, "boletas de medio día". Las campañas ya enviadas quedan así.
+- "Charlas abiertas" es el término; el texto de Pretix que dice "talleres" se corrige.
+- La venta en la puerta existe pero no se publicita.
+- El WhatsApp de atención sigue en pruebas: el riesgo 3 es más grave de lo que parecía, porque el sitio manda a un canal que no responde bien. Atención real hoy: Instagram y correo.
+- Aforo: 300 asistentes como capacidad máxima de la sede.
+
+Preguntas originales:
 
 1. **Franjas y conversatorios.** ¿Cómo se cuenta al público? Hechos: el viernes en la tarde tiene la bienvenida y un conversatorio (Bogotazo); el sábado en la mañana y en la tarde, dos cada uno; el domingo en la mañana, dos más el cierre. El pase dice "siete conversatorios". Propuesta: "siete conversatorios" para el pase y, por franja, nombrar las sesiones en vez de contarlas. ¿Se manda algo a los 29 que recibieron "dos conversatorios" o se deja así?
 2. **Charlas abiertas.** Pretix dice "talleres de periodismo del jueves 5 y el viernes 6"; el sitio dice "charlas abiertas" e incluye el documental del jueves. ¿Cuál es el nombre que va en todas partes?
