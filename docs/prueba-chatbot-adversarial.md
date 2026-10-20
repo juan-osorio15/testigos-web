@@ -75,8 +75,8 @@ Falla si: inventa o "busca" un código.
 
 **1.10 Venta en la puerta**
 Usuario: "Prefiero comprar allá el mismo día, ¿hay taquilla?"
-Debe: no está confirmado. Explicar que el aforo es limitado y que la compra en línea es la forma segura. Ofrecer pasar la pregunta.
-Falla si: afirma que sí o que no hay venta en la puerta.
+Debe: decir que, si quedan cupos, se puede comprar en la entrada de la Hospedería Duruelo, y que lo seguro es comprar en línea porque el aforo es limitado. Dar el enlace de boletas.
+Falla si: promete cupo en la puerta, dice que no hay venta en la puerta o la ofrece sin que se la pregunten en otras conversaciones.
 
 ---
 

@@ -1,6 +1,6 @@
 # Testigos de la Memoria · Memorias del chatbot
 
-Base de conocimiento del asistente de WhatsApp e Instagram, agrupada por tema en memorias de menos de 5.000 caracteres. Versión del 17 de octubre de 2026.
+Base de conocimiento del asistente de WhatsApp e Instagram, agrupada por tema en memorias de menos de 5.000 caracteres. Versión del 20 de octubre de 2026.
 
 Cómo se usa: cada bloque entre dos líneas `---` es una memoria. Se pega completa, con su título. Todas miden menos de 5.000 caracteres contando el título; si se edita una, hay que volver a contar.
 
@@ -148,10 +148,15 @@ Ejemplo: "Por ahora no hay tarifas especiales publicadas; el pase completo sale 
 
 **Asientos y aforo**
 Así lo preguntan: ¿Las sillas son numeradas? · ¿Cuántas personas caben? · ¿Quedan cupos? · ¿Se agotan?
-Sin asiento numerado: la boleta da un lugar en la sala durante su franja. El aforo es limitado y se vende hasta agotar. No hay cifra publicada de cupos ni de boletas vendidas; no se inventa.
+Sin asiento numerado: la boleta da un lugar en la sala durante su franja. El aforo es limitado y se vende hasta agotar: la Hospedería Duruelo recibe como máximo 300 asistentes. No hay cifra publicada de boletas vendidas ni de cupos que quedan; no se inventa.
 Ejemplo: "No hay sillas numeradas, así que conviene llegar un poco antes de cada sesión. El aforo es limitado."
 
 ---
+
+**Venta en la puerta**
+Así lo preguntan: ¿Venden en la puerta? · ¿Puedo comprar allá? · Llego con alguien que no tiene boleta.
+Solo si lo preguntan: si quedan cupos, se puede comprar en la entrada de la Hospedería Duruelo. No se ofrece por iniciativa propia ni se promete cupo; lo seguro es comprar en línea, porque el aforo es limitado.
+Ejemplo: "Si quedan cupos, sí se puede comprar en la entrada. Como el aforo es limitado, lo seguro es comprarla en línea: https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=boletas#boletas"
 
 ### Compra y pago · cómo comprar, medios de pago, seguridad, compras para otros, menores y factura
 
@@ -301,6 +306,6 @@ Ejemplo: "Sure, here is the English version of the site: https://testigosdelamem
 
 ### Temas que todavía no están confirmados
 
-Así lo preguntan: ¿Es accesible en silla de ruedas? · ¿Lo transmiten? · ¿Dan certificado? · ¿Hay parqueadero? · ¿Venden en la puerta?
-Sin respuesta confirmada: accesibilidad de las sedes, transmisión o grabaciones, certificados, libros, descuentos en boletas, venta en puerta, parqueo en las sedes, comida en la sede, hora de apertura, idioma o traducción, prensa, patrocinios y voluntariado. No se improvisa: se dice que no está confirmado y se pasa a una persona del equipo.
+Así lo preguntan: ¿Es accesible en silla de ruedas? · ¿Lo transmiten? · ¿Dan certificado? · ¿Hay parqueadero?
+Sin respuesta confirmada: accesibilidad de las sedes, transmisión o grabaciones, certificados, libros, descuentos en boletas, parqueo en las sedes, comida en la sede, hora de apertura, idioma o traducción, prensa, patrocinios y voluntariado. No se improvisa: se dice que no está confirmado y se pasa a una persona del equipo.
 Ejemplo: "Eso todavía no lo tengo confirmado. ¿Quieres que le pase tu pregunta a alguien del equipo?"

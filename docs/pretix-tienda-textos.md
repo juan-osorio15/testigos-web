@@ -20,7 +20,7 @@ Dónde aparece cada campo (según las plantillas de la tienda de Pretix):
 | Descripción de categoría | Debajo del nombre de la categoría, encima de sus productos | Siempre |
 
 Regla para no repetir: cada dato vive en un solo lugar. Qué es el evento → portada.
-Qué incluye cada boleta → producto. Los talleres gratis → categoría. Logística de
+Qué incluye cada boleta → producto. Las charlas abiertas → categoría. Logística de
 llegada → mensaje de éxito y boleta.
 
 ---
@@ -32,19 +32,18 @@ Los periodistas que cubrieron los últimos cincuenta años de Colombia cuentan y
 
 **Hospedería Duruelo, Villa de Leyva · del viernes 6 al domingo 8 de noviembre de 2026.**
 
-Puedes comprar el **Pase completo**, que cubre los tres días, o una **franja** suelta: cada franja es una mañana o una tarde con sus conversatorios. Toda la programación está en [testigosdelamemoria.com](https://testigosdelamemoria.com/#agenda).
+Puedes comprar el **Pase completo**, que cubre los tres días, o una **boleta de medio día**: una mañana o una tarde de conversatorios. Toda la programación está en [testigosdelamemoria.com](https://testigosdelamemoria.com/#agenda).
 ```
 
 ## End of presale text
 
 ```markdown
-La venta en línea ha cerrado.
-
-Si quedan cupos, podrás comprar tu boleta en la entrada de la Hospedería Duruelo antes de cada franja. Para confirmarlo, escríbenos a hola@eventalist.co.
+La venta en línea ha cerrado. Si tienes preguntas, escríbenos a hola@eventalist.co.
 ```
 
-> Confirmar con el organizador que sí habrá venta en la puerta y que ese es
-> el correo de contacto. Si no, dejar solo la primera línea.
+> 2026-10-19: sí habrá venta en la puerta, dentro del hotel y para casos
+> puntuales (alguien llega con un acompañante), pero no se publicita
+> (decisión del titular). Por eso este texto no la menciona.
 
 ## Voucher explanation
 
@@ -101,7 +100,7 @@ He leído la [política de tratamiento de datos](https://testigosdelamemoria.com
 ```markdown
 Tu boleta llega al correo que registraste. Guárdala en el celular o imprímela: la escaneamos en la entrada.
 
-Los conversatorios son en la Hospedería Duruelo, carrera 3 n.º 12-88, Villa de Leyva. Llega unos minutos antes de tu franja.
+Los conversatorios son en la Hospedería Duruelo, carrera 3 n.º 12-88, Villa de Leyva. Llega unos minutos antes de tu sesión.
 ```
 
 ## Help text of the email field
@@ -137,7 +136,7 @@ Opcional. Solo para avisos sobre esta compra o sobre cambios en la programación
 Vacío. Reservado para avisos de verdad urgentes. Ejemplos listos por si hacen falta:
 
 ```markdown
-Pase completo agotado. Aún hay boletas por franja.
+Pase completo agotado. Aún hay boletas de medio día.
 ```
 
 ```markdown
@@ -146,7 +145,7 @@ Cambio de sede: los conversatorios del sábado se trasladan a [lugar]. La boleta
 
 ## Banner text (bottom)
 
-Vacío. El aviso de los talleres gratis va en la descripción de la categoría, que
+Vacío. El aviso de las charlas abiertas va en la descripción de la categoría, que
 es donde la gente lo busca.
 
 ## Info text
@@ -154,7 +153,7 @@ es donde la gente lo busca.
 Para la plantilla del PDF de la boleta:
 
 ```markdown
-Presenta esta boleta en la entrada, en el celular o impresa. Hospedería Duruelo, carrera 3 n.º 12-88, Villa de Leyva. Válida solo para la franja indicada; el Pase completo vale para todas.
+Presenta esta boleta en la entrada, en el celular o impresa. Hospedería Duruelo, carrera 3 n.º 12-88, Villa de Leyva. Válida solo para la mañana o la tarde indicada; el Pase completo vale para todas.
 ```
 
 ---
@@ -168,14 +167,14 @@ Categoría única. Precios sin decimales; Pretix muestra la moneda.
 Descripción de la categoría:
 
 ```markdown
-Los talleres de periodismo del jueves 5 y el viernes 6 de noviembre, en la Casa Museo Antonio Nariño, son de entrada libre y no necesitan boleta.
+Las charlas abiertas del jueves 5 y del viernes 6 en la mañana, en la Casa Museo Antonio Nariño, son de entrada libre y no necesitan boleta.
 ```
 
 ### Pase completo · 340.000 COP (etapa 2; 310.000 en la etapa 1)
 
 ```markdown
 **Los siete conversatorios, del viernes 6 al domingo 8.**
-No te pierdes de nada y pagas menos que por franjas.
+No te pierdes de nada y pagas menos que por boletas de medio día.
 ```
 
 > 2026-09-30: el descuento es de la etapa 1. Desde el 13 de octubre el pase
@@ -188,7 +187,7 @@ No te pierdes de nada y pagas menos que por franjas.
 > argumento de compra sin cifra (el widget ya muestra 360.000 tachado). Sin
 > cóctel, que no se anuncia, y sin horarios, que ya están en cada franja.
 > Variante en el tono del sitio, por si "mejor precio" suena a promoción:
-> `No te pierdes de nada y pagas menos que por franjas.`
+> `No te pierdes de nada y pagas menos que por boletas de medio día.`
 
 ### Franja · Viernes 6, tarde · 90.000 COP
 
