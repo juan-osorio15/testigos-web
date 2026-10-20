@@ -33,7 +33,8 @@ El titular quiere dos cosas, en este orden:
 - Q: ¿Hay venta en la puerta? → A: Sí, dentro del hotel, para casos puntuales (alguien llega con un acompañante). Es un hecho de la fuente, pero no se publicita.
 - Q: ¿Canales de atención? → A: Hoy funcionan Instagram y el correo. El chatbot está conectado a WhatsApp e Instagram, pero el canal de WhatsApp funciona mal y sigue en pruebas: en la fuente queda como "pendiente de confirmación". Los botones de contacto por WhatsApp del sitio probablemente deban apagarse mientras tanto (se decide en la propuesta).
 - Q: ¿El número +1 711-136-9321 es correcto? → A: Sí, por ahora. Pronto cambia a un número colombiano que atenderá el mismo chatbot: es el caso de prueba del sistema.
-- Q: ¿Aforo publicable? → A: La sede de las charlas tiene una capacidad máxima de 300 asistentes.
+- Q: ¿Aforo publicable? → A: La Hospedería Duruelo (conversatorios con boleta) tiene una capacidad máxima de 300 asistentes. El de la Casa Museo (charlas abiertas) está pendiente; el titular lo averigua el 2026-10-20.
+- Q: ¿Los botones de contacto por WhatsApp? → A: De acuerdo con que apunten a Instagram mientras WhatsApp siga en pruebas; se publica solo con visto bueno de ese cambio.
 
 ## Entregables y paradas
 
