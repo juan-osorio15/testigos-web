@@ -97,7 +97,7 @@ Se manda con Resend (el mismo proveedor que usa Pretix, dominio eventalist.co ya
 
 ### Principal o Promociones en Gmail
 
-La primera plantilla (`expirado.html`, con la imagen grande de las caras, enlace a WhatsApp y a la política, remitente de marca, asunto con el precio y cabecera de baja) cayó en Promociones en las pruebas. La variante de pedido, con todo lo anterior quitado, llegó a Principal en la prueba del 12 de octubre. Gmail decide por destinatario, así que no hay garantía, pero para recuperar pedidos se parte de la variante: un solo enlace, sin imágenes enlazadas, asunto con el código del pedido y remitente con nombre de persona. `expirado.html` queda como referencia.
+La primera plantilla (`expirado.html`, con la imagen grande de las caras, enlace a WhatsApp y a la política, remitente de marca, asunto con el precio y cabecera de baja) cayó en Promociones en las pruebas. La variante de pedido, con todo lo anterior quitado, llegó a Principal en la prueba del 12 de octubre. Gmail decide por destinatario, así que no hay garantía, pero para recuperar pedidos se parte de la variante: un solo enlace, sin imágenes enlazadas, asunto con el código del pedido y remitente con nombre de persona. Las dos plantillas del 12 de octubre (`expirado.html` y `expirado-pedido.html`, con el precio de la etapa 1) se borraron el 2026-10-20 para que nadie las reutilice; siguen en el historial de git. La vigente es `expirado-recordatorio.html`.
 
 El envío real del 12 de octubre (16:24, 7 personas más el titular) salió con una versión anterior de la variante que decía "los cuatro días" y "del jueves 5 al domingo 8"; el pase cubre los conversatorios del 6 al 8. La plantilla ya está corregida.
 
