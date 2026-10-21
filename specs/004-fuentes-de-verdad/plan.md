@@ -104,6 +104,8 @@ Lo que producen se queda donde se usa (`public/og/`, `brand/pretix/*.pdf`). `bra
 
 ## 8. Orden de implementación
 
+Avance: paso 1 hecho el 2026-10-20 (commits `3329d9e`, `bac9aea`, `b8bc6a4`). La línea de la base del chatbot que dice que el único canal de atención es el correo no se cambió: habla de la atención humana de compras y reclamos, y el chatbot mismo es el primer contacto por Instagram y WhatsApp, así que no contradice al sitio. "Dos o tres conversatorios" en el sitio y en el chatbot tampoco: cuenta la bienvenida y el cierre, que en la agenda son conversatorios.
+
 De mayor a menor riesgo público, con commits pequeños en la rama `004-fuentes-de-verdad`. Después de cada paso: `npm run build`, `npm run check`, y para las campañas `campana.py lista` y la vista previa de las dos, sin `--enviar`. Nada se publica sin tu visto bueno de ese cambio.
 
 1. **Correcciones ya decididas** (pequeño, público):
@@ -113,7 +115,7 @@ De mayor a menor riesgo público, con commits pequeños en la rama `004-fuentes-
    - en la base del chatbot, los canales quedan en Instagram y correo, y se agrega la venta en la puerta con la marca de no publicitarla;
    - se borran las plantillas con 310.000.
 2. **Fuente completa y exportada**: `boletas.ts`, el papel de cada sesión, aforo, canales, venta en la puerta, `evento.json`. `TicketSection` y `jsonld.ts` usan `boletas.ts`. Se compara el sitio antes y después.
-3. **Campañas sobre la fuente**: identificadores y variables desde el JSON.
+3. **Campañas sobre la fuente**: identificadores y variables desde el JSON. Además (pedido del titular, 2026-10-20): un filtro `--dias N` en las audiencias para contar solo lo reciente, y en `docs/campanas/` una referencia de una página con los comandos para responder en una reunión ("¿cuántos expirados van?", "¿cuántos interesados quedan sin escribirles?", "¿cuántos envíos salieron esta semana?"), cada uno listo para copiar y correr.
 4. **Comprobación de vigencia**, conectada a `campana.py`, con los errores históricos como casos de prueba.
 5. **`CLAUDE.md` y `docs/copias-externas.md`**. Para la lista necesito que me digas qué hay publicado hoy en cada sistema; la armo con lo que está en el repo y tú completas.
 6. **`ui.ts` solo con redacción**: fechas, sedes y conteos desde los datos; fuera los textos de etapas vencidas.
