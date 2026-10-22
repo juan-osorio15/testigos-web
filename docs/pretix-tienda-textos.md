@@ -212,7 +212,7 @@ trabajo el viernes.
 
 ```markdown
 **Los seis conversatorios del sábado 7 y el domingo 8.**
-Pensado para quien trabaja el viernes. Pagas menos que por las tres boletas de medio día.
+Para quienes solo pueden venir el fin de semana y no se quieren perder de nada.
 ```
 
 > Sin fecha en la descripción: el aviso "Precio de la etapa 2, hasta el 29 de
