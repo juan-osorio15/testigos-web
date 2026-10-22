@@ -66,14 +66,20 @@ const es = {
     'Charlas abiertas de entrada libre en la Casa Museo Antonio Nariño y conversatorios con boleta en la Hospedería Duruelo.',
 
   // --- Sección de compra ---
-  /* Junto a la tienda: explicar sin adornos las dos formas de comprar */
+  /* Junto a la tienda: explicar sin adornos las formas de comprar */
   'tickets.heading': 'Boletas',
-  'tickets.title': 'Hay dos formas de comprar.',
+  'tickets.title': 'Hay tres formas de comprar.',
   'tickets.passName': 'Pase completo',
   /* "Medio día" en vez de "franja" (2026-09-18): la palabra franja no se
      entendía; una mañana o una tarde sí. */
   'tickets.passText':
     'Los siete conversatorios, del viernes en la tarde al domingo en la mañana, en una sola boleta.',
+  /* Pase de fin de semana (2026-10-22): para quien quería el pase completo
+     y no puede faltar al trabajo el viernes */
+  'tickets.weekendName': 'Pase de fin de semana',
+  'tickets.weekendText':
+    'Los seis conversatorios del sábado y el domingo, en una sola boleta. Pensado para quien trabaja el viernes.',
+  'tickets.weekendWas': 'Antes',
   'tickets.slotName': 'Boleta de medio día',
   'tickets.slotText':
     'Una mañana o una tarde, con sus dos o tres conversatorios: viernes en la tarde, sábado en la mañana, sábado en la tarde o domingo en la mañana. Compra solo las que quieras.',
@@ -81,23 +87,27 @@ const es = {
      El widget muestra las franjas con "Aún no disponible"; las fechas las
      cuenta el bloque de etapas (SalesStages). */
   'tickets.slotSoon': 'Se venden desde la etapa 2.',
-  /* Bloque de etapas: dos planos que se tocan, cielo el vigente y crema el
-     que viene (fórmula visual §6: los datos van en franja) */
+  /* Bloque de etapas: tres planos que se tocan, cielo el vigente y crema
+     los demás (fórmula visual §6: los datos van en franja). Desde el
+     2026-10-22: la etapa 1 sin contar qué se vendió ni con qué cifra; la 2,
+     el pase de fin de semana; la 3, todo a la venta con menos descuento. */
   'stages.heading': 'Calendario de venta',
   'stages.stage1': 'Etapa 1',
   'stages.stage2': 'Etapa 2',
+  'stages.stage3': 'Etapa 3',
   'stages.now': 'En curso',
+  'stages.closed': 'Cerrada',
   'stages.until': 'Hasta el',
   'stages.from': 'Desde el',
   'stages.stage1Product': 'Pase completo',
-  'stages.stage2Product': 'Boletas de medio día',
-  'stages.stage1Note': 'Solo el pase, con los siete conversatorios y su mayor descuento.',
-  /* Ni que el pase sigue ni que se retira (2026-10-01): lo que pase con él
-     en la etapa 2 no está definido. Solo que el mayor descuento es el de ahora. */
-  'stages.stage2Note': 'Se abren las mañanas y las tardes sueltas. El mayor descuento se queda en la etapa 1.',
-  'stages.daysLeft': 'Quedan {n} días con el precio de la etapa 1',
-  'stages.lastDay': 'Último día con el precio de la etapa 1',
-  'tickets.stagePrice': 'Precio de la etapa 1, hasta el {date}.',
+  'stages.stage2Product': 'Pase de fin de semana',
+  'stages.stage3Product': 'Todas las boletas',
+  'stages.stage1Note': 'Abrió la venta con su mayor descuento.',
+  'stages.stage2Note': 'Sábado y domingo completos, al mejor precio.',
+  'stages.stage3Note': 'Todo sigue a la venta, con menos descuento.',
+  'stages.daysLeft': 'Quedan {n} días con el precio de la etapa 2',
+  'stages.lastDay': 'Último día con el precio de la etapa 2',
+  'tickets.stagePrice': 'Precio de la etapa 2, hasta el {date}.',
   'tickets.notify': 'Avísame cuando abra',
   /* Modal "avísame" de las franjas; la franja escogida va como eyebrow */
   'notify.title': 'Te avisamos cuando abra la etapa 2',
@@ -369,9 +379,13 @@ const en: Record<UiKey, string> = {
     'Free open talks at Casa Museo Antonio Nariño and ticketed panel conversations at Hospedería Duruelo.',
 
   'tickets.heading': 'Tickets',
-  'tickets.title': 'There are two ways to buy.',
+  'tickets.title': 'There are three ways to buy.',
   'tickets.passName': 'Full pass',
   'tickets.passText': 'All seven panel conversations, from Friday afternoon to Sunday morning, on a single ticket.',
+  'tickets.weekendName': 'Weekend pass',
+  'tickets.weekendText':
+    "All six panels on Saturday and Sunday, on a single ticket. Made for those who work on Friday.",
+  'tickets.weekendWas': 'Was',
   'tickets.slotName': 'Half-day ticket',
   'tickets.slotText':
     'One morning or one afternoon, with its two or three panels: Friday afternoon, Saturday morning, Saturday afternoon or Sunday morning. Buy only the ones you want.',
@@ -379,16 +393,20 @@ const en: Record<UiKey, string> = {
   'stages.heading': 'Sales calendar',
   'stages.stage1': 'Stage 1',
   'stages.stage2': 'Stage 2',
+  'stages.stage3': 'Stage 3',
   'stages.now': 'Now open',
+  'stages.closed': 'Closed',
   'stages.until': 'Until',
   'stages.from': 'From',
   'stages.stage1Product': 'Full pass',
-  'stages.stage2Product': 'Half-day tickets',
-  'stages.stage1Note': 'The pass only, with all seven panels at its biggest discount.',
-  'stages.stage2Note': 'Individual mornings and afternoons go on sale. The biggest discount stays in stage 1.',
-  'stages.daysLeft': '{n} days left at the stage 1 price',
-  'stages.lastDay': 'Last day at the stage 1 price',
-  'tickets.stagePrice': 'Stage 1 price, until {date}.',
+  'stages.stage2Product': 'Weekend pass',
+  'stages.stage3Product': 'All tickets',
+  'stages.stage1Note': 'Opened sales at its biggest discount.',
+  'stages.stage2Note': 'All of Saturday and Sunday, at the best price.',
+  'stages.stage3Note': 'Everything stays on sale, at a smaller discount.',
+  'stages.daysLeft': '{n} days left at the stage 2 price',
+  'stages.lastDay': 'Last day at the stage 2 price',
+  'tickets.stagePrice': 'Stage 2 price, until {date}.',
   'tickets.notify': 'Notify me when it opens',
   'notify.title': "We'll let you know when stage 2 opens",
   'notify.intro': "Leave us your details and we'll write to you as soon as half-day tickets go on sale.",

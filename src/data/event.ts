@@ -33,17 +33,24 @@ export const event = {
  * solo el pase completo, con su mayor descuento; el martes 13 de octubre
  * abre la etapa 2 con las boletas por franja y el pase SIGUE a la venta con
  * un descuento menor (usuario, 2026-09-30: la etapa 1 va hasta el lunes 12
- * de octubre, no hasta el 4, y el pase ya no se retira). Fechas en calendario de Bogotá; la primera es
- * inclusiva y el cambio ocurre a las 0:00 de `stage2Start`. Pretix es quien
- * abre y cierra los productos: aquí solo se cuenta al público.
+ * de octubre, no hasta el 4, y el pase ya no se retira). El 2026-10-22 la
+ * etapa 2 pasa a ser la del pase de fin de semana con su mejor precio, hasta
+ * el jueves 29 de octubre inclusive; desde el viernes 30 (etapa 3) todo
+ * sigue a la venta, con menos descuento. Fechas en calendario de Bogotá; los
+ * finales son inclusivos y cada cambio ocurre a las 0:00 del primer día de
+ * la etapa siguiente. Pretix es quien abre y cierra los productos y cambia
+ * los precios: aquí solo se cuenta al público.
  */
 export const salesStages = {
   stage1End: '2026-10-12',
   stage2Start: '2026-10-13',
+  stage2End: '2026-10-29',
+  stage3Start: '2026-10-30',
 } as const;
 
 export type TicketOfferId =
   | 'pase-completo'
+  | 'fin-de-semana'
   | 'viernes-tarde'
   | 'sabado-manana'
   | 'sabado-tarde'
@@ -72,7 +79,11 @@ export interface TicketOffer {
    * Nunca se infiere del widget.
    */
   soldOut: boolean;
-  /** Días de la agenda que cubre; el pase cubre todos los conversatorios */
+  /**
+   * Días de la agenda que cubre; el pase cubre todos los conversatorios.
+   * Con un solo día es una boleta de medio día (su id dice qué mitad); con
+   * varios, cubre los días enteros.
+   */
   covers: 'all' | EventDay[];
 }
 
@@ -86,6 +97,9 @@ export interface TicketOffer {
  * que el build ponga las franjas en venta, y ANTES cambiar `price` del pase
  * al precio de la etapa 2 (el mismo que se ponga en Pretix). Al agotarse una
  * boleta: `soldOut: true`, commit y publicación con visto bueno.
+ *
+ * El 30 de octubre (stage3Start) el pase de fin de semana sube de precio en
+ * Pretix: ese día se cambia aquí `price` al mismo valor y se publica.
  */
 export const ticketOffers: TicketOffer[] = [
   {
@@ -101,6 +115,21 @@ export const ticketOffers: TicketOffer[] = [
     validThrough: null,
     soldOut: false,
     covers: 'all',
+  },
+  {
+    id: 'fin-de-semana',
+    name: 'Pase de fin de semana',
+    /* Nombre que se le da en Pretix al crearlo (2026-10-22) */
+    pretixProduct: 'Pase Fin de Semana',
+    /* Precio de la etapa 2; en Pretix va con el de las tres boletas de medio
+       día del sábado y el domingo tachado */
+    price: 240000,
+    currency: 'COP',
+    validFrom: '2026-10-22',
+    /* Sigue a la venta en la etapa 3, con menos descuento */
+    validThrough: null,
+    soldOut: false,
+    covers: ['2026-11-07', '2026-11-08'],
   },
   {
     id: 'viernes-tarde',

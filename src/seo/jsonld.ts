@@ -123,7 +123,7 @@ export function sessionsForMarkup(): AgendaSlot[] {
 /**
  * Ofertas de una sesión (Search Console las pide, aunque sean opcionales):
  * las charlas abiertas, gratis; los conversatorios, las boletas vigentes
- * que cubren ese día (el pase y, desde la etapa 2, la de ese medio día).
+ * que cubren ese día (los pases que lo incluyen y la de ese medio día).
  * Sin tienda o sin boleta vigente que lo cubra, ninguna.
  */
 function sessionOffersLd(slot: AgendaSlot, today: string): Node[] {
@@ -144,8 +144,10 @@ function sessionOffersLd(slot: AgendaSlot, today: string): Node[] {
   return activeOffers(today)
     .filter(({ offer }) => {
       if (offer.covers === 'all') return true;
-      /* La boleta de medio día cubre su día y su mitad (id "sabado-manana") */
-      return offer.covers.includes(slot.day) && offer.id.endsWith(half);
+      if (!offer.covers.includes(slot.day)) return false;
+      /* La boleta de medio día cubre su día y su mitad (id "sabado-manana");
+         el pase de fin de semana, sus días enteros */
+      return offer.covers.length > 1 || offer.id.endsWith(half);
     })
     .map(({ offer, availability }) => ({
       '@type': 'Offer',
