@@ -109,11 +109,11 @@ export const waitlistReady = EVENTALIST_CAMPAIGN.length > 0;
 export const DATA_CONTACT_EMAIL = 'hola@eventalist.co';
 
 /**
- * WhatsApp de Eventalist para dudas de compra (enlace corto de WhatsApp
- * Business con el mensaje ya escrito). Lo usa WhatsAppLink.astro, junto a la
- * tienda y en el pie de página. Desde el 2026-10-19, el número +1 711-136-9321.
+ * WhatsApp de Eventalist para dudas de compra. Lo usa WhatsAppLink.astro,
+ * junto a la tienda y en el pie de página. Desde el 2026-10-22, el número
+ * colombiano +57 323 9236021 (enlace directo, todavía sin mensaje escrito).
  */
-export const WHATSAPP_URL = 'https://wa.me/message/CIRY6GT77KJOA1';
+export const WHATSAPP_URL = 'https://wa.me/573239236021';
 
 /**
  * Fecha de entrada en vigencia de la política de tratamiento de datos (ISO).
