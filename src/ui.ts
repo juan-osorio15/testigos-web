@@ -79,7 +79,7 @@ const es = {
   'tickets.weekendName': 'Pase de fin de semana',
   'tickets.weekendText':
     'Los seis conversatorios del sábado y el domingo, en una sola boleta. Para quienes solo pueden venir el fin de semana y no se quieren perder de nada.',
-  'tickets.weekendWas': 'Antes',
+  'tickets.was': 'Antes',
   'tickets.slotName': 'Boleta de medio día',
   'tickets.slotText':
     'Una mañana o una tarde, con sus dos o tres conversatorios: viernes en la tarde, sábado en la mañana, sábado en la tarde o domingo en la mañana. Compra solo las que quieras.',
@@ -385,7 +385,7 @@ const en: Record<UiKey, string> = {
   'tickets.weekendName': 'Weekend pass',
   'tickets.weekendText':
     "All six panels on Saturday and Sunday, on a single ticket. For those who can only come on the weekend and don't want to miss a thing.",
-  'tickets.weekendWas': 'Was',
+  'tickets.was': 'Was',
   'tickets.slotName': 'Half-day ticket',
   'tickets.slotText':
     'One morning or one afternoon, with its two or three panels: Friday afternoon, Saturday morning, Saturday afternoon or Sunday morning. Buy only the ones you want.',

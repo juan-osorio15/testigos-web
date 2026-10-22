@@ -16,7 +16,7 @@ import LogoSymbol from '../assets/logo/logo-symbol.svg';
 import WaitlistForm from './WaitlistForm.astro';
 import SalesStages from './SalesStages.astro';
 import { agenda } from '../data/agenda';
-import { ticketOffers, formatPrice, salesStages, type TicketOfferId } from '../data/event';
+import { ticketOffers, formatPrice, salesStages, type TicketOffer, type TicketOfferId } from '../data/event';
 import { speakers } from '../data/speakers';
 import { langOf, localeOf } from '../i18n';
 
@@ -26,22 +26,22 @@ const lang = langOf(Astro.url.pathname);
 /* Precios de referencia para las fichas (los cobra Pretix; aquí solo se
    muestran): los dos pases y cualquiera de las boletas de medio día. */
 const offerById = (id: TicketOfferId) => ticketOffers.find((o) => o.id === id)!;
-const passPrice = formatPrice(offerById('pase-completo'), lang);
+const pass = offerById('pase-completo');
 const weekend = offerById('fin-de-semana');
-const weekendPrice = formatPrice(weekend, lang);
-const halfDayPrice = formatPrice(offerById('viernes-tarde'), lang);
-/* Precio tachado del pase de fin de semana: lo que costarían por separado
-   las boletas de medio día de esos días (el mismo que va tachado en Pretix) */
-const weekendDays = weekend.covers === 'all' ? [] : weekend.covers;
-const weekendWas = formatPrice(
-  {
-    price: ticketOffers
-      .filter((o) => o.covers !== 'all' && o.covers.length === 1 && weekendDays.includes(o.covers[0]!))
-      .reduce((sum, o) => sum + o.price, 0),
-    currency: weekend.currency,
-  },
-  lang,
-);
+const halfDay = offerById('viernes-tarde');
+/* Precio tachado de un pase: lo que costarían por separado las boletas de
+   medio día que cubre (el mismo que va tachado en Pretix) */
+const halfDays = ticketOffers.filter((o) => o.covers !== 'all' && o.covers.length === 1);
+const separately = (offer: TicketOffer) =>
+  formatPrice(
+    {
+      price: halfDays
+        .filter((h) => offer.covers === 'all' || (h.covers !== 'all' && offer.covers.includes(h.covers[0]!)))
+        .reduce((sum, h) => sum + h.price, 0),
+      currency: offer.currency,
+    },
+    lang,
+  );
 
 /* Aviso bajo el precio del pase de fin de semana en el widget (2026-10-22):
    el mejor precio es el de la etapa 2. Lo inyecta el script, porque el
@@ -58,6 +58,20 @@ const stageSwitchAt = Date.parse(`${salesStages.stage3Start}T00:00:00-05:00`);
    tachado y el aviso de etapa se omiten en el build. */
 const stage2Promo = Date.now() < stageSwitchAt;
 const promoProduct = weekend.pretixProduct;
+
+/* Las fichas, en el orden de la tienda. El tachado del pase de fin de
+   semana es el de la etapa 2; en la 3 cambia su precio y se omite. */
+const options = [
+  { name: t('tickets.passName'), now: formatPrice(pass, lang), was: separately(pass), text: t('tickets.passText'), note: null },
+  {
+    name: t('tickets.weekendName'),
+    now: formatPrice(weekend, lang),
+    was: stage2Promo ? separately(weekend) : null,
+    text: t('tickets.weekendText'),
+    note: stage2Promo ? stagePriceNote : null,
+  },
+  { name: t('tickets.slotName'), now: formatPrice(halfDay, lang), was: null, text: t('tickets.slotText'), note: null },
+];
 
 /* `pretixReady` (config.ts) decide tienda o formulario. La hoja de estilos
    y el script del widget los pone EventLayout en la cabecera del documento. */
@@ -114,43 +128,32 @@ const franjaNames = Object.fromEntries(
       <LogoSymbol class="tickets-eyes" aria-hidden="true" />
       <p class="eyebrow">{t('tickets.heading')}</p>
       <h2 class="tickets-title">{t('tickets.title')}</h2>
-      {/* Fichas en tinta: nombre con su precio y qué incluye.
-          "Medio día" en vez de "franja" desde el 2026-09-18. */}
+      {/* Fichas en tinta: nombre, precio en un plano cielo (los datos van
+          en cielo, fórmula visual §3) y qué incluye. "Medio día" en vez de
+          "franja" desde el 2026-09-18. */}
       <dl class="tickets-options">
-        <div class="tickets-option">
-          <dt>
-            <span class="tickets-option-name">{t('tickets.passName')}</span>
-            <span class="tickets-option-price">{passPrice}</span>
-          </dt>
-          <dd>{t('tickets.passText')}</dd>
-        </div>
-        <div class="tickets-option">
-          <dt>
-            <span class="tickets-option-name">{t('tickets.weekendName')}</span>
-            <span class="tickets-option-price">
-              {
-                stage2Promo && (
-                  <s class="tickets-option-was">
-                    <span class="sr-only">{t('tickets.weekendWas')} </span>
-                    {weekendWas}
-                  </s>
-                )
-              }
-              {weekendPrice}
-            </span>
-          </dt>
-          <dd>
-            {t('tickets.weekendText')}
-            {stage2Promo && <span class="tickets-option-note">{stagePriceNote}</span>}
-          </dd>
-        </div>
-        <div class="tickets-option">
-          <dt>
-            <span class="tickets-option-name">{t('tickets.slotName')}</span>
-            <span class="tickets-option-price">{halfDayPrice}</span>
-          </dt>
-          <dd>{t('tickets.slotText')}</dd>
-        </div>
+        {
+          options.map((o) => (
+            <div class="tickets-option">
+              <dt>
+                <span class="tickets-option-name">{o.name}</span>
+                <span class="tickets-option-prices">
+                  {o.was && (
+                    <s class="tickets-option-was">
+                      <span class="sr-only">{t('tickets.was')} </span>
+                      {o.was}
+                    </s>
+                  )}
+                  <span class="tickets-option-price">{o.now}</span>
+                </span>
+              </dt>
+              <dd>
+                {o.text}
+                {o.note && <span class="tickets-option-note">{o.note}</span>}
+              </dd>
+            </div>
+          ))
+        }
       </dl>
       {/* Calendario de venta: qué trae cada etapa (hasta que abre la 3) */}
       {stage2Promo && <SalesStages />}
@@ -506,14 +509,29 @@ const franjaNames = Object.fromEntries(
     font-weight: 800;
     line-height: 1.2;
   }
+  .tickets-option-prices {
+    display: flex;
+    flex-basis: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6em;
+    margin-top: 0.25em;
+  }
+  /* El precio de ahora: plano cielo con la cifra en tinta, que se lee
+     de lejos sobre el terracota */
   .tickets-option-price {
-    font-size: var(--text-body);
+    padding: 0.2em 0.55em;
+    background-color: var(--sky);
+    font-size: var(--text-h3);
+    font-weight: 800;
     font-variant-numeric: tabular-nums;
+    line-height: 1.15;
   }
   /* El precio de antes, tachado y más liviano, delante del de ahora */
   .tickets-option-was {
-    margin-right: 0.5em;
+    font-size: var(--text-body);
     font-weight: 500;
+    font-variant-numeric: tabular-nums;
   }
   .sr-only {
     position: absolute;
