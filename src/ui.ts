@@ -78,7 +78,7 @@ const es = {
      y no puede faltar al trabajo el viernes */
   'tickets.weekendName': 'Pase de fin de semana',
   'tickets.weekendText':
-    'Los seis conversatorios del sábado y el domingo, en una sola boleta. Pensado para quien trabaja el viernes.',
+    'Los seis conversatorios del sábado y el domingo, en una sola boleta. Para quienes solo pueden venir el fin de semana y no se quieren perder de nada.',
   'tickets.weekendWas': 'Antes',
   'tickets.slotName': 'Boleta de medio día',
   'tickets.slotText':
@@ -384,7 +384,7 @@ const en: Record<UiKey, string> = {
   'tickets.passText': 'All seven panel conversations, from Friday afternoon to Sunday morning, on a single ticket.',
   'tickets.weekendName': 'Weekend pass',
   'tickets.weekendText':
-    "All six panels on Saturday and Sunday, on a single ticket. Made for those who work on Friday.",
+    "All six panels on Saturday and Sunday, on a single ticket. For those who can only come on the weekend and don't want to miss a thing.",
   'tickets.weekendWas': 'Was',
   'tickets.slotName': 'Half-day ticket',
   'tickets.slotText':
