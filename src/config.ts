@@ -109,23 +109,20 @@ export const waitlistReady = EVENTALIST_CAMPAIGN.length > 0;
 export const DATA_CONTACT_EMAIL = 'hola@eventalist.co';
 
 /**
- * WhatsApp de Eventalist para dudas de compra (enlace corto de WhatsApp
- * Business con el mensaje ya escrito). Desde el 2026-10-19, el número
- * +1 711-136-9321; pronto cambia a un número colombiano con el mismo chatbot.
- * PENDIENTE DE CONFIRMACIÓN (2026-10-19): el chatbot responde mal por este
- * canal y sigue en pruebas, así que el sitio no lo ofrece (CONTACT_CHANNEL).
+ * WhatsApp de Eventalist para dudas de compra. Desde el 2026-10-22, el número
+ * colombiano +57 323 9236021 (enlace directo, todavía sin mensaje escrito).
  */
-export const WHATSAPP_URL = 'https://wa.me/message/CIRY6GT77KJOA1';
+export const WHATSAPP_URL = 'https://wa.me/573239236021';
 
 /** Mensajes directos de la cuenta de Instagram del encuentro (event.socialProfiles) */
 export const INSTAGRAM_DM_URL = 'https://ig.me/m/testigosdelamemoria';
 
 /**
  * Canal de los botones de contacto del sitio (menú, tienda y pie). Lo usa
- * ContactLink.astro. Instagram mientras WhatsApp siga en pruebas (decisión
- * del titular, 2026-10-19); para volver a WhatsApp basta cambiar esta línea.
+ * ContactLink.astro. WhatsApp desde el 2026-10-22 con el número colombiano
+ * (Instagram del 2026-10-19 al 22 mientras WhatsApp estaba en pruebas).
  */
-export const CONTACT_CHANNEL: 'instagram' | 'whatsapp' = 'instagram';
+export const CONTACT_CHANNEL: 'instagram' | 'whatsapp' = 'whatsapp';
 export const CONTACT_URL = CONTACT_CHANNEL === 'instagram' ? INSTAGRAM_DM_URL : WHATSAPP_URL;
 
 /**
