@@ -174,12 +174,12 @@ Las charlas abiertas del jueves 5 y del viernes 6 en la mañana, en la Casa Muse
 
 ```markdown
 **Los siete conversatorios, del viernes 6 al domingo 8.**
-No te pierdes de nada y pagas menos que por boletas de medio día.
+Para los que quieren experimentar el viaje completo por la historia reciente de Colombia de la mano de quienes la reportaron
 ```
 
 > 2026-10-22: con el pase de fin de semana, "el mejor precio" ya no es del
-> pase completo. La descripción viva en Pretix ("No te pierdes de nada y te
-> aseguras el mejor precio.") se cambia por la de arriba.
+> pase completo. El titular cambió la descripción en Pretix por la de arriba
+> (copiada de la tienda el mismo día).
 
 > 2026-09-30: el descuento es de la etapa 1. Desde el 13 de octubre el pase
 > sigue a la venta con un descuento menor (ya no se retira). Ese día se
@@ -199,7 +199,7 @@ Creado el 2026-10-22, para quien quería el pase completo y no puede faltar al
 trabajo el viernes.
 
 - *Name*: `Pase Fin de Semana` (igual que `pretixProduct` en `src/data/event.ts`).
-- *Default price*: `240000`. *Original price*: `270000`, lo que cuestan por
+- *Default price*: `240000`. *Original price*: `270000` (verificado en la tienda el 2026-10-22), lo que cuestan por
   separado las tres boletas de medio día del sábado y el domingo; Pretix lo
   muestra tachado. No poner 280.000: ese precio nunca existió.
 - *Is an admission ticket*: sí. Posición: entre Pase Completo y Viernes Tarde.
