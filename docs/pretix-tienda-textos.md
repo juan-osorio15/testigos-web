@@ -32,7 +32,7 @@ Los periodistas que cubrieron los últimos cincuenta años de Colombia cuentan y
 
 **Hospedería Duruelo, Villa de Leyva · del viernes 6 al domingo 8 de noviembre de 2026.**
 
-Puedes comprar el **Pase completo**, que cubre los tres días, o una **boleta de medio día**: una mañana o una tarde de conversatorios. Toda la programación está en [testigosdelamemoria.com](https://testigosdelamemoria.com/#agenda).
+Puedes comprar el **Pase completo**, que cubre los tres días; el **Pase de fin de semana**, con el sábado y el domingo, o una **boleta de medio día**: una mañana o una tarde de conversatorios. Toda la programación está en [testigosdelamemoria.com](https://testigosdelamemoria.com/#agenda).
 ```
 
 ## End of presale text
@@ -177,6 +177,10 @@ Las charlas abiertas del jueves 5 y del viernes 6 en la mañana, en la Casa Muse
 No te pierdes de nada y pagas menos que por boletas de medio día.
 ```
 
+> 2026-10-22: con el pase de fin de semana, "el mejor precio" ya no es del
+> pase completo. La descripción viva en Pretix ("No te pierdes de nada y te
+> aseguras el mejor precio.") se cambia por la de arriba.
+
 > 2026-09-30: el descuento es de la etapa 1. Desde el 13 de octubre el pase
 > sigue a la venta con un descuento menor (ya no se retira). Ese día se
 > cambia el precio en Pretix, el `price` del pase en `src/data/event.ts` y
@@ -188,6 +192,32 @@ No te pierdes de nada y pagas menos que por boletas de medio día.
 > cóctel, que no se anuncia, y sin horarios, que ya están en cada franja.
 > Variante en el tono del sitio, por si "mejor precio" suena a promoción:
 > `No te pierdes de nada y pagas menos que por boletas de medio día.`
+
+### Pase de fin de semana · 240.000 COP (etapa 2, hasta el 29 de octubre)
+
+Creado el 2026-10-22, para quien quería el pase completo y no puede faltar al
+trabajo el viernes.
+
+- *Name*: `Pase Fin de Semana` (igual que `pretixProduct` en `src/data/event.ts`).
+- *Default price*: `240000`. *Original price*: `270000`, lo que cuestan por
+  separado las tres boletas de medio día del sábado y el domingo; Pretix lo
+  muestra tachado. No poner 280.000: ese precio nunca existió.
+- *Is an admission ticket*: sí. Posición: entre Pase Completo y Viernes Tarde.
+- Cupos (*Quotas*): en los de Sábado Mañana, Sábado Tarde y Domingo Mañana
+  (como el pase completo, que está en todos). No en el del viernes.
+- Listas de ingreso (*Check-in lists*): si alguna está limitada a ciertos
+  productos, añadirlo a las del sábado y el domingo.
+- El 30 de octubre (etapa 3) se sube el precio a mano en Pretix (no programa
+  cambios de precio) y se cambia `price` en `src/data/event.ts`.
+
+```markdown
+**Los seis conversatorios del sábado 7 y el domingo 8.**
+Pensado para quien trabaja el viernes. Pagas menos que por las tres boletas de medio día.
+```
+
+> Sin fecha en la descripción: el aviso "Precio de la etapa 2, hasta el 29 de
+> octubre." lo pone el sitio bajo este producto en el widget y desaparece solo
+> el 30, así la descripción no hay que tocarla al cambiar de etapa.
 
 ### Franja · Viernes 6, tarde · 90.000 COP
 
@@ -251,8 +281,9 @@ No te pierdes de nada y pagas menos que por boletas de medio día.
 > Pretix convierte cada salto de línea simple en `<br>` (extensión nl2br), así
 > que no hacen falta dos espacios al final de línea.
 
-Nombres en Pretix (campo *Name*, leídos en la API el 2026-10-17):
-`Pase Completo`, `Viernes Tarde`, `Sábado Mañana`, `Sábado Tarde`,
+Nombres en Pretix (campo *Name*, leídos en la API el 2026-10-17; el pase de
+fin de semana, desde el 2026-10-22):
+`Pase Completo`, `Pase Fin de Semana`, `Viernes Tarde`, `Sábado Mañana`, `Sábado Tarde`,
 `Domingo Mañana`. Deben coincidir con `pretixProduct` en `src/data/event.ts`:
 el sitio reconoce cada producto del widget por ese nombre (sin distinguir
 mayúsculas ni tildes, y también con la forma `Sábado AM`).
