@@ -2,7 +2,7 @@
 
 **Branch**: `main` (commits locales; ningún push sin visto bueno) | **Date**: 2026-10-08 | **Spec**: [spec.md](spec.md)
 
-**Input**: `specs/003-embudo-sitio/spec.md`. Contexto en `docs/medicion-embudo/diseno.md`, que manda sobre este plan.
+**Input**: `specs/003-embudo-sitio/spec.md`. Contexto en `docs/medicion/embudo/diseno.md`, que manda sobre este plan.
 
 ## Summary
 
@@ -64,11 +64,11 @@ src/layouts/EventLayout.astro        solo el comentario "Nada viaja al widget"
 src/config.ts                        PUBLIC_PRETIX_EVENT_URL; DATA_POLICY_EFFECTIVE y TERMS_EFFECTIVE; comentarios
 src/pages/tratamiento-de-datos.astro sección C del dictamen + ajustes de clarify
 src/pages/terminos-y-condiciones.astro sección 12
-docs/pretix-tienda-textos.md         casilla A, ayuda del teléfono, fechas
+docs/pretix/pretix-tienda-textos.md         casilla A, ayuda del teléfono, fechas
 specs/002-.../contracts/measurement-events.md  nota que remite a 003 y líneas corregidas
 specs/001-.../contracts/pretix-embed.md        nota: el widget recibe atributos desde 003
-docs/medicion-embudo/estado.md       sección testigos-web y preguntas abiertas
-docs/medicion-embudo/diseno.md       decisiones de detalle (ya hecho en clarify; begin_checkout sin value)
+docs/medicion/embudo/estado.md       sección testigos-web y preguntas abiertas
+docs/medicion/embudo/diseno.md       decisiones de detalle (ya hecho en clarify; begin_checkout sin value)
 ```
 
 `TicketSection.astro` no cambia: el módulo encuentra el widget por `.tickets-widget`.

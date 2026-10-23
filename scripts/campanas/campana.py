@@ -10,6 +10,7 @@ Uso:
     python3 scripts/campanas/campana.py lista interesados
     python3 scripts/campanas/campana.py correo interesados [--prueba tu@correo.com] [--enviar]
     python3 scripts/campanas/campana.py whatsapp interesados [--prueba 57300...] [--enviar]
+    python3 scripts/campanas/campana.py respondio expirados [--salida ~/Downloads/x.csv]
     python3 scripts/campanas/campana.py registro
 
 lista arma la lista con los datos de este momento y la guarda en
@@ -21,11 +22,17 @@ lista ya guardada en vez de armarla.
 Sin --enviar no se envía nada. --prueba manda un solo mensaje de muestra a
 esa dirección o número. Fuera del horario de la Ley 2300 no se envía, salvo
 con --ignorar-horario por decisión explícita del titular.
+
+respondio arma la lista y la guarda en el formato de importación de
+respond.io, solo con quien autorizó WhatsApp, en ~/Downloads salvo que se
+diga otra ruta con --salida. Las etiquetas y la boleta de interés salen de
+"respondio" en la configuración; sin eso, la etiqueta es el nombre de la campaña.
 """
 
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import re
 import sys
@@ -42,6 +49,9 @@ import reglas  # noqa: E402
 from audiencias import audiencia, excluidos  # noqa: E402
 from canales import ErrorCanal, canal  # noqa: E402
 from comun import BOGOTA, CONFIG, DATOS  # noqa: E402
+
+COLUMNAS_RESPONDIO = ["First Name", "Last Name", "Phone Number", "Email Address", "Tags", "Lifecycle", "Assignee",
+                      "boleta_de_interes"]
 
 
 def leer_config(nombre: str) -> dict:
@@ -150,6 +160,31 @@ def destino_prueba(nombre_canal: str, valor: str) -> str:
     return valor.strip().lower()
 
 
+def exportar_respondio(nombre: str, config: dict, args: argparse.Namespace) -> None:
+    """La lista en el formato de importación de respond.io: solo personas reales con WhatsApp autorizado."""
+    opciones = config.get("respondio", {})
+    etiquetas = ",".join(opciones.get("tags", [nombre]))
+    personas = [d for d in armar_lista(nombre, config, args) if d.tipo == "real" and d.whatsapp]
+    salida = Path(args.salida).expanduser() if args.salida else (
+        Path.home() / "Downloads" / f"{nombre}-respondio-{datetime.now(BOGOTA):%Y-%m-%d-%H%M}.csv")
+    with open(salida, "w", encoding="utf-8", newline="") as archivo:
+        escritor = csv.DictWriter(archivo, fieldnames=COLUMNAS_RESPONDIO)
+        escritor.writeheader()
+        for d in personas:
+            nombres = d.nombre.split()
+            escritor.writerow({
+                "First Name": nombres[0] if nombres else "",
+                "Last Name": " ".join(nombres[1:]),
+                "Phone Number": f"+{d.whatsapp}",
+                "Email Address": d.correo,
+                "Tags": etiquetas,
+                "Lifecycle": opciones.get("lifecycle", ""),
+                "Assignee": "",
+                "boleta_de_interes": opciones.get("boleta_de_interes", ""),
+            })
+    print(f"\nPara respond.io: {len(personas)} personas con WhatsApp autorizado, etiqueta {etiquetas} -> {salida}")
+
+
 def resumen_registro(nombre: str | None) -> None:
     """Cuántos mensajes salieron, por campaña, canal, día y tipo. Sin datos de personas."""
     conteo = Counter(
@@ -164,11 +199,12 @@ def resumen_registro(nombre: str | None) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("accion", choices=["lista", "correo", "whatsapp", "registro"])
+    parser.add_argument("accion", choices=["lista", "correo", "whatsapp", "respondio", "registro"])
     parser.add_argument("campana", nargs="?", help="Nombre de la campaña (archivo en scripts/campanas/config/)")
     parser.add_argument("--lista", help="Usar esta lista ya guardada en vez de armarla de nuevo")
     parser.add_argument("--excluir", action="append", default=[],
                         help="Correo o teléfono a dejar por fuera (equipo, pruebas). Se puede repetir.")
+    parser.add_argument("--salida", help="respondio: ruta del CSV (por defecto, en ~/Downloads)")
     parser.add_argument("--prueba", help="Mandar un solo mensaje de muestra a este correo o número")
     parser.add_argument("--enviar", action="store_true", help="Enviar de verdad (sin esto solo se muestra)")
     parser.add_argument("--ignorar-horario", action="store_true",
@@ -183,6 +219,8 @@ def main() -> None:
     config = leer_config(args.campana)
     if args.accion == "lista":
         armar_lista(args.campana, config, args)
+    elif args.accion == "respondio":
+        exportar_respondio(args.campana, config, args)
     else:
         enviar(args.campana, config, args.accion, args)
 

@@ -5,7 +5,7 @@
  *
  * Fuente de nombres: agenda parcial entregada el 2026-08-26.
  * Bios, credenciales, redes y fotos: investigación pública del 2026-09-03
- * (ver docs/panelistas.md, con fuentes, créditos de foto y pendientes).
+ * (ver docs/evento/panelistas.md, con fuentes, créditos de foto y pendientes).
  * Todo está sujeto a corrección por cada panelista.
  */
 
@@ -90,7 +90,7 @@ export const speakers: Speaker[] = [
   },
   {
     /* Añadido el 2026-09-25 por los organizadores para "Reelecciones",
-       con Cecilia Orozco. Investigación en docs/investigacion-fidel-cano.md.
+       con Cecilia Orozco. Investigación en docs/evento/investigaciones/fidel-cano.md.
        Segundo, como en el afiche. */
     slug: 'fidel-cano',
     name: 'Fidel Cano',
@@ -278,7 +278,7 @@ export const speakers: Speaker[] = [
   {
     /* Retirado el 2026-09-07 y de vuelta el 2026-09-25 como narrador: abre
        cada conversatorio y hila los temas entre sí (organizadores). Bio y
-       foto de la investigación del 2026-09-03 (docs/panelistas.md). */
+       foto de la investigación del 2026-09-03 (docs/evento/panelistas.md). */
     slug: 'jorge-cardona',
     name: 'Jorge Cardona',
     credential: 'Narrador del encuentro · exeditor general de El Espectador',
@@ -301,7 +301,7 @@ export const speakers: Speaker[] = [
     /* Añadido el 2026-10-05 por los organizadores para "Negociaciones de
        paz, el Caguán y La Habana" con Marisol Gómez. Es Ricardo Andrés
        Ospina Beltrán; firma "Ricardo Ospina". Investigación en
-       docs/investigacion-ricardo-ospina.md. No está en el afiche; va
+       docs/evento/investigaciones/ricardo-ospina.md. No está en el afiche; va
        antes de Martha Soto (indicación del usuario, 2026-10-05). */
     slug: 'ricardo-ospina',
     name: 'Ricardo Ospina',
@@ -338,7 +338,7 @@ export const speakers: Speaker[] = [
   },
   {
     /* Añadida el 2026-09-15 por los organizadores para "Surgimiento de las
-       guerrillas". Investigación en docs/investigacion-ana-maria-echeverri.md.
+       guerrillas". Investigación en docs/evento/investigaciones/ana-maria-echeverri.md.
        Última, como en el afiche. */
     slug: 'ana-maria-echeverri',
     name: 'Ana María Echeverri',

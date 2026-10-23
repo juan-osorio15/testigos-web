@@ -6,7 +6,7 @@
 
 **Status**: Draft · entregable 1 (diagnóstico) listo para revisión
 
-**Input**: `docs/prompt-centralizacion.md`, pasado completo a `/speckit-specify` el 2026-10-19.
+**Input**: `docs/proyecto/prompt-centralizacion.md`, pasado completo a `/speckit-specify` el 2026-10-19.
 
 ## Para qué
 
@@ -19,9 +19,9 @@ El titular quiere dos cosas, en este orden:
 
 ## Fuente de verdad de esta feature
 
-- `docs/prompt-centralizacion.md`: el encargo, las restricciones y los entregables con parada.
+- `docs/proyecto/prompt-centralizacion.md`: el encargo, las restricciones y los entregables con parada.
 - `specs/004-fuentes-de-verdad/diagnostico.md`: entregable 1, con los inventarios y los problemas ordenados por riesgo. Si un hallazgo cambia, se cambia primero ahí.
-- `docs/punto-de-partida.md` y `/Users/juandev/Documents/eventalist/investigacion-testigos-web.md` (secciones 3.1, 3.4 y 4): contexto.
+- `docs/proyecto/punto-de-partida.md` y `/Users/juandev/Documents/eventalist/investigacion-testigos-web.md` (secciones 3.1, 3.4 y 4): contexto.
 
 ## Clarifications
 

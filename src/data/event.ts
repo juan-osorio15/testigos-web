@@ -77,7 +77,7 @@ export interface TicketOffer {
 }
 
 /**
- * Boletas a la venta (docs/pretix-tienda-textos.md). Alimentan el JSON-LD y
+ * Boletas a la venta (docs/pretix/pretix-tienda-textos.md). Alimentan el JSON-LD y
  * el texto plano de precios; el precio que se cobra lo pinta el widget de
  * Pretix. La disponibilidad de cada una se calcula en el build a partir de
  * las etapas y de `soldOut` (src/seo/offers.ts).
@@ -170,7 +170,7 @@ export interface Venue {
   geo: { latitude: number; longitude: number };
   /** Etiqueta corta del bloque de presentación ("Sede de los conversatorios") */
   kicker: string;
-  /** Reseña breve y atractiva del lugar (3-4 frases, con fuente en docs/sedes.md) */
+  /** Reseña breve y atractiva del lugar (3-4 frases, con fuente en docs/evento/sedes.md) */
   summary: string;
   /** Foto del lugar (astro:assets); null → sin bloque de foto */
   photo: ImageMetadata | null;

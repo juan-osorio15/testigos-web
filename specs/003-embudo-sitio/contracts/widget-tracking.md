@@ -1,6 +1,6 @@
 # Contrato: atributos del widget y eventos de navegador
 
-Reemplaza, para estos dos temas, lo que dicen `specs/002-seo-medicion-visibilidad/contracts/measurement-events.md` ("Eventos", "Degradación") y `specs/001-event-landing/contracts/pretix-embed.md` ("el widget no se toca"). Del lado de Pretix, el contrato es `docs/medicion-embudo/prompt-pretix.md` ("widget_data").
+Reemplaza, para estos dos temas, lo que dicen `specs/002-seo-medicion-visibilidad/contracts/measurement-events.md` ("Eventos", "Degradación") y `specs/001-event-landing/contracts/pretix-embed.md` ("el widget no se toca"). Del lado de Pretix, el contrato es `docs/medicion/embudo/prompt-pretix.md` ("widget_data").
 
 ## Atributos `data-tracking-*`
 

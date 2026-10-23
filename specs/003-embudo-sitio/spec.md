@@ -6,7 +6,7 @@
 
 **Status**: Draft
 
-**Input**: User description: "Lee docs/medicion-embudo/prompt-sitio.md y haz lo que dice." El prompt pide la parte del sitio del embudo de venta por campaña, con Spec Kit hasta analyze.
+**Input**: User description: "Lee docs/medicion/embudo/prompt-sitio.md y haz lo que dice." El prompt pide la parte del sitio del embudo de venta por campaña, con Spec Kit hasta analyze.
 
 ## Para qué
 
@@ -18,11 +18,11 @@ Regla de esta feature (de `diseno.md`): una decisión de detalle que no cambia e
 
 Esta spec cubre solo lo que cambia en este repo. El contexto (objetivos, flujo de datos, plugin de Pretix, backend, condición legal) está en documentos que no se copian aquí:
 
-- `docs/medicion-embudo/diseno.md`, sobre todo "La meta del titular: un informe para decidir" (el porqué de todo esto y la regla para decisiones de detalle) y "Parte del sitio (este repo)". Si algo del diseño cambia, se cambia primero ahí y después en esta spec.
-- `docs/revision-legal-2026-10-06-embudo.md`, sección C (texto exacto de la política y los términos) y la nota inicial sobre el teléfono.
-- `docs/medicion-embudo/prompt-pretix.md`, contrato de `widget_data`: el plugin toma las claves que empiezan por `tracking-`, les quita el prefijo y cambia guiones por guion bajo.
+- `docs/medicion/embudo/diseno.md`, sobre todo "La meta del titular: un informe para decidir" (el porqué de todo esto y la regla para decisiones de detalle) y "Parte del sitio (este repo)". Si algo del diseño cambia, se cambia primero ahí y después en esta spec.
+- `docs/legal/revision-legal-2026-10-06-embudo.md`, sección C (texto exacto de la política y los términos) y la nota inicial sobre el teléfono.
+- `docs/medicion/embudo/prompt-pretix.md`, contrato de `widget_data`: el plugin toma las claves que empiezan por `tracking-`, les quita el prefijo y cambia guiones por guion bajo.
 - `specs/002-seo-medicion-visibilidad/contracts/measurement-events.md`, contrato de eventos de navegador que esta feature modifica.
-- `docs/medicion-embudo/prompt-sitio.md`, sección "Hechos verificados que el diseño no dice", sobre cómo el widget construido lee los atributos.
+- `docs/medicion/embudo/prompt-sitio.md`, sección "Hechos verificados que el diseño no dice", sobre cómo el widget construido lee los atributos.
 
 ## Clarifications
 
@@ -101,7 +101,7 @@ Antes de que el titular cambie la casilla en Pretix y fije `consent_since`, la p
 
 1. **Given** la política compilada, **When** se compara con la sección C del dictamen, **Then** están todos sus cambios, la sección 10 enumera además la dirección IP y el tipo de navegador, y "[fecha de publicación]" queda con la fecha de vigencia de la política.
 2. **Given** los términos compilados, **When** se lee la sección 12, **Then** sus dos primeros párrafos son los del dictamen, con "y el teléfono" en lugar de "y, si lo indica, el teléfono".
-3. **Given** `docs/pretix-tienda-textos.md`, **When** el titular lo usa para configurar la tienda, **Then** encuentra la casilla A del dictamen, el texto de ayuda del teléfono de la nota inicial y la fecha de cada cambio.
+3. **Given** `docs/pretix/pretix-tienda-textos.md`, **When** el titular lo usa para configurar la tienda, **Then** encuentra la casilla A del dictamen, el texto de ayuda del teléfono de la nota inicial y la fecha de cada cambio.
 4. **Given** los comentarios de cabecera de los archivos de medición y de las páginas legales, **When** se leen, **Then** ninguno afirma que el envío a Google y Meta "se retiró".
 
 ---
@@ -164,7 +164,7 @@ Textos legales:
 - **FR-014**: `src/pages/tratamiento-de-datos.astro` MUST incluir todos los cambios de la política de la sección C del dictamen, con la IP y el tipo de navegador en la enumeración de la sección 10, "[fecha de publicación]" reemplazada por la fecha de vigencia nueva y, en el párrafo final de la sección 3, WhatsApp para las finalidades b) y h) sin el condicional "solo si el comprador suministra su número" (el teléfono es obligatorio).
 - **FR-015**: `src/pages/terminos-y-condiciones.astro`, sección 12, MUST llevar los dos párrafos del dictamen, con "y el teléfono" en lugar de "y, si lo indica, el teléfono".
 - **FR-016**: `DATA_POLICY_EFFECTIVE` y `TERMS_EFFECTIVE` MUST actualizarse a la fecha de publicación que decida el titular, y los comentarios de cabecera que dicen que el envío a Google y Meta "se retiró" MUST corregirse.
-- **FR-017**: `docs/pretix-tienda-textos.md` MUST traer la casilla A del dictamen, el texto de ayuda del teléfono de la nota inicial (sin "Opcional") y la fecha de cada cambio.
+- **FR-017**: `docs/pretix/pretix-tienda-textos.md` MUST traer la casilla A del dictamen, el texto de ayuda del teléfono de la nota inicial (sin "Opcional") y la fecha de cada cambio.
 - **FR-018**: Cada cambio de texto legal MUST ir en un commit propio, sin reescribir historial.
 - **FR-019**: Los textos visibles MUST estar en español, sin " — ", y las páginas legales MUST conservar su estilo sobrio.
 
@@ -210,6 +210,6 @@ Pruebas y publicación:
 ## Out of Scope
 
 - El plugin de Pretix, el backend y la configuración de GA4, Meta y Pretix.
-- La guía de informes y públicos (`docs/medicion-embudo/guia-informes-y-publicos.md`), entregable posterior. Desde esta feature se anota para ella que `begin_checkout` cambia de significado el día de la publicación.
+- La guía de informes y públicos (`docs/medicion/embudo/guia-informes-y-publicos.md`), entregable posterior. Desde esta feature se anota para ella que `begin_checkout` cambia de significado el día de la publicación.
 - Captura de datos antes de confirmar el pedido (versión futura, `estado.md`).
 - Páginas legales del sitio en inglés. La casilla de la tienda sí va en inglés si la tienda se ofrece en ese idioma (dictamen §A).

@@ -13,7 +13,7 @@ export interface TicketOffer {
   id: TicketOfferId;
   /** Nombre visible y del marcado ("Pase completo", "Viernes en la tarde") */
   name: string;
-  /** Nombre literal del producto en Pretix (docs/pretix-tienda-textos.md, sección Productos); es la clave con la que TicketSection y begin_checkout reconocen el producto en el widget */
+  /** Nombre literal del producto en Pretix (docs/pretix/pretix-tienda-textos.md, sección Productos); es la clave con la que TicketSection y begin_checkout reconocen el producto en el widget */
   pretixProduct: string;
   price: number;           // COP, entero
   currency: 'COP';

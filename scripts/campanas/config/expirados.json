@@ -5,6 +5,9 @@
   "parametros": {
     "campana_backend": "testigos-de-la-memoria-2026"
   },
+  "respondio": {
+    "tags": ["expirados"]
+  },
   "canales": {
     "correo": {
       "activo": true,

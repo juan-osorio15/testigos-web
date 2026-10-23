@@ -1,12 +1,12 @@
 /**
  * Campaña de la visita e identificadores para el widget de Pretix (feature
  * 003, contrato specs/003-embudo-sitio/contracts/widget-tracking.md; diseño
- * en docs/medicion-embudo/diseno.md). Corre en el navegador.
+ * en docs/medicion/embudo/diseno.md). Corre en el navegador.
  *
  * - La campaña de la última visita (UTM, página de llegada y dominio de
  *   referencia) se guarda en localStorage hasta por 30 días, y nunca después
  *   del fin del evento (measurement.attributionDays y attributionUntil;
- *   decisión del 2026-10-12, docs/medicion-embudo/diseno.md). gclid y fbclid
+ *   decisión del 2026-10-12, docs/medicion/embudo/diseno.md). gclid y fbclid
  *   pasan a localStorage solo con el aviso de cookies aceptado; sin él viven
  *   en sessionStorage de la pestaña, como antes. Nada de cookies propias.
  * - Las UTM, la página de llegada y el dominio de referencia viajan siempre.

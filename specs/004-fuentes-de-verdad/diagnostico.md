@@ -26,7 +26,7 @@ Ordenados por costo.
 
 Riesgo es la probabilidad de que un dato falso llegue al público por la cantidad de gente y lo irreversible del canal.
 
-1. **Campañas con hechos escritos a mano.** Correo y WhatsApp son irreversibles y llegan a la gente más cercana a comprar. Las plantillas tienen precios, fechas, franjas, panelistas y enlaces a mano, y nada las compara con la fuente antes de `--enviar`. Las plantillas viejas con 310.000 siguen en la carpeta y una guía vigente (`docs/campana-expirados/titular/correo-resend.md`) todavía manda a usarlas.
+1. **Campañas con hechos escritos a mano.** Correo y WhatsApp son irreversibles y llegan a la gente más cercana a comprar. Las plantillas tienen precios, fechas, franjas, panelistas y enlaces a mano, y nada las compara con la fuente antes de `--enviar`. Las plantillas viejas con 310.000 siguen en la carpeta y una guía vigente (`docs/campanas/expirados/titular/correo-resend.md`) todavía manda a usarlas.
 2. **Hechos sin fuente.** La franja y sus sesiones, el número de conversatorios, los días del pase, el número de panelistas ("quince" escrito en `routes.ts:136`, el chatbot y el plan de Google Ads), el aforo, la venta en la puerta. Cada pieza los redacta a su manera.
 3. **Copias externas sin registro.** El chatbot responde con lo que se le pegó; Pretix muestra lo que se le pegó; las plantillas de Meta no se editan después de aprobadas. Hoy hay contradicciones vivas: Pretix llama "talleres de periodismo" a lo que el sitio llama "charlas abiertas" (`pretix-tienda-textos.md:171`), y anuncia venta en la puerta que el prompt del chatbot da como no confirmada; la base del chatbot dice que el único canal de atención es el correo (`chatbot-conocimiento.md:282`) y el sitio ofrece WhatsApp.
 4. **Datos que dependen de la fecha cambiados a mano.** El precio y las fechas de etapa. El 310.000 ya no existe en el código, solo en copias, así que nadie puede saber desde el repo cuál fue el precio de la etapa 1.
@@ -67,10 +67,10 @@ Criterio propuesto: es un **hecho** todo lo que, si cambia en la realidad, vuelv
 
 ## 5. Consumidores que no leen código
 
-- **Pretix**: textos de tienda, productos, correos y firma (`docs/pretix-tienda-textos.md`), más la boleta y la escarapela generadas en `brand/pretix/`.
-- **Chatbot**: base de conocimiento y prompt (`docs/chatbot-conocimiento.md`, `docs/system-prompt-atencion.md`), con su prueba adversarial. Son los que más hechos copian.
-- **Meta**: plantillas de WhatsApp aprobadas (`docs/whatsapp-ventas/plantillas.md` y los planes de cada campaña). No se editan después de aprobadas; un dato que cambia obliga a una plantilla nueva.
-- **Google Ads**: `docs/campana-google-ads/plan.md`, con precios y 13 nombres de panelistas.
+- **Pretix**: textos de tienda, productos, correos y firma (`docs/pretix/pretix-tienda-textos.md`), más la boleta y la escarapela generadas en `brand/pretix/`.
+- **Chatbot**: base de conocimiento y prompt (`docs/chatbot/legacy/chatbot-conocimiento.md`, `docs/chatbot/legacy/system-prompt-atencion.md`), con su prueba adversarial. Son los que más hechos copian.
+- **Meta**: plantillas de WhatsApp aprobadas (`docs/campanas/whatsapp-ventas/plantillas.md` y los planes de cada campaña). No se editan después de aprobadas; un dato que cambia obliga a una plantilla nueva.
+- **Google Ads**: `docs/campanas/google-ads/plan.md`, con precios y 13 nombres de panelistas.
 - **Perfiles, impresos con QR, OG en redes**: no tienen copia en el repo ni registro.
 
 En ninguno queda constancia de qué versión se pegó ni cuándo.

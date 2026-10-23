@@ -1,6 +1,6 @@
 # Campañas de correo y WhatsApp
 
-Cómo están armadas las campañas de mensajes de Eventalist y cómo se crea una nueva. Desde el 19 de octubre de 2026 todas pasan por un solo comando, `scripts/campanas/campana.py`. Lo de cada campaña (a quién, qué textos, por qué) está en su carpeta: `docs/campana-expirados/` y `docs/campana-interesados/`.
+Cómo están armadas las campañas de mensajes de Eventalist y cómo se crea una nueva. Desde el 19 de octubre de 2026 todas pasan por un solo comando, `scripts/campanas/campana.py`. Lo de cada campaña (a quién, qué textos, por qué) está en su carpeta: `docs/campanas/expirados/` y `docs/campanas/interesados/`.
 
 ## Las piezas
 
@@ -29,6 +29,7 @@ python3 scripts/campanas/campana.py correo interesados
 python3 scripts/campanas/campana.py correo interesados --prueba tu@correo.com --enviar
 python3 scripts/campanas/campana.py correo interesados --enviar
 python3 scripts/campanas/campana.py whatsapp interesados --prueba 57XXXXXXXXXX --enviar
+python3 scripts/campanas/campana.py respondio expirados
 python3 scripts/campanas/campana.py registro
 ```
 
@@ -38,16 +39,17 @@ python3 scripts/campanas/campana.py registro
 - `--enviar` envía de verdad. Fuera del horario de la Ley 2300 se niega, salvo con `--ignorar-horario` por decisión explícita del titular.
 - `--excluir correo-o-telefono` deja a alguien por fuera de la lista (se puede repetir).
 - `--lista ARCHIVO` usa una lista ya guardada en vez de armarla.
+- `respondio` arma la lista y la guarda en `~/Downloads` con el formato de importación de respond.io (First Name, Last Name, Phone Number, Email Address, Tags, Lifecycle, Assignee, boleta_de_interes), solo con quien autorizó WhatsApp. Las etiquetas, el Lifecycle y la boleta de interés se ponen en `"respondio"` dentro de la configuración de la campaña (`{"tags": ["expirados"]}`); sin eso, la etiqueta es el nombre de la campaña. `--salida RUTA` lo guarda en otra parte.
 - `registro` cuenta los envíos por día, campaña, canal y tipo, sin datos de personas. Con el nombre de una campaña, solo esa.
 
 Si un envío falla por la persona (un número sin WhatsApp), queda anotado como fallido y sigue con los demás. Si falla por la llave, la plantilla o el límite diario de Resend (100 correos en el plan gratis), se detiene: se corrige y se vuelve a correr el mismo comando, que sigue con los que faltan.
 
 ## Llaves (una sola vez)
 
-- **Pretix**: token del equipo `lectura-campanas` (solo "Puede ver pedidos"), en el llavero, servicio `eventalist-pretix`. Pasos en `docs/campana-expirados/titular/whatsapp.md`, paso 2a.
+- **Pretix**: token del equipo `lectura-campanas` (solo "Puede ver pedidos"), en el llavero, servicio `eventalist-pretix`. Pasos en `docs/campanas/expirados/titular/whatsapp.md`, paso 2a.
 - **Backend**: token de lectura, en el llavero, servicio `eventalist-backend-lectura`.
-- **Resend**: llave `campanas-correo` (pasos en `docs/campana-expirados/titular/correo-resend.md`, paso 1). Se guarda una vez en el llavero, servicio `eventalist-resend`.
-- **WhatsApp**: token del usuario del sistema `campanas` y el identificador de la cuenta (pasos en `docs/campana-expirados/titular/whatsapp.md`, paso 1). Se guardan una vez en el llavero, servicios `eventalist-whatsapp` (el token) y `eventalist-whatsapp-cuenta` (el identificador de la cuenta).
+- **Resend**: llave `campanas-correo` (pasos en `docs/campanas/expirados/titular/correo-resend.md`, paso 1). Se guarda una vez en el llavero, servicio `eventalist-resend`.
+- **WhatsApp**: token del usuario del sistema `campanas` y el identificador de la cuenta (pasos en `docs/campanas/expirados/titular/whatsapp.md`, paso 1). Se guardan una vez en el llavero, servicios `eventalist-whatsapp` (el token) y `eventalist-whatsapp-cuenta` (el identificador de la cuenta).
 
 Para guardar una llave en el llavero (la pide; pegarla y Enter):
 
@@ -61,7 +63,7 @@ security add-generic-password -a "$USER" -s NOMBRE-DEL-SERVICIO -w
 2. Si las reglas son nuevas (por ejemplo, compradores de una franja para ofrecerles el pase): un módulo en `audiencias/` con una función `armar(evento, parametros, excluir)` que devuelve un `Resultado`, y registrarlo en `audiencias/__init__.py`.
 3. Si los datos salen de un sistema nuevo: un módulo en `fuentes/` que devuelva registros con `correo` y `telefono` normalizados.
 4. La plantilla de correo en `scripts/campanas/plantillas/`, con la fórmula visual y un solo enlace. La de WhatsApp, a aprobación de Meta.
-5. La campaña de UTM en `docs/medicion-embudo/enlaces-y-nombres.md` el mismo día.
+5. La campaña de UTM en `docs/medicion/embudo/enlaces-y-nombres.md` el mismo día.
 6. Antes del envío real: `lista`, la vista previa y la prueba al titular.
 
 ## Contrato del backend

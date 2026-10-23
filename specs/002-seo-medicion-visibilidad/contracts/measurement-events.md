@@ -2,7 +2,7 @@
 
 > **Reemplazado en parte por la feature 003 (2026-10-08)**: los eventos del embudo y los atributos del widget están en `specs/003-embudo-sitio/contracts/widget-tracking.md`. El clic en un CTA hacia `#boletas` ya no es `begin_checkout` sino `view_item_list`/`ViewContent`; `begin_checkout`/`InitiateCheckout` se disparan solo al pulsar "Comprar" en el widget, sin `value`; y el widget sí recibe atributos `data-tracking-*`. Lo marcado abajo como reemplazado se conserva como registro.
 
-Cubre FR-001, FR-002, FR-006, FR-007, FR-008, FR-010 y R-02, R-03, R-04. No hay lado servidor (retirado el 2026-09-17; archivo en `docs/archivo-2027/`).
+Cubre FR-001, FR-002, FR-006, FR-007, FR-008, FR-010 y R-02, R-03, R-04. No hay lado servidor (retirado el 2026-09-17; archivo en `docs/medicion/archivo-2027/`).
 
 ## Configuración (`src/config.ts`)
 
@@ -85,7 +85,7 @@ Disparadores de intención de compra (una vez por página, el primero que ocurra
 
 ## Textos legales (FR-008)
 
-Fuente de verdad: `docs/revision-legal-2026-09-15-medicion.md`. Cada cambio legal en un commit propio, sin reescribir historial (prueba de la versión vigente, art. 16 del Decreto 1377).
+Fuente de verdad: `docs/legal/revision-legal-2026-09-15-medicion.md`. Cada cambio legal en un commit propio, sin reescribir historial (prueba de la versión vigente, art. 16 del Decreto 1377).
 
 - `tratamiento-de-datos.astro`: sección 10 "Cookies, medición de audiencia y publicidad" con `id="cookies"`, variante B (aceptación en el navegador) y sin ningún párrafo sobre datos de compra; Vigencia pasa a 11; ajustes consecuenciales solo sobre cookies. `DATA_POLICY_EFFECTIVE` = fecha de publicación.
 - `terminos-y-condiciones.astro` y la casilla de Pretix: sin cambios respecto al 14 de septiembre (la ampliación se retiró el 2026-09-17).

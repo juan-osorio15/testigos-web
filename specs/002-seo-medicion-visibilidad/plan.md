@@ -6,7 +6,7 @@
 
 ## Summary
 
-> **Replanteado el 2026-09-17**: la capa de servidor (atribución de la compra real: widget → `api_meta` → webhook → backend → Conversions API y Measurement Protocol) se retiró por desproporcionada para un evento único. Quedan la capa 1 (SEO y contenido) y la capa 2 (medición en el navegador). Nada toca Pretix ni el backend de Eventalist. Los contratos de la capa retirada están en `docs/archivo-2027/`. Antes de cada publicación a `main` hay una revisión obligatoria de restos (FR-039, tarea T073).
+> **Replanteado el 2026-09-17**: la capa de servidor (atribución de la compra real: widget → `api_meta` → webhook → backend → Conversions API y Measurement Protocol) se retiró por desproporcionada para un evento único. Quedan la capa 1 (SEO y contenido) y la capa 2 (medición en el navegador). Nada toca Pretix ni el backend de Eventalist. Los contratos de la capa retirada están en `docs/medicion/archivo-2027/`. Antes de cada publicación a `main` hay una revisión obligatoria de restos (FR-039, tarea T073).
 
 Convertir el sitio de una sola URL sin medición en un sitio medible y multipágina en las dos primeras semanas: medición de navegador (GA4 y píxel de Meta) con aviso de consentimiento discreto e intención de compra; marcado de evento completo para el módulo de eventos de Google (sedes con coordenadas, ofertas por etapa, subeventos, ponentes enlazados); 12 fichas de panelistas, programación, charlas abiertas y página de cómo llegar; sitemap derivado de una fuente única de rutas, Bing e IndexNow, `robots.txt` con los bots de respuesta de IA; título, descripción y precarga de la imagen principal. Todo estático en Astro 5, sin gestor de etiquetas ni dependencias nuevas de runtime, y sin entregables fuera de este repositorio.
 
@@ -126,11 +126,11 @@ docs/
 
 ## Decisión del 2026-09-17: capa de servidor retirada
 
-Tras la investigación y el dictamen, el titular concluyó que atribuir cada compra a su anuncio (webhook de Pretix, plugin en la instancia, endpoints en el backend, Conversions API, Measurement Protocol, registro de consentimiento en el backend) no es proporcional para un evento único a siete semanas. Efectos: `src/measurement/attribution.ts` y el `consentEndpoint` eliminados; la política, los términos y la casilla de Pretix vuelven a no mencionar datos de compra; `TERMS_EFFECTIVE` vuelve al 14 de septiembre; los contratos externos se archivan en `docs/archivo-2027/`; las ramas de los otros repositorios se borraron. La campaña de Meta se optimiza por tráfico e intención de compra; las ventas se leen en Pretix.
+Tras la investigación y el dictamen, el titular concluyó que atribuir cada compra a su anuncio (webhook de Pretix, plugin en la instancia, endpoints en el backend, Conversions API, Measurement Protocol, registro de consentimiento en el backend) no es proporcional para un evento único a siete semanas. Efectos: `src/measurement/attribution.ts` y el `consentEndpoint` eliminados; la política, los términos y la casilla de Pretix vuelven a no mencionar datos de compra; `TERMS_EFFECTIVE` vuelve al 14 de septiembre; los contratos externos se archivan en `docs/medicion/archivo-2027/`; las ramas de los otros repositorios se borraron. La campaña de Meta se optimiza por tráfico e intención de compra; las ventas se leen en Pretix.
 
 ## Decisiones cerradas por el dictamen legal (2026-09-15)
 
-Dictamen completo en `docs/revision-legal-2026-09-15-medicion.md`. Efectos en el diseño:
+Dictamen completo en `docs/legal/revision-legal-2026-09-15-medicion.md`. Efectos en el diseño:
 
 - El píxel de Meta carga solo tras "Aceptar". No hay interruptor para cargarlo antes.
 - GA4 carga de inmediato en Consent Mode con todo en `denied` y pasa a `granted` al aceptar; Google Signals y personalización de anuncios apagados en la propiedad; sin ID de usuario.

@@ -1,6 +1,6 @@
 # Research · 003 embudo del sitio
 
-Cada punto: decisión, por qué y qué más se consideró. Los hechos sobre el widget vienen de `docs/medicion-embudo/prompt-sitio.md` ("Hechos verificados", 2026-10-08) y se vuelven a comprobar en el navegador durante la implementación (quickstart §2).
+Cada punto: decisión, por qué y qué más se consideró. Los hechos sobre el widget vienen de `docs/medicion/embudo/prompt-sitio.md` ("Hechos verificados", 2026-10-08) y se vuelven a comprobar en el navegador durante la implementación (quickstart §2).
 
 ## R-01 · Dónde escribir los atributos
 
@@ -67,7 +67,7 @@ Cada punto: decisión, por qué y qué más se consideró. Los hechos sobre el w
   - Términos, "el correo electrónico y el teléfono": aprobado.
   - Política, sección 3: aprobado con una coma y "solo": "En la tienda, el correo electrónico para las finalidades b), c) y h), y WhatsApp solo para las finalidades b) y h) respecto del encuentro en curso." Sin la coma, el límite "encuentro en curso" podía leerse también sobre el correo.
   - Sección 10: sí se ajusta, "(el paso a la sección de boletas y el inicio de la compra en la tienda)".
-  - Casilla y ayuda del teléfono en inglés: traducción entregada; la tienda hoy solo está en español, así que quedan de reserva en `docs/pretix-tienda-textos.md`.
+  - Casilla y ayuda del teléfono en inglés: traducción entregada; la tienda hoy solo está en español, así que quedan de reserva en `docs/pretix/pretix-tienda-textos.md`.
   - UTM en `sessionStorage` sin aceptación: sin problema con §D.7 (dura la pestaña, no es "entre visitas").
   - Ninguna casilla, aviso ni texto nuevo en la tienda.
 - **Ajuste consecuente aplicado** (mismo criterio del teléfono obligatorio): la sección 2 de la política decía "y, si este lo indica, su número de teléfono"; queda "y su número de teléfono".
