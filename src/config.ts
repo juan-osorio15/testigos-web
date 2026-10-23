@@ -122,7 +122,7 @@ export const INSTAGRAM_DM_URL = 'https://ig.me/m/testigosdelamemoria';
  * ContactLink.astro. WhatsApp desde el 2026-10-22 con el número colombiano
  * (Instagram del 2026-10-19 al 22 mientras WhatsApp estaba en pruebas).
  */
-export const CONTACT_CHANNEL: 'instagram' | 'whatsapp' = 'whatsapp';
+export const CONTACT_CHANNEL = 'whatsapp' as 'instagram' | 'whatsapp';
 export const CONTACT_URL = CONTACT_CHANNEL === 'instagram' ? INSTAGRAM_DM_URL : WHATSAPP_URL;
 
 /**

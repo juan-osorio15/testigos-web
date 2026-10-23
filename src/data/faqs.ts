@@ -18,11 +18,11 @@ export const faqs: Faq[] = [
   {
     question: '¿Qué es gratis y qué requiere boleta?',
     answer:
-      'Las charlas abiertas del jueves 5 y del viernes 6 en la mañana, en la Casa Museo Antonio Nariño, son de entrada libre. Los conversatorios, del viernes 6 en la tarde al domingo 8, en la Hospedería Duruelo, requieren boleta: pase completo o boletas de medio día, con aforo limitado.',
+      'Las charlas abiertas del jueves 5 y del viernes 6 en la mañana, en la Casa Museo Antonio Nariño, son de entrada libre. Los conversatorios, del viernes 6 en la tarde al domingo 8, en la Hospedería Duruelo, requieren boleta: pase completo, pase de fin de semana o boletas de medio día, con aforo limitado.',
     en: {
       question: 'What is free and what requires a ticket?',
       answer:
-        'The open talks on Thursday, November 5 and Friday morning, November 6, at Casa Museo Antonio Nariño, are free to attend. The panel conversations, from Friday afternoon, November 6, through Sunday, November 8, at Hospedería Duruelo, require a ticket: a full pass or half-day tickets, with limited seating.',
+        'The open talks on Thursday, November 5 and Friday morning, November 6, at Casa Museo Antonio Nariño, are free to attend. The panel conversations, from Friday afternoon, November 6, through Sunday, November 8, at Hospedería Duruelo, require a ticket: a full pass, a weekend pass or half-day tickets, with limited seating.',
     },
   },
   {
