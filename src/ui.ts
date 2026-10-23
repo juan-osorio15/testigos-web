@@ -4,8 +4,14 @@
  * 2026-08-25: el evento es íntegramente en español); la tabla `en` solo
  * alimenta la portada /en/ (src/i18n.ts) y TypeScript exige que tenga
  * exactamente las mismas claves que `es`.
+ *
+ * Los hechos no se escriben aquí: fechas, sedes y conteos van como
+ * {variable} y `t` los llena con src/data/ (`facts`, abajo). Las variables
+ * que no son hechos ({n}, {date}) las reemplaza quien llama.
  */
-import { langOf, type Lang } from './i18n';
+import { langOf, localeOf, type Lang } from './i18n';
+import { agenda } from './data/agenda';
+import { event, venues } from './data/event';
 
 const es = {
   // --- Compra: un solo texto para todos los botones de compra, que llevan
@@ -28,7 +34,7 @@ const es = {
 
   // --- Hero ---
   'hero.tagline': 'Periodistas en la Historia',
-  'hero.dates': '5 al 8 de noviembre de 2026',
+  'hero.dates': '{fechas}',
   'hero.place': 'Villa de Leyva, Colombia',
   /* Línea de datos bajo el remate: edición, formato y escasez, separados por "·" */
   'hero.tileCta': 'Ver ficha',
@@ -53,17 +59,17 @@ const es = {
   'hero.countdownLive': 'El encuentro está en curso',
   /* Slogan aprobado (spec §2), una línea por salto; el nombre va en el h1 */
   'hero.slogan': 'La historia reciente\nde Colombia, contada\npor quienes\nla viven de frente.',
-  'hero.month': 'noviembre 2026',
+  'hero.month': '{mes}',
 
   // --- El encuentro en tres datos (KeyFacts) ---
   'keyfacts.aria': 'El encuentro en tres datos',
   'keyfacts.days': 'días',
-  'keyfacts.daysDetail': 'Del jueves 5 al domingo 8 de noviembre de 2026, en Villa de Leyva.',
+  'keyfacts.daysDetail': '{fechasConDia}, en Villa de Leyva.',
   'keyfacts.speakers': 'periodistas',
   'keyfacts.speakersDetail': 'Los que cuentan la historia reciente del país, en persona y con derecho a preguntas.',
   'keyfacts.formats': 'formatos',
   'keyfacts.formatsDetail':
-    'Charlas abiertas de entrada libre en la Casa Museo Antonio Nariño y conversatorios con boleta en la Hospedería Duruelo.',
+    'Charlas abiertas de entrada libre en la {sedeCharlas} y conversatorios con boleta en la {sedeConversatorios}.',
 
   // --- Sección de compra ---
   /* Junto a la tienda: explicar sin adornos las formas de comprar */
@@ -73,7 +79,7 @@ const es = {
   /* "Medio día" en vez de "franja" (2026-09-18): la palabra franja no se
      entendía; una mañana o una tarde sí. */
   'tickets.passText':
-    'Los siete conversatorios, del viernes en la tarde al domingo en la mañana, en una sola boleta.',
+    'Los {conversatorios} conversatorios, del viernes en la tarde al domingo en la mañana, en una sola boleta.',
   /* Pase de fin de semana (2026-10-22): para quien quería el pase completo
      y no puede faltar al trabajo el viernes */
   'tickets.weekendName': 'Pase de fin de semana',
@@ -86,7 +92,7 @@ const es = {
   /* Etapas de venta (2026-09-15): en la etapa 1 solo el pase completo.
      El widget muestra las franjas con "Aún no disponible"; las fechas las
      cuenta el bloque de etapas (SalesStages). */
-  'tickets.slotSoon': 'Se venden desde la etapa 2.',
+  'tickets.slotSoon': 'Todavía no está a la venta.',
   /* Bloque de etapas: tres planos que se tocan, cielo el vigente y crema
      los demás (fórmula visual §6: los datos van en franja). Desde el
      2026-10-22: la etapa 1 sin contar qué se vendió ni con qué cifra; la 2,
@@ -110,14 +116,14 @@ const es = {
   'tickets.stagePrice': 'Precio de la etapa 2, hasta el {date}.',
   'tickets.notify': 'Avísame cuando abra',
   /* Modal "avísame" de las franjas; la franja escogida va como eyebrow */
-  'notify.title': 'Te avisamos cuando abra la etapa 2',
+  'notify.title': 'Te avisamos cuando salga a la venta',
   'notify.intro':
-    'Déjanos tus datos y te escribimos en cuanto las boletas de medio día estén a la venta.',
+    'Déjanos tus datos y te escribimos en cuanto esté a la venta.',
   'notify.submit': 'Avisarme',
-  'notify.success': 'Listo. Te escribiremos en cuanto abran las boletas de medio día.',
+  'notify.success': 'Listo. Te escribiremos en cuanto salga a la venta.',
   'notify.close': 'Cerrar',
   'tickets.soon':
-    'La venta de boletas abre pronto. Aforo limitado. En la etapa 1, hasta el 12 de octubre, se vende solo el pase completo, con su mayor descuento; desde el 13 de octubre abren las boletas de medio día. Las charlas abiertas del 5 y 6 de noviembre son de entrada libre.',
+    'La venta de boletas abre pronto. Aforo limitado. Las charlas abiertas son de entrada libre.',
   'tickets.widgetFallback':
     'Si el módulo de compra no carga, puedes comprar directamente en la tienda segura de Pretix:',
   'tickets.widgetLink': 'Comprar en Pretix',
@@ -187,7 +193,7 @@ const es = {
   'stay.call': 'Llamar',
   'stay.note':
     'Di que vas a Testigos de la Memoria para acceder a la oferta. La reserva y el pago se hacen directamente con cada hotel.',
-  'venue.mapTitle': 'Mapa de Google de Villa de Leyva con la Hospedería Duruelo',
+  'venue.mapTitle': 'Mapa de Google de Villa de Leyva con la {sedeConversatorios}',
   'venue.heading': 'Dos sedes, a pocas cuadras',
   'venue.intro':
     'Un encuentro sobre Colombia en un lugar que parece hecho para conversar. Después de cada sesión puedes caminar por la plaza de Villa de Leyva, sentarte a tomar algo y quedarte conversando. Las dos sedes están a unas cuadras de la Plaza Mayor.',
@@ -200,7 +206,7 @@ const es = {
   /* Pregunta del banco aprobado (spec §2) */
   'opp.heading': 'Una oportunidad de escuchar de primera mano a quienes estuvieron allí cuando la historia estaba ocurriendo.',
   'opp.lead':
-    'Los hechos que marcaron al país tienen testigos de primera fila: los reporteros que los cubrieron. Durante cuatro días, algunos de los grandes nombres del periodismo colombiano se sientan a contar lo que vieron, cómo lo contaron y qué nos enseña ese pasado para lo que viene.',
+    'Los hechos que marcaron al país tienen testigos de primera fila: los reporteros que los cubrieron. Durante {dias} días, algunos de los grandes nombres del periodismo colombiano se sientan a contar lo que vieron, cómo lo contaron y qué nos enseña ese pasado para lo que viene.',
   'opp.point1':
     'Lo que estaba detrás de las noticias, lo que no salió en televisión, las decisiones que tuvieron que tomar y las historias que quedaron fuera.',
   'opp.point2': 'Conversatorios cercanos, sin tarima lejana: preguntas y desacuerdos incluidos.',
@@ -281,7 +287,7 @@ const es = {
   'speaker.works': 'Obras y enlaces',
   'speaker.all': 'Todos los panelistas',
   'speaker.indexLead':
-    'Los periodistas que cubrieron los últimos cincuenta años de Colombia, reunidos en Villa de Leyva del 5 al 8 de noviembre de 2026.',
+    'Los periodistas que cubrieron los últimos cincuenta años de Colombia, reunidos en Villa de Leyva del {fechas}.',
   'speaker.readProfile': 'Ver ficha',
 
   // --- Páginas de sesión ---
@@ -304,9 +310,9 @@ const es = {
   // --- Bloque de hechos del encuentro (texto plano en toda página interior) ---
   'facts.heading': 'El encuentro en pocas líneas',
   'facts.where': 'Villa de Leyva, Boyacá, Colombia',
-  'facts.when': '5 al 8 de noviembre de 2026',
-  'facts.talks': 'Charlas abiertas de entrada libre el jueves 5 y el viernes 6 en la mañana, en la Casa Museo Antonio Nariño.',
-  'facts.panels': 'Conversatorios con boleta del viernes 6 en la tarde al domingo 8, en la Hospedería Duruelo.',
+  'facts.when': '{fechas}',
+  'facts.talks': 'Charlas abiertas de entrada libre el jueves 5 y el viernes 6 en la mañana, en la {sedeCharlas}.',
+  'facts.panels': 'Conversatorios con boleta del viernes 6 en la tarde al domingo 8, en la {sedeConversatorios}.',
   'facts.onSale': 'A la venta',
   'facts.soon': 'Desde el',
   'facts.soldOut': 'Agotado',
@@ -348,7 +354,7 @@ const en: Record<UiKey, string> = {
   'nav.close': 'Close menu',
 
   'hero.tagline': 'Journalists in History',
-  'hero.dates': 'November 5–8, 2026',
+  'hero.dates': '{fechas}',
   'hero.place': 'Villa de Leyva, Colombia',
   'hero.tileCta': 'View profile',
   'hero.speakersAll': 'See all',
@@ -369,21 +375,21 @@ const en: Record<UiKey, string> = {
   'hero.countdownToday': 'The event begins today',
   'hero.countdownLive': 'The event is underway',
   'hero.slogan': "Colombia's recent\nhistory, told by\nthe people who\nlived it up close.",
-  'hero.month': 'November 2026',
+  'hero.month': '{mes}',
 
   'keyfacts.aria': 'The event in three facts',
   'keyfacts.days': 'days',
-  'keyfacts.daysDetail': 'From Thursday, November 5 to Sunday, November 8, 2026, in Villa de Leyva.',
+  'keyfacts.daysDetail': '{fechasConDia}, in Villa de Leyva.',
   'keyfacts.speakers': 'journalists',
   'keyfacts.speakersDetail': "The people who tell the country's recent history, in person and open to questions.",
   'keyfacts.formats': 'formats',
   'keyfacts.formatsDetail':
-    'Free open talks at Casa Museo Antonio Nariño and ticketed panel conversations at Hospedería Duruelo.',
+    'Free open talks at {sedeCharlas} and ticketed panel conversations at {sedeConversatorios}.',
 
   'tickets.heading': 'Tickets',
   'tickets.title': 'There are three ways to buy.',
   'tickets.passName': 'Full pass',
-  'tickets.passText': 'All seven panel conversations, from Friday afternoon to Sunday morning, on a single ticket.',
+  'tickets.passText': 'All {conversatorios} panel conversations, from Friday afternoon to Sunday morning, on a single ticket.',
   'tickets.weekendName': 'Weekend pass',
   'tickets.weekendText':
     "All six panels on Saturday and Sunday, on a single ticket. For those who can only come on the weekend and don't want to miss a thing.",
@@ -391,7 +397,7 @@ const en: Record<UiKey, string> = {
   'tickets.slotName': 'Half-day ticket',
   'tickets.slotText':
     'One morning or one afternoon, with its two or three panels: Friday afternoon, Saturday morning, Saturday afternoon or Sunday morning. Buy only the ones you want.',
-  'tickets.slotSoon': 'On sale from stage 2.',
+  'tickets.slotSoon': 'Not on sale yet.',
   'stages.heading': 'Sales calendar',
   'stages.stage1': 'Stage 1',
   'stages.stage2': 'Stage 2',
@@ -410,13 +416,13 @@ const en: Record<UiKey, string> = {
   'stages.lastDay': 'Last day at the stage 2 price',
   'tickets.stagePrice': 'Stage 2 price, until {date}.',
   'tickets.notify': 'Notify me when it opens',
-  'notify.title': "We'll let you know when stage 2 opens",
-  'notify.intro': "Leave us your details and we'll write to you as soon as half-day tickets go on sale.",
+  'notify.title': "We'll let you know when it goes on sale",
+  'notify.intro': "Leave us your details and we'll write to you as soon as it goes on sale.",
   'notify.submit': 'Notify me',
-  'notify.success': "Done. We'll write to you as soon as half-day tickets go on sale.",
+  'notify.success': "Done. We'll write to you as soon as it goes on sale.",
   'notify.close': 'Close',
   'tickets.soon':
-    'Ticket sales open soon. Limited seating. During stage 1, until October 12, only the full pass is sold, at its biggest discount; from October 13, half-day tickets go on sale. The open talks on November 5 and 6 are free to attend.',
+    'Ticket sales open soon. Limited seating. The open talks are free to attend.',
   'tickets.widgetFallback': 'If the checkout module does not load, you can buy directly from the secure Pretix shop:',
   'tickets.widgetLink': 'Buy on Pretix',
   'tickets.notYet': 'Not yet available',
@@ -474,7 +480,7 @@ const en: Record<UiKey, string> = {
   'stay.call': 'Call',
   'stay.note':
     'Mention that you are attending Testigos de la Memoria to get the offer. Booking and payment are handled directly with each hotel.',
-  'venue.mapTitle': 'Google map of Villa de Leyva showing Hospedería Duruelo',
+  'venue.mapTitle': 'Google map of Villa de Leyva showing {sedeConversatorios}',
   'venue.heading': 'Two venues, a few blocks apart',
   'venue.intro':
     "A gathering about Colombia in a place that seems made for conversation. After each session you can walk across Villa de Leyva's main square, sit down for a drink and keep talking. Both venues are a few blocks from the Plaza Mayor.",
@@ -484,7 +490,7 @@ const en: Record<UiKey, string> = {
   'opp.eyebrow': 'About',
   'opp.heading': 'A chance to hear first-hand from the people who were there while history was happening.',
   'opp.lead':
-    "The events that shaped the country have front-row witnesses: the reporters who covered them. Over four days, some of the biggest names in Colombian journalism sit down to tell what they saw, how they reported it and what that past teaches us about what's ahead.",
+    "The events that shaped the country have front-row witnesses: the reporters who covered them. Over {dias} days, some of the biggest names in Colombian journalism sit down to tell what they saw, how they reported it and what that past teaches us about what's ahead.",
   'opp.point1':
     "What was behind the news, what never made it to television, the decisions they had to make and the stories that were left out.",
   'opp.point2': 'Intimate panel conversations, no distant stage: questions and disagreements included.',
@@ -550,7 +556,7 @@ const en: Record<UiKey, string> = {
   'speaker.works': 'Works and links',
   'speaker.all': 'All speakers',
   'speaker.indexLead':
-    "The journalists who covered Colombia's last fifty years, gathered in Villa de Leyva, November 5–8, 2026.",
+    "The journalists who covered Colombia's last fifty years, gathered in Villa de Leyva, {fechas}.",
   'speaker.readProfile': 'View profile',
 
   'session.people': 'At the table',
@@ -570,10 +576,10 @@ const en: Record<UiKey, string> = {
 
   'facts.heading': 'The event in a few lines',
   'facts.where': 'Villa de Leyva, Boyacá, Colombia',
-  'facts.when': 'November 5–8, 2026',
-  'facts.talks': 'Free open talks on Thursday, November 5 and Friday morning, November 6, at Casa Museo Antonio Nariño.',
+  'facts.when': '{fechas}',
+  'facts.talks': 'Free open talks on Thursday, November 5 and Friday morning, November 6, at {sedeCharlas}.',
   'facts.panels':
-    'Ticketed panel conversations from Friday afternoon, November 6, through Sunday, November 8, at Hospedería Duruelo.',
+    'Ticketed panel conversations from Friday afternoon, November 6, through Sunday, November 8, at {sedeConversatorios}.',
   'facts.onSale': 'On sale',
   'facts.soon': 'From',
   'facts.soldOut': 'Sold out',
@@ -594,8 +600,54 @@ const dicts: Record<Lang, Record<UiKey, string>> = { es, en };
 
 export const ui = es;
 
+/* Números en letra para los conteos de los textos */
+const words: Record<Lang, string[]> = {
+  es: ['cero', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez'],
+  en: ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'],
+};
+function inWords(n: number, lang: Lang): string {
+  return words[lang][n] ?? String(n);
+}
+
+/* Partes de una fecha 'YYYY-MM-DD' en el idioma, sin depender de la zona del build */
+function dateParts(iso: string, lang: Lang) {
+  const date = new Date(`${iso}T12:00:00Z`);
+  const part = (o: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat(localeOf(lang), { timeZone: 'UTC', ...o }).format(date);
+  return { day: date.getUTCDate(), month: part({ month: 'long' }), weekday: part({ weekday: 'long' }), year: date.getUTCFullYear() };
+}
+
+/** Hechos que los textos usan como {variable}, desde src/data/ */
+function factsFor(lang: Lang): Record<string, string> {
+  const a = dateParts(event.startDate, lang);
+  const b = dateParts(event.endDate, lang);
+  const sameMonth = a.month === b.month;
+  const venueOf = (type: 'charla' | 'conversatorio') =>
+    venues.find((v) => v.id === agenda.find((s) => s.type === type)?.venueId)!.name;
+  const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+  return {
+    fechas:
+      lang === 'es'
+        ? sameMonth
+          ? `${a.day} al ${b.day} de ${b.month} de ${b.year}`
+          : `${a.day} de ${a.month} al ${b.day} de ${b.month} de ${b.year}`
+        : sameMonth
+          ? `${capitalize(b.month)} ${a.day}–${b.day}, ${b.year}`
+          : `${capitalize(a.month)} ${a.day} – ${capitalize(b.month)} ${b.day}, ${b.year}`,
+    fechasConDia:
+      lang === 'es'
+        ? `Del ${a.weekday} ${a.day}${sameMonth ? '' : ` de ${a.month}`} al ${b.weekday} ${b.day} de ${b.month} de ${b.year}`
+        : `From ${a.weekday}, ${capitalize(a.month)} ${a.day} to ${b.weekday}, ${capitalize(b.month)} ${b.day}, ${b.year}`,
+    mes: lang === 'es' ? `${b.month} ${b.year}` : `${capitalize(b.month)} ${b.year}`,
+    dias: inWords(new Set(agenda.map((s) => s.day)).size, lang),
+    conversatorios: inWords(agenda.filter((s) => s.type === 'conversatorio' && !s.role).length, lang),
+    sedeCharlas: venueOf('charla'),
+    sedeConversatorios: venueOf('conversatorio'),
+  };
+}
+const facts: Record<Lang, Record<string, string>> = { es: factsFor('es'), en: factsFor('en') };
+
 export function t(key: UiKey, lang: Lang = 'es'): string {
-  return dicts[lang][key];
+  return dicts[lang][key].replace(/\{(\w+)\}/g, (whole, name: string) => facts[lang][name] ?? whole);
 }
 
 /**
@@ -604,5 +656,5 @@ export function t(key: UiKey, lang: Lang = 'es'): string {
  */
 export function tFor(pathname: string): (key: UiKey) => string {
   const lang = langOf(pathname);
-  return (key) => dicts[lang][key];
+  return (key) => t(key, lang);
 }
