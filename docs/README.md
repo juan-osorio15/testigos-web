@@ -2,6 +2,8 @@
 
 Qué hay en cada carpeta (orden del 2026-10-22).
 
+- `copias-externas.md`: dónde está publicado cada hecho fuera del sitio (Pretix, chatbot, Meta, Google Ads) y qué volver a pegar cuando cambia.
+
 - `proyecto/`: punto de partida del repo, prompt de centralización, portafolio, pendientes humanos de la feature 002, revisión de seguridad y credenciales (estas dos, ignoradas por git).
 - `evento/`: panelistas, sedes, cómo llegar y preguntas por sesión. En `evento/investigaciones/`, el informe de cada panelista nuevo.
 - `pretix/`: textos, diseño, boleta y correos de la tienda.
