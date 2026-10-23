@@ -29,6 +29,7 @@ respondio arma la lista y la guarda en el formato de importación de
 respond.io, solo con quien autorizó WhatsApp, en ~/Downloads salvo que se
 diga otra ruta con --salida. Las etiquetas y la boleta de interés salen de
 "respondio" en la configuración; sin eso, la etiqueta es el nombre de la campaña.
+A cada etiqueta se le pega la fecha del día (expirados-23102026).
 """
 
 from __future__ import annotations
@@ -45,6 +46,7 @@ from pathlib import Path
 sys.dont_write_bytecode = True  # sin __pycache__ dentro del repositorio
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "lib"))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "verificar"))
 
 import lista as listas  # noqa: E402
 import registro  # noqa: E402
@@ -53,6 +55,7 @@ from audiencias import audiencia, excluidos  # noqa: E402
 from canales import ErrorCanal, canal  # noqa: E402
 from comun import BOGOTA, CONFIG, DATOS  # noqa: E402
 from hechos import leer as hechos  # noqa: E402
+from verificar import revisar_correo  # noqa: E402
 
 # Columna que dice qué tan reciente es cada persona, por audiencia (--dias).
 FECHA_RECIENTE = {"expirados": "ultimo_intento", "interesados": "inscrito"}
@@ -138,6 +141,12 @@ def enviar(nombre: str, config: dict, nombre_canal: str, args: argparse.Namespac
             print(f"Se omiten por {nombre_canal}, {motivo}: {cuantos}")
 
     mensajes = medio.preparar(pendientes)
+    if nombre_canal == "correo":
+        # Comprobación de vigencia (scripts/verificar/): con un dato viejo no hay vista previa ni envío.
+        hallazgos = {(h.regla, h.texto) for m in mensajes for h in revisar_correo(*m.contenido, hechos())}
+        if hallazgos:
+            sys.exit("La plantilla tiene datos que no cuadran con la fuente:\n" + "\n".join(
+                f"  {regla}: {texto}" for regla, texto in sorted(hallazgos)) + "\nCorregirla antes de seguir.")
     medio.mostrar(mensajes)
     print(f"\n{len(mensajes)} mensajes por {nombre_canal} listos ({medio.plantilla}).")
     if not args.enviar:
@@ -188,7 +197,8 @@ def destino_prueba(nombre_canal: str, valor: str) -> str:
 def exportar_respondio(nombre: str, config: dict, args: argparse.Namespace) -> None:
     """La lista en el formato de importación de respond.io: solo personas reales con WhatsApp autorizado."""
     opciones = config.get("respondio", {})
-    etiquetas = ",".join(opciones.get("tags", [nombre]))
+    fecha = f"{datetime.now(BOGOTA):%d%m%Y}"  # expirados-23102026: cada exportación queda como su propio grupo
+    etiquetas = ",".join(f"{t}-{fecha}" for t in opciones.get("tags", [nombre]))
     personas = [d for d in armar_lista(nombre, config, args) if d.tipo == "real" and d.whatsapp]
     salida = Path(args.salida).expanduser() if args.salida else (
         Path.home() / "Downloads" / f"{nombre}-respondio-{datetime.now(BOGOTA):%Y-%m-%d-%H%M}.csv")
