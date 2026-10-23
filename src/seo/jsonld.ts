@@ -12,6 +12,7 @@
 import { PRETIX_EVENT_URL, SITE_URL, pretixReady } from '../config';
 import { agenda, type AgendaSlot, type EventDay } from '../data/agenda';
 import { event, venues, type Venue } from '../data/event';
+import { offerCovers } from '../data/boletas';
 import { speakers, speakerBySlug, type Speaker } from '../data/speakers';
 import { faqs } from '../data/faqs';
 import { absoluteUrl, breadcrumbsFor, routeByPath, sessionPath, speakerPath, type Route } from '../routes';
@@ -140,15 +141,8 @@ function sessionOffersLd(slot: AgendaSlot, today: string): Node[] {
     ];
   }
   if (!pretixReady) return [];
-  const half = slot.start && Number(slot.start.slice(0, 2)) >= 14 ? 'tarde' : 'manana';
   return activeOffers(today)
-    .filter(({ offer }) => {
-      if (offer.covers === 'all') return true;
-      if (!offer.covers.includes(slot.day)) return false;
-      /* La boleta de medio día cubre su día y su mitad (id "sabado-manana");
-         el pase de fin de semana, sus días enteros */
-      return offer.covers.length > 1 || offer.id.endsWith(half);
-    })
+    .filter(({ offer }) => offerCovers(offer, slot))
     .map(({ offer, availability }) => ({
       '@type': 'Offer',
       name: offer.name,

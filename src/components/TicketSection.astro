@@ -15,9 +15,8 @@ import { tFor } from '../ui';
 import LogoSymbol from '../assets/logo/logo-symbol.svg';
 import WaitlistForm from './WaitlistForm.astro';
 import SalesStages from './SalesStages.astro';
-import { agenda } from '../data/agenda';
 import { ticketOffers, formatPrice, salesStages, type TicketOffer, type TicketOfferId } from '../data/event';
-import { speakers } from '../data/speakers';
+import { halfDayOffers, halfOfOffer, speakerNamesOf } from '../data/boletas';
 import { langOf, localeOf } from '../i18n';
 
 const t = tFor(Astro.url.pathname);
@@ -31,11 +30,10 @@ const weekend = offerById('fin-de-semana');
 const halfDay = offerById('viernes-tarde');
 /* Precio tachado de un pase: lo que costarían por separado las boletas de
    medio día que cubre (el mismo que va tachado en Pretix) */
-const halfDays = ticketOffers.filter((o) => o.covers !== 'all' && o.covers.length === 1);
 const separately = (offer: TicketOffer) =>
   formatPrice(
     {
-      price: halfDays
+      price: halfDayOffers
         .filter((h) => offer.covers === 'all' || (h.covers !== 'all' && offer.covers.includes(h.covers[0]!)))
         .reduce((sum, h) => sum + h.price, 0),
       currency: offer.currency,
@@ -78,44 +76,26 @@ const options = [
 const live = pretixReady;
 
 /* Panelistas por franja, desde los datos del sitio y no desde las negritas
-   de Pretix: la agenda dice quién va en cada conversatorio y el carrusel
-   fija el orden (el del afiche, docs/evento/panelistas.md). La clave es el nombre
-   del producto en Pretix ("Sábado AM", desde el 2026-09-30), normalizado.
-   Una franja es medio día: AM si el conversatorio empieza antes de las
-   2 p.m. (el cierre del domingo a las 12:30 p.m. cuenta como AM). */
-const dayName: Record<string, string> = {
-  '2026-11-06': 'viernes',
-  '2026-11-07': 'sabado',
-  '2026-11-08': 'domingo',
-};
+   de Pretix: src/data/boletas.ts dice qué sesiones cubre cada boleta de
+   medio día y el carrusel fija el orden (el del afiche,
+   docs/evento/panelistas.md). La clave es el nombre del producto en
+   Pretix, normalizado. Cada franja responde también a su nombre corto
+   ("sabado am", el otro que ha tenido en Pretix), por si se renombra. */
 const normalize = (s: string) =>
   s
     .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
+    .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
     .replace(/\s+/g, ' ')
     .trim();
-const startHour = (time: string) => {
-  const h = Number(time.match(/\d+/)?.[0] ?? 0);
-  const pm = /p\.?\s?m/.test(time.match(/[ap]\.?\s?m/)?.[0] ?? '');
-  return pm && h < 12 ? h + 12 : h;
-};
-const franjas: Record<string, string[]> = {};
-for (const slot of agenda) {
-  if (slot.type !== 'conversatorio' || !slot.time || !dayName[slot.day]) continue;
-  const key = `${dayName[slot.day]} ${startHour(slot.time) < 14 ? 'am' : 'pm'}`;
-  (franjas[key] ??= []).push(...slot.speakerSlugs);
-}
-/* Cada franja responde a su nombre nuevo ("sabado am") y al anterior
-   ("sabado manana"), por si Pretix todavía no se ha renombrado */
-const oldName = { am: 'manana', pm: 'tarde' } as const;
+const shortHalf = { manana: 'am', tarde: 'pm' } as const;
 const franjaNames = Object.fromEntries(
-  Object.entries(franjas).flatMap(([key, slugs]) => {
-    const names = speakers.filter((s) => slugs.includes(s.slug)).map((s) => s.name);
-    const [day, half] = key.split(' ') as [string, keyof typeof oldName];
+  halfDayOffers.flatMap((offer) => {
+    const names = speakerNamesOf(offer);
+    const [day] = normalize(offer.pretixProduct).split(' ');
     return [
-      [key, names],
-      [`${day} ${oldName[half]}`, names],
+      [`${day} ${shortHalf[halfOfOffer(offer)!]}`, names],
+      [normalize(offer.pretixProduct), names],
     ];
   }),
 );

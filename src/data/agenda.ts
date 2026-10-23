@@ -28,6 +28,11 @@ export interface AgendaSlot {
   end: string | null;
   /** charla = abierta y gratuita; conversatorio = con boleta */
   type: 'charla' | 'conversatorio';
+  /**
+   * Conversatorios que no son temáticos: la bienvenida y el cierre. Sin
+   * `role`, es uno de los conversatorios temáticos (src/data/boletas.ts).
+   */
+  role?: 'bienvenida' | 'cierre';
   title: string;
   /** null → la sede aún no está confirmada y no se muestra */
   venueId: VenueId | null;
@@ -159,6 +164,7 @@ export const agenda: AgendaSlot[] = [
     start: '15:00',
     end: null,
     type: 'conversatorio',
+    role: 'bienvenida',
     title: 'Bienvenida y presentación',
     venueId: 'duruelo',
     /* Jorge Cardona, narrador del encuentro, de vuelta el 2026-09-25 */
@@ -345,6 +351,7 @@ export const agenda: AgendaSlot[] = [
     start: '12:30',
     end: '13:00',
     type: 'conversatorio',
+    role: 'cierre',
     title: 'Cierre',
     venueId: 'duruelo',
     speakerSlugs: ['jorge-cardona'],

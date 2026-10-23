@@ -177,6 +177,13 @@ export const ticketOffers: TicketOffer[] = [
   },
 ];
 
+/**
+ * Venta en la puerta (titular, 2026-10-19): existe, dentro del hotel y para
+ * casos puntuales, pero no se publicita. Si alguien pregunta, se confirma
+ * sin prometer cupo.
+ */
+export const doorSales = { available: true, advertised: false } as const;
+
 /** Formato de precio en texto plano: "340.000 COP" (en inglés, "340,000 COP") */
 export function formatPrice(offer: Pick<TicketOffer, 'price' | 'currency'>, lang: Lang = 'es'): string {
   return `${offer.price.toLocaleString(lang === 'en' ? 'en-US' : 'es-CO')} ${offer.currency}`;
@@ -197,6 +204,11 @@ export interface Venue {
    * 2026-09-16 tomarlas de los pines públicos.
    */
   geo: { latitude: number; longitude: number };
+  /**
+   * Aforo máximo de asistentes; null mientras no esté confirmado. No se
+   * muestra en el sitio: lo usan el chatbot y los textos (evento.json).
+   */
+  capacity: number | null;
   /** Etiqueta corta del bloque de presentación ("Sede de los conversatorios") */
   kicker: string;
   /** Reseña breve y atractiva del lugar (3-4 frases, con fuente en docs/evento/sedes.md) */
@@ -224,6 +236,8 @@ export const venues: Venue[] = [
       'https://www.google.com/maps/search/?api=1&query=Hospeder%C3%ADa+Duruelo+Villa+de+Leyva',
     /* Pin de OpenStreetMap "Duruelo" (hotel), 2026-09-17 */
     geo: { latitude: 5.62874, longitude: -73.51792 },
+    /* Capacidad máxima confirmada por el titular el 2026-10-19 */
+    capacity: 300,
     kicker: 'Sede de los conversatorios',
     summary:
       'Un hotel en lo alto del pueblo, abierto en 1973 y concebido como las hospederías de los antiguos monasterios europeos: corredores, balcones y jardines desde donde se ve todo Villa de Leyva y el valle. Su nombre recuerda a Duruelo, el pueblo castellano donde San Juan de la Cruz fundó el primer convento de carmelitas descalzos.',
@@ -248,6 +262,8 @@ export const venues: Venue[] = [
       'https://www.google.com/maps/search/?api=1&query=Casa+Museo+Antonio+Nari%C3%B1o+Villa+de+Leyva',
     /* Pin de OpenStreetMap "Casa museo Antonio Nariño" (museum), 2026-09-17 */
     geo: { latitude: 5.63209, longitude: -73.52497 },
+    /* Pendiente: el titular lo averigua (2026-10-19) */
+    capacity: null,
     kicker: 'Sede de las charlas abiertas',
     summary:
       'Una casona colonial construida a finales del siglo XVII. Desde su creación ha tenido diversos usos y se considera que fue la última morada del precursor Antonio Nariño y el lugar de su fallecimiento en diciembre de 1823. Fue declarada Monumento Nacional en 1961. Actualmente es una institución museal, dedicada a conservar la memoria y el legado del traductor de los Derechos del Hombre.',
