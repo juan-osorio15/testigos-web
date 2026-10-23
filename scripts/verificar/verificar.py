@@ -4,7 +4,9 @@ El sitio toma sus hechos de src/data/ y src/config.ts; lo que se pega a mano
 (Pretix, el chatbot, WhatsApp, Google Ads) y las plantillas de correo no.
 Este script lee la exportación del build (dist/datos/evento.json) y busca en
 esas piezas los errores que ya pasaron: precios que no existen, fechas de
-etapa vencidas, nombres mal escritos, términos retirados, enlaces viejos.
+etapa vencidas, nombres mal escritos, términos retirados, enlaces viejos. A la
+ficha del chatbot, además, le coteja la programación: cada conversatorio con
+su hora y sus panelistas.
 
 Uso (en la raíz del repo, después de `npm run build`):
     python3 scripts/verificar/verificar.py           revisa las piezas vigentes
@@ -123,6 +125,28 @@ def revisar(texto: str, hechos: dict, publico: bool = True, lineas: list[tuple[i
     return hallazgos
 
 
+def revisar_ficha(texto: str, hechos: dict) -> list[Hallazgo]:
+    """La ficha del chatbot cuenta la programación: cada conversatorio en una línea, con su hora y
+    sus panelistas como en la fuente, y todos los panelistas nombrados."""
+    lineas = texto.splitlines()
+    hallazgos = [Hallazgo(0, "ficha sin este panelista", p["nombre"])
+                 for p in hechos["panelistas"] if p["nombre"] not in texto]
+    for sesion in hechos["sesiones"]:
+        if sesion["tipo"] != "conversatorio":
+            continue
+        numero, linea = next(((n, l) for n, l in enumerate(lineas, start=1) if sesion["titulo"] in l), (0, ""))
+        if not linea:
+            hallazgos.append(Hallazgo(0, "ficha sin esta sesión", sesion["titulo"]))
+            continue
+        hora = (sesion["hora"] or "").replace(" – ", " a ")
+        if hora not in linea:
+            hallazgos.append(Hallazgo(numero, f"la hora no es {hora}", sesion["titulo"]))
+        for nombre in sesion["panelistas"]:
+            if nombre not in linea:
+                hallazgos.append(Hallazgo(numero, f"falta {nombre} en", sesion["titulo"]))
+    return hallazgos
+
+
 def revisar_correo(asunto: str, html: str, hechos: dict) -> list[Hallazgo]:
     """Un correo ya lleno, como sale (sin comentarios HTML)."""
     texto = f"{asunto}\n{html}"
@@ -166,8 +190,12 @@ def main() -> int:
     total = 0
     for ruta in piezas:
         texto = ruta.read_text(encoding="utf-8")
-        for h in revisar(texto, hechos, publico=es_publico(ruta), lineas=para_pegar(ruta, texto)):
-            print(f"{ruta.relative_to(RAIZ)}:{h.linea}: {h.regla}: {h.texto}")
+        hallazgos = revisar(texto, hechos, publico=es_publico(ruta), lineas=para_pegar(ruta, texto))
+        if ruta.name.startswith("ficha_"):
+            hallazgos += revisar_ficha(texto, hechos)
+        for h in hallazgos:
+            nombre = ruta.relative_to(RAIZ) if ruta.is_relative_to(RAIZ) else ruta
+            print(f"{nombre}:{h.linea}: {h.regla}: {h.texto}")
             total += 1
     print(f"{len(piezas)} piezas revisadas, {total} hallazgos.")
     return 1 if total else 0
