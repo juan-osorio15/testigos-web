@@ -1,7 +1,8 @@
 """Canal correo: un correo HTML por persona con Resend (dominio eventalist.co verificado).
 
 Llave en la variable RESEND_API_KEY o en el llavero, servicio "eventalist-resend". En la plantilla y el asunto, {{columna}}
-se cambia por el valor de esa columna de la lista ({{saludo}}, {{codigo}}).
+se cambia por el valor de esa columna de la lista ({{saludo}}, {{codigo}}) o por un hecho del evento
+({{precio_pase_completo}}, {{precio_medio_dia}}; scripts/lib/hechos.py).
 Las imágenes src="cid:NOMBRE" se adjuntan incrustadas desde NOMBRE.png en la
 carpeta de plantillas: sin imágenes descargadas de internet, que empujan el
 correo a Promociones.
@@ -20,6 +21,7 @@ from pathlib import Path
 
 from canales import ErrorCanal, Mensaje
 from comun import PLANTILLAS, llave
+from hechos import variables_plantilla
 from lista import Destinatario
 
 RESPONDER_A = "hola@eventalist.co"
@@ -50,7 +52,7 @@ class Correo:
     def preparar(self, destinatarios: list[Destinatario]) -> list[Mensaje]:
         mensajes = []
         for d in destinatarios:
-            valores = d.valores()
+            valores = {**variables_plantilla(), **d.valores()}
             asunto = html_lib.unescape(rellenar(self.asunto, valores))
             html = rellenar(self.html, valores)
             sin_llenar = set(re.findall(r"\{\{(\w+)\}\}", asunto + html))

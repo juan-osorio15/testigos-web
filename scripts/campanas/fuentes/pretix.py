@@ -11,9 +11,8 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from comun import BOGOTA, llave, pedir_json, normalizar_correo, normalizar_telefono
+from hechos import leer as hechos
 
-PRETIX = "https://pretix.eventalist.co"
-ORGANIZADOR = "eventalist"
 ESTADOS = {"n": "pendiente", "p": "pagado", "e": "expirado", "c": "cancelado"}
 COMPRO = {"pagado", "pendiente"}
 
@@ -33,7 +32,9 @@ class Pedido:
 def leer_pedidos(evento: str) -> list[Pedido]:
     """Todos los pedidos reales del evento (sin modo prueba), página por página."""
     token = llave("PRETIX_TOKEN", "eventalist-pretix")
-    url = f"{PRETIX}/api/v1/organizers/{ORGANIZADOR}/events/{evento}/orders/?testmode=false"
+    tienda = hechos()["integraciones"]
+    servidor = "/".join(tienda["tienda"].split("/")[:3])
+    url = f"{servidor}/api/v1/organizers/{tienda['pretixOrganizador']}/events/{evento}/orders/?testmode=false"
     pedidos = []
     while url:
         pagina = pedir_json(url, {"Authorization": f"Token {token}"}, f"Pretix (pedidos de {evento})")

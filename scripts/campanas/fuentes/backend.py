@@ -13,8 +13,8 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from comun import BOGOTA, llave, pedir_json, normalizar_correo, normalizar_telefono
+from hechos import leer as hechos
 
-BACKEND = "https://eventalist-backend-production.up.railway.app"
 # Etapas de compra en la campaña (CampaignMembership.stage) de quien ya pagó o tiene un pedido vivo.
 ETAPAS_CON_PEDIDO = {"order_pending", "purchased"}
 
@@ -34,7 +34,7 @@ class Contacto:
 def leer_contactos(campana: str, origen: str | None = None, etapa: str | None = None) -> list[Contacto]:
     token = llave("BACKEND_TOKEN", "eventalist-backend-lectura")
     filtros = {k: v for k, v in {"source": origen, "stage": etapa}.items() if v}
-    url = f"{BACKEND}/api/v1/marketing/campaigns/{campana}/contacts/"
+    url = f"{hechos()['integraciones']['backend']}/api/v1/marketing/campaigns/{campana}/contacts/"
     if filtros:
         url += "?" + urllib.parse.urlencode(filtros)
     contactos = []

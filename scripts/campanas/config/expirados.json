@@ -1,10 +1,7 @@
 {
   "descripcion": "Quien dejó expirar un pedido de Testigos de la Memoria y nunca compró. Plan en docs/campanas/expirados/plan.md.",
-  "evento": "testigos-memoria",
   "audiencia": "expirados",
-  "parametros": {
-    "campana_backend": "testigos-de-la-memoria-2026"
-  },
+  "parametros": {},
   "respondio": {
     "tags": ["expirados"]
   },

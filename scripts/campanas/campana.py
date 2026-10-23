@@ -17,7 +17,9 @@ lista arma la lista con los datos de este momento y la guarda en
 ~/Documents/eventalist/datos/<evento>/<campaña>-<fecha-hora>.csv. correo y
 whatsapp la vuelven a armar (alguien pudo comprar entretanto), la guardan y
 muestran lo que saldría; solo envían con --enviar. Con --lista se usa una
-lista ya guardada en vez de armarla.
+lista ya guardada en vez de armarla. --dias N deja solo a las personas de
+los últimos N días (el último intento en expirados, la inscripción en
+interesados).
 
 Sin --enviar no se envía nada. --prueba manda un solo mensaje de muestra a
 esa dirección o número. Fuera del horario de la Ley 2300 no se envía, salvo
@@ -37,11 +39,12 @@ import json
 import re
 import sys
 from collections import Counter
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 sys.dont_write_bytecode = True  # sin __pycache__ dentro del repositorio
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "lib"))
 
 import lista as listas  # noqa: E402
 import registro  # noqa: E402
@@ -49,6 +52,10 @@ import reglas  # noqa: E402
 from audiencias import audiencia, excluidos  # noqa: E402
 from canales import ErrorCanal, canal  # noqa: E402
 from comun import BOGOTA, CONFIG, DATOS  # noqa: E402
+from hechos import leer as hechos  # noqa: E402
+
+# Columna que dice qué tan reciente es cada persona, por audiencia (--dias).
+FECHA_RECIENTE = {"expirados": "ultimo_intento", "interesados": "inscrito"}
 
 COLUMNAS_RESPONDIO = ["First Name", "Last Name", "Phone Number", "Email Address", "Tags", "Lifecycle", "Assignee",
                       "boleta_de_interes"]
@@ -59,27 +66,45 @@ def leer_config(nombre: str) -> dict:
     if not ruta.exists():
         existentes = ", ".join(sorted(p.stem for p in CONFIG.glob("*.json")))
         sys.exit(f"No existe la campaña {nombre}. Existen: {existentes}.")
-    return json.loads(ruta.read_text(encoding="utf-8"))
+    config = json.loads(ruta.read_text(encoding="utf-8"))
+    # El evento de Pretix y la campaña del backend salen de la fuente (src/config.ts), no de cada campaña.
+    integraciones = hechos()["integraciones"]
+    config.setdefault("evento", integraciones["pretixEvento"])
+    config.setdefault("parametros", {}).setdefault("campana_backend", integraciones["campanaBackend"])
+    return config
 
 
 def armar_lista(nombre: str, config: dict, args: argparse.Namespace) -> list[listas.Destinatario]:
     if args.lista:
-        destinatarios = listas.cargar(Path(args.lista).expanduser())
+        destinatarios = recientes(listas.cargar(Path(args.lista).expanduser()), config, args.dias)
         print(f"Lista leída de {args.lista}: {len(destinatarios)} filas")
         return destinatarios
     armar = audiencia(config["audiencia"])
     resultado = armar(config["evento"], config["parametros"], excluidos(args.excluir))
-    destinatarios = listas.con_titulares(resultado.destinatarios, resultado.variables_titular)
-    ruta = listas.guardar(destinatarios, config["evento"], nombre)
-    reales = [d for d in destinatarios if d.tipo == "real"]
     for linea in resultado.resumen:
         print(linea)
+    destinatarios = recientes(listas.con_titulares(resultado.destinatarios, resultado.variables_titular),
+                              config, args.dias)
+    ruta = listas.guardar(destinatarios, config["evento"], nombre)
+    reales = [d for d in destinatarios if d.tipo == "real"]
     print(f"Personas en la lista: {len(reales)} -> {ruta}")
     print(f"  Con correo: {sum(1 for d in reales if d.correo)} · con WhatsApp: {sum(1 for d in reales if d.whatsapp)}")
     equipo = len(destinatarios) - len(reales)
     if equipo:
         print(f"  Más {equipo} del equipo (incluir.local.csv), que reciben cada envío real")
     return destinatarios
+
+
+def recientes(destinatarios: list[listas.Destinatario], config: dict, dias: int | None) -> list[listas.Destinatario]:
+    """Con --dias N, solo las personas de los últimos N días (último intento o inscripción); el equipo siempre."""
+    if dias is None:
+        return destinatarios
+    clave = FECHA_RECIENTE[config["audiencia"]]
+    desde = f"{datetime.now(BOGOTA) - timedelta(days=dias):%Y-%m-%d %H:%M}"
+    quedan = [d for d in destinatarios if d.tipo != "real" or d.valores().get(clave, "") >= desde]
+    print(f"Solo los últimos {dias} días ({clave} desde {desde}): "
+          f"{sum(1 for d in quedan if d.tipo == 'real')} de {sum(1 for d in destinatarios if d.tipo == 'real')}")
+    return quedan
 
 
 def enviar(nombre: str, config: dict, nombre_canal: str, args: argparse.Namespace) -> None:
@@ -204,6 +229,7 @@ def main() -> None:
     parser.add_argument("--lista", help="Usar esta lista ya guardada en vez de armarla de nuevo")
     parser.add_argument("--excluir", action="append", default=[],
                         help="Correo o teléfono a dejar por fuera (equipo, pruebas). Se puede repetir.")
+    parser.add_argument("--dias", type=int, help="Solo las personas de los últimos N días (último intento o inscripción)")
     parser.add_argument("--salida", help="respondio: ruta del CSV (por defecto, en ~/Downloads)")
     parser.add_argument("--prueba", help="Mandar un solo mensaje de muestra a este correo o número")
     parser.add_argument("--enviar", action="store_true", help="Enviar de verdad (sin esto solo se muestra)")

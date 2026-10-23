@@ -1,9 +1,7 @@
 {
   "descripcion": "Quien pidió en el sitio que le avisáramos de las boletas de medio día y no ha comprado. Plan en docs/campanas/interesados/plan.md.",
-  "evento": "testigos-memoria",
   "audiencia": "interesados",
   "parametros": {
-    "campana_backend": "testigos-de-la-memoria-2026",
     "origen": "website",
     "desde": "2026-09-09"
   },
