@@ -12,6 +12,7 @@
 import { langOf, localeOf, type Lang } from './i18n';
 import { agenda } from './data/agenda';
 import { event, venues } from './data/event';
+import { speakers } from './data/speakers';
 
 const es = {
   // --- Compra: un solo texto para todos los botones de compra, que llevan
@@ -602,8 +603,10 @@ export const ui = es;
 
 /* Números en letra para los conteos de los textos */
 const words: Record<Lang, string[]> = {
-  es: ['cero', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez'],
-  en: ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'],
+  es: ['cero', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez',
+    'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve', 'veinte'],
+  en: ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+    'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'],
 };
 function inWords(n: number, lang: Lang): string {
   return words[lang][n] ?? String(n);
@@ -617,13 +620,16 @@ function dateParts(iso: string, lang: Lang) {
 }
 
 /** Hechos que los textos usan como {variable}, desde src/data/ */
-function factsFor(lang: Lang): Record<string, string> {
+function factsFor(lang: Lang) {
   const a = dateParts(event.startDate, lang);
   const b = dateParts(event.endDate, lang);
   const sameMonth = a.month === b.month;
   const venueOf = (type: 'charla' | 'conversatorio') =>
     venues.find((v) => v.id === agenda.find((s) => s.type === type)?.venueId)!.name;
   const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+  const talkDays = [...new Set(agenda.filter((s) => s.type === 'charla').map((s) => s.day))].map((d) => dateParts(d, lang));
+  const last = talkDays.at(-1)!;
+  const talkDayList = talkDays.map((d) => d.day).join(lang === 'es' ? ' y ' : ' and ');
   return {
     fechas:
       lang === 'es'
@@ -637,14 +643,29 @@ function factsFor(lang: Lang): Record<string, string> {
       lang === 'es'
         ? `Del ${a.weekday} ${a.day}${sameMonth ? '' : ` de ${a.month}`} al ${b.weekday} ${b.day} de ${b.month} de ${b.year}`
         : `From ${a.weekday}, ${capitalize(a.month)} ${a.day} to ${b.weekday}, ${capitalize(b.month)} ${b.day}, ${b.year}`,
+    fechasSinAno:
+      lang === 'es'
+        ? `${a.day} al ${b.day} de ${b.month}`
+        : `${capitalize(b.month)} ${a.day}–${b.day}`,
+    diasCharlas:
+      lang === 'es'
+        ? `${talkDayList} de ${last.month} de ${last.year}`
+        : `${capitalize(last.month)} ${talkDayList}, ${last.year}`,
     mes: lang === 'es' ? `${b.month} ${b.year}` : `${capitalize(b.month)} ${b.year}`,
+    panelistas: inWords(speakers.length, lang),
     dias: inWords(new Set(agenda.map((s) => s.day)).size, lang),
     conversatorios: inWords(agenda.filter((s) => s.type === 'conversatorio' && !s.role).length, lang),
     sedeCharlas: venueOf('charla'),
     sedeConversatorios: venueOf('conversatorio'),
   };
 }
+export type FactName = keyof ReturnType<typeof factsFor>;
 const facts: Record<Lang, Record<string, string>> = { es: factsFor('es'), en: factsFor('en') };
+
+/** Un hecho ya escrito para el texto (títulos y descripciones de routes.ts, por ejemplo) */
+export function fact(name: FactName, lang: Lang = 'es'): string {
+  return facts[lang][name]!;
+}
 
 export function t(key: UiKey, lang: Lang = 'es'): string {
   return dicts[lang][key].replace(/\{(\w+)\}/g, (whole, name: string) => facts[lang][name] ?? whole);

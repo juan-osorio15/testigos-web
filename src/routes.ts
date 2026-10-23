@@ -11,6 +11,7 @@
 import { SITE_URL } from './config';
 import { speakers, type Speaker } from './data/speakers';
 import { agenda, type AgendaSlot } from './data/agenda';
+import { fact } from './ui';
 
 export interface Route {
   /** Ruta absoluta con barra final ('/panelistas/daniel-samper-pizano/') */
@@ -32,7 +33,8 @@ export interface Route {
 }
 
 const BRAND = 'Testigos de la Memoria';
-const PLACE_DATES = 'Villa de Leyva, 5 al 8 de noviembre de 2026';
+const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+const PLACE_DATES = `Villa de Leyva, ${fact('fechas')}`;
 const HOME_OG = `${SITE_URL}/og/og-image-v3.png`;
 
 /** Fecha de contenido de las fichas y páginas creadas en la feature 002 */
@@ -41,9 +43,9 @@ const CONTENT_DATE = '2026-09-17';
 /** Fecha de contenido de las páginas de sesión */
 const SESSIONS_DATE = '2026-09-22';
 
-export const HOME_TITLE = 'Testigos de la Memoria · Villa de Leyva, 5 al 8 de noviembre';
+export const HOME_TITLE = `Testigos de la Memoria · Villa de Leyva, ${fact('fechasSinAno')}`;
 export const HOME_DESCRIPTION =
-  'Cuatro días de periodismo e historia en Villa de Leyva, del 5 al 8 de noviembre de 2026. Charlas abiertas y conversatorios. Boletas disponibles.';
+  `${capitalize(fact('dias'))} días de periodismo e historia en Villa de Leyva, del ${fact('fechas')}. Charlas abiertas y conversatorios. Boletas disponibles.`;
 
 export function speakerPath(slug: string): string {
   return `/panelistas/${slug}/`;
@@ -80,7 +82,7 @@ function speakerTitle(sp: Speaker): string {
 function speakerDescription(sp: Speaker): string {
   const full = `${sp.name}, ${sp.credential.toLowerCase()}. Participa en ${BRAND}, ${PLACE_DATES}.`;
   if (full.length <= 155) return full;
-  return `${sp.name} participa en ${BRAND}, encuentro de periodismo e historia en Villa de Leyva, del 5 al 8 de noviembre de 2026.`;
+  return `${sp.name} participa en ${BRAND}, encuentro de periodismo e historia en Villa de Leyva, del ${fact('fechas')}.`;
 }
 
 const speakerRoutes: Route[] = speakers.map((sp) => ({
@@ -133,7 +135,7 @@ export const routes: Route[] = [
   {
     path: '/panelistas/',
     title: `Panelistas · ${BRAND} 2026`,
-    description: `Los quince periodistas que cubrieron la Colombia reciente, reunidos en ${BRAND}, ${PLACE_DATES}.`,
+    description: `Los ${fact('panelistas')} periodistas que cubrieron la Colombia reciente, reunidos en ${BRAND}, ${PLACE_DATES}.`,
     crumb: 'Panelistas',
     parent: '/',
     ogImage: HOME_OG,
@@ -145,7 +147,7 @@ export const routes: Route[] = [
   {
     path: '/charlas-abiertas/',
     title: `Charlas abiertas gratis · ${BRAND} 2026`,
-    description: `Charlas de entrada libre el 5 y 6 de noviembre de 2026 en la Casa Museo Antonio Nariño de Villa de Leyva, dentro de ${BRAND}. Sin boleta.`,
+    description: `Charlas de entrada libre el ${fact('diasCharlas')} en la ${fact('sedeCharlas')} de Villa de Leyva, dentro de ${BRAND}. Sin boleta.`,
     crumb: 'Charlas abiertas',
     parent: '/',
     ogImage: `${SITE_URL}/og/paginas/charlas-abiertas-v1.jpg`,
@@ -155,7 +157,7 @@ export const routes: Route[] = [
   {
     path: '/como-llegar/',
     title: `Cómo llegar a Villa de Leyva · ${BRAND}`,
-    description: `Cómo llegar a Villa de Leyva desde Bogotá y Tunja para ${BRAND}, 5 al 8 de noviembre de 2026: carretera, bus, parqueaderos y las dos sedes.`,
+    description: `Cómo llegar a Villa de Leyva desde Bogotá y Tunja para ${BRAND}, ${fact('fechas')}: carretera, bus, parqueaderos y las dos sedes.`,
     crumb: 'Cómo llegar',
     parent: '/',
     ogImage: HOME_OG,
