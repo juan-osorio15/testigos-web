@@ -122,11 +122,30 @@ body { font-family: var(--sans); color: var(--ink); font-variant-numeric: tabula
 .equipo .num { font-family: var(--serif); font-style: italic; font-size: 30px; line-height: 1; }
 .equipos-nota { margin-left: auto; font-size: 12px; color: var(--ink-60); }
 .minis { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.minis.con-foto { grid-template-columns: 132px 1fr 1fr; gap: 24px; }
+.foto img { display: block; width: 132px; height: 132px; object-fit: cover; }
+.foto figcaption { font-size: 11px; line-height: 1.3; color: var(--ink-60); padding-top: 6px; }
 .mini .et { color: var(--brick); padding-bottom: 6px; border-bottom: 2px solid var(--ink); }
 .mini ol { list-style: none; }
 .mini li { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; font-weight: 600; padding: 6px 0; border-bottom: 1px solid var(--ink-15); }
 .mini li:last-child { border-bottom: none; }
 .mini .v { font-weight: 800; }
+
+/* ---------- Plan de contenido ---------- */
+.plan { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.plan ul { list-style: none; }
+.pieza { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--ink-15); }
+.pieza:last-child { border-bottom: none; }
+.pieza img { flex: none; width: 96px; height: 128px; object-fit: cover; }
+.pieza .t { font-size: 15px; font-weight: 800; line-height: 1.25; }
+.pieza .d { font-size: 13.5px; line-height: 1.4; margin-top: 3px; }
+.pieza .dato { font-size: 12px; font-weight: 800; letter-spacing: .04em; color: var(--brick); margin-top: 6px; }
+.aliados { margin-top: auto; }
+.aliados .et { color: var(--brick); padding-bottom: 8px; border-bottom: 2px solid var(--ink); }
+.aliados ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.aliados li { font-size: 13px; font-weight: 700; padding: 6px 10px; border: 1.5px solid var(--ink); }
+.aliados li.hecho { background: var(--ink); color: var(--cream); }
+.aliados .nota { margin-top: 8px; }
 
 /* ---------- Cierre ---------- */
 .cierre { display: grid; grid-template-columns: 760px 520px; }

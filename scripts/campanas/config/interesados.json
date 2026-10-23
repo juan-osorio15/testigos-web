@@ -1,5 +1,5 @@
 {
-  "descripcion": "Quien pidió en el sitio que le avisáramos de las boletas de medio día y no ha comprado. Plan en docs/campana-interesados/plan.md.",
+  "descripcion": "Quien pidió en el sitio que le avisáramos de las boletas de medio día y no ha comprado. Plan en docs/campanas/interesados/plan.md.",
   "evento": "testigos-memoria",
   "audiencia": "interesados",
   "parametros": {
@@ -16,7 +16,7 @@
     },
     "whatsapp": {
       "activo": true,
-      "plantilla": "aviso_boletas_medio_dia",
+      "plantilla": "in1_boletas_medio_dia",
       "idioma": "es",
       "variables": []
     }

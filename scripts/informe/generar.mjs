@@ -35,6 +35,7 @@ const C = (await import(pathToFileURL(join(dir, 'contenido.mjs')).href)).default
 const fuentes = {};
 for (const f of readdirSync(join(dir, 'datos')).sort()) {
   const p = join(dir, 'datos', f);
+  if (/\.(jpe?g|png)$/i.test(f)) continue; // imágenes que usa contenido.mjs, no datos
   const r = f.endsWith('.xlsx') ? leerPretix(p) : f.endsWith('.csv') ? leerGa4(p) ?? leerMeta(p) : null;
   if (!r) { console.warn(`· sin reconocer: ${f}`); continue; }
   if (fuentes[r.tipo]) console.warn(`· ${f} repite la tabla "${r.tipo}" de ${fuentes[r.tipo].path.split('/').pop()}; se usa la última`);
@@ -119,6 +120,36 @@ if (meta) {
     gasto: conGasto ? [...porNombre.values()].reduce((s, a) => s + (a.gasto ?? 0), 0) : null,
     desde: lista.map((a) => a.inicio).filter(Boolean).sort()[0],
     hasta: lista.map((a) => a.fin).filter(Boolean).sort().at(-1),
+  };
+}
+
+// Pauta por objetivo: la exportación nueva de Meta trae el resultado de cada
+// anuncio según el objetivo de su campaña, no las visitas a la página.
+const RESULTADOS = {
+  'actions:offsite_conversion.fb_pixel_purchase': ['compra', 'compras'],
+  'actions:omni_landing_page_view': ['visita', 'visitas'],
+  'actions:post_interaction_gross': ['interacción', 'interacciones'],
+  'actions:onsite_conversion.messaging_conversation_started_7d': ['conversación', 'conversaciones'],
+};
+let pauta = null;
+if (meta?.columnas.includes('resultados') && meta.columnas.includes('campana')) {
+  const grupos = new Map();
+  for (const a of meta.anuncios) {
+    const camp = a.campana.trim();
+    const g = grupos.get(camp) ?? { camp, indicador: null, gasto: 0, impresiones: 0, resultados: 0, anuncios: [] };
+    g.gasto += a.gasto ?? 0; g.impresiones += a.impresiones ?? 0; g.resultados += a.resultados ?? 0;
+    g.indicador ??= a.indicador || null;
+    g.anuncios.push({ nombre: nombre(a.anuncio.trim()), gasto: a.gasto ?? 0, impresiones: a.impresiones ?? 0, resultados: a.resultados ?? 0, indicador: a.indicador || g.indicador });
+    grupos.set(camp, g);
+  }
+  const lista = [...grupos.values()].sort((a, b) => b.gasto - a.gasto);
+  for (const g of lista) g.anuncios.sort((a, b) => b.gasto - a.gasto);
+  pauta = {
+    lista,
+    gasto: lista.reduce((s, g) => s + g.gasto, 0),
+    impresiones: lista.reduce((s, g) => s + g.impresiones, 0),
+    desde: meta.anuncios.map((a) => a.inicio).filter(Boolean).sort()[0],
+    hasta: meta.periodo.hasta,
   };
 }
 
@@ -252,7 +283,7 @@ if (paginas) {
 // ---------- Resumen para escribir las lecturas ----------
 
 if (flags.has('--resumen')) {
-  const out = { ventas: ventas && { ...ventas, dias: Object.fromEntries([...ventas.dias].sort()) }, anuncios, canales: canalesM, campanas: campanasM && campanasM.lista.map((g) => ({ ...g, piezas: g.piezas })), recorrido, audiencia, equipos, lectura };
+  const out = { ventas: ventas && { ...ventas, dias: Object.fromEntries([...ventas.dias].sort()) }, anuncios, pauta, canales: canalesM, campanas: campanasM && campanasM.lista.map((g) => ({ ...g, piezas: g.piezas })), recorrido, audiencia, equipos, lectura };
   console.log(JSON.stringify(out, (k, v) => (v instanceof Map ? Object.fromEntries(v) : v), 2));
   process.exit(0);
 }
@@ -331,7 +362,90 @@ if (ventas) {
   }
 }
 
-if (anuncios) {
+// Redes en Meta: la parte de arriba del embudo, antes de la pauta y del
+// sitio. Sin exportación: las cifras vienen de las capturas de Meta Business
+// Suite y se copian en contenido.mjs (organico).
+// Imágenes de datos/ (recortes de capturas), incrustadas en el HTML.
+const incrustar = (archivo) => {
+  const tipo = /\.png$/i.test(archivo) ? 'png' : 'jpeg';
+  return `data:image/${tipo};base64,${readFileSync(join(dir, 'datos', archivo)).toString('base64')}`;
+};
+
+const O = C.organico;
+if (O) {
+  const filas = O.redes.map((r) => ({ ...r, pctOrg: r.organicas / r.vistas }));
+  const lista = (titulo, xs) => `<div class="mini"><p class="et">${esc(titulo)}</p><ol>${xs.map((x) => `<li><span>${esc(x.nombre)}</span><span class="v">${entero(x.valor)}</span></li>`).join('')}</ol></div>`;
+  // Miniatura del contenido más visto, recortada de la captura de Meta.
+  const foto = (f) => {
+    if (!f) return '';
+    return `<figure class="foto"><img src="${incrustar(f.archivo)}" alt="${esc(f.pie)}"><figcaption>${texto(f.pie)}</figcaption></figure>`;
+  };
+  slides.push(diapositiva('organico', {
+    eyebrow: 'Redes sociales',
+    pregunta: '¿Cuánta gente nos ve en redes y cuánta llega sin pauta?',
+    cuerpo: tabla({
+      cols: [
+        { titulo: 'Red', clave: 'nombre', tipo: 'txt' },
+        { titulo: 'Reproducciones', clave: 'vistas', tipo: 'barra', formato: entero },
+        { titulo: 'Sin pauta', clave: 'pctOrg', tipo: 'num', formato: pct },
+        { titulo: 'Clics en enlaces', clave: 'clics', tipo: 'num', formato: entero },
+        { titulo: 'Seguidores nuevos', clave: 'seguidores', tipo: 'num', formato: entero },
+      ],
+      filas,
+      nota: 'Reproducciones: veces que se vio una publicación, historia o video. Sin pauta: parte de las reproducciones que no vino de anuncios.',
+    }) + (O.listas?.length ? `<div class="minis${O.foto ? ' con-foto' : ''}">${foto(O.foto)}${O.listas.map((l) => lista(l.titulo, l.items)).join('')}</div>` : ''),
+    fuente: `Fuente: Meta Business Suite, ${periodo(O.periodo)}`,
+    cifras: O.cifras ?? [],
+  }));
+}
+
+// Plan de contenido: lo que se publicó en la semana y lo que viene, con los
+// aliados por los que se llega a públicos nuevos. Todo viene de contenido.mjs.
+const P = C.plan;
+if (P) {
+  const pieza = (x) => `<li class="pieza">${x.foto ? `<img src="${incrustar(x.foto)}" alt="${esc(x.titulo)}">` : ''}<div><p class="t">${esc(x.titulo)}</p><p class="d">${texto(x.texto)}</p>${x.dato ? `<p class="dato">${texto(x.dato)}</p>` : ''}</div></li>`;
+  slides.push(diapositiva('plan', {
+    eyebrow: 'Plan de contenido',
+    pregunta: '¿Qué contamos esta semana y qué viene?',
+    cuerpo: `<div class="plan">${P.columnas.map((c) => `<div class="mini"><p class="et">${esc(c.titulo)}</p><ul>${c.items.map(pieza).join('')}</ul></div>`).join('')}</div>`
+      + (P.aliados ? `<div class="aliados"><p class="et">${esc(P.aliados.titulo)}</p><ul>${P.aliados.items.map((a) => `<li${a.hecho ? ' class="hecho"' : ''}>${esc(a.nombre)}</li>`).join('')}</ul>${P.aliados.nota ? `<p class="nota">${texto(P.aliados.nota)}</p>` : ''}</div>` : ''),
+    fuente: P.fuente ?? 'Fuente: equipo de contenido',
+    cifras: P.cifras ?? [],
+  }));
+}
+
+if (pauta) {
+  const res = (v, f) => {
+    const [uno, varios] = RESULTADOS[f.indicador] ?? ['resultado', 'resultados'];
+    return `${entero(v)} ${v === 1 ? uno : varios}`;
+  };
+  const filas = [];
+  for (const g of pauta.lista) {
+    filas.push({ nombre: nombre(g.camp), gasto: g.gasto, impresiones: g.impresiones, resultados: g.resultados || null, indicador: g.indicador, costo: g.resultados ? g.gasto / g.resultados : null, grupo: true });
+    // Los anuncios con inversión mínima no se muestran; sí cuentan en su campaña.
+    for (const a of g.anuncios.filter((a) => a.gasto >= (C.minInversion ?? 1000))) {
+      filas.push({ ...a, resultados: a.resultados || null, costo: a.resultados ? a.gasto / a.resultados : null, sangria: true });
+    }
+  }
+  slides.push(diapositiva('pauta', {
+    eyebrow: 'Pauta en Meta',
+    pregunta: '¿Qué consiguió cada peso invertido en anuncios?',
+    cuerpo: tabla({
+      cols: [
+        { titulo: 'Objetivo y anuncio', clave: 'nombre', tipo: 'txt' },
+        { titulo: 'Inversión', clave: 'gasto', tipo: 'barra', formato: pesos },
+        { titulo: 'Resultado', clave: 'resultados', tipo: 'num', formato: res },
+        { titulo: 'Por resultado', clave: 'costo', tipo: 'num', formato: pesos },
+      ],
+      filas,
+      nota: C.notaPauta ?? 'Cada campaña busca un resultado distinto: compras en la tienda, visitas al sitio, interacciones con la publicación o conversaciones por mensaje. Compras según el píxel de Meta.',
+    }),
+    fuente: `Fuente: Meta, Administrador de anuncios, ${periodo({ desde: pauta.desde, hasta: pauta.hasta })}`,
+    cifras: [{ valor: pesos(pauta.gasto), etiqueta: 'invertidos' }, { valor: entero(pauta.impresiones), etiqueta: 'impresiones' }],
+  }));
+}
+
+if (anuncios?.lista.length) {
   const cols = [
     { titulo: 'Anuncio', clave: 'nombre', tipo: 'txt', formato: (v, f) => (f.n > 1 ? `${v} (${f.n} anuncios)` : v) },
     { titulo: 'Fechas', clave: 'inicio', tipo: 'txt', formato: (v, f) => (f.inicio.slice(0, 7) === f.fin.slice(0, 7) ? `${Number(f.inicio.slice(8))} a ${fechaCorta(f.fin)}` : `${fechaCorta(f.inicio)} a ${fechaCorta(f.fin)}`) },
@@ -414,7 +528,7 @@ if (recorrido) {
   ];
   slides.push(diapositiva('embudo', {
     eyebrow: 'Embudo de ventas',
-    pregunta: '¿En qué etapa se pierde la gente que entra?',
+    pregunta: '¿Cómo avanza la gente desde la visita hasta la compra?',
     cuerpo: pasos(ps),
     fuente: `Fuente: Google Analytics y Pretix, ${periodo(recorrido.periodo)}`,
     cifras: [],
@@ -423,11 +537,16 @@ if (recorrido) {
 
 if (campanasM) {
   const filas = [];
+  // Con ocultarTenues, las campañas y piezas con muy pocas visitas no se
+  // muestran (la campaña sigue sumando las suyas), para que la tabla quepa.
+  const min = C.minVisitas ?? 20;
   for (const g of campanasM.lista) {
-    const una = g.piezas.length === 1;
-    const pieza = una ? nombre(g.piezas[0].cont) : '';
+    if (C.ocultarTenues && g.sesiones < min) continue;
+    const piezas = C.ocultarTenues ? g.piezas.filter((p) => p.sesiones >= min) : g.piezas;
+    const una = piezas.length === 1;
+    const pieza = una ? nombre(piezas[0].cont) : '';
     filas.push({ nombre: pieza ? `${nombre(g.camp)} · ${pieza}` : nombre(g.camp), nuevos: g.nuevos, pctInt: g.sesiones ? g.sesionesInt / g.sesiones : null, comprar: g.comprar, grupo: true, tenue: g.sesiones < (C.minVisitas ?? 20) });
-    if (!una) for (const p of g.piezas) filas.push({ nombre: nombre(p.cont), nuevos: p.nuevos, pctInt: p.sesiones ? p.sesionesInt / p.sesiones : null, comprar: p.comprar, sangria: true, tenue: p.sesiones < (C.minVisitas ?? 20) });
+    if (!una) for (const p of piezas) filas.push({ nombre: nombre(p.cont), nuevos: p.nuevos, pctInt: p.sesiones ? p.sesionesInt / p.sesiones : null, comprar: p.comprar, sangria: true, tenue: p.sesiones < (C.minVisitas ?? 20) });
   }
   slides.push(diapositiva('campanas', {
     eyebrow: 'Campañas y piezas',
@@ -468,8 +587,8 @@ const portada = `
   </div>
   <div class="identidad">${readFileSync(join(root, 'src/assets/logo/logo-lockup.svg'), 'utf8').replace('<svg ', '<svg class="logo" ')}</div>
   <div class="franja">
-    ${ventas ? `<p class="num">${esc(fechaCorta(ventas.desde))} a ${esc(fechaCorta(ventas.hasta))}</p>` : ''}
-    <p class="et">${ventas ? 'Periodo de ventas<span class="sep"> · </span>' : ''}${esc(C.para ?? '')}<span class="sep"> · </span>Corte del ${esc(fechaLarga(C.fecha))}</p>
+    ${C.portada ? `<p class="num">${esc(C.portada.desde.slice(0, 7) === C.portada.hasta.slice(0, 7) ? `${Number(C.portada.desde.slice(8))} al ${fechaCorta(C.portada.hasta)}` : `${fechaCorta(C.portada.desde)} a ${fechaCorta(C.portada.hasta)}`)}</p>` : ventas ? `<p class="num">${esc(fechaCorta(ventas.desde))} a ${esc(fechaCorta(ventas.hasta))}</p>` : ''}
+    <p class="et">${C.portada ? `${esc(C.portada.etiqueta)}<span class="sep"> · </span>` : ventas ? 'Periodo de ventas<span class="sep"> · </span>' : ''}${esc(C.para ?? '')}<span class="sep"> · </span>Corte del ${esc(fechaLarga(C.fecha))}</p>
   </div>
 </section>`;
 

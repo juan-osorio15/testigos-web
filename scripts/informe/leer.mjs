@@ -119,12 +119,18 @@ const META_COLS = {
   inicioInforme: /^(Reporting starts|Inicio del informe)$/i,
   finInforme: /^(Reporting ends|Fin del informe)$/i,
   anuncio: /^(Ad name|Nombre del anuncio)$/i,
+  campana: /^(Campaign name|Nombre de la campaña)$/i,
   conjunto: /^(Ad set name|Nombre del conjunto de anuncios)$/i,
   inicio: /^(Starts|Inicio)$/i,
   fin: /^(Ends|Finalización|Fin)$/i,
   gasto: /^(Amount spent|Importe gastado)/i,
-  alcance: /^(Reach|Alcance)$/i,
-  impresiones: /^(Impressions|Impresiones)$/i,
+  // Desde octubre de 2026 Meta exporta "Views" y "Viewers" en lugar de
+  // impresiones y alcance.
+  alcance: /^(Reach|Alcance|Viewers|Espectadores)$/i,
+  impresiones: /^(Impressions|Impresiones|Views|Visualizaciones)$/i,
+  // Resultado según el objetivo de cada campaña (compras, visitas, mensajes…).
+  resultados: /^(Results|Resultados)$/i,
+  indicador: /^(Result indicator|Indicador de resultados)$/i,
   frecuencia: /^(Frequency|Frecuencia)$/i,
   clics: /^(Link clicks|Clics en el enlace)$/i,
   ctr: /^CTR \((link|porcentaje de clics en el enlace)/i,
@@ -142,7 +148,7 @@ export function leerMeta(path) {
     if (i >= 0) idx[k] = i;
   }
   if (idx.anuncio == null) return null;
-  const texto = new Set(['inicioInforme', 'finInforme', 'anuncio', 'conjunto', 'inicio', 'fin']);
+  const texto = new Set(['inicioInforme', 'finInforme', 'anuncio', 'campana', 'conjunto', 'inicio', 'fin', 'indicador']);
   const anuncios = rows.slice(1).map((r) => {
     const a = {};
     for (const [k, i] of Object.entries(idx)) a[k] = texto.has(k) ? r[i] : num(r[i]);
@@ -150,7 +156,8 @@ export function leerMeta(path) {
   });
   const columnas = Object.keys(idx);
   const periodo = { desde: anuncios[0]?.inicioInforme, hasta: anuncios[0]?.finInforme };
-  // Las compras de Meta no se leen: el informe no usa su conversión.
+  // Las compras de Meta solo se leen como resultado de una campaña de ventas
+  // (columna "Results"); la columna "Purchases" no se usa.
   return { tipo: 'meta', periodo, columnas, anuncios, path };
 }
 

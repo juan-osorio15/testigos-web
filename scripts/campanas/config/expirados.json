@@ -1,5 +1,5 @@
 {
-  "descripcion": "Quien dejó expirar un pedido de Testigos de la Memoria y nunca compró. Plan en docs/campana-expirados/plan.md.",
+  "descripcion": "Quien dejó expirar un pedido de Testigos de la Memoria y nunca compró. Plan en docs/campanas/expirados/plan.md.",
   "evento": "testigos-memoria",
   "audiencia": "expirados",
   "parametros": {
@@ -14,10 +14,10 @@
     },
     "whatsapp": {
       "activo": true,
-      "plantilla": "pedido_expirado_ayuda",
+      "plantilla": "ex1_pedido_vencido",
       "idioma": "es",
       "variables": [
-        "codigo"
+        "primer_nombre", "codigo"
       ]
     }
   }
