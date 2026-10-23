@@ -13,6 +13,11 @@
 //   node build.mjs staff
 // Imprime el slug de la categoría (para nombrar el PDF) en la salida estándar.
 import { C, INK, piece, logoSymbol } from '../lib.mjs';
+import { conversatorios, hechos } from '../../../scripts/lib/hechos.mjs';
+
+/* Sede, ciudad y fechas impresas: de la fuente (src/data, vía dist/datos/evento.json) */
+const { sede, fechas } = conversatorios();
+const ciudad = hechos().evento.ciudad.split(',')[0];
 
 // main: bloque principal (la categoría); data: bloque de datos prácticos abajo.
 // Staff va en terracota, el color más reconocible de la marca; su bloque de
@@ -73,7 +78,7 @@ ${block(D, preset.data)}
 <div class="pill" style="left:${mm(M)};top:${mm(8)};height:${mm(7)}">${preset.label}</div>
 ${logo(E.x + 4, E.y + 13, 20, logoSymbol())}
 <div class="pill" style="left:${mm(pillLeft)};top:${mm(pillTop)};width:${mm(pill.w)};height:${mm(pill.h)}"></div>
-<div class="data" style="left:${mm(D.x + 6)};top:${mm(D.y)};width:${mm(D.w - 6 - 4)};height:${mm(D.h)}"><b>Hospedería Duruelo</b><span>Villa de Leyva</span><span>6 al 8 de noviembre de 2026</span><span style="font-weight:700">testigosdelamemoria.com</span></div>
+<div class="data" style="left:${mm(D.x + 6)};top:${mm(D.y)};width:${mm(D.w - 6 - 4)};height:${mm(D.h)}"><b>${sede.nombre}</b><span>${ciudad}</span><span>${fechas}</span><span style="font-weight:700">testigosdelamemoria.com</span></div>
 `;
 
 write(import.meta.url, background, elements);

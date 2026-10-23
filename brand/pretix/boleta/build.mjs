@@ -6,6 +6,11 @@
 // ancho de la pantalla, así que el QR ocupa más de la mitad del ancho y se
 // escanea sin hacer zoom. Impresa en A4 sale centrada al tamaño real.
 import { C, piece } from '../lib.mjs';
+import { conversatorios, hechos } from '../../../scripts/lib/hechos.mjs';
+
+/* Sede, ciudad y fechas impresas: de la fuente (src/data, vía dist/datos/evento.json) */
+const { sede, fechas } = conversatorios();
+const ciudad = hechos().evento.ciudad.split(',')[0];
 
 const PAGE_W = 105;
 const PAGE_H = 148;
@@ -29,7 +34,7 @@ const elements = [
   text('secret', 'ejemplodemuestranoesunpedidoreal', { left: M, top: qrTop + qrSize + 1, width: PAGE_W - 2 * M, height: 4, size: 6, align: 'center' }),
   text('itemvar', 'Franja · Sábado 7, mañana', { left: M, top: 102.5, width: PAGE_W - 2 * M, height: 11, size: 14, bold: true }),
   text('attendee_name', 'Juan Pérez', { left: M, top: 118.5, width: PAGE_W - 2 * M, height: 6.5, size: 11 }),
-  text('event_location', 'Hospedería Duruelo, Villa de Leyva, Boyacá', { left: M, top: 129.5, width: PAGE_W - 2 * M, height: 6, size: 9 }),
+  text('event_location', `${sede.nombre}, ${sede.direccion.split(', ').slice(1).join(', ')}`, { left: M, top: 129.5, width: PAGE_W - 2 * M, height: 6, size: 9 }),
   text('order', 'A1B2C', { left: M + 14, top: 139.5, width: 36, height: 6, size: 11, bold: true, valign: 'middle' }),
   text('price', '$ 90.000', { left: PAGE_W - M - 36, top: 139.5, width: 36, height: 6, size: 10, align: 'right', valign: 'middle' }),
 ];
@@ -41,7 +46,7 @@ ${block(Q, '#ffffff')}
 ${block(B, C.cream)}
 ${block(D, C.sky)}
 ${logo(M, 5, 34)}
-${note('Conversatorios<br>6 al 8 de noviembre de 2026<br>Villa de Leyva', 48, 9.5, PAGE_W - 48 - M, `color:${C.ink};font-weight:700;font-size:8pt;line-height:1.35;text-align:right`)}
+${note(`Conversatorios<br>${fechas}<br>${ciudad}`, 48, 9.5, PAGE_W - 48 - M, `color:${C.ink};font-weight:700;font-size:8pt;line-height:1.35;text-align:right`)}
 ${note('Presenta este código en la entrada, impreso o en el celular. Válido para una sola persona.', M, qrTop + qrSize + 6, PAGE_W - 2 * M, `color:${C.ink};font-size:6.5pt;line-height:1.3;text-align:center;white-space:nowrap`)}
 ${label('Boleta', M, 98.5)}
 ${label('Asistente', M, 114.5)}

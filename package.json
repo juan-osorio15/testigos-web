@@ -7,7 +7,13 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "verificar": "python3 scripts/verificar/verificar.py"
+    "verificar": "python3 scripts/verificar/verificar.py",
+    "campana": "python3 scripts/campanas/campana.py",
+    "informe": "node scripts/informe/generar.mjs",
+    "og": "node brand/og/make-og.mjs",
+    "og:portada": "sh brand/og/make.sh",
+    "boleta": "sh brand/pretix/boleta/make.sh",
+    "escarapela": "sh brand/pretix/escarapela/make.sh"
   },
   "dependencies": {
     "astro": "^5.0.0"

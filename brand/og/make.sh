@@ -6,7 +6,7 @@
 set -e
 cd "$(dirname "$0")"
 OUT="$PWD/../../public/og/og-image-v3.png"
-CH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+CH="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
 node inline-logo.mjs
 "$CH" --headless=new --disable-gpu --allow-file-access-from-files --hide-scrollbars \
   --window-size=1200,630 --force-device-scale-factor=1 \

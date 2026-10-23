@@ -18,10 +18,10 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { CHROME } from '../../scripts/lib/hechos.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, '../..');
-const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
 const mode = process.argv[2];
 const only = process.argv[3];

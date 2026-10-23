@@ -9,7 +9,7 @@
 // La carpeta (ignorada por git: el repositorio es público) lleva:
 //   datos/          las exportaciones tal cual (GA4, Meta, Pretix); se reconocen por sus columnas
 //   contenido.mjs   lo que no sale de los datos: nombres legibles, tramos, lecturas de cada diapositiva
-// El procedimiento completo está en specs/003-embudo-sitio/informe.md.
+// Qué exportar de GA4, Meta y Pretix: docs/medicion/embudo/titular/reportes-para-el-informe.md.
 import { execFileSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
@@ -17,10 +17,10 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { leerGa4, leerMeta, leerPretix } from './leer.mjs';
 import { pasos, ritmoDiario, tabla } from './graficos.mjs';
 import { entero, esc, fechaCorta, fechaLarga, periodo, pct, pesos, texto } from './formato.mjs';
+import { CHROME, hechos } from '../lib/hechos.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, '../..');
-const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
 const dir = resolve(process.argv[2] ?? '');
 const flags = new Set(process.argv.slice(3));
@@ -243,17 +243,11 @@ if (dispositivos) {
   equipos = { periodo: dispositivos.periodo, lista: dispositivos.filas.map((f) => ({ nombre: NOM[f.dims[0]] ?? f.dims[0], parte: ses(f) / total, pctInt: f.pctInt, comprar: f.comprar })).sort((a, b) => b.parte - a.parte) };
 }
 
-// Páginas por sección, con los nombres de panelistas y conversatorios del sitio.
-function nombresDe(archivo, campo) {
-  const src = readFileSync(join(root, 'src/data', archivo), 'utf8');
-  const m = new Map();
-  for (const x of src.matchAll(new RegExp(`slug: '([^']+)',[\\s\\S]*?${campo}: '((?:[^'\\\\]|\\\\.)+)'`, 'g'))) if (!m.has(x[1])) m.set(x[1], x[2].replace(/\\'/g, "'"));
-  return m;
-}
+// Páginas por sección, con los nombres de panelistas y conversatorios del sitio (dist/datos/evento.json).
 let lectura = null;
 if (paginas) {
-  const panel = nombresDe('speakers.ts', 'name');
-  const charlas = nombresDe('agenda.ts', 'title');
+  const panel = new Map(hechos().panelistas.map((p) => [p.slug, p.nombre]));
+  const charlas = new Map(hechos().sesiones.map((s) => [s.slug, s.titulo]));
   const SECC = [
     ['Portada', (r) => r === '/' || r === '/en/' || r === '/en'],
     ['Panelistas', (r) => r.startsWith('/panelistas/')],

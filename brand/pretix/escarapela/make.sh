@@ -3,7 +3,7 @@
 # Requiere Google Chrome. Uso: sh make.sh [categoría...]  (por defecto: todas)
 set -e
 cd "$(dirname "$0")"
-CH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+CH="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
 for CAT in ${@:-panelista staff prensa}; do
   SLUG=$(node build.mjs "$CAT")
   "$CH" --headless=new --disable-gpu --allow-file-access-from-files --no-pdf-header-footer \
