@@ -33,8 +33,13 @@ class Destinatario:
     detalle: dict[str, str] = field(default_factory=dict)
 
     def valores(self) -> dict[str, str]:
-        """Todo lo que una plantilla puede usar: {{saludo}}, {{codigo}}, …"""
-        return {**self.detalle, **self.variables, "saludo": self.saludo, "nombre": self.nombre}
+        """Todo lo que una plantilla puede usar: {{saludo}}, {{codigo}}, …
+
+        primer_nombre sale del saludo ("Hola, Ana." → "Ana"), con la misma limpieza; vacío si
+        el saludo es "Hola.". Para plantillas de WhatsApp, que no pueden empezar con una variable."""
+        primer = self.saludo.removeprefix("Hola, ").removesuffix(".") if self.saludo != "Hola." else ""
+        return {**self.detalle, **self.variables, "saludo": self.saludo, "nombre": self.nombre,
+                "primer_nombre": primer}
 
 
 def titulares(variables: dict[str, str]) -> list[Destinatario]:

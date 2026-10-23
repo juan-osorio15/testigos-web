@@ -50,7 +50,7 @@ const live = pretixReady;
 
 /* Panelistas por franja, desde los datos del sitio y no desde las negritas
    de Pretix: la agenda dice quién va en cada conversatorio y el carrusel
-   fija el orden (el del afiche, docs/panelistas.md). La clave es el nombre
+   fija el orden (el del afiche, docs/evento/panelistas.md). La clave es el nombre
    del producto en Pretix ("Sábado AM", desde el 2026-09-30), normalizado.
    Una franja es medio día: AM si el conversatorio empieza antes de las
    2 p.m. (el cierre del domingo a las 12:30 p.m. cuenta como AM). */
@@ -230,6 +230,23 @@ const franjaNames = Object.fromEntries(
   // DOM y se reaplica si se redibuja.
   const widget = document.querySelector<HTMLElement>('.tickets-widget');
   const NOT_YET = widget?.dataset.notYet ?? 'Aún no disponible';
+
+  // Enlaces con ancla debajo de la tienda (#agenda, #lugar, #faq): el
+  // navegador baja al ancla antes de que el widget pinte, y al pintar crece
+  // unos 1.000 px y deja a la persona en la tienda (2026-10-22, enlaces de
+  // WhatsApp a #agenda). Mientras el widget crece se vuelve al ancla, hasta
+  // que la persona mueva la página o pasen 8 segundos. Un toque o un clic
+  // no cuentan: aceptar las cookies no debe soltar el ancla.
+  const anchored = location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+  if (widget && anchored && widget.compareDocumentPosition(anchored) & Node.DOCUMENT_POSITION_FOLLOWING) {
+    const keep = new ResizeObserver(() => anchored.scrollIntoView({ behavior: 'instant', block: 'start' }));
+    const stop = () => keep.disconnect();
+    keep.observe(widget);
+    ['wheel', 'touchmove', 'keydown'].forEach((type) =>
+      addEventListener(type, stop, { once: true, passive: true }),
+    );
+    setTimeout(stop, 8000);
+  }
   const dialog = document.querySelector<HTMLDialogElement>('[data-notify]');
   const itemLabel = dialog?.querySelector<HTMLElement>('[data-notify-item]');
 
