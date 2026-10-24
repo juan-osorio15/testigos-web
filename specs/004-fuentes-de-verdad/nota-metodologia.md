@@ -21,7 +21,7 @@ Entregable 4 de `specs/004-fuentes-de-verdad`. Qué enseña ordenar las fuentes 
 
 - **Vocabulario público.** En Testigos "franja" (interno) se coló al público durante semanas, y "talleres" convivió con "charlas abiertas". El nombre público de cada tipo de boleta y de sesión es un dato de los fundamentos.
 - **Un solo archivo de estado.** Sin él, los pendientes quedaron repartidos en cinco archivos y `pendientes-002.md` acumuló casillas vencidas que nadie cierra.
-- **Dónde viven las reglas para agentes.** `CLAUDE.md` está ignorado en `~/.gitignore_global`: hay que decidir si la plantilla lo versiona (y con qué nombre) o si las reglas viven en el `README.md`.
+- **Reglas para agentes versionadas.** `CLAUDE.md` va en el repo desde el primer commit. `~/.gitignore_global` lo ignora, así que el primer `git add` lleva `-f`; después git lo sigue como cualquier archivo.
 - **Credenciales fuera del árbol del repo.** Al mover `docs/credenciales.md` a `docs/proyecto/`, la regla de `.gitignore` quedó apuntando a la ruta vieja en `main` y el archivo dejó de estar ignorado en un repo público. Un archivo de llaves dentro de `docs/` es una trampa.
 
 ## Lo que sobró

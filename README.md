@@ -31,4 +31,4 @@ Las demás herramientas (informe, imágenes para compartir, boleta y escarapela 
 - `specs/`: una carpeta por feature, con su spec, su plan y sus decisiones (Clarifications).
 - Estado vivo de la medición: `docs/medicion/embudo/estado.md`. Pendientes del titular de la feature 002: `docs/proyecto/pendientes-002.md`.
 
-Las reglas de trabajo para agentes están en `CLAUDE.md` (local).
+Las reglas de trabajo para agentes están en `CLAUDE.md`.
