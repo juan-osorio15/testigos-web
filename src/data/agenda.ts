@@ -111,15 +111,15 @@ export const agenda: AgendaSlot[] = [
     title: 'Documental: Sady González, una luz en la memoria',
     venueId: 'casa-museo',
     speakerSlugs: ['guillermo-gonzalez'],
-    /* Codirectora con el nombre que dieron los organizadores (2026-10-17) */
-    note: 'La historia del fotógrafo Sady González, pionero de la reportería gráfica en Colombia, y de Esperanza Uribe, creadora del archivo Foto Sady. La Bogotá de los años cuarenta y cincuenta, con las imágenes del 9 de abril de 1948. Codirigido por Guillermo González Uribe y Margarita Carrillo Diazgranados.',
+    /* Codirectora: "Margarita Carrillo", como en El Espectador, Remezcla y FilmAffinity (2026-10-24; el segundo apellido que dieron los organizadores no aparece en ninguna fuente pública) */
+    note: 'La historia del fotógrafo Sady González, pionero de la reportería gráfica en Colombia, y de Esperanza Uribe, creadora del archivo Foto Sady. La Bogotá de los años cuarenta y cincuenta, con las imágenes del 9 de abril de 1948. Codirigido por Guillermo González Uribe y Margarita Carrillo.',
     en: {
       title: 'Documentary: Sady González, a light in memory',
-      note: 'The story of photographer Sady González, a pioneer of photojournalism in Colombia, and of Esperanza Uribe, creator of the Foto Sady archive. Bogotá in the 1940s and 1950s, with the images of April 9, 1948. Co-directed by Guillermo González Uribe and Margarita Carrillo Diazgranados.',
+      note: 'The story of photographer Sady González, a pioneer of photojournalism in Colombia, and of Esperanza Uribe, creator of the Foto Sady archive. Bogotá in the 1940s and 1950s, with the images of April 9, 1948. Co-directed by Guillermo González Uribe and Margarita Carrillo.',
     },
     intro: {
       summary:
-        'Sady González fotografió Bogotá en los años cuarenta y cincuenta, y entre sus imágenes están las del 9 de abril de 1948. El documental, codirigido por Guillermo González Uribe y Margarita Carrillo Diazgranados, cuenta su historia y la de Esperanza Uribe, que creó el archivo Foto Sady.',
+        'Sady González fotografió Bogotá en los años cuarenta y cincuenta, y entre sus imágenes están las del 9 de abril de 1948. El documental, codirigido por Guillermo González Uribe y Margarita Carrillo, cuenta su historia y la de Esperanza Uribe, que creó el archivo Foto Sady.',
       questions: [
         '¿Qué muestra una fotografía que no alcanza a contar la crónica escrita?',
         '¿Cómo sobrevive un archivo fotográfico durante más de setenta años, y quién decide qué se guarda?',
