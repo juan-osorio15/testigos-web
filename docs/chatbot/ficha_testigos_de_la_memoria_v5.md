@@ -1,6 +1,6 @@
 # Testigos de la Memoria: ficha del encuentro
 
-Versión del 24 de octubre de 2026 (Casa Boutique en hospedaje). Los precios no están en esta ficha: se consultan en vivo en la tienda.
+Versión del 24 de octubre de 2026 (Casa Boutique en hospedaje, aforo de Duruelo y boletas de medio día). Los precios no están en esta ficha: se consultan en vivo en la tienda.
 
 ## Qué es
 
@@ -22,10 +22,10 @@ Versión del 24 de octubre de 2026 (Casa Boutique en hospedaje). Los precios no 
 
 ## Boletas para los conversatorios
 
-- Pase completo: acceso a los 7 conversatorios, la bienvenida y el cierre, del viernes 6 en la tarde al domingo 8 en la mañana. Es una sola boleta válida para todas las franjas.
-- Pase de fin de semana: acceso a los 6 conversatorios del sábado 7 y el domingo 8, incluido el cierre. Es una sola boleta válida para tres franjas: sábado mañana, sábado tarde y domingo mañana. Es para quienes solo pueden venir el fin de semana y no se quieren perder de nada. Sale más barato que comprar esas tres boletas de medio día por separado.
+- Pase completo: acceso a los 7 conversatorios, la bienvenida y el cierre, del viernes 6 en la tarde al domingo 8 en la mañana. Es una sola boleta válida para los cuatro medios días.
+- Pase de fin de semana: acceso a los 6 conversatorios del sábado 7 y el domingo 8, incluido el cierre. Es una sola boleta válida para tres medios días: sábado en la mañana, sábado en la tarde y domingo en la mañana. Es para quienes solo pueden venir el fin de semana y no se quieren perder de nada. Sale más barato que comprar esas tres boletas de medio día por separado.
 - El pase de fin de semana no incluye el viernes en la tarde (bienvenida y Bogotazo, dictadura y Frente Nacional). Quien también quiera el viernes compra aparte esa boleta de medio día, o el pase completo.
-- Boleta de medio día (franja): acceso a una sola franja, es decir, una mañana o una tarde con sus conversatorios. Hay cuatro franjas: viernes tarde, sábado mañana, sábado tarde y domingo mañana. En los términos se llaman "boletas por franja".
+- Boleta de medio día: acceso a una mañana o una tarde con sus conversatorios. Hay cuatro: viernes en la tarde, sábado en la mañana, sábado en la tarde y domingo en la mañana. En los términos se llaman "boletas por franja": el encuentro está dividido en franjas de medio día.
 - La venta va por etapas:
   - Etapa 1, hasta el lunes 12 de octubre: solo se vendía el pase completo, con su mayor descuento. Ya terminó.
   - Etapa 2, del 13 de octubre al jueves 29 de octubre (inclusive): se venden el pase completo, el pase de fin de semana y las boletas de medio día. El pase de fin de semana salió a la venta el 22 de octubre y tiene su mejor precio hasta el jueves 29.
@@ -35,7 +35,7 @@ Versión del 24 de octubre de 2026 (Casa Boutique en hospedaje). Los precios no 
 - La tienda permite comprar máximo 10 boletas de cada tipo por pedido. Cada boleta es para una persona y lleva el nombre del asistente.
 - No hay tarifas especiales publicadas para estudiantes, grupos ni adultos mayores. Tampoco hay precios para grupos ni instituciones: compran en la tienda como cualquier persona.
 - Los códigos de cortesía son solo para invitados, prensa y aliados. Se escriben en la tienda antes de elegir la boleta, son de un solo uso y no se cambian por dinero.
-- Las sillas no son numeradas: conviene llegar antes de cada sesión. El aforo es limitado y no hay cifra publicada de cupos.
+- Las sillas no son numeradas: conviene llegar antes de cada sesión. El aforo es limitado: la sala de los conversatorios, en la Hospedería Duruelo, tiene capacidad para 300 personas.
 - La boleta no incluye alojamiento, transporte ni alimentación.
 
 ## Programación de los conversatorios (Hospedería Duruelo)
@@ -66,7 +66,7 @@ El sábado no hay sesiones entre las 12:30 y las 3:00 p.m.: hay tiempo para almo
 ## Charlas abiertas (entrada libre, Casa Museo Antonio Nariño)
 
 - Jueves 5 de noviembre, 10:00 a.m. a 12:00 m.: Charla de reportería, con Daniel Esteban Alvarado, de la Universidad de Boyacá.
-- Jueves 5 de noviembre, 3:00 p.m.: Documental "Sady González, una luz en la memoria", sobre el fotógrafo del 9 de abril. Codirigido por Guillermo González Uribe y Margarita Díaz Granados, y presentado por Guillermo González Uribe.
+- Jueves 5 de noviembre, 3:00 p.m.: Documental "Sady González, una luz en la memoria", sobre el fotógrafo del 9 de abril. Codirigido por Guillermo González Uribe y Margarita Carrillo, y presentado por Guillermo González Uribe.
 - Viernes 6 de noviembre, 10:00 a.m.: Charla de periodismo digital, con Javier Sneider Bautista, magíster en Comunicación Digital.
 
 ## Panelistas
@@ -87,7 +87,7 @@ El sábado no hay sesiones entre las 12:30 y las 3:00 p.m.: hay tiempo para almo
 - Martha Soto (con h): editora de la Unidad Investigativa de El Tiempo.
 - Ana María Echeverri: periodista y documentalista, autora de "Yo soy yo".
 - Las fichas completas de cada panelista están en el sitio, en la sección de panelistas.
-- La participación de cada panelista depende de su disponibilidad. Los cambios de panelista, título, orden u horario dentro de la misma franja se avisan en el sitio y, si es posible, al correo del pedido, y no dan lugar a devolución.
+- La participación de cada panelista depende de su disponibilidad. Los cambios de panelista, título, orden u horario dentro del mismo medio día se avisan en el sitio y, si es posible, al correo del pedido, y no dan lugar a devolución.
 
 ## Problemas al comprar o pagar
 
@@ -100,10 +100,10 @@ El sábado no hay sesiones entre las 12:30 y las 3:00 p.m.: hay tiempo para almo
 
 - Aprobado el pago, la boleta llega en PDF, con código QR, al correo registrado. Wompi envía aparte el comprobante. Si no llega, hay que revisar la carpeta de correo no deseado. También se puede volver a descargar desde el enlace del pedido en el correo de confirmación.
 - Si no aparece o el correo quedó mal escrito: escribir a hola@eventalist.co desde el correo de la compra, con el código del pedido.
-- Ingreso: la boleta se muestra en el celular o impresa y se escanea el QR. Pueden pedir documento de identidad. El QR se valida una vez por franja: no conviene compartir la imagen. Si una sesión ya empezó, el ingreso puede esperar a una pausa.
-- No hay cambios ni devoluciones. La imposibilidad de asistir, la llegada tarde o el cambio de planes no dan derecho a devolución. Cada boleta vale para la franja o las franjas que indica; otra franja se compra aparte.
+- Ingreso: la boleta se muestra en el celular o impresa y se escanea el QR. Pueden pedir documento de identidad. El QR se valida una vez por medio día: no conviene compartir la imagen. Si una sesión ya empezó, el ingreso puede esperar a una pausa.
+- No hay cambios ni devoluciones. La imposibilidad de asistir, la llegada tarde o el cambio de planes no dan derecho a devolución. Cada boleta vale para el medio día o los medios días que indica; otro medio día se compra aparte.
 - Cesión: la boleta se puede ceder gratis cambiando el nombre del asistente desde el enlace del pedido, hasta la fecha límite que indique la tienda. Después, se pide a hola@eventalist.co desde el correo de la compra, con el código del pedido y el nombre de la nueva persona. No se permite la reventa con ánimo de lucro.
-- Si el encuentro o una franja se aplaza o cambia de sede, la boleta sigue vigente. Si se cancela, se informa en el sitio y al correo del pedido.
+- Si el encuentro o un medio día se aplaza o cambia de sede, la boleta sigue vigente. Si se cancela, se informa en el sitio y al correo del pedido.
 - Factura: Eventalist S.A.S. emite la factura electrónica. A nombre de una empresa o con otros datos, se pide a hola@eventalist.co al momento de la compra, con el código del pedido.
 - Menores de edad: asisten con su propia boleta y acompañados de un adulto responsable. Quien compra debe ser mayor de edad.
 - No se permite grabar en audio o video ni transmitir las sesiones. Las fotos personales sin flash están permitidas.
