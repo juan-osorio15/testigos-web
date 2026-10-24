@@ -10,7 +10,9 @@
  * misma altura en todas las columnas. Una sola
  * familia tipográfica y tres tamaños: título, cuerpo y etiqueta en caps.
  * El contacto es lo más visible: WhatsApp con el mensaje ya escrito a todo
- * el ancho, y debajo llamada y correo (compra sin fricción).
+ * el ancho, y debajo llamada y correo (compra sin fricción). Un hotel con
+ * reserva en línea (Casa Boutique, 2026-10-24) lleva en esas mismas filas
+ * el código, el botón a su motor de reservas y el correo.
  */
 import { Image } from 'astro:assets';
 import { tFor } from '../ui';
@@ -31,7 +33,7 @@ const tones = ['brick', 'olive', 'terracotta'] as const;
       {
         stays.map((stay, i) => (
           <article class:list={['stay', `stay--${tones[i % tones.length]}`]}>
-            <div class="stay-photo">
+            <div class:list={['stay-photo', { 'stay-photo--logo': stay.photoIsLogo }]}>
               <Image
                 src={stay.photo}
                 alt={stay.photoAlt}
@@ -48,7 +50,12 @@ const tones = ['brick', 'olive', 'terracotta'] as const;
             <p class="stay-pitch">{stay.pitch}</p>
             <div class="stay-contact">
               <p class="stay-who">
-                {stay.contact ? (
+                {stay.booking ? (
+                  <>
+                    {t('stay.useCode')}{' '}
+                    <strong class="stay-code">{stay.booking.code}</strong>.
+                  </>
+                ) : stay.contact ? (
                   <>
                     {t('stay.askFor')}{' '}
                     <strong>{stay.contact.name}</strong>, {stay.contact.role.toLowerCase()}.
@@ -57,19 +64,32 @@ const tones = ['brick', 'olive', 'terracotta'] as const;
                   t('stay.writeTo')
                 )}
               </p>
-              <a class="stay-whatsapp" href={whatsappUrl(stay)} target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <path
-                    fill="currentColor"
-                    d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.87 9.87 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91A9.84 9.84 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.23 8.23 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24a8.2 8.2 0 0 1 5.83 2.42 8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.78.97-.15.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.13-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.22-.16-.47-.28Z"
-                  />
-                </svg>
-                {t('stay.whatsapp')}
-              </a>
-              <p class="stay-alt">
-                <a href={telUrl(stay)}>
-                  {t('stay.call')} {stay.phone}
+              {stay.booking ? (
+                <a class="stay-whatsapp" href={stay.booking.url} target="_blank" rel="noopener">
+                  {t('stay.bookOnline')}
                 </a>
+              ) : stay.phone && stay.whatsappText ? (
+                <a
+                  class="stay-whatsapp"
+                  href={whatsappUrl({ phone: stay.phone, whatsappText: stay.whatsappText })}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.87 9.87 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91A9.84 9.84 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.23 8.23 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24a8.2 8.2 0 0 1 5.83 2.42 8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.78.97-.15.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.13-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.22-.16-.47-.28Z"
+                    />
+                  </svg>
+                  {t('stay.whatsapp')}
+                </a>
+              ) : null}
+              <p class="stay-alt">
+                {stay.phone && (
+                  <a href={telUrl({ phone: stay.phone })}>
+                    {t('stay.call')} {stay.phone}
+                  </a>
+                )}
                 {stay.email && <a href={`mailto:${stay.email}`}>{stay.email}</a>}
               </p>
             </div>
@@ -148,6 +168,15 @@ const tones = ['brick', 'olive', 'terracotta'] as const;
     height: 100%;
     object-fit: cover;
   }
+  /* Sin foto del hotel: su logo en crema, centrado sobre la tinta */
+  .stay-photo--logo {
+    display: grid;
+    place-items: center;
+    padding: 18%;
+  }
+  .stay-photo--logo :global(img) {
+    object-fit: contain;
+  }
 
   /* Tres voces: título (nombre y oferta), cuerpo y etiqueta en caps */
   .stay-name {
@@ -200,6 +229,9 @@ const tones = ['brick', 'olive', 'terracotta'] as const;
   }
   .stay-who strong {
     font-weight: 800;
+  }
+  .stay-code {
+    letter-spacing: 0.08em;
   }
   .stay-whatsapp {
     display: flex;

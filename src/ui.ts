@@ -186,14 +186,16 @@ const es = {
   'venue.directions': 'Cómo llegar',
   'stay.heading': 'Hospedaje',
   'stay.intro':
-    'Si vienes de Bogotá o de más lejos, no tienes que buscar hotel. Estos tres aliados tienen una oferta solo para asistentes: escríbeles por WhatsApp y ellos te arman la reserva.',
+    'Si vienes de Bogotá o de más lejos, no tienes que buscar hotel. Estos cuatro aliados tienen una oferta solo para asistentes: escríbeles por WhatsApp o reserva en línea con el código.',
   'stay.onlyAttendees': 'Solo para asistentes',
   'stay.askFor': 'Pregunta por',
   'stay.writeTo': 'Te atienden directamente en recepción.',
   'stay.whatsapp': 'Escribir por WhatsApp',
   'stay.call': 'Llamar',
+  'stay.useCode': 'Reserva en línea y pon el código',
+  'stay.bookOnline': 'Reservar en línea',
   'stay.note':
-    'Di que vas a Testigos de la Memoria para acceder a la oferta. La reserva y el pago se hacen directamente con cada hotel.',
+    'Di que vas a Testigos de la Memoria para acceder a la oferta, o usa el código en la reserva en línea. La reserva y el pago se hacen directamente con cada hotel.',
   'venue.mapTitle': 'Mapa de Google de Villa de Leyva con la {sedeConversatorios}',
   'venue.heading': 'Dos sedes, a pocas cuadras',
   'venue.intro':
@@ -473,14 +475,16 @@ const en: Record<UiKey, string> = {
   'venue.directions': 'Get directions',
   'stay.heading': 'Where to stay',
   'stay.intro':
-    'Coming from Bogotá or farther away? No need to hunt for a hotel. These three partners have an offer for attendees only: message them on WhatsApp and they will set up your booking.',
+    'Coming from Bogotá or farther away? No need to hunt for a hotel. These four partners have an offer for attendees only: message them on WhatsApp or book online with the code.',
   'stay.onlyAttendees': 'Attendees only',
   'stay.askFor': 'Ask for',
   'stay.writeTo': 'The front desk will help you directly.',
   'stay.whatsapp': 'Message on WhatsApp',
   'stay.call': 'Call',
+  'stay.useCode': 'Book online and enter the code',
+  'stay.bookOnline': 'Book online',
   'stay.note':
-    'Mention that you are attending Testigos de la Memoria to get the offer. Booking and payment are handled directly with each hotel.',
+    'Mention that you are attending Testigos de la Memoria to get the offer, or use the code when booking online. Booking and payment are handled directly with each hotel.',
   'venue.mapTitle': 'Google map of Villa de Leyva showing {sedeConversatorios}',
   'venue.heading': 'Two venues, a few blocks apart',
   'venue.intro':

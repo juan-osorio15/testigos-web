@@ -23,11 +23,18 @@
  * sitio (páginas de inicio, historia y contacto). Foto principal del
  * patio con la fuente, dada por el usuario el 2026-10-17 (2744 × 1536,
  * recorte 3:2 a 1920 px, sin la marca de agua de la esquina).
+ *
+ * Casa Boutique Villa de Leyva (2026-10-24): 15 % con el código TESTIGOS en
+ * su motor de reservas, mensaje del hotel pasado por el usuario. Dirección,
+ * correo, wifi y parqueadero de esa misma página de reservas. Sin WhatsApp
+ * ni teléfono: el botón lleva a la reserva en línea. Sin foto todavía: va
+ * su logo sobre tinta.
  */
 import type { Lang } from '../i18n';
 import photoDuruelo from '../assets/venues/duruelo-suite.jpg';
 import photoPosada from '../assets/venues/posada-san-antonio.jpg';
 import photoMeson from '../assets/venues/meson-virreyes.jpg';
+import logoCasaBoutique from '../assets/partners/casa-boutique.png';
 
 export interface Stay {
   id: string;
@@ -39,13 +46,17 @@ export interface Stay {
   /** A quién se le escribe y su cargo; null si es la recepción */
   contact: { name: string; role: string } | null;
   /** Número en formato local para mostrar y para marcar (+57 delante) */
-  phone: string;
-  /** Mensaje con el que se abre WhatsApp */
-  whatsappText: string;
+  phone?: string;
+  /** Mensaje con el que se abre WhatsApp; sin él no hay botón de WhatsApp */
+  whatsappText?: string;
+  /** Reserva en línea con código de descuento, en lugar de WhatsApp */
+  booking?: { url: string; code: string };
   email?: string;
   address: string;
   mapsUrl: string;
   photo: ImageMetadata;
+  /** El hotel no ha dado foto: la casilla muestra su logo sobre tinta */
+  photoIsLogo?: boolean;
   photoAlt: string;
   en: Pick<Stay, 'offer' | 'pitch' | 'whatsappText' | 'photoAlt'> & {
     contact: Stay['contact'];
@@ -130,6 +141,32 @@ export const stays: Stay[] = [
       photoAlt: 'Colonial courtyard at Mesón de los Virreyes, with a stone fountain in the center, brick floor, wooden balconies and parasols',
     },
   },
+  {
+    id: 'casa-boutique',
+    name: 'Casa Boutique Villa de Leyva',
+    offer: '15 % de descuento',
+    pitch:
+      'Una casa en el centro histórico, con wifi y parqueadero. Eliges las fechas y la habitación en su página y el descuento sale con el código.',
+    contact: null,
+    booking: {
+      url: 'https://engine.lobbypms.com/casa-boutique-villa-de-leyva',
+      code: 'TESTIGOS',
+    },
+    email: 'casaboutiquevilladeleyva@gmail.com',
+    address: 'Calle 13 n.º 7-63, Villa de Leyva',
+    mapsUrl:
+      'https://www.google.com/maps/search/?api=1&query=Casa+Boutique+Villa+de+Leyva',
+    photo: logoCasaBoutique,
+    photoIsLogo: true,
+    photoAlt: 'Logo de Casa Boutique Villa de Leyva',
+    en: {
+      offer: '15% off',
+      pitch:
+        'A house in the historic center, with wifi and parking. Pick your dates and room on their site and the discount applies with the code.',
+      contact: null,
+      photoAlt: 'Casa Boutique Villa de Leyva logo',
+    },
+  },
 ];
 
 export function staysFor(lang: Lang): Stay[] {
@@ -138,10 +175,10 @@ export function staysFor(lang: Lang): Stay[] {
 }
 
 /** Enlace de WhatsApp con el mensaje prellenado */
-export function whatsappUrl(stay: Pick<Stay, 'phone' | 'whatsappText'>): string {
+export function whatsappUrl(stay: Required<Pick<Stay, 'phone' | 'whatsappText'>>): string {
   return `https://wa.me/57${stay.phone.replace(/\D/g, '')}?text=${encodeURIComponent(stay.whatsappText)}`;
 }
 
-export function telUrl(stay: Pick<Stay, 'phone'>): string {
+export function telUrl(stay: Required<Pick<Stay, 'phone'>>): string {
   return `tel:+57${stay.phone.replace(/\D/g, '')}`;
 }

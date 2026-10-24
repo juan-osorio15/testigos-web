@@ -18,6 +18,8 @@
  * con las letras; Mesón de los Virreyes desde su bloque granate, que pasa
  * a crema con el dibujo calado; El Riachuelo desde su JPEG en colores, con
  * la maceta en crema y el letrero calado.
+ * El 2026-10-24: Paella de Leyva desde su PNG blanco con transparencia,
+ * teñido al crema y recortado.
  */
 import type { UiKey } from '../ui';
 import logoConexion from '../assets/partners/conexion-zaquencipa.png';
@@ -34,6 +36,7 @@ import logoCasaBoutique from '../assets/partners/casa-boutique.png';
 import logoMeson from '../assets/partners/meson-virreyes.png';
 import logoAtico from '../assets/partners/el-atico.png';
 import logoRiachuelo from '../assets/partners/el-riachuelo.png';
+import logoPaella from '../assets/partners/paella-de-leyva.png';
 
 export interface Partner {
   name: string;
@@ -90,6 +93,7 @@ export const partnerGroups: PartnerGroup[] = [
       { name: 'Cabañas Ojo de Agua', logo: logoOjoDeAgua, shape: 'square' },
       { name: 'El Ático', logo: logoAtico },
       { name: 'El Riachuelo Cocina', logo: logoRiachuelo, shape: 'square' },
+      { name: 'Paella de Leyva', logo: logoPaella, shape: 'square' },
     ],
   },
 ];

@@ -48,11 +48,11 @@ export const faqs: Faq[] = [
   {
     question: '¿Dónde me hospedo?',
     answer:
-      'Tres hoteles aliados tienen una oferta solo para asistentes: la Hospedería Duruelo, sede de los conversatorios, con un paquete especial; el Hotel La Posada de San Antonio, con 10 % de descuento, y el Hotel Mesón de los Virreyes, con 20 % de descuento. Los contactos están en la sección de hospedaje. El encuentro cae en fin de semana, así que conviene reservar con anticipación.',
+      'Cuatro hoteles aliados tienen una oferta solo para asistentes: la Hospedería Duruelo, sede de los conversatorios, con un paquete especial; el Hotel La Posada de San Antonio, con 10 % de descuento; el Hotel Mesón de los Virreyes, con 20 % de descuento, y Casa Boutique Villa de Leyva, con 15 % de descuento reservando en línea con el código TESTIGOS. Los contactos están en la sección de hospedaje. El encuentro cae en fin de semana, así que conviene reservar con anticipación.',
     en: {
       question: 'Where do I stay?',
       answer:
-        'Three partner hotels have an offer for attendees only: Hospedería Duruelo, the venue for the panel conversations, with a special package; Hotel La Posada de San Antonio, with 10% off; and Hotel Mesón de los Virreyes, with 20% off. Their contacts are in the lodging section. The event falls on a weekend, so it\'s best to book in advance.',
+        'Four partner hotels have an offer for attendees only: Hospedería Duruelo, the venue for the panel conversations, with a special package; Hotel La Posada de San Antonio, with 10% off; Hotel Mesón de los Virreyes, with 20% off; and Casa Boutique Villa de Leyva, with 15% off when booking online with the code TESTIGOS. Their contacts are in the lodging section. The event falls on a weekend, so it\'s best to book in advance.',
     },
   },
   {
