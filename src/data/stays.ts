@@ -27,14 +27,14 @@
  * Casa Boutique Villa de Leyva (2026-10-24): 15 % con el código TESTIGOS en
  * su motor de reservas, mensaje del hotel pasado por el usuario. Dirección,
  * correo, wifi y parqueadero de esa misma página de reservas. Sin WhatsApp
- * ni teléfono: el botón lleva a la reserva en línea. Sin foto todavía: va
- * su logo sobre tinta.
+ * ni teléfono: el botón lleva a la reserva en línea. Foto de la fachada
+ * con el letrero, dada por el usuario (1200 × 1200, recorte 3:2).
  */
 import type { Lang } from '../i18n';
 import photoDuruelo from '../assets/venues/duruelo-suite.jpg';
 import photoPosada from '../assets/venues/posada-san-antonio.jpg';
 import photoMeson from '../assets/venues/meson-virreyes.jpg';
-import logoCasaBoutique from '../assets/partners/casa-boutique.png';
+import photoCasaBoutique from '../assets/venues/casa-boutique.jpg';
 
 export interface Stay {
   id: string;
@@ -55,8 +55,6 @@ export interface Stay {
   address: string;
   mapsUrl: string;
   photo: ImageMetadata;
-  /** El hotel no ha dado foto: la casilla muestra su logo sobre tinta */
-  photoIsLogo?: boolean;
   photoAlt: string;
   en: Pick<Stay, 'offer' | 'pitch' | 'whatsappText' | 'photoAlt'> & {
     contact: Stay['contact'];
@@ -156,15 +154,14 @@ export const stays: Stay[] = [
     address: 'Calle 13 n.º 7-63, Villa de Leyva',
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=Casa+Boutique+Villa+de+Leyva',
-    photo: logoCasaBoutique,
-    photoIsLogo: true,
-    photoAlt: 'Logo de Casa Boutique Villa de Leyva',
+    photo: photoCasaBoutique,
+    photoAlt: 'Fachada blanca de Casa Boutique Villa de Leyva, con el portón azul abierto, el letrero en la pared y buganvilias sobre el tejado',
     en: {
       offer: '15% off',
       pitch:
         'A house in the historic center, with wifi and parking. Pick your dates and room on their site and the discount applies with the code.',
       contact: null,
-      photoAlt: 'Casa Boutique Villa de Leyva logo',
+      photoAlt: 'White facade of Casa Boutique Villa de Leyva, with its open blue door, the sign on the wall and bougainvillea over the tiled roof',
     },
   },
 ];

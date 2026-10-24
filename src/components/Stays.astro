@@ -21,7 +21,6 @@ import { staysFor, telUrl, whatsappUrl } from '../data/stays';
 
 const t = tFor(Astro.url.pathname);
 const stays = staysFor(langOf(Astro.url.pathname));
-const tones = ['brick', 'olive', 'terracotta'] as const;
 ---
 
 <div id="hospedaje" class="stays">
@@ -31,9 +30,9 @@ const tones = ['brick', 'olive', 'terracotta'] as const;
 
     <div class="stays-grid">
       {
-        stays.map((stay, i) => (
-          <article class:list={['stay', `stay--${tones[i % tones.length]}`]}>
-            <div class:list={['stay-photo', { 'stay-photo--logo': stay.photoIsLogo }]}>
+        stays.map((stay) => (
+          <article class="stay">
+            <div class="stay-photo">
               <Image
                 src={stay.photo}
                 alt={stay.photoAlt}
@@ -143,17 +142,13 @@ const tones = ['brick', 'olive', 'terracotta'] as const;
     grid-template-rows: subgrid;
     row-gap: 0;
     color: var(--cream);
-  }
-  .stay--brick {
     background-color: var(--brick);
   }
-  .stay--olive {
+  /* Ladrillo y oliva en damero (2026-10-24): en 2 × 2 cada columna
+     alterna color y no se lee como dos franjas largas */
+  .stay:nth-child(4n + 2),
+  .stay:nth-child(4n + 3) {
     background-color: var(--olive);
-  }
-  /* Terracota con tinta encima (fórmula §2), no crema */
-  .stay--terracotta {
-    background-color: var(--terracotta);
-    color: var(--ink);
   }
   .stay > :not(.stay-photo) {
     margin-inline: var(--pad);
@@ -168,15 +163,6 @@ const tones = ['brick', 'olive', 'terracotta'] as const;
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-  /* Sin foto del hotel: su logo en crema, centrado sobre la tinta */
-  .stay-photo--logo {
-    display: grid;
-    place-items: center;
-    padding: 18%;
-  }
-  .stay-photo--logo :global(img) {
-    object-fit: contain;
   }
 
   /* Tres voces: título (nombre y oferta), cuerpo y etiqueta en caps */
@@ -301,6 +287,13 @@ const tones = ['brick', 'olive', 'terracotta'] as const;
     .stay-contact {
       grid-row: auto;
       grid-template-rows: none;
+    }
+    /* En una columna el damero se vuelve alternancia simple */
+    .stay:nth-child(4n + 3) {
+      background-color: var(--brick);
+    }
+    .stay:nth-child(4n) {
+      background-color: var(--olive);
     }
   }
   @media (max-width: 47.9rem) {
