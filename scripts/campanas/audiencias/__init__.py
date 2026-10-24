@@ -33,9 +33,9 @@ def excluidos(valores: list[str]) -> set[str]:
 
 
 def audiencia(nombre: str) -> Callable[[str, dict, set[str]], Resultado]:
-    from audiencias import expirados, interesados
+    from audiencias import agenda, expirados, interesados
 
-    registradas = {"expirados": expirados.armar, "interesados": interesados.armar}
+    registradas = {"agenda": agenda.armar, "expirados": expirados.armar, "interesados": interesados.armar}
     if nombre not in registradas:
         raise SystemExit(f"Audiencia desconocida: {nombre}. Existen: {', '.join(registradas)}.")
     return registradas[nombre]

@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import sys
+from datetime import date
 from functools import cache
 from pathlib import Path
 
@@ -50,8 +51,31 @@ def variables_plantilla() -> dict[str, str]:
     medio_dia = {b["precio"] for b in leer()["boletas"] if b["mitad"]}
     if len(medio_dia) != 1:
         sys.exit(f"Las boletas de medio día no tienen un solo precio ({sorted(medio_dia)}): revisar las plantillas.")
-    return {
+    variables = {
         "precio_pase_completo": pesos(boleta("pase-completo")["precio"]),
         "precio_fin_de_semana": pesos(boleta("fin-de-semana")["precio"]),
         "precio_medio_dia": pesos(medio_dia.pop()),
+        "precio_pase_completo_por_separado": pesos(boleta("pase-completo")["precioPorSeparado"]),
+        "precio_fin_de_semana_por_separado": pesos(boleta("fin-de-semana")["precioPorSeparado"]),
     }
+    # Solo mientras la etapa actual tenga fecha de fin: la última (etapa 3) no vence.
+    fin = leer()["etapas"].get(f"stage{leer()['etapas']['actual']}End")
+    if fin:
+        variables["fin_etapa_actual"] = fecha_larga(fin)
+    return variables
+
+
+# Por qué falta una variable de hechos que una plantilla usa (el canal lo dice al detenerse).
+SIN_VALOR = {
+    "fin_etapa_actual": "la etapa actual no tiene fecha de fin, así que la plantilla ya no puede anunciar "
+                        "hasta cuándo dura el descuento. Cambiar la plantilla antes de enviarla.",
+}
+
+
+def fecha_larga(iso: str) -> str:
+    """'2026-10-29' -> 'jueves 29 de octubre'."""
+    dia = date.fromisoformat(iso)
+    dias = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
+    meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre",
+             "octubre", "noviembre", "diciembre"]
+    return f"{dias[dia.weekday()]} {dia.day} de {meses[dia.month - 1]}"

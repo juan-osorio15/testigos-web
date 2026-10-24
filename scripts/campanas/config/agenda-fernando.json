@@ -1,0 +1,18 @@
+{
+  "descripcion": "Invitación de Fernando Cordovez a sus contactos personales, desde su correo y firmada por él. Solo correo; la agenda vive en datos/testigos-memoria/agenda-fernando/ y se borra al terminar el evento.",
+  "evento": "testigos-memoria",
+  "audiencia": "agenda",
+  "parametros": {
+    "carpeta": "agenda-fernando",
+    "campana_backend": "testigos-de-la-memoria-2026"
+  },
+  "canales": {
+    "correo": {
+      "activo": true,
+      "plantilla": "agenda-fernando.html",
+      "asunto": "Te invito a Testigos de la Memoria, en Villa de Leyva",
+      "remitente": "Fernando Cordovez <direccion@testigosdelamemoria.com>",
+      "responder_a": "direccion@testigosdelamemoria.com"
+    }
+  }
+}

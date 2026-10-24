@@ -21,7 +21,7 @@ from pathlib import Path
 
 from canales import ErrorCanal, Mensaje
 from comun import PLANTILLAS, llave
-from hechos import variables_plantilla
+from hechos import SIN_VALOR, variables_plantilla
 from lista import Destinatario
 
 RESPONDER_A = "hola@eventalist.co"
@@ -35,6 +35,8 @@ class Correo:
         self.html = (PLANTILLAS / self.plantilla).read_text(encoding="utf-8")
         self.asunto = config["asunto"]
         self.remitente = config["remitente"]
+        # A quién llegan las respuestas; el correo de una persona (la agenda de Fernando) se le responde a ella.
+        self.responder_a = config.get("responder_a", RESPONDER_A)
         # List-Unsubscribe es de envíos masivos: sin ella el correo se parece más a un seguimiento.
         self.cabecera_baja = config.get("cabecera_baja", False)
         self.previas = carpeta_previas
@@ -56,6 +58,8 @@ class Correo:
             asunto = html_lib.unescape(rellenar(self.asunto, valores))
             html = rellenar(self.html, valores)
             sin_llenar = set(re.findall(r"\{\{(\w+)\}\}", asunto + html))
+            for nombre in sorted(sin_llenar & SIN_VALOR.keys()):
+                raise SystemExit(f"La plantilla usa {{{{{nombre}}}}}, pero {SIN_VALOR[nombre]}")
             if sin_llenar:
                 raise SystemExit(f"La plantilla o el asunto usan {sorted(sin_llenar)} y la lista no trae esas columnas.")
             mensajes.append(Mensaje(d, (asunto, html)))
@@ -81,13 +85,13 @@ class Correo:
         cuerpo = {
             "from": self.remitente,
             "to": [destino],
-            "reply_to": RESPONDER_A,
+            "reply_to": self.responder_a,
             "subject": asunto,
             "html": html,
             "text": a_texto(html),
         }
         if self.cabecera_baja:
-            cuerpo["headers"] = {"List-Unsubscribe": f"<mailto:{RESPONDER_A}?subject=BAJA>"}
+            cuerpo["headers"] = {"List-Unsubscribe": f"<mailto:{self.responder_a}?subject=BAJA>"}
         if self.imagenes:
             cuerpo["attachments"] = [
                 {"filename": archivo.name, "content": base64.b64encode(archivo.read_bytes()).decode(), "content_id": nombre}
