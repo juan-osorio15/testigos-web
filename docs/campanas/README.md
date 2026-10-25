@@ -22,7 +22,7 @@ Nada de esto guarda datos personales en el repositorio (es público). Las listas
 
 ## Los comandos
 
-Siempre en la carpeta `testigos-web`:
+Siempre en la carpeta `testigos-web`. Todos, listos para copiar, en `scripts/campanas/comandos.sh`:
 
 ```sh
 python3 scripts/campanas/campana.py lista interesados

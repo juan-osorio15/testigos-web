@@ -1,0 +1,64 @@
+# Comandos de campañas, para copiar y pegar.
+# Se corren desde la carpeta testigos-web. Explicación completa en docs/campanas/README.md.
+# Este archivo no se ejecuta: es una lista. Sin --enviar ningún comando envía nada.
+echo "Copia el comando que necesites; este archivo no se corre entero." && exit 1
+
+
+# ── Antes de todo ───────────────────────────────────────────────
+# Si un comando pide actualizar los datos del evento (precios, fechas):
+npm run build
+
+
+# ── Listas para respond.io (WhatsApp) ───────────────────────────
+# Quedan en ~/Downloads, con la etiqueta de la campaña y la fecha (expirados-25102026).
+python3 scripts/campanas/campana.py respondio expirados
+python3 scripts/campanas/campana.py respondio interesados
+
+
+# ── Contar gente, sin enviar nada ───────────────────────────────
+python3 scripts/campanas/campana.py lista expirados
+python3 scripts/campanas/campana.py lista expirados --dias 7
+python3 scripts/campanas/campana.py lista interesados
+python3 scripts/campanas/campana.py lista interesados --dias 7
+python3 scripts/campanas/campana.py lista agenda-fernando
+
+
+# ── Correo a expirados ──────────────────────────────────────────
+python3 scripts/campanas/campana.py correo expirados                                       # vista previa
+python3 scripts/campanas/campana.py correo expirados --prueba manager@eventalist.co --enviar  # prueba
+python3 scripts/campanas/campana.py correo expirados --enviar                              # envío real
+
+
+# ── Correo a interesados del sitio ──────────────────────────────
+python3 scripts/campanas/campana.py correo interesados
+python3 scripts/campanas/campana.py correo interesados --prueba manager@eventalist.co --enviar
+python3 scripts/campanas/campana.py correo interesados --enviar
+
+
+# ── Correo de Fernando a su agenda ──────────────────────────────
+# 100 por día en el plan gratis de Resend: se repite el mismo comando cada día y sigue con los que faltan.
+python3 scripts/campanas/campana.py correo agenda-fernando
+python3 scripts/campanas/campana.py correo agenda-fernando --prueba manager@eventalist.co --enviar
+python3 scripts/campanas/campana.py correo agenda-fernando --enviar
+
+
+# ── WhatsApp directo por la API de Meta (sin respond.io) ────────
+python3 scripts/campanas/campana.py whatsapp expirados                              # vista previa
+python3 scripts/campanas/campana.py whatsapp expirados --prueba 57XXXXXXXXXX --enviar  # prueba
+python3 scripts/campanas/campana.py whatsapp interesados
+python3 scripts/campanas/campana.py whatsapp interesados --prueba 57XXXXXXXXXX --enviar
+
+
+# ── Cuántos mensajes salieron ───────────────────────────────────
+python3 scripts/campanas/campana.py registro
+python3 scripts/campanas/campana.py registro expirados
+
+
+# ── Opciones que se le pueden sumar a cualquiera ────────────────
+# --dias 7                        solo los de los últimos 7 días
+# --excluir correo-o-telefono     deja a alguien por fuera (se puede repetir)
+# --lista ARCHIVO.csv             usa una lista ya guardada en vez de armarla
+# --salida RUTA.csv               respondio: guarda el archivo en otra parte
+#
+# Horario de envío (Ley 2300): lunes a viernes de 7 a.m. a 7 p.m., sábado de 8 a.m. a 3 p.m.,
+# domingos y festivos no. Fuera de ese horario el comando se niega a enviar.
