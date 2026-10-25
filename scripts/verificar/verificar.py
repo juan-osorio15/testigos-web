@@ -105,6 +105,10 @@ def revisar(texto: str, hechos: dict, publico: bool = True, lineas: list[tuple[i
          re.compile(r"cada (?:franja|boleta de medio día|medio día)[^.\n]{0,50}\b(?:dos|tres|2|3) conversatorios", re.I),
          lambda m: True),
         ("charlas abiertas, no talleres", re.compile(r"\btaller(?:es)? de periodismo", re.I), lambda m: True),
+        # Una pregunta sin su ¿: el tramo desde el último punto hasta el ? no lo trae. Los ? de las URL
+        # van pegados a la consulta, así que solo cuenta el que cierra (seguido de espacio o fin).
+        ("pregunta sin '¿' de apertura", re.compile(r"(?:^|(?<=[.!?]))[^.!?¿\n]*[^\W\d_][^.!?¿\n]*\?(?=[\s\"”)*]|$)"),
+         lambda m: "://" not in m.group(0)),
         ("nombre de panelista mal escrito",
          re.compile(r"\bMartha Ruiz\b|\bMarta Soto\b|Echeverry|Ana Maria Echeverri|Guillermo Gonzalez\b"),
          lambda m: m.group(0) not in nombres),
@@ -168,6 +172,7 @@ CASOS = [
     ("Con Martha Ruiz y Guillermo González Uribe.", "nombre de panelista mal escrito"),
     ("Talleres de periodismo gratis el jueves.", "charlas abiertas, no talleres"),
     ("Precio especial hasta el lunes 12 de octubre.", "fecha de etapa vencida"),
+    ("Preguntas? Escríbannos:", "pregunta sin '¿' de apertura"),
 ]
 
 

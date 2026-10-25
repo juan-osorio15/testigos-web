@@ -76,5 +76,5 @@ Correcciones del 22 de octubre, para esta campaña y las que vengan:
 ## Pendientes
 
 - [ ] **Videos** (historia, Casa Boutique y, cuando exista, Relato): el calendario no depende de ellos. Cuando lleguen, cada uno entra en lugar de la siguiente publicación que todavía no haya salido, en GV y en LF, con el mismo número (por ejemplo, `GV3.mp4` en vez de `GV3.png`). Son lo más efectivo que tenemos, así que van apenas estén.
-- [ ] **Pase de fin de semana:** en GV ya está (`GV8`, jueves 29 de octubre, último día a $240.000). Falta en LF.
+- [ ] **Pase de fin de semana:** en GV ya está (`GV8`, antes del jueves 29 de octubre, mientras está a $240.000). Falta en LF.
 - [ ] **Plantillas IN y EX:** son los textos de los mensajes de WhatsApp que se envían por la API a interesados y expirados. Meta tiene que aprobarlos antes de enviarlos; se crean en WhatsApp Manager, en la cuenta del número colombiano (ver cada carpeta). GV y LF no las necesitan.
