@@ -83,6 +83,7 @@ Campañas en uso (el equipo agrega aquí las suyas):
 - `expirados`: correos y WhatsApp a pedidos vencidos.
 - `interesados`: correo y WhatsApp a quien pidió aviso de las franjas en el sitio (desde el 19 de octubre).
 - `buscador`: anuncios de Búsqueda en Google (prueba del 16 de octubre al 7 de noviembre de 2026).
+- `recuperacion`: broadcasts de respond.io a conversaciones de Catalina que se cerraron sin compra (desde el 26 de octubre de 2026), y los enlaces que da Catalina a quien responde.
 - `pase-fin-semana-release`: lanzamiento del pase de fin de semana (desde el 23 de octubre de 2026; primer enlace, el mensaje del chatbot `combo-fin-de-semana`).
 
 ### utm_content: la pieza y sus variables

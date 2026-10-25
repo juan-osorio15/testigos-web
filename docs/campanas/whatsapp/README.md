@@ -19,12 +19,13 @@ Plan del 22 de octubre de 2026 para las dos últimas semanas antes del evento (5
 - **Una fecha límite mueve la venta:** el 12 de octubre, último día del Pase a precio de etapa 1, fue el mejor día de ventas. Si se lanza el pase de fin de semana con fecha límite, entra como el pico del calendario.
 - **Quien pulsa Comprar casi siempre termina.** El trabajo del WhatsApp es llevar a la gente a la conversación y al botón.
 
-## Las cuatro campañas
+## Las campañas
 
 - [`grupos-villa/`](grupos-villa/) · **GV** · grupos de planes y eventos de Villa de Leyva. Tres publicaciones por semana. Se publican a mano.
 - [`lista-fernando/`](lista-fernando/) · **LF** · lista de difusión y contactos de Fernando. Un mensaje por día hábil, en su voz. Él los reenvía.
 - [`interesados/`](interesados/) · **IN** · quienes pidieron aviso en el sitio. Una vez por semana, con plantilla de Meta por la API.
 - [`expirados/`](expirados/) · **EX** · quienes empezaron una compra y no la terminaron. Una vez por semana, con plantilla de Meta por la API.
+- [`respondio/`](respondio/) · broadcasts desde respond.io a contactos de Catalina. Hoy: **RC**, conversaciones cerradas por inactividad sin compra, una plantilla por día hasta el evento.
 
 Cada carpeta tiene su `README.md` con lo que toca cada día.
 
