@@ -13,6 +13,7 @@ Grupos de WhatsApp de planes y eventos de Villa de Leyva donde ya estamos. Tres 
 - **GV1** · viernes 23 oct · presentación
 - **GV2** · lunes 26 oct · Yolanda Ruiz y María Elvira Samper
 - **GV3** · miércoles 28 oct · Marta Ruiz
+- **GV8** · jueves 29 oct · el recorrido completo: pase completo y pase de fin de semana (último día del descuento)
 - **GV4** · viernes 30 oct · el sábado en la tarde
 - **GV5** · martes 3 nov · Negociaciones de paz
 - **GV6** · jueves 5 nov · hoy empiezan las charlas abiertas
@@ -66,6 +67,30 @@ https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en
 
 Boletas en la página:
 https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=oye-marta-ruiz#boletas
+```
+
+## GV8 · jueves 29 de octubre (último día del pase de fin de semana a $240.000)
+
+Va después de GV3 aunque su número sea el último: se agregó cuando ya estaba el calendario. Es la publicación del pase de fin de semana, para quien quiere todo el evento: si no puede el viernes, que no se pierda el fin de semana.
+
+**Pieza:** `GV8.png` (afiche general)
+
+```
+¿Se imaginan recorrer la historia de Colombia de principio a fin, contada por los periodistas que la vivieron de frente?
+
+Así está armado Testigos de la Memoria: las conversaciones van en orden, como un solo recorrido. El Bogotazo y el Frente Nacional, el surgimiento de las guerrillas, el Caguán y La Habana, el narcotráfico y el paramilitarismo, las reelecciones de Uribe y Santos, los magnicidios y las víctimas. Y para cerrar, Yolanda Ruiz y María Elvira Samper contando cómo fue cubrir todo eso siendo mujeres.
+
+Escuchar uno detrás de otro a Fidel Cano, Cecilia Orozco, Marta Ruiz, Ricardo Ospina y Luz María Sierra, y poder hacerles preguntas, es entender cómo una época llevó a la siguiente. Eso no se consigue con una sola charla, y lo tenemos aquí en Villa de Leyva.
+
+Por eso la mejor forma de vivirlo es completo:
+· Pase completo, del viernes 6 al domingo 8: $340.000
+· Pase de fin de semana, sábado y domingo: $240.000 en vez de $270.000. Ese precio va hasta hoy jueves.
+
+La sala en la Hospedería Duruelo es para 300 personas. Escríbannos y les ayudamos a escoger:
+https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
+
+Boletas en la página:
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiche-general_recorrido-completo#boletas
 ```
 
 ## GV4 · viernes 30 de octubre
