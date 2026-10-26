@@ -249,16 +249,21 @@ const es = {
   'footer.pagesAria': 'Páginas del sitio',
 
   // --- Aviso de cookies y preferencias (dictamen legal 2026-09-15) ---
-  /* Estándar desde el 2026-10-15, en dos capas: aquí el responsable y la
-     finalidad en tono tranquilo, sin prometer menos anuncios (quien acepta
-     puede ver anuncios del encuentro); los proveedores (Google y Meta) van
-     en "Configurar" y en la sección 10 de la política (arts. 14 y 15 del
+  /* Panel al pie desde el 2026-10-26, en dos capas: aquí el texto estándar
+     con el responsable y tres frases cortas que tranquilizan; en
+     "Configurar" esas frases explicadas y los proveedores (Google y Meta),
+     y el detalle en la sección 10 de la política (arts. 14 y 15 del
      Decreto 1377). */
-  'consent.text':
-    'Eventalist usa cookies para saber qué funciona en el sitio y para que no veas el mismo anuncio una y otra vez, ni lo sigas viendo si ya compraste. No vendemos tus datos.',
+  'consent.title': 'Usamos cookies',
+  'consent.text': 'Eventalist las usa para mejorar tu experiencia en el sitio.',
+  'consent.point1': 'No vendemos tus datos',
+  'consent.point1Text': 'No los vendemos ni los cedemos para que otros te ofrezcan cosas.',
+  'consent.point2': 'Solo para mejorar el sitio',
+  'consent.point2Text': 'Vemos qué páginas sirven y de dónde llega la gente, para saber qué arreglar.',
+  'consent.point3': 'Menos anuncios si ya compraste',
+  'consent.point3Text': 'Nos sirve para no mostrarte anuncios de boletas si ya tienes la tuya.',
   'consent.more': 'Política de datos',
   'consent.accept': 'Aceptar',
-  'consent.modalTitle': 'Usamos cookies',
   'consent.configure': 'Configurar',
   /* Paso "Configurar": las dos categorías vienen activadas */
   'consent.optionsTitle': 'Configurar cookies',
@@ -528,11 +533,16 @@ const en: Record<UiKey, string> = {
   'footer.terms': 'Terms and conditions',
   'footer.pagesAria': 'Site pages',
 
-  'consent.text':
-    "Eventalist uses cookies to see what works on the site and so you don't see the same ad over and over, or keep seeing it after you've bought. We never sell your data.",
+  'consent.title': 'We use cookies',
+  'consent.text': 'Eventalist uses them to improve your experience on the site.',
+  'consent.point1': "We don't sell your data",
+  'consent.point1Text': "We don't sell it or hand it over so others can offer you things.",
+  'consent.point2': 'Only to improve the site',
+  'consent.point2Text': 'We see which pages work and where people come from, so we know what to fix.',
+  'consent.point3': 'Fewer ads once you buy',
+  'consent.point3Text': "It helps us stop showing you ticket ads once you have yours.",
   'consent.more': 'Data policy',
   'consent.accept': 'Accept',
-  'consent.modalTitle': 'We use cookies',
   'consent.configure': 'Settings',
   'consent.optionsTitle': 'Cookie settings',
   'consent.analytics': 'Analytics',

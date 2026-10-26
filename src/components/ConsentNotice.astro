@@ -1,16 +1,23 @@
 ---
 /**
  * Aviso de cookies y gestor de preferencias (feature 002, dictamen legal
- * 2026-09-15). Dos formas, según `measurement.consentUi`: 'bar' es un
- * bloque de tinta al pie de la pantalla, fijo hasta que se acepta o se
- * cierra; 'modal' (prueba del 2026-09-18) es un <dialog> centrado.
+ * 2026-09-15).
  *
- * Modal estándar desde el 2026-10-15: "Usamos cookies" en una línea, un
- * botón grande de "Aceptar" y, en pequeño, "Configurar". No se cierra de
- * otra forma: ni ×, ni Escape, ni clic fuera (las cookies son la base de
- * la medición). "Configurar" muestra analítica y publicidad, las dos
- * activadas: quien no las quiere las apaga una por una y pulsa "Guardar"
- * (con las dos apagadas no acepta nada y el aviso no vuelve en la sesión).
+ * Panel al pie desde el 2026-10-26: el modal centrado bloqueaba la página
+ * y generaba fricción, y una barrita delgada se ignora. El panel ocupa
+ * cerca de un cuarto de la pantalla, de lado a lado: la página se ve y se
+ * recorre detrás, pero el panel sigue ahí, en todas las páginas, hasta que
+ * la persona decide. Solo se quita con "Aceptar" (botón grande) o con
+ * "Configurar" (en pequeño): ni ×, ni Escape (las cookies son la base de
+ * la medición). Arriba, el texto estándar ("Usamos cookies") y tres frases
+ * cortas que tranquilizan.
+ *
+ * "Configurar" abre una tarjeta centrada con esas tres frases explicadas
+ * y las dos categorías, analítica y publicidad, activadas: quien no las
+ * quiere las apaga una por una y pulsa "Guardar" (con las dos apagadas no
+ * acepta nada y el aviso no vuelve en la sesión). Si la cierra sin
+ * decidir, vuelve al panel.
+ *
  * El gestor (<dialog>) lo abre el enlace "Cookies y preferencias" del pie
  * y permite cambiar o retirar la aceptación. Sin JS no aparece nada y no
  * se carga ninguna etiqueta: el HTML del aviso vive en un <template>.
@@ -32,69 +39,75 @@ const options = [
   { name: 'analytics', label: t('consent.analytics'), text: t('consent.analyticsText') },
   { name: 'advertising', label: t('consent.advertising'), text: t('consent.advertisingText') },
 ] as const;
+const points = [
+  { title: t('consent.point1'), text: t('consent.point1Text') },
+  { title: t('consent.point2'), text: t('consent.point2Text') },
+  { title: t('consent.point3'), text: t('consent.point3Text') },
+];
 ---
 
 {
   enabled && (
     <>
       <template data-consent-template>
-        <aside class="consent" data-consent role="region" aria-label={t('consent.prefsTitle')}>
+        <aside class="consent" data-consent role="region" aria-labelledby="consent-title">
           <div class="container consent-inner">
-            <p class="consent-text">
-              {t('consent.text')}
-              <a href={policyHref}>{t('consent.more')}</a>
-            </p>
+            <div class="consent-copy">
+              <h2 id="consent-title" class="consent-title">
+                {t('consent.title')}
+              </h2>
+              <p class="consent-text">
+                {t('consent.text')} <a href={policyHref}>{t('consent.more')}</a>
+              </p>
+              <ul class="consent-points">
+                {points.map((p) => (
+                  <li>{p.title}</li>
+                ))}
+              </ul>
+            </div>
             <div class="consent-actions">
               <button type="button" class="consent-accept" data-consent-accept>
                 {t('consent.accept')}
               </button>
-              <button type="button" class="consent-close" data-consent-close aria-label={t('consent.close')}>
-                ×
+              <button type="button" class="consent-more" data-consent-more>
+                {t('consent.configure')}
               </button>
             </div>
           </div>
         </aside>
       </template>
 
-      {
-        measurement.consentUi === 'modal' && (
-          <dialog class="prefs consent-modal" data-consent-modal aria-labelledby="consent-modal-title">
-            <div class="prefs-body consent-modal-body" data-modal-step="1">
-              <h2 id="consent-modal-title" class="prefs-title">
-                {t('consent.modalTitle')}
-              </h2>
-              <p class="prefs-text">
-                {t('consent.text')} <a href={policyHref}>{t('consent.more')}</a>
-              </p>
-              <button type="button" class="consent-accept consent-modal-accept" data-modal-accept autofocus>
-                {t('consent.accept')}
-              </button>
-              <button type="button" class="consent-modal-skip" data-modal-more>
-                {t('consent.configure')}
-              </button>
-            </div>
-            <div class="prefs-body consent-modal-body" data-modal-step="2" hidden>
-              <h2 class="prefs-title">{t('consent.optionsTitle')}</h2>
-              {options.map((o) => (
-                <label class="prefs-option">
-                  <span class="prefs-option-text">
-                    <strong>{o.label}</strong>
-                    <span>{o.text}</span>
-                  </span>
-                  <input type="checkbox" role="switch" name={o.name} checked />
-                </label>
-              ))}
-              <button type="button" class="consent-accept consent-modal-accept" data-modal-accept>
-                {t('consent.acceptAll')}
-              </button>
-              <button type="button" class="consent-modal-skip" data-modal-save>
-                {t('consent.save')}
-              </button>
-              <a class="consent-options-policy" href={policyHref}>{t('consent.policy')}</a>
-            </div>
-          </dialog>
-        )
-      }
+      <dialog class="prefs consent-config" data-consent-config aria-labelledby="consent-config-title">
+        <div class="prefs-body">
+          <h2 id="consent-config-title" class="prefs-title">
+            {t('consent.optionsTitle')}
+          </h2>
+          <ul class="consent-reasons">
+            {points.map((p) => (
+              <li>
+                <strong>{p.title}</strong>
+                <span>{p.text}</span>
+              </li>
+            ))}
+          </ul>
+          {options.map((o) => (
+            <label class="prefs-option">
+              <span class="prefs-option-text">
+                <strong>{o.label}</strong>
+                <span>{o.text}</span>
+              </span>
+              <input type="checkbox" role="switch" name={o.name} checked />
+            </label>
+          ))}
+          <button type="button" class="consent-accept consent-config-accept" data-config-accept>
+            {t('consent.acceptAll')}
+          </button>
+          <button type="button" class="consent-more consent-config-save" data-config-save>
+            {t('consent.save')}
+          </button>
+          <a class="consent-options-policy" href={policyHref}>{t('consent.policy')}</a>
+        </div>
+      </dialog>
 
       <dialog
         class="prefs"
@@ -139,13 +152,14 @@ const options = [
         import { getConsent, wasDismissed, dismiss, type ConsentScope } from '../measurement/consent';
         import { acceptConsent, revokeConsent, consentAccepted, consentScope } from '../measurement/tags';
 
-        // Categorías marcadas en un panel (modal o gestor)
+        // Categorías marcadas en un panel (configuración o gestor)
         const checkedScope = (root: ParentNode): ConsentScope[] =>
           (['analytics', 'advertising'] as const).filter(
             (k) => root.querySelector<HTMLInputElement>(`input[name="${k}"]`)?.checked,
           );
 
         const tpl = document.querySelector<HTMLTemplateElement>('[data-consent-template]');
+        const config = document.querySelector<HTMLDialogElement>('[data-consent-config]');
         const dialog = document.querySelector<HTMLDialogElement>('[data-consent-prefs]');
         const strings = {
           accepted: dialog?.dataset.textAccepted ?? '',
@@ -154,14 +168,52 @@ const options = [
 
         let bar: HTMLElement | null = null;
         let sizer: ResizeObserver | null = null;
-        const modal = document.querySelector<HTMLDialogElement>('[data-consent-modal]');
 
-        // Publica el alto del aviso en --consent-h para que el hero fijo de
-        // la portada se recorte y su franja con el CTA no quede tapada.
+        // Publica el alto del aviso en --consent-h: el hero fijo de la
+        // portada se recorta para que su franja con el CTA no quede tapada,
+        // y el resto de páginas gana ese espacio al final.
         const root = document.documentElement;
         const publishHeight = () => {
           root.style.setProperty('--consent-h', bar ? `${bar.offsetHeight}px` : '0px');
         };
+
+        const hideBar = () => {
+          sizer?.disconnect();
+          sizer = null;
+          window.removeEventListener('resize', publishHeight);
+          bar?.remove();
+          bar = null;
+          publishHeight();
+        };
+
+        // "Configurar": la tarjeta con las razones y las dos categorías
+        // activadas. Cerrarla sin decidir deja el panel donde estaba.
+        const openConfig = () => {
+          if (!config || typeof config.showModal !== 'function') return;
+          config.querySelectorAll<HTMLInputElement>('input[role="switch"]').forEach((i) => {
+            i.checked = true;
+          });
+          config.showModal();
+        };
+        if (config) {
+          config.addEventListener('click', (e) => {
+            if (e.target === config) config.close();
+          });
+          config.querySelector('[data-config-accept]')?.addEventListener('click', async () => {
+            await acceptConsent();
+            config.close();
+            hideBar();
+          });
+          // "Guardar": acepta lo que siga encendido; con todo apagado no
+          // acepta nada y el aviso no vuelve en la sesión
+          config.querySelector('[data-config-save]')?.addEventListener('click', async () => {
+            const scope = checkedScope(config);
+            if (scope.length > 0) await acceptConsent(scope);
+            else dismiss();
+            config.close();
+            hideBar();
+          });
+        }
 
         const showBar = () => {
           if (!tpl || bar || consentAccepted() || wasDismissed()) return;
@@ -180,18 +232,7 @@ const options = [
             await acceptConsent();
             hideBar();
           });
-          node.querySelector('[data-consent-close]')?.addEventListener('click', () => {
-            dismiss();
-            hideBar();
-          });
-        };
-        const hideBar = () => {
-          sizer?.disconnect();
-          sizer = null;
-          window.removeEventListener('resize', publishHeight);
-          bar?.remove();
-          bar = null;
-          publishHeight();
+          node.querySelector('[data-consent-more]')?.addEventListener('click', openConfig);
         };
 
         // --- Gestor de preferencias ---
@@ -241,7 +282,6 @@ const options = [
             if (scope.length > 0) {
               await acceptConsent(scope);
               hideBar();
-              if (modal?.open) modal.close();
             } else if (consentAccepted()) {
               await revokeConsent();
             }
@@ -258,105 +298,89 @@ const options = [
           });
         });
 
-        // --- Aviso: modal si está configurado y el navegador lo soporta;
-        // si no, la franja. El modal espera medio segundo para que la
-        // primera impresión sea el hero, no el aviso.
-        const showModal = (): boolean => {
-          if (!modal || typeof modal.showModal !== 'function') return false;
-          if (consentAccepted() || wasDismissed()) return true;
-          const close = () => {
-            if (modal.open) modal.close();
-          };
-          let decided = false;
-          const finish = () => {
-            decided = true;
-            close();
-          };
-          modal.querySelectorAll('[data-modal-accept]').forEach((b) =>
-            b.addEventListener('click', async () => {
-              await acceptConsent();
-              finish();
-            }),
-          );
-          // "Configurar": segundo paso con las dos categorías activadas
-          modal.querySelector('[data-modal-more]')?.addEventListener('click', () => {
-            const [one, two] = modal.querySelectorAll<HTMLElement>('[data-modal-step]');
-            if (!one || !two) return;
-            one.hidden = true;
-            two.hidden = false;
-            two.querySelector<HTMLElement>('input')?.focus();
-          });
-          // "Guardar": acepta lo que siga encendido; con todo apagado no
-          // acepta nada y el aviso no vuelve en la sesión
-          modal.querySelector('[data-modal-save]')?.addEventListener('click', async () => {
-            const scope = checkedScope(modal);
-            if (scope.length > 0) await acceptConsent(scope);
-            else dismiss();
-            finish();
-          });
-          // Solo se sale por los botones: Escape y clic fuera no hacen nada.
-          // Si el navegador lo cierra igual (Escape repetido), vuelve a abrir.
-          modal.addEventListener('cancel', (e) => e.preventDefault());
-          modal.addEventListener('close', () => {
-            if (!decided && !consentAccepted() && !wasDismissed()) modal.showModal();
-          });
-          window.setTimeout(() => {
-            if (!consentAccepted() && !wasDismissed() && !modal.open) modal.showModal();
-          }, 500);
-          return true;
-        };
-        if (!showModal()) showBar();
+        showBar();
       </script>
     </>
   )
 }
 
 <style is:global>
-  /* --- Aviso: franja baja en tinta con el botón de aceptar en terracota,
-     para que se vea y se acepte (2026-09-18: antes pasaba desapercibida
-     y sin aceptación no hay medición útil). Sin filo de color arriba: el
-     bloque de tinta se toca con lo que haya encima, como el resto de
-     bloques. Dos líneas en escritorio, tres o cuatro en móvil. ---------- */
+  /* El final de cada página queda a la vista mientras el panel está abierto */
+  body {
+    padding-bottom: var(--consent-h, 0px);
+  }
+
+  /* --- Aviso: panel de tinta al pie, cerca de un cuarto de la pantalla.
+     Estorba lo suficiente para que se resuelva, sin bloquear la página.
+     El botón de aceptar en terracota; "Configurar" en texto pequeño. */
   .consent {
     position: fixed;
     inset: auto 0 0 0;
     z-index: 60;
+    display: grid;
+    align-items: center;
+    min-height: 25svh;
     background-color: var(--ink);
     color: var(--cream);
-    padding-block: 1rem;
-    font-size: 0.9375rem;
+    padding-block: var(--space-4);
     line-height: 1.45;
   }
   .consent-inner {
     display: flex;
     align-items: center;
-    gap: var(--space-2) var(--space-3);
+    gap: var(--space-3) var(--space-5);
+  }
+  .consent-copy {
+    flex: 1 1 auto;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .consent-title {
+    font-size: var(--text-h3);
+    line-height: 1.2;
+    color: var(--cream);
   }
   .consent-text {
-    flex: 1 1 auto;
-    max-width: 70ch;
+    font-size: 1rem;
     text-wrap: pretty;
   }
   .consent-text a {
     margin-left: 0.35em;
+    color: var(--cream);
     text-underline-offset: 0.2em;
     white-space: nowrap;
   }
-  .consent-actions {
+  .consent-points {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-left: auto;
+    flex-wrap: wrap;
+    gap: 0.35rem var(--space-3);
+    margin: 0.25rem 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.9375rem;
+    font-weight: 700;
+  }
+  .consent-points li::before,
+  .consent-reasons strong::before {
+    content: '✓';
+    margin-right: 0.45em;
+    color: var(--terracotta);
+    font-weight: 800;
+  }
+  .consent-actions {
     flex: 0 0 auto;
+    display: grid;
+    justify-items: center;
+    gap: 0.6rem;
   }
   .consent-accept {
-    padding: 0.7em 1.6em;
+    padding: 0.85em 2.6em;
     border: 1px solid var(--terracotta);
     border-radius: 0;
     background-color: var(--terracotta);
     color: var(--ink);
     font-weight: 800;
-    font-size: 1rem;
+    font-size: 1.0625rem;
     transition: background-color 160ms var(--ease-out), border-color 160ms var(--ease-out), color 160ms var(--ease-out);
   }
   .consent-accept:hover,
@@ -365,58 +389,12 @@ const options = [
     border-color: var(--cream);
     color: var(--ink);
   }
-  .consent-close {
-    width: 2rem;
-    height: 2rem;
-    padding: 0;
-    border: 0;
-    border-radius: 0;
-    background: none;
-    color: var(--cream);
-    font-size: 1.25rem;
-    line-height: 1;
-    opacity: 0.7;
-  }
-  .consent-close:hover,
-  .consent-close:focus-visible {
-    opacity: 1;
-  }
-  @media (max-width: 47.9rem) {
-    .consent-inner {
-      flex-wrap: wrap;
-      row-gap: 0.5rem;
-    }
-    .consent-text {
-      flex-basis: 100%;
-    }
-    .consent-actions {
-      margin-left: 0;
-    }
-  }
-
-  /* --- Aviso modal: la tarjeta del gestor, con un solo botón grande y el
-     "seguir sin aceptar" en texto pequeño debajo, visible pero sin competir */
-  .consent-modal-body {
-    justify-items: start;
-  }
-  .consent-modal .prefs-title {
-    padding-right: 0;
-  }
-  .consent-modal .prefs-text a {
-    margin-left: 0.35em;
-    text-underline-offset: 0.2em;
-  }
-  .prefs .consent-modal-accept {
-    margin-top: var(--space-1);
-    padding: 0.9em 2em;
-    font-size: 1.0625rem;
-  }
-  .consent-modal-skip {
+  .consent-more {
     padding: 0.2em 0;
     border: 0;
     border-radius: 0;
     background: none;
-    color: var(--ink);
+    color: inherit;
     font-size: var(--text-small);
     font-weight: 600;
     text-decoration: underline;
@@ -424,14 +402,79 @@ const options = [
     opacity: 0.75;
     cursor: pointer;
   }
-  .consent-modal-skip:hover,
-  .consent-modal-skip:focus-visible {
+  .consent-more:hover,
+  .consent-more:focus-visible {
     opacity: 1;
   }
-  .consent-modal-body[hidden] {
-    display: none;
+  @media (max-width: 47.9rem) {
+    .consent {
+      padding-block: var(--space-3);
+    }
+    .consent-inner {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-2);
+    }
+    .consent-copy {
+      gap: 0.35rem;
+    }
+    .consent-text,
+    .consent-points {
+      font-size: 0.875rem;
+    }
+    .consent-points {
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .consent-actions {
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .consent-accept {
+      justify-self: stretch;
+      padding-inline: 1em;
+    }
   }
-  /* --- Interruptores de analítica y publicidad (modal y gestor) */
+
+  /* --- "Configurar": las tres razones en negrilla oliva, para escanear,
+     y debajo las categorías; un botón grande y "Guardar" en pequeño */
+  .consent-config .prefs-body {
+    justify-items: start;
+  }
+  .consent-config .prefs-title {
+    padding-right: 0;
+  }
+  .consent-reasons {
+    display: grid;
+    gap: var(--space-1);
+    margin: 0 0 var(--space-1);
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-small);
+    line-height: 1.45;
+  }
+  .consent-reasons li {
+    display: grid;
+    gap: 0.1rem;
+  }
+  .consent-reasons strong {
+    color: var(--olive);
+    font-size: 1rem;
+  }
+  .consent-reasons span {
+    padding-left: 1.3em;
+  }
+  .prefs .consent-config-accept {
+    margin-top: var(--space-1);
+    padding: 0.9em 2em;
+    font-size: 1.0625rem;
+  }
+  .consent-config-save {
+    color: var(--ink);
+  }
+
+  /* --- Interruptores de analítica y publicidad (configuración y gestor) */
   .prefs-option {
     display: flex;
     align-items: center;
