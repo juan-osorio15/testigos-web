@@ -131,5 +131,5 @@ Del 6 al 8 de noviembre, en la Hospedería Duruelo, en lo alto de Villa de Leyva
 ```
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
-- Botón **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=recuperacion&utm_campaign=expirados-2026#boletas`
+- Botón **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=recuperacion&utm_campaign=expirados-2026`
 - Botón de respuesta rápida **Necesito ayuda**.

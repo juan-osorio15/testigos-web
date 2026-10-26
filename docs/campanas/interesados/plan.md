@@ -87,7 +87,7 @@ Si no sabes cuál escoger, escríbenos por aquí y te ayudamos.
 ```
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
-- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=interesados&utm_content=plantilla-aviso#boletas`
+- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=interesados&utm_content=plantilla-aviso`
 - Botón de respuesta rápida **Tengo una pregunta**.
 
 ## 6. Medición

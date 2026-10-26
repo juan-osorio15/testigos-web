@@ -48,7 +48,7 @@ Cada publicación de GV y LF lleva dos enlaces: el del agente, para preguntar, y
 - **LF:** `utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=PIEZA` (lo comparte un organizador desde su WhatsApp).
 - **IN y EX:** `utm_source=whatsapp&utm_medium=mensaje&utm_campaign=interesados` (o `expirados`) `&utm_content=plantilla-…`.
 - La pieza se nombra por lo que es: `afiche-general`, `carrusel-fidel-cano`, `afiches-domingo`. Cada bloque ya trae su enlace completo.
-- Los enlaces van siempre a la portada (`https://testigosdelamemoria.com/?…`) con `#boletas` o `#agenda` al final. Nunca a `/programacion`: es una redirección vieja que muestra un aviso y pierde los UTM.
+- Los enlaces van siempre a la portada (`https://testigosdelamemoria.com/?…`), sin ancla para comprar o ver panelistas: la portada muestra primero a los panelistas y tiene varios botones de compra. Solo `#agenda` o `#hospedaje` al final cuando el enlace es de eso (decisión del titular, 2026-10-26). Nunca a `/programacion`: es una redirección vieja que muestra un aviso y pierde los UTM.
 
 No se pueden poner botones: en WhatsApp solo existen en los mensajes enviados por la API (las plantillas de IN y EX). Lo que se publica a mano, desde el celular o desde WhatsApp Web, es texto, imagen y enlaces.
 

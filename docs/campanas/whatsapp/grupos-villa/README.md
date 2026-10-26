@@ -50,7 +50,7 @@ Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuent
 https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiche-mujeres-periodistas#boletas
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiche-mujeres-periodistas
 ```
 
 ## GV3 · miércoles 28 de octubre
@@ -66,7 +66,7 @@ Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuent
 https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=oye-marta-ruiz#boletas
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=oye-marta-ruiz
 ```
 
 ## GV8 · antes del jueves 29 de octubre (mientras el pase de fin de semana está a $240.000)
@@ -87,7 +87,7 @@ Por eso la mejor forma de vivirlo es completo:
 · Pase de fin de semana, sábado y domingo: $240.000 en vez de $270.000. Descuento por tiempo limitado.
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiche-general_recorrido-completo#boletas
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiche-general_recorrido-completo
 
 ¿Preguntas? Escríbannos:
 https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
@@ -106,7 +106,7 @@ Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuent
 https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiches-sabado-tarde#boletas
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiches-sabado-tarde
 ```
 
 ## GV5 · martes 3 de noviembre
@@ -122,7 +122,7 @@ Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuent
 https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiche-negociaciones-paz#boletas
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiche-negociaciones-paz
 ```
 
 ## GV6 · jueves 5 de noviembre (antes de las 10:00 a.m.)
@@ -138,7 +138,7 @@ Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuent
 https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiche-general_charlas-abiertas#boletas
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiche-general_charlas-abiertas
 ```
 
 ## GV7 · viernes 6 de noviembre (en la mañana; antes, confirmar en Pretix que sigue habiendo boletas)
@@ -154,5 +154,5 @@ Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuent
 https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiches-domingo#boletas
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiches-domingo
 ```

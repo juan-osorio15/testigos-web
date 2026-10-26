@@ -50,7 +50,7 @@ Ahora hay dos formas más de venir: el pase de fin de semana, con descuento, par
 ```
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
-- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=expirados&utm_content=plantilla-pedido-vencido#boletas`
+- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=expirados&utm_content=plantilla-pedido-vencido`
 - Botón de respuesta rápida **Necesito ayuda**.
 
 ## EX2 · `ex2_sabado_en_la_tarde`
@@ -66,5 +66,5 @@ Las dos conversaciones entran en una boleta de medio día de $90.000, o llévate
 ```
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
-- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=expirados&utm_content=plantilla-sabado-tarde#boletas`
+- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=expirados&utm_content=plantilla-sabado-tarde`
 - Botón de respuesta rápida **Quiero ayuda**.

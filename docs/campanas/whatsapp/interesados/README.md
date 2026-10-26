@@ -48,7 +48,7 @@ Mira la agenda completa para decidir cuáles te interesan más o, si no te quier
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
 - Botón de enlace **Ver la agenda** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=interesados&utm_content=plantilla-boletas-medio-dia_agenda#agenda`
-- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=interesados&utm_content=plantilla-boletas-medio-dia_boletas#boletas`
+- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=interesados&utm_content=plantilla-boletas-medio-dia_boletas`
 - Botón de respuesta rápida **Tengo una pregunta**.
 - **Antes de mandarla a Meta:** el pase de fin de semana tiene que estar a la venta en Pretix, con descuento, el día del envío, porque una plantilla aprobada no se puede editar. Si no alcanza a estar, cambiar la última frase por "…o, si no te quieres perder nada, llévate el Pase completo."
 
@@ -65,5 +65,5 @@ Las dos conversaciones entran en una boleta de medio día de $90.000, o llévate
 ```
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
-- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=interesados&utm_content=plantilla-domingo-manana#boletas`
+- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=interesados&utm_content=plantilla-domingo-manana`
 - Botón de respuesta rápida **Quiero reservar**.

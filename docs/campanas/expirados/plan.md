@@ -68,7 +68,7 @@ Categoría **Marketing**, idioma español. La exportación de Pretix no trae nom
 Aprobada por Meta el 2026-10-16. El cuerpo vigente está en `titular/whatsapp.md` (al final): el aviso del pedido vencido, un párrafo antojador con sede, panelistas y temas, y la oferta de ayuda con el pago. Sin plazo ni precio. Pie: "Para no recibir más mensajes, responde BAJA."
 
 - Variable {{1}}: código del pedido (columna `pedidos`, el último).
-- Botón de enlace "Ver boletas" → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=recuperacion&utm_campaign=expirados-2026#boletas`
+- Botón de enlace "Ver boletas" → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=recuperacion&utm_campaign=expirados-2026`
 - Botón de respuesta rápida "Necesito ayuda".
 
 ## 5. Correo

@@ -15,10 +15,10 @@ Borradores para mandar a aprobación de Meta. Se envían igual que `pedido_expir
 ## Estructura de los enlaces
 
 ```
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=CAMPAÑA&utm_content=PIEZA#boletas
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=CAMPAÑA&utm_content=PIEZA
 ```
 
-- `#boletas` solo cuando el botón lleva a la tienda, siempre al final.
+- Sin `#boletas` (decisión del 2026-10-26): la portada tiene varios botones de compra.
 - Cada campaña nueva se anota en la lista de `docs/medicion/embudo/enlaces-y-nombres.md` el día en que se crea.
 - Para la prueba antes de enviar, abrir el enlace a mano con `utm_source=prueba`.
 
@@ -39,7 +39,7 @@ Si te quedó alguna duda, escríbenos por aquí.
 ```
 
 - Botón de enlace **Ver boletas**:
-  `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=seguimiento-chat&utm_content=plantilla-seguimiento-chat#boletas`
+  `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=seguimiento-chat&utm_content=plantilla-seguimiento-chat`
 - Botón de respuesta rápida **Tengo una pregunta**
 
 ## 2. Pedido pendiente de pago
@@ -58,7 +58,7 @@ Si ya pagaste, no tienes que hacer nada: el pago puede tardar en reflejarse. Si 
 ```
 
 - Botón de enlace **Ver mi pedido**:
-  `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=pendientes&utm_content=plantilla-pedido-pendiente#boletas`
+  `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=pendientes&utm_content=plantilla-pedido-pendiente`
   Si se puede, mejor el enlace directo al pedido en Pretix (el que llega en el correo de confirmación), como botón de enlace dinámico con el código.
 - Botón de respuesta rápida **Necesito ayuda**
 
@@ -99,9 +99,9 @@ La boleta de medio día cuesta 90.000 COP y el pase completo, con los tres días
 ```
 
 - Botón de enlace **Ver boletas**:
-  `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=cupos&utm_content=plantilla-cupos_FRANJA#boletas`
+  `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=cupos&utm_content=plantilla-cupos_FRANJA`
   Franjas: `viernes-tarde`, `sabado-manana`, `sabado-tarde`, `domingo-manana`.
-  Ejemplo: `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=cupos&utm_content=plantilla-cupos_sabado-manana#boletas`
+  Ejemplo: `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=cupos&utm_content=plantilla-cupos_sabado-manana`
 
 Franjas y sesiones, según la agenda:
 

@@ -49,7 +49,7 @@ El pase de fin de semana está en $240.000 en vez de $270.000, un descuento por 
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
 - Botón de respuesta rápida **Sí, ayúdame**.
-- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc1-mujeres-periodistas_boletas#boletas`
+- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc1-mujeres-periodistas_boletas`
 - Botón de enlace **Ver hoteles** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc1-mujeres-periodistas_hospedaje#hospedaje`
 
 ## RC2 · martes 27 de octubre · `rc2_reelecciones`
@@ -68,7 +68,7 @@ Esa conversación entra en el pase de fin de semana, que está en $240.000 en ve
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
 - Botón de respuesta rápida **Sí, quiero**.
-- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc2-reelecciones_boletas#boletas`
+- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc2-reelecciones_boletas`
 - Botón de enlace **Ver hoteles** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc2-reelecciones_hospedaje#hospedaje`
 
 ## RC3 · miércoles 28 de octubre · `rc3_recorrido_completo`
@@ -87,7 +87,7 @@ Para vivirlo entero, el pase completo vale $340.000. Si no puedes el viernes, el
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
 - Botón de respuesta rápida **Tengo una pregunta**.
-- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc3-recorrido-completo_boletas#boletas`
+- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc3-recorrido-completo_boletas`
 - Botón de enlace **Ver hoteles** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc3-recorrido-completo_hospedaje#hospedaje`
 
 ## RC4 · jueves 29 de octubre · `rc4_ultimo_dia_fin_de_semana`
@@ -108,7 +108,7 @@ Si vienes de fuera, tenemos varios hoteles aliados con descuentos especiales par
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
 - Botón de respuesta rápida **Sí, quiero**.
-- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc4-ultimo-dia_boletas#boletas`
+- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc4-ultimo-dia_boletas`
 - Botón de enlace **Ver hoteles** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc4-ultimo-dia_hospedaje#hospedaje`
 
 ## RC5 · viernes 30 de octubre · `rc5_negociaciones_paz`
@@ -127,7 +127,7 @@ Esa conversación entra en la boleta del sábado en la mañana y en el pase de f
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
 - Botón de respuesta rápida **Sí, ayúdame**.
-- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc5-negociaciones-paz_boletas#boletas`
+- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc5-negociaciones-paz_boletas`
 - Botón de enlace **Ver hoteles** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc5-negociaciones-paz_hospedaje#hospedaje`
 
 ## RC6 · sábado 31 de octubre (de 8:00 a.m. a 3:00 p.m.) · `rc6_narcotrafico`
@@ -146,7 +146,7 @@ El pase de fin de semana sigue con descuento por tiempo limitado, y también est
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
 - Botón de respuesta rápida **Sí, cuéntame**.
-- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc6-narcotrafico_boletas#boletas`
+- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc6-narcotrafico_boletas`
 - Botón de enlace **Ver hoteles** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc6-narcotrafico_hospedaje#hospedaje`
 
 ## RC7 · martes 3 de noviembre · `rc7_magnicidios_victimas`
@@ -165,7 +165,7 @@ El pase de fin de semana sigue con descuento por tiempo limitado, y la boleta de
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
 - Botón de respuesta rápida **Sí, ayúdame**.
-- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc7-magnicidios-victimas_boletas#boletas`
+- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc7-magnicidios-victimas_boletas`
 - Botón de enlace **Ver hoteles** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc7-magnicidios-victimas_hospedaje#hospedaje`
 
 ## RC8 · miércoles 4 de noviembre · `rc8_manana_empieza`
@@ -184,5 +184,5 @@ Para los conversatorios en Duruelo todavía hay cupo: el pase completo desde el 
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
 - Botón de respuesta rápida **Sí, ayúdame**.
-- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc8-manana-empieza_boletas#boletas`
+- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc8-manana-empieza_boletas`
 - Botón de enlace **Ver hoteles** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc8-manana-empieza_hospedaje#hospedaje`

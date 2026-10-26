@@ -97,6 +97,10 @@ def revisar(texto: str, hechos: dict, publico: bool = True, lineas: list[tuple[i
         ("precio que no es ninguno vigente", re.compile(r"\$?\b(\d{2,3})\.000\b"),
          lambda m: int(m.group(1)) * 1000 not in precios),
         ("enlace sin https", re.compile(r"\bhttp://[^\s)\"'<]+"), lambda m: True),
+        # Decisión del titular (2026-10-26): la portada muestra primero a los panelistas y tiene varios
+        # botones de compra; solo #agenda, #hospedaje y #lugar llevan a una sección.
+        ("enlace con #boletas o #speakers", re.compile(r"https://testigosdelamemoria\.com/\S*#(?:boletas|speakers)\b"),
+         lambda m: True),
         ("WhatsApp distinto del vigente", re.compile(r"https://wa\.me/[^\s)\"'<]+"),
          lambda m: not m.group(0).startswith(whatsapp)),
         ("el pase no es de cuatro días",
@@ -173,6 +177,7 @@ CASOS = [
     ("Talleres de periodismo gratis el jueves.", "charlas abiertas, no talleres"),
     ("Precio especial hasta el lunes 12 de octubre.", "fecha de etapa vencida"),
     ("Preguntas? Escríbannos:", "pregunta sin '¿' de apertura"),
+    ("Boletas: https://testigosdelamemoria.com/?utm_source=whatsapp#boletas", "enlace con #boletas o #speakers"),
 ]
 
 

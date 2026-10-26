@@ -34,7 +34,7 @@ Ejemplo de una campaña con cuatro anuncios:
 - Cortos: dos a cuatro palabras en total suelen bastar.
 - Una pieza sin variantes no lleva variable: `afiche-plaza-villa-de-leyva`.
 - Siempre `https://` (en Colombia el sitio no responde por http).
-- Si el enlace baja a la tienda, `#boletas` va **al final**, después de las etiquetas.
+- **Sin `#boletas` ni `#speakers`** (titular, 2026-10-26): la portada muestra primero a los panelistas y tiene varios botones de compra. Solo `#agenda` o `#hospedaje`, **al final** y después de las etiquetas, cuando el enlace es de la programación o de los hoteles.
 - `utm_campaign` es obligatoria. Sin ella la fila sale `(not set)`, como pasó con la bio el 12 de octubre.
 
 ## Las cuatro etiquetas
@@ -165,9 +165,9 @@ Para el ensayo antes de lanzar se abre a mano la URL con `utm_source=prueba` en 
 Un solo prompt para Instagram y WhatsApp:
 
 - Inicio: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=inicio`
-- Comprar: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=boletas#boletas`
+- Comprar: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=boletas`
 - Programación: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=agenda#agenda`
-- Panelistas: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=panelistas#speakers`
+- Panelistas: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=panelistas`
 - Hoteles: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=hospedaje#hospedaje`
 - Sedes: `https://testigosdelamemoria.com/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=lugar#lugar`
 - Términos (solo si preguntan): `https://testigosdelamemoria.com/terminos-y-condiciones/?utm_source=chatbot&utm_medium=chatbot&utm_campaign=permanente&utm_content=terminos`
@@ -191,9 +191,9 @@ Se cambia lo que está en MAYÚSCULAS: `CAMPAÑA` por el nombre de la campaña y
 - Mensaje directo de Instagram enviado por el equipo:
   `https://testigosdelamemoria.com/?utm_source=instagram&utm_medium=mensaje&utm_campaign=CAMPAÑA&utm_content=PIEZA`
 - Correo masivo (Resend):
-  `https://testigosdelamemoria.com/?utm_source=email&utm_medium=email&utm_campaign=CAMPAÑA&utm_content=PIEZA#boletas`
+  `https://testigosdelamemoria.com/?utm_source=email&utm_medium=email&utm_campaign=CAMPAÑA&utm_content=PIEZA`
 - Plantilla de WhatsApp a una lista:
-  `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=CAMPAÑA&utm_content=PIEZA#boletas`
+  `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=CAMPAÑA&utm_content=PIEZA`
 
 Ejemplos de `PIEZA`: `historia-sede`, `historia-panelistas_cuenta-regresiva`, `estado-ultimo-dia`, `correo-pedido`, `plantilla-ultimo-dia_frio` y `plantilla-ultimo-dia_caliente` si la misma plantilla va a dos listas distintas.
 

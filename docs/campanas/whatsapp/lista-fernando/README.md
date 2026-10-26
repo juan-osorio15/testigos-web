@@ -56,7 +56,7 @@ Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuent
 https://wa.me/573239236021?text=Hola%2C%20Fernando%20me%20cont%C3%B3%20de%20Testigos%20de%20la%20Memoria
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=carrusel-yolanda-ruiz#boletas
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=carrusel-yolanda-ruiz
 ```
 
 ## LF3 · lunes 26 de octubre
@@ -72,7 +72,7 @@ Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuent
 https://wa.me/573239236021?text=Hola%2C%20Fernando%20me%20cont%C3%B3%20de%20Testigos%20de%20la%20Memoria
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=carrusel-fidel-cano#boletas
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=carrusel-fidel-cano
 ```
 
 ## LF4 · martes 27 de octubre
@@ -88,7 +88,7 @@ Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuent
 https://wa.me/573239236021?text=Hola%2C%20Fernando%20me%20cont%C3%B3%20de%20Testigos%20de%20la%20Memoria
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=carrusel-marta-ruiz#boletas
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=carrusel-marta-ruiz
 ```
 
 ## LF5 · miércoles 28 de octubre
@@ -104,7 +104,7 @@ Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuent
 https://wa.me/573239236021?text=Hola%2C%20Fernando%20me%20cont%C3%B3%20de%20Testigos%20de%20la%20Memoria
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=carrusel-maria-elvira-samper#boletas
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=carrusel-maria-elvira-samper
 ```
 
 ## LF6 · jueves 29 de octubre
@@ -120,7 +120,7 @@ Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuent
 https://wa.me/573239236021?text=Hola%2C%20Fernando%20me%20cont%C3%B3%20de%20Testigos%20de%20la%20Memoria
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=afiches-domingo#boletas
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=afiches-domingo
 ```
 
 ## LF7 · viernes 30 de octubre
@@ -136,7 +136,7 @@ Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuent
 https://wa.me/573239236021?text=Hola%2C%20Fernando%20me%20cont%C3%B3%20de%20Testigos%20de%20la%20Memoria
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=carrusel-cecilia-orozco#boletas
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=carrusel-cecilia-orozco
 ```
 
 ## LF8 · sábado 31 de octubre (antes de las 3:00 p.m.)
@@ -152,7 +152,7 @@ Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuent
 https://wa.me/573239236021?text=Hola%2C%20Fernando%20me%20cont%C3%B3%20de%20Testigos%20de%20la%20Memoria
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=carrusel-luz-maria-sierra#boletas
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=carrusel-luz-maria-sierra
 ```
 
 ## LF9 · martes 3 de noviembre
@@ -168,7 +168,7 @@ Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuent
 https://wa.me/573239236021?text=Hola%2C%20Fernando%20me%20cont%C3%B3%20de%20Testigos%20de%20la%20Memoria
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=carrusel-martha-soto#boletas
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=carrusel-martha-soto
 ```
 
 ## LF10 · miércoles 4 de noviembre
@@ -184,7 +184,7 @@ Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuent
 https://wa.me/573239236021?text=Hola%2C%20Fernando%20me%20cont%C3%B3%20de%20Testigos%20de%20la%20Memoria
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=carrusel-ricardo-ospina#boletas
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=carrusel-ricardo-ospina
 ```
 
 ## LF11 · jueves 5 de noviembre (temprano, antes de las 10:00 a.m.)
@@ -200,7 +200,7 @@ Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuent
 https://wa.me/573239236021?text=Hola%2C%20Fernando%20me%20cont%C3%B3%20de%20Testigos%20de%20la%20Memoria
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=carrusel-ana-maria-echeverri#boletas
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=carrusel-ana-maria-echeverri
 ```
 
 ## LF12 · viernes 6 de noviembre (en la mañana; antes, confirmar en Pretix que sigue habiendo boletas)
@@ -214,5 +214,5 @@ Todavía hay cupo para el sábado y el domingo. Boleta de medio día: $90.000, o
 https://wa.me/573239236021?text=Hola%2C%20Fernando%20me%20cont%C3%B3%20de%20Testigos%20de%20la%20Memoria
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=afiches-fin-de-semana#boletas
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=afiches-fin-de-semana
 ```

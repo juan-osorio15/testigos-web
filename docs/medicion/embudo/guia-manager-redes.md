@@ -27,7 +27,7 @@ No cambia la página que se abre. Solo le dice al sitio de dónde viene la visit
 ## En cada publicación, historia o mensaje con enlace
 
 - Sticker de enlace en historias, enlace en una publicación de Facebook, estado o mensaje de WhatsApp: cada uno con su enlace, armado con las plantillas de `enlaces-y-nombres.md` ("Por campaña").
-- `#boletas` al final si el enlace debe bajar directo a la tienda.
+- Sin `#boletas`: la portada tiene varios botones de compra. Solo `#agenda` o `#hospedaje` al final, si el enlace es de la programación o de los hoteles.
 
 ## En cada anuncio de Meta
 
