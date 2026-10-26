@@ -56,14 +56,14 @@ Los comandos de envío vuelven a armarla en el momento: alguien puede comprar en
 - Plantilla: `scripts/campanas/plantillas/interesado-texto.html` (desde el 2026-10-26; la anterior, `interesado-aviso.html`, con la fórmula visual, sigue en el historial de git).
 - Asunto: "Sobre el aviso que nos pediste" (desde el 2026-10-26; antes, "Tu aviso de Testigos de la Memoria: ya abrieron las boletas de medio día").
 - Remitente: `Juan de Testigos de la Memoria <direccion@testigosdelamemoria.com>`, sin la cabecera `List-Unsubscribe`; las respuestas llegan a manager@eventalist.co (desde el 2026-10-26; antes, a hola@eventalist.co).
-- Contenido, como correo escrito a mano: el saludo con el nombre, el recordatorio de que la persona pidió el aviso, los cuatro temas con sus panelistas (sin horarios), "Cada uno cuenta en persona lo que vio de cerca, y uno puede hacerles preguntas.", un solo enlace a la portada (con la agenda, las boletas y los hoteles), "¿Cuál tema te llama más? Respóndeme y te ayudo a escoger." y la firma de Juan. Pie con la razón del mensaje y la baja.
+- Contenido, como correo escrito a mano: el saludo con el nombre, el recordatorio de que la persona pidió el aviso, los cuatro temas con sus panelistas (sin horarios), "Cada uno cuenta en persona lo que vio de cerca, y uno puede hacerles preguntas.", "Si quieres revisar la agenda completa o ver cómo asistir…" con un solo enlace a la portada, los hoteles sin enlace propio, "¿Cuál tema te llama más? Respóndeme y te ayudo a escoger." y la firma de Juan. Pie con la razón del mensaje y la baja.
 
 ### Por qué así (Principal y no Promociones)
 
 Decisión del titular del 2026-10-26: los correos de campaña se ven como un correo personal.
 
 - Sin más imagen que el logo sobre terracota, sin botones y sin texto oculto de vista previa.
-- Sin precios, descuentos ni fechas límite: el correo antoja con el contenido del evento, y lo comercial queda en la página. Con el descuento y su fecha seguía cayendo en Promociones (pruebas del titular del 2026-10-26).
+- Sin precios, descuentos, fechas límite ni la palabra "boletas" (ni "venta" ni "tienda"): el correo antoja con el contenido del evento, y lo comercial queda en la página. Con el descuento y su fecha seguía cayendo en Promociones (pruebas del titular del 2026-10-26).
 - Enlace sin UTM: los parámetros `utm_campaign` y `utm_content` delatan una campaña (decisión del titular del 2026-10-26). La conversión se mide con la lista: quien compró ya no sale en `campana.py lista`.
 - Un solo enlace, dentro del texto. Nada de redes, WhatsApp ni política enlazados.
 - Una pregunta que invita a responder: cada respuesta le enseña a Gmail que el remitente es conversación.
