@@ -28,7 +28,7 @@ El domingo 1 y el lunes 2 (festivo) no se envía.
    ```sh
    python3 scripts/campanas/campana.py respondio compradores
    ```
-   Deja en `~/Downloads` un CSV con nombre completo (de Pretix), teléfono, correo, la etiqueta `compradores-<fecha>` y Lifecycle Customer de cada persona con un pedido pagado. Importarlo en respond.io (Contacts → Import), actualizando los contactos que ya existen.
+   Deja en `~/Downloads` un CSV con nombre completo (de Pretix), teléfono, correo, la etiqueta `compradores-<fecha>` y Lifecycle Customer de cada persona con un pedido pagado. Importarlo en respond.io (Contacts → Import) con Purpose **Update existing contacts only** e identificador Phone: solo se marcan los que ya escribieron a Catalina. Con "Add & update" los compradores que nunca escribieron entrarían como contactos nuevos, y no hace falta: un broadcast no le llega a quien no está en respond.io.
 2. En respond.io, Broadcasts → nuevo broadcast, canal WhatsApp del número colombiano, plantilla del día.
 3. Audiencia: el segmento guardado `inactivos`: "Time Since Last Incoming Message" mayor que 24 horas, Lifecycle distinto de Customer y Baja distinto de "si".
 4. Programarlo dentro del horario de la Ley 2300 (mejor entre 9:00 y 11:00 a.m.).
