@@ -56,14 +56,14 @@ Los comandos de envío vuelven a armarla en el momento: alguien puede comprar en
 - Plantilla: `scripts/campanas/plantillas/interesado-texto.html` (desde el 2026-10-26; la anterior, `interesado-aviso.html`, con la fórmula visual, sigue en el historial de git).
 - Asunto: "Tu aviso de Testigos de la Memoria: ya abrieron las boletas de medio día".
 - Remitente: `Juan de Testigos de la Memoria <direccion@testigosdelamemoria.com>`, sin la cabecera `List-Unsubscribe`; las respuestas llegan a hola@eventalist.co.
-- Contenido, como correo escrito a mano: el saludo con el nombre, el recordatorio de que la persona pidió el aviso, los cuatro temas con sus panelistas (sin horarios), el precio del medio día y el pase de fin de semana por tiempo limitado, el enlace a la portada dentro del texto, "¿Cuál tema te llama más? Respóndeme este correo y te ayudo a escoger." y la firma de Juan. Pie con la razón del mensaje y la baja. Los precios salen de `evento.json`.
+- Contenido, como correo escrito a mano: el saludo con el nombre, el recordatorio de que la persona pidió el aviso, los cuatro temas con sus panelistas (sin horarios), el precio del medio día, el pase de fin de semana con su descuento hasta el fin de la etapa (`{{fin_etapa_actual}}`: después del 29 de octubre el script se detiene y hay que cambiar esa frase), el enlace a la portada dentro del texto, los hoteles aliados con su enlace a `#hospedaje`, "¿Cuál tema te llama más? Respóndeme este correo y te ayudo a escoger." y la firma de Juan. Pie con la razón del mensaje y la baja. Los precios salen de `evento.json`.
 
 ### Por qué así (Principal y no Promociones)
 
 Decisión del titular del 2026-10-26: los correos de campaña se ven como un correo personal.
 
 - Sin imágenes, sin colores, sin botones y sin texto oculto de vista previa.
-- Un solo enlace, dentro del texto. Nada de redes, WhatsApp ni política enlazados.
+- Pocos enlaces, dentro del texto: la portada y los hoteles. Nada de redes, WhatsApp ni política enlazados.
 - Una pregunta que invita a responder: cada respuesta le enseña a Gmail que el remitente es conversación.
 - Remitente con nombre de persona, siempre el mismo, desde el dominio del evento.
 - Asunto y primera línea que responden a algo que la persona pidió, con su nombre. Sin precio en el asunto ni palabras de oferta.
