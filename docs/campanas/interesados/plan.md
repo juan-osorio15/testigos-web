@@ -55,7 +55,7 @@ Los comandos de envío vuelven a armarla en el momento: alguien puede comprar en
 
 - Plantilla: `scripts/campanas/plantillas/interesado-aviso.html`.
 - Asunto: "Tu aviso de Testigos de la Memoria: ya abrieron las boletas de medio día".
-- Remitente: `Juan de Testigos de la Memoria <hola@eventalist.co>`, sin la cabecera `List-Unsubscribe`, como el de expirados.
+- Remitente: `Juan de Testigos de la Memoria <direccion@testigosdelamemoria.com>`, sin la cabecera `List-Unsubscribe`, como el de expirados.
 - Contenido, con la fórmula visual: logo y "TU AVISO DE VENTA" en crema; en terracota "NOS PEDISTE QUE TE AVISÁRAMOS" y el titular "Ya están a la venta las boletas de medio día.", remate "Escoge tu franja."; franja cielo con $90.000 por franja y el botón "Escoger mi franja"; en blanco el saludo con el nombre, el recordatorio de que la persona pidió el aviso y las cuatro franjas con sus temas y panelistas, más una línea del pase completo a $340.000; en ladrillo "¿No sabes cuál escoger? Responde este correo y te ayudamos."; pie con la razón del mensaje y la baja.
 
 ### Por qué así (Principal y no Promociones)

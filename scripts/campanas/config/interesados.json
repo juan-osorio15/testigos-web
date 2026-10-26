@@ -10,7 +10,7 @@
       "activo": true,
       "plantilla": "interesado-aviso.html",
       "asunto": "Tu aviso de Testigos de la Memoria: ya abrieron las boletas de medio día",
-      "remitente": "Juan de Testigos de la Memoria <hola@eventalist.co>"
+      "remitente": "Juan de Testigos de la Memoria <direccion@testigosdelamemoria.com>"
     },
     "whatsapp": {
       "activo": true,
