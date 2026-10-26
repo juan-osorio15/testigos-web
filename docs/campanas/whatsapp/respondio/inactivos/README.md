@@ -20,13 +20,13 @@ El domingo 1 y el lunes 2 (festivo) no se envía.
 ## Antes del primer envío (una sola vez)
 
 - [ ] **Crear las 8 plantillas** en WhatsApp Manager, con el texto exacto de abajo, al menos un día antes de su envío. Nombre, cuerpo, pie y botones como dice cada bloque. Si alguna ya se mandó a Meta con el texto del 25 de octubre, la nueva se crea con `_v2` al final del nombre.
-- [ ] **Decidir cómo se marca a quien pidió la baja.** Hoy Catalina pone en Cold Lead tanto a quien dice "No me interesa" como a quien no respondió los seguimientos, así que el Lifecycle no los distingue. Sin eso, el filtro de abajo deja por fuera a todos los Cold Lead (y se pierde a los inactivos) o los incluye a todos (y le escribe a quien pidió que no). Lo sólido: que Catalina agregue la etiqueta `baja` cuando alguien la pide, en una versión nueva del prompt, y marcar a mano a quienes ya la pidieron.
+- [ ] **La baja (decisión del titular, 2026-10-26).** En respond.io, crear el campo de contacto **Baja** (texto). Pegar `docs/chatbot/prompt_v4.md` en Catalina: quien responda BAJA o "no me interesa" queda con Baja = "si". A quienes ya la pidieron antes, ponérselo a mano.
 - [ ] **Compradores que no se lo dijeron a Catalina.** Quien compró en la página sin avisar en el chat sigue como Hot Lead o Payment y le llegaría el mensaje. Antes del primer envío, cotejar con los compradores de Pretix y pasarlos a Customer.
 
 ## Cada día
 
 1. En respond.io, Broadcasts → nuevo broadcast, canal WhatsApp del número colombiano, plantilla del día.
-2. Audiencia: contactos con la conversación cerrada, Lifecycle distinto de Customer y sin la etiqueta `baja`.
+2. Audiencia: el segmento guardado `inactivos`: "Time Since Last Incoming Message" mayor que 24 horas, Lifecycle distinto de Customer y Baja distinto de "si". Antes de enviar, revisar la lista a mano y sacar a quien se sepa que ya compró.
 3. Programarlo dentro del horario de la Ley 2300 (mejor entre 9:00 y 11:00 a.m.).
 4. **RC5 en adelante:** confirmar en Pretix, el mismo día, que el pase de fin de semana y la boleta de medio día que nombra la plantilla siguen a la venta. Desde el 30 de octubre las plantillas dicen "con descuento por tiempo limitado" sin cifras, porque el precio de la etapa 3 todavía no está definido.
 
