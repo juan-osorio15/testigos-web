@@ -24,15 +24,10 @@ El domingo 1 y el lunes 2 (festivo) no se envía.
 
 ## Cada día
 
-1. **Marcar a los compradores**, justo antes del broadcast, porque casi nadie le avisa a Catalina que compró:
-   ```sh
-   python3 scripts/campanas/campana.py respondio compradores
-   ```
-   Deja en `~/Downloads` un CSV con nombre completo (de Pretix), teléfono, correo, la etiqueta `compradores-<fecha>` y Lifecycle Customer de cada persona con un pedido pagado. Importarlo en respond.io (Contacts → Import) con Purpose **Update existing contacts only** e identificador Phone: solo se marcan los que ya escribieron a Catalina. Con "Add & update" los compradores que nunca escribieron entrarían como contactos nuevos, y no hace falta: un broadcast no le llega a quien no está en respond.io.
-2. En respond.io, Broadcasts → nuevo broadcast, canal WhatsApp del número colombiano, plantilla del día.
-3. Audiencia: el segmento guardado `inactivos`: "Time Since Last Incoming Message" mayor que 24 horas, Lifecycle distinto de Customer y Baja distinto de "si".
-4. Programarlo dentro del horario de la Ley 2300 (mejor entre 9:00 y 11:00 a.m.).
-5. **RC5 en adelante:** confirmar en Pretix, el mismo día, que el pase de fin de semana y la boleta de medio día que nombra la plantilla siguen a la venta. Desde el 30 de octubre las plantillas dicen "con descuento por tiempo limitado" sin cifras, porque el precio de la etapa 3 todavía no está definido.
+1. En respond.io, Broadcasts → nuevo broadcast, canal WhatsApp del número colombiano, plantilla del día.
+2. Audiencia: el segmento guardado `inactivos`: "Time Since Last Incoming Message" mayor que 24 horas, Lifecycle distinto de Customer y Baja distinto de "si".
+3. Programarlo dentro del horario de la Ley 2300 (mejor entre 9:00 y 11:00 a.m.).
+4. **RC5 en adelante:** confirmar en Pretix, el mismo día, que el pase de fin de semana y la boleta de medio día que nombra la plantilla siguen a la venta. Desde el 30 de octubre las plantillas dicen "con descuento por tiempo limitado" sin cifras, porque el precio de la etapa 3 todavía no está definido.
 
 Si alguien también está en IN o EX, el mismo día le pueden llegar dos mensajes. Se acepta (sin límite de mensajes por persona desde el 19 de octubre).
 

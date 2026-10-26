@@ -55,7 +55,7 @@ Vista previa del WhatsApp por la API de Meta, sin respond.io (el texto sale en l
 ### `python3 scripts/campanas/campana.py respondio <campaña>`
 Arma el CSV de importación de respond.io en `~/Downloads`, solo con quien autorizó WhatsApp, con la etiqueta y la fecha (`expirados-25102026`).
 - `respondio expirados` y `respondio interesados`: listas para broadcasts.
-- `respondio compradores`: compradores como Customer, para que no les lleguen los broadcasts. Correrlo e importarlo justo antes de cada broadcast.
+- `respondio compradores`: compradores como Customer (todo teléfono, sin mirar la autorización). Opcional: casi ningún comprador está en respond.io. Si se usa, importar con Purpose "Update existing contacts only" e identificador Phone, para no crear contactos nuevos.
 - `--salida RUTA.csv`: guarda el archivo en otra parte.
 - `--dias N` y `--excluir`: igual que en `lista`.
 
