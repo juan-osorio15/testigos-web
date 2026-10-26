@@ -12,6 +12,13 @@
  * la medición). Arriba, el texto estándar ("Usamos cookies") y tres frases
  * cortas que tranquilizan.
  *
+ * Mientras la persona mira el hero no hay aviso. Cuando baja más de un
+ * cuarto de pantalla, el panel sube desde el borde inferior y todo lo de
+ * encima se oscurece, con la misma curva; ya no se va aunque vuelva a
+ * subir. En una página demasiado corta para bajar, sale de una vez. En
+ * cada página empieza de nuevo. Si a los 7 segundos de oscurecerse sigue sin decidir, el botón
+ * de aceptar empieza a palpitar, para quien no relacione el velo con él.
+ *
  * "Configurar" abre una tarjeta centrada con esas tres frases explicadas
  * y las dos categorías, analítica y publicidad, activadas: quien no las
  * quiere las apaga una por una y pulsa "Guardar" (con las dos apagadas no
@@ -99,11 +106,11 @@ const points = [
               <input type="checkbox" role="switch" name={o.name} checked />
             </label>
           ))}
+          <button type="button" class="prefs-revoke consent-config-save" data-config-save>
+            {t('consent.save')}
+          </button>
           <button type="button" class="consent-accept consent-config-accept" data-config-accept>
             {t('consent.acceptAll')}
-          </button>
-          <button type="button" class="consent-more consent-config-save" data-config-save>
-            {t('consent.save')}
           </button>
           <a class="consent-options-policy" href={policyHref}>{t('consent.policy')}</a>
         </div>
@@ -168,16 +175,33 @@ const points = [
 
         let bar: HTMLElement | null = null;
         let sizer: ResizeObserver | null = null;
+        let nudgeTimer = 0;
 
-        // Publica el alto del aviso en --consent-h: el hero fijo de la
-        // portada se recorta para que su franja con el CTA no quede tapada,
-        // y el resto de páginas gana ese espacio al final.
+        // Panel y velo: salen al bajar más de un cuarto de pantalla y se
+        // quedan en esa página aunque la persona vuelva a subir
+        const reveal = () => {
+          if (!bar || bar.classList.contains('is-shown')) return;
+          bar.classList.add('is-shown');
+          window.removeEventListener('scroll', onScroll);
+          publishHeight();
+          // Si a los 7 s sigue sin decidir, el botón de aceptar palpita
+          nudgeTimer = window.setTimeout(() => bar?.classList.add('is-nudging'), 7000);
+        };
+        const onScroll = () => {
+          if (window.scrollY > window.innerHeight * 0.25) reveal();
+        };
+
+        // Publica el alto del aviso a la vista en --consent-h: las páginas
+        // ganan ese espacio al final para que el panel no tape lo último.
         const root = document.documentElement;
         const publishHeight = () => {
-          root.style.setProperty('--consent-h', bar ? `${bar.offsetHeight}px` : '0px');
+          const shown = bar?.classList.contains('is-shown');
+          root.style.setProperty('--consent-h', bar && shown ? `${bar.offsetHeight}px` : '0px');
         };
 
         const hideBar = () => {
+          window.removeEventListener('scroll', onScroll);
+          window.clearTimeout(nudgeTimer);
           sizer?.disconnect();
           sizer = null;
           window.removeEventListener('resize', publishHeight);
@@ -233,6 +257,10 @@ const points = [
             hideBar();
           });
           node.querySelector('[data-consent-more]')?.addEventListener('click', openConfig);
+          // Sin recorrido suficiente para bajar, sale de una vez
+          const room = document.documentElement.scrollHeight - window.innerHeight;
+          if (room < window.innerHeight * 0.5) window.requestAnimationFrame(reveal);
+          else window.addEventListener('scroll', onScroll, { passive: true });
         };
 
         // --- Gestor de preferencias ---
@@ -310,25 +338,76 @@ const points = [
     padding-bottom: var(--consent-h, 0px);
   }
 
-  /* --- Aviso: panel crema al pie, un tercio de la pantalla (40 % en
-     celular). Claro, con filo terracota y sombra, para que salte sobre la
-     tinta y la terracota del sitio y estorbe lo suficiente para que se
-     resuelva, sin bloquear la página (2026-10-26: en tinta y a un cuarto
-     pasaba como parte del sitio). Aceptar en terracota; "Configurar" en
-     texto pequeño. */
+  /* --- Aviso: panel crema al pie, un cuarto de la pantalla, sin filo.
+     Todo lo de encima queda oscurecido de forma pareja, para
+     que el panel salte y estorbe lo suficiente para que se resuelva; el
+     velo no captura clics, así que la página sigue usable (2026-10-26: en
+     tinta y sin velo pasaba como parte del sitio). Aceptar en terracota;
+     "Configurar" en texto pequeño. */
   .consent {
     position: fixed;
     inset: auto 0 0 0;
     z-index: 60;
     display: grid;
     align-items: center;
-    min-height: 33svh;
+    min-height: 25svh;
     background-color: var(--cream);
+    /* Escondido bajo el borde hasta que la persona baja; sube parejo, sin
+       brinco, mientras el velo cae */
+    transform: translateY(100%);
+    visibility: hidden;
+    transition:
+      transform 500ms linear,
+      visibility 0s 500ms;
     color: var(--ink);
-    border-top: 6px solid var(--terracotta);
-    box-shadow: 0 -1.5rem 3rem rgba(33, 8, 4, 0.45);
     padding-block: var(--space-4);
     line-height: 1.45;
+  }
+  /* El velo: cubre la pantalla por encima del panel, sin tapar el panel.
+     Aparece cuando la persona empieza a bajar (clase is-shown). */
+  .consent::before {
+    content: '';
+    position: absolute;
+    inset: auto 0 100% 0;
+    height: 100vh;
+    background-color: rgba(33, 8, 4, 0.5);
+    pointer-events: none;
+    opacity: 0;
+    /* Arranque inmediato y frenada suave: se nota el golpe sin brinco */
+    transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .consent.is-shown {
+    transform: none;
+    visibility: visible;
+    transition:
+      transform 500ms linear,
+      visibility 0s;
+  }
+  .consent.is-shown::before {
+    opacity: 1;
+  }
+  /* Palpitar del botón: solo un halo terracota que sale y se desvanece;
+     el botón no se mueve */
+  .consent.is-nudging .consent-accept {
+    animation: consent-pulse 1.6s var(--ease-out) infinite;
+  }
+  @keyframes consent-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(212, 91, 48, 0.6);
+    }
+    70% {
+      box-shadow: 0 0 0 1rem rgba(212, 91, 48, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(212, 91, 48, 0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .consent.is-nudging .consent-accept {
+      animation: none;
+      outline: 3px solid var(--ink);
+      outline-offset: 3px;
+    }
   }
   .consent-inner {
     display: flex;
@@ -413,7 +492,6 @@ const points = [
   }
   @media (max-width: 47.9rem) {
     .consent {
-      min-height: 40svh;
       padding-block: var(--space-3);
     }
     .consent-title {
@@ -447,7 +525,7 @@ const points = [
   }
 
   /* --- "Configurar": las tres razones en negrilla oliva, para escanear,
-     y debajo las categorías; un botón grande y "Guardar" en pequeño */
+     debajo las categorías con su "Guardar" y al final el botón grande */
   .consent-config .prefs-body {
     justify-items: start;
   }
@@ -479,8 +557,10 @@ const points = [
     padding: 0.9em 2em;
     font-size: 1.0625rem;
   }
+  /* "Guardar" justo debajo de los interruptores, como botón de borde:
+     quien llegó hasta aquí ve dónde guardar lo que apagó */
   .consent-config-save {
-    color: var(--ink);
+    justify-self: end;
   }
 
   /* --- Interruptores de analítica y publicidad (configuración y gestor) */

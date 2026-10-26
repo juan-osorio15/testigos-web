@@ -61,17 +61,16 @@ Disparadores de intención de compra (una vez por página, el primero que ocurra
 
 ## Aviso de consentimiento (`ConsentNotice.astro`)
 
-- Franja baja y discreta al pie de la pantalla, tinta sobre crema, texto pequeño sin negritas, una línea en escritorio y dos en móvil; visible hasta que se acepta o se cierra (no se pierde al hacer scroll). Elementos: texto, enlace "Política de datos" a `/tratamiento-de-datos/#cookies`, botón "Aceptar" (borde, sin relleno) y cerrar (×). Sin "Rechazar". Decisión del titular (2026-09-17): cumplir la norma sin llamar la atención; el detalle vive en la sección 10 de la política, donde quien lo busque lo encuentra.
-- Texto (`ui.ts` `consent.text`, versión corta del dictamen con responsable, proveedores, finalidad y enlace): "Eventalist usa cookies de analítica y publicidad (Google y Meta) para medir las visitas y la campaña de boletas. Al aceptar autorizas ese uso según la política de datos."
-- Solo "Aceptar" acepta: cerrar, ignorar, hacer scroll, navegar o pulsar "Más información" no cambian el estado. Cerrar oculta la barra durante la sesión (`sessionStorage`) y vuelve a mostrarla en la siguiente visita.
-- Al aceptar: crea `id` (UUID), guarda `ConsentState` en `localStorage['tdm.consent']`, actualiza Consent Mode a `granted`, envía `consent_granted` a GA4, dispara `tdm:consent` y oculta la barra. Sin registro en servidor (variante B).
-- No se muestra si `acceptedAt` existe con la misma `consentVersion`. Si `localStorage` no está disponible, la barra se oculta para la sesión y no se carga el píxel.
-- Sin JS: la barra no aparece (está dentro de un `<template>` que el script materializa), y no se carga ninguna etiqueta.
+- Forma, textos y comportamiento vigentes: `docs/medicion/aviso-de-cookies.md` (panel que sale al bajar, con velo; solo se quita con "Aceptar" o "Configurar"). La franja discreta con × que describía este contrato se reemplazó.
+- Solo "Aceptar", "Aceptar todas" o "Guardar" con alguna categoría encendida aceptan: ignorar el aviso, hacer scroll, navegar o abrir la política no cambian el estado. "Guardar" con todo apagado no acepta y oculta el aviso durante la sesión (`sessionStorage`).
+- Al aceptar: crea `id` (UUID), guarda `ConsentState` en `localStorage['tdm.consent']` con el alcance (`analytics`, `advertising`), actualiza Consent Mode, envía `consent_granted` a GA4, dispara `tdm:consent` y quita el aviso. Sin registro en servidor (variante B).
+- No se muestra si `acceptedAt` existe con la misma `consentVersion`. Si `localStorage` no está disponible, no se carga el píxel.
+- Sin JS: el aviso no aparece (está dentro de un `<template>` que el script materializa), y no se carga ninguna etiqueta.
 
 ## Gestor de preferencias (pie de página, todas las páginas)
 
-- Enlace "Cookies y preferencias" en `Footer.astro` que abre un `<dialog>` con el estado actual ("Aceptado el <fecha>" o "No aceptado"), el texto del aviso, botón "Aceptar" o "Retirar la aceptación" según el estado, y enlace a `/tratamiento-de-datos/#cookies`. Sin JS, el enlace lleva a la sección de la política.
-- Retirar: guarda `revokedAt`, pone `acceptedAt` en null, dispara `tdm:revoke` (Consent Mode a `denied`, borrado de cookies).
+- Enlace "Cookies y preferencias" en `Footer.astro` que abre un `<dialog>` con el estado actual (fecha e identificador de la aceptación, o "no has aceptado"), un interruptor por categoría, "Guardar" y enlace a `/tratamiento-de-datos/#cookies`. Sin JS, el enlace lleva a la sección de la política.
+- Guardar con todo apagado retira la aceptación: guarda `revokedAt`, pone `acceptedAt` en null, dispara `tdm:revoke` (Consent Mode a `denied`, borrado de cookies).
 
 ## Degradación (FR-006)
 

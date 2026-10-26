@@ -8,7 +8,7 @@
 
 > **Replanteado el 2026-09-17**: la capa de servidor (atribución de la compra real: widget → `api_meta` → webhook → backend → Conversions API y Measurement Protocol) se retiró por desproporcionada para un evento único. Quedan la capa 1 (SEO y contenido) y la capa 2 (medición en el navegador). Nada toca Pretix ni el backend de Eventalist. Los contratos de la capa retirada están en `docs/medicion/archivo-2027/`. Antes de cada publicación a `main` hay una revisión obligatoria de restos (FR-039, tarea T073).
 
-Convertir el sitio de una sola URL sin medición en un sitio medible y multipágina en las dos primeras semanas: medición de navegador (GA4 y píxel de Meta) con aviso de consentimiento discreto e intención de compra; marcado de evento completo para el módulo de eventos de Google (sedes con coordenadas, ofertas por etapa, subeventos, ponentes enlazados); 12 fichas de panelistas, programación, charlas abiertas y página de cómo llegar; sitemap derivado de una fuente única de rutas, Bing e IndexNow, `robots.txt` con los bots de respuesta de IA; título, descripción y precarga de la imagen principal. Todo estático en Astro 5, sin gestor de etiquetas ni dependencias nuevas de runtime, y sin entregables fuera de este repositorio.
+Convertir el sitio de una sola URL sin medición en un sitio medible y multipágina en las dos primeras semanas: medición de navegador (GA4 y píxel de Meta) con aviso de consentimiento e intención de compra; marcado de evento completo para el módulo de eventos de Google (sedes con coordenadas, ofertas por etapa, subeventos, ponentes enlazados); 12 fichas de panelistas, programación, charlas abiertas y página de cómo llegar; sitemap derivado de una fuente única de rutas, Bing e IndexNow, `robots.txt` con los bots de respuesta de IA; título, descripción y precarga de la imagen principal. Todo estático en Astro 5, sin gestor de etiquetas ni dependencias nuevas de runtime, y sin entregables fuera de este repositorio.
 
 ## Technical Context
 
@@ -118,7 +118,7 @@ docs/
 
 ## Fases de entrega (para /speckit-tasks)
 
-1. **Semana 1 · Medición y correcciones on-page** (publicable sola): configuración de medición, aviso de consentimiento discreto con Consent Mode y gestor de preferencias, GA4 y píxel, `begin_checkout` / `InitiateCheckout`, textos legales (sección 10 de cookies), título y descripción, preload de la hero, `noindex` legales, `robots.txt`, IndexNow en el deploy. Manual del usuario: cuentas de GA4 (Signals apagado) y Meta, Bing Webmaster Tools. En Pretix no cambia nada.
+1. **Semana 1 · Medición y correcciones on-page** (publicable sola): configuración de medición, aviso de consentimiento con Consent Mode y gestor de preferencias, GA4 y píxel, `begin_checkout` / `InitiateCheckout`, textos legales (sección 10 de cookies), título y descripción, preload de la hero, `noindex` legales, `robots.txt`, IndexNow en el deploy. Manual del usuario: cuentas de GA4 (Signals apagado) y Meta, Bing Webmaster Tools. En Pretix no cambia nada.
 2. **Revisión de restos antes de cada publicación** (T073): diff completo de la rama, búsqueda de términos de la capa retirada, checkout de Pretix idéntico.
 3. **Semana 2 · Marcado y arquitectura** (antes del 29 de septiembre): `routes.ts`, `seo/`, ofertas y disponibilidad derivada, sedes con geo, subeventos, fichas de panelistas con OG propio, índice, programación, charlas abiertas, migas, sitemap nuevo, reenvío en Search Console y Bing.
 4. **Semana 3 · Páginas prácticas** (antes del 15 de octubre): cómo llegar; dónde dormir si hay lista.

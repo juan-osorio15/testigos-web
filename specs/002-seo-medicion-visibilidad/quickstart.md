@@ -23,11 +23,11 @@ Guía de setup manual y de verificación. Cada bloque cierra un criterio de éxi
 npm run build && npm run preview
 ```
 
-1. Abrir la portada en una ventana limpia. Debe aparecer el aviso de consentimiento y permanecer al hacer scroll; en la pestaña Network solo `gtag/js` (no `fbevents.js`); en Application → Cookies **no** existe `_ga` ni `_fbp` (Consent Mode en `denied`); los pings a `/g/collect` llevan `gcs=G100`.
-2. Cerrar el aviso con ×: no aparecen cookies ni `fbevents.js`; al abrir otra pestaña nueva el aviso vuelve.
+1. Abrir la portada en una ventana limpia y bajar: el aviso de consentimiento sube desde abajo con el velo y permanece aunque se vuelva a subir (comportamiento en `docs/medicion/aviso-de-cookies.md`); en la pestaña Network solo `gtag/js` (no `fbevents.js`); en Application → Cookies **no** existe `_ga` ni `_fbp` (Consent Mode en `denied`); los pings a `/g/collect` llevan `gcs=G100`.
+2. "Configurar" → apagar Analítica y Publicidad → "Guardar": no aparecen cookies ni `fbevents.js`; en una sesión nueva el aviso vuelve.
 3. Pulsar "Aceptar": `localStorage['tdm.consent']` con `id`, versión, alcance y fecha; aparecen `_ga` y, tras `load`, `fbevents.js` y `_fbp`; en GA4 DebugView (con `?debug_mode=1` o la extensión) aparece `consent_granted`. Ninguna petición a servidores propios.
 4. Recargar: el aviso no vuelve a salir; `gcs=G111` en los pings.
-5. Pie de página → "Cookies y preferencias" → "Retirar la aceptación": `acceptedAt` en null, `_ga*`, `_fbp` y `_fbc` borradas, `gcs=G100`, y en la siguiente carga no se carga `fbevents.js`.
+5. Pie de página → "Cookies y preferencias" → apagar las dos categorías y "Guardar": `acceptedAt` en null, `_ga*`, `_fbp` y `_fbc` borradas, `gcs=G100`, y en la siguiente carga no se carga `fbevents.js`.
 6. Con la aceptación dada, pulsar "Comprar boletas" en el header: GA4 DebugView muestra `begin_checkout` con `currency: COP`; Meta Test Events (Events Manager → Test Events, con el código de prueba) muestra `InitiateCheckout` con el mismo `eventID` (se ve en el payload `/tr?…&eid=`).
 7. Con un bloqueador de anuncios activo: la página se ve igual, el widget de Pretix se construye, la consola no muestra errores no capturados.
 8. Sin JavaScript (DevTools → Disable JavaScript): no hay aviso, no hay etiquetas, el contenido y el enlace de compra se ven.

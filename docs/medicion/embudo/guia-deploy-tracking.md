@@ -43,7 +43,7 @@ define en el workflow de GitHub Pages.
      2026" y la sección 10 habla del envío de datos de los pedidos a Google y Meta.
    - `https://testigosdelamemoria.com/terminos-y-condiciones/` sección 12 dice "el correo electrónico y
      el teléfono".
-   - El aviso de cookies muestra "Ver opciones" y, dentro, "¿Nos ayudas a saber cómo llegaste?".
+   - Al bajar, el aviso de cookies sube desde abajo y oscurece la página (`docs/medicion/aviso-de-cookies.md`).
    - Entrar con `?utm_source=prueba&utm_campaign=verificacion`, pulsar "Comprar boletas": baja a las
      boletas sin recargar la página.
    - Bajo la tienda aparece el botón de WhatsApp (en celular, "¿Dudas? Escríbenos").
