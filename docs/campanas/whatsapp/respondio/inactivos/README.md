@@ -2,7 +2,7 @@
 
 Personas que le escribieron a Catalina, se les cerró la conversación por inactividad y no compraron. Ya conocen el evento y alguna vez preguntaron: el mensaje retoma la conversación como quien se acuerda de ellas, les cuenta algo que antoja, les resuelve dónde quedarse y les deja el pase de fin de semana. Termina en una pregunta para que respondan y Catalina siga.
 
-Cada plantilla tiene una sola idea (una conversación del programa o el recorrido completo) y abre de forma distinta: un dato, una pregunta sobre el tema, una noticia. No todas con "¿te imaginas…?". Después, la misma línea de hospedaje, sin nombrar un hotel (los hoteles y sus descuentos están en la página, en el botón Ver hoteles), y al final el pase de fin de semana con su descuento por tiempo limitado.
+Cada plantilla tiene una sola idea (una conversación del programa o el recorrido completo) y abre de forma distinta: un dato, una pregunta sobre el tema, una noticia. No todas con "¿te imaginas…?". Después, una línea de hospedaje (cuatro variantes que se alternan), sin nombrar un hotel (los hoteles y sus descuentos están en la página, en el botón Ver hoteles), y al final el pase de fin de semana con su descuento por tiempo limitado.
 
 ## Calendario
 
@@ -43,7 +43,7 @@ Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.). Hace u
 
 Yolanda Ruiz y María Elvira Samper cubrieron la guerra y el poder cuando casi ninguna mujer dirigía un noticiero en Colombia. El domingo 8 de noviembre en la mañana van a contar cómo fue, en Villa de Leyva, y vas a poder hacerles preguntas.
 
-Si te enreda la logística de dónde quedarte durante el evento, tenemos varios hoteles aliados con descuentos especiales para asistentes.
+Para que no tengas que preocuparte por el hospedaje, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
 El pase de fin de semana está en $240.000 en vez de $270.000, un descuento por tiempo limitado. ¿Te ayudamos a escoger tu boleta?
 ```
@@ -62,7 +62,7 @@ Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
 ¿Qué pasó detrás de las reelecciones de Uribe y Santos? Fidel Cano, director de El Espectador, y Cecilia Orozco lo conversan el sábado 7 de noviembre a las 5:00 p.m. en Villa de Leyva, y al final les puedes preguntar en persona.
 
-Si te enreda la logística de dónde quedarte durante el evento, tenemos varios hoteles aliados con descuentos especiales para asistentes.
+¿Ya sabes dónde quedarte? Tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
 Esa conversación entra en el pase de fin de semana, que está en $240.000 en vez de $270.000 por tiempo limitado. ¿Quieres que te lo dejemos listo?
 ```
@@ -81,7 +81,7 @@ Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
 Testigos de la Memoria está armado como un solo recorrido por la historia de Colombia. Empieza el viernes con Daniel Samper Pizano y el Bogotazo, y de ahí las conversaciones siguen en orden: las guerrillas, el Caguán y La Habana, el narcotráfico, las reelecciones, las víctimas y las mujeres que cubrieron todo eso.
 
-Si te enreda la logística de dónde quedarte durante el evento, tenemos varios hoteles aliados con descuentos especiales para asistentes.
+Si todavía no sabes dónde quedarte, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
 Para vivirlo entero, el pase completo vale $340.000. Si no puedes el viernes, el pase de fin de semana está en $240.000 en vez de $270.000, por tiempo limitado. ¿Cuál te sirve más?
 ```
@@ -102,7 +102,7 @@ Te avisamos porque hoy es el último día del pase de fin de semana a $240.000 e
 
 Con ese pase escuchas el sábado y el domingo a Fidel Cano, Yolanda Ruiz, María Elvira Samper, Marta Ruiz y Ricardo Ospina, entre otros, con tiempo para hacerles preguntas.
 
-Si te enreda la logística de dónde quedarte durante el evento, tenemos varios hoteles aliados con descuentos especiales para asistentes.
+Si vienes de fuera, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
 ¿Te lo dejamos listo hoy?
 ```
@@ -121,7 +121,7 @@ Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
 Marisol Gómez cubrió las negociaciones de paz durante 25 años, del Caguán a La Habana. El sábado 7 de noviembre a las 11:00 a.m. cuenta lo que vio en esas mesas junto a Ricardo Ospina, director de noticias de Blu Radio, en Villa de Leyva.
 
-Si te enreda la logística de dónde quedarte durante el evento, tenemos varios hoteles aliados con descuentos especiales para asistentes.
+Para que no tengas que preocuparte por el hospedaje, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
 Esa conversación entra en la boleta del sábado en la mañana y en el pase de fin de semana, que sigue con descuento por tiempo limitado. ¿Te ayudamos a escoger?
 ```
@@ -140,7 +140,7 @@ Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
 Una tarde para entender el narcotráfico y el paramilitarismo con dos periodistas que los cubrieron de cerca: Luz María Sierra, exdirectora de El Colombiano, y Martha Soto, editora de la Unidad Investigativa de El Tiempo. Es el sábado 7 de noviembre a las 3:00 p.m., y después siguen Fidel Cano y Cecilia Orozco.
 
-Si te enreda la logística de dónde quedarte durante el evento, tenemos varios hoteles aliados con descuentos especiales para asistentes.
+Si todavía no sabes dónde quedarte, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
 El pase de fin de semana sigue con descuento por tiempo limitado, y también está la boleta del sábado en la tarde. ¿Te cuento cuál te conviene?
 ```
@@ -159,7 +159,7 @@ Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
 Este domingo a las 9:00 a.m., Marta Ruiz, excomisionada de la Verdad, y Guillermo González Uribe, fundador de Número, hablan de los magnicidios y de las víctimas de la violencia. Después siguen Yolanda Ruiz y María Elvira Samper, en la misma mañana.
 
-Si te enreda la logística de dónde quedarte durante el evento, tenemos varios hoteles aliados con descuentos especiales para asistentes.
+Si vienes de fuera, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
 El pase de fin de semana sigue con descuento por tiempo limitado, y la boleta del domingo en la mañana incluye las dos conversaciones. ¿Te ayudamos a reservar?
 ```
@@ -178,7 +178,7 @@ Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.). Mañan
 
 El jueves a las 3:00 p.m., en la Casa Museo Antonio Nariño, se proyecta el documental sobre Sady González, el fotógrafo que estuvo con su cámara el 9 de abril de 1948, con Guillermo González Uribe. La entrada es libre, como en todas las charlas abiertas.
 
-Si te enreda la logística de dónde quedarte durante el evento, tenemos varios hoteles aliados con descuentos especiales para asistentes.
+¿Ya sabes dónde quedarte? Tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
 Para los conversatorios en Duruelo todavía hay cupo: el pase completo desde el viernes, o el pase de fin de semana, que sigue con descuento por tiempo limitado. ¿Te ayudamos a escoger?
 ```

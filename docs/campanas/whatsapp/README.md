@@ -71,7 +71,7 @@ Correcciones del 22 de octubre, para esta campaña y las que vengan:
 - **Priorizar a los de más alto perfil:** Yolanda Ruiz, María Elvira Samper, Fidel Cano, Cecilia Orozco, Luz María Sierra, Martha Soto, Ricardo Ospina y Marta Ruiz.
 - **Ángulo:** "¿Te imaginas preguntarle a… / escuchar a…?". Una oportunidad única, de cerca.
 - **Variar la apertura** (titular, 2026-10-26): no todos los mensajes con "¿te imaginas…?". También un dato del panelista, una pregunta sobre el tema o una noticia ("hoy es el último día…"). Si van varios mensajes a la misma persona, cada uno abre distinto.
-- **Hospedaje sin nombrar un hotel** (titular, 2026-10-26): "Si te enreda la logística de dónde quedarte durante el evento, tenemos varios hoteles aliados con descuentos especiales para asistentes." Los hoteles y sus descuentos están en la página (`#hospedaje`).
+- **Hospedaje sin nombrar un hotel** (titular, 2026-10-26), con una de estas frases, alternándolas: "¿Ya sabes dónde quedarte? Tenemos varios hoteles aliados con descuentos especiales para asistentes." · "Si todavía no sabes dónde quedarte, tenemos…" · "Para que no tengas que preocuparte por el hospedaje, tenemos…" · "Si vienes de fuera, tenemos…". Los hoteles y sus descuentos están en la página (`#hospedaje`).
 - **El pase de fin de semana con su descuento por tiempo limitado** en los mensajes de venta.
 - **El aforo se dice como un dato:** la sala de Duruelo es para 300 personas. Nada de "últimos cupos" ni contadores.
 - **Nombres públicos:** "boletas de medio día" (nunca "franjas") y "charlas abiertas" (las gratuitas del 5 y 6 en la Casa Museo).
