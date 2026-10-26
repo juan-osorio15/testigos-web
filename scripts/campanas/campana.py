@@ -196,8 +196,8 @@ def destino_prueba(nombre_canal: str, valor: str) -> str:
 
 def exportar_respondio(nombre: str, config: dict, args: argparse.Namespace) -> None:
     """La lista en el formato de importación de respond.io: solo personas reales con WhatsApp autorizado
-    (en compradores, todo teléfono: es para marcarlos, no para escribirles). "columnas" en la
-    configuración deja solo esas, para no pisar en respond.io los datos que la lista no tiene."""
+    (en compradores, todo teléfono: es para marcarlos, no para escribirles). Siempre todas las
+    columnas y en este orden: respond.io las lee por posición y sin alguna corre las demás."""
     opciones = config.get("respondio", {})
     fecha = f"{datetime.now(BOGOTA):%d%m%Y}"  # expirados-23102026: cada exportación queda como su propio grupo
     etiquetas = ",".join(f"{t}-{fecha}" for t in opciones.get("tags", [nombre]))
@@ -205,7 +205,7 @@ def exportar_respondio(nombre: str, config: dict, args: argparse.Namespace) -> N
     salida = Path(args.salida).expanduser() if args.salida else (
         Path.home() / "Downloads" / f"{nombre}-respondio-{datetime.now(BOGOTA):%Y-%m-%d-%H%M}.csv")
     with open(salida, "w", encoding="utf-8", newline="") as archivo:
-        escritor = csv.DictWriter(archivo, fieldnames=opciones.get("columnas", COLUMNAS_RESPONDIO), extrasaction="ignore")
+        escritor = csv.DictWriter(archivo, fieldnames=COLUMNAS_RESPONDIO)
         escritor.writeheader()
         for d in personas:
             # En respond.io el nombre completo va en First Name (así quedó configurado); Last Name, vacío.

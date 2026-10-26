@@ -4,8 +4,7 @@
   "parametros": {},
   "respondio": {
     "tags": ["compradores"],
-    "lifecycle": "Customer",
-    "columnas": ["First Name", "Phone Number", "Email Address", "Tags", "Lifecycle"]
+    "lifecycle": "Customer"
   },
   "canales": {}
 }
