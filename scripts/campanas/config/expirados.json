@@ -10,7 +10,8 @@
       "activo": true,
       "plantilla": "expirado-texto.html",
       "asunto": "Tu pedido {{codigo}} de Testigos de la Memoria",
-      "remitente": "Juan de Testigos de la Memoria <direccion@testigosdelamemoria.com>"
+      "remitente": "Juan de Testigos de la Memoria <direccion@testigosdelamemoria.com>",
+      "responder_a": "manager@eventalist.co"
     },
     "whatsapp": {
       "activo": true,
