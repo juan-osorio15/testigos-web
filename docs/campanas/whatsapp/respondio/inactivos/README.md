@@ -20,12 +20,12 @@ El domingo 1 y el lunes 2 (festivo) no se envía.
 ## Antes del primer envío (una sola vez)
 
 - [ ] **Crear las 8 plantillas** en WhatsApp Manager, con el texto exacto de abajo, al menos un día antes de su envío. Nombre, cuerpo, pie y botones como dice cada bloque. Si alguna ya se mandó a Meta con el texto del 25 de octubre, la nueva se crea con `_v2` al final del nombre.
-- [ ] **La baja (decisión del titular, 2026-10-26).** En respond.io, crear el campo de contacto **Baja** (texto). Pegar `docs/chatbot/prompt_v4.md` en Catalina: quien responda BAJA o "no me interesa" queda con Baja = "si". A quienes ya la pidieron antes, ponérselo a mano.
+- [ ] **La baja (decisión del titular, 2026-10-26).** En respond.io, crear el campo de contacto **Baja** (Field ID `baja`, tipo Checkbox). Pegar `docs/chatbot/prompt_v5.md` en Catalina: quien responda BAJA o "no me interesa" queda con la casilla Baja marcada. A quienes ya la pidieron antes, marcársela a mano.
 
 ## Cada día
 
 1. En respond.io, Broadcasts → nuevo broadcast, canal WhatsApp del número colombiano, plantilla del día.
-2. Audiencia: el segmento guardado `inactivos`: "Time Since Last Incoming Message" mayor que 24 horas, Lifecycle distinto de Customer y Baja distinto de "si".
+2. Audiencia: el segmento guardado `inactivos`: "Time Since Last Incoming Message" mayor que 24 horas, Lifecycle distinto de Customer y la casilla Baja sin marcar.
 3. Programarlo dentro del horario de la Ley 2300 (mejor entre 9:00 y 11:00 a.m.).
 4. **RC5 en adelante:** confirmar en Pretix, el mismo día, que el pase de fin de semana y la boleta de medio día que nombra la plantilla siguen a la venta. Desde el 30 de octubre las plantillas dicen "con descuento por tiempo limitado" sin cifras, porque el precio de la etapa 3 todavía no está definido.
 
