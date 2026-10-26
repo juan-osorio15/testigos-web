@@ -2,24 +2,24 @@
 
 Personas que le escribieron a Catalina, se les cerró la conversación por inactividad y no compraron. Ya conocen el evento y alguna vez preguntaron: el mensaje retoma la conversación como quien se acuerda de ellas, les cuenta algo que antoja, les resuelve dónde quedarse y les deja el pase de fin de semana. Termina en una pregunta para que respondan y Catalina siga.
 
-Cada plantilla tiene una sola idea (una conversación del programa o el recorrido completo), una línea de hospedaje con un hotel aliado distinto y, al final, la oferta.
+Cada plantilla tiene una sola idea (una conversación del programa o el recorrido completo) y abre de forma distinta: un dato, una pregunta sobre el tema, una noticia. No todas con "¿te imaginas…?". Después, la misma línea de hospedaje, sin nombrar un hotel (los hoteles y sus descuentos están en la página, en el botón Ver hoteles), y al final el pase de fin de semana con su descuento por tiempo limitado.
 
 ## Calendario
 
-- **RC1** · lunes 26 oct · Yolanda Ruiz y María Elvira Samper · Hospedería Duruelo
-- **RC2** · martes 27 oct · Fidel Cano y Cecilia Orozco · Mesón de los Virreyes
-- **RC3** · miércoles 28 oct · el recorrido completo · La Posada de San Antonio
-- **RC4** · jueves 29 oct · último día del pase de fin de semana a $240.000 · Casa Boutique
-- **RC5** · viernes 30 oct · Marisol Gómez y Ricardo Ospina · Hospedería Duruelo
-- **RC6** · sábado 31 oct (de 8:00 a.m. a 3:00 p.m.) · Luz María Sierra y Martha Soto · Mesón de los Virreyes
-- **RC7** · martes 3 nov · Marta Ruiz y Guillermo González Uribe · La Posada de San Antonio
-- **RC8** · miércoles 4 nov · mañana empieza · Casa Boutique
+- **RC1** · lunes 26 oct · Yolanda Ruiz y María Elvira Samper
+- **RC2** · martes 27 oct · Fidel Cano y Cecilia Orozco
+- **RC3** · miércoles 28 oct · el recorrido completo
+- **RC4** · jueves 29 oct · último día del pase de fin de semana a $240.000
+- **RC5** · viernes 30 oct · Marisol Gómez y Ricardo Ospina
+- **RC6** · sábado 31 oct (de 8:00 a.m. a 3:00 p.m.) · Luz María Sierra y Martha Soto
+- **RC7** · martes 3 nov · Marta Ruiz y Guillermo González Uribe
+- **RC8** · miércoles 4 nov · mañana empieza
 
 El domingo 1 y el lunes 2 (festivo) no se envía.
 
 ## Antes del primer envío (una sola vez)
 
-- [ ] **Crear las 8 plantillas hoy** en WhatsApp Manager, con el texto exacto de abajo, para que RC1 esté aprobada el lunes 26. Nombre, cuerpo, pie y botones como dice cada bloque.
+- [ ] **Crear las 8 plantillas** en WhatsApp Manager, con el texto exacto de abajo, al menos un día antes de su envío. Nombre, cuerpo, pie y botones como dice cada bloque. Si alguna ya se mandó a Meta con el texto del 25 de octubre, la nueva se crea con `_v2` al final del nombre.
 - [ ] **Decidir cómo se marca a quien pidió la baja.** Hoy Catalina pone en Cold Lead tanto a quien dice "No me interesa" como a quien no respondió los seguimientos, así que el Lifecycle no los distingue. Sin eso, el filtro de abajo deja por fuera a todos los Cold Lead (y se pierde a los inactivos) o los incluye a todos (y le escribe a quien pidió que no). Lo sólido: que Catalina agregue la etiqueta `baja` cuando alguien la pide, en una versión nueva del prompt, y marcar a mano a quienes ya la pidieron.
 - [ ] **Compradores que no se lo dijeron a Catalina.** Quien compró en la página sin avisar en el chat sigue como Hot Lead o Payment y le llegaría el mensaje. Antes del primer envío, cotejar con los compradores de Pretix y pasarlos a Customer.
 
@@ -28,7 +28,7 @@ El domingo 1 y el lunes 2 (festivo) no se envía.
 1. En respond.io, Broadcasts → nuevo broadcast, canal WhatsApp del número colombiano, plantilla del día.
 2. Audiencia: contactos con la conversación cerrada, Lifecycle distinto de Customer y sin la etiqueta `baja`.
 3. Programarlo dentro del horario de la Ley 2300 (mejor entre 9:00 y 11:00 a.m.).
-4. **RC5 en adelante:** confirmar en Pretix, el mismo día, que el pase de fin de semana y la boleta de medio día que nombra la plantilla siguen a la venta. Desde el 30 de octubre las plantillas no dicen precio porque el de la etapa 3 todavía no está definido.
+4. **RC5 en adelante:** confirmar en Pretix, el mismo día, que el pase de fin de semana y la boleta de medio día que nombra la plantilla siguen a la venta. Desde el 30 de octubre las plantillas dicen "con descuento por tiempo limitado" sin cifras, porque el precio de la etapa 3 todavía no está definido.
 
 Si alguien también está en IN o EX, el mismo día le pueden llegar dos mensajes. Se acepta (sin límite de mensajes por persona desde el 19 de octubre).
 
@@ -39,13 +39,13 @@ Si alguien también está en IN o EX, el mismo día le pueden llegar dos mensaje
 Variable `{{1}}`: nombre.
 
 ```
-Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.). Hace unos días hablamos por aquí del encuentro y nos acordamos de ti.
+Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.). Hace unos días hablamos por aquí del encuentro y queríamos contarte algo.
 
-¿Te imaginas escuchar a Yolanda Ruiz y María Elvira Samper contar cómo fue cubrir la guerra y el poder cuando casi ninguna mujer dirigía un noticiero? Es el domingo 8 de noviembre en la mañana, en Villa de Leyva.
+Yolanda Ruiz y María Elvira Samper cubrieron la guerra y el poder cuando casi ninguna mujer dirigía un noticiero en Colombia. El domingo 8 de noviembre en la mañana van a contar cómo fue, en Villa de Leyva, y vas a poder hacerles preguntas.
 
-Y si no sabes dónde quedarte, te lo resolvemos: la Hospedería Duruelo, donde son los conversatorios, tiene un paquete especial con descuento para asistentes. Sales de tu habitación y llegas a la charla.
+Si te enreda la logística de dónde quedarte durante el evento, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
-Si quieres vivir todo el fin de semana, el pase de fin de semana está en $240.000 en vez de $270.000 hasta este jueves. ¿Te ayudamos a escoger tu boleta?
+El pase de fin de semana está en $240.000 en vez de $270.000, un descuento por tiempo limitado. ¿Te ayudamos a escoger tu boleta?
 ```
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
@@ -58,13 +58,13 @@ Si quieres vivir todo el fin de semana, el pase de fin de semana está en $240.0
 Variable `{{1}}`: nombre.
 
 ```
-Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.). ¿Te imaginas preguntarle en persona a Fidel Cano, director de El Espectador, y a Cecilia Orozco qué pasó detrás de las reelecciones de Uribe y Santos?
+Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
-Es el sábado 7 de noviembre a las 5:00 p.m., en la Hospedería Duruelo de Villa de Leyva, en una sala para 300 personas.
+¿Qué pasó detrás de las reelecciones de Uribe y Santos? Fidel Cano, director de El Espectador, y Cecilia Orozco lo conversan el sábado 7 de noviembre a las 5:00 p.m. en Villa de Leyva, y al final les puedes preguntar en persona.
 
-¿Ya sabes dónde quedarte? El Mesón de los Virreyes, una casona colonial a una cuadra de la Plaza Mayor, tiene 20 % de descuento para asistentes.
+Si te enreda la logística de dónde quedarte durante el evento, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
-El pase de fin de semana está en $240.000 en vez de $270.000 hasta este jueves. ¿Quieres que te lo dejemos listo?
+Esa conversación entra en el pase de fin de semana, que está en $240.000 en vez de $270.000 por tiempo limitado. ¿Quieres que te lo dejemos listo?
 ```
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
@@ -79,11 +79,11 @@ Variable `{{1}}`: nombre.
 ```
 Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
-¿Te imaginas recorrer la historia de Colombia en un fin de semana, contada por los periodistas que la vivieron de frente? Las conversaciones van en orden, como un solo recorrido: las guerrillas, el Caguán y La Habana, el narcotráfico, las reelecciones, las víctimas y las mujeres que cubrieron todo eso.
+Testigos de la Memoria está armado como un solo recorrido por la historia de Colombia. Empieza el viernes con Daniel Samper Pizano y el Bogotazo, y de ahí las conversaciones siguen en orden: las guerrillas, el Caguán y La Habana, el narcotráfico, las reelecciones, las víctimas y las mujeres que cubrieron todo eso.
 
-Para quedarte, La Posada de San Antonio, tres casas coloniales en el centro histórico con el desayuno incluido, tiene 10 % de descuento para asistentes.
+Si te enreda la logística de dónde quedarte durante el evento, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
-El pase de fin de semana está en $240.000 en vez de $270.000 hasta mañana jueves. Y si puedes llegar desde el viernes, el pase completo empieza con el Bogotazo. ¿Cuál te sirve más?
+Para vivirlo entero, el pase completo vale $340.000. Si no puedes el viernes, el pase de fin de semana está en $240.000 en vez de $270.000, por tiempo limitado. ¿Cuál te sirve más?
 ```
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
@@ -98,9 +98,11 @@ Variable `{{1}}`: nombre.
 ```
 Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
-¿Te imaginas un sábado y un domingo escuchando de cerca a Fidel Cano, Yolanda Ruiz, María Elvira Samper, Marta Ruiz y Ricardo Ospina, con tiempo para hacerles preguntas? Eso es el pase de fin de semana, y hoy es el último día a $240.000 en vez de $270.000.
+Te avisamos porque hoy es el último día del pase de fin de semana a $240.000 en vez de $270.000. Desde mañana el descuento es menor.
 
-Y para no pensar en dónde dormir: Casa Boutique, en el centro histórico de Villa de Leyva, te da 15 % de descuento con el código TESTIGOS en su página de reservas.
+Con ese pase escuchas el sábado y el domingo a Fidel Cano, Yolanda Ruiz, María Elvira Samper, Marta Ruiz y Ricardo Ospina, entre otros, con tiempo para hacerles preguntas.
+
+Si te enreda la logística de dónde quedarte durante el evento, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
 ¿Te lo dejamos listo hoy?
 ```
@@ -112,16 +114,16 @@ Y para no pensar en dónde dormir: Casa Boutique, en el centro histórico de Vil
 
 ## RC5 · viernes 30 de octubre · `rc5_negociaciones_paz`
 
-Variable `{{1}}`: nombre. Sin precio: desde hoy rige la etapa 3.
+Variable `{{1}}`: nombre. Sin cifras: desde hoy rige la etapa 3.
 
 ```
 Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
-¿Qué pasó de verdad en las mesas del Caguán y de La Habana? Lo cuentan Marisol Gómez, que cubrió esas negociaciones durante 25 años, y Ricardo Ospina, director de noticias de Blu Radio. Es el sábado 7 de noviembre a las 11:00 a.m., en Villa de Leyva.
+Marisol Gómez cubrió las negociaciones de paz durante 25 años, del Caguán a La Habana. El sábado 7 de noviembre a las 11:00 a.m. cuenta lo que vio en esas mesas junto a Ricardo Ospina, director de noticias de Blu Radio, en Villa de Leyva.
 
-Si vienes de fuera, la Hospedería Duruelo, donde son los conversatorios, tiene un paquete especial con descuento para asistentes.
+Si te enreda la logística de dónde quedarte durante el evento, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
-Esa conversación entra en la boleta de medio día del sábado en la mañana, y también en el pase de fin de semana, que sigue con descuento. ¿Te ayudamos a escoger?
+Esa conversación entra en la boleta del sábado en la mañana y en el pase de fin de semana, que sigue con descuento por tiempo limitado. ¿Te ayudamos a escoger?
 ```
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
@@ -136,11 +138,11 @@ Variable `{{1}}`: nombre.
 ```
 Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
-¿Te imaginas escuchar a Luz María Sierra, exdirectora de El Colombiano, y a Martha Soto, editora de la Unidad Investigativa de El Tiempo, hablar de lo que vieron cubriendo el narcotráfico y el paramilitarismo? Es el sábado 7 de noviembre a las 3:00 p.m., en la Hospedería Duruelo.
+Una tarde para entender el narcotráfico y el paramilitarismo con dos periodistas que los cubrieron de cerca: Luz María Sierra, exdirectora de El Colombiano, y Martha Soto, editora de la Unidad Investigativa de El Tiempo. Es el sábado 7 de noviembre a las 3:00 p.m., y después siguen Fidel Cano y Cecilia Orozco.
 
-¿Ya tienes dónde quedarte? El Mesón de los Virreyes, a una cuadra de la Plaza Mayor y con piscina climatizada, tiene 20 % de descuento para asistentes.
+Si te enreda la logística de dónde quedarte durante el evento, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
-La boleta del sábado en la tarde incluye también a Fidel Cano y Cecilia Orozco. Y el pase de fin de semana sigue con descuento. ¿Te cuento cuál te conviene?
+El pase de fin de semana sigue con descuento por tiempo limitado, y también está la boleta del sábado en la tarde. ¿Te cuento cuál te conviene?
 ```
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
@@ -155,11 +157,11 @@ Variable `{{1}}`: nombre.
 ```
 Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
-¿Te imaginas escuchar a Marta Ruiz, excomisionada de la Verdad, y a Guillermo González Uribe, fundador de Número, hablar de los magnicidios y de las víctimas de la violencia? Es este domingo 8 de noviembre a las 9:00 a.m., en Villa de Leyva.
+Este domingo a las 9:00 a.m., Marta Ruiz, excomisionada de la Verdad, y Guillermo González Uribe, fundador de Número, hablan de los magnicidios y de las víctimas de la violencia. Después siguen Yolanda Ruiz y María Elvira Samper, en la misma mañana.
 
-Si vienes a pasar el fin de semana, La Posada de San Antonio, en el centro histórico y con desayuno incluido, tiene 10 % de descuento para asistentes.
+Si te enreda la logística de dónde quedarte durante el evento, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
-La boleta del domingo en la mañana incluye también a Yolanda Ruiz y María Elvira Samper. Y el pase de fin de semana sigue con descuento. ¿Te ayudamos a reservar?
+El pase de fin de semana sigue con descuento por tiempo limitado, y la boleta del domingo en la mañana incluye las dos conversaciones. ¿Te ayudamos a reservar?
 ```
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
@@ -174,11 +176,11 @@ Variable `{{1}}`: nombre. Antes de enviarla, confirmar en Pretix que sigue habie
 ```
 Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.). Mañana empieza el encuentro en Villa de Leyva.
 
-¿Te imaginas ver con Guillermo González Uribe el documental sobre Sady González, el fotógrafo que estuvo con su cámara el 9 de abril de 1948? Es mañana jueves a las 3:00 p.m. en la Casa Museo Antonio Nariño, con entrada libre, como todas las charlas abiertas.
+El jueves a las 3:00 p.m., en la Casa Museo Antonio Nariño, se proyecta el documental sobre Sady González, el fotógrafo que estuvo con su cámara el 9 de abril de 1948, con Guillermo González Uribe. La entrada es libre, como en todas las charlas abiertas.
 
-Y si decides quedarte, Casa Boutique, en el centro histórico, te da 15 % de descuento con el código TESTIGOS en su página de reservas.
+Si te enreda la logística de dónde quedarte durante el evento, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
-Para los conversatorios en Duruelo todavía hay cupo: el pase completo desde el viernes, o el pase de fin de semana, que sigue con descuento. ¿Te ayudamos a escoger?
+Para los conversatorios en Duruelo todavía hay cupo: el pase completo desde el viernes, o el pase de fin de semana, que sigue con descuento por tiempo limitado. ¿Te ayudamos a escoger?
 ```
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
