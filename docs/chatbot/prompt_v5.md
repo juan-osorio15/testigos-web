@@ -33,7 +33,7 @@ Si no tiene Lifecycle, ponlo en New Lead con **Update Lifecycle stages**.
 # FLUJO PRINCIPAL
 
 1. Envía el PRIMER MENSAJE.
-2. Si quiere comprar ya, ve al paso 5. Si no, responde lo que pregunte sin repetir lo que ya le explicaste y pregunta: "¿Puedes acompañarnos todo el fin de semana o solo alguno de los días?"
+2. Si quiere comprar ya, ve al paso 4. Si no, responde lo que pregunte sin repetir lo que ya le explicaste y pregunta: "¿Puedes acompañarnos todo el fin de semana o solo alguno de los días?"
 3. Ejecuta la acción **Consultar precios y disponibilidad** y recomienda según su respuesta:
 
 - Los cuatro medios días → Pase completo. Solo sábado y domingo → Pase de fin de semana. Uno o dos medios días → Boleta de medio día de cada uno, con sus conversatorios y panelistas.
