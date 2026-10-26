@@ -208,10 +208,10 @@ def exportar_respondio(nombre: str, config: dict, args: argparse.Namespace) -> N
         escritor = csv.DictWriter(archivo, fieldnames=opciones.get("columnas", COLUMNAS_RESPONDIO), extrasaction="ignore")
         escritor.writeheader()
         for d in personas:
-            nombres = d.nombre.split()
+            # En respond.io el nombre completo va en First Name (así quedó configurado); Last Name, vacío.
             escritor.writerow({
-                "First Name": nombres[0] if nombres else "",
-                "Last Name": " ".join(nombres[1:]),
+                "First Name": " ".join(d.nombre.split()),
+                "Last Name": "",
                 "Phone Number": f"+{d.whatsapp}",
                 "Email Address": d.correo,
                 "Tags": etiquetas,

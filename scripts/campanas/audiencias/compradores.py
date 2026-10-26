@@ -9,6 +9,8 @@ WhatsApp, y la configuración no tiene canales.
   cuenta: todavía no pagó.
 - Van todos los teléfonos y el correo más reciente de cada persona, para que
   respond.io la reconozca con el número con que escribió a Catalina.
+- El nombre es el del asistente en Pretix (completo), del pedido pagado más
+  reciente que lo tenga. First Name es obligatorio en respond.io.
 """
 
 from __future__ import annotations
@@ -22,7 +24,7 @@ from personas import agrupar
 def armar(evento: str, parametros: dict, excluir: set[str]) -> Resultado:
     pedidos = pretix.leer_pedidos(evento)
     destinatarios = []
-    personas = sin_telefono = 0
+    personas = sin_telefono = sin_nombre = 0
     for grupo in agrupar(pedidos):
         pagados = sorted((p for p in grupo if p.estado == "pagado"), key=lambda p: p.creado)
         if not pagados:
@@ -33,15 +35,19 @@ def armar(evento: str, parametros: dict, excluir: set[str]) -> Resultado:
             sin_telefono += 1
             continue
         correo = next((p.correo for p in reversed(pagados) if p.correo), "")
+        nombre = next((" ".join(p.asistente.split()) for p in reversed(pagados) if p.asistente.strip()), "")
+        if not nombre:
+            sin_nombre += 1
         # Una fila por teléfono: si pagó con un número y escribió a Catalina con otro, los dos quedan marcados.
         for telefono in telefonos:
             destinatarios.append(Destinatario(
-                saludo="", nombre="", correo=correo, whatsapp=telefono.lstrip("+"),
+                saludo="", nombre=nombre, correo=correo, whatsapp=telefono.lstrip("+"),
                 detalle={"pedidos": " ".join(p.codigo for p in pagados),
                          "ultima_compra": f"{pagados[-1].creado:%Y-%m-%d %H:%M}"},
             ))
     resumen = [
         f"Pedidos de Pretix leídos: {len(pedidos)} · personas con un pedido pagado: {personas}",
         f"Compradores sin teléfono en Pretix (no se pueden marcar en respond.io): {sin_telefono}",
+        f"Compradores sin nombre de asistente en Pretix (First Name vacío): {sin_nombre}",
     ]
     return Resultado(destinatarios, resumen)

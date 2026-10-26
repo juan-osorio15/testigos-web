@@ -5,7 +5,7 @@
   "respondio": {
     "tags": ["compradores"],
     "lifecycle": "Customer",
-    "columnas": ["Phone Number", "Email Address", "Tags", "Lifecycle"]
+    "columnas": ["First Name", "Phone Number", "Email Address", "Tags", "Lifecycle"]
   },
   "canales": {}
 }
