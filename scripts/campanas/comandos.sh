@@ -13,6 +13,9 @@ npm run build
 # Quedan en ~/Downloads, con la etiqueta de la campaña y la fecha (expirados-25102026).
 python3 scripts/campanas/campana.py respondio expirados
 python3 scripts/campanas/campana.py respondio interesados
+# Compradores (pedido pagado) como Customer, para que no les lleguen los broadcasts de RC.
+# Correrlo e importarlo en respond.io justo antes de cada broadcast.
+python3 scripts/campanas/campana.py respondio compradores
 
 
 # ── Contar gente, sin enviar nada ───────────────────────────────

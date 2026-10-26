@@ -1,0 +1,11 @@
+{
+  "descripcion": "Quien tiene un pedido pagado. Solo para marcarlos como Customer en respond.io y que los broadcasts de RC no les lleguen; no tiene canales. Ver docs/campanas/whatsapp/respondio/inactivos/README.md.",
+  "audiencia": "compradores",
+  "parametros": {},
+  "respondio": {
+    "tags": ["compradores"],
+    "lifecycle": "Customer",
+    "columnas": ["Phone Number", "Email Address", "Tags", "Lifecycle"]
+  },
+  "canales": {}
+}
