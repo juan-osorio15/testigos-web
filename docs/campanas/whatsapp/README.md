@@ -66,7 +66,8 @@ Correcciones del 22 de octubre, para esta campaña y las que vengan:
 
 ## Reglas para todos los textos
 
-- **No usar como gancho a Daniel Samper Pizano** (no le gusta el uso comercial) **ni a León Valencia** (el público responde mal). Sus nombres pueden aparecer en el programa, pero ninguna pieza ni mensaje se apoya en ellos. Por eso no se usan los afiches del Bogotazo ni de Guerrillas.
+- **Daniel Samper Pizano va de primero cuando se lista a los invitados** (decisión del titular, 2026-10-26). Lo que le molestó fue que su cara fuera el centro de anuncios pagos; en WhatsApp, nombrarlo entre los panelistas no es problema, y no se trata de esconder su participación. Lo que sigue sin hacerse es una pieza centrada en él, como el afiche del Bogotazo.
+- **León Valencia no se usa como gancho** (el público responde mal). Su nombre puede aparecer en el programa, pero ninguna pieza ni mensaje se apoya en él. Por eso no se usa el afiche de Guerrillas.
 - **Priorizar a los de más alto perfil:** Yolanda Ruiz, María Elvira Samper, Fidel Cano, Cecilia Orozco, Luz María Sierra, Martha Soto, Ricardo Ospina y Marta Ruiz.
 - **Ángulo:** "¿Te imaginas preguntarle a… / escuchar a…?". Una oportunidad única, de cerca.
 - **El aforo se dice como un dato:** la sala de Duruelo es para 300 personas. Nada de "últimos cupos" ni contadores.
