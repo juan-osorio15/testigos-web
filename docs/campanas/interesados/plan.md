@@ -64,7 +64,7 @@ Decisión del titular del 2026-10-26: los correos de campaña se ven como un cor
 
 - Sin más imagen que el logo sobre terracota, sin botones y sin texto oculto de vista previa.
 - Sin precios, descuentos, fechas límite ni la palabra "boletas" (ni "venta" ni "tienda"): el correo antoja con el contenido del evento, y lo comercial queda en la página. Con el descuento y su fecha seguía cayendo en Promociones (pruebas del titular del 2026-10-26).
-- Enlace sin UTM: los parámetros `utm_campaign` y `utm_content` delatan una campaña (decisión del titular del 2026-10-26). La conversión se mide con la lista: quien compró ya no sale en `campana.py lista`.
+- Enlace con UTM: se quitaron un rato el 2026-10-26 y el correo siguió cayendo en Promociones, así que volvieron para no perder la medición.
 - Un solo enlace, dentro del texto. Nada de redes, WhatsApp ni política enlazados.
 - Una pregunta que invita a responder: cada respuesta le enseña a Gmail que el remitente es conversación.
 - Remitente con nombre de persona, siempre el mismo, desde el dominio del evento.
@@ -96,7 +96,7 @@ Si no sabes cuál escoger, escríbenos por aquí y te ayudamos.
 ## 6. Medición
 
 - Campaña `interesados` (anotada en `docs/medicion/embudo/enlaces-y-nombres.md`).
-- Correo: sin UTM desde el 2026-10-26 (`https://testigosdelamemoria.com/`). Antes: `correo-aviso` y `correo-aviso_boton-final` (plantilla de diseño) y `correo-aviso_conversacional`.
+- Correo: `utm_source=email&utm_medium=email&utm_campaign=interesados&utm_content=correo-aviso_conversacional`. Antes: `correo-aviso` y `correo-aviso_boton-final` (plantilla de diseño).
 - WhatsApp: `utm_source=whatsapp&utm_medium=mensaje&utm_campaign=interesados&utm_content=plantilla-aviso`.
 - A los 7 días: `python3 scripts/campanas/campana.py lista interesados`. Quien compró ya no sale; la diferencia contra la lista del envío es la conversión de la campaña. En GA4, las visitas y compras con `utm_campaign=interesados`.
 
