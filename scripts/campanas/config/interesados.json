@@ -9,7 +9,7 @@
     "correo": {
       "activo": true,
       "plantilla": "interesado-texto.html",
-      "asunto": "Tu aviso de Testigos de la Memoria: ya abrieron las boletas de medio día",
+      "asunto": "Sobre el aviso que nos pediste",
       "remitente": "Juan de Testigos de la Memoria <direccion@testigosdelamemoria.com>",
       "responder_a": "manager@eventalist.co"
     },
