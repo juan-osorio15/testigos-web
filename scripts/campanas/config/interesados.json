@@ -8,7 +8,7 @@
   "canales": {
     "correo": {
       "activo": true,
-      "plantilla": "interesado-aviso.html",
+      "plantilla": "interesado-texto.html",
       "asunto": "Tu aviso de Testigos de la Memoria: ya abrieron las boletas de medio día",
       "remitente": "Juan de Testigos de la Memoria <direccion@testigosdelamemoria.com>"
     },

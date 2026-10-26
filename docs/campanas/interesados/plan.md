@@ -53,26 +53,27 @@ Los comandos de envío vuelven a armarla en el momento: alguien puede comprar en
 
 ## 4. Correo
 
-- Plantilla: `scripts/campanas/plantillas/interesado-aviso.html`.
+- Plantilla: `scripts/campanas/plantillas/interesado-texto.html` (desde el 2026-10-26; la anterior, `interesado-aviso.html`, con la fórmula visual, sigue en el historial de git).
 - Asunto: "Tu aviso de Testigos de la Memoria: ya abrieron las boletas de medio día".
-- Remitente: `Juan de Testigos de la Memoria <direccion@testigosdelamemoria.com>`, sin la cabecera `List-Unsubscribe`, como el de expirados.
-- Contenido, con la fórmula visual: logo y "TU AVISO DE VENTA" en crema; en terracota "NOS PEDISTE QUE TE AVISÁRAMOS" y el titular "Ya están a la venta las boletas de medio día.", remate "Escoge tu franja."; franja cielo con $90.000 por franja y el botón "Escoger mi franja"; en blanco el saludo con el nombre, el recordatorio de que la persona pidió el aviso y las cuatro franjas con sus temas y panelistas, más una línea del pase completo a $340.000; en ladrillo "¿No sabes cuál escoger? Responde este correo y te ayudamos."; pie con la razón del mensaje y la baja.
+- Remitente: `Juan de Testigos de la Memoria <direccion@testigosdelamemoria.com>`, sin la cabecera `List-Unsubscribe`; las respuestas llegan a hola@eventalist.co.
+- Contenido, como correo escrito a mano: el saludo con el nombre, el recordatorio de que la persona pidió el aviso, los cuatro temas con sus panelistas (sin horarios), el precio del medio día y el pase de fin de semana por tiempo limitado, el enlace a la portada dentro del texto, "¿Cuál tema te llama más? Respóndeme este correo y te ayudo a escoger." y la firma de Juan. Pie con la razón del mensaje y la baja. Los precios salen de `evento.json`.
 
 ### Por qué así (Principal y no Promociones)
 
-Lo que hizo llegar a Principal el correo de expirados, aplicado aquí:
+Decisión del titular del 2026-10-26: los correos de campaña se ven como un correo personal.
 
-- Un solo destino: dos botones a la tienda ("Escoger mi franja" arriba y "Comprar mi boleta" al final, pedido del titular el 2026-10-19) y ningún otro enlace. Nada de redes, WhatsApp ni política enlazados.
-- Sin imágenes descargadas de internet: el logo va incrustado.
-- Remitente con nombre de persona y respuestas a hola@eventalist.co.
-- Asunto y primera línea que responden a algo que la persona pidió ("Tu aviso", "Nos pediste que te avisáramos"), con su nombre en el cuerpo. Sin precio en el asunto ni palabras de oferta.
-- Un correo por persona, enviado uno a uno, sin cabecera de lista masiva.
+- Sin imágenes, sin colores, sin botones y sin texto oculto de vista previa.
+- Un solo enlace, dentro del texto. Nada de redes, WhatsApp ni política enlazados.
+- Una pregunta que invita a responder: cada respuesta le enseña a Gmail que el remitente es conversación.
+- Remitente con nombre de persona, siempre el mismo, desde el dominio del evento.
+- Asunto y primera línea que responden a algo que la persona pidió, con su nombre. Sin precio en el asunto ni palabras de oferta.
+- Un correo por persona, enviado uno a uno, sin cabecera de lista masiva, y con versión en texto plano.
 
 Gmail decide por destinatario, así que no hay garantía. La prueba al titular dice dónde cae.
 
 ### Si los precios o los panelistas cambian
 
-Los datos del correo están escritos a mano en la plantilla: $90.000 por franja, $340.000 el pase, panelistas por franja según `src/data/agenda.ts` del 19 de octubre. Si algo cambia en el sitio antes del envío, cambiarlo también en la plantilla. Si una franja se agota, quitarla del correo.
+Los precios salen de `evento.json` (`npm run build` si el script dice que está viejo). Los temas y panelistas están escritos en la plantilla, según `src/data/agenda.ts`: si algo cambia en el sitio, cambiarlo también ahí. Si una boleta de medio día se agota, quitar su tema del correo.
 
 ## 5. Plantilla de WhatsApp
 
@@ -93,7 +94,7 @@ Si no sabes cuál escoger, escríbenos por aquí y te ayudamos.
 ## 6. Medición
 
 - Campaña `interesados` (anotada en `docs/medicion/embudo/enlaces-y-nombres.md`).
-- Correo: `utm_source=email&utm_medium=email&utm_campaign=interesados&utm_content=correo-aviso` en el botón de arriba y `correo-aviso_boton-final` en el de abajo, para ver cuál usan.
+- Correo: `utm_source=email&utm_medium=email&utm_campaign=interesados&utm_content=correo-aviso_texto`. Antes del 2026-10-26, con la plantilla de diseño, `correo-aviso` (botón de arriba) y `correo-aviso_boton-final` (abajo).
 - WhatsApp: `utm_source=whatsapp&utm_medium=mensaje&utm_campaign=interesados&utm_content=plantilla-aviso`.
 - A los 7 días: `python3 scripts/campanas/campana.py lista interesados`. Quien compró ya no sale; la diferencia contra la lista del envío es la conversión de la campaña. En GA4, las visitas y compras con `utm_campaign=interesados`.
 

@@ -1,6 +1,6 @@
 # Mandar el correo a los pedidos expirados con Resend
 
-> **Histórico.** Este correo se envió el 12 de octubre de 2026 con los scripts de entonces, que ya no existen. El paso 1 (la llave de Resend) sigue valiendo. Hoy las campañas se mandan con `scripts/campanas/campana.py` (`docs/campanas/README.md`), y el correo de expirados es ahora un recordatorio nuevo (`expirado-recordatorio.html`, sección 5 del plan).
+> **Histórico.** Este correo se envió el 12 de octubre de 2026 con los scripts de entonces, que ya no existen. El paso 1 (la llave de Resend) sigue valiendo. Hoy las campañas se mandan con `scripts/campanas/campana.py` (`docs/campanas/README.md`), y el correo de expirados es ahora un recordatorio nuevo (`expirado-texto.html`, sección 5 del plan).
 
 Resend es el servicio que ya usa Pretix para mandar los correos de la tienda. El dominio `eventalist.co` ya está verificado ahí y el plan gratis da 100 correos al día, de sobra para 7. No hay que conectar nada nuevo: solo sacar una llave para el script.
 

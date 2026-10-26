@@ -8,7 +8,7 @@
   "canales": {
     "correo": {
       "activo": true,
-      "plantilla": "expirado-recordatorio.html",
+      "plantilla": "expirado-texto.html",
       "asunto": "Tu pedido {{codigo}} de Testigos de la Memoria",
       "remitente": "Juan de Testigos de la Memoria <direccion@testigosdelamemoria.com>"
     },
