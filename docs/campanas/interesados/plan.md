@@ -56,14 +56,15 @@ Los comandos de envío vuelven a armarla en el momento: alguien puede comprar en
 - Plantilla: `scripts/campanas/plantillas/interesado-texto.html` (desde el 2026-10-26; la anterior, `interesado-aviso.html`, con la fórmula visual, sigue en el historial de git).
 - Asunto: "Sobre el aviso que nos pediste" (desde el 2026-10-26; antes, "Tu aviso de Testigos de la Memoria: ya abrieron las boletas de medio día").
 - Remitente: `Juan de Testigos de la Memoria <direccion@testigosdelamemoria.com>`, sin la cabecera `List-Unsubscribe`; las respuestas llegan a manager@eventalist.co (desde el 2026-10-26; antes, a hola@eventalist.co).
-- Contenido, como correo escrito a mano y sin cifras: el saludo con el nombre, el recordatorio de que la persona pidió el aviso, los cuatro temas con sus panelistas (sin horarios), "te recomiendo el pase de fin de semana: tiene un descuento que dura hasta este {{fin_etapa_actual}}" (después del 29 de octubre el script se detiene y hay que cambiar esa frase), los hoteles aliados sin enlace propio, un solo enlace a la portada, "¿Cuál tema te llama más? Respóndeme y te ayudo a escoger." y la firma de Juan. Pie con la razón del mensaje y la baja.
+- Contenido, como correo escrito a mano: el saludo con el nombre, el recordatorio de que la persona pidió el aviso, los cuatro temas con sus panelistas (sin horarios), "Cada uno cuenta en persona lo que vio de cerca, y uno puede hacerles preguntas.", un solo enlace a la portada (con la agenda, las boletas y los hoteles), "¿Cuál tema te llama más? Respóndeme y te ayudo a escoger." y la firma de Juan. Pie con la razón del mensaje y la baja.
 
 ### Por qué así (Principal y no Promociones)
 
 Decisión del titular del 2026-10-26: los correos de campaña se ven como un correo personal.
 
 - Sin más imagen que el logo sobre terracota, sin botones y sin texto oculto de vista previa.
-- Sin precios ni cifras de descuento: el descuento se menciona como lo diría una persona, y las cifras quedan en la página. Lo que más mueve a Promociones son las palabras y cifras de oferta (investigación del 2026-10-26).
+- Sin precios, descuentos ni fechas límite: el correo antoja con el contenido del evento, y lo comercial queda en la página. Con el descuento y su fecha seguía cayendo en Promociones (pruebas del titular del 2026-10-26).
+- Enlace sin UTM: los parámetros `utm_campaign` y `utm_content` delatan una campaña (decisión del titular del 2026-10-26). La conversión se mide con la lista: quien compró ya no sale en `campana.py lista`.
 - Un solo enlace, dentro del texto. Nada de redes, WhatsApp ni política enlazados.
 - Una pregunta que invita a responder: cada respuesta le enseña a Gmail que el remitente es conversación.
 - Remitente con nombre de persona, siempre el mismo, desde el dominio del evento.
@@ -95,7 +96,7 @@ Si no sabes cuál escoger, escríbenos por aquí y te ayudamos.
 ## 6. Medición
 
 - Campaña `interesados` (anotada en `docs/medicion/embudo/enlaces-y-nombres.md`).
-- Correo: `utm_source=email&utm_medium=email&utm_campaign=interesados&utm_content=correo-aviso_conversacional`. Antes: `correo-aviso` y `correo-aviso_boton-final` (plantilla de diseño, hasta el 2026-10-26).
+- Correo: sin UTM desde el 2026-10-26 (`https://testigosdelamemoria.com/`). Antes: `correo-aviso` y `correo-aviso_boton-final` (plantilla de diseño) y `correo-aviso_conversacional`.
 - WhatsApp: `utm_source=whatsapp&utm_medium=mensaje&utm_campaign=interesados&utm_content=plantilla-aviso`.
 - A los 7 días: `python3 scripts/campanas/campana.py lista interesados`. Quien compró ya no sale; la diferencia contra la lista del envío es la conversión de la campaña. En GA4, las visitas y compras con `utm_campaign=interesados`.
 

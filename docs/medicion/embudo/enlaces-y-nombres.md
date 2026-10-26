@@ -80,8 +80,8 @@ El nombre corto con que el equipo se refiere a la campaña, sin etapa ni fecha: 
 Campañas en uso (el equipo agrega aquí las suyas):
 
 - `permanente`
-- `expirados`: correos y WhatsApp a pedidos vencidos.
-- `interesados`: correo y WhatsApp a quien pidió aviso de las franjas en el sitio (desde el 19 de octubre).
+- `expirados`: correos y WhatsApp a pedidos vencidos. Los correos van sin UTM desde el 26 de octubre (evitar Promociones de Gmail); el WhatsApp sigue con UTM.
+- `interesados`: correo y WhatsApp a quien pidió aviso de las boletas de medio día en el sitio (desde el 19 de octubre). Los correos van sin UTM desde el 26 de octubre (evitar Promociones de Gmail); el WhatsApp sigue con UTM.
 - `buscador`: anuncios de Búsqueda en Google (prueba del 16 de octubre al 7 de noviembre de 2026).
 - `recuperacion`: broadcasts de respond.io a conversaciones de Catalina que se cerraron sin compra (desde el 26 de octubre de 2026), y los enlaces que da Catalina a quien responde.
 - `pase-fin-semana-release`: lanzamiento del pase de fin de semana (desde el 23 de octubre de 2026; primer enlace, el mensaje del chatbot `combo-fin-de-semana`).
