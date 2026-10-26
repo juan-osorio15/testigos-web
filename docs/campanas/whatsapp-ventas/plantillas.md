@@ -33,7 +33,7 @@ Requisito previo: que Tevit pregunte al final de la conversación algo como "¿Q
 ```
 Hola. Te escribimos del equipo de Testigos de la Memoria (Eventalist S.A.S.). Hace unos días nos preguntaste por el encuentro.
 
-Del 6 al 8 de noviembre, en Villa de Leyva, Daniel Samper Pizano, Cecilia Orozco, Yolanda Ruiz, Fidel Cano y otros periodistas que cubrieron los últimos cincuenta años de Colombia cuentan en persona lo que vieron de cerca. Puedes ir al encuentro completo o a una franja de medio día.
+Del 6 al 8 de noviembre, en Villa de Leyva, Daniel Samper Pizano, Cecilia Orozco, Yolanda Ruiz, Fidel Cano y otros periodistas que cubrieron los últimos cincuenta años de Colombia cuentan en persona lo que vieron de cerca. Puedes ir al encuentro completo o con una boleta de medio día.
 
 Si te quedó alguna duda, escríbenos por aquí.
 ```
