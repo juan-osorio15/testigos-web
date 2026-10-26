@@ -244,6 +244,9 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
 
 <style>
   .hero-fixed {
+    /* Alto visible del hero en svh: baja mientras el aviso de cookies
+       está abierto, y el titular, los espacios y el logo con él */
+    --hero-svh: calc((100svh - var(--consent-h, 0px)) / 100);
     position: fixed;
     inset: 0;
     z-index: 0;
@@ -297,7 +300,7 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     display: grid;
     /* Los espacios y el titular escalan también con la altura de la
        ventana: en pantallas bajas el bloque no se come la franja azul */
-    gap: clamp(0.75rem, 3.2svh, 3rem);
+    gap: clamp(0.75rem, calc(var(--hero-svh) * 3.2), 3rem);
     width: 100%;
   }
 
@@ -321,7 +324,7 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
     /* Escala con el ancho del bloque (tres columnas de siete: 3.7vw da
        para "de Colombia, contada" en una línea) y con la altura de la
        ventana, para que las cuatro líneas llenen el terracota */
-    font-size: min(clamp(2rem, 3.7vw - 0.2rem, 5rem), 6.6svh);
+    font-size: min(clamp(2rem, 3.7vw - 0.2rem, 5rem), calc(var(--hero-svh) * 6.6));
     font-weight: 800;
     display: grid;
   }
@@ -425,7 +428,7 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
   }
   .hero-logo {
     /* Manda la altura de la fila; el ancho sigue la proporción del lockup */
-    height: min(15svh, 11rem);
+    height: min(calc(var(--hero-svh) * 15), 11rem);
     width: auto;
     max-width: 100%;
     color: var(--ink);
