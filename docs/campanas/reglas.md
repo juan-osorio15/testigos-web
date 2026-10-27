@@ -7,7 +7,7 @@ Cómo se escribe y cómo se manda cualquier mensaje de cualquier campaña, por c
 - **Horario de la Ley 2300**, hora de Bogotá: lunes a viernes de 7:00 a.m. a 7:00 p.m. y sábados de 8:00 a.m. a 3:00 p.m.; nunca domingos ni festivos. El lunes 2 de noviembre de 2026 es festivo. `campana.py` se niega a enviar fuera de horario; respond.io y lo que se publica a mano no lo controlan, así que se programa dentro del horario.
 - **Quién escribe y cómo darse de baja:** cada mensaje identifica a Eventalist S.A.S. y dice cómo darse de baja ("responde BAJA"). Quien la pida no vuelve a recibir nada por ningún canal: se marca en el admin del backend (**Opt out of email**, **Opt out of WhatsApp** o **Mark as do-not-contact**) y, en respond.io, con la casilla **Baja**.
 - **Sin dirección física ni datos personales del titular.** Solo Eventalist S.A.S. y hola@eventalist.co.
-- **Sin límite de mensajes por persona ni por día** (titular, 2026-10-19). Un mismo mensaje no se repite. La insistencia es en la frecuencia, no en el tono.
+- **Sin límite de mensajes por persona** (titular, 2026-10-19), **pero un solo WhatsApp por persona al día** (titular, 2026-10-27): todos salen del mismo número, y varios mensajes de venta apilados en un chat traen bloqueos, bajan la calidad del número y Meta puede dejar de entregar las plantillas de marketing. Si dos campañas caen el mismo día, gana la de fecha límite (CD), después EX y después RC. Los interesados son la excepción: un recordatorio más a quien pidió información sí va. El correo va aparte. Un mismo mensaje no se repite, y la insistencia es en la frecuencia, no en el tono.
 - **Nombres públicos:** "boletas de medio día" (nunca "franjas") y "charlas abiertas" (las gratuitas del 5 y 6 en la Casa Museo, nunca "talleres").
 - **Panelistas** con la grafía de `src/data/speakers.ts`.
   - Daniel Samper Pizano va de primero cuando se lista a los invitados, pero ninguna pieza ni anuncio pago se centra en él (como el afiche del Bogotazo).
@@ -74,7 +74,7 @@ Se crean en WhatsApp Manager, en la cuenta del número colombiano, al menos un d
 
 1. Broadcasts → nuevo broadcast → canal WhatsApp del número colombiano → la plantilla.
 2. Si tiene encabezado de imagen, subir la pieza. En `{{1}}`, First Name.
-3. Audiencia: la que diga la campaña, siempre con la casilla **Baja** sin marcar y Lifecycle distinto de **Customer**.
+3. Audiencia: la que diga la campaña, siempre con la casilla **Baja** sin marcar y Lifecycle distinto de **Customer**. Antes, importar los compradores del día (`campana.py respondio compradores`) para que quien compró ayer quede como Customer.
 4. Programarlo dentro del horario, mejor entre 9:00 y 11:00 a.m.
 
 ### Nombres y piezas
