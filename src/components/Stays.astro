@@ -83,14 +83,19 @@ const stays = staysFor(langOf(Astro.url.pathname));
                   {t('stay.whatsapp')}
                 </a>
               ) : null}
-              <p class="stay-alt">
+              <div class="stay-alt">
+                {/* Correo como botón, no como dirección suelta (2026-10-27) */}
+                {stay.email && (
+                  <a class="stay-email" href={`mailto:${stay.email}`}>
+                    {t('stay.email')}
+                  </a>
+                )}
                 {stay.phone && (
                   <a href={telUrl({ phone: stay.phone })}>
                     {t('stay.call')} {stay.phone}
                   </a>
                 )}
-                {stay.email && <a href={`mailto:${stay.email}`}>{stay.email}</a>}
-              </p>
+              </div>
             </div>
             <p class="stay-address">
               {stay.address} ·{' '}
@@ -258,6 +263,20 @@ const stays = staysFor(langOf(Astro.url.pathname));
     text-decoration-thickness: 1px;
     text-underline-offset: 0.25em;
     overflow-wrap: anywhere;
+  }
+  /* El correo, botón secundario: mismo marco que el de WhatsApp, sin relleno */
+  .stay-alt .stay-email {
+    flex-basis: 100%;
+    padding: 0.75em 1.2em;
+    text-align: center;
+    text-decoration: none;
+    border: var(--border) var(--ink);
+    transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out);
+  }
+  .stay-alt .stay-email:hover,
+  .stay-alt .stay-email:focus-visible {
+    background-color: var(--ink);
+    color: var(--cream);
   }
 
   .stay-address {

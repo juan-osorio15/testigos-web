@@ -170,6 +170,8 @@ const franjaNames = Object.fromEntries(
         )
       }
     </div>
+    {/* Medios de pago y tarifa, bajo el botón Comprar del widget (2026-10-27) */}
+    {live && <p class="tickets-pay">{t('tickets.pay')}</p>}
     {/* Dudas de compra en pantallas pequeñas: solo un botón bajo la tienda.
         En escritorio lo reemplaza la burbuja de la columna derecha. */}
     <div class="tickets-help">
@@ -558,6 +560,12 @@ const franjaNames = Object.fromEntries(
     border-radius: var(--radius-card);
     padding: var(--space-4);
     background-color: #fff;
+  }
+
+  .tickets-pay {
+    font-size: var(--text-small);
+    line-height: 1.5;
+    max-width: 60ch;
   }
 
   .tickets-soon {

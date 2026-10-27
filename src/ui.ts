@@ -96,8 +96,10 @@ const es = {
   'tickets.slotSoon': 'Todavía no está a la venta.',
   /* Bloque de etapas: tres planos que se tocan, cielo el vigente y crema
      los demás (fórmula visual §6: los datos van en franja). Desde el
-     2026-10-22: la etapa 1 sin contar qué se vendió ni con qué cifra; la 2,
-     el pase de fin de semana; la 3, todo a la venta con menos descuento. */
+     2026-10-22: la etapa 1 sin contar qué se vendió ni con qué cifra; la 3,
+     todo a la venta con menos descuento. La 2 (corregida el 2026-10-27):
+     desde el 13 de octubre se vende todo, no solo el pase de fin de semana,
+     que llegó el 22. */
   'stages.heading': 'Calendario de venta',
   'stages.stage1': 'Etapa 1',
   'stages.stage2': 'Etapa 2',
@@ -107,10 +109,10 @@ const es = {
   'stages.until': 'Hasta el',
   'stages.from': 'Desde el',
   'stages.stage1Product': 'Pase completo',
-  'stages.stage2Product': 'Pase de fin de semana',
+  'stages.stage2Product': 'Todas las boletas',
   'stages.stage3Product': 'Todas las boletas',
   'stages.stage1Note': 'Abrió la venta con su mayor descuento.',
-  'stages.stage2Note': 'Sábado y domingo completos, al mejor precio.',
+  'stages.stage2Note': 'Llegan las boletas de medio día y el pase de fin de semana.',
   'stages.stage3Note': 'Todo sigue a la venta, con menos descuento.',
   'stages.daysLeft': 'Quedan {n} días con el precio de la etapa 2',
   'stages.lastDay': 'Último día con el precio de la etapa 2',
@@ -128,6 +130,10 @@ const es = {
   'tickets.widgetFallback':
     'Si el módulo de compra no carga, puedes comprar directamente en la tienda segura de Pretix:',
   'tickets.widgetLink': 'Comprar en Pretix',
+  /* Bajo la tienda (2026-10-27). La tarifa de Wompi es 3,1535 % + 833 pesos
+     (IVA incluido); el titular pidió solo el porcentaje, redondeado. */
+  'tickets.pay':
+    'Pagas con Wompi: tarjeta, PSE (elige Transferencia y luego tu banco), Nequi o Daviplata. Al total se suma la tarifa de pago, de cerca del 3,3 %.',
   /* Aviso del widget de Pretix para lo que aún no se vende (texto fijo del
      propio widget en cada idioma); el script lo reemplaza por "avísame" */
   'tickets.notYet': 'Aún no disponible',
@@ -192,6 +198,7 @@ const es = {
   'stay.writeTo': 'Te atienden directamente en recepción.',
   'stay.whatsapp': 'Escribir por WhatsApp',
   'stay.call': 'Llamar',
+  'stay.email': 'Escribir por correo',
   'stay.useCode': 'Reserva en línea y pon el código',
   'stay.bookOnline': 'Reservar en línea',
   'stay.note':
@@ -415,10 +422,10 @@ const en: Record<UiKey, string> = {
   'stages.until': 'Until',
   'stages.from': 'From',
   'stages.stage1Product': 'Full pass',
-  'stages.stage2Product': 'Weekend pass',
+  'stages.stage2Product': 'All tickets',
   'stages.stage3Product': 'All tickets',
   'stages.stage1Note': 'Opened sales at its biggest discount.',
-  'stages.stage2Note': 'All of Saturday and Sunday, at the best price.',
+  'stages.stage2Note': 'Half-day tickets and the weekend pass arrive.',
   'stages.stage3Note': 'Everything stays on sale, at a smaller discount.',
   'stages.daysLeft': '{n} days left at the stage 2 price',
   'stages.lastDay': 'Last day at the stage 2 price',
@@ -433,6 +440,8 @@ const en: Record<UiKey, string> = {
     'Ticket sales open soon. Limited seating. The open talks are free to attend.',
   'tickets.widgetFallback': 'If the checkout module does not load, you can buy directly from the secure Pretix shop:',
   'tickets.widgetLink': 'Buy on Pretix',
+  'tickets.pay':
+    'You pay through Wompi: card, PSE (choose Transferencia, then your bank), Nequi or Daviplata. A payment fee of about 3.3% is added to the total.',
   'tickets.notYet': 'Not yet available',
   'waitlist.name': 'Name',
   'waitlist.email': 'Email address',
@@ -486,6 +495,7 @@ const en: Record<UiKey, string> = {
   'stay.writeTo': 'The front desk will help you directly.',
   'stay.whatsapp': 'Message on WhatsApp',
   'stay.call': 'Call',
+  'stay.email': 'Send an email',
   'stay.useCode': 'Book online and enter the code',
   'stay.bookOnline': 'Book online',
   'stay.note':
