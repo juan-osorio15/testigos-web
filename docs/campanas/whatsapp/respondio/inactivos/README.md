@@ -10,7 +10,7 @@ Cada plantilla tiene una sola idea (una conversación del programa o el recorrid
 - **RC2** · martes 27 oct · Fidel Cano y Cecilia Orozco
 - **RC3** · miércoles 28 oct · el recorrido completo
 - **RC4** · jueves 29 oct · último día del pase de fin de semana a $240.000
-- **RC5** · viernes 30 oct · Marisol Gómez y Ricardo Ospina
+- **RC5** · viernes 30 oct · Marisol Gómez
 - **RC6** · sábado 31 oct (de 8:00 a.m. a 3:00 p.m.) · Luz María Sierra y Martha Soto
 - **RC7** · martes 3 nov · Marta Ruiz y Guillermo González Uribe
 - **RC8** · miércoles 4 nov · mañana empieza
@@ -99,7 +99,7 @@ Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
 Te avisamos porque hoy es el último día del pase de fin de semana a $240.000 en vez de $270.000. Desde mañana el descuento es menor.
 
-Con ese pase escuchas el sábado y el domingo a Fidel Cano, Yolanda Ruiz, María Elvira Samper, Marta Ruiz y Ricardo Ospina, entre otros, con tiempo para hacerles preguntas.
+Con ese pase escuchas el sábado y el domingo a Fidel Cano, Yolanda Ruiz, María Elvira Samper, Marta Ruiz y Marisol Gómez, entre otros, con tiempo para hacerles preguntas.
 
 Si vienes de fuera, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
@@ -118,7 +118,7 @@ Variable `{{1}}`: nombre. Sin cifras: desde hoy rige la etapa 3.
 ```
 Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
-Marisol Gómez cubrió las negociaciones de paz durante 25 años, del Caguán a La Habana. El sábado 7 de noviembre a las 11:00 a.m. cuenta lo que vio en esas mesas junto a Ricardo Ospina, director de noticias de Blu Radio, en Villa de Leyva.
+Marisol Gómez cubrió las negociaciones de paz durante 25 años, del Caguán a La Habana. El sábado 7 de noviembre a las 11:00 a.m. cuenta en Villa de Leyva lo que vio en esas mesas y nunca llegó a los titulares.
 
 Para que no tengas que preocuparte por el hospedaje, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
@@ -137,7 +137,7 @@ Variable `{{1}}`: nombre.
 ```
 Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
-Una tarde para entender el narcotráfico y el paramilitarismo con dos periodistas que los cubrieron de cerca: Luz María Sierra, exdirectora de El Colombiano, y Martha Soto, editora de la Unidad Investigativa de El Tiempo. Es el sábado 7 de noviembre a las 3:00 p.m., y después siguen Fidel Cano y Cecilia Orozco.
+Una tarde para entender el narcotráfico y el paramilitarismo con dos periodistas que los cubrieron de cerca: Luz María Sierra, exdirectora de El Colombiano, y Martha Soto, editora de la Unidad Investigativa de El Tiempo. Es el sábado 7 de noviembre a las 3:00 p.m.
 
 Si todavía no sabes dónde quedarte, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
@@ -156,11 +156,11 @@ Variable `{{1}}`: nombre.
 ```
 Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
-Este domingo a las 9:00 a.m., Marta Ruiz, excomisionada de la Verdad, y Guillermo González Uribe, fundador de Número, hablan de los magnicidios y de las víctimas de la violencia. Después siguen Yolanda Ruiz y María Elvira Samper, en la misma mañana.
+Los magnicidios han marcado la historia de Colombia una y otra vez, y por doloroso que sea, es un patrón que hay que entender. Este domingo a las 9:00 a.m., Marta Ruiz, excomisionada de la Verdad, y Guillermo González Uribe, fundador de Número, hablan de eso y de las víctimas de la violencia.
 
 Si vienes de fuera, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
-El pase de fin de semana sigue con descuento por tiempo limitado, y la boleta del domingo en la mañana incluye las dos conversaciones. ¿Te ayudamos a reservar?
+El pase de fin de semana sigue con descuento por tiempo limitado, y también está la boleta del domingo en la mañana. ¿Te ayudamos a reservar?
 ```
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`

@@ -7,7 +7,7 @@ La lista se arma de nuevo en cada envío: quien compró, tiene un pedido pendien
 ## Calendario
 
 - **IN1** · martes 27 oct · plantilla `in1_boletas_medio_dia`
-- **IN2** · martes 3 nov · plantilla `in2_domingo_en_la_manana`
+- **IN2** · martes 3 nov · plantilla `in2_domingo_en_la_manana` (Mujeres periodistas)
 
 ## Antes del primer envío (una sola vez)
 
@@ -57,11 +57,11 @@ Mira la agenda completa para decidir cuáles te interesan más o, si no te quier
 Sin variables.
 
 ```
-Hola. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.). Este domingo en la mañana, Marta Ruiz habla de magnicidios y víctimas, y después Yolanda Ruiz y María Elvira Samper cuentan cómo fue cubrir todo eso siendo mujeres.
+Hola. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.). ¿Qué le tocaba enfrentar a una mujer al frente de un noticiero cuando casi ninguna lo dirigía? Yolanda Ruiz y María Elvira Samper lo cuentan este domingo en la mañana.
 
 Es el domingo 8 de noviembre en la Hospedería Duruelo, y el aforo es limitado.
 
-Las dos conversaciones entran en una boleta de medio día de $90.000, o llévate el pase de fin de semana, que está en descuento. ¿Te ayudamos a reservar? Escríbenos por aquí.
+Esa conversación entra en la boleta de medio día del domingo en la mañana, de $90.000, o llévate el pase de fin de semana, que está en descuento. ¿Te ayudamos a reservar? Escríbenos por aquí.
 ```
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`

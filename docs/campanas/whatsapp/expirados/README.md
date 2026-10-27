@@ -7,7 +7,7 @@ Solo reciben WhatsApp quienes lo autorizaron en la tienda (lo decide el backend)
 ## Calendario
 
 - **EX1** · martes 27 oct · plantilla `ex1_pedido_vencido`
-- **EX2** · martes 3 nov · plantilla `ex2_sabado_en_la_tarde`
+- **EX2** · martes 3 nov · plantilla `ex2_sabado_en_la_tarde` (Narcotráfico)
 
 ## Antes del primer envío (una sola vez)
 
@@ -58,11 +58,11 @@ Ahora hay dos formas más de venir: el pase de fin de semana, con descuento, par
 Variable `{{1}}`: primer nombre (`primer_nombre`; ejemplo para Meta: `Ana`).
 
 ```
-Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.). El sábado 7 de noviembre en la tarde hay dos conversaciones seguidas: Luz María Sierra y Martha Soto sobre el narcotráfico, y después Fidel Cano y Cecilia Orozco sobre las reelecciones de Uribe y Santos.
+Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.). ¿Cómo se investiga a quien puede mandar a matar al investigador? Martha Soto, de la Unidad Investigativa de El Tiempo, lo cuenta con Luz María Sierra el sábado 7 de noviembre en la tarde.
 
 Es en la Hospedería Duruelo, y el aforo es limitado.
 
-Las dos conversaciones entran en una boleta de medio día de $90.000, o llévate el pase de fin de semana, que está en descuento. ¿Te ayudamos a reservar? Escríbenos por aquí.
+Esa conversación entra en la boleta de medio día del sábado en la tarde, de $90.000, o llévate el pase de fin de semana, que está en descuento. ¿Te ayudamos a reservar? Escríbenos por aquí.
 ```
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`

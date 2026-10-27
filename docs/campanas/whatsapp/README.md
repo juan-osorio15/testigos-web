@@ -68,7 +68,7 @@ Correcciones del 22 de octubre, para esta campaña y las que vengan:
 
 - **Daniel Samper Pizano va de primero cuando se lista a los invitados** (decisión del titular, 2026-10-26). Lo que le molestó fue que su cara fuera el centro de anuncios pagos; en WhatsApp, nombrarlo entre los panelistas no es problema, y no se trata de esconder su participación. Lo que sigue sin hacerse es una pieza centrada en él, como el afiche del Bogotazo.
 - **León Valencia no se usa como gancho** (el público responde mal). Su nombre puede aparecer en el programa, pero ninguna pieza ni mensaje se apoya en él. Por eso no se usa el afiche de Guerrillas.
-- **Priorizar a los de más alto perfil:** Yolanda Ruiz, María Elvira Samper, Fidel Cano, Cecilia Orozco, Luz María Sierra, Martha Soto, Ricardo Ospina y Marta Ruiz.
+- **Priorizar a los de más alto perfil:** Yolanda Ruiz, María Elvira Samper, Fidel Cano, Cecilia Orozco, Luz María Sierra, Martha Soto y Marta Ruiz.
 - **Ángulo:** "¿Te imaginas preguntarle a… / escuchar a…?". Una oportunidad única, de cerca.
 - **Variar la apertura** (titular, 2026-10-26): no todos los mensajes con "¿te imaginas…?". También un dato del panelista, una pregunta sobre el tema o una noticia ("hoy es el último día…"). Si van varios mensajes a la misma persona, cada uno abre distinto.
 - **Hospedaje sin nombrar un hotel** (titular, 2026-10-26), con una de estas frases, alternándolas: "¿Ya sabes dónde quedarte? Tenemos varios hoteles aliados con descuentos especiales para asistentes." · "Si todavía no sabes dónde quedarte, tenemos…" · "Para que no tengas que preocuparte por el hospedaje, tenemos…" · "Si vienes de fuera, tenemos…". Los hoteles y sus descuentos están en la página (`#hospedaje`).
