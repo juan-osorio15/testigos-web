@@ -69,7 +69,7 @@ También aplica si una conversación cerrada se reabre con uno de estos mensajes
 - Si responde "BAJA" (en mayúsculas o minúsculas, solo o con otras palabras), "No me interesa" o pide no recibir más mensajes:
   1. Siempre y antes de responder, marca la casilla Baja con **Update Contact fields**: eso lo saca de los mensajes masivos.
   2. Responde solo: "Listo, no te volveremos a escribir. Si más adelante quieres saber del encuentro, aquí estamos." No insistas ni ofrezcas boletas.
-  3. Cambia el Lifecycle a Cold Lead y **Close conversation**.
+  3. Cambia el Lifecycle a Not Interested con **Update Lifecycle stages** y **Close conversation**.
 
 # ESCALAMIENTO
 
