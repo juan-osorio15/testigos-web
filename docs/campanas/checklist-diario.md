@@ -6,7 +6,7 @@ Horario de la Ley 2300: lunes a viernes de 7:00 a.m. a 7:00 p.m., sábado de 8:0
 
 ## Todos los días
 
-1. **Expirados a respond.io.** `python3 scripts/campanas/campana.py respondio expirados`, importar el CSV de `~/Downloads` en respond.io y mandar el broadcast.
+1. **Expirados a respond.io.** `python3 scripts/campanas/campana.py respondio expirados`, importar el CSV de `~/Downloads` en respond.io con la casilla **Do Not Overwrite** marcada en Tags (si no, borra las etiquetas de días anteriores) y mandar el broadcast al segmento con la etiqueta de hoy y sin la de ayer.
 2. **GV · grupos de Villa.** Pieza de `grupos-villa/whatsapp/piezas/` y texto del bloque del día, publicados a mano.
 3. **LF · Fernando.** Mandarle las piezas del día en orden (`-1`, `-2`, `-3`) y después el texto. Él lo reenvía.
 4. **RC · inactivos.** Broadcast en respond.io con la plantilla del día al segmento `inactivos`, mejor entre 9:00 y 11:00 a.m.
