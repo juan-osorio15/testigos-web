@@ -9,7 +9,7 @@ Cada plantilla tiene una sola idea (una conversación del programa o el recorrid
 - **RC1** · lunes 26 oct · Yolanda Ruiz y María Elvira Samper
 - **RC2** · martes 27 oct · Fidel Cano y Cecilia Orozco
 - **RC3** · miércoles 28 oct · el recorrido completo
-- **RC4** · jueves 29 oct · último día del pase de fin de semana a $240.000
+- **RC4** · jueves 29 oct · último día del pase de fin de semana a $240.000. **No se envía:** la reemplaza CD3 (`docs/campanas/cierre-descuento/`), que llega a todos los contactos sin compra
 - **RC5** · viernes 30 oct · Marisol Gómez
 - **RC6** · sábado 31 oct (de 8:00 a.m. a 3:00 p.m.) · Luz María Sierra y Martha Soto
 - **RC7** · martes 3 nov · Marta Ruiz y Guillermo González Uribe

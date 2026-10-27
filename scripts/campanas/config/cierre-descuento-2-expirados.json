@@ -1,0 +1,14 @@
+{
+  "descripcion": "Cierre de la etapa 2, día 2 de 3. Quien dejó expirar un pedido y nunca compró. Plan en docs/campanas/cierre-descuento/README.md.",
+  "audiencia": "expirados",
+  "parametros": {},
+  "canales": {
+    "correo": {
+      "activo": true,
+      "plantilla": "cierre-descuento-2.html",
+      "asunto": "Mañana termina la etapa 2",
+      "remitente": "Juan de Testigos de la Memoria <direccion@testigosdelamemoria.com>",
+      "responder_a": "manager@eventalist.co"
+    }
+  }
+}

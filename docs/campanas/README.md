@@ -1,6 +1,6 @@
 # Campañas de correo y WhatsApp
 
-Cómo están armadas las campañas de mensajes de Eventalist y cómo se crea una nueva. Desde el 19 de octubre de 2026 todas pasan por un solo comando, `scripts/campanas/campana.py`. Lo de cada campaña (a quién, qué textos, por qué) está en su carpeta: `docs/campanas/expirados/` y `docs/campanas/interesados/`.
+Cómo están armadas las campañas de mensajes de Eventalist y cómo se crea una nueva. Desde el 19 de octubre de 2026 todas pasan por un solo comando, `scripts/campanas/campana.py`. Lo de cada campaña (a quién, qué textos, por qué) está en su carpeta: `docs/campanas/expirados/`, `docs/campanas/interesados/` y `docs/campanas/cierre-descuento/`.
 
 ## Las piezas
 

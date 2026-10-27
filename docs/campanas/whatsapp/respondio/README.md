@@ -22,3 +22,4 @@ Las mismas de toda la campaña de WhatsApp (`../README.md`, "Reglas para todos l
 ## Broadcasts
 
 - [`inactivos/`](inactivos/) · **RC** · conversaciones que se cerraron por inactividad sin compra. Una plantilla por día hasta el evento.
+- [`../../cierre-descuento/`](../../cierre-descuento/) · **CD** · los tres últimos días de la etapa 2 (27 al 29 de octubre), a todos los contactos sin compra. Va junto con tres correos.

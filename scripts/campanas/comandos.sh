@@ -38,6 +38,16 @@ python3 scripts/campanas/campana.py correo interesados --prueba manager@eventali
 python3 scripts/campanas/campana.py correo interesados --enviar
 
 
+# ── Cierre de la etapa 2 (27 al 29 de octubre) ──────────────────
+# Un número por día: 1 el martes, 2 el miércoles, 3 el jueves. Plan en docs/campanas/cierre-descuento/README.md.
+python3 scripts/campanas/campana.py correo cierre-descuento-1-interesados
+python3 scripts/campanas/campana.py correo cierre-descuento-1-interesados --prueba manager@eventalist.co --enviar
+python3 scripts/campanas/campana.py correo cierre-descuento-1-interesados --enviar
+python3 scripts/campanas/campana.py correo cierre-descuento-1-expirados
+python3 scripts/campanas/campana.py correo cierre-descuento-1-expirados --prueba manager@eventalist.co --enviar
+python3 scripts/campanas/campana.py correo cierre-descuento-1-expirados --enviar
+
+
 # ── Correo de Fernando a su agenda ──────────────────────────────
 # 100 por día en el plan gratis de Resend: se repite el mismo comando cada día y sigue con los que faltan.
 python3 scripts/campanas/campana.py correo agenda-fernando

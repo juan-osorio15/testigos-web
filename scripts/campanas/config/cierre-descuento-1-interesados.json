@@ -1,0 +1,17 @@
+{
+  "descripcion": "Cierre de la etapa 2, día 1 de 3. Quien pidió aviso en el sitio y no ha comprado. Plan en docs/campanas/cierre-descuento/README.md.",
+  "audiencia": "interesados",
+  "parametros": {
+    "origen": "website",
+    "desde": "2026-09-09"
+  },
+  "canales": {
+    "correo": {
+      "activo": true,
+      "plantilla": "cierre-descuento-1.html",
+      "asunto": "Quedan 2 días con los precios de la etapa 2",
+      "remitente": "Juan de Testigos de la Memoria <direccion@testigosdelamemoria.com>",
+      "responder_a": "manager@eventalist.co"
+    }
+  }
+}
