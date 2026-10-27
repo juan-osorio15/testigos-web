@@ -47,53 +47,7 @@ Resend gratis manda 100 correos al día. Si las dos listas suman más, el envío
 
 ## WhatsApp (respond.io)
 
-Las plantillas se crean en WhatsApp Manager, en la cuenta del número colombiano, categoría Marketing, idioma español. **La de cada día tiene que estar aprobada antes de enviarla:** CD1 se crea ya, para que alcance a salir hoy antes de las 7:00 p.m.; CD2 y CD3 de una vez, para no depender de la aprobación esos días.
-
-- Variable `{{1}}`: First Name. Ejemplo para Meta: "Ana".
-- Audiencia: todos los contactos con Lifecycle distinto de Customer y la casilla Baja sin marcar. Incluye a los del segmento `inactivos`.
-- **Cruce con RC (`../whatsapp/respondio/inactivos/`):** CD3 reemplaza a RC4, que dice lo mismo; RC4 no se envía. RC2 y RC3 siguen: a los inactivos esos días les llegan dos mensajes, lo que las reglas permiten.
-
-### CD1 · martes 27 de octubre · `cd1_quedan_dos_dias`
-
-```
-Hola, {{1}}. Quedan 2 días con los precios de la etapa 2 de Testigos de la Memoria. El jueves 29 de octubre es el último día; después, el descuento es menor.
-
-¿Qué pasó de verdad en las mesas del Caguán y de La Habana? Marisol Gómez cubrió las negociaciones de paz durante 25 años y el sábado 7 de noviembre lo cuenta en Villa de Leyva, con tiempo para hacerle preguntas.
-
-El pase de fin de semana está en $240.000 en vez de $270.000, y el pase completo en $340.000. ¿Te ayudamos a escoger tu boleta?
-```
-
-- Pie: `Eventalist S.A.S. · Para no recibir más, responde BAJA.`
-- Botón de respuesta rápida **Sí, ayúdame**.
-- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=cierre-descuento&utm_content=plantilla-quedan-dos-dias`
-
-### CD2 · miércoles 28 de octubre · `cd2_manana_termina`
-
-```
-Hola, {{1}}. Mañana jueves termina la etapa 2 de Testigos de la Memoria. Desde el viernes, el descuento es menor.
-
-Yolanda Ruiz y María Elvira Samper cubrieron la guerra y el poder cuando casi ninguna mujer dirigía un noticiero en Colombia. El domingo 8 de noviembre en la mañana cuentan en Villa de Leyva cómo fue.
-
-Esa conversación entra en el pase de fin de semana, que hasta mañana está en $240.000 en vez de $270.000. ¿Te lo dejamos listo?
-```
-
-- Pie: `Eventalist S.A.S. · Para no recibir más, responde BAJA.`
-- Botón de respuesta rápida **Sí, quiero**.
-- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=cierre-descuento&utm_content=plantilla-manana-termina`
-
-### CD3 · jueves 29 de octubre · `cd3_hoy_ultimo_dia`
-
-```
-Hola, {{1}}. Hoy es el último día de la etapa 2 de Testigos de la Memoria. Desde mañana, el descuento es menor.
-
-Con el pase de fin de semana escuchas el sábado y el domingo a Fidel Cano, Cecilia Orozco, Yolanda Ruiz, María Elvira Samper y Marisol Gómez, entre otros, y les puedes hacer preguntas en persona.
-
-Hoy está en $240.000 en vez de $270.000. ¿Te lo dejamos listo?
-```
-
-- Pie: `Eventalist S.A.S. · Para no recibir más, responde BAJA.`
-- Botón de respuesta rápida **Sí, quiero**.
-- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=cierre-descuento&utm_content=plantilla-hoy-termina`
+Las tres plantillas, campo por campo (nombre, categoría, imagen, cuerpo, pie y botones), las piezas y los pasos de cada día están en [`../whatsapp/cierre-descuento/`](../whatsapp/cierre-descuento/). CD1 tiene que quedar aprobada por Meta hoy antes de las 7:00 p.m. CD3 reemplaza a RC4.
 
 ## Cómo se mide
 

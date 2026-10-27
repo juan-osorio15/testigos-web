@@ -4,6 +4,8 @@ Personas que le escribieron a Catalina, se les cerró la conversación por inact
 
 Cada plantilla tiene una sola idea (una conversación del programa o el recorrido completo) y abre de forma distinta: un dato, una pregunta sobre el tema, una noticia. No todas con "¿te imaginas…?". Después, una línea de hospedaje (cuatro variantes que se alternan), sin nombrar un hotel (los hoteles y sus descuentos están en la página, en el botón Ver hoteles), y al final el pase de fin de semana con su descuento por tiempo limitado.
 
+**Todas las RC:** categoría Marketing, idioma español (`es`), sin encabezado (no llevan pieza), ejemplo de `{{1}}`: `Ana`. Lo demás (nombre, cuerpo, pie y botones) está en cada bloque. Qué es cada campo: [`../README.md`](../README.md).
+
 ## Calendario
 
 - **RC1** · lunes 26 oct · Yolanda Ruiz y María Elvira Samper

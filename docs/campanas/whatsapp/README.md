@@ -25,7 +25,8 @@ Plan del 22 de octubre de 2026 para las dos últimas semanas antes del evento (5
 - [`lista-fernando/`](lista-fernando/) · **LF** · lista de difusión y contactos de Fernando. Un mensaje por día hábil, en su voz. Él los reenvía.
 - [`interesados/`](interesados/) · **IN** · quienes pidieron aviso en el sitio. Una vez por semana, con plantilla de Meta por la API.
 - [`expirados/`](expirados/) · **EX** · quienes empezaron una compra y no la terminaron. Una vez por semana, con plantilla de Meta por la API.
-- [`respondio/`](respondio/) · broadcasts desde respond.io a contactos de Catalina. Hoy: **RC**, conversaciones cerradas por inactividad sin compra, una plantilla por día hasta el evento.
+- [`respondio/`](respondio/) · broadcasts desde respond.io a contactos de Catalina: qué lleva cada plantilla y cómo se manda. Hoy: **RC**, conversaciones cerradas por inactividad sin compra, una plantilla por día hasta el evento.
+- [`cierre-descuento/`](cierre-descuento/) · **CD** · broadcasts de respond.io de los tres últimos días de la etapa 2 (27 al 29 de octubre), con pieza.
 
 Cada carpeta tiene su `README.md` con lo que toca cada día.
 
@@ -58,7 +59,7 @@ Las plantillas de IN y EX no necesitan el enlace del agente: la persona responde
 
 Correcciones del 22 de octubre, para esta campaña y las que vengan:
 
-1. **Primero lo que antoja:** el periodista, el tema y "¿te imaginas…?". El saludo y el contexto pueden ir antes, pero nunca el precio ni la logística.
+1. **Primero lo que antoja:** el periodista y el tema, abiertos con un dato, una pregunta con intriga o una noticia. El saludo y el contexto pueden ir antes, pero nunca el precio ni la logística. Excepción: en las campañas de fecha límite (CD) la urgencia va en la primera línea.
 2. **El día y la hora solo cuando el mensaje es sobre una conversación en particular.** Un mensaje que mezcla varios periodistas y varios días no ayuda a decidir: la gente no lee la información así.
 3. **Un mensaje, una idea.** Si son varias conversaciones, mejor varios mensajes.
 4. **Lo que puede alejar va al final:** el precio, la logística y el cupo.
@@ -69,8 +70,8 @@ Correcciones del 22 de octubre, para esta campaña y las que vengan:
 - **Daniel Samper Pizano va de primero cuando se lista a los invitados** (decisión del titular, 2026-10-26). Lo que le molestó fue que su cara fuera el centro de anuncios pagos; en WhatsApp, nombrarlo entre los panelistas no es problema, y no se trata de esconder su participación. Lo que sigue sin hacerse es una pieza centrada en él, como el afiche del Bogotazo.
 - **León Valencia no se usa como gancho** (el público responde mal). Su nombre puede aparecer en el programa, pero ninguna pieza ni mensaje se apoya en él. Por eso no se usa el afiche de Guerrillas.
 - **Priorizar a los de más alto perfil:** Yolanda Ruiz, María Elvira Samper, Fidel Cano, Cecilia Orozco, Luz María Sierra, Martha Soto y Marta Ruiz.
-- **Ángulo:** "¿Te imaginas preguntarle a… / escuchar a…?". Una oportunidad única, de cerca.
-- **Variar la apertura** (titular, 2026-10-26): no todos los mensajes con "¿te imaginas…?". También un dato del panelista, una pregunta sobre el tema o una noticia ("hoy es el último día…"). Si van varios mensajes a la misma persona, cada uno abre distinto.
+- **Variar la apertura** (titular, 2026-10-26): un dato del panelista, una pregunta con intriga sobre lo que no se vio ("¿Qué pasó de verdad en las mesas del Caguán y de La Habana?") o una noticia ("hoy es el último día…"). "¿Te imaginas…?" puede aparecer alguna vez, pero ya no es la apertura por defecto. Si van varios mensajes a la misma persona, cada uno abre distinto.
+- **Una conversación por mensaje** y **nunca una muerte con nombre propio como gancho**: los magnicidios se tratan como fenómeno.
 - **Hospedaje sin nombrar un hotel** (titular, 2026-10-26), con una de estas frases, alternándolas: "¿Ya sabes dónde quedarte? Tenemos varios hoteles aliados con descuentos especiales para asistentes." · "Si todavía no sabes dónde quedarte, tenemos…" · "Para que no tengas que preocuparte por el hospedaje, tenemos…" · "Si vienes de fuera, tenemos…". Los hoteles y sus descuentos están en la página (`#hospedaje`).
 - **El pase de fin de semana con su descuento por tiempo limitado** en los mensajes de venta.
 - **El aforo, sin número** (titular, 2026-10-26): "El aforo es limitado" o "todavía hay cupo". Ni el número de sillas, ni "últimos cupos", ni contadores.
