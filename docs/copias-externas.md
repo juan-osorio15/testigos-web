@@ -16,7 +16,7 @@ Antes de pegar un texto que vive en el repo: `npm run build` y `npm run verifica
 - **Qué tiene**: la ficha (hechos) y el prompt (comportamiento). Los precios no: los consulta en vivo en la tienda.
 - **Copia en el repo**: `docs/chatbot/ficha_testigos_de_la_memoria_v*.md` y `docs/chatbot/prompt_v*.md`, la versión más alta de cada uno. `docs/chatbot/legacy/` no se usa.
 - **Cambia si cambia**: sesiones, panelistas, sedes, etapas, hoteles, políticas, canales.
-- **Último pegado**: por confirmar (ficha v5 del 2026-10-24 con Casa Boutique en hospedaje, pendiente de pegar; prompt v2 del 2026-10-23).
+- **Último pegado**: por confirmar (ficha v6 del 2026-10-26 sin Ricardo Ospina, pendiente de pegar; prompt v5 del 2026-10-26).
 
 ## Plantillas de WhatsApp en Meta
 
