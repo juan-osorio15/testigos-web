@@ -58,7 +58,7 @@ La investigación del 13 de octubre no recoge esto:
 - **Campañas con una sola arquitectura (19 oct).** `scripts/campanas/campana.py`: fuentes (Pretix, backend), audiencias, un formato único de lista, canales (Resend, Meta), reglas comunes y un registro único de envíos fuera del repo. Cada campaña es un JSON. Guía: `docs/campanas/README.md`. Se mandaron las dos primeras con ella (interesados y expirados).
 - **Backend con lectura de contactos (19 oct).** Endpoint de solo lectura de los contactos de una campaña, con la autorización por canal. El sitio ya no solo escribe en el backend: también lee de él para las campañas.
 - **Cambio de número de WhatsApp (19 oct).** En el sitio fue una línea (`WHATSAPP_URL` en `src/config.ts`). Afuera (Pretix, perfiles, chatbot, Meta) no hay un inventario de dónde está publicado.
-- **Campañas de Google Ads y plantillas de WhatsApp** (`docs/campanas/google-ads/`, `docs/campanas/whatsapp-ventas/`), sin spec.
+- **Campañas de Google Ads y plantillas de WhatsApp** (`docs/campanas/google-ads/` y una carpeta por campaña en `docs/campanas/`), sin spec.
 
 ## 4. Dónde vive hoy cada tipo de verdad
 

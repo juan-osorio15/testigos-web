@@ -1,5 +1,5 @@
 {
-  "descripcion": "Quien pidió en el sitio que le avisáramos de las boletas de medio día y no ha comprado. Plan en docs/campanas/interesados/plan.md.",
+  "descripcion": "Quien pidió en el sitio que le avisáramos de las boletas de medio día y no ha comprado. Plan en docs/campanas/interesados/README.md.",
   "audiencia": "interesados",
   "parametros": {
     "origen": "website",

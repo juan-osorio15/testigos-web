@@ -1,4 +1,4 @@
-# GV · Grupos de Villa de Leyva
+# Grupos de Villa de Leyva · WhatsApp (GV)
 
 Grupos de WhatsApp de planes y eventos de Villa de Leyva donde ya estamos. Una publicación cada día que queda, de lunes a sábado sin el festivo del 2 de noviembre, publicada a mano: primero la pieza y después el texto, en el mismo mensaje si se puede.
 
@@ -7,6 +7,8 @@ Grupos de WhatsApp de planes y eventos de Villa de Leyva donde ya estamos. Una p
 **Cómo están escritos:** primero lo que antoja (el periodista y el tema), abriendo de formas distintas: un dato, una pregunta sobre el tema, a veces "¿se imaginan…?", pero no en todas; el día, la hora y el lugar solo cuando el mensaje es sobre una conversación, con "El aforo es limitado" (sin el número de sillas); después el precio y el pase de fin de semana con descuento; al final, primero el enlace de compra y después "¿Dudas? Escríbannos:" con el del agente. Un mensaje, una idea: una sola conversación por pieza, nunca dos juntas (titular, 2026-10-26). Así lo editó el titular en GV8 y GV5.
 
 **Cómo publicar:** busca la fecha de hoy, adjunta la pieza de `piezas/` con ese número y pega el texto del bloque. Cada texto trae dos enlaces: primero el de la página, para comprar, y después el del agente, para preguntar.
+
+**Enlaces:** cada texto ya trae los suyos completos. El del agente lleva un mensaje escrito para que Catalina sepa de dónde viene la persona: https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva. El de compra va a la portada con `utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=PIEZA` (lo publica el equipo), y la pieza se nombra por lo que es (`afiche-general`, `carrusel-fidel-cano`). Las demás reglas, en [`../../reglas.md`](../../reglas.md).
 
 ## Calendario
 

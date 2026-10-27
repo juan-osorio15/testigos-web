@@ -1,17 +1,17 @@
-# RC · Retomar conversaciones inactivas
+# Inactivos · WhatsApp (RC)
 
 Personas que le escribieron a Catalina, se les cerró la conversación por inactividad y no compraron. Ya conocen el evento y alguna vez preguntaron: el mensaje retoma la conversación como quien se acuerda de ellas, les cuenta algo que antoja, les resuelve dónde quedarse y les deja el pase de fin de semana. Termina en una pregunta para que respondan y Catalina siga.
 
 Cada plantilla tiene una sola idea (una conversación del programa o el recorrido completo) y abre de forma distinta: un dato, una pregunta sobre el tema, una noticia. No todas con "¿te imaginas…?". Después, una línea de hospedaje (cuatro variantes que se alternan), sin nombrar un hotel (los hoteles y sus descuentos están en la página, en el botón Ver hoteles), y al final el pase de fin de semana con su descuento por tiempo limitado.
 
-**Todas las RC:** categoría Marketing, idioma español (`es`), sin encabezado (no llevan pieza), ejemplo de `{{1}}`: `Ana`. Lo demás (nombre, cuerpo, pie y botones) está en cada bloque. Qué es cada campo: [`../README.md`](../README.md).
+**Todas las RC:** categoría Marketing, idioma español (`es`), sin encabezado (no llevan pieza), ejemplo de `{{1}}`: `Ana`. Lo demás (nombre, cuerpo, pie y botones) está en cada bloque. Qué es cada campo y cómo se manda un broadcast: [`../../reglas.md`](../../reglas.md). Enlaces con `utm_campaign=recuperacion`, igual que los que da Catalina a quien responde.
 
 ## Calendario
 
 - **RC1** · lunes 26 oct · Yolanda Ruiz y María Elvira Samper
 - **RC2** · martes 27 oct · Fidel Cano y Cecilia Orozco
 - **RC3** · miércoles 28 oct · el recorrido completo
-- **RC4** · jueves 29 oct · último día del pase de fin de semana a $240.000. **No se envía:** la reemplaza CD3 (`docs/campanas/cierre-descuento/`), que llega a todos los contactos sin compra
+- **RC4** · jueves 29 oct · último día del pase de fin de semana a $240.000. **No se envía:** la reemplaza CD3 ([`../../cierre-descuento/`](../../cierre-descuento/)), que llega a todos los contactos sin compra
 - **RC5** · viernes 30 oct · Marisol Gómez
 - **RC6** · sábado 31 oct (de 8:00 a.m. a 3:00 p.m.) · Luz María Sierra y Martha Soto
 - **RC7** · martes 3 nov · Marta Ruiz y Guillermo González Uribe
@@ -22,12 +22,12 @@ El domingo 1 y el lunes 2 (festivo) no se envía.
 ## Antes del primer envío (una sola vez)
 
 - [ ] **Crear las 8 plantillas** en WhatsApp Manager, con el texto exacto de abajo, al menos un día antes de su envío. Nombre, cuerpo, pie y botones como dice cada bloque. Si alguna ya se mandó a Meta con el texto del 25 de octubre, la nueva se crea con `_v2` al final del nombre.
-- [ ] **La baja (decisión del titular, 2026-10-26).** En respond.io, crear el campo de contacto **Baja** (Field ID `baja`, tipo Checkbox). Pegar `docs/chatbot/prompt_v5.md` en Catalina: quien responda BAJA o "no me interesa" queda con la casilla Baja marcada. A quienes ya la pidieron antes, marcársela a mano.
+- [ ] **La baja, el Customer y el segmento `inactivos`** configurados en respond.io ([`../../configuracion.md`](../../configuracion.md), "respond.io").
 
 ## Cada día
 
 1. En respond.io, Broadcasts → nuevo broadcast, canal WhatsApp del número colombiano, plantilla del día.
-2. Audiencia: el segmento guardado `inactivos`: "Time Since Last Incoming Message" mayor que 24 horas, Lifecycle distinto de Customer y la casilla Baja sin marcar.
+2. Audiencia: el segmento guardado `inactivos` ("Time Since Last Incoming Message" mayor que 24 horas, Lifecycle distinto de Customer y la casilla Baja sin marcar).
 3. Programarlo dentro del horario de la Ley 2300 (mejor entre 9:00 y 11:00 a.m.).
 4. **RC5 en adelante:** confirmar en Pretix, el mismo día, que el pase de fin de semana y la boleta de medio día que nombra la plantilla siguen a la venta. Desde el 30 de octubre las plantillas dicen "con descuento por tiempo limitado" sin cifras, porque el precio de la etapa 3 todavía no está definido.
 

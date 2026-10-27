@@ -1,16 +1,16 @@
 # Checklist diario · lo que se lanza a mano
 
-Hoja corta de lo que toca cada día hasta el evento. El texto, las piezas y los pasos completos están en la carpeta de cada campaña (`docs/campanas/whatsapp/`, `docs/campanas/cierre-descuento/`). Cuando una campaña nueva o un cambio de calendario toca un día, se actualiza aquí en el mismo cambio.
+Hoja corta de lo que toca cada día hasta el evento. El texto, las piezas y los pasos completos están en la carpeta de cada campaña, por medio (`<campaña>/correo/` y `<campaña>/whatsapp/`); las reglas, en `reglas.md`. Cuando una campaña nueva o un cambio de calendario toca un día, se actualiza aquí en el mismo cambio.
 
 Horario de la Ley 2300: lunes a viernes de 7:00 a.m. a 7:00 p.m., sábado de 8:00 a.m. a 3:00 p.m. Domingo 1 y lunes 2 de noviembre (festivo), nada.
 
 ## Todos los días
 
 1. **Expirados a respond.io.** `python3 scripts/campanas/campana.py respondio expirados`, importar el CSV de `~/Downloads` en respond.io y mandar el broadcast.
-2. **GV · grupos de Villa.** Pieza de `whatsapp/grupos-villa/piezas/` y texto del bloque del día, publicados a mano.
+2. **GV · grupos de Villa.** Pieza de `grupos-villa/whatsapp/piezas/` y texto del bloque del día, publicados a mano.
 3. **LF · Fernando.** Mandarle las piezas del día en orden (`-1`, `-2`, `-3`) y después el texto. Él lo reenvía.
 4. **RC · inactivos.** Broadcast en respond.io con la plantilla del día al segmento `inactivos`, mejor entre 9:00 y 11:00 a.m.
-5. **CD · cierre de la etapa 2, solo del 27 al 29 oct.** Correo a interesados y a expirados (`correo cierre-descuento-N-interesados` y `-expirados`, con N el día) y broadcast en respond.io a todos los contactos sin compra, con la pieza del día (`whatsapp/cierre-descuento/`). Antes, confirmar los precios en Pretix.
+5. **CD · cierre de la etapa 2, solo del 27 al 29 oct.** Correo a interesados y a expirados (`correo cierre-descuento-N-interesados` y `-expirados`, con N el día) y broadcast en respond.io a todos los contactos sin compra, con la pieza del día (`cierre-descuento/whatsapp/piezas/`). Antes, confirmar los precios en Pretix.
 
 ## Calendario
 
@@ -26,7 +26,7 @@ Horario de la Ley 2300: lunes a viernes de 7:00 a.m. a 7:00 p.m., sábado de 8:0
 
 ## Los martes, IN y EX por la API
 
-Primero revisar la plantilla de la semana en `scripts/campanas/config/interesados.json` y `expirados.json` (cuál va en `whatsapp/interesados/README.md` y `whatsapp/expirados/README.md`).
+Primero revisar la plantilla de la semana en `scripts/campanas/config/interesados.json` y `expirados.json` (cuál va en `interesados/whatsapp/README.md` y `expirados/whatsapp/README.md`).
 
 ```sh
 python3 scripts/campanas/campana.py whatsapp interesados                 # a quién le llegaría

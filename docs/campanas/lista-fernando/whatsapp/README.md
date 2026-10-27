@@ -1,4 +1,4 @@
-# LF · Lista de Fernando
+# Lista de Fernando · WhatsApp (LF)
 
 Fernando Cordovez, que organiza Testigos de la Memoria con Darío Restrepo, reenvía cada día hábil un mensaje a su lista de difusión y a sus contactos. Los textos están escritos en primera persona, como los diría él, para pegarlos tal cual.
 
@@ -9,6 +9,8 @@ Fernando Cordovez, que organiza Testigos de la Memoria con Darío Restrepo, reen
 **Cómo enviarle el paquete a Fernando:** busca la fecha de hoy y mándale las piezas de `piezas/` con ese número, en orden (`-1`, `-2`, `-3`), y después el texto del bloque. Las publicaciones de un periodista llevan tres piezas: la pregunta ("Oye…"), el afiche de su conversatorio y su trayectoria.
 
 No hay envíos los domingos ni el lunes 2 de noviembre (festivo). Los sábados, antes de las 3:00 p.m.
+
+**Enlaces:** cada texto ya trae los suyos completos. El del agente lleva un mensaje escrito para que Catalina sepa de dónde viene la persona: https://wa.me/573239236021?text=Hola%2C%20Fernando%20me%20cont%C3%B3%20de%20Testigos%20de%20la%20Memoria. El de compra va a la portada con `utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=PIEZA` (lo comparte un organizador desde su WhatsApp), y la pieza se nombra por lo que es (`afiche-general`, `carrusel-fidel-cano`). Las demás reglas, en [`../../reglas.md`](../../reglas.md).
 
 ## Calendario
 

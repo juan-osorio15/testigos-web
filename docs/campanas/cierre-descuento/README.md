@@ -22,32 +22,10 @@ Cada día: el correo a interesados, el correo a expirados y el broadcast de resp
 - Confirmar en Pretix que el pase de fin de semana sigue en $240.000 y el pase completo en $340.000, y que ninguno está agotado.
 - `npm run build` si cambió algo en `src/data/` (los correos toman los precios de ahí). Los correos se niegan a salir desde el 30 de octubre: la variable `{{fin_etapa_actual}}` deja de existir cuando termina la etapa.
 
-## Correo
+## Los medios
 
-Plantillas `scripts/campanas/plantillas/cierre-descuento-1.html`, `-2` y `-3`. Una configuración por día y audiencia en `scripts/campanas/config/` (`cierre-descuento-1-interesados`, `cierre-descuento-1-expirados`, …). Interesados y expirados no se cruzan: la audiencia de interesados ya deja por fuera a quien tiene un pedido expirado.
-
-Asuntos:
-
-- Día 1: `Quedan 2 días con los precios de la etapa 2`
-- Día 2: `Mañana termina la etapa 2`
-- Día 3: `Hoy es el último día de la etapa 2`
-
-Comandos del día (cambiar el número del día):
-
-```sh
-python3 scripts/campanas/campana.py correo cierre-descuento-1-interesados                                       # vista previa
-python3 scripts/campanas/campana.py correo cierre-descuento-1-interesados --prueba manager@eventalist.co --enviar  # prueba
-python3 scripts/campanas/campana.py correo cierre-descuento-1-interesados --enviar                               # envío real
-python3 scripts/campanas/campana.py correo cierre-descuento-1-expirados                                         # vista previa
-python3 scripts/campanas/campana.py correo cierre-descuento-1-expirados --prueba manager@eventalist.co --enviar    # prueba
-python3 scripts/campanas/campana.py correo cierre-descuento-1-expirados --enviar                                 # envío real
-```
-
-Resend gratis manda 100 correos al día. Si las dos listas suman más, el envío se detiene en el límite y al día siguiente sigue con los que faltan, que ya no sirve para esta campaña: revisar el total con la vista previa antes de enviar.
-
-## WhatsApp (respond.io)
-
-Las tres plantillas, campo por campo (nombre, categoría, imagen, cuerpo, pie y botones), las piezas y los pasos de cada día están en [`../whatsapp/cierre-descuento/`](../whatsapp/cierre-descuento/). CD1 tiene que quedar aprobada por Meta hoy antes de las 7:00 p.m. CD3 reemplaza a RC4.
+- [`correo/`](correo/): tres plantillas con diseño, una por día, a interesados y a expirados con `campana.py`.
+- [`whatsapp/`](whatsapp/): tres plantillas de Meta con su pieza, por broadcast de respond.io a todos los contactos sin compra. CD3 reemplaza a RC4 de `inactivos`.
 
 ## Cómo se mide
 

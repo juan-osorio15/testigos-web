@@ -139,7 +139,7 @@ Anuncio de cada grupo:
 - `periodismo`: `https://testigosdelamemoria.com/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=periodismo`
 - `panelistas`: `https://testigosdelamemoria.com/panelistas/daniel-samper-pizano/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=panelistas`
 
-Las URL de las palabras con página propia y de los nueve sitelinks están completas en `docs/campanas/google-ads/plan.md`, sección "Anuncios".
+Las URL de las palabras con página propia y de los nueve sitelinks están completas en `docs/campanas/google-ads/README.md`, sección "Anuncios".
 
 Para el ensayo antes de lanzar se abre a mano la URL con `utm_source=prueba` en vez de `google`, por ejemplo:
 `https://testigosdelamemoria.com/?utm_source=prueba&utm_medium=paid_search&utm_campaign=buscador&utm_content=plan-villa-de-leyva`

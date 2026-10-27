@@ -1,5 +1,7 @@
 # Plantillas de WhatsApp para vender
 
+> **Historial.** Borradores del 19 de octubre de 2026 que nunca se mandaron a Meta. Las plantillas vigentes están en `docs/campanas/<campaña>/whatsapp/README.md`. Quedan como ideas (pedido pendiente, logística, recordatorio, gracias) para campañas futuras.
+
 Borradores para mandar a aprobación de Meta. Se envían igual que `pedido_expirado_ayuda`: con `scripts/campanas/campana.py whatsapp <campaña>` (ver `docs/campanas/README.md`) y los pasos de `docs/campanas/expirados/titular/whatsapp.md`.
 
 ## Reglas para todas

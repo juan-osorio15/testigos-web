@@ -22,7 +22,7 @@ Antes de pegar un texto que vive en el repo: `npm run build` y `npm run verifica
 
 Aprobadas, **no se editan**: si un hecho fijo del cuerpo cambia, se crea una plantilla nueva. Por eso un cuerpo nuevo no lleva precio, fecha de etapa ni número; si los necesita, van como variables que llena `campana.py`.
 
-- **Copia en el repo**: el texto de cada una en `docs/campanas/whatsapp/<campaña>/README.md` y `docs/campanas/whatsapp-ventas/plantillas.md`.
+- **Copia en el repo**: el texto de cada una en `docs/campanas/<campaña>/whatsapp/README.md` (los borradores que nunca se usaron, en `docs/campanas/historial/borradores-whatsapp-ventas.md`).
 - **Programadas**: `ex1_pedido_vencido` y `in1_boletas_medio_dia` (martes 27 de octubre), `ex2_sabado_en_la_tarde` y `in2_domingo_en_la_manana` (martes 3 de noviembre). Estado de aprobación en Meta: por confirmar.
 - **Cambia si cambia**: panelistas o sesión que nombren, fechas.
 
@@ -30,13 +30,13 @@ Aprobadas, **no se editan**: si un hecho fijo del cuerpo cambia, se crea una pla
 
 No se pueden corregir después de enviados; solo los que faltan por mandar.
 
-- **Grupos de WhatsApp de Villa de Leyva**: `docs/campanas/whatsapp/grupos-villa/README.md`.
-- **Lista de difusión de Fernando Cordovez**: `docs/campanas/whatsapp/lista-fernando/README.md`.
+- **Grupos de WhatsApp de Villa de Leyva**: `docs/campanas/grupos-villa/whatsapp/README.md`.
+- **Lista de difusión de Fernando Cordovez**: `docs/campanas/lista-fernando/whatsapp/README.md`.
 
 ## Google Ads (campaña `buscador`)
 
 - **Qué tiene**: títulos y descripciones de los anuncios, enlaces con UTM.
-- **Copia en el repo**: `docs/campanas/google-ads/plan.md`.
+- **Copia en el repo**: `docs/campanas/google-ads/README.md`.
 - **Cambia si cambia**: precio, fechas, panelistas que nombre un anuncio.
 
 ## Por completar con el titular

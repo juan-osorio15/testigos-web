@@ -1,6 +1,6 @@
-# CD · Cierre de la etapa 2 (respond.io)
+# Cierre de la etapa 2 · WhatsApp
 
-Tres broadcasts de respond.io, uno por día del martes 27 al jueves 29 de octubre, para que se sienta que el precio de la etapa 2 se acaba. Van junto con tres correos (plan completo en [`../../cierre-descuento/`](../../cierre-descuento/)).
+Tres broadcasts de respond.io, uno por día del martes 27 al jueves 29 de octubre, para que se sienta que el precio de la etapa 2 se acaba. Van junto con tres correos (plan completo en [`../README.md`](../README.md); qué es cada campo de una plantilla y cómo se manda un broadcast, en [`../../reglas.md`](../../reglas.md)).
 
 **Cómo están escritos:** la urgencia va primero, en la imagen y en la primera línea, y es general ("los precios de la etapa 2"). Después viene una sola conversación que antoja y al final el precio. Es la excepción de esta campaña a "primero el antojo" (titular, 2026-10-27).
 

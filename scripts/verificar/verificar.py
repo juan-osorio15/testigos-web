@@ -48,9 +48,9 @@ def vigentes() -> list[Path]:
     piezas = [
         *sorted((RAIZ / "scripts" / "campanas" / "plantillas").glob("*.html")),
         docs / "pretix" / "pretix-tienda-textos.md",
-        *sorted((docs / "campanas" / "whatsapp").glob("*/README.md")),
-        docs / "campanas" / "whatsapp-ventas" / "plantillas.md",
-        docs / "campanas" / "google-ads" / "plan.md",
+        *sorted((docs / "campanas").glob("*/whatsapp/README.md")),
+        docs / "campanas" / "historial" / "borradores-whatsapp-ventas.md",
+        docs / "campanas" / "google-ads" / "README.md",
     ]
     for prefijo in ("ficha_", "prompt_"):
         versiones = sorted((docs / "chatbot").glob(f"{prefijo}*.md"), key=lambda p: int(re.findall(r"\d+", p.stem)[-1]))

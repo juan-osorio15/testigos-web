@@ -1,8 +1,8 @@
-# IN · Interesados
+# Interesados · WhatsApp
 
 Personas que pidieron en el sitio que les avisáramos de las boletas y no han comprado. Ya recibieron correo el 19 de octubre. Ahora se les escribe por WhatsApp una vez por semana, con una plantilla distinta cada semana, desde el número colombiano y por la API de Meta.
 
-La lista se arma de nuevo en cada envío: quien compró, tiene un pedido pendiente o dejó vencer uno (ese va en EX) no sale.
+La lista se arma de nuevo en cada envío: quien compró, tiene un pedido pendiente o dejó vencer uno (ese va en EX) no sale. Plan de la campaña en [`../README.md`](../README.md); qué es cada campo de una plantilla, en [`../../reglas.md`](../../reglas.md).
 
 ## Calendario
 
@@ -12,9 +12,9 @@ La lista se arma de nuevo en cada envío: quien compró, tiene un pedido pendien
 ## Antes del primer envío (una sola vez)
 
 - [ ] Crear las dos plantillas en WhatsApp Manager, en la cuenta del **número colombiano**, con el texto exacto de abajo. Categoría Marketing, idioma español. Deben estar aprobadas antes del martes 27.
-- [ ] Lo del llavero y el agente es lo mismo que en [`../expirados/`](../expirados/): si ya se hizo allá, no hay que repetirlo.
+- [ ] Las llaves de WhatsApp en el llavero ([`../../configuracion.md`](../../configuracion.md)); si ya se hizo para expirados, no hay que repetirlo.
 
-La plantilla anterior, `aviso_boletas_medio_dia`, no se usa: nombra a Daniel Samper Pizano y habla de "franjas".
+La plantilla anterior, `aviso_boletas_medio_dia`, no se usa: nombra a Daniel Samper Pizano y habla de "franjas". Está al final, como referencia.
 
 ## Cada martes
 
@@ -29,6 +29,8 @@ La plantilla anterior, `aviso_boletas_medio_dia`, no se usa: nombra a Daniel Sam
    python3 scripts/campanas/campana.py whatsapp interesados --enviar
    ```
 4. Ver los totales: `python3 scripts/campanas/campana.py registro interesados`.
+
+En la prueba, revisar en el celular que el botón **Ver boletas** abra la portada y que, al tocar el botón de respuesta, Catalina conteste algo con sentido. Si Meta rechaza un número, queda como fallido y sigue con los demás.
 
 ---
 
@@ -67,3 +69,23 @@ Esa conversación entra en la boleta de medio día del domingo en la mañana, de
 - Pie: `Para no recibir más mensajes, responde BAJA.`
 - Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=interesados&utm_content=plantilla-domingo-manana`
 - Botón de respuesta rápida **Quiero reservar**.
+
+## Plantillas anteriores (ya no se usan)
+
+El primer aviso por WhatsApp, del 19 de octubre. No se usa: nombra a Daniel Samper Pizano y habla de "franjas".
+
+### `aviso_boletas_medio_dia`
+
+Categoría **Marketing**, idioma español, sin variables (el saludo por nombre queda solo en el correo: un nombre mal escrito en una plantilla no se puede corregir). Nombre: `aviso_boletas_medio_dia`.
+
+```historico
+Hola. Te escribimos del equipo de Testigos de la Memoria (Eventalist S.A.S.). Nos pediste que te avisáramos cuando abrieran las boletas de medio día: ya están a la venta.
+
+Son cuatro franjas, del viernes 6 en la tarde al domingo 8 en la mañana, en la Hospedería Duruelo de Villa de Leyva. En cada una, periodistas como Daniel Samper Pizano, Cecilia Orozco, Yolanda Ruiz y Fidel Cano cuentan lo que vieron de cerca y responden tus preguntas.
+
+Si no sabes cuál escoger, escríbenos por aquí y te ayudamos.
+```
+
+- Pie: `Para no recibir más mensajes, responde BAJA.`
+- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=interesados&utm_content=plantilla-aviso`
+- Botón de respuesta rápida **Tengo una pregunta**.
