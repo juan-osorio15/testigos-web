@@ -1,0 +1,21 @@
+{
+  "descripcion": "Carta de Fernando Cordovez, conversacional, a toda la base con correo autorizado en el backend: sus contactos (referral, importados el 2026-10-27) y los inscritos del sitio (website). Fuera quien compró, tiene un pedido o lo dejó expirar. Plan en docs/campanas/lista-fernando/correo/README.md.",
+  "audiencia": "interesados",
+  "parametros": {
+    "origen": ["referral", "website"],
+    "desde": "2026-09-09",
+    "motivos": {
+      "referral": "Te escribimos porque estás entre los contactos de Fernando Cordovez o de Conexión Zaquencipá.",
+      "website": "Te escribimos porque pediste información en testigosdelamemoria.com."
+    }
+  },
+  "canales": {
+    "correo": {
+      "activo": true,
+      "plantilla": "carta-fernando.html",
+      "asunto": "Quería contártelo yo mismo",
+      "remitente": "Fernando Cordovez <direccion@testigosdelamemoria.com>",
+      "responder_a": "manager@eventalist.co"
+    }
+  }
+}

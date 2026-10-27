@@ -28,30 +28,37 @@ python3 scripts/campanas/campana.py lista agenda-fernando
 
 # ── Correo a expirados ──────────────────────────────────────────
 python3 scripts/campanas/campana.py correo expirados                                       # vista previa
-python3 scripts/campanas/campana.py correo expirados --prueba manager@eventalist.co --enviar  # prueba
+python3 scripts/campanas/campana.py correo expirados --prueba j.a.oso15@gmail.com --enviar  # prueba
 python3 scripts/campanas/campana.py correo expirados --enviar                              # envío real
 
 
 # ── Correo a interesados del sitio ──────────────────────────────
 python3 scripts/campanas/campana.py correo interesados
-python3 scripts/campanas/campana.py correo interesados --prueba manager@eventalist.co --enviar
+python3 scripts/campanas/campana.py correo interesados --prueba j.a.oso15@gmail.com --enviar
 python3 scripts/campanas/campana.py correo interesados --enviar
+
+
+# ── Carta de Fernando (desde el 27 de octubre), por tandas ─────
+# Después de los correos de cierre-descuento del día; 100 al día entre todo. Plan en docs/campanas/lista-fernando/correo/README.md.
+python3 scripts/campanas/campana.py correo carta-fernando --maximo 80
+python3 scripts/campanas/campana.py correo carta-fernando --prueba j.a.oso15@gmail.com --enviar
+python3 scripts/campanas/campana.py correo carta-fernando --maximo 80 --enviar
 
 
 # ── Cierre de la etapa 2 (27 al 29 de octubre) ──────────────────
 # Un número por día: 1 el martes, 2 el miércoles, 3 el jueves. Plan en docs/campanas/cierre-descuento/README.md.
 python3 scripts/campanas/campana.py correo cierre-descuento-1-interesados
-python3 scripts/campanas/campana.py correo cierre-descuento-1-interesados --prueba manager@eventalist.co --enviar
+python3 scripts/campanas/campana.py correo cierre-descuento-1-interesados --prueba j.a.oso15@gmail.com --enviar
 python3 scripts/campanas/campana.py correo cierre-descuento-1-interesados --enviar
 python3 scripts/campanas/campana.py correo cierre-descuento-1-expirados
-python3 scripts/campanas/campana.py correo cierre-descuento-1-expirados --prueba manager@eventalist.co --enviar
+python3 scripts/campanas/campana.py correo cierre-descuento-1-expirados --prueba j.a.oso15@gmail.com --enviar
 python3 scripts/campanas/campana.py correo cierre-descuento-1-expirados --enviar
 
 
 # ── Correo de Fernando a su agenda ──────────────────────────────
 # 100 por día en el plan gratis de Resend: se repite el mismo comando cada día y sigue con los que faltan.
 python3 scripts/campanas/campana.py correo agenda-fernando
-python3 scripts/campanas/campana.py correo agenda-fernando --prueba manager@eventalist.co --enviar
+python3 scripts/campanas/campana.py correo agenda-fernando --prueba j.a.oso15@gmail.com --enviar
 python3 scripts/campanas/campana.py correo agenda-fernando --enviar
 
 

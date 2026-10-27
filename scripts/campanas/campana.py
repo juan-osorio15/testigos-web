@@ -8,7 +8,7 @@ Cada campaña es un archivo en config/<campaña>.json: el evento, la audiencia
 
 Uso:
     python3 scripts/campanas/campana.py lista interesados
-    python3 scripts/campanas/campana.py correo interesados [--prueba tu@correo.com] [--enviar]
+    python3 scripts/campanas/campana.py correo interesados [--prueba j.a.oso15@gmail.com] [--enviar]
     python3 scripts/campanas/campana.py whatsapp interesados [--prueba 57300...] [--enviar]
     python3 scripts/campanas/campana.py respondio expirados [--salida ~/Downloads/x.csv]
     python3 scripts/campanas/campana.py registro
@@ -17,7 +17,9 @@ lista arma la lista con los datos de este momento y la guarda en
 ~/Documents/eventalist/datos/<evento>/<campaña>-<fecha-hora>.csv. correo y
 whatsapp la vuelven a armar (alguien pudo comprar entretanto), la guardan y
 muestran lo que saldría; solo envían con --enviar. Con --lista se usa una
-lista ya guardada en vez de armarla. --dias N deja solo a las personas de
+lista ya guardada en vez de armarla. --maximo N manda solo a los primeros N
+que falten, para ir por tandas (el registro evita repetir). --saltar N deja por
+fuera a los primeros N, para que otra campaña siga donde quedó la anterior. --dias N deja solo a las personas de
 los últimos N días (el último intento en expirados, la inscripción en
 interesados).
 
@@ -139,6 +141,14 @@ def enviar(nombre: str, config: dict, nombre_canal: str, args: argparse.Namespac
                 pendientes.append(d)
         for motivo, cuantos in omitidos.items():
             print(f"Se omiten por {nombre_canal}, {motivo}: {cuantos}")
+        if args.saltar:
+            # Otra campaña que sigue a la anterior (CD2 tras CD1): empieza en la persona N+1 de la lista.
+            print(f"Se saltan los primeros {args.saltar} de {len(pendientes)}.")
+            pendientes = pendientes[args.saltar:]
+        if args.maximo and len(pendientes) > args.maximo:
+            # Por tandas: los primeros N; la siguiente vez el registro los omite y siguen los demás.
+            print(f"Esta tanda: {args.maximo} de {len(pendientes)}; quedan {len(pendientes) - args.maximo} para la siguiente.")
+            pendientes = pendientes[:args.maximo]
 
     mensajes = medio.preparar(pendientes)
     if nombre_canal == "correo":
@@ -204,8 +214,10 @@ def exportar_respondio(nombre: str, config: dict, args: argparse.Namespace) -> N
     personas = [d for d in armar_lista(nombre, config, args) if d.tipo == "real" and d.whatsapp]
     salida = Path(args.salida).expanduser() if args.salida else (
         Path.home() / "Downloads" / f"{nombre}-respondio-{datetime.now(BOGOTA):%Y-%m-%d-%H%M}.csv")
+    # Baja solo si la campaña la pide (compradores): vacía en otra importación podría borrar bajas reales.
+    columnas = COLUMNAS_RESPONDIO + (["baja"] if opciones.get("baja") else [])
     with open(salida, "w", encoding="utf-8", newline="") as archivo:
-        escritor = csv.DictWriter(archivo, fieldnames=COLUMNAS_RESPONDIO)
+        escritor = csv.DictWriter(archivo, fieldnames=columnas)
         escritor.writeheader()
         for d in personas:
             # En respond.io el nombre completo va en First Name (así quedó configurado); Last Name, vacío.
@@ -218,6 +230,7 @@ def exportar_respondio(nombre: str, config: dict, args: argparse.Namespace) -> N
                 "Lifecycle": opciones.get("lifecycle", ""),
                 "Assignee": "",
                 "boleta_de_interes": opciones.get("boleta_de_interes", ""),
+                **({"baja": "true"} if opciones.get("baja") else {}),
             })
     print(f"\nPara respond.io: {len(personas)} filas con WhatsApp, etiqueta {etiquetas} -> {salida}")
 
@@ -244,6 +257,8 @@ def main() -> None:
     parser.add_argument("--dias", type=int, help="Solo las personas de los últimos N días (último intento o inscripción)")
     parser.add_argument("--salida", help="respondio: ruta del CSV (por defecto, en ~/Downloads)")
     parser.add_argument("--prueba", help="Mandar un solo mensaje de muestra a este correo o número")
+    parser.add_argument("--saltar", type=int, help="correo y whatsapp: no mandar a los primeros N pendientes")
+    parser.add_argument("--maximo", type=int, help="correo y whatsapp: mandar solo a los primeros N pendientes (por tandas)")
     parser.add_argument("--enviar", action="store_true", help="Enviar de verdad (sin esto solo se muestra)")
     parser.add_argument("--ignorar-horario", action="store_true",
                         help="Enviar fuera del horario de la Ley 2300 (decisión explícita del titular)")

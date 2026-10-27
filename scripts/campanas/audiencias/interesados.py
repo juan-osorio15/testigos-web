@@ -1,12 +1,16 @@
 """Quien pidió en el sitio que le avisáramos de la venta y todavía no ha comprado.
 
-- Contactos de la campaña en el backend cuyo primer contacto fue el
-  formulario del sitio (origen), inscritos desde una fecha (desde).
+- Contactos de la campaña en el backend con uno de los orígenes de primer
+  contacto (origen: website es el formulario del sitio; referral, los
+  contactos de Fernando importados el 2026-10-27), inscritos desde una fecha
+  (desde).
 - Fuera quien ya pagó, tiene un pedido pendiente o dejó expirar uno en Pretix
   (a ese le escribe la campaña de expirados), buscando por correo o teléfono.
 - Por cada canal, solo si el backend dice que se le puede escribir.
 
-Parámetros: campana_backend, origen (por ejemplo website) y desde (AAAA-MM-DD).
+Parámetros: campana_backend, origen (uno o una lista, por ejemplo website) y
+desde (AAAA-MM-DD). Opcional, motivos: por origen, la frase del pie que dice
+por qué le escribimos a la persona; la plantilla la usa como {{motivo}}.
 """
 
 from __future__ import annotations
@@ -18,9 +22,12 @@ from lista import Destinatario
 
 
 def armar(evento: str, parametros: dict, excluir: set[str]) -> Resultado:
-    contactos = backend.leer_contactos(parametros["campana_backend"], origen=parametros["origen"])
+    origenes = parametros["origen"] if isinstance(parametros["origen"], list) else [parametros["origen"]]
+    motivos = parametros.get("motivos", {})
+    contactos = [c for o in origenes for c in backend.leer_contactos(parametros["campana_backend"], origen=o)]
+    contactos.sort(key=lambda c: c.inscrito)  # los más antiguos primero: si Resend corta en 100, salen ellos
     if not contactos:
-        raise SystemExit(f"No hay contactos con origen {parametros['origen']} en {parametros['campana_backend']}.")
+        raise SystemExit(f"No hay contactos con origen {', '.join(origenes)} en {parametros['campana_backend']}.")
     pedidos = pretix.leer_pedidos(evento)
     con_pedido = pretix.datos_de(pedidos, pretix.COMPRO | {"expirado"})
 
@@ -42,7 +49,8 @@ def armar(evento: str, parametros: dict, excluir: set[str]) -> Resultado:
                 nombre=c.nombre,
                 correo=c.correo if c.correo_ok else "",
                 whatsapp=c.telefono.lstrip("+") if c.whatsapp_ok else "",
-                detalle={"inscrito": f"{c.inscrito:%Y-%m-%d %H:%M}"},
+                detalle={"inscrito": f"{c.inscrito:%Y-%m-%d %H:%M}",
+                         **({"motivo": motivos[c.origen]} if motivos else {})},
             ))
 
     # Comprobación de seguridad: nadie de la lista comparte correo o teléfono con un pedido.
@@ -52,12 +60,14 @@ def armar(evento: str, parametros: dict, excluir: set[str]) -> Resultado:
         assert not choque, f"Error interno: {choque} tiene pedidos y quedó en la lista"
 
     resumen = [
-        f"Contactos con origen {parametros['origen']} en {parametros['campana_backend']}: {len(contactos)} · pedidos de Pretix: {len(pedidos)}",
+        f"Contactos con origen {', '.join(origenes)} en {parametros['campana_backend']}: {len(contactos)} · pedidos de Pretix: {len(pedidos)}",
         f"Inscritos antes del {parametros['desde']} (fuera de esta campaña): {antes}",
         f"Ya pagaron, tienen un pedido pendiente o uno expirado (no se contactan aquí): {compraron}",
         f"Dados de baja o sin autorización en los dos canales: {sin_canal}",
     ]
     if excluir:
         resumen.append(f"Excluidos a mano (--excluir): {a_mano}")
-    return Resultado(destinatarios, resumen)
+    # Al equipo le llega el motivo del primer origen, el de la mayoría.
+    muestra = {"motivo": motivos[origenes[0]]} if motivos else {}
+    return Resultado(destinatarios, resumen, variables_titular=muestra)
 

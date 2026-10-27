@@ -9,7 +9,7 @@ Decisión del titular del 2026-10-19: el correo del 12 de octubre ya no aplica (
 - Plantilla: `scripts/campanas/plantillas/expirado-texto.html` (desde el 2026-10-26; la anterior, `expirado-recordatorio.html`, con la fórmula visual, sigue en el historial de git). Asunto "Tu pedido {{codigo}} de Testigos de la Memoria" (el mismo que llegó a Principal), remitente `Juan de Testigos de la Memoria <direccion@testigosdelamemoria.com>` (antes, hola@eventalist.co), sin cabecera `List-Unsubscribe`; las respuestas llegan a manager@eventalist.co (desde el 2026-10-26; antes, a hola@eventalist.co).
 - Contenido, como correo escrito a mano, sin precios, descuentos ni fechas límite (las razones, en `../../reglas.md`, "Correo"): el saludo, el pedido que se venció, Daniel Samper Pizano, Fidel Cano y Yolanda Ruiz con sus temas, "Si quieres revisar la agenda o retomar tu pedido…" con un solo enlace a la portada, sin decir "boletas", "¿Algo falló con el pago? Respóndeme y lo resolvemos." y la firma de Juan.
 - Enlace: `utm_source=email&utm_medium=email&utm_campaign=expirados&utm_content=correo-recordatorio_conversacional` (antes del 2026-10-26, `correo-recordatorio`).
-- Comandos: `python3 scripts/campanas/campana.py correo expirados` (vista previa), luego con `--prueba tu@correo.com --enviar` y con `--enviar`.
+- Comandos: `python3 scripts/campanas/campana.py correo expirados` (vista previa), luego con `--prueba j.a.oso15@gmail.com --enviar` y con `--enviar`.
 
 A quién le llega, con el registro de envíos: a toda la lista del día. Para las 6 personas que recibieron el correo del 12 de octubre y no han comprado (el 19 de octubre), este es su segundo correo. Sin límite de mensajes (decisión del 19 de octubre), a quien tenga WhatsApp autorizado le llega también el WhatsApp, el mismo día o después.
 
@@ -34,7 +34,7 @@ El envío real del 12 de octubre (16:24, 7 personas más el titular) salió con 
 
 ```sh
 python3 scripts/campanas/campana.py correo expirados                                          # vista previa
-python3 scripts/campanas/campana.py correo expirados --prueba manager@eventalist.co --enviar   # prueba
+python3 scripts/campanas/campana.py correo expirados --prueba j.a.oso15@gmail.com --enviar   # prueba
 python3 scripts/campanas/campana.py correo expirados --enviar                                  # envío real
 ```
 

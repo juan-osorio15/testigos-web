@@ -22,7 +22,12 @@ Cómo se escribe y cómo se manda cualquier mensaje de cualquier campaña, por c
 
 ## Cómo se escribe
 
-Correcciones del titular del 22 y el 26 de octubre.
+Correcciones del titular del 22, el 26 y el 27 de octubre.
+
+**Primero, a quién va** (titular, 2026-10-27):
+
+- **Promoción o audiencia amplia** (fecha límite, descuento, broadcast a todos, anuncios, correos masivos): primero la oportunidad y después el evento completo, con los nombres más famosos (Daniel Samper Pizano de primero) y todos los temas. Puede llegarle a gente nueva, que no conoce el encuentro, y una sola charla no le alcanza para entender por qué ir.
+- **Público caliente** (inactivos, interesados, expirados, grupos donde ya se presentó el evento): una charla o un periodista por pieza, con las reglas de abajo.
 
 1. **Primero lo que antoja:** el periodista y el tema. El saludo y el contexto pueden ir antes, pero nunca el precio ni la logística.
 2. **La apertura cambia en cada mensaje:** un dato del periodista, una pregunta con intriga sobre lo que no se vio ("¿Qué pasó de verdad en las mesas del Caguán y de La Habana?") o una noticia ("hoy es el último día…"). "¿Te imaginas…?" puede aparecer alguna vez, pero ya no es la apertura por defecto: cansa cuando todos los mensajes lo usan. Si van varios mensajes a la misma persona, cada uno abre distinto.

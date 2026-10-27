@@ -1,8 +1,8 @@
 {
-  "descripcion": "Cierre de la etapa 2, día 1 de 3. Quien pidió aviso en el sitio y no ha comprado. Plan en docs/campanas/cierre-descuento/README.md.",
+  "descripcion": "Cierre de la etapa 2, día 1 de 3. Toda la base de interesados del backend (los inscritos del sitio y los contactos de Fernando, desde el 2026-10-27) que no ha comprado. Plan en docs/campanas/cierre-descuento/README.md.",
   "audiencia": "interesados",
   "parametros": {
-    "origen": "website",
+    "origen": ["website", "referral"],
     "desde": "2026-09-09"
   },
   "canales": {

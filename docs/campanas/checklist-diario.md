@@ -1,35 +1,108 @@
 # Checklist diario · lo que se lanza a mano
 
-Hoja corta de lo que toca cada día hasta el evento. El texto, las piezas y los pasos completos están en la carpeta de cada campaña, por medio (`<campaña>/correo/` y `<campaña>/whatsapp/`); las reglas, en `reglas.md`. Cuando una campaña nueva o un cambio de calendario toca un día, se actualiza aquí en el mismo cambio.
+Lo que toca cada día hasta el evento, una pieza por línea. Se marca con una X dentro de los corchetes:
 
-Horario de la Ley 2300: lunes a viernes de 7:00 a.m. a 7:00 p.m., sábado de 8:00 a.m. a 3:00 p.m. Domingo 1 y lunes 2 de noviembre (festivo), nada.
+- **Preparado:** todo listo para salir. En WhatsApp de API o respond.io, la plantilla aprobada por Meta y la pieza a la mano; en grupos y lista de Fernando, la pieza y el texto; en correo, la vista previa y la prueba revisadas.
+- **Mandado:** ya salió.
 
-**Un WhatsApp por persona al día** (titular, 2026-10-27): entre la API y respond.io, a nadie le llegan dos el mismo día, salvo a los interesados. Si dos campañas caen el mismo día, gana CD, después EX y después RC. El correo va aparte.
+Los textos, las piezas y los pasos están en la carpeta de cada campaña (`<campaña>/correo/` y `<campaña>/whatsapp/`); las reglas, en `reglas.md`. Cuando una campaña nueva o un cambio de calendario toca un día, se actualiza aquí en el mismo cambio.
 
-## Todos los días
+- **Horario de la Ley 2300:** lunes a viernes de 7:00 a.m. a 7:00 p.m., sábado de 8:00 a.m. a 3:00 p.m. Domingo 1 y lunes 2 de noviembre (festivo), nada.
+- **Un WhatsApp por persona al día** (titular, 2026-10-27): entre la API y respond.io, a nadie le llegan dos el mismo día, salvo a los interesados. Si dos campañas caen el mismo día, gana CD, después EX y después RC. El correo va aparte.
 
-0. **Compradores a respond.io, antes de cualquier broadcast.** `python3 scripts/campanas/campana.py respondio compradores` e importar el CSV de `~/Downloads`: quien compró queda como Customer y no le llegan CD ni RC.
-1. **Expirados a respond.io.** `python3 scripts/campanas/campana.py respondio expirados`, importar el CSV de `~/Downloads` en respond.io con la casilla **Do Not Overwrite** marcada en Tags (si no, borra las etiquetas de días anteriores) y mandar el broadcast al segmento con la etiqueta de hoy y sin la de ayer. **El 28 y el 29 solo se importan, sin broadcast:** les llega CD.
-2. **GV · grupos de Villa.** Pieza de `grupos-villa/whatsapp/piezas/` y texto del bloque del día, publicados a mano.
-3. **LF · Fernando.** Mandarle las piezas del día en orden (`-1`, `-2`, `-3`) y después el texto. Él lo reenvía.
-4. **RC · inactivos.** Broadcast en respond.io con la plantilla del día al segmento `inactivos`, mejor entre 9:00 y 11:00 a.m.
-5. **CD · cierre de la etapa 2, solo del 27 al 29 oct.** Correo a interesados y a expirados (`correo cierre-descuento-N-interesados` y `-expirados`, con N el día) y broadcast en respond.io a todos los contactos sin compra, con la pieza del día (`cierre-descuento/whatsapp/piezas/`). Antes, confirmar los precios en Pretix.
+## Martes 27 oct
 
-## Calendario
+- **GV9** · grupos de Villa · las reelecciones · Preparado: [X] · Mandado: [x]
+- **LF4** · lista de Fernando · Marta Ruiz · Preparado: [X] · Mandado: [x]
+- **RC2** · inactivos · Fidel Cano y Cecilia Orozco · Preparado: [X] · Mandado: [ ]
+- **CD1 correo** · cierre de la etapa 2 · expirados (14) y, con el cupo que quede, los primeros 75 de toda la base de interesados (unos 310 con correo): `--maximo 75` · Preparado: [ ] · Mandado: [ ]
+- **CD1 WhatsApp** · cierre de la etapa 2 · respond.io · Preparado: [ ] · Mandado: [ ]
+- **IN1** · interesados · API · Preparado: [ ] · Mandado: [ ]
+- **EX1** · expirados · API · Preparado: [ ] · Mandado: [ ]
 
-- **Martes 27 oct** · GV9X · LF4X · RC2X · CD1X · IN1X y EX1X (por la API, ver abajo)
-- **Miércoles 28 oct** · GV3 · LF5 · CD2 (RC3 no se envía: a los inactivos les llega CD2)
-- **Jueves 29 oct** · GV8 · LF6 · CD3, último día de la etapa 2 (RC4 no se envía: la reemplaza CD3)
-- **Viernes 30 oct** · GV4 · LF7 · RC5 (desde hoy, revisar en Pretix que lo que nombra la plantilla siga a la venta)
-- **Sábado 31 oct, antes de las 3:00 p.m.** · GV10 · LF8 · RC6
-- **Martes 3 nov** · GV5 · LF9 · RC7 · IN2 y EX2 (por la API)
-- **Miércoles 4 nov** · GV11 · LF10 · RC8
-- **Jueves 5 nov** · GV6 · LF11
-- **Viernes 6 nov** · GV7 · LF12
+## Miércoles 28 oct
 
-## Los martes, IN y EX por la API
+- Compradores importados a respond.io (antes de los broadcasts) · Hecho: [ ]
+- Expirados importados a respond.io, **sin broadcast** (les llega CD2) · Hecho: [ ]
+- **GV3** · grupos de Villa · Marta Ruiz · Preparado: [ ] · Mandado: [ ]
+- **LF5** · lista de Fernando · María Elvira Samper · Preparado: [ ] · Mandado: [ ]
+- **CD2 correo** · cierre de la etapa 2 · expirados y los siguientes de la base de interesados: `--saltar 75 --maximo` con el cupo del día · Preparado: [ ] · Mandado: [ ]
+- **CD2 WhatsApp** · cierre de la etapa 2 · respond.io · Preparado: [ ] · Mandado: [ ]
 
-Primero revisar la plantilla de la semana en `scripts/campanas/config/interesados.json` y `expirados.json` (cuál va en `interesados/whatsapp/README.md` y `expirados/whatsapp/README.md`).
+RC3 no se envía: a los inactivos les llega CD2.
+
+## Jueves 29 oct · último día de la etapa 2
+
+- Compradores importados a respond.io (antes de los broadcasts) · Hecho: [ ]
+- Expirados importados a respond.io, **sin broadcast** (les llega CD3) · Hecho: [ ]
+- **GV8** · grupos de Villa · el recorrido completo. La pieza (afiche general) tiene a Ricardo Ospina y a León Valencia: hace falta otra. · Preparado: [ ] · Mandado: [ ]
+- **LF6** · lista de Fernando · magnicidios y víctimas · Preparado: [ ] · Mandado: [ ]
+- **CD3 correo** · cierre de la etapa 2 · expirados y los siguientes de la base de interesados: `--saltar` con lo que ya salió en CD1 y CD2 · Preparado: [ ] · Mandado: [ ]
+- **CD3 WhatsApp** · cierre de la etapa 2 · respond.io · Preparado: [ ] · Mandado: [ ]
+
+RC4 no se envía: la reemplaza CD3.
+
+## Viernes 30 oct
+
+Desde hoy, revisar en Pretix que lo que nombra cada plantilla siga a la venta.
+
+- Compradores importados a respond.io (antes de los broadcasts) · Hecho: [ ]
+- **Expirados nuevos** · respond.io · Preparado: [ ] · Mandado: [ ]
+- **GV4** · grupos de Villa · el narcotráfico · Preparado: [ ] · Mandado: [ ]
+- **LF7** · lista de Fernando · Cecilia Orozco · Preparado: [ ] · Mandado: [ ]
+- **RC5** · inactivos · Marisol Gómez · Preparado: [ ] · Mandado: [ ]
+- **Carta de Fernando** · primera tanda, con el cupo del día. Se pospuso del 27: el cupo de Resend se fue en el cierre · Preparado: [ ] · Mandado: [ ]
+
+## Sábado 31 oct · antes de las 3:00 p.m.
+
+- Compradores importados a respond.io (antes de los broadcasts) · Hecho: [ ]
+- **Expirados nuevos** · respond.io · Preparado: [ ] · Mandado: [ ]
+- **GV10** · grupos de Villa · magnicidios y víctimas · Preparado: [ ] · Mandado: [ ]
+- **LF8** · lista de Fernando · Luz María Sierra · Preparado: [ ] · Mandado: [ ]
+- **RC6** · inactivos · Luz María Sierra y Martha Soto · Preparado: [ ] · Mandado: [ ]
+
+## Martes 3 nov
+
+- Compradores importados a respond.io (antes de los broadcasts) · Hecho: [ ]
+- Expirados importados a respond.io, **sin broadcast** (les llega EX2) · Hecho: [ ]
+- **GV5** · grupos de Villa · negociaciones de paz. La pieza tiene a Ricardo Ospina: hace falta una solo con Marisol Gómez. · Preparado: [ ] · Mandado: [ ]
+- **LF9** · lista de Fernando · Martha Soto · Preparado: [ ] · Mandado: [ ]
+- **RC7** · inactivos · Marta Ruiz y Guillermo González Uribe · Preparado: [ ] · Mandado: [ ]
+- **IN2** · interesados · API · mujeres periodistas · Preparado: [ ] · Mandado: [ ]
+- **EX2** · expirados · API · narcotráfico · Preparado: [ ] · Mandado: [ ]
+
+## Miércoles 4 nov
+
+- Compradores importados a respond.io (antes de los broadcasts) · Hecho: [ ]
+- **Expirados nuevos** · respond.io · Preparado: [ ] · Mandado: [ ]
+- **GV11** · grupos de Villa · Ana María Echeverri y las guerrillas · Preparado: [ ] · Mandado: [ ]
+- **LF10** · lista de Fernando · Marisol Gómez. Faltan las piezas. · Preparado: [ ] · Mandado: [ ]
+- **RC8** · inactivos · mañana empieza · Preparado: [ ] · Mandado: [ ]
+
+## Jueves 5 nov
+
+- **GV6** · grupos de Villa · hoy empiezan las charlas abiertas (antes de las 10:00 a.m.). La pieza (afiche general) tiene a Ricardo Ospina y a León Valencia: hace falta otra. · Preparado: [ ] · Mandado: [ ]
+- **LF11** · lista de Fernando · hoy empieza, con Ana María Echeverri (antes de las 10:00 a.m.) · Preparado: [ ] · Mandado: [ ]
+
+## Viernes 6 nov
+
+Antes, confirmar en Pretix que sigue habiendo boletas.
+
+- **GV7** · grupos de Villa · mujeres periodistas: hoy empieza · Preparado: [ ] · Mandado: [ ]
+- **LF12** · lista de Fernando · las mujeres periodistas del domingo · Preparado: [ ] · Mandado: [ ]
+
+---
+
+## Cómo se hace cada cosa
+
+- **Compradores a respond.io:** `python3 scripts/campanas/campana.py respondio compradores` e importar el CSV de `~/Downloads`. Quien compró queda como Customer y no le llegan CD ni RC.
+- **Expirados a respond.io:** `python3 scripts/campanas/campana.py respondio expirados` e importar el CSV de `~/Downloads` con la casilla **Do Not Overwrite** marcada en Tags (si no, borra las etiquetas de días anteriores). El broadcast va al segmento con la etiqueta de hoy y sin la de ayer.
+- **GV:** pieza de `grupos-villa/whatsapp/piezas/` y texto del bloque del día, publicados a mano.
+- **LF:** mandarle a Fernando las piezas del día en orden (`-1`, `-2`, `-3`) y después el texto. Él lo reenvía.
+- **RC:** broadcast en respond.io con la plantilla del día al segmento `inactivos`, mejor entre 9:00 y 11:00 a.m.
+- **Carta de Fernando:** `correo carta-fernando --maximo N --enviar`, con N = 100 menos lo que ya salió ese día. Cada tanda sigue con los siguientes y no repite a nadie.
+- **CD:** correo con `correo cierre-descuento-N-expirados` primero y después `correo cierre-descuento-N-interesados --saltar S --maximo M` (N es el día; S, los que ya recibieron una CD; M, el cupo que queda de los 100 de Resend), y broadcast en respond.io a todos los contactos sin compra, con la pieza del día (`cierre-descuento/whatsapp/piezas/`). Antes, confirmar los precios en Pretix.
+- **IN y EX por la API:** revisar que `scripts/campanas/config/interesados.json` y `expirados.json` tengan la plantilla de la semana (cuál va en `interesados/whatsapp/README.md` y `expirados/whatsapp/README.md`), y después:
 
 ```sh
 python3 scripts/campanas/campana.py whatsapp interesados                 # a quién le llegaría

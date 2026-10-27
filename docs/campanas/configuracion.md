@@ -65,5 +65,5 @@ Meta cobra cada plantilla de Marketing entregada a la cuenta de WhatsApp, así q
 ## respond.io
 
 - **Campo Baja** (titular, 2026-10-26): campo de contacto **Baja** (Field ID `baja`, tipo Checkbox). El prompt de Catalina (`docs/chatbot/`, la versión más alta) lo marca cuando alguien responde BAJA o "no me interesa". A quien la pidió antes, se le marca a mano. Ningún broadcast va a quien la tenga marcada.
-- **Customer**: quien ya compró queda con Lifecycle **Customer** para que los broadcasts no le lleguen. Se marca importando la lista de compradores: `python3 scripts/campanas/campana.py respondio compradores` e importar en respond.io el CSV que deja en `~/Downloads`.
+- **Customer**: quien ya compró queda con Lifecycle **Customer** y la casilla **Baja** marcada, para que los broadcasts no le lleguen. Se marca importando la lista de compradores: `python3 scripts/campanas/campana.py respondio compradores` e importar en respond.io el CSV que deja en `~/Downloads`.
 - **Segmento `inactivos`**: "Time Since Last Incoming Message" mayor que 24 horas, Lifecycle distinto de Customer y la casilla Baja sin marcar. Lo usa la campaña `inactivos`.

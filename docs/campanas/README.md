@@ -29,7 +29,7 @@ Una campaña de un solo medio no tiene plan aparte: todo está en el README de s
 - [`interesados/`](interesados/) · **IN** · quien pidió en el sitio que le avisáramos de las boletas de medio día. Correo y WhatsApp (API de Meta).
 - [`inactivos/`](inactivos/) · **RC** · quien le escribió a Catalina, dejó cerrar la conversación y no compró. WhatsApp (respond.io), una plantilla por día hasta el evento.
 - [`grupos-villa/`](grupos-villa/) · **GV** · grupos de planes y eventos de Villa de Leyva. WhatsApp, publicado a mano.
-- [`lista-fernando/`](lista-fernando/) · **LF** · los contactos de Fernando Cordovez, en su voz. WhatsApp (él lo reenvía) y correo desde su dirección.
+- [`lista-fernando/`](lista-fernando/) · **LF** · los contactos de Fernando Cordovez, en su voz. WhatsApp (él lo reenvía) y correo desde su dirección: la carta conversacional a sus contactos del backend, desde el 27 de octubre.
 - [`google-ads/`](google-ads/) · anuncios de Búsqueda en Google (`buscador`).
 
 En [`historial/`](historial/): los borradores de plantillas de WhatsApp de ventas del 19 de octubre, que no se usaron, y el prompt con que se pidió al backend la lectura de contactos.
@@ -87,7 +87,7 @@ Siempre en la carpeta `testigos-web`. Todos, listos para copiar, en `scripts/cam
 ```sh
 python3 scripts/campanas/campana.py lista interesados
 python3 scripts/campanas/campana.py correo interesados
-python3 scripts/campanas/campana.py correo interesados --prueba tu@correo.com --enviar
+python3 scripts/campanas/campana.py correo interesados --prueba j.a.oso15@gmail.com --enviar
 python3 scripts/campanas/campana.py correo interesados --enviar
 python3 scripts/campanas/campana.py whatsapp interesados --prueba 57XXXXXXXXXX --enviar
 python3 scripts/campanas/campana.py respondio expirados

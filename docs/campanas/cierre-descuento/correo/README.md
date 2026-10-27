@@ -18,11 +18,11 @@ Cambiar el `1` por el número del día:
 
 ```sh
 python3 scripts/campanas/campana.py correo cierre-descuento-1-interesados                                       # vista previa
-python3 scripts/campanas/campana.py correo cierre-descuento-1-interesados --prueba manager@eventalist.co --enviar  # prueba
+python3 scripts/campanas/campana.py correo cierre-descuento-1-interesados --prueba j.a.oso15@gmail.com --enviar  # prueba
 python3 scripts/campanas/campana.py correo cierre-descuento-1-interesados --enviar                               # envío real
 python3 scripts/campanas/campana.py correo cierre-descuento-1-expirados                                         # vista previa
-python3 scripts/campanas/campana.py correo cierre-descuento-1-expirados --prueba manager@eventalist.co --enviar    # prueba
+python3 scripts/campanas/campana.py correo cierre-descuento-1-expirados --prueba j.a.oso15@gmail.com --enviar    # prueba
 python3 scripts/campanas/campana.py correo cierre-descuento-1-expirados --enviar                                 # envío real
 ```
 
-Resend gratis manda 100 correos al día. Si las dos listas suman más, el envío se detiene en el límite y al día siguiente sigue con los que faltan, que ya no sirve para esta campaña: revisar el total con la vista previa antes de enviar.
+Resend gratis manda 100 correos al día, las pruebas incluidas. Desde el 27 de octubre los interesados son toda la base del backend (los inscritos del sitio y los contactos de Fernando, unos 310 con correo), así que no caben en un día: primero los expirados y después una tanda de interesados con `--maximo` (lo que quede del cupo). Al día siguiente, la CD de ese día sigue donde quedó la anterior con `--saltar` (los que ya recibieron una CD). Si Resend llega al límite, el comando se detiene en ese correo: los anteriores ya salieron y quedan en el registro.

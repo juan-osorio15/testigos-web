@@ -32,7 +32,7 @@ Los precios salen de `evento.json` (`npm run build` si el script dice que está 
 
 ```sh
 python3 scripts/campanas/campana.py correo interesados                                          # vista previa
-python3 scripts/campanas/campana.py correo interesados --prueba manager@eventalist.co --enviar   # prueba
+python3 scripts/campanas/campana.py correo interesados --prueba j.a.oso15@gmail.com --enviar   # prueba
 python3 scripts/campanas/campana.py correo interesados --enviar                                  # envío real
 ```
 

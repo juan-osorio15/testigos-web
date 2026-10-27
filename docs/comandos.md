@@ -6,7 +6,7 @@
 
 Arma la lista con los datos del momento y dice cuántos quedaron y cuántos salieron y por qué. No envía nada.
 
-- Campañas: `expirados`, `interesados`, `compradores`, `agenda-fernando`.
+- Campañas: `expirados`, `interesados`, `compradores`, `agenda-fernando`, `carta-fernando`.
 - `--dias N`: solo las personas de los últimos N días.
 - `--excluir correo-o-telefono`: deja a alguien por fuera (se puede repetir).
 
@@ -14,12 +14,14 @@ Arma la lista con los datos del momento y dice cuántos quedaron y cuántos sali
 
 Vista previa del correo (queda en `~/Documents/eventalist/datos/<evento>/previas-<campaña>/`). Sin `--enviar` no sale nada.
 
-- `--prueba tu@correo.com --enviar`: un solo correo de muestra a esa dirección.
+- `--prueba j.a.oso15@gmail.com --enviar`: un solo correo de muestra a esa dirección.
 - `--enviar`: envío real.
 - `--ignorar-horario`: envía fuera del horario de la Ley 2300; solo por decisión explícita del titular.
 - `--lista ARCHIVO.csv`: usa una lista ya guardada en vez de armarla.
 - `--dias N` y `--excluir`: igual que en `lista`.
-- `agenda-fernando`: 100 por día en el plan gratis de Resend; se repite el mismo comando cada día y sigue con los que faltan.
+- `--maximo N --enviar`: manda solo a los primeros N que falten. Repetido, sigue con los siguientes sin repetir a nadie (lo dice el registro). Sirve para ir por tandas de 100, el límite diario del plan gratis de Resend entre todas las campañas.
+- `--saltar N`: deja por fuera a los primeros N de la lista. Sirve para que otra campaña siga donde quedó la anterior (CD2 empieza donde terminó CD1).
+- Sin `--maximo`, si Resend llega a su límite el comando se detiene; al día siguiente el mismo comando sigue con los que faltan.
 
 ### `python3 scripts/campanas/campana.py whatsapp <campaña>`
 
@@ -27,14 +29,14 @@ Vista previa del WhatsApp por la API de Meta, sin respond.io (el texto sale en l
 
 - `--prueba 57XXXXXXXXXX --enviar`: un solo mensaje de muestra a ese número.
 - `--enviar`: envío real.
-- `--ignorar-horario`, `--lista`, `--dias` y `--excluir`: igual que en `correo`.
+- `--ignorar-horario`, `--lista`, `--dias`, `--excluir` y `--maximo`: igual que en `correo`.
 
 ### `python3 scripts/campanas/campana.py respondio <campaña>`
 
 Arma el CSV de importación de respond.io en `~/Downloads`, solo con quien autorizó WhatsApp, con la etiqueta y la fecha (`expirados-25102026`).
 
 - `respondio expirados` y `respondio interesados`: listas para broadcasts.
-- `respondio compradores`: compradores como Customer (todo teléfono, sin mirar la autorización). Opcional: casi ningún comprador está en respond.io. Si se usa, importar con Purpose "Update existing contacts only" e identificador Phone, para no crear contactos nuevos.
+- `respondio compradores`: todos los compradores de Pretix como Customer y con la columna `baja` en `true` (todo teléfono, sin mirar la autorización). Opcional: casi ningún comprador está en respond.io. Si se usa, importar con Purpose "Update existing contacts only" e identificador Phone, para no crear contactos nuevos.
 - `--salida RUTA.csv`: guarda el archivo en otra parte.
 - `--dias N` y `--excluir`: igual que en `lista`.
 
