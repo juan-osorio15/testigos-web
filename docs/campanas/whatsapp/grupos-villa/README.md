@@ -2,11 +2,11 @@
 
 Grupos de WhatsApp de planes y eventos de Villa de Leyva donde ya estamos. Tres publicaciones por semana, publicadas a mano: primero la pieza y después el texto, en el mismo mensaje si se puede.
 
-**Tono:** cercano, de vecino a vecino. El argumento es tener aquí, en el pueblo, a periodistas que normalmente se ven por televisión, en una sala para 300 personas.
+**Tono:** cercano, de vecino a vecino. El argumento es tener aquí, en el pueblo, a periodistas que normalmente se ven por televisión.
 
-**Cómo están escritos:** primero lo que antoja (el periodista y el tema, en una pregunta corta: "¿se imaginan…?"); el día y la hora solo cuando el mensaje es sobre una conversación; el lugar dentro del dato del aforo ("La sala en la Hospedería Duruelo es para 300 personas y todavía hay cupo"); al final, el precio y el pase de fin de semana con descuento. Un mensaje, una idea.
+**Cómo están escritos:** primero lo que antoja (el periodista y el tema), abriendo de formas distintas: un dato, una pregunta sobre el tema, a veces "¿se imaginan…?", pero no en todas; el día, la hora y el lugar solo cuando el mensaje es sobre una conversación, con "El aforo es limitado" (sin el número de sillas); después el precio y el pase de fin de semana con descuento; al final, primero el enlace de compra y después "¿Dudas? Escríbannos:" con el del agente. Un mensaje, una idea. Así lo editó el titular en GV8 y GV5.
 
-**Cómo publicar:** busca la fecha de hoy, adjunta las piezas de `piezas/` con ese número y pega el texto del bloque. Cada texto trae dos enlaces: el del agente, para preguntar, y el de la página, para comprar.
+**Cómo publicar:** busca la fecha de hoy, adjunta las piezas de `piezas/` con ese número y pega el texto del bloque. Cada texto trae dos enlaces: primero el de la página, para comprar, y después el del agente, para preguntar.
 
 ## Calendario
 
@@ -58,15 +58,17 @@ https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_camp
 **Pieza:** `GV3.png` ("Oye, Marta…")
 
 ```
-¿Se imaginan escuchar a Marta Ruiz, que fue comisionada de la Comisión de la Verdad, contar cómo se cuenta la historia de una víctima sin reducirla a una cifra?
+Marta Ruiz fue comisionada de la Comisión de la Verdad, y viene a hablar de cómo se cuenta la historia de una víctima sin reducirla a una cifra.
 
-Es el domingo 8 de noviembre en la mañana, aquí en Duruelo, y se le escucha de cerca: la sala es para 300 personas.
+Es el domingo 8 de noviembre en la mañana, aquí en la Hospedería Duruelo. El aforo es limitado.
 
-Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuento. Escríbannos:
-https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
+Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuento.
 
 Boletas en la página:
 https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=oye-marta-ruiz
+
+¿Dudas? Escríbannos:
+https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
 ```
 
 ## GV8 · antes del jueves 29 de octubre (mientras el pase de fin de semana está a $240.000)
@@ -100,13 +102,15 @@ https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en
 ```
 ¿Se imaginan una tarde con Luz María Sierra y Martha Soto hablando del narcotráfico, y después con Fidel Cano y Cecilia Orozco hablando de las reelecciones?
 
-Es el sábado 7 de noviembre en Duruelo, y las dos conversaciones entran en la misma boleta. Todavía hay cupo.
+Es el sábado 7 de noviembre en la Hospedería Duruelo, y las dos conversaciones entran en la misma boleta. El aforo es limitado.
 
-Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuento. Escríbannos:
-https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
+Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuento.
 
 Boletas en la página:
 https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiches-sabado-tarde
+
+¿Dudas? Escríbannos:
+https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
 ```
 
 ## GV5 · martes 3 de noviembre
@@ -116,13 +120,15 @@ https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_camp
 ```
 ¿Qué pasó de verdad en las mesas del Caguán y de La Habana? Lo cuentan Marisol Gómez, que cubrió esas negociaciones durante 25 años, y Ricardo Ospina, director de noticias de Blu Radio.
 
-Es este sábado en la mañana. La sala en la Hospedería Duruelo es para 300 personas y todavía hay cupo.
+Es este sábado en la mañana en la sala en la Hospedería Duruelo. El aforo es limitado.
 
-Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuento. Escríbannos:
-https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
+Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuento.
 
 Boletas en la página:
 https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiche-negociaciones-paz
+
+¿Dudas? Escríbannos:
+https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
 ```
 
 ## GV6 · jueves 5 de noviembre (antes de las 10:00 a.m.)
@@ -134,11 +140,13 @@ https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_camp
 
 Y para los conversatorios del fin de semana en Duruelo todavía hay cupo.
 
-Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuento. Escríbannos:
-https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
+Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuento.
 
 Boletas en la página:
 https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiche-general_charlas-abiertas
+
+¿Dudas? Escríbannos:
+https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
 ```
 
 ## GV7 · viernes 6 de noviembre (en la mañana; antes, confirmar en Pretix que sigue habiendo boletas)
@@ -146,13 +154,15 @@ https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_camp
 **Piezas:** `GV7-1.png` (Magnicidios), `GV7-2.png` (Mujeres periodistas)
 
 ```
-¿Se imaginan cerrar el fin de semana escuchando a Marta Ruiz, y después a Yolanda Ruiz y María Elvira Samper?
+Este domingo el encuentro cierra con Marta Ruiz, y después con Yolanda Ruiz y María Elvira Samper, en la misma mañana.
 
 Hoy en la tarde empiezan los conversatorios, y todavía hay cupo para el sábado y el domingo.
 
-Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuento. Escríbannos y se la dejamos lista:
-https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
+Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuento.
 
 Boletas en la página:
 https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiches-domingo
+
+¿Dudas? Escríbannos y se la dejamos lista:
+https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
 ```

@@ -73,7 +73,8 @@ Correcciones del 22 de octubre, para esta campaña y las que vengan:
 - **Variar la apertura** (titular, 2026-10-26): no todos los mensajes con "¿te imaginas…?". También un dato del panelista, una pregunta sobre el tema o una noticia ("hoy es el último día…"). Si van varios mensajes a la misma persona, cada uno abre distinto.
 - **Hospedaje sin nombrar un hotel** (titular, 2026-10-26), con una de estas frases, alternándolas: "¿Ya sabes dónde quedarte? Tenemos varios hoteles aliados con descuentos especiales para asistentes." · "Si todavía no sabes dónde quedarte, tenemos…" · "Para que no tengas que preocuparte por el hospedaje, tenemos…" · "Si vienes de fuera, tenemos…". Los hoteles y sus descuentos están en la página (`#hospedaje`).
 - **El pase de fin de semana con su descuento por tiempo limitado** en los mensajes de venta.
-- **El aforo se dice como un dato:** la sala de Duruelo es para 300 personas. Nada de "últimos cupos" ni contadores.
+- **El aforo, sin número** (titular, 2026-10-26): "El aforo es limitado" o "todavía hay cupo". Ni el número de sillas, ni "últimos cupos", ni contadores.
+- **Compra antes que contacto** (titular, 2026-10-26): en los textos con dos enlaces va primero "Boletas en la página:" con el enlace de compra, y al final "¿Dudas? Escríbannos:" con el del agente.
 - **Nombres públicos:** "boletas de medio día" (nunca "franjas") y "charlas abiertas" (las gratuitas del 5 y 6 en la Casa Museo).
 - **Horario de la Ley 2300:** lunes a viernes de 7:00 a.m. a 7:00 p.m. y sábados de 8:00 a.m. a 3:00 p.m.; nunca domingos ni festivos. El lunes 2 de noviembre es festivo. El calendario ya lo respeta.
 

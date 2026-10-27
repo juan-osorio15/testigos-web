@@ -42,7 +42,7 @@ Variables: `{{1}}` primer nombre (`primer_nombre`; ejemplo para Meta: `Ana`) y `
 ```
 Hola, {{1}}. Te escribimos del equipo de Testigos de la Memoria (Eventalist S.A.S.). Tu pedido {{2}} no alcanzó a completarse y la reserva se venció.
 
-¿Te imaginas escuchar de cerca a Yolanda Ruiz, María Elvira Samper, Fidel Cano o Cecilia Orozco contando lo que vivieron cubriendo los últimos cincuenta años de Colombia, y poder hacerles una pregunta? La sala es para 300 personas y todavía queda cupo para ti.
+¿Te imaginas escuchar de cerca a Yolanda Ruiz, María Elvira Samper, Fidel Cano o Cecilia Orozco contando lo que vivieron cubriendo los últimos cincuenta años de Colombia, y poder hacerles una pregunta? El aforo es limitado y todavía queda cupo para ti.
 
 Ahora hay dos formas más de venir: el pase de fin de semana, con descuento, para todos los conversatorios del sábado y el domingo, o una boleta de medio día por $90.000.
 
@@ -58,9 +58,9 @@ Ahora hay dos formas más de venir: el pase de fin de semana, con descuento, par
 Variable `{{1}}`: primer nombre (`primer_nombre`; ejemplo para Meta: `Ana`).
 
 ```
-Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.). ¿Te imaginas una tarde con Luz María Sierra y Martha Soto hablando del narcotráfico, y después con Fidel Cano y Cecilia Orozco hablando de las reelecciones de Uribe y Santos?
+Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.). El sábado 7 de noviembre en la tarde hay dos conversaciones seguidas: Luz María Sierra y Martha Soto sobre el narcotráfico, y después Fidel Cano y Cecilia Orozco sobre las reelecciones de Uribe y Santos.
 
-Es este sábado 7 de noviembre. La sala en la Hospedería Duruelo es para 300 personas y todavía queda cupo para ti.
+Es en la Hospedería Duruelo, y el aforo es limitado.
 
 Las dos conversaciones entran en una boleta de medio día de $90.000, o llévate el pase de fin de semana, que está en descuento. ¿Te ayudamos a reservar? Escríbenos por aquí.
 ```

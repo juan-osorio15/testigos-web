@@ -41,7 +41,7 @@ Hola. Te escribimos del equipo de Testigos de la Memoria (Eventalist S.A.S.). No
 
 ¿Te imaginas escuchar de cerca a periodistas como María Elvira Samper, Fidel Cano y Yolanda Ruiz, en conversaciones sobre el narcotráfico, las negociaciones de paz y las reelecciones de Uribe y Santos?
 
-Cada boleta de medio día vale $90.000. La sala en la Hospedería Duruelo es para 300 personas y todavía queda cupo para ti.
+Cada boleta de medio día vale $90.000, y el aforo es limitado.
 
 Mira la agenda completa para decidir cuáles te interesan más o, si no te quieres perder nada, llévate el pase de fin de semana que está en descuento!
 ```
@@ -57,9 +57,9 @@ Mira la agenda completa para decidir cuáles te interesan más o, si no te quier
 Sin variables.
 
 ```
-Hola. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.). ¿Te imaginas una mañana de domingo con Marta Ruiz hablando de magnicidios y víctimas, y después con Yolanda Ruiz y María Elvira Samper?
+Hola. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.). Este domingo en la mañana, Marta Ruiz habla de magnicidios y víctimas, y después Yolanda Ruiz y María Elvira Samper cuentan cómo fue cubrir todo eso siendo mujeres.
 
-Es este domingo 8 de noviembre. La sala en la Hospedería Duruelo es para 300 personas y todavía queda cupo para ti.
+Es el domingo 8 de noviembre en la Hospedería Duruelo, y el aforo es limitado.
 
 Las dos conversaciones entran en una boleta de medio día de $90.000, o llévate el pase de fin de semana, que está en descuento. ¿Te ayudamos a reservar? Escríbenos por aquí.
 ```
