@@ -1,0 +1,28 @@
+---
+/**
+ * Ricardo Ospina dejó de estar en el encuentro el 2026-10-26 (los
+ * organizadores buscan reemplazo). Su ficha queda como esta redirección,
+ * sin índice, a la página de su conversatorio, para enlaces guardados y
+ * resultados de búsqueda. GitHub Pages no hace redirecciones de servidor:
+ * va por meta refresh y canonical, como /programacion/.
+ */
+import { SITE_URL } from '../../config';
+import { sessionPath } from '../../routes';
+
+const target = sessionPath('negociaciones-de-paz');
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Negociaciones de paz · Testigos de la Memoria</title>
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href={`${SITE_URL}${target}`} />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+  </head>
+  <body>
+    <p>Esta conversación está en <a href={target}>Negociaciones de paz, el Caguán y La Habana</a>.</p>
+  </body>
+</html>

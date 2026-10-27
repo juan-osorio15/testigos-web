@@ -59,7 +59,7 @@ export function noindexMeta(title: string, description: string, pathname: string
  * con la portada en español en los buscadores.
  */
 /* /programacion/ es solo una redirección a la agenda de la portada (2026-09-29) */
-export const UNROUTED_PAGES = ['/404/', '/tratamiento-de-datos/', '/terminos-y-condiciones/', '/en/', '/programacion/'];
+export const UNROUTED_PAGES = ['/404/', '/tratamiento-de-datos/', '/terminos-y-condiciones/', '/en/', '/programacion/', '/panelistas/ricardo-ospina/'];
 
 /**
  * Recibe las rutas de todas las páginas .astro públicas (derivadas de
