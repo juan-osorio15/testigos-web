@@ -17,7 +17,7 @@ El sitio está en producción y vende. Ningún cambio puede romper la tienda, el
 
 - Cambio en el sitio: `npm run build` y `npm run check`, sin errores.
 - Texto para pegar en otro sistema o plantilla de correo: `npm run verificar`. Si un error nuevo se cuela, agregar su patrón y su caso en `scripts/verificar/verificar.py`.
-- Campañas: `python3 scripts/campanas/campana.py lista <campaña>` y la vista previa sin `--enviar`. Nunca `--enviar` sin que el titular lo pida para ese envío. Comandos en `docs/campanas/README.md`.
+- Campañas: si se crea una o cambia un calendario, actualizar `docs/campanas/dia-a-dia.md` en el mismo cambio. `python3 scripts/campanas/campana.py lista <campaña>` y la vista previa sin `--enviar`. Nunca `--enviar` sin que el titular lo pida para ese envío. Comandos en `docs/campanas/README.md`.
 
 ## Reglas del titular
 
