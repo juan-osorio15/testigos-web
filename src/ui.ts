@@ -133,7 +133,7 @@ const es = {
   /* Bajo la tienda (2026-10-27). La tarifa de Wompi es 3,1535 % + 833 pesos
      (IVA incluido); el titular pidió solo el porcentaje, redondeado. */
   'tickets.pay':
-    'Pagas con Wompi: tarjeta, PSE (elige Transferencia y luego tu banco), Nequi o Daviplata. Al total se suma la tarifa de pago, de cerca del 3,3 %.',
+    'Pagas con Wompi: tarjeta, Nequi, Daviplata o PSE (elige Transferencia y luego tu banco). Tarifa de pago: 3,3 %.',
   /* Aviso del widget de Pretix para lo que aún no se vende (texto fijo del
      propio widget en cada idioma); el script lo reemplaza por "avísame" */
   'tickets.notYet': 'Aún no disponible',
@@ -441,7 +441,7 @@ const en: Record<UiKey, string> = {
   'tickets.widgetFallback': 'If the checkout module does not load, you can buy directly from the secure Pretix shop:',
   'tickets.widgetLink': 'Buy on Pretix',
   'tickets.pay':
-    'You pay through Wompi: card, PSE (choose Transferencia, then your bank), Nequi or Daviplata. A payment fee of about 3.3% is added to the total.',
+    'You pay through Wompi: card, Nequi, Daviplata or PSE (choose Transferencia, then your bank). Payment fee: 3.3%.',
   'tickets.notYet': 'Not yet available',
   'waitlist.name': 'Name',
   'waitlist.email': 'Email address',
