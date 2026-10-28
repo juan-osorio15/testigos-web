@@ -101,7 +101,7 @@ Campañas en uso (el equipo agrega aquí las suyas):
 - **Puntos fijos:** el punto, sin el canal, porque el canal ya está en la Fuente: `bio`, `perfil`, `firma`. Si un punto tiene varios enlaces, lo que lleva cada uno: `boletas`, `agenda`, `panelistas` (chatbot, página de varios enlaces).
 - **Personas:** `persona-NOMBRE` o `repost-NOMBRE`, con el nombre como en `src/data/speakers.ts` (`repost-maria-elvira-samper`).
 
-`utm_term` no se usa: la audiencia, cuando importa, ya va como variable en el contenido.
+`utm_term` no se usa: la audiencia, cuando importa, ya va como variable en el contenido. La excepción es Google Ads, donde lo pone el sufijo de la campaña (abajo).
 
 ## Anuncios de Meta
 
@@ -125,7 +125,7 @@ utm_source={{site_source_name}}&utm_medium=paid_social&utm_campaign={{campaign.n
 
 ## Anuncios de Google
 
-Cada URL final va **completa, con sus UTM**, y se pega tal cual en Google Ads. El sufijo de URL final y la plantilla de seguimiento quedan vacíos en la cuenta, la campaña, el grupo y el anuncio, para que las etiquetas no salgan dos veces. El etiquetado automático (`gclid`) va activado y se suma solo; no reemplaza las UTM, porque el `gclid` solo lo lee Google y Pretix guarda la campaña por las UTM.
+Cada URL final va **completa, con sus UTM**, y se pega tal cual en Google Ads. La plantilla de seguimiento queda vacía, y el sufijo de URL final de la campaña lleva solo `utm_term={keyword}` (desde el 2026-10-28), que Google cambia por la palabra clave del clic; así Pretix sabe qué palabra vendió sin repetir las UTM de la URL. El etiquetado automático (`gclid`) va activado y se suma solo; no reemplaza las UTM, porque el `gclid` solo lo lee Google y Pretix guarda la campaña por las UTM.
 
 - Nombre de la **campaña** en Google Ads = `utm_campaign` (`buscador`).
 - Nombre del **grupo de anuncios** = `utm_content` (`plan-villa-de-leyva`, `periodismo`, `panelistas`).

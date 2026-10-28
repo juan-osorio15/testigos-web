@@ -94,6 +94,18 @@ Guarda en el llavero el token de Pretix del equipo `lectura-campanas` (lo pide; 
 - `-s eventalist-whatsapp`: token de WhatsApp.
 - `-s eventalist-whatsapp-cuenta`: identificador de la cuenta de WhatsApp.
 
+## Google Ads
+
+### `python3 scripts/ads/ads.py buscar "<GAQL>"`
+
+Corre una consulta GAQL en la cuenta 992-741-8619 como la cuenta de servicio claude-lector e imprime el JSON.
+
+### `python3 scripts/ads/ads.py cambiar <servicio> operaciones.json`
+
+Manda las operaciones del archivo a `<servicio>:mutate` (`campaigns`, `ads`, `adGroupCriteria`, `campaignCriteria`, `conversionActions`...). El candado rechaza todo lo de plata: presupuestos, montos de puja, facturación y activar campañas.
+
+- `--validar`: Google revisa las operaciones sin aplicarlas.
+
 ## Comprobaciones en producción
 
 ### `curl -sI https://testigosdelamemoria.com`
