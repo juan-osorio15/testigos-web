@@ -111,7 +111,7 @@ Van a poder escuchar uno detrás de otro a Daniel Samper Pizano, Fidel Cano, Cec
 
 Por eso la mejor forma de vivirlo es completo:
 · Pase completo, del viernes 6 al domingo 8: $340.000
-· Pase de fin de semana, sábado y domingo: $240.000 en vez de $270.000. Descuento por tiempo limitado.
+· Pase de fin de semana, sábado y domingo: $240.000. Descuento por tiempo limitado.
 
 Boletas en la página:
 https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiche-general_recorrido-completo

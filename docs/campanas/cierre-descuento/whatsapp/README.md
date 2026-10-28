@@ -40,7 +40,7 @@ Hola, {{1}}. Hasta el jueves 29 de octubre puedes ir a Testigos de la Memoria co
 
 Testigos de la Memoria es un encuentro en Villa de Leyva, del 6 al 8 de noviembre, en el que periodistas como Daniel Samper Pizano, Yolanda Ruiz y Fidel Cano cuentan en persona la historia de Colombia que les tocó cubrir. Una de esas conversaciones es con Marisol Gómez, que siguió las negociaciones de paz durante 25 años: el sábado 7 cuenta qué pasó de verdad en las mesas del Caguán y de La Habana, con tiempo para hacerle preguntas.
 
-El pase de fin de semana está en $240.000 en vez de $270.000, y el pase completo en $340.000 en vez de $360.000. ¿Te ayudamos a escoger tu boleta?
+El pase de fin de semana está en $240.000 y el pase completo en $340.000. ¿Te ayudamos a escoger tu boleta?
 ```
 
 - **Ejemplo de `{{1}}`:** `Ana`
@@ -65,7 +65,7 @@ Del 6 al 8 de noviembre en Villa de Leyva, los periodistas que cubrieron la hist
 María Elvira Samper y Yolanda Ruiz · las mujeres que cubrieron la guerra.
 Fidel Cano y Cecilia Orozco · las reelecciones de Uribe y Santos.
 
-El pase de fin de semana, con las dos, está hasta mañana en $240.000 en vez de $270.000. ¿Te lo dejamos listo?
+El pase de fin de semana, con las dos, está hasta mañana en $240.000. ¿Te lo dejamos listo?
 ```
 
 - **Pie:** `Eventalist S.A.S. · Para no recibir más, responde BAJA.`
@@ -89,7 +89,7 @@ Del 6 al 8 de noviembre en Villa de Leyva, los periodistas que cubrieron la hist
 María Elvira Samper y Yolanda Ruiz · las mujeres que cubrieron la guerra.
 Fidel Cano y Cecilia Orozco · las reelecciones de Uribe y Santos.
 
-El pase de fin de semana, con las dos, está hoy en $240.000 en vez de $270.000. ¿Te lo dejamos listo?
+El pase de fin de semana, con las dos, está hoy en $240.000. ¿Te lo dejamos listo?
 ```
 
 - **Pie:** `Eventalist S.A.S. · Para no recibir más, responde BAJA.`
@@ -106,14 +106,14 @@ Texto plano para pegar a mano en grupos de WhatsApp, con los enlaces adentro y s
 ### Miércoles 28 · Mañana termina
 
 ```
-Mañana jueves es el último día con los precios de la etapa 2 de Testigos de la Memoria.
+Mañana es el último día con los precios de la etapa 2 de Testigos de la Memoria.
 
-Del 5 al 8 de noviembre, aquí en Villa de Leyva, los periodistas que cubrieron la historia de Colombia la cuentan en persona. Dos de las conversaciones del fin de semana:
+Del 6 al 8 de noviembre, aquí en Villa de Leyva, los periodistas que cubrieron la historia de Colombia la cuentan en persona. Dos de las conversaciones del fin de semana:
 
 María Elvira Samper y Yolanda Ruiz · las mujeres que cubrieron la guerra.
 Fidel Cano y Cecilia Orozco · las reelecciones de Uribe y Santos.
 
-El pase de fin de semana está hasta mañana en $240.000 en vez de $270.000. Las boletas, aquí:
+El pase de fin de semana está hasta mañana en $240.000. Aprovecha para comprarlo aquí:
 https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=cierre-descuento&utm_content=grupos-manana-termina
 
 ¿Dudas? Escríbannos:
@@ -125,12 +125,12 @@ https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en
 ```
 Hoy es el último día con los precios de la etapa 2 de Testigos de la Memoria.
 
-Del 5 al 8 de noviembre, aquí en Villa de Leyva, los periodistas que cubrieron la historia de Colombia la cuentan en persona. Dos de las conversaciones del fin de semana:
+Del 6 al 8 de noviembre, aquí en Villa de Leyva, los periodistas que cubrieron la historia de Colombia la cuentan en persona. Dos de las conversaciones del fin de semana:
 
 María Elvira Samper y Yolanda Ruiz · las mujeres que cubrieron la guerra.
 Fidel Cano y Cecilia Orozco · las reelecciones de Uribe y Santos.
 
-El pase de fin de semana está hoy en $240.000 en vez de $270.000. Las boletas, aquí:
+El pase de fin de semana está hoy en $240.000. Aprovecha para comprarlo aquí:
 https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=cierre-descuento&utm_content=grupos-hoy-termina
 
 ¿Dudas? Escríbannos:

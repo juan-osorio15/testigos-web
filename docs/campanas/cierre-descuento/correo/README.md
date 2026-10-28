@@ -1,6 +1,6 @@
 # Cierre de la etapa 2 · correo
 
-Plan de la campaña en [`../README.md`](../README.md). Es la excepción a los correos conversacionales de [`../../reglas.md`](../../reglas.md): va con diseño, precios tachados y botón.
+Plan de la campaña en [`../README.md`](../README.md). Es la excepción a los correos conversacionales de [`../../reglas.md`](../../reglas.md): va con diseño, precios y botón (sin el precio anterior, titular 2026-10-28).
 
 ## Plantillas y configuraciones
 

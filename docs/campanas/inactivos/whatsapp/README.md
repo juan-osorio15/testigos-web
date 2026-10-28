@@ -46,7 +46,7 @@ Yolanda Ruiz y María Elvira Samper cubrieron la guerra y el poder cuando casi n
 
 Para que no tengas que preocuparte por el hospedaje, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
-El pase de fin de semana está en $240.000 en vez de $270.000, un descuento por tiempo limitado. ¿Te ayudamos a escoger tu boleta?
+El pase de fin de semana está en $240.000, un descuento por tiempo limitado. ¿Te ayudamos a escoger tu boleta?
 ```
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
@@ -65,7 +65,7 @@ Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
 ¿Ya sabes dónde quedarte? Tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
-Esa conversación entra en el pase de fin de semana, que está en $240.000 en vez de $270.000 por tiempo limitado. ¿Quieres que te lo dejemos listo?
+Esa conversación entra en el pase de fin de semana, que está en $240.000 por tiempo limitado. ¿Quieres que te lo dejemos listo?
 ```
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
@@ -84,7 +84,7 @@ Testigos de la Memoria está armado como un solo recorrido por la historia de Co
 
 Si todavía no sabes dónde quedarte, tenemos varios hoteles aliados con descuentos especiales para asistentes.
 
-Para vivirlo entero, el pase completo vale $340.000. Si no puedes el viernes, el pase de fin de semana está en $240.000 en vez de $270.000, por tiempo limitado. ¿Cuál te sirve más?
+Para vivirlo entero, el pase completo vale $340.000. Si no puedes el viernes, el pase de fin de semana está en $240.000, por tiempo limitado. ¿Cuál te sirve más?
 ```
 
 - Pie: `Para no recibir más mensajes, responde BAJA.`
@@ -99,7 +99,7 @@ Variable `{{1}}`: nombre.
 ```
 Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
-Te avisamos porque hoy es el último día del pase de fin de semana a $240.000 en vez de $270.000. Desde mañana el descuento es menor.
+Te avisamos porque hoy es el último día del pase de fin de semana a $240.000. Desde mañana el descuento es menor.
 
 Con ese pase escuchas el sábado y el domingo a Fidel Cano, Yolanda Ruiz, María Elvira Samper, Marta Ruiz y Marisol Gómez, entre otros, con tiempo para hacerles preguntas.
 

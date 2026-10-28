@@ -71,6 +71,7 @@ Se crean en WhatsApp Manager, en la cuenta del número colombiano, al menos un d
 - **Idioma:** español (`es`).
 - **Encabezado:** opcional, y solo de texto (máximo 60 caracteres, sin emojis ni saltos de línea). Nunca de imagen (titular, 2026-10-27): Meta los aprueba unas veces sí y otras no, y en respond.io hay que volver a subir la imagen en cada broadcast. Las piezas quedan para lo que se publica a mano (grupos, lista de Fernando). El mensaje tiene que entenderse sin imagen.
 - **Cuerpo:** el bloque de texto, exacto, de máximo 1.024 caracteres. No puede empezar ni terminar con una variable.
+- **Precios:** solo el precio de hoy, nunca el anterior (ni "en vez de" ni tachado). La urgencia la da la fecha (titular, 2026-10-28).
 - **Variables:** el nombre de la persona solo va en los mensajes que tienen que sentirse personales: recuperación (RC), expirados y las cartas de Fernando. Los anuncios generales (como el cierre de una etapa) van sin variables (titular, 2026-10-28). `{{1}}` suele ser el nombre. Meta pide un ejemplo (`Ana`); en respond.io se llena con First Name y en `campana.py` con la columna que diga la configuración.
 - **Pie:** máximo 60 caracteres.
 - **Botones:** de respuesta rápida (abre la conversación con Catalina) y de enlace (URL estática con los UTM de la ficha). Máximo 25 caracteres por texto de botón.
