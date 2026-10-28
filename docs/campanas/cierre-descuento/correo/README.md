@@ -32,7 +32,7 @@ Resend gratis manda 100 correos al día, las pruebas incluidas. Desde el 27 de o
 El 28 de octubre el correo de CD2 a interesados se reemplazó por `cierre-descuento-2-carta`: la estructura del mensaje a los grupos (último día, dos conversaciones, el pase y su precio, dudas por WhatsApp) con la voz de la carta de Fernando, sin diseño ni botón. Va a toda la base de interesados (sus contactos y los inscritos del sitio, unos 310 con correo) en un solo envío, con Resend en plan pago.
 
 - Plantilla `scripts/campanas/plantillas/cierre-descuento-2-carta.html`. Asunto: "Te escribo antes de mañana". Remitente: `Fernando Cordovez <direccion@testigosdelamemoria.com>`; las respuestas llegan a manager@eventalist.co.
-- Medición: `utm_source=email&utm_medium=aliados&utm_campaign=cierre-descuento&utm_content=correo-carta_manana-termina`.
+- Medición: `utm_source=email&utm_medium=email&utm_campaign=cierre-descuento&utm_content=correo-carta_manana-termina`. El envío del 28 de octubre salió con `utm_medium=aliados`; desde ese día todo correo va con `email`.
 
 ```sh
 python3 scripts/campanas/campana.py correo cierre-descuento-2-carta                                         # vista previa

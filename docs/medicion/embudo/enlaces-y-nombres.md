@@ -61,10 +61,10 @@ Canales futuros, con el mismo criterio de nombrar la plataforma: `tiktok`, `yout
 - `paid_social`: anuncios pagados en redes.
 - `paid_search`: anuncios pagados en Google.
 - `social`: lo que publican las cuentas del evento (publicaciones, historias, bio, perfiles).
-- `aliados`: lo que comparten panelistas, organizadores y patrocinadores desde sus cuentas o su WhatsApp.
+- `aliados`: lo que comparten panelistas, organizadores y patrocinadores desde sus cuentas o su WhatsApp. Un correo nunca es `aliados`, aunque lo firme Fernando u otro organizador.
 - `mensaje`: mensajes del equipo, uno a uno, por lista de difusión o por plantilla.
 - `chatbot`: enlaces que da el chatbot.
-- `email`: correos.
+- `email`: todo correo, también los firmados por un organizador (titular, 2026-10-28: la guía manda sobre formatos pedidos desde afuera, siempre que se pueda medir).
 - `qr`: material impreso.
 - `organic`: solo el perfil de Google (así GA4 lo cuenta como búsqueda orgánica).
 - `referral`: artículos de prensa y páginas de terceros.
