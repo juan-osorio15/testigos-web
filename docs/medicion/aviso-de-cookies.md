@@ -11,7 +11,7 @@ El objetivo es doble: que casi todos acepten sin pensarlo y que el aviso no esto
 ## Comportamiento
 
 1. **Al entrar no hay aviso.** El hero tiene la pantalla entera.
-2. **Al bajar más de un cuarto de pantalla**, el panel sube desde el borde inferior (500 ms, lineal) y, al mismo tiempo, todo lo de encima se oscurece de forma pareja y suave (velo de tinta al 25 %, 450 ms con `cubic-bezier(0.16, 1, 0.3, 1)`: arranca de golpe y frena suave). El velo no captura clics: la página se sigue usando, incluido "Comprar boletas".
+2. **Al bajar más de un cuarto de pantalla**, el panel sube desde el borde inferior (500 ms, lineal) y, al mismo tiempo, todo lo de encima se oscurece de forma pareja y suave (velo de tinta al 20 %, 450 ms con `cubic-bezier(0.16, 1, 0.3, 1)`: arranca de golpe y frena suave). El velo no captura clics: la página se sigue usando, incluido "Comprar boletas".
 3. **Una vez fuera, se queda** en esa página aunque la persona vuelva a subir. En cada página nueva empieza otra vez escondido. En una página demasiado corta para bajar, sale de una vez.
 4. **El panel**: crema de la marca, sin borde, de lado a lado, cerca del 18 % de la pantalla en celular y en computador (20 % en un celular pequeño). Lleva:
    - el título estándar **"Usamos cookies"**;
@@ -45,7 +45,7 @@ El objetivo es doble: que casi todos acepten sin pensarlo y que el aviso no esto
 
 ## Historia
 
-Franja discreta con × (2026-09-17) → modal centrado que bloqueaba (2026-09-18 y 2026-10-15) → panel que sale al bajar, con velo (2026-10-26) → panel más bajo (de 25 % a 18 % de la pantalla; en celular, de un tercio a 18 %) y velo más claro (de 50 % a 25 %), para que quien solo quiere comprar no se enrede y quien mira con cuidado igual lo note (2026-10-28).
+Franja discreta con × (2026-09-17) → modal centrado que bloqueaba (2026-09-18 y 2026-10-15) → panel que sale al bajar, con velo (2026-10-26) → panel más bajo (de 25 % a 18 % de la pantalla; en celular, de un tercio a 18 %) y velo más claro (de 50 % a 25 % y luego a 20 %), para que quien solo quiere comprar no se enrede y quien mira con cuidado igual lo note (2026-10-28).
 
 ## Para replicarlo en otro evento
 
