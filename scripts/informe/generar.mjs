@@ -420,7 +420,10 @@ if (pauta) {
   };
   const filas = [];
   for (const g of pauta.lista) {
-    filas.push({ nombre: nombre(g.camp), gasto: g.gasto, impresiones: g.impresiones, resultados: g.resultados || null, indicador: g.indicador, costo: g.resultados ? g.gasto / g.resultados : null, grupo: true });
+    filas.push({ nombre: nombre(g.camp), gasto: g.gasto, parte: g.gasto / pauta.gasto, impresiones: g.impresiones, resultados: g.resultados || null, indicador: g.indicador, costo: g.resultados ? g.gasto / g.resultados : null, grupo: !C.soloCampanas });
+    // Con soloCampanas, una fila por campaña y sin anuncios: mostrar solo los
+    // de más inversión dejaba campañas con un anuncio y otras con ninguno.
+    if (C.soloCampanas) continue;
     // Los anuncios con inversión mínima no se muestran; sí cuentan en su campaña.
     for (const a of g.anuncios.filter((a) => a.gasto >= (C.minInversion ?? 1000))) {
       filas.push({ ...a, resultados: a.resultados || null, costo: a.resultados ? a.gasto / a.resultados : null, sangria: true });
@@ -431,8 +434,9 @@ if (pauta) {
     pregunta: '¿Qué consiguió cada peso invertido en anuncios?',
     cuerpo: tabla({
       cols: [
-        { titulo: 'Objetivo y anuncio', clave: 'nombre', tipo: 'txt' },
+        { titulo: C.soloCampanas ? 'Campaña' : 'Objetivo y anuncio', clave: 'nombre', tipo: 'txt' },
         { titulo: 'Inversión', clave: 'gasto', tipo: 'barra', formato: pesos },
+        ...(C.soloCampanas ? [{ titulo: 'Del total', clave: 'parte', tipo: 'num', formato: pct }] : []),
         { titulo: 'Resultado', clave: 'resultados', tipo: 'num', formato: res },
         { titulo: 'Por resultado', clave: 'costo', tipo: 'num', formato: pesos },
       ],
@@ -541,18 +545,18 @@ if (campanasM) {
   const min = C.minVisitas ?? 20;
   for (const g of campanasM.lista) {
     if (C.ocultarTenues && g.sesiones < min) continue;
-    const piezas = C.ocultarTenues ? g.piezas.filter((p) => p.sesiones >= min) : g.piezas;
+    const piezas = C.soloCampanas ? [] : C.ocultarTenues ? g.piezas.filter((p) => p.sesiones >= min) : g.piezas;
     const una = piezas.length === 1;
     const pieza = una ? nombre(piezas[0].cont) : '';
-    filas.push({ nombre: pieza ? `${nombre(g.camp)} · ${pieza}` : nombre(g.camp), nuevos: g.nuevos, pctInt: g.sesiones ? g.sesionesInt / g.sesiones : null, comprar: g.comprar, grupo: true, tenue: g.sesiones < (C.minVisitas ?? 20) });
+    filas.push({ nombre: pieza ? `${nombre(g.camp)} · ${pieza}` : nombre(g.camp), nuevos: g.nuevos, pctInt: g.sesiones ? g.sesionesInt / g.sesiones : null, comprar: g.comprar, grupo: !C.soloCampanas, tenue: g.sesiones < (C.minVisitas ?? 20) });
     if (!una) for (const p of piezas) filas.push({ nombre: nombre(p.cont), nuevos: p.nuevos, pctInt: p.sesiones ? p.sesionesInt / p.sesiones : null, comprar: p.comprar, sangria: true, tenue: p.sesiones < (C.minVisitas ?? 20) });
   }
   slides.push(diapositiva('campanas', {
-    eyebrow: 'Campañas y piezas',
-    pregunta: '¿Qué campaña y qué pieza trae gente con intención de comprar?',
+    eyebrow: C.soloCampanas ? 'Campañas' : 'Campañas y piezas',
+    pregunta: C.soloCampanas ? '¿Qué campaña trae gente con intención de comprar?' : '¿Qué campaña y qué pieza trae gente con intención de comprar?',
     cuerpo: tabla({
       cols: [
-        { titulo: 'Campaña y pieza', clave: 'nombre', tipo: 'txt' },
+        { titulo: C.soloCampanas ? 'Campaña' : 'Campaña y pieza', clave: 'nombre', tipo: 'txt' },
         { titulo: 'Personas nuevas', clave: 'nuevos', tipo: 'barra', formato: entero },
         { titulo: 'Tasa de interacción', clave: 'pctInt', tipo: 'num', formato: pct },
         { titulo: 'Clics en Comprar', clave: 'comprar', tipo: 'num', formato: entero },
