@@ -2,7 +2,7 @@
 
 Lo que toca cada día hasta el evento, una pieza por línea. Se marca con una X dentro de los corchetes:
 
-- **Preparado:** todo listo para salir. En WhatsApp de API o respond.io, la plantilla aprobada por Meta y la pieza a la mano; en grupos y lista de Fernando, la pieza y el texto; en correo, la vista previa y la prueba revisadas.
+- **Preparado:** todo listo para salir. En WhatsApp de API o respond.io, la plantilla aprobada por Meta (sin imagen); en grupos y lista de Fernando, la pieza y el texto; en correo, la vista previa y la prueba revisadas.
 - **Mandado:** ya salió.
 
 Los textos, las piezas y los pasos están en la carpeta de cada campaña (`<campaña>/correo/` y `<campaña>/whatsapp/`); las reglas, en `reglas.md`. Cuando una campaña nueva o un cambio de calendario toca un día, se actualiza aquí en el mismo cambio.
@@ -101,7 +101,7 @@ Antes, confirmar en Pretix que sigue habiendo boletas.
 - **LF:** mandarle a Fernando las piezas del día en orden (`-1`, `-2`, `-3`) y después el texto. Él lo reenvía.
 - **RC:** broadcast en respond.io con la plantilla del día al segmento `inactivos`, mejor entre 9:00 y 11:00 a.m.
 - **Carta de Fernando:** `correo carta-fernando --maximo N --enviar`, con N = 100 menos lo que ya salió ese día. Cada tanda sigue con los siguientes y no repite a nadie.
-- **CD:** correo con `correo cierre-descuento-N-expirados` primero y después `correo cierre-descuento-N-interesados --saltar S --maximo M` (N es el día; S, los que ya recibieron una CD; M, el cupo que queda de los 100 de Resend), y broadcast en respond.io a todos los contactos sin compra, con la pieza del día (`cierre-descuento/whatsapp/piezas/`). Antes, confirmar los precios en Pretix.
+- **CD:** correo con `correo cierre-descuento-N-expirados` primero y después `correo cierre-descuento-N-interesados --saltar S --maximo M` (N es el día; S, los que ya recibieron una CD; M, el cupo que queda de los 100 de Resend), y broadcast en respond.io a todos los contactos sin compra, con la plantilla `_v2` del día (sin imagen). Antes, confirmar los precios en Pretix.
 - **IN y EX por la API:** revisar que `scripts/campanas/config/interesados.json` y `expirados.json` tengan la plantilla de la semana (cuál va en `interesados/whatsapp/README.md` y `expirados/whatsapp/README.md`), y después:
 
 ```sh

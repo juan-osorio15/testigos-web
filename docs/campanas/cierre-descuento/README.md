@@ -13,7 +13,9 @@ Tres días de mensajes, del martes 27 al jueves 29 de octubre de 2026, para que 
 
 - **Martes 27 oct · CD1 · Quedan 2 días.** Antojo: Marisol Gómez y las mesas del Caguán y de La Habana.
 - **Miércoles 28 oct · CD2 · Mañana termina.** Antojo: Yolanda Ruiz y María Elvira Samper.
-- **Jueves 29 oct · CD3 · Hoy es el último día.** Antojo: el recorrido completo con sus periodistas.
+- **Jueves 29 oct · CD3 · Hoy es el último día.** Antojo: Luz María Sierra, Martha Soto y el narcotráfico.
+
+Los correos cuentan el evento completo. Los WhatsApp van sin imagen: primero presentan el encuentro y después nombran a los periodistas (titular, 2026-10-27).
 
 Cada día: el correo a interesados, el correo a expirados y el broadcast de respond.io. Dentro del horario de la Ley 2300 (lunes a viernes de 7:00 a.m. a 7:00 p.m.), mejor entre 9:00 y 11:00 a.m.
 
@@ -25,7 +27,7 @@ Cada día: el correo a interesados, el correo a expirados y el broadcast de resp
 ## Los medios
 
 - [`correo/`](correo/): tres plantillas con diseño, una por día, a interesados y a expirados con `campana.py`.
-- [`whatsapp/`](whatsapp/): tres plantillas de Meta con su pieza, por broadcast de respond.io a todos los contactos sin compra. CD3 reemplaza a RC4 de `inactivos`.
+- [`whatsapp/`](whatsapp/): tres plantillas de Meta con encabezado de texto (sin imagen), por broadcast de respond.io a todos los contactos sin compra. CD3 reemplaza a RC4 de `inactivos`.
 
 ## Cómo se mide
 

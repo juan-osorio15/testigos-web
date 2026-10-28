@@ -37,7 +37,7 @@ Correcciones del titular del 22, el 26 y el 27 de octubre.
 6. **Al final, lo que puede alejar:** el precio, la logística y el cupo. El pase de fin de semana va con su descuento "por tiempo limitado".
 7. **Termina en algo fácil de responder:** una pregunta ("¿Te ayudamos a escoger?").
 
-Excepción: en las campañas de fecha límite (`cierre-descuento`) la urgencia va en la primera línea y en la imagen.
+Excepción: en las campañas de fecha límite (`cierre-descuento`) la urgencia va en el encabezado y en la primera línea.
 
 ## Correo
 
@@ -69,7 +69,7 @@ Se crean en WhatsApp Manager, en la cuenta del número colombiano, al menos un d
 - **Nombre:** minúsculas y guion bajo, con la sigla y el número (`cd1_quedan_dos_dias`). Una plantilla aprobada no se puede editar: si cambia un dato, se crea otra con `_v2`.
 - **Categoría:** Marketing. Todo lo que invita a comprar es Marketing; si se marca Utilidad, Meta la cambia o la rechaza.
 - **Idioma:** español (`es`).
-- **Encabezado:** opcional. Si la ficha nombra una pieza, se elige Imagen y se sube. Esa imagen es solo una muestra para Meta: **al mandar el broadcast en respond.io hay que volver a subirla**, o el mensaje sale sin imagen o no sale.
+- **Encabezado:** opcional, y solo de texto (máximo 60 caracteres, sin emojis ni saltos de línea). Nunca de imagen (titular, 2026-10-27): Meta los aprueba unas veces sí y otras no, y en respond.io hay que volver a subir la imagen en cada broadcast. Las piezas quedan para lo que se publica a mano (grupos, lista de Fernando). El mensaje tiene que entenderse sin imagen.
 - **Cuerpo:** el bloque de texto, exacto, de máximo 1.024 caracteres. No puede empezar ni terminar con una variable.
 - **Variables:** `{{1}}` suele ser el nombre. Meta pide un ejemplo (`Ana`); en respond.io se llena con First Name y en `campana.py` con la columna que diga la configuración.
 - **Pie:** máximo 60 caracteres.
@@ -78,7 +78,7 @@ Se crean en WhatsApp Manager, en la cuenta del número colombiano, al menos un d
 ### Cómo se manda un broadcast en respond.io
 
 1. Broadcasts → nuevo broadcast → canal WhatsApp del número colombiano → la plantilla.
-2. Si tiene encabezado de imagen, subir la pieza. En `{{1}}`, First Name.
+2. En `{{1}}`, First Name.
 3. Audiencia: la que diga la campaña, siempre con la casilla **Baja** sin marcar y Lifecycle distinto de **Customer**. Antes, importar los compradores del día (`campana.py respondio compradores`) para que quien compró ayer quede como Customer.
 4. Programarlo dentro del horario, mejor entre 9:00 y 11:00 a.m.
 
