@@ -148,7 +148,9 @@ if (meta?.columnas.includes('resultados') && meta.columnas.includes('campana')) 
     lista,
     gasto: lista.reduce((s, g) => s + g.gasto, 0),
     impresiones: lista.reduce((s, g) => s + g.impresiones, 0),
-    desde: meta.anuncios.map((a) => a.inicio).filter(Boolean).sort()[0],
+    // La inversión empieza con el primer anuncio, pero nunca antes del rango
+    // exportado (un anuncio que viene de semanas atrás solo suma esta semana).
+    desde: [meta.periodo.desde, meta.anuncios.map((a) => a.inicio).filter(Boolean).sort()[0]].filter(Boolean).sort().at(-1),
     hasta: meta.periodo.hasta,
   };
 }
@@ -368,6 +370,9 @@ const incrustar = (archivo) => {
 const O = C.organico;
 if (O) {
   const filas = O.redes.map((r) => ({ ...r, pctOrg: r.organicas / r.vistas }));
+  // La exportación por publicación no separa lo pagado ni trae clics de
+  // Instagram: esas columnas solo salen si todas las redes las tienen.
+  const hay = (k) => O.redes.every((r) => r[k] != null);
   const lista = (titulo, xs) => `<div class="mini"><p class="et">${esc(titulo)}</p><ol>${xs.map((x) => `<li><span>${esc(x.nombre)}</span><span class="v">${entero(x.valor)}</span></li>`).join('')}</ol></div>`;
   // Miniatura del contenido más visto, recortada de la captura de Meta.
   const foto = (f) => {
@@ -381,12 +386,12 @@ if (O) {
       cols: [
         { titulo: 'Red', clave: 'nombre', tipo: 'txt' },
         { titulo: 'Reproducciones', clave: 'vistas', tipo: 'barra', formato: entero },
-        { titulo: 'Sin pauta', clave: 'pctOrg', tipo: 'num', formato: pct },
-        { titulo: 'Clics en enlaces', clave: 'clics', tipo: 'num', formato: entero },
-        { titulo: 'Seguidores nuevos', clave: 'seguidores', tipo: 'num', formato: entero },
+        ...(hay('organicas') ? [{ titulo: 'Sin pauta', clave: 'pctOrg', tipo: 'num', formato: pct }] : []),
+        ...(hay('clics') ? [{ titulo: 'Clics en enlaces', clave: 'clics', tipo: 'num', formato: entero }] : []),
+        ...(hay('seguidores') ? [{ titulo: 'Seguidores nuevos', clave: 'seguidores', tipo: 'num', formato: entero }] : []),
       ],
       filas,
-      nota: 'Reproducciones: veces que se vio una publicación, historia o video. Sin pauta: parte de las reproducciones que no vino de anuncios.',
+      nota: O.nota ?? 'Reproducciones: veces que se vio una publicación, historia o video. Sin pauta: parte de las reproducciones que no vino de anuncios.',
     }) + (O.listas?.length ? `<div class="minis${O.foto ? ' con-foto' : ''}">${foto(O.foto)}${O.listas.map((l) => lista(l.titulo, l.items)).join('')}</div>` : ''),
     fuente: `Fuente: Meta Business Suite, ${periodo(O.periodo)}`,
     cifras: O.cifras ?? [],
