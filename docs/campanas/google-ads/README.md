@@ -457,3 +457,9 @@ La misma campaña, extendida, con la compra de GA4 como conversión principal. C
 - Textos destacados: Charlas abiertas gratis, Pago con tarjeta o PSE, 5 al 8 de noviembre, Hospedería Duruelo, 14 periodistas.
 
 El presupuesto total (180.000 COP, incluidos los 49.730 ya gastados) y el estado los maneja el titular.
+
+### Ajustes del 28 de octubre en la tarde
+
+- Socios de búsqueda apagados (habían quedado prendidos): solo la Red de Búsqueda de Google.
+- `planes para hacer en villa de leyva` pasó de amplia a frase (`"planes para hacer en villa de leyva"`). Las otras tres en amplia del grupo TDLM v1 siguen igual.
+- El idioma ya estaba en español.
