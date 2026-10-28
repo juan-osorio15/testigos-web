@@ -4,13 +4,15 @@ Tres broadcasts de respond.io, uno por día del martes 27 al jueves 29 de octubr
 
 **Cómo están escritos:** la urgencia va primero, en el encabezado de texto y en la primera línea, y es general ("los precios de la etapa 2"). Después, en una o dos frases, qué es el encuentro (sin imagen, el mensaje tiene que presentarlo antes de nombrar a nadie) y una conversación que antoja, con su periodista y su tema. Al final, los precios (titular, 2026-10-27).
 
-**Sin imagen** (titular, 2026-10-27): Meta aprueba los encabezados de imagen unas veces sí y otras no. Las plantillas van con encabezado de texto, que se aprueba como cualquier texto, y el mensaje se entiende sin pieza. Las primeras versiones (`cd1_quedan_dos_dias`, `cd2_manana_termina`, `cd3_hoy_ultimo_dia`, con imagen) no se usan; estas son `_v2`.
+**Sin imagen** (titular, 2026-10-27): Meta aprueba los encabezados de imagen unas veces sí y otras no. Las plantillas van con encabezado de texto, que se aprueba como cualquier texto, y el mensaje se entiende sin pieza. Las primeras versiones (`cd1_quedan_dos_dias`, `cd2_manana_termina`, `cd3_hoy_ultimo_dia`, con imagen) no se usan. CD1 va con `_v2`; CD2 y CD3, con `_v3`.
+
+**CD2 y CD3 nombran dos conversaciones, no una** (titular, 2026-10-28): en corto, nombres · tema, María Elvira Samper y Fidel Cano. Sin "¿te imaginas…?". Las acompaña la pieza [`piezas/cierre-etapa-2.jpg`](piezas/cierre-etapa-2.jpg) (pase de fin de semana con las caras) donde se publique a mano.
 
 ## Calendario
 
 - **CD1** · martes 27 oct · Quedan 2 días · Marisol Gómez y las mesas de paz
-- **CD2** · miércoles 28 oct · Mañana termina · Yolanda Ruiz y María Elvira Samper
-- **CD3** · jueves 29 oct · Hoy es el último día · Luz María Sierra y Martha Soto, el narcotráfico. Reemplaza a RC4, que no se envía.
+- **CD2** · miércoles 28 oct · Mañana termina · María Elvira Samper y Fidel Cano
+- **CD3** · jueves 29 oct · Hoy es el último día · María Elvira Samper y Fidel Cano. Reemplaza a RC4, que no se envía.
 
 ## Antes del primer envío (una sola vez)
 
@@ -49,7 +51,7 @@ El pase de fin de semana está en $240.000 en vez de $270.000, y el pase complet
 
 ## CD2 · miércoles 28 de octubre
 
-- **Nombre:** `cd2_manana_termina_v2`
+- **Nombre:** `cd2_manana_termina_v3`
 - **Categoría:** Marketing
 - **Idioma:** español (`es`)
 - **Encabezado:** texto → `Mañana termina la etapa 2`
@@ -58,9 +60,12 @@ El pase de fin de semana está en $240.000 en vez de $270.000, y el pase complet
 ```
 Hola, {{1}}. Mañana jueves es el último día con los precios de la etapa 2 de Testigos de la Memoria. Desde el viernes, el descuento es menor.
 
-En Testigos de la Memoria, del 6 al 8 de noviembre en Villa de Leyva, cada conversación la dan quienes estuvieron ahí. El domingo en la mañana, Yolanda Ruiz, Premio Simón Bolívar a la Vida y Obra, y María Elvira Samper, exdirectora de Semana y Cambio, cuentan cómo fue cubrir la guerra y el poder cuando casi ninguna mujer dirigía un noticiero en Colombia.
+Del 6 al 8 de noviembre en Villa de Leyva, los periodistas que cubrieron la historia de Colombia la cuentan en persona. Dos de las conversaciones del fin de semana:
 
-Esa conversación entra en el pase de fin de semana, que hasta mañana está en $240.000 en vez de $270.000. ¿Te lo dejamos listo?
+María Elvira Samper y Yolanda Ruiz · las mujeres que cubrieron la guerra.
+Fidel Cano y Cecilia Orozco · las reelecciones de Uribe y Santos.
+
+El pase de fin de semana, con las dos, está hasta mañana en $240.000 en vez de $270.000. ¿Te lo dejamos listo?
 ```
 
 - **Ejemplo de `{{1}}`:** `Ana`
@@ -71,7 +76,7 @@ Esa conversación entra en el pase de fin de semana, que hasta mañana está en 
 
 ## CD3 · jueves 29 de octubre
 
-- **Nombre:** `cd3_hoy_ultimo_dia_v2`
+- **Nombre:** `cd3_hoy_ultimo_dia_v3`
 - **Categoría:** Marketing
 - **Idioma:** español (`es`)
 - **Encabezado:** texto → `Hoy es el último día de la etapa 2`
@@ -80,9 +85,12 @@ Esa conversación entra en el pase de fin de semana, que hasta mañana está en 
 ```
 Hola, {{1}}. Hoy es el último día con los precios de la etapa 2 de Testigos de la Memoria. Desde mañana, el descuento es menor.
 
-¿Cómo se investigaba el narcotráfico cuando hacerlo era jugarse la vida? En Testigos de la Memoria, del 6 al 8 de noviembre en Villa de Leyva, lo cuentan en persona Luz María Sierra, exdirectora de El Colombiano, y Martha Soto, editora de la Unidad Investigativa de El Tiempo. Es el sábado 7 en la tarde, con tiempo para hacerles preguntas.
+Del 6 al 8 de noviembre en Villa de Leyva, los periodistas que cubrieron la historia de Colombia la cuentan en persona. Dos de las conversaciones del fin de semana:
 
-Esa conversación entra en el pase de fin de semana, que hoy está en $240.000 en vez de $270.000. ¿Te lo dejamos listo?
+María Elvira Samper y Yolanda Ruiz · las mujeres que cubrieron la guerra.
+Fidel Cano y Cecilia Orozco · las reelecciones de Uribe y Santos.
+
+El pase de fin de semana, con las dos, está hoy en $240.000 en vez de $270.000. ¿Te lo dejamos listo?
 ```
 
 - **Ejemplo de `{{1}}`:** `Ana`

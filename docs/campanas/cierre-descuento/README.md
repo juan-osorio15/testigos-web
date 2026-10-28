@@ -12,10 +12,10 @@ Tres días de mensajes, del martes 27 al jueves 29 de octubre de 2026, para que 
 ## Calendario
 
 - **Martes 27 oct · CD1 · Quedan 2 días.** Antojo: Marisol Gómez y las mesas del Caguán y de La Habana.
-- **Miércoles 28 oct · CD2 · Mañana termina.** Antojo: Yolanda Ruiz y María Elvira Samper.
-- **Jueves 29 oct · CD3 · Hoy es el último día.** Antojo: Luz María Sierra, Martha Soto y el narcotráfico.
+- **Miércoles 28 oct · CD2 · Mañana termina.** Antojo: dos conversaciones en corto, nombres · tema: María Elvira Samper y Yolanda Ruiz, Fidel Cano y Cecilia Orozco.
+- **Jueves 29 oct · CD3 · Hoy es el último día.** Antojo: las mismas dos conversaciones de CD2.
 
-Los correos cuentan el evento completo. Los WhatsApp van sin imagen: primero presentan el encuentro y después nombran a los periodistas (titular, 2026-10-27).
+Los correos cuentan el evento completo. Los WhatsApp van sin imagen: primero presentan el encuentro y después nombran a los periodistas (titular, 2026-10-27). La pieza de la campaña desde el 28 es [`whatsapp/piezas/cierre-etapa-2.jpg`](whatsapp/piezas/cierre-etapa-2.jpg), para lo que se publica a mano.
 
 Cada día: el correo a interesados, el correo a expirados y el broadcast de respond.io. Dentro del horario de la Ley 2300 (lunes a viernes de 7:00 a.m. a 7:00 p.m.), mejor entre 9:00 y 11:00 a.m.
 
