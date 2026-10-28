@@ -52,6 +52,7 @@ Desde hoy, revisar en Pretix que lo que nombra cada plantilla siga a la venta.
 - **LF7** · lista de Fernando · Cecilia Orozco · Preparado: [ ] · Mandado: [ ]
 - **RC5** · inactivos · Marisol Gómez · Preparado: [ ] · Mandado: [ ]
 - **Carta de Fernando** · primera tanda, con el cupo del día. Se pospuso del 27: el cupo de Resend se fue en el cierre · Preparado: [ ] · Mandado: [ ]
+- **GA** · Google Ads · seguimiento cada dos días · Hecho: [ ]
 
 ## Sábado 31 oct · antes de las 3:00 p.m.
 
@@ -60,6 +61,10 @@ Desde hoy, revisar en Pretix que lo que nombra cada plantilla siga a la venta.
 - **GV10** · grupos de Villa · magnicidios y víctimas · Preparado: [ ] · Mandado: [ ]
 - **LF8** · lista de Fernando · Luz María Sierra · Preparado: [ ] · Mandado: [ ]
 - **RC6** · inactivos · Luz María Sierra y Martha Soto · Preparado: [ ] · Mandado: [ ]
+
+## Domingo 1 nov
+
+- **GA** · Google Ads · seguimiento cada dos días · Hecho: [ ]
 
 ## Martes 3 nov
 
@@ -70,6 +75,7 @@ Desde hoy, revisar en Pretix que lo que nombra cada plantilla siga a la venta.
 - **RC7** · inactivos · Marta Ruiz y Guillermo González Uribe · Preparado: [ ] · Mandado: [ ]
 - **IN2** · interesados · API · mujeres periodistas · Preparado: [ ] · Mandado: [ ]
 - **EX2** · expirados · API · narcotráfico · Preparado: [ ] · Mandado: [ ]
+- **GA** · Google Ads · seguimiento cada dos días · Hecho: [ ]
 
 ## Miércoles 4 nov
 
@@ -83,6 +89,7 @@ Desde hoy, revisar en Pretix que lo que nombra cada plantilla siga a la venta.
 
 - **GV6** · grupos de Villa · hoy empiezan las charlas abiertas (antes de las 10:00 a.m.). La pieza (afiche general) tiene a Ricardo Ospina y a León Valencia: hace falta otra. · Preparado: [ ] · Mandado: [ ]
 - **LF11** · lista de Fernando · hoy empieza, con Ana María Echeverri (antes de las 10:00 a.m.) · Preparado: [ ] · Mandado: [ ]
+- **GA** · Google Ads · seguimiento cada dos días · Hecho: [ ]
 
 ## Viernes 6 nov
 
@@ -90,6 +97,10 @@ Antes, confirmar en Pretix que sigue habiendo boletas.
 
 - **GV7** · grupos de Villa · mujeres periodistas: hoy empieza · Preparado: [ ] · Mandado: [ ]
 - **LF12** · lista de Fernando · las mujeres periodistas del domingo · Preparado: [ ] · Mandado: [ ]
+
+## Sábado 7 nov
+
+- **GA** · Google Ads · seguimiento final: cuánto gastó y qué vendió cada palabra · Hecho: [ ]
 
 ---
 
@@ -102,6 +113,7 @@ Antes, confirmar en Pretix que sigue habiendo boletas.
 - **RC:** broadcast en respond.io con la plantilla del día al segmento `inactivos`, mejor entre 9:00 y 11:00 a.m.
 - **Carta de Fernando:** `correo carta-fernando --maximo N --enviar`, con N = 100 menos lo que ya salió ese día. Cada tanda sigue con los siguientes y no repite a nadie.
 - **CD:** correo con `correo cierre-descuento-N-expirados` primero y después `correo cierre-descuento-N-interesados --saltar S --maximo M` (N es el día; S, los que ya recibieron una CD; M, el cupo que queda de los 100 de Resend), y broadcast en respond.io a todos los contactos sin compra, con la plantilla `_v2` del día (sin imagen). Antes, confirmar los precios en Pretix.
+- **GA:** con `python3 scripts/ads/ads.py buscar`, gasto y clics de la campaña, términos de búsqueda (excluir lo que no sea de quien va a Villa de Leyva o busca el evento) y gasto por palabra (pausar la que lleve 30.000 COP sin ventas). En Pretix, ventas con fuente `google` y su `utm_term`. Si el porcentaje de impresiones es menor al 50 % y hay ventas, proponer más presupuesto al titular. Los cambios de plata los hace él.
 - **IN y EX por la API:** revisar que `scripts/campanas/config/interesados.json` y `expirados.json` tengan la plantilla de la semana (cuál va en `interesados/whatsapp/README.md` y `expirados/whatsapp/README.md`), y después:
 
 ```sh
