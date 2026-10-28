@@ -136,7 +136,9 @@ if (meta?.columnas.includes('resultados') && meta.columnas.includes('campana')) 
   const grupos = new Map();
   for (const a of meta.anuncios) {
     const camp = a.campana.trim();
-    const g = grupos.get(camp) ?? { camp, indicador: null, gasto: 0, impresiones: 0, resultados: 0, anuncios: [] };
+    // Meta deja vacío el indicador cuando no hubo resultados; contenido.mjs
+    // puede declarar qué busca la campaña para que salga "0 compras".
+    const g = grupos.get(camp) ?? { camp, indicador: C.indicadores?.[camp] ?? null, gasto: 0, impresiones: 0, resultados: 0, anuncios: [] };
     g.gasto += a.gasto ?? 0; g.impresiones += a.impresiones ?? 0; g.resultados += a.resultados ?? 0;
     g.indicador ??= a.indicador || null;
     g.anuncios.push({ nombre: nombre(a.anuncio.trim()), gasto: a.gasto ?? 0, impresiones: a.impresiones ?? 0, resultados: a.resultados ?? 0, indicador: a.indicador || g.indicador });
@@ -420,7 +422,7 @@ if (pauta) {
   };
   const filas = [];
   for (const g of pauta.lista) {
-    filas.push({ nombre: nombre(g.camp), gasto: g.gasto, parte: g.gasto / pauta.gasto, impresiones: g.impresiones, resultados: g.resultados || null, indicador: g.indicador, costo: g.resultados ? g.gasto / g.resultados : null, grupo: !C.soloCampanas });
+    filas.push({ nombre: nombre(g.camp), gasto: g.gasto, parte: g.gasto / pauta.gasto, impresiones: g.impresiones, resultados: g.resultados || (g.indicador ? 0 : null), indicador: g.indicador, costo: g.resultados ? g.gasto / g.resultados : null, grupo: !C.soloCampanas });
     // Con soloCampanas, una fila por campaña y sin anuncios: mostrar solo los
     // de más inversión dejaba campañas con un anuncio y otras con ninguno.
     if (C.soloCampanas) continue;
