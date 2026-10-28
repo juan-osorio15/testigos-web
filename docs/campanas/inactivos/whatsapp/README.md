@@ -4,7 +4,7 @@ Personas que le escribieron a Catalina, se les cerró la conversación por inact
 
 Cada plantilla tiene una sola idea (una conversación del programa o el recorrido completo) y abre de forma distinta: un dato, una pregunta sobre el tema, una noticia. No todas con "¿te imaginas…?". Después, una línea de hospedaje (cuatro variantes que se alternan), sin nombrar un hotel (los hoteles y sus descuentos están en la página, en el botón Ver hoteles), y al final el pase de fin de semana con su descuento por tiempo limitado.
 
-**Todas las RC:** categoría Marketing, idioma español (`es`), sin encabezado (no llevan pieza), ejemplo de `{{1}}`: `Ana`. Lo demás (nombre, cuerpo, pie y botones) está en cada bloque. Qué es cada campo y cómo se manda un broadcast: [`../../reglas.md`](../../reglas.md). Enlaces con `utm_campaign=recuperacion`, igual que los que da Catalina a quien responde.
+**Todas las RC** (las plantillas creadas en Meta antes del 2026-10-28 llevaban `{{1}}`: las vigentes son `_v2`, con el cuerpo de aquí): categoría Marketing, idioma español (`es`), sin encabezado (no llevan pieza) y sin variables (titular, 2026-10-28: el nombre solo en expirados). Lo demás (nombre, cuerpo, pie y botones) está en cada bloque. Qué es cada campo y cómo se manda un broadcast: [`../../reglas.md`](../../reglas.md). Enlaces con `utm_campaign=recuperacion`, igual que los que da Catalina a quien responde.
 
 ## Calendario
 
@@ -35,12 +35,10 @@ Si alguien también está en IN o EX, el mismo día le pueden llegar dos mensaje
 
 ---
 
-## RC1 · lunes 26 de octubre · `rc1_mujeres_periodistas`
-
-Variable `{{1}}`: nombre.
+## RC1 · lunes 26 de octubre · `rc1_mujeres_periodistas_v2`
 
 ```
-Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.). Hace unos días hablamos por aquí del encuentro y queríamos contarte algo.
+Hola. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.). Hace unos días hablamos por aquí del encuentro y queríamos contarte algo.
 
 Yolanda Ruiz y María Elvira Samper cubrieron la guerra y el poder cuando casi ninguna mujer dirigía un noticiero en Colombia. El domingo 8 de noviembre en la mañana van a contar cómo fue, en Villa de Leyva, y vas a poder hacerles preguntas.
 
@@ -54,12 +52,10 @@ El pase de fin de semana está en $240.000, un descuento por tiempo limitado. ¿
 - Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc1-mujeres-periodistas_boletas`
 - Botón de enlace **Ver hoteles** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc1-mujeres-periodistas_hospedaje#hospedaje`
 
-## RC2 · martes 27 de octubre · `rc2_reelecciones`
-
-Variable `{{1}}`: nombre.
+## RC2 · martes 27 de octubre · `rc2_reelecciones_v2`
 
 ```
-Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
+Hola. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
 ¿Qué pasó detrás de las reelecciones de Uribe y Santos? Fidel Cano, director de El Espectador, y Cecilia Orozco lo conversan el sábado 7 de noviembre a las 5:00 p.m. en Villa de Leyva, y al final les puedes preguntar en persona.
 
@@ -73,12 +69,10 @@ Esa conversación entra en el pase de fin de semana, que está en $240.000 por t
 - Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc2-reelecciones_boletas`
 - Botón de enlace **Ver hoteles** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc2-reelecciones_hospedaje#hospedaje`
 
-## RC3 · miércoles 28 de octubre · `rc3_recorrido_completo`
-
-Variable `{{1}}`: nombre.
+## RC3 · miércoles 28 de octubre · `rc3_recorrido_completo_v2`
 
 ```
-Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
+Hola. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
 Testigos de la Memoria está armado como un solo recorrido por la historia de Colombia. Empieza el viernes con Daniel Samper Pizano y el Bogotazo, y de ahí las conversaciones siguen en orden: las guerrillas, el Caguán y La Habana, el narcotráfico, las reelecciones, las víctimas y las mujeres que cubrieron todo eso.
 
@@ -92,12 +86,10 @@ Para vivirlo entero, el pase completo vale $340.000. Si no puedes el viernes, el
 - Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc3-recorrido-completo_boletas`
 - Botón de enlace **Ver hoteles** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc3-recorrido-completo_hospedaje#hospedaje`
 
-## RC4 · jueves 29 de octubre · `rc4_ultimo_dia_fin_de_semana`
-
-Variable `{{1}}`: nombre.
+## RC4 · jueves 29 de octubre · `rc4_ultimo_dia_fin_de_semana_v2`
 
 ```
-Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
+Hola. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
 Te avisamos porque hoy es el último día del pase de fin de semana a $240.000. Desde mañana el descuento es menor.
 
@@ -113,12 +105,12 @@ Si vienes de fuera, tenemos varios hoteles aliados con descuentos especiales par
 - Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc4-ultimo-dia_boletas`
 - Botón de enlace **Ver hoteles** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc4-ultimo-dia_hospedaje#hospedaje`
 
-## RC5 · viernes 30 de octubre · `rc5_negociaciones_paz`
+## RC5 · viernes 30 de octubre · `rc5_negociaciones_paz_v2`
 
-Variable `{{1}}`: nombre. Sin cifras: desde hoy rige la etapa 3.
+Sin cifras: desde hoy rige la etapa 3.
 
 ```
-Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
+Hola. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
 Marisol Gómez cubrió las negociaciones de paz durante 25 años, del Caguán a La Habana. El sábado 7 de noviembre a las 11:00 a.m. cuenta en Villa de Leyva lo que vio en esas mesas y nunca llegó a los titulares.
 
@@ -132,12 +124,10 @@ Esa conversación entra en la boleta del sábado en la mañana y en el pase de f
 - Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc5-negociaciones-paz_boletas`
 - Botón de enlace **Ver hoteles** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc5-negociaciones-paz_hospedaje#hospedaje`
 
-## RC6 · sábado 31 de octubre (de 8:00 a.m. a 3:00 p.m.) · `rc6_narcotrafico`
-
-Variable `{{1}}`: nombre.
+## RC6 · sábado 31 de octubre (de 8:00 a.m. a 3:00 p.m.) · `rc6_narcotrafico_v2`
 
 ```
-Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
+Hola. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
 Una tarde para entender el narcotráfico y el paramilitarismo con dos periodistas que los cubrieron de cerca: Luz María Sierra, exdirectora de El Colombiano, y Martha Soto, editora de la Unidad Investigativa de El Tiempo. Es el sábado 7 de noviembre a las 3:00 p.m.
 
@@ -151,12 +141,10 @@ El pase de fin de semana sigue con descuento por tiempo limitado, y también est
 - Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc6-narcotrafico_boletas`
 - Botón de enlace **Ver hoteles** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc6-narcotrafico_hospedaje#hospedaje`
 
-## RC7 · martes 3 de noviembre · `rc7_magnicidios_victimas`
-
-Variable `{{1}}`: nombre.
+## RC7 · martes 3 de noviembre · `rc7_magnicidios_victimas_v2`
 
 ```
-Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
+Hola. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
 
 Los magnicidios han marcado la historia de Colombia una y otra vez, y por doloroso que sea, es un patrón que hay que entender. Este domingo a las 9:00 a.m., Marta Ruiz, excomisionada de la Verdad, y Guillermo González Uribe, fundador de Número, hablan de eso y de las víctimas de la violencia.
 
@@ -170,12 +158,12 @@ El pase de fin de semana sigue con descuento por tiempo limitado, y también est
 - Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc7-magnicidios-victimas_boletas`
 - Botón de enlace **Ver hoteles** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc7-magnicidios-victimas_hospedaje#hospedaje`
 
-## RC8 · miércoles 4 de noviembre · `rc8_manana_empieza`
+## RC8 · miércoles 4 de noviembre · `rc8_manana_empieza_v2`
 
-Variable `{{1}}`: nombre. Antes de enviarla, confirmar en Pretix que sigue habiendo boletas.
+Antes de enviarla, confirmar en Pretix que sigue habiendo boletas.
 
 ```
-Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.). Mañana empieza el encuentro en Villa de Leyva.
+Hola. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.). Mañana empieza el encuentro en Villa de Leyva.
 
 El jueves a las 3:00 p.m., en la Casa Museo Antonio Nariño, se proyecta el documental sobre Sady González, el fotógrafo que estuvo con su cámara el 9 de abril de 1948, con Guillermo González Uribe. La entrada es libre, como en todas las charlas abiertas.
 

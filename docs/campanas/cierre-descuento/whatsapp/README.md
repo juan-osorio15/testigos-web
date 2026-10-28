@@ -4,7 +4,7 @@ Tres broadcasts de respond.io, uno por día del martes 27 al jueves 29 de octubr
 
 **Cómo están escritos:** la urgencia va primero, en el encabezado de texto y en la primera línea, y es general ("los precios de la etapa 2"). Después, en una o dos frases, qué es el encuentro (sin imagen, el mensaje tiene que presentarlo antes de nombrar a nadie) y una conversación que antoja, con su periodista y su tema. Al final, los precios (titular, 2026-10-27).
 
-**Sin imagen** (titular, 2026-10-27): Meta aprueba los encabezados de imagen unas veces sí y otras no. Las plantillas van con encabezado de texto, que se aprueba como cualquier texto, y el mensaje se entiende sin pieza. Las primeras versiones (`cd1_quedan_dos_dias`, `cd2_manana_termina`, `cd3_hoy_ultimo_dia`, con imagen) no se usan. CD1 va con `_v2`; CD2 y CD3, con `_v3`.
+**Sin imagen** (titular, 2026-10-27): Meta aprueba los encabezados de imagen unas veces sí y otras no. Las plantillas van con encabezado de texto, que se aprueba como cualquier texto, y el mensaje se entiende sin pieza. Las primeras versiones (`cd1_quedan_dos_dias`, `cd2_manana_termina`, `cd3_hoy_ultimo_dia`, con imagen) no se usan. Las vigentes son `_v3`, sin el nombre de la persona.
 
 **CD2 y CD3 nombran dos conversaciones, no una** (titular, 2026-10-28): en corto, nombres · tema, María Elvira Samper y Fidel Cano. Sin "¿te imaginas…?" y sin el nombre de la persona: es un anuncio general, no un mensaje personal (titular, 2026-10-28). Las acompaña la pieza [`piezas/cierre-etapa-2.jpg`](piezas/cierre-etapa-2.jpg) (pase de fin de semana con las caras) donde se publique a mano.
 
@@ -21,7 +21,7 @@ Tres broadcasts de respond.io, uno por día del martes 27 al jueves 29 de octubr
 ## Cada día
 
 1. Confirmar en Pretix que el pase de fin de semana sigue en $240.000 y el pase completo en $340.000, y que ninguno está agotado.
-2. En respond.io: Broadcasts → nuevo broadcast → canal WhatsApp del número colombiano → la plantilla del día. CD1 lleva `{{1}}` con el campo First Name; CD2 y CD3 no tienen variables.
+2. En respond.io: Broadcasts → nuevo broadcast → canal WhatsApp del número colombiano → la plantilla del día. Ninguna tiene variables.
 3. Audiencia: Lifecycle distinto de Customer y la casilla Baja sin marcar (incluye a los del segmento `inactivos`).
 4. Programarlo entre 9:00 y 11:00 a.m. (siempre dentro de 7:00 a.m. a 7:00 p.m.).
 
@@ -29,21 +29,20 @@ Tres broadcasts de respond.io, uno por día del martes 27 al jueves 29 de octubr
 
 ## CD1 · martes 27 de octubre
 
-- **Nombre:** `cd1_quedan_dos_dias_v2`
+- **Nombre:** `cd1_quedan_dos_dias_v3`
 - **Categoría:** Marketing
 - **Idioma:** español (`es`)
 - **Encabezado:** texto → `Quedan 2 días con los precios de la etapa 2`
 - **Cuerpo:**
 
 ```
-Hola, {{1}}. Hasta el jueves 29 de octubre puedes ir a Testigos de la Memoria con los precios de la etapa 2. Desde el viernes, el descuento es menor.
+Hasta el jueves 29 de octubre puedes ir a Testigos de la Memoria con los precios de la etapa 2. Desde el viernes, el descuento es menor.
 
 Testigos de la Memoria es un encuentro en Villa de Leyva, del 6 al 8 de noviembre, en el que periodistas como Daniel Samper Pizano, Yolanda Ruiz y Fidel Cano cuentan en persona la historia de Colombia que les tocó cubrir. Una de esas conversaciones es con Marisol Gómez, que siguió las negociaciones de paz durante 25 años: el sábado 7 cuenta qué pasó de verdad en las mesas del Caguán y de La Habana, con tiempo para hacerle preguntas.
 
 El pase de fin de semana está en $240.000 y el pase completo en $340.000. ¿Te ayudamos a escoger tu boleta?
 ```
 
-- **Ejemplo de `{{1}}`:** `Ana`
 - **Pie:** `Eventalist S.A.S. · Para no recibir más, responde BAJA.`
 - **Botón de respuesta rápida:** `Sí, ayúdame`
 - **Botón de enlace:** texto `Ver boletas`, URL estática:
