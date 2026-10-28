@@ -31,4 +31,4 @@ Cada día: el correo a interesados, el correo a expirados y el broadcast de resp
 
 ## Cómo se mide
 
-`utm_campaign=cierre-descuento` en todos los enlaces (anotada en `docs/medicion/embudo/enlaces-y-nombres.md`). El contenido dice el canal y el día: `correo-quedan-dos-dias`, `correo-manana-termina`, `correo-hoy-termina` y `plantilla-quedan-dos-dias`, `plantilla-manana-termina`, `plantilla-hoy-termina`. Quien responde en WhatsApp sigue con Catalina, que da sus propios enlaces.
+`utm_campaign=cierre-descuento` en todos los enlaces (anotada en `docs/medicion/embudo/enlaces-y-nombres.md`). El contenido dice el canal y el día: `correo-quedan-dos-dias`, `correo-manana-termina`, `correo-hoy-termina` y `plantilla-quedan-dos-dias`, `plantilla-manana-termina`, `plantilla-hoy-termina`, y para los grupos, `grupos-manana-termina` y `grupos-hoy-termina`. Quien responde en WhatsApp sigue con Catalina, que da sus propios enlaces.

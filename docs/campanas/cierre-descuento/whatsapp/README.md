@@ -96,3 +96,43 @@ El pase de fin de semana, con las dos, está hoy en $240.000 en vez de $270.000.
 - **Botón de respuesta rápida:** `Sí, quiero`
 - **Botón de enlace:** texto `Ver boletas`, URL estática:
   `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=cierre-descuento&utm_content=plantilla-hoy-termina`
+
+---
+
+## Versión para grupos · miércoles 28 y jueves 29
+
+Texto plano para pegar a mano en grupos de WhatsApp, con los enlaces adentro y sin botones (titular, 2026-10-28). Va con la pieza [`piezas/cierre-etapa-2.jpg`](piezas/cierre-etapa-2.jpg): primero la pieza y después el texto, en el mismo mensaje si se puede. El enlace del agente es el mismo de los grupos de Villa, para que Catalina sepa de dónde viene la persona.
+
+### Miércoles 28 · Mañana termina
+
+```
+Mañana jueves es el último día con los precios de la etapa 2 de Testigos de la Memoria.
+
+Del 5 al 8 de noviembre, aquí en Villa de Leyva, los periodistas que cubrieron la historia de Colombia la cuentan en persona. Dos de las conversaciones del fin de semana:
+
+María Elvira Samper y Yolanda Ruiz · las mujeres que cubrieron la guerra.
+Fidel Cano y Cecilia Orozco · las reelecciones de Uribe y Santos.
+
+El pase de fin de semana está hasta mañana en $240.000 en vez de $270.000. Las boletas, aquí:
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=cierre-descuento&utm_content=grupos-manana-termina
+
+¿Dudas? Escríbannos:
+https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
+```
+
+### Jueves 29 · Hoy es el último día
+
+```
+Hoy es el último día con los precios de la etapa 2 de Testigos de la Memoria.
+
+Del 5 al 8 de noviembre, aquí en Villa de Leyva, los periodistas que cubrieron la historia de Colombia la cuentan en persona. Dos de las conversaciones del fin de semana:
+
+María Elvira Samper y Yolanda Ruiz · las mujeres que cubrieron la guerra.
+Fidel Cano y Cecilia Orozco · las reelecciones de Uribe y Santos.
+
+El pase de fin de semana está hoy en $240.000 en vez de $270.000. Las boletas, aquí:
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=cierre-descuento&utm_content=grupos-hoy-termina
+
+¿Dudas? Escríbannos:
+https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
+```
