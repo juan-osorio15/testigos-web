@@ -26,3 +26,16 @@ python3 scripts/campanas/campana.py correo cierre-descuento-1-expirados --enviar
 ```
 
 Resend gratis manda 100 correos al día, las pruebas incluidas. Desde el 27 de octubre los interesados son toda la base del backend (los inscritos del sitio y los contactos de Fernando, unos 310 con correo), así que no caben en un día: primero los expirados y después una tanda de interesados con `--maximo` (lo que quede del cupo). Al día siguiente, la CD de ese día sigue donde quedó la anterior con `--saltar` (los que ya recibieron una CD). Si Resend llega al límite, el comando se detiene en ese correo: los anteriores ya salieron y quedan en el registro.
+
+## Carta de Fernando del día 2 (28 de octubre de 2026)
+
+El 28 de octubre el correo de CD2 a interesados se reemplazó por `cierre-descuento-2-carta`: la estructura del mensaje a los grupos (último día, dos conversaciones, el pase y su precio, dudas por WhatsApp) con la voz de la carta de Fernando, sin diseño ni botón. Va a toda la base de interesados (sus contactos y los inscritos del sitio, unos 310 con correo) en un solo envío, con Resend en plan pago.
+
+- Plantilla `scripts/campanas/plantillas/cierre-descuento-2-carta.html`. Asunto: "Te escribo antes de mañana". Remitente: `Fernando Cordovez <direccion@testigosdelamemoria.com>`; las respuestas llegan a manager@eventalist.co.
+- Medición: `utm_source=email&utm_medium=aliados&utm_campaign=cierre-descuento&utm_content=correo-carta_manana-termina`.
+
+```sh
+python3 scripts/campanas/campana.py correo cierre-descuento-2-carta                                         # vista previa
+python3 scripts/campanas/campana.py correo cierre-descuento-2-carta --prueba j.a.oso15@gmail.com --enviar  # prueba
+python3 scripts/campanas/campana.py correo cierre-descuento-2-carta --enviar                               # envío real
+```

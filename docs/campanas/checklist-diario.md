@@ -26,7 +26,8 @@ Los textos, las piezas y los pasos están en la carpeta de cada campaña (`<camp
 - Expirados importados a respond.io, **sin broadcast** (les llega CD2) · Hecho: [ ]
 - **GV3** · grupos de Villa · Marta Ruiz · Preparado: [ ] · Mandado: [ ]
 - **LF5** · lista de Fernando · María Elvira Samper · Preparado: [ ] · Mandado: [ ]
-- **CD2 correo** · cierre de la etapa 2 · expirados y los siguientes de la base de interesados: `--saltar 75 --maximo` con el cupo del día · Preparado: [ ] · Mandado: [ ]
+- **CD2 correo expirados** · cierre de la etapa 2 · `cierre-descuento-2-expirados` · Preparado: [ ] · Mandado: [ ]
+- **CD2 carta de Fernando** · cierre de la etapa 2 en su voz, a toda la base de interesados en un solo envío (plan pago de Resend): `cierre-descuento-2-carta` · Preparado: [ ] · Mandado: [ ]
 - **CD2 WhatsApp** · cierre de la etapa 2 · respond.io · Preparado: [ ] · Mandado: [ ]
 
 RC3 no se envía: a los inactivos les llega CD2.

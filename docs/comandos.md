@@ -6,7 +6,7 @@
 
 Arma la lista con los datos del momento y dice cuántos quedaron y cuántos salieron y por qué. No envía nada.
 
-- Campañas: `expirados`, `interesados`, `compradores`, `agenda-fernando`, `carta-fernando`.
+- Campañas: `expirados`, `interesados`, `compradores`, `agenda-fernando`, `carta-fernando`, `cierre-descuento-2-carta`.
 - `--dias N`: solo las personas de los últimos N días.
 - `--excluir correo-o-telefono`: deja a alguien por fuera (se puede repetir).
 

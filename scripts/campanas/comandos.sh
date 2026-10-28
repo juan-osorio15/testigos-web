@@ -44,6 +44,11 @@ python3 scripts/campanas/campana.py correo carta-fernando --maximo 80
 python3 scripts/campanas/campana.py correo carta-fernando --prueba j.a.oso15@gmail.com --enviar
 python3 scripts/campanas/campana.py correo carta-fernando --maximo 80 --enviar
 
+# Cierre de la etapa 2, día 2, en la voz de Fernando, a toda la base de interesados
+python3 scripts/campanas/campana.py correo cierre-descuento-2-carta
+python3 scripts/campanas/campana.py correo cierre-descuento-2-carta --prueba j.a.oso15@gmail.com --enviar
+python3 scripts/campanas/campana.py correo cierre-descuento-2-carta --enviar
+
 
 # ── Cierre de la etapa 2 (27 al 29 de octubre) ──────────────────
 # Un número por día: 1 el martes, 2 el miércoles, 3 el jueves. Plan en docs/campanas/cierre-descuento/README.md.

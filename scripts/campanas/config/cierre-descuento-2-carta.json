@@ -1,0 +1,21 @@
+{
+  "descripcion": "Cierre de la etapa 2, día 2, en la voz de la carta de Fernando Cordovez, a toda la base de interesados con correo autorizado (sus contactos y los inscritos del sitio). Reemplaza el correo de CD2 a interesados. Plan en docs/campanas/cierre-descuento/correo/README.md.",
+  "audiencia": "interesados",
+  "parametros": {
+    "origen": ["referral", "website"],
+    "desde": "2026-09-09",
+    "motivos": {
+      "referral": "Te escribimos porque estás entre los contactos de Fernando Cordovez o de Conexión Zaquencipá.",
+      "website": "Te escribimos porque pediste información en testigosdelamemoria.com."
+    }
+  },
+  "canales": {
+    "correo": {
+      "activo": true,
+      "plantilla": "cierre-descuento-2-carta.html",
+      "asunto": "Te escribo antes de mañana",
+      "remitente": "Fernando Cordovez <direccion@testigosdelamemoria.com>",
+      "responder_a": "manager@eventalist.co"
+    }
+  }
+}
