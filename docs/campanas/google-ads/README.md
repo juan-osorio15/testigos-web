@@ -443,3 +443,17 @@ Pase completo o medio día
 - Funciones de Google Ads: [concordancias](https://support.google.com/google-ads/answer/7478529); [cuenta regresiva](https://support.google.com/google-ads/answer/6193743); [presupuesto total de campaña](https://support.google.com/google-ads/answer/10486938); [sufijo de URL final](https://support.google.com/adwords/answer/9054021).
 - Colombia: [costo por clic según agencias locales](https://ranknroll.co/blog/cuanto-cuesta-google-ads-colombia/); [IVA de Google](https://knowledge.workspace.google.com/admin/billing/taxes-in-your-region).
 - Anuncios de marca: Chan y Van Alstine, Google Research (2012); Simonov, Nosko y Rao, *Marketing Science* (2018).
+
+## Relanzamiento del 28 de octubre
+
+La misma campaña, extendida, con la compra de GA4 como conversión principal. Cambios hechos por la API (`scripts/ads/ads.py`):
+
+- Solo red de Búsqueda; ubicación Colombia con "Presencia".
+- Sufijo de URL final `utm_term={keyword}`: Pretix guarda la palabra que trajo cada venta.
+- Anuncio de TDLM v1 con 14 periodistas, y Yolanda Ruiz y Fidel Cano en lugar de Daniel Samper Pizano.
+- Palabras de marca (`[testigos de la memoria]`, `"testigos de la memoria"`) y `[villa de leyva fin de semana]` en TDLM v1.
+- Grupo `periodismo`, con anuncio propio (`utm_content=evento-periodismo`) y 15 palabras en frase para quien oyó del evento sin recordar el nombre ("evento periodismo", "encuentro de periodistas", "periodistas villa de leyva"...).
+- Excluidas nuevas de turismo (hotel, mapa, piscinas, navidad...) y de estudiantes de periodismo (universidad, diplomado, beca, Gabo, Hay Festival...).
+- Textos destacados: Charlas abiertas gratis, Pago con tarjeta o PSE, 5 al 8 de noviembre, Hospedería Duruelo, 14 periodistas.
+
+El presupuesto total (180.000 COP, incluidos los 49.730 ya gastados) y el estado los maneja el titular.
