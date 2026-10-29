@@ -463,3 +463,9 @@ El presupuesto total (180.000 COP, incluidos los 49.730 ya gastados) y el estado
 - Socios de búsqueda apagados (habían quedado prendidos): solo la Red de Búsqueda de Google.
 - `planes para hacer en villa de leyva` pasó de amplia a frase (`"planes para hacer en villa de leyva"`). Las otras tres en amplia del grupo TDLM v1 siguen igual.
 - El idioma ya estaba en español.
+
+### Ajustes del 29 de octubre
+
+- Fecha final al sábado 7 de noviembre, 23:59 (antes el 6). El presupuesto total no se tocó.
+- Las tres que quedaban en amplia pasaron a frase: `"planes turisticos villa de leyva"`, `"planes para villa de leyva"` y `"que se puede hacer en villa de leyva"`. El grupo TDLM v1 ya no tiene palabras en amplia.
+- Marca: el titular pausó las dos el 28 a las 12:43. La exacta se reactivó el 29 a las 9:36 por la API; la de frase sigue pausada hasta que él decida.
