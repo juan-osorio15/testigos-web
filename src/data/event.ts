@@ -98,8 +98,8 @@ export interface TicketOffer {
  * al precio de la etapa 2 (el mismo que se ponga en Pretix). Al agotarse una
  * boleta: `soldOut: true`, commit y publicación con visto bueno.
  *
- * El 30 de octubre (stage3Start) el pase de fin de semana sube de precio en
- * Pretix: ese día se cambia aquí `price` al mismo valor y se publica.
+ * El 30 de octubre (stage3Start) el pase de fin de semana subió en Pretix a
+ * 255.000 (titular, 2026-10-30) y aquí se cambió `price` al mismo valor.
  */
 export const ticketOffers: TicketOffer[] = [
   {
@@ -121,9 +121,10 @@ export const ticketOffers: TicketOffer[] = [
     name: 'Pase de fin de semana',
     /* Nombre que se le da en Pretix al crearlo (2026-10-22) */
     pretixProduct: 'Pase Fin de Semana',
-    /* Precio de la etapa 2; en Pretix va con el de las tres boletas de medio
-       día del sábado y el domingo tachado */
-    price: 240000,
+    /* Precio de la etapa 3 (titular, 2026-10-30; en la 2 fue 240.000). Sigue
+       con descuento: en Pretix y en el sitio va con el de las tres boletas de
+       medio día del sábado y el domingo tachado */
+    price: 255000,
     currency: 'COP',
     validFrom: '2026-10-22',
     /* Sigue a la venta en la etapa 3, con menos descuento */

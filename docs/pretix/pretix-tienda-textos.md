@@ -193,13 +193,13 @@ Para los que quieren experimentar el viaje completo por la historia reciente de 
 > Variante en el tono del sitio, por si "mejor precio" suena a promoción:
 > `No te pierdes de nada y pagas menos que por boletas de medio día.`
 
-### Pase de fin de semana · 240.000 COP (etapa 2, hasta el 29 de octubre)
+### Pase de fin de semana · 255.000 COP (etapa 3, desde el 30 de octubre; 240.000 en la etapa 2)
 
 Creado el 2026-10-22, para quien quería el pase completo y no puede faltar al
 trabajo el viernes.
 
 - *Name*: `Pase Fin de Semana` (igual que `pretixProduct` en `src/data/event.ts`).
-- *Default price*: `240000`. *Original price*: `270000` (verificado en la tienda el 2026-10-22), lo que cuestan por
+- *Default price*: `255000` (desde el 2026-10-30; `240000` en la etapa 2). *Original price*: `270000` (verificado en la tienda el 2026-10-22), lo que cuestan por
   separado las tres boletas de medio día del sábado y el domingo; Pretix lo
   muestra tachado. No poner 280.000: ese precio nunca existió.
 - *Is an admission ticket*: sí. Posición: entre Pase Completo y Viernes Tarde.
@@ -207,8 +207,9 @@ trabajo el viernes.
   (como el pase completo, que está en todos). No en el del viernes.
 - Listas de ingreso (*Check-in lists*): si alguna está limitada a ciertos
   productos, añadirlo a las del sábado y el domingo.
-- El 30 de octubre (etapa 3) se sube el precio a mano en Pretix (no programa
-  cambios de precio) y se cambia `price` en `src/data/event.ts`.
+- El 30 de octubre (etapa 3) se sube el precio a mano en Pretix a `255000`
+  (no programa cambios de precio), con `270000` tachado, y se cambia `price`
+  en `src/data/event.ts`.
 
 ```markdown
 **Los seis conversatorios del sábado 7 y el domingo 8.**

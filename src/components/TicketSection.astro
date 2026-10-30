@@ -52,19 +52,19 @@ const stage2Until = new Intl.DateTimeFormat(localeOf(lang), {
 }).format(new Date(`${salesStages.stage2End}T12:00:00-05:00`));
 const stagePriceNote = t('tickets.stagePrice').replace('{date}', stage2Until);
 const stageSwitchAt = Date.parse(`${salesStages.stage3Start}T00:00:00-05:00`);
-/* En la etapa 3 ya no hay fecha que contar: el calendario, el precio
-   tachado y el aviso de etapa se omiten en el build. */
+/* En la etapa 3 ya no hay fecha que contar: el calendario y el aviso de
+   etapa se omiten en el build. */
 const stage2Promo = Date.now() < stageSwitchAt;
 const promoProduct = weekend.pretixProduct;
 
-/* Las fichas, en el orden de la tienda. El tachado del pase de fin de
-   semana es el de la etapa 2; en la 3 cambia su precio y se omite. */
+/* Las fichas, en el orden de la tienda. El pase de fin de semana sigue con
+   su tachado en la etapa 3: con 255.000 aún sale más barato (2026-10-30). */
 const options = [
   { name: t('tickets.passName'), now: formatPrice(pass, lang), was: separately(pass), text: t('tickets.passText'), note: null },
   {
     name: t('tickets.weekendName'),
     now: formatPrice(weekend, lang),
-    was: stage2Promo ? separately(weekend) : null,
+    was: separately(weekend),
     text: t('tickets.weekendText'),
     note: stage2Promo ? stagePriceNote : null,
   },
@@ -144,7 +144,7 @@ const franjaNames = Object.fromEntries(
       data-notify-label={t('tickets.notify')}
       data-not-yet={t('tickets.notYet')}
       data-franjas={JSON.stringify(franjaNames)}
-      data-stage-price={stagePriceNote}
+      data-stage-price={stage2Promo ? stagePriceNote : ""}
       data-stage-switch-at={stageSwitchAt}
       data-promo-product={promoProduct}
     >
