@@ -87,6 +87,7 @@ Campañas en uso (el equipo agrega aquí las suyas):
 - `pase-fin-semana-release`: lanzamiento del pase de fin de semana (desde el 23 de octubre de 2026; primer enlace, el mensaje del chatbot `combo-fin-de-semana`).
 - `cierre-descuento`: correos, broadcasts de respond.io y publicaciones en grupos de los tres últimos días de la etapa 2 (27 al 29 de octubre de 2026). Plan en `docs/campanas/cierre-descuento/README.md`.
 - `historias-diarias`: historias diarias de Instagram que hace Paula, la diseñadora, todas con el mismo enlace y `utm_content=paula-disenadora` (desde el 26 de octubre de 2026).
+- `sexta-gratis`: compra 5 boletas del mismo tipo y la sexta es gratis, máximo una por orden (en estudio desde el 30 de octubre de 2026). Configuración y enlaces en `docs/pretix/descuento-sexta-gratis.md`.
 
 ### utm_content: la pieza y sus variables
 
@@ -209,6 +210,8 @@ Cada persona recibe **su** enlace, uno para WhatsApp y otro para sus redes. Es l
   `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=CAMPAÑA&utm_content=persona-NOMBRE`
 - Historias o publicaciones en sus redes:
   `https://testigosdelamemoria.com/?utm_source=instagram&utm_medium=aliados&utm_campaign=CAMPAÑA&utm_content=persona-NOMBRE`
+
+Ejemplo: Juan Osorio en la campaña `sexta-gratis`, `utm_content=persona-juan-osorio` (enlaces completos en `docs/pretix/descuento-sexta-gratis.md`).
 
 `NOMBRE` va como en `src/data/speakers.ts` (`maria-elvira-samper`). Para un organizador o patrocinador, su nombre o el de la entidad con el mismo formato. Si comparten una pieza nuestra, `repost-NOMBRE`.
 

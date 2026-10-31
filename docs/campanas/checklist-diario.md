@@ -24,11 +24,11 @@ Los textos, las piezas y los pasos están en la carpeta de cada campaña (`<camp
 
 - Compradores importados a respond.io (antes de los broadcasts) · Hecho: [ ]
 - Expirados importados a respond.io, **sin broadcast** (les llega CD2) · Hecho: [ ]
-- **GV3** · grupos de Villa · Marta Ruiz · Preparado: [ ] · Mandado: [ ]
-- **LF5** · lista de Fernando · María Elvira Samper · Preparado: [ ] · Mandado: [ ]
-- **CD2 correo expirados** · cierre de la etapa 2 · `cierre-descuento-2-expirados` · Preparado: [ ] · Mandado: [ ]
-- **CD2 carta de Fernando** · cierre de la etapa 2 en su voz, a toda la base de interesados en un solo envío (plan pago de Resend): `cierre-descuento-2-carta` · Preparado: [ ] · Mandado: [ ]
-- **CD2 WhatsApp** · cierre de la etapa 2 · respond.io · Preparado: [ ] · Mandado: [ ]
+- **GV3** · grupos de Villa · Marta Ruiz · Preparado: [ ] · Mandado: [X]
+- **LF5** · lista de Fernando · María Elvira Samper · Preparado: [ ] · Mandado: [X]
+- **CD2 correo expirados** · cierre de la etapa 2 · `cierre-descuento-2-expirados` · Preparado: [ ] · Mandado: [X]
+- **CD2 carta de Fernando** · cierre de la etapa 2 en su voz, a toda la base de interesados en un solo envío (plan pago de Resend): `cierre-descuento-2-carta` · Preparado: [ ] · Mandado: [X]
+- **CD2 WhatsApp** · cierre de la etapa 2 · respond.io · Preparado: [ ] · Mandado: [X]
 
 RC3 no se envía: a los inactivos les llega CD2.
 
@@ -48,7 +48,8 @@ RC4 no se envía: la reemplaza CD3.
 Desde hoy, revisar en Pretix que lo que nombra cada plantilla siga a la venta.
 
 - Compradores importados a respond.io (antes de los broadcasts) · Hecho: [ ]
-- **Expirados nuevos** · respond.io · Preparado: [ ] · Mandado: [ ]
+- **Expirados nuevos** · respond.io · Preparado: [X] · Mandado: [ ]
+- **EX correo** · expirados · `correo expirados` (expirado-texto.html, sin precios) · Preparado: [X] · Mandado: [X]
 - **GV4** · grupos de Villa · el narcotráfico · Preparado: [ ] · Mandado: [ ]
 - **LF7** · lista de Fernando · Cecilia Orozco · Preparado: [ ] · Mandado: [ ]
 - **RC5** · inactivos · Marisol Gómez · Preparado: [ ] · Mandado: [ ]
