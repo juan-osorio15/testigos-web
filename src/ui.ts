@@ -91,32 +91,13 @@ const es = {
   'tickets.slotText':
     'Una mañana o una tarde, con sus dos o tres conversatorios: viernes en la tarde, sábado en la mañana, sábado en la tarde o domingo en la mañana. Compra solo las que quieras.',
   /* Etapas de venta (2026-09-15): en la etapa 1 solo el pase completo.
-     El widget muestra las franjas con "Aún no disponible"; las fechas las
-     cuenta el bloque de etapas (SalesStages). */
+     El widget muestra las franjas con "Aún no disponible". */
   'tickets.slotSoon': 'Todavía no está a la venta.',
-  /* Bloque de etapas: tres planos que se tocan, cielo el vigente y crema
-     los demás (fórmula visual §6: los datos van en franja). Desde el
-     2026-10-22: la etapa 1 sin contar qué se vendió ni con qué cifra; la 3,
-     todo a la venta con menos descuento. La 2 (corregida el 2026-10-27):
-     desde el 13 de octubre se vende todo, no solo el pase de fin de semana,
-     que llegó el 22. */
-  'stages.heading': 'Calendario de venta',
-  'stages.stage1': 'Etapa 1',
-  'stages.stage2': 'Etapa 2',
-  'stages.stage3': 'Etapa 3',
-  'stages.now': 'En curso',
-  'stages.closed': 'Cerrada',
-  'stages.until': 'Hasta el',
-  'stages.from': 'Desde el',
-  'stages.stage1Product': 'Pase completo',
-  'stages.stage2Product': 'Todas las boletas',
-  'stages.stage3Product': 'Todas las boletas',
-  'stages.stage1Note': 'Abrió la venta con su mayor descuento.',
-  'stages.stage2Note': 'Llegan las boletas de medio día y el pase de fin de semana.',
-  'stages.stage3Note': 'Todo sigue a la venta, con menos descuento.',
-  'stages.daysLeft': 'Quedan {n} días con el precio de la etapa 2',
-  'stages.lastDay': 'Último día con el precio de la etapa 2',
-  'tickets.stagePrice': 'Precio de la etapa 2, hasta el {date}.',
+  /* Promoción "compra 5, la sexta gratis" (2026-10-30): sin decir Pretix ni
+     descuento automático; lo que importa es que pongan las seis */
+  'tickets.promoLabel': 'Promoción',
+  'tickets.promoTitle': 'Compra 5 boletas iguales y la sexta te sale gratis.',
+  'tickets.promoNote': 'Agrega las seis al carrito y una queda en cero. Una boleta gratis por compra.',
   'tickets.notify': 'Avísame cuando abra',
   /* Modal "avísame" de las franjas; la franja escogida va como eyebrow */
   'notify.title': 'Te avisamos cuando salga a la venta',
@@ -413,23 +394,9 @@ const en: Record<UiKey, string> = {
   'tickets.slotText':
     'One morning or one afternoon, with its two or three panels: Friday afternoon, Saturday morning, Saturday afternoon or Sunday morning. Buy only the ones you want.',
   'tickets.slotSoon': 'Not on sale yet.',
-  'stages.heading': 'Sales calendar',
-  'stages.stage1': 'Stage 1',
-  'stages.stage2': 'Stage 2',
-  'stages.stage3': 'Stage 3',
-  'stages.now': 'Now open',
-  'stages.closed': 'Closed',
-  'stages.until': 'Until',
-  'stages.from': 'From',
-  'stages.stage1Product': 'Full pass',
-  'stages.stage2Product': 'All tickets',
-  'stages.stage3Product': 'All tickets',
-  'stages.stage1Note': 'Opened sales at its biggest discount.',
-  'stages.stage2Note': 'Half-day tickets and the weekend pass arrive.',
-  'stages.stage3Note': 'Everything stays on sale, at a smaller discount.',
-  'stages.daysLeft': '{n} days left at the stage 2 price',
-  'stages.lastDay': 'Last day at the stage 2 price',
-  'tickets.stagePrice': 'Stage 2 price, until {date}.',
+  'tickets.promoLabel': 'Offer',
+  'tickets.promoTitle': 'Buy 5 tickets of the same type and the sixth is free.',
+  'tickets.promoNote': 'Add all six to your cart and one drops to zero. One free ticket per order.',
   'tickets.notify': 'Notify me when it opens',
   'notify.title': "We'll let you know when it goes on sale",
   'notify.intro': "Leave us your details and we'll write to you as soon as it goes on sale.",

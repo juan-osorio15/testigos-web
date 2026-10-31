@@ -22,7 +22,7 @@ import {
   pretixReady,
 } from '../../config';
 import { agenda } from '../../data/agenda';
-import { doorSales, event, salesStages, ticketOffers, venues, type TicketOffer } from '../../data/event';
+import { doorSales, event, salesStages, sixthFree, ticketOffers, venues, type TicketOffer } from '../../data/event';
 import { speakers, speakerBySlug } from '../../data/speakers';
 import { halfDayOffers, halfOfOffer, sessionsOf, speakerNamesOf, thematicSessionsOf } from '../../data/boletas';
 import { availabilityOf, todayBogota } from '../../seo/offers';
@@ -57,6 +57,13 @@ const facts = {
     sitio: SITE_URL,
   },
   etapas: { ...salesStages, actual: stageOf(today) },
+  promocionSextaGratis: {
+    activa: sixthFree.active,
+    desde: sixthFree.since,
+    pagas: sixthFree.paid,
+    gratis: sixthFree.free,
+    maximoGratisPorOrden: sixthFree.maxFreePerOrder,
+  },
   tiendaAbierta: pretixReady,
   ventaEnPuerta: doorSales,
   boletas: ticketOffers.map((o) => ({

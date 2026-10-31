@@ -48,6 +48,21 @@ export const salesStages = {
   stage3Start: '2026-10-30',
 } as const;
 
+/**
+ * Promoción "compra 5, la sexta gratis" (titular, 2026-10-30): con seis
+ * boletas del mismo tipo en una orden, una sale gratis, y como máximo una
+ * por orden. La aplica Pretix con un descuento automático por boleta y un
+ * tope de 11 por orden (docs/pretix/descuento-sexta-gratis.md); aquí solo
+ * se cuenta al público. Para apagarla en el sitio, `active: false`.
+ */
+export const sixthFree = {
+  active: true,
+  since: '2026-10-30',
+  paid: 5,
+  free: 1,
+  maxFreePerOrder: 1,
+} as const;
+
 export type TicketOfferId =
   | 'pase-completo'
   | 'fin-de-semana'

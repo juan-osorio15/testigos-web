@@ -14,10 +14,9 @@ import { CONTACT_ICON_PATH } from '../data/contact-icon';
 import { tFor } from '../ui';
 import LogoSymbol from '../assets/logo/logo-symbol.svg';
 import WaitlistForm from './WaitlistForm.astro';
-import SalesStages from './SalesStages.astro';
-import { ticketOffers, formatPrice, salesStages, type TicketOffer, type TicketOfferId } from '../data/event';
+import { ticketOffers, formatPrice, sixthFree, type TicketOffer, type TicketOfferId } from '../data/event';
 import { halfDayOffers, halfOfOffer, speakerNamesOf } from '../data/boletas';
-import { langOf, localeOf } from '../i18n';
+import { langOf } from '../i18n';
 
 const t = tFor(Astro.url.pathname);
 const lang = langOf(Astro.url.pathname);
@@ -41,34 +40,17 @@ const separately = (offer: TicketOffer) =>
     lang,
   );
 
-/* Aviso bajo el precio del pase de fin de semana en el widget (2026-10-22):
-   el mejor precio es el de la etapa 2. Lo inyecta el script, porque el
-   precio lo pinta Pretix; desaparece solo a las 0:00 de Bogotá del primer
-   día de la etapa 3. */
-const stage2Until = new Intl.DateTimeFormat(localeOf(lang), {
-  timeZone: 'America/Bogota',
-  day: 'numeric',
-  month: 'long',
-}).format(new Date(`${salesStages.stage2End}T12:00:00-05:00`));
-const stagePriceNote = t('tickets.stagePrice').replace('{date}', stage2Until);
-const stageSwitchAt = Date.parse(`${salesStages.stage3Start}T00:00:00-05:00`);
-/* En la etapa 3 ya no hay fecha que contar: el calendario y el aviso de
-   etapa se omiten en el build. */
-const stage2Promo = Date.now() < stageSwitchAt;
-const promoProduct = weekend.pretixProduct;
-
 /* Las fichas, en el orden de la tienda. El pase de fin de semana sigue con
    su tachado en la etapa 3: con 255.000 aún sale más barato (2026-10-30). */
 const options = [
-  { name: t('tickets.passName'), now: formatPrice(pass, lang), was: separately(pass), text: t('tickets.passText'), note: null },
+  { name: t('tickets.passName'), now: formatPrice(pass, lang), was: separately(pass), text: t('tickets.passText') },
   {
     name: t('tickets.weekendName'),
     now: formatPrice(weekend, lang),
     was: separately(weekend),
     text: t('tickets.weekendText'),
-    note: stage2Promo ? stagePriceNote : null,
   },
-  { name: t('tickets.slotName'), now: formatPrice(halfDay, lang), was: null, text: t('tickets.slotText'), note: null },
+  { name: t('tickets.slotName'), now: formatPrice(halfDay, lang), was: null, text: t('tickets.slotText') },
 ];
 
 /* `pretixReady` (config.ts) decide tienda o formulario. La hoja de estilos
@@ -127,16 +109,21 @@ const franjaNames = Object.fromEntries(
                   <span class="tickets-option-price">{o.now}</span>
                 </span>
               </dt>
-              <dd>
-                {o.text}
-                {o.note && <span class="tickets-option-note">{o.note}</span>}
-              </dd>
+              <dd>{o.text}</dd>
             </div>
           ))
         }
       </dl>
-      {/* Calendario de venta: qué trae cada etapa (hasta que abre la 3) */}
-      {stage2Promo && <SalesStages />}
+      {/* Promoción "compra 5, la sexta gratis" (2026-10-30), en un plano
+          cielo como los datos (fórmula visual §3). La aplica Pretix con un
+          descuento automático por boleta: docs/pretix/descuento-sexta-gratis.md */}
+      {sixthFree.active && (
+        <div class="tickets-promo">
+          <p class="tickets-promo-label">{t('tickets.promoLabel')}</p>
+          <p class="tickets-promo-title">{t('tickets.promoTitle')}</p>
+          <p class="tickets-promo-note">{t('tickets.promoNote')}</p>
+        </div>
+      )}
     </div>
     <div class="tickets-shop">
     <div
@@ -144,9 +131,6 @@ const franjaNames = Object.fromEntries(
       data-notify-label={t('tickets.notify')}
       data-not-yet={t('tickets.notYet')}
       data-franjas={JSON.stringify(franjaNames)}
-      data-stage-price={stage2Promo ? stagePriceNote : ""}
-      data-stage-switch-at={stageSwitchAt}
-      data-promo-product={promoProduct}
     >
       {
         live ? (
@@ -322,33 +306,8 @@ const franjaNames = Object.fromEntries(
       });
     };
 
-    // Aviso de etapa bajo el precio del pase de fin de semana, mientras dure
-    // la etapa 2
-    const stageNote = widget.dataset.stagePrice ?? '';
-    const stageSwitchAt = Number(widget.dataset.stageSwitchAt);
-    const passName = normalize(widget.dataset.promoProduct ?? '');
-    const markPass = () => {
-      if (!stageNote || !(Date.now() < stageSwitchAt)) return;
-      widget.querySelectorAll<HTMLElement>('.pretix-widget-item').forEach((item) => {
-        const title = item.querySelector('.pretix-widget-item-title')?.textContent ?? '';
-        if (normalize(title) !== passName) return;
-        // Junto a la descripción, encima de los precios: así no ensancha la
-        // columna del precio ni empuja el selector de cantidad a otra fila
-        const info = item.querySelector('.pretix-widget-item-info-col');
-        if (!info || info.querySelector('.tickets-stage-price')) return;
-        const note = document.createElement('p');
-        note.className = 'tickets-stage-price';
-        note.textContent = stageNote;
-        info.appendChild(note);
-      });
-    };
-
-    const run = () => {
-      apply();
-      markPass();
-    };
-    run();
-    new MutationObserver(run).observe(widget, { childList: true, subtree: true });
+    apply();
+    new MutationObserver(apply).observe(widget, { childList: true, subtree: true });
 
     dialog.querySelector('[data-notify-close]')?.addEventListener('click', () => dialog.close());
     // Clic en el fondo oscurecido: el propio <dialog> es el objetivo
@@ -546,12 +505,32 @@ const franjaNames = Object.fromEntries(
     font-size: var(--text-body);
     line-height: 1.5;
   }
-  /* Aviso de fase: en la misma ficha, un tono más firme que el detalle */
-  .tickets-option-note {
-    display: block;
-    margin-top: 0.6em;
-    font-size: var(--text-small);
+  /* La promoción: plano cielo del ancho de las fichas, con la etiqueta
+     en versalitas como las demás y la oferta en grande */
+  .tickets-promo {
+    display: grid;
+    gap: 0.35em;
+    max-width: 44ch;
+    margin-top: var(--space-1);
+    padding: var(--space-2);
+    background-color: var(--sky);
+    color: var(--ink);
+  }
+  .tickets-promo-label {
+    font-size: var(--text-label);
     font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .tickets-promo-title {
+    font-size: var(--text-h3);
+    font-weight: 800;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+  .tickets-promo-note {
+    font-size: var(--text-small);
+    line-height: 1.4;
   }
 
   .tickets-widget {
@@ -650,28 +629,8 @@ const franjaNames = Object.fromEntries(
     color: var(--brick);
   }
 
-  /* Pantallas bajas: con el calendario de venta la columna mide unos
-     840px y no cabe bajo el header. Primero se reduce el aire entre
-     bloques (las comillas no se tocan: encogidas se montan sobre la
-     etiqueta); si aun así no cabe (portátiles de 13"), la columna deja
-     de pegarse y fluye con la página. Medido el 2026-09-15. Solo aplica
-     con el calendario (etapa 1): sin él la columna mide unos 490px y se
-     pega en cualquier portátil (2026-10-17); se suelta solo por debajo
-     de 640px de alto. */
-  @media (min-width: 64rem) and (max-height: 60rem) {
-    :global(.tickets-intro:has(.stages)) {
-      gap: var(--space-1);
-    }
-  }
-  @media (min-width: 64rem) and (max-height: 57rem) {
-    :global(.tickets-intro:has(.stages)) {
-      position: static;
-      align-self: auto;
-      align-content: start;
-      max-height: none;
-      gap: var(--space-2);
-    }
-  }
+  /* Pantallas muy bajas: la columna deja de pegarse y fluye con la
+     página (por debajo de 640px de alto, 2026-10-17). */
   @media (min-width: 64rem) and (max-height: 40rem) {
     .tickets-intro {
       position: static;
@@ -840,13 +799,6 @@ const franjaNames = Object.fromEntries(
   }
   .tickets-widget .pretix-widget-pricebox-new-price {
     text-decoration: none;
-    color: var(--brick);
-  }
-  .tickets-widget .tickets-stage-price {
-    margin: 0.5em 0 0;
-    font-size: var(--text-small);
-    font-weight: 700;
-    line-height: 1.4;
     color: var(--brick);
   }
   .tickets-widget .pretix-widget-pricebox-tax {
