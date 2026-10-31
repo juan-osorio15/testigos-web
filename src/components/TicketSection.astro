@@ -326,14 +326,14 @@ const franjaNames = Object.fromEntries(
 
   // Sexta gratis: hay quien elige cinco boletas y espera que la sexta
   // aparezca sola (2026-10-31). Bajo cada boleta del widget, un aviso según
-  // cuántas iguales lleva: con 4 o 5, que elija 6; desde 6, que una queda en
+  // cuántas iguales lleva: de 3 a 5, que elija 6; desde 6, que una queda en
   // cero. Los botones + y − del widget (on_step en v2.<idioma>.js) disparan
   // `change` sobre el campo de cantidad; escribir el número, `input`. Sin
   // data-sixth (sixthFree.active en false) no se hace nada.
   const sixth = widget?.dataset.sixth ? JSON.parse(widget.dataset.sixth) : null;
   if (widget && sixth) {
     const hintFor = (n: number) =>
-      n >= sixth.paid + 1 ? sixth.done : n === sixth.paid ? sixth.oneMore : n === sixth.paid - 1 ? sixth.almost : '';
+      n >= sixth.paid + 1 ? sixth.done : n === sixth.paid ? sixth.oneMore : n >= sixth.paid - 2 ? sixth.almost : '';
 
     const update = (input: HTMLInputElement) => {
       const item = input.closest('.pretix-widget-item');
