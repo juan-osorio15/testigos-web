@@ -239,7 +239,7 @@ Para quienes solo pueden venir el fin de semana y no se quieren perder de nada.
 **León Valencia y Ana María Echeverri**
 
 11:00 a.m. a 12:30 p.m. · Negociaciones de paz, el Caguán y La Habana
-**Marisol Gómez**
+**Marisol Gómez y María Alejandra Villamizar**
 
 *7 de noviembre*
 ```

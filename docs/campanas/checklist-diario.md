@@ -62,6 +62,8 @@ Desde hoy, revisar en Pretix que lo que nombra cada plantilla siga a la venta.
 - **Expirados nuevos** · respond.io · Preparado: [ ] · Mandado: [ ]
 - **GV10** · grupos de Villa · magnicidios y víctimas · Preparado: [ ] · Mandado: [ ]
 - **LF8** · lista de Fernando · Luz María Sierra · Preparado: [ ] · Mandado: [ ]
+- **GV12** · grupos de Villa · llega María Alejandra Villamizar (después de GV10) · Preparado: [ ] · Mandado: [ ]
+- **LF13** · lista de Fernando · llega María Alejandra Villamizar (después de LF8) · Preparado: [ ] · Mandado: [ ]
 - **RC6** · inactivos · Luz María Sierra y Martha Soto · Preparado: [ ] · Mandado: [ ]
 
 ## Domingo 1 nov
@@ -72,7 +74,7 @@ Desde hoy, revisar en Pretix que lo que nombra cada plantilla siga a la venta.
 
 - Compradores importados a respond.io (antes de los broadcasts) · Hecho: [ ]
 - Expirados importados a respond.io, **sin broadcast** (les llega EX2) · Hecho: [ ]
-- **GV5** · grupos de Villa · negociaciones de paz. La pieza tiene a Ricardo Ospina: hace falta una solo con Marisol Gómez. · Preparado: [ ] · Mandado: [ ]
+- **GV5** · grupos de Villa · negociaciones de paz, con Marisol Gómez y María Alejandra Villamizar · Preparado: [ ] · Mandado: [ ]
 - **LF9** · lista de Fernando · Martha Soto · Preparado: [ ] · Mandado: [ ]
 - **RC7** · inactivos · Marta Ruiz y Guillermo González Uribe · Preparado: [ ] · Mandado: [ ]
 - **IN2** · interesados · API · mujeres periodistas · Preparado: [ ] · Mandado: [ ]
@@ -84,7 +86,7 @@ Desde hoy, revisar en Pretix que lo que nombra cada plantilla siga a la venta.
 - Compradores importados a respond.io (antes de los broadcasts) · Hecho: [ ]
 - **Expirados nuevos** · respond.io · Preparado: [ ] · Mandado: [ ]
 - **GV11** · grupos de Villa · Ana María Echeverri y las guerrillas · Preparado: [ ] · Mandado: [ ]
-- **LF10** · lista de Fernando · Marisol Gómez. Faltan las piezas. · Preparado: [ ] · Mandado: [ ]
+- **LF10** · lista de Fernando · Marisol Gómez y María Alejandra Villamizar · Preparado: [ ] · Mandado: [ ]
 - **RC8** · inactivos · mañana empieza · Preparado: [ ] · Mandado: [ ]
 
 ## Jueves 5 nov

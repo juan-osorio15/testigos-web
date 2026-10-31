@@ -19,7 +19,8 @@ Grupos de WhatsApp de planes y eventos de Villa de Leyva donde ya estamos. Una p
 - **GV8** · jueves 29 oct · el recorrido completo: pase completo y pase de fin de semana
 - **GV4** · viernes 30 oct · el narcotráfico
 - **GV10** · sábado 31 oct · magnicidios y víctimas
-- **GV5** · martes 3 nov · negociaciones de paz
+- **GV12** · sábado 31 oct · llega María Alejandra Villamizar
+- **GV5** · martes 3 nov · negociaciones de paz, con Marisol Gómez y María Alejandra Villamizar
 - **GV11** · miércoles 4 nov · Ana María Echeverri y las guerrillas
 - **GV6** · jueves 5 nov · hoy empiezan las charlas abiertas
 - **GV7** · viernes 6 nov · mujeres periodistas: hoy empieza
@@ -156,14 +157,32 @@ https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_camp
 https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
 ```
 
-## GV5 · martes 3 de noviembre
+## GV12 · sábado 31 de octubre (antes de las 3:00 p.m., después de GV10)
 
-**Pieza:** `GV5.png` (Negociaciones de paz). **Por rehacer:** el afiche actual tiene a Ricardo Ospina, que ya no va; hace falta una versión solo con Marisol Gómez antes del martes 3.
+**Pieza:** `GV12.jpg` (la tarjeta de su ficha en el sitio)
 
 ```
-¿Qué pasó de verdad en las mesas del Caguán y de La Habana? Lo cuenta Marisol Gómez, que cubrió esas negociaciones durante 25 años y escribió “La historia secreta del proceso de paz”.
+Se suma una invitada a Testigos de la Memoria: María Alejandra Villamizar. Conoce las negociaciones de paz desde adentro: trabajó en la Oficina del Alto Comisionado para la Paz en los años del Caguán y fue delegada del Gobierno en la mesa con el ELN.
 
-Es este sábado en la mañana en la sala en la Hospedería Duruelo. El aforo es limitado.
+Va a conversar con Marisol Gómez el sábado 7 de noviembre a las 11:00 a.m., aquí en la Hospedería Duruelo. El aforo es limitado.
+
+Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuento.
+
+Boletas en la página:
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=anuncio-maria-alejandra-villamizar
+
+¿Dudas? Escríbannos:
+https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
+```
+
+## GV5 · martes 3 de noviembre
+
+**Pieza:** `GV5.png` (afiche de Negociaciones de paz con Marisol Gómez y María Alejandra Villamizar, 2026-10-31)
+
+```
+¿Qué pasó de verdad en las mesas del Caguán y de La Habana? Lo conversan dos personas que las vieron de cerca: Marisol Gómez, que cubrió esas negociaciones durante 25 años y escribió “La historia secreta del proceso de paz”, y María Alejandra Villamizar, que se sentó en una mesa de paz del lado del Gobierno, como delegada en la negociación con el ELN.
+
+Es este sábado a las 11:00 a.m. en la Hospedería Duruelo. El aforo es limitado.
 
 Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuento.
 

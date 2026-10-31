@@ -12,7 +12,7 @@ Cómo se escribe y cómo se manda cualquier mensaje de cualquier campaña, por c
 - **Panelistas** con la grafía de `src/data/speakers.ts`.
   - Daniel Samper Pizano va de primero cuando se lista a los invitados, pero ninguna pieza ni anuncio pago se centra en él (como el afiche del Bogotazo).
   - León Valencia nunca es el gancho: su nombre puede estar en el programa, pero ningún mensaje se apoya en él. Por eso no se usa el afiche de Guerrillas.
-  - Ricardo Ospina ya no participa. Las piezas que lo tienen no se usan, y eso incluye el afiche general con todas las caras.
+  - Ricardo Ospina ya no participa. Las piezas que lo tienen no se usan, y eso incluye el afiche general con todas las caras. En su lugar, en Negociaciones de paz, va María Alejandra Villamizar (2026-10-31).
   - Se prioriza a los de más alto perfil: Yolanda Ruiz, María Elvira Samper, Fidel Cano, Cecilia Orozco, Luz María Sierra, Martha Soto y Marta Ruiz.
 - **El aforo, sin número:** "el aforo es limitado" o "todavía hay cupo". Ni el número de sillas, ni "últimos cupos", ni contadores.
 - **Hospedaje sin nombrar un hotel**, alternando estas frases: "¿Ya sabes dónde quedarte? Tenemos varios hoteles aliados con descuentos especiales para asistentes." · "Si todavía no sabes dónde quedarte, tenemos…" · "Para que no tengas que preocuparte por el hospedaje, tenemos…" · "Si vienes de fuera, tenemos…". Los hoteles están en la página (`#hospedaje`).

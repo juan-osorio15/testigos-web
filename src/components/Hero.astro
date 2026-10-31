@@ -28,14 +28,15 @@ const lang = langOf(Astro.url.pathname);
    de siete a todo el ancho bajo el titular (2026-09-29: así caben los
    catorce panelistas, en el orden del afiche de speakers.ts). Desde el
    2026-10-05 fueron quince (escalera 4, 4 y 7); desde el 2026-10-26, sin
-   Ricardo Ospina, vuelven a ser catorce: escalera 3, 4 y 7 y, en móvil, la
-   casilla de "ver todos" cierra la última fila.
+   Ricardo Ospina, catorce (escalera 3, 4 y 7); desde el 2026-10-31, con
+   María Alejandra Villamizar, otra vez quince: escalera 4, 4 y 7 y, en
+   móvil, las tres filas de cinco llenas, sin la casilla de "ver todos".
    Si algún día hay más, el hero muestra los primeros y el carrusel los
    tiene todos.
    En móvil la escalera no aplica: cinco columnas a lo ancho (tres filas,
    como antes con doce en cuatro, para no bajar la franja de compra), y el
    hueco de la última fila lo llena un enlace a los panelistas. */
-const STAIR = [3, 4, 7] as const;
+const STAIR = [4, 4, 7] as const;
 const COLS = 7;
 const withPhoto = speakersFor(lang).filter((s) => s.photo !== null);
 const tiles = STAIR.flatMap((n, r) =>
@@ -731,11 +732,12 @@ const plural = (u: keyof typeof units, n: number) => units[u][n === 1 ? 0 : 1];
       display: grid;
       min-height: 0;
     }
-    /* Cierra la última fila (catorce caras en cinco columnas) */
+    /* Cerraba la última fila con catorce caras; con quince las tres filas
+       quedan llenas y la casilla sobra. Para volver a mostrarla: grid. */
     /* min-width 0: la celda nunca más ancha que su columna (a 360 px mide
        ~72 px; "Conoce a los panelistas" empujaba la página, 2026-09-30) */
     .hero-faces .hero-faces-more {
-      display: grid;
+      display: none;
       min-width: 0;
     }
     .hero-faces-more a {

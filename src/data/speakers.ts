@@ -24,6 +24,7 @@ import photoYolandaRuiz from '../assets/speakers/yolanda-ruiz.jpg';
 import photoMariaElviraSamper from '../assets/speakers/maria-elvira-samper.jpg';
 import photoLeonValencia from '../assets/speakers/leon-valencia.jpg';
 import photoAnaMariaEcheverri from '../assets/speakers/ana-maria-echeverri.jpg';
+import photoMariaAlejandraVillamizar from '../assets/speakers/maria-alejandra-villamizar.jpg';
 
 export type SpeakerLinkKey = 'x' | 'instagram' | 'linkedin' | 'facebook' | 'web' | 'wikipedia';
 
@@ -293,6 +294,30 @@ export const speakers: Speaker[] = [
     ogVersion: 2,
     links: {
       web: 'https://www.elespectador.com/opinion/columnistas/jorge-cardona/',
+    },
+    confirmed: true,
+  },
+  {
+    /* Añadida el 2026-10-31 por los organizadores para "Negociaciones de
+       paz, el Caguán y La Habana" con Marisol Gómez, en el lugar de Ricardo
+       Ospina (antes de Martha Soto). Es María Alejandra Villamizar
+       Maldonado. Investigación en
+       docs/evento/investigaciones/maria-alejandra-villamizar.md. */
+    slug: 'maria-alejandra-villamizar',
+    name: 'María Alejandra Villamizar',
+    credential: 'Periodista y analista política · exdelegada en la mesa con el ELN',
+    bio: 'Periodista y analista política. Fue asesora de comunicaciones de la Oficina del Alto Comisionado para la Paz en los gobiernos de Ernesto Samper y Andrés Pastrana, y delegada del Gobierno en la mesa de negociación con el ELN entre 2016 y 2017. Dirigió “La Conversación Más Grande del Mundo”, el programa de pedagogía para la paz del gobierno Santos. Fue editora política de Semana, editora de Política, Paz y Derechos Humanos de El Espectador y directora de Confidencial Colombia. Analista y moderadora en Noticias Caracol.',
+    en: {
+      credential: 'Journalist and political analyst · former government delegate at the ELN talks',
+      bio: 'Journalist and political analyst. She was communications adviser to the Office of the High Commissioner for Peace under presidents Ernesto Samper and Andrés Pastrana, and a government delegate at the negotiating table with the ELN in 2016 and 2017. She directed “La Conversación Más Grande del Mundo”, the Santos government\'s peace education program. She was political editor of Semana, editor of Politics, Peace and Human Rights at El Espectador and editor-in-chief of Confidencial Colombia. Analyst and moderator at Noticias Caracol.',
+    },
+    /* Retrato de Lisa Palomino (2022), Wikimedia Commons, CC BY-SA 4.0
+       (844 × 1257, a color, fondo azul de estudio); el mismo del afiche.
+       Recorte propio a 4:3 desde arriba. */
+    photo: photoMariaAlejandraVillamizar,
+    links: {
+      x: 'https://x.com/mariaalejavm',
+      wikipedia: 'https://es.wikipedia.org/wiki/Mar%C3%ADa_Alejandra_Villamizar',
     },
     confirmed: true,
   },

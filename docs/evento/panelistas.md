@@ -32,9 +32,21 @@ Un solo mensaje sirve para todos:
 | Ana María Echeverri | Periodista y documentalista · autora de “Yo soy yo” | Página de autora en Planeta | Tarjeta de invitada de Villa de Letras 2026 (1080 × 1080, b/n, fondo de ladrillo; misma sesión de la foto oficial de Planeta, crédito © Margarita Casas); recorte propio a 4:3 y 960 px, tratamiento `plain` por venir ya en b/n. Pedirle a ella o a Planeta el original | Añadida el 2026-09-15 por los organizadores para "Surgimiento de las guerrillas" con León Valencia. Nombre completo Ana María Echeverri Salazar; algunas fuentes escriben "Echeverry". **Identidad**: ninguna fuente pública la vincula con guerrillas, conflicto ni con León Valencia; su obra es de cultura, medicina alternativa e identidad de género. Confirmar que es ella y en qué calidad va. De los premios, solo el Simón Bolívar 1987 está confirmado en la fuente oficial; Ondas e India Catalina constan en su bio editorial de Planeta. Sin redes verificadas ni Wikipedia. Informe en docs/evento/investigaciones/ana-maria-echeverri.md. |
 | María Elvira Samper | Periodista · exdirectora de Semana y Cambio | X @monasamper · Wikipedia | Contexto Media 2024 (mismo retrato que usan Planeta y Ulibro) | No hay fuente que la vincule a CM& (la ficha anterior lo decía). Dejó RCN Radio en 2022. Sin columna regular hoy. |
 
+### María Alejandra Villamizar (añadida el 2026-10-31)
+
+Los organizadores la suman el 2026-10-31 a "Negociaciones de paz, el Caguán y La Habana", con Marisol Gómez, en el lugar de Ricardo Ospina. Afiche de la sesión en Downloads (`afiche_negociaciones.png`), con las dos.
+
+- Credencial publicada: Periodista y analista política · exdelegada en la mesa con el ELN.
+- Identidad: María Alejandra Villamizar Maldonado, nacida en Pamplona (Norte de Santander) en 1973. La foto del afiche es la misma de Wikimedia Commons.
+- Redes enlazadas: X @mariaalejavm (la enlaza el Festival Gabo) y Wikipedia. Un artículo de 2020 citaba @MAVILLAMZAR: no se usó.
+- Foto: retrato de Lisa Palomino (2022) en Wikimedia Commons, CC BY-SA 4.0, 844 × 1257; recorte propio a 4:3 (844 × 633). La licencia pide crédito: "Foto: Lisa Palomino, CC BY-SA 4.0".
+- Ocupa el lugar de Ricardo Ospina en el orden: antes de Martha Soto. En el hero, la escalera vuelve a 4, 4 y 7.
+- Por confirmar: los premios que lista Wikipedia (Simón Bolívar 1996 y 2005, IPYS 2007, Rey de España 2008 con el equipo de Semana) no tienen otra fuente; no van en la bio. Tampoco hay fuente de 2026 de su cargo en Noticias Caracol (Wikipedia lo da como actual).
+- Informe en docs/evento/investigaciones/maria-alejandra-villamizar.md.
+
 ### Ricardo Ospina (añadido el 2026-10-05; ya no va desde el 2026-10-26)
 
-El titular avisó el 2026-10-26 que no participa; los organizadores buscan reemplazo. Salió del sitio (su ficha redirige a Negociaciones de paz), de la ficha del chatbot (v6), de los textos de Pretix y de las campañas pendientes. Negociaciones de paz queda solo con Marisol Gómez.
+El titular avisó el 2026-10-26 que no participa. Salió del sitio (su ficha redirige a Negociaciones de paz), de la ficha del chatbot (v6), de los textos de Pretix y de las campañas pendientes. Desde el 2026-10-31 su lugar es de María Alejandra Villamizar.
 
 La tabla de arriba no se amplía; este panelista va en lista.
 
@@ -68,7 +80,7 @@ para la línea de nombres que el sitio pinta bajo cada franja y para cualquier
 pieza de difusión. Corte del 2026-09-15; se actualiza con cada cambio de agenda.
 
 - Viernes 6, tarde: Daniel Samper Pizano · Darío Restrepo · Jorge Cardona (narrador)
-- Sábado 7, mañana: León Valencia · Marisol Gómez · Ana María Echeverri
+- Sábado 7, mañana: León Valencia · Marisol Gómez · María Alejandra Villamizar · Ana María Echeverri
 - Sábado 7, tarde: Fidel Cano · Luz María Sierra · Cecilia Orozco · Martha Soto
 - Domingo 8, mañana: Yolanda Ruiz · María Elvira Samper · Guillermo González Uribe · Marta Ruiz · Jorge Cardona (narrador)
 
@@ -79,7 +91,7 @@ nombra a Martha Soto en "Narcotráfico y paramilitarismo" (entró el 2026-09-15)
 Desde el 2026-09-25 también falta en Pretix: "Reelecciones" pasó a llamarse
 "Las reelecciones de Uribe y Santos" y suma a Fidel Cano (Sábado Tarde), y
 Jorge Cardona entra como narrador en la bienvenida (Viernes Tarde) y el cierre.
-Ricardo Ospina ya no va (2026-10-26): si Pretix lo llegó a tener en "Negociaciones de paz" (Sábado Mañana), quitarlo.
+Ricardo Ospina ya no va (2026-10-26): si Pretix lo llegó a tener en "Negociaciones de paz" (Sábado Mañana), quitarlo. Desde el 2026-10-31 esa descripción nombra a Marisol Gómez y María Alejandra Villamizar.
 
 ## Retirados
 
