@@ -25,7 +25,7 @@ informes/
 creds.txt
 
 # Piezas de las campañas de WhatsApp (imágenes pesadas; los originales están en Drive)
-docs/campanas/whatsapp/*/piezas/
+docs/campanas/*/whatsapp/piezas/
 
 # Caché de Python de los scripts
 __pycache__/
