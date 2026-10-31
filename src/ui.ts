@@ -98,6 +98,11 @@ const es = {
   'tickets.promoLabel': 'Promoción',
   'tickets.promoTitle': 'Compra 5 boletas iguales y la sexta te sale gratis.',
   'tickets.promoNote': 'Agrega las seis al carrito y una queda en cero. Una boleta gratis por compra.',
+  /* Aviso bajo la boleta del widget según cuántas iguales lleva (2026-10-31):
+     hay quien elige cinco y espera que la sexta aparezca sola */
+  'tickets.sixthAlmost': 'Si eliges 6, la sexta te sale gratis.',
+  'tickets.sixthOneMore': 'Agrega una más: con 6, la sexta te sale gratis.',
+  'tickets.sixthDone': 'Listo: una de estas boletas te sale gratis. La verás en cero en el carrito.',
   'tickets.notify': 'Avísame cuando abra',
   /* Modal "avísame" de las franjas; la franja escogida va como eyebrow */
   'notify.title': 'Te avisamos cuando salga a la venta',
@@ -397,6 +402,9 @@ const en: Record<UiKey, string> = {
   'tickets.promoLabel': 'Offer',
   'tickets.promoTitle': 'Buy 5 tickets of the same type and the sixth is free.',
   'tickets.promoNote': 'Add all six to your cart and one drops to zero. One free ticket per order.',
+  'tickets.sixthAlmost': 'Choose 6 and the sixth is free.',
+  'tickets.sixthOneMore': 'Add one more: with 6, the sixth is free.',
+  'tickets.sixthDone': 'Done: one of these tickets is free. You will see it at zero in the cart.',
   'tickets.notify': 'Notify me when it opens',
   'notify.title': "We'll let you know when it goes on sale",
   'notify.intro': "Leave us your details and we'll write to you as soon as it goes on sale.",

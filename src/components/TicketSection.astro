@@ -131,6 +131,14 @@ const franjaNames = Object.fromEntries(
       data-notify-label={t('tickets.notify')}
       data-not-yet={t('tickets.notYet')}
       data-franjas={JSON.stringify(franjaNames)}
+      data-sixth={sixthFree.active
+        ? JSON.stringify({
+            paid: sixthFree.paid,
+            almost: t('tickets.sixthAlmost'),
+            oneMore: t('tickets.sixthOneMore'),
+            done: t('tickets.sixthDone'),
+          })
+        : undefined}
     >
       {
         live ? (
@@ -314,6 +322,43 @@ const franjaNames = Object.fromEntries(
     dialog.addEventListener('click', (e) => {
       if (e.target === dialog) dialog.close();
     });
+  }
+
+  // Sexta gratis: hay quien elige cinco boletas y espera que la sexta
+  // aparezca sola (2026-10-31). Bajo cada boleta del widget, un aviso según
+  // cuántas iguales lleva: con 4 o 5, que elija 6; desde 6, que una queda en
+  // cero. Los botones + y − del widget (on_step en v2.<idioma>.js) disparan
+  // `change` sobre el campo de cantidad; escribir el número, `input`. Sin
+  // data-sixth (sixthFree.active en false) no se hace nada.
+  const sixth = widget?.dataset.sixth ? JSON.parse(widget.dataset.sixth) : null;
+  if (widget && sixth) {
+    const hintFor = (n: number) =>
+      n >= sixth.paid + 1 ? sixth.done : n === sixth.paid ? sixth.oneMore : n === sixth.paid - 1 ? sixth.almost : '';
+
+    const update = (input: HTMLInputElement) => {
+      const item = input.closest('.pretix-widget-item');
+      if (!item) return;
+      const text = hintFor(parseInt(input.value || '0', 10) || 0);
+      let hint = item.querySelector<HTMLElement>(':scope > .tickets-sixth');
+      if (!text) {
+        hint?.remove();
+        return;
+      }
+      if (!hint) {
+        hint = document.createElement('p');
+        hint.className = 'tickets-sixth';
+        hint.setAttribute('role', 'status');
+        item.appendChild(hint);
+      }
+      if (hint.textContent !== text) hint.textContent = text;
+    };
+
+    const onCount = (e: Event) => {
+      const input = e.target as HTMLElement;
+      if (input instanceof HTMLInputElement && input.matches('.pretix-widget-item-count-multiple')) update(input);
+    };
+    widget.addEventListener('change', onCount);
+    widget.addEventListener('input', onCount);
   }
 </script>
 
@@ -831,6 +876,28 @@ const franjaNames = Object.fromEntries(
   }
   /* Los nombres de los panelistas de la franja, en una línea (los pone el
      script del componente a partir de la descripción de Pretix) */
+  /* Aviso de la sexta gratis bajo la boleta: globo azul cielo, como la
+     promoción de la columna izquierda, con el pico hacia el contador */
+  .tickets-widget .tickets-sixth {
+    position: relative;
+    margin: 0.7em 0 0.4em auto;
+    max-width: 30ch;
+    padding: 0.6em 0.8em;
+    background-color: var(--sky);
+    color: var(--ink);
+    font-size: var(--text-small);
+    font-weight: 700;
+    line-height: 1.35;
+  }
+  .tickets-widget .tickets-sixth::before {
+    content: '';
+    position: absolute;
+    top: -0.5em;
+    right: 2.2em;
+    border: 0.5em solid transparent;
+    border-top: 0;
+    border-bottom-color: var(--sky);
+  }
   .tickets-widget .tickets-panelists {
     margin: 0.3em 0 0;
     font-size: var(--text-small);
