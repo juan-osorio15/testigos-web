@@ -335,28 +335,22 @@ const franjaNames = Object.fromEntries(
     align-items: start;
   }
 
-  /* La tienda es larga: la columna del texto se pega bajo el header con la
-     altura de la pantalla y centra su contenido, así el mensaje viaja por
-     la mitad del viewport mientras se recorre la lista, hasta que la
-     propia celda de la cuadrícula lo frena al llegar al fondo. Si la
-     tienda es más corta que la pantalla, la columna mide lo que ella. */
+  /* La columna del texto fluye con la página y arranca a la altura de la
+     tienda (2026-10-30: sin pegarse al bajar; con la promoción ya no cabía
+     en la pantalla y las comillas se montaban arriba). */
   .tickets-intro {
     display: grid;
     gap: var(--space-2);
-    align-content: center;
+    align-content: start;
     order: 2; /* en desktop: formulario a la izquierda, texto a la derecha */
-    position: sticky;
-    top: var(--header-h);
-    align-self: stretch;
-    max-height: calc(100vh - var(--header-h));
   }
   .tickets-shop {
     order: 1;
     display: grid;
     gap: var(--space-2);
   }
-  /* Escritorio: fila 1, la tienda y el texto (pegado al bajar); fila 2, la
-     burbuja bajo la tienda y las segundas comillas bajo el calendario */
+  /* Escritorio: fila 1, la tienda y el texto; fila 2, la burbuja bajo la
+     tienda y las segundas comillas bajo el texto */
   .tickets-shop {
     grid-column: 1;
     grid-row: 1;
@@ -629,29 +623,14 @@ const franjaNames = Object.fromEntries(
     color: var(--brick);
   }
 
-  /* Pantallas muy bajas: la columna deja de pegarse y fluye con la
-     página (por debajo de 640px de alto, 2026-10-17). */
-  @media (min-width: 64rem) and (max-height: 40rem) {
-    .tickets-intro {
-      position: static;
-      align-self: auto;
-      align-content: start;
-      max-height: none;
-    }
-  }
-
   @media (max-width: 63.9rem) {
     .tickets-grid {
       grid-template-columns: 1fr;
       gap: var(--space-4);
     }
-    /* apilado: primero el contexto, luego el formulario; sin pegado */
+    /* apilado: primero el contexto, luego el formulario */
     .tickets-intro {
       order: 1;
-      position: static;
-      align-self: auto;
-      align-content: start;
-      max-height: none;
     }
     .tickets-shop,
     .tickets-intro {
