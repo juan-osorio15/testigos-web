@@ -32,6 +32,8 @@ respondio arma la lista y la guarda en el formato de importación de
 respond.io, solo con quien autorizó WhatsApp, en ~/Downloads salvo que se
 diga otra ruta con --salida. Las etiquetas y la boleta de interés salen de
 "respondio" en la configuración; sin eso, la etiqueta es el nombre de la campaña.
+Con "campos" ({"voucher_familia": "voucher"}) van además esas variables como
+campos de contacto, en columnas al final.
 A cada etiqueta se le pega la fecha del día (expirados-23102026).
 
 vouchers arma la lista e imprime los códigos de voucher de la campaña, uno
@@ -220,7 +222,9 @@ def exportar_respondio(nombre: str, config: dict, args: argparse.Namespace) -> N
     salida = Path(args.salida).expanduser() if args.salida else (
         Path.home() / "Downloads" / f"{nombre}-respondio-{datetime.now(BOGOTA):%Y-%m-%d-%H%M}.csv")
     # Baja solo si la campaña la pide (compradores): vacía en otra importación podría borrar bajas reales.
-    columnas = COLUMNAS_RESPONDIO + (["baja"] if opciones.get("baja") else [])
+    # Campos de contacto propios de la campaña ({"voucher_familia": "voucher"}): al final, para no correr los demás.
+    campos = opciones.get("campos", {})
+    columnas = COLUMNAS_RESPONDIO + (["baja"] if opciones.get("baja") else []) + list(campos)
     with open(salida, "w", encoding="utf-8", newline="") as archivo:
         escritor = csv.DictWriter(archivo, fieldnames=columnas)
         escritor.writeheader()
@@ -236,6 +240,7 @@ def exportar_respondio(nombre: str, config: dict, args: argparse.Namespace) -> N
                 "Assignee": "",
                 "boleta_de_interes": opciones.get("boleta_de_interes", ""),
                 **({"baja": "true"} if opciones.get("baja") else {}),
+                **{campo: d.valores()[variable] for campo, variable in campos.items()},
             })
     print(f"\nPara respond.io: {len(personas)} filas con WhatsApp, etiqueta {etiquetas} -> {salida}")
 

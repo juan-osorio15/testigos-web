@@ -30,7 +30,7 @@ Una campaña de un solo medio no tiene plan aparte: todo está en el README de s
 - [`inactivos/`](inactivos/) · **RC** · quien le escribió a Catalina, dejó cerrar la conversación y no compró. WhatsApp (respond.io), una plantilla por día hasta el evento.
 - [`grupos-villa/`](grupos-villa/) · **GV** · grupos de planes y eventos de Villa de Leyva. WhatsApp, publicado a mano.
 - [`lista-fernando/`](lista-fernando/) · **LF** · los contactos de Fernando Cordovez, en su voz. WhatsApp (él lo reenvía) y correo desde su dirección: la carta conversacional a sus contactos del backend, desde el 27 de octubre.
-- [`familia/`](familia/) · quien compró el pase completo en la etapa 1 o el de fin de semana en la etapa 2: un voucher de Pretix propio para que su familia compre al mismo precio. Correo y WhatsApp (API de Meta). En preparación.
+- [`familia/`](familia/) · quien compró el pase completo en la etapa 1 o el de fin de semana en la etapa 2: un voucher de Pretix propio para que su familia compre al mismo precio. Correo y WhatsApp (respond.io), el martes 3 de noviembre.
 - [`google-ads/`](google-ads/) · anuncios de Búsqueda en Google (`buscador`).
 
 En [`historial/`](historial/): los borradores de plantillas de WhatsApp de ventas del 19 de octubre, que no se usaron, y el prompt con que se pidió al backend la lectura de contactos.

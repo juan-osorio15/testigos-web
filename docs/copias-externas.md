@@ -16,14 +16,14 @@ Antes de pegar un texto que vive en el repo: `npm run build` y `npm run verifica
 - **Qué tiene**: la ficha (hechos) y el prompt (comportamiento). Los precios no: los consulta en vivo en la tienda.
 - **Copia en el repo**: `docs/chatbot/ficha_testigos_de_la_memoria_v*.md` y `docs/chatbot/prompt_v*.md`, la versión más alta de cada uno. `docs/chatbot/legacy/` no se usa.
 - **Cambia si cambia**: sesiones, panelistas, sedes, etapas, hoteles, políticas, canales.
-- **Último pegado**: por confirmar (ficha v7 del 2026-10-31 con María Alejandra Villamizar, pendiente de pegar; prompt v5 del 2026-10-26).
+- **Último pegado**: por confirmar (ficha v8 del 2026-11-01 con los códigos FAMILIA, que incluye lo de la v7 con María Alejandra Villamizar, pendiente de pegar; prompt v5 del 2026-10-26).
 
 ## Plantillas de WhatsApp en Meta
 
 Aprobadas, **no se editan**: si un hecho fijo del cuerpo cambia, se crea una plantilla nueva. Por eso un cuerpo nuevo no lleva precio, fecha de etapa ni número; si los necesita, van como variables que llena `campana.py`.
 
 - **Copia en el repo**: el texto de cada una en `docs/campanas/<campaña>/whatsapp/README.md` (los borradores que nunca se usaron, en `docs/campanas/historial/borradores-whatsapp-ventas.md`).
-- **Programadas**: `ex1_pedido_vencido` y `in1_boletas_medio_dia` (martes 27 de octubre), `ex2_sabado_en_la_tarde` y `in2_domingo_en_la_manana` (martes 3 de noviembre). Estado de aprobación en Meta: por confirmar.
+- **Programadas**: `ex1_pedido_vencido` y `in1_boletas_medio_dia` (martes 27 de octubre), `ex2_sabado_en_la_tarde`, `in2_domingo_en_la_manana` y `fa1_precio_para_los_tuyos` (martes 3 de noviembre). Estado de aprobación en Meta: por confirmar.
 - **Cambia si cambia**: panelistas o sesión que nombren, fechas.
 
 ## Mensajes reenviados a mano

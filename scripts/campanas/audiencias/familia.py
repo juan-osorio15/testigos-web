@@ -37,6 +37,7 @@ def armar(evento: str, parametros: dict, excluir: set[str]) -> Resultado:
     boleta = boleta_de(parametros["boleta"])
     desde, hasta = fechas_de(parametros["etapa"])
     prefijo = parametros["prefijo"]
+    pase = boleta["nombre"][0].lower() + boleta["nombre"][1:]  # "pase completo", para el medio de una frase
     pedidos = pretix.leer_pedidos(evento)
     contactos = backend.leer_contactos(parametros["campana_backend"])
     correo_ok = {c.correo: c.correo_ok for c in contactos if c.correo}
@@ -87,7 +88,7 @@ def armar(evento: str, parametros: dict, excluir: set[str]) -> Resultado:
         voucher = f"{prefijo}-{suyos[-1].codigo}"
         destinatarios.append(Destinatario(
             saludo=saludo(nombre), nombre=nombre, correo=correo, whatsapp=telefono.lstrip("+"),
-            variables={"voucher": voucher, "enlace_voucher": enlace(evento, voucher)},
+            variables={"voucher": voucher, "enlace_voucher": enlace(evento, voucher), "pase": pase},
             detalle={"pedidos": " ".join(p.codigo for p in suyos), "compra": f"{suyos[-1].creado:%Y-%m-%d %H:%M}",
                      "boletas_del_pase": str(sum(1 for p in suyos for x in p.posiciones if califica(x)))},
         ))
@@ -105,7 +106,7 @@ def armar(evento: str, parametros: dict, excluir: set[str]) -> Resultado:
         resumen.append(f"Excluidos a mano (--excluir): {a_mano}")
     prueba = f"{prefijo}-PRUEBA"
     return Resultado(destinatarios, resumen,
-                     variables_titular={"voucher": prueba, "enlace_voucher": enlace(evento, prueba)})
+                     variables_titular={"voucher": prueba, "enlace_voucher": enlace(evento, prueba), "pase": pase})
 
 
 def fechas_de(etapa: int) -> tuple[str | None, str]:

@@ -1,5 +1,5 @@
 {
-  "descripcion": "Quien compró el pase completo en la etapa 1: un voucher propio para que su familia lo compre al mismo precio. Pasos en docs/campanas/familia/README.md.",
+  "descripcion": "Quien compró el pase completo en la etapa 1: un voucher propio para que su familia lo compre al mismo precio. Correo con campana.py y WhatsApp por broadcast de respond.io. Pasos en docs/campanas/familia/README.md.",
   "audiencia": "familia",
   "parametros": {
     "boleta": "pase-completo",
@@ -7,16 +7,21 @@
     "prefijo": "FAMILIA"
   },
   "respondio": {
-    "tags": ["familia-etapa1"]
+    "tags": [
+      "familia-etapa1"
+    ],
+    "lifecycle": "Customer",
+    "campos": {
+      "voucher_familia": "voucher"
+    }
   },
   "canales": {
     "correo": {
-      "activo": false,
-      "nota": "Falta la plantilla y el visto bueno del titular (docs/campanas/familia/README.md)."
-    },
-    "whatsapp": {
-      "activo": false,
-      "nota": "Falta la plantilla aprobada por Meta y el visto bueno del titular (docs/campanas/familia/README.md)."
+      "activo": true,
+      "plantilla": "familia.html",
+      "asunto": "Para quien quieras llevar a Testigos de la Memoria",
+      "remitente": "Juan de Testigos de la Memoria <direccion@testigosdelamemoria.com>",
+      "responder_a": "manager@eventalist.co"
     }
   }
 }
