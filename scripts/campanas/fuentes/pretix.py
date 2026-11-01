@@ -18,6 +18,13 @@ COMPRO = {"pagado", "pendiente"}
 
 
 @dataclass
+class Posicion:
+    producto: str  # nombre del producto en Pretix ("Pase Completo")
+    precio: int  # lo que se pagó por esta boleta, en pesos
+    con_voucher: bool
+
+
+@dataclass
 class Pedido:
     codigo: str
     estado: str
@@ -27,17 +34,16 @@ class Pedido:
     total: str
     boletas: int
     asistente: str  # nombre del primer asistente; puede no ser quien compra
+    posiciones: list[Posicion]
 
 
 def leer_pedidos(evento: str) -> list[Pedido]:
     """Todos los pedidos reales del evento (sin modo prueba), página por página."""
-    token = llave("PRETIX_TOKEN", "eventalist-pretix")
-    tienda = hechos()["integraciones"]
-    servidor = "/".join(tienda["tienda"].split("/")[:3])
-    url = f"{servidor}/api/v1/organizers/{tienda['pretixOrganizador']}/events/{evento}/orders/?testmode=false"
+    productos = leer_productos(evento)
+    url = f"{api(evento)}/orders/?testmode=false"
     pedidos = []
     while url:
-        pagina = pedir_json(url, {"Authorization": f"Token {token}"}, f"Pretix (pedidos de {evento})")
+        pagina = pedir_json(url, cabeceras(), f"Pretix (pedidos de {evento})")
         for orden in pagina["results"]:
             estado = ESTADOS.get(orden["status"])
             if not estado:
@@ -51,11 +57,39 @@ def leer_pedidos(evento: str) -> list[Pedido]:
                 total=str(orden["total"]).replace(".", ","),
                 boletas=len(orden.get("positions") or []),
                 asistente=next((p.get("attendee_name") or "" for p in orden.get("positions") or []), ""),
+                posiciones=[Posicion(producto=productos.get(p["item"], f"producto {p['item']}"),
+                                     precio=round(float(p["price"])), con_voucher=p.get("voucher") is not None)
+                            for p in orden.get("positions") or []],
             ))
         url = pagina["next"]
     if not pedidos:
         sys.exit(f"Pretix no devolvió pedidos para {evento}. Revisar el nombre del evento y los permisos del token.")
     return pedidos
+
+
+def api(evento: str) -> str:
+    tienda = hechos()["integraciones"]
+    return f"{servidor()}/api/v1/organizers/{tienda['pretixOrganizador']}/events/{evento}"
+
+
+def servidor() -> str:
+    return "/".join(hechos()["integraciones"]["tienda"].split("/")[:3])
+
+
+def cabeceras() -> dict[str, str]:
+    return {"Authorization": f"Token {llave('PRETIX_TOKEN', 'eventalist-pretix')}"}
+
+
+def leer_productos(evento: str) -> dict[int, str]:
+    """Nombre de cada producto por su id. Pretix lo da por idioma; vale el español si existe."""
+    productos, url = {}, f"{api(evento)}/items/"
+    while url:
+        pagina = pedir_json(url, cabeceras(), f"Pretix (productos de {evento})")
+        for item in pagina["results"]:
+            nombre = item["name"]
+            productos[item["id"]] = (nombre.get("es") or next(iter(nombre.values()), "")) if isinstance(nombre, dict) else nombre
+        url = pagina["next"]
+    return productos
 
 
 def datos_de(pedidos: list[Pedido], estados: set[str]) -> set[str]:

@@ -11,6 +11,7 @@ Uso:
     python3 scripts/campanas/campana.py correo interesados [--prueba j.a.oso15@gmail.com] [--enviar]
     python3 scripts/campanas/campana.py whatsapp interesados [--prueba 57300...] [--enviar]
     python3 scripts/campanas/campana.py respondio expirados [--salida ~/Downloads/x.csv]
+    python3 scripts/campanas/campana.py vouchers familia-etapa1
     python3 scripts/campanas/campana.py registro
 
 lista arma la lista con los datos de este momento y la guarda en
@@ -32,6 +33,10 @@ respond.io, solo con quien autorizó WhatsApp, en ~/Downloads salvo que se
 diga otra ruta con --salida. Las etiquetas y la boleta de interés salen de
 "respondio" en la configuración; sin eso, la etiqueta es el nombre de la campaña.
 A cada etiqueta se le pega la fecha del día (expirados-23102026).
+
+vouchers arma la lista e imprime los códigos de voucher de la campaña, uno
+por línea, para pegarlos en Pretix (Vouchers → Crear varios). Solo para
+audiencias que dan un voucher por persona (familia).
 """
 
 from __future__ import annotations
@@ -235,6 +240,16 @@ def exportar_respondio(nombre: str, config: dict, args: argparse.Namespace) -> N
     print(f"\nPara respond.io: {len(personas)} filas con WhatsApp, etiqueta {etiquetas} -> {salida}")
 
 
+def imprimir_vouchers(nombre: str, config: dict, args: argparse.Namespace) -> None:
+    """Los códigos de las personas reales, uno por línea, sin datos de nadie."""
+    codigos = sorted({d.variables["voucher"] for d in armar_lista(nombre, config, args)
+                      if d.tipo == "real" and d.variables.get("voucher")})
+    if not codigos:
+        sys.exit(f"La campaña {nombre} no da vouchers (su audiencia no tiene la variable voucher).")
+    print(f"\n{len(codigos)} vouchers para pegar en Pretix (Vouchers → Crear varios):\n")
+    print("\n".join(codigos))
+
+
 def resumen_registro(nombre: str | None) -> None:
     """Cuántos mensajes salieron, por campaña, canal, día y tipo. Sin datos de personas."""
     conteo = Counter(
@@ -249,7 +264,7 @@ def resumen_registro(nombre: str | None) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("accion", choices=["lista", "correo", "whatsapp", "respondio", "registro"])
+    parser.add_argument("accion", choices=["lista", "correo", "whatsapp", "respondio", "vouchers", "registro"])
     parser.add_argument("campana", nargs="?", help="Nombre de la campaña (archivo en scripts/campanas/config/)")
     parser.add_argument("--lista", help="Usar esta lista ya guardada en vez de armarla de nuevo")
     parser.add_argument("--excluir", action="append", default=[],
@@ -274,6 +289,8 @@ def main() -> None:
         armar_lista(args.campana, config, args)
     elif args.accion == "respondio":
         exportar_respondio(args.campana, config, args)
+    elif args.accion == "vouchers":
+        imprimir_vouchers(args.campana, config, args)
     else:
         enviar(args.campana, config, args.accion, args)
 

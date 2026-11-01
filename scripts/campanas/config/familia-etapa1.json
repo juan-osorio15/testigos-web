@@ -1,0 +1,22 @@
+{
+  "descripcion": "Quien compró el pase completo en la etapa 1: un voucher propio para que su familia lo compre al mismo precio. Pasos en docs/campanas/familia/README.md.",
+  "audiencia": "familia",
+  "parametros": {
+    "boleta": "pase-completo",
+    "etapa": 1,
+    "prefijo": "FAMILIA"
+  },
+  "respondio": {
+    "tags": ["familia-etapa1"]
+  },
+  "canales": {
+    "correo": {
+      "activo": false,
+      "nota": "Falta la plantilla y el visto bueno del titular (docs/campanas/familia/README.md)."
+    },
+    "whatsapp": {
+      "activo": false,
+      "nota": "Falta la plantilla aprobada por Meta y el visto bueno del titular (docs/campanas/familia/README.md)."
+    }
+  }
+}

@@ -6,7 +6,7 @@
 
 Arma la lista con los datos del momento y dice cuántos quedaron y cuántos salieron y por qué. No envía nada.
 
-- Campañas: `expirados`, `interesados`, `compradores`, `agenda-fernando`, `carta-fernando`, `cierre-descuento-2-carta`.
+- Campañas: `expirados`, `interesados`, `compradores`, `agenda-fernando`, `carta-fernando`, `cierre-descuento-2-carta`, `familia-etapa1`, `familia-etapa2`.
 - `--dias N`: solo las personas de los últimos N días.
 - `--excluir correo-o-telefono`: deja a alguien por fuera (se puede repetir).
 
@@ -39,6 +39,12 @@ Arma el CSV de importación de respond.io en `~/Downloads`, solo con quien autor
 - `respondio compradores`: todos los compradores de Pretix como Customer y con la columna `baja` en `true` (todo teléfono, sin mirar la autorización). Opcional: casi ningún comprador está en respond.io. Si se usa, importar con Purpose "Update existing contacts only" e identificador Phone, para no crear contactos nuevos.
 - `--salida RUTA.csv`: guarda el archivo en otra parte.
 - `--dias N` y `--excluir`: igual que en `lista`.
+
+### `python3 scripts/campanas/campana.py vouchers <campaña>`
+
+Imprime los códigos de voucher de la campaña, uno por línea, para pegarlos en Pretix (Vouchers → Crear varios vouchers nuevos). Solo para las campañas que dan un voucher por persona: `familia-etapa1` y `familia-etapa2` (`docs/campanas/familia/README.md`).
+
+- `--excluir`: igual que en `lista`.
 
 ### `python3 scripts/campanas/campana.py registro`
 
