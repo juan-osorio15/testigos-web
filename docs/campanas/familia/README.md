@@ -5,7 +5,7 @@ Quien compró en la etapa 1 o en la etapa 2 recibe un código propio para que su
 Decisiones del titular (2026-11-01):
 
 - **4 usos por código** (cada boleta es un uso) y **vence el jueves 5 de noviembre** a las 11:59 p.m.
-- **Correo** y **WhatsApp por la API de Meta**, los dos con `campana.py`. No por respond.io: un broadcast no deja poner el código de cada persona en la plantilla, y `boleta_de_interes` no sirve para eso porque Catalina lo lee en su prompt.
+- **Correo** con `campana.py` y **WhatsApp uno por uno desde respond.io** (unas 25 personas). Un broadcast no deja poner el código de cada persona en la plantilla, `boleta_de_interes` no sirve porque Catalina lo lee en su prompt, y la API de Meta no está configurada en el portafolio (revisado el 2026-11-01: no hay app ni usuario del sistema de campañas).
 - Esta campaña sí les escribe a los compradores: es la excepción a la regla de `../reglas.md`.
 
 Envío: martes 3 de noviembre (`../checklist-diario.md`). El lunes 2 es festivo.
@@ -23,13 +23,13 @@ El código de cada persona es `FAMILIA-` más el código de su pedido (por ejemp
 
 Canales, con las mismas reglas que expirados: correo a todos salvo baja en el backend; WhatsApp solo a quien lo autorizó en el backend y sigue vigente.
 
-## Paso 1. Hoy: mandar la plantilla a Meta
+## Paso 1. La plantilla de WhatsApp
 
-Crear `fa1_precio_para_los_tuyos` en WhatsApp Manager, campo por campo como dice [`whatsapp/README.md`](whatsapp/README.md). Tiene que quedar aprobada antes del martes.
+`fa1_precio_para_los_tuyos`, campo por campo como dice [`whatsapp/README.md`](whatsapp/README.md). Aprobada el 2026-11-01.
 
-## Paso 2. Las llaves de WhatsApp en este Mac
+## Paso 2. Pasado
 
-`campana.py whatsapp` pide `WHATSAPP_TOKEN` y `WHATSAPP_WABA_ID` (de dónde salen: `docs/campanas/README.md`, "Llaves"). Si ya mandas EX e IN por la API desde otro equipo, se envía desde ahí.
+(Era guardar las llaves de la API de Meta; ya no hace falta.)
 
 ## Paso 3. Crear los vouchers en el sandbox y probarlos
 
@@ -80,9 +80,7 @@ Los vouchers tienen que existir antes de que salga cualquier mensaje.
 - **Correo**: [`correo/README.md`](correo/README.md).
 - **WhatsApp**: [`whatsapp/README.md`](whatsapp/README.md).
 
-Si sabes de un comprador que pidió no recibir mensajes y no está marcado en el backend, sácalo con `--excluir su-correo-o-teléfono` en los dos canales.
-
-Los mensajes por la API no aparecen en la bandeja de respond.io, pero las respuestas sí le llegan a Catalina, como en EX e IN.
+Si sabes de un comprador que pidió no recibir mensajes y no está marcado en el backend, sácalo con `--excluir su-correo-o-teléfono` en el correo y sáltalo en WhatsApp.
 
 ## Cómo saber cuántos lo usaron
 
