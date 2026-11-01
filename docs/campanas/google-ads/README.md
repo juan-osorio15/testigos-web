@@ -469,3 +469,39 @@ El presupuesto total (180.000 COP, incluidos los 49.730 ya gastados) y el estado
 - Fecha final al sábado 7 de noviembre, 23:59 (antes el 6). El presupuesto total no se tocó.
 - Las tres que quedaban en amplia pasaron a frase: `"planes turisticos villa de leyva"`, `"planes para villa de leyva"` y `"que se puede hacer en villa de leyva"`. El grupo TDLM v1 ya no tiene palabras en amplia.
 - Marca: el titular pausó las dos el 28 a las 12:43. La exacta se reactivó el 29 a las 9:36 por la API; la de frase sigue pausada hasta que él decida.
+
+## Retargeting en Demand Gen (desde el 31 de octubre)
+
+Campaña aparte, `remarketing`, en YouTube, Discover y Gmail, solo para quien ya visitó el sitio y no compró. Plata nueva, aparte de Búsqueda (que sigue en 230.000): 80.000 COP de presupuesto total, del lunes 2 al jueves 5 de noviembre (20.000 diarios). Demand Gen pide mínimo 19.000 COP diarios; por eso no cupo la idea inicial de 30.000 sacados de Búsqueda. El titular autorizó el monto el 1 de noviembre y Claude la creó activa por la API, fuera del candado de `ads.py`, que sigue igual. Solo Colombia y español, en el grupo de anuncios.
+
+- **Públicos (GA4, creados el 31 de octubre):** "Visitantes sin compra 30 días" (`session_start`, excluye para siempre a quien hace `purchase`) y "Empezaron a pagar y no compraron" (`begin_checkout` sin `purchase`, sugerencia de GA4). Duración de 30 días. Llegan a Ads porque el 31 de octubre se habilitó la publicidad personalizada en el enlace GA4 y Ads (antes estaba inhabilitada). Solo entra quien aceptó publicidad en el aviso de cookies. Google pide 100 personas activas por lista para mostrar anuncios.
+- **Grupo de anuncios:** `afiche-panelistas_visitantes`. Demand Gen no acepta listas sueltas: van juntas en el público "Visitantes sin compra y pago sin terminar" (audiences/363700688).
+- **Imágenes:** horizontal 1200x628 recortada de `public/og/og-image-v3.png`; cuadrada 1200x1200 sacada de su lado derecho (logo, caras y botón); logo cuadrado de `brand/logo/simbolo.png`.
+- **Puja:** maximizar clics. La de conversiones pide 10 veces el costo por venta al día.
+
+URL final:
+
+```
+https://testigosdelamemoria.com/?utm_source=google&utm_medium=paid_search&utm_campaign=remarketing&utm_content=afiche-panelistas_visitantes
+```
+
+Títulos (máximo 40 caracteres):
+
+```
+La historia reciente, contada de frente
+15 periodistas en Villa de Leyva
+¿Te imaginas preguntarle a Fidel Cano?
+Del 5 al 8 de noviembre, Villa de Leyva
+Aún estás a tiempo de venir
+```
+
+Descripciones (máximo 90):
+
+```
+Yolanda Ruiz, María Elvira Samper y Fidel Cano cuentan lo que vieron y responden.
+Cuatro días con los periodistas que vivieron de frente la historia reciente del país.
+Pase completo, pase de fin de semana o boletas de medio día desde 90.000 pesos.
+Charlas abiertas gratis y conversatorios con aforo limitado. Pago con tarjeta o PSE.
+```
+
+Nombre del negocio: `Testigos de la Memoria`. Botón: Comprar ahora.
