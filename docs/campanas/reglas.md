@@ -81,7 +81,7 @@ Se crean en WhatsApp Manager, en la cuenta del número colombiano, al menos un d
 
 1. Broadcasts → nuevo broadcast → canal WhatsApp del número colombiano → la plantilla.
 2. Si la plantilla tiene `{{1}}` (solo expirados), First Name.
-3. Audiencia: la que diga la campaña, siempre con la casilla **Baja** sin marcar y Lifecycle distinto de **Customer** (la excepción es `familia`, la única campaña a compradores: su audiencia es su etiqueta, ver `familia/whatsapp/README.md`). Antes, importar los compradores del día (`campana.py respondio compradores`) para que quien compró ayer quede como Customer.
+3. Audiencia: la que diga la campaña, siempre con la casilla **Baja** sin marcar y Lifecycle distinto de **Customer**. Antes, importar los compradores del día (`campana.py respondio compradores`) para que quien compró ayer quede como Customer.
 4. Programarlo dentro del horario, mejor entre 9:00 y 11:00 a.m.
 
 ### Nombres y piezas

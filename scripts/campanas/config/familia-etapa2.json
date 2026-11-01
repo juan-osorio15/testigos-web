@@ -1,19 +1,10 @@
 {
-  "descripcion": "Quien compró el pase de fin de semana en la etapa 2: un voucher propio para que su familia lo compre al mismo precio. Correo con campana.py y WhatsApp por broadcast de respond.io. Pasos en docs/campanas/familia/README.md.",
+  "descripcion": "Quien compró el pase de fin de semana en la etapa 2: un voucher propio para que su familia lo compre al mismo precio. Correo con campana.py y WhatsApp por la API de Meta. Pasos en docs/campanas/familia/README.md.",
   "audiencia": "familia",
   "parametros": {
     "boleta": "fin-de-semana",
     "etapa": 2,
     "prefijo": "FAMILIA"
-  },
-  "respondio": {
-    "tags": [
-      "familia-etapa2"
-    ],
-    "lifecycle": "Customer",
-    "campos": {
-      "voucher_familia": "voucher"
-    }
   },
   "canales": {
     "correo": {
@@ -22,6 +13,15 @@
       "asunto": "Para quien quieras llevar a Testigos de la Memoria",
       "remitente": "Juan de Testigos de la Memoria <direccion@testigosdelamemoria.com>",
       "responder_a": "manager@eventalist.co"
+    },
+    "whatsapp": {
+      "activo": true,
+      "plantilla": "fa1_precio_para_los_tuyos",
+      "idioma": "es",
+      "variables": [
+        "voucher"
+      ],
+      "boton": "voucher"
     }
   }
 }

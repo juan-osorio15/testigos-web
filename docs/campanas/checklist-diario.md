@@ -70,7 +70,7 @@ Desde hoy, revisar en Pretix que lo que nombra cada plantilla siga a la venta.
 
 - **GA** · Google Ads · seguimiento cada dos días · Hecho: [ ]
 - **GR** · Google Ads · antes de que arranque `remarketing` (lunes 2): tamaño de las dos listas (100 activas para que salga) y anuncio aprobado · Hecho: [ ]
-- **FA** · familia · plantilla `fa1_precio_para_los_tuyos` creada en WhatsApp Manager, campo `voucher_familia` en respond.io y vouchers de prueba en el sandbox (`familia/README.md`, pasos 1 a 3) · Hecho: [ ]
+- **FA** · familia · plantilla `fa1_precio_para_los_tuyos` creada en WhatsApp Manager, llaves de WhatsApp a mano y vouchers de prueba en el sandbox (`familia/README.md`, pasos 1 a 3) · Hecho: [ ]
 
 ## Martes 3 nov
 
@@ -84,7 +84,7 @@ Desde hoy, revisar en Pretix que lo que nombra cada plantilla siga a la venta.
 - Plantilla `ex3_cafe_del_domingo` creada en WhatsApp Manager (para EX3 del jueves) · Hecho: [ ]
 - **FA vouchers** · familia · vouchers reales creados en Pretix, antes de cualquier envío (`familia/README.md`, paso 4) · Hecho: [ ]
 - **FA correo** · familia · `correo familia-etapa1` y `correo familia-etapa2` · Preparado: [ ] · Mandado: [ ]
-- **FA WhatsApp** · familia · respond.io, a las etiquetas `familia-etapa1` y `familia-etapa2` del día, sin filtro de Baja · Preparado: [ ] · Mandado: [ ]
+- **FA WhatsApp** · familia · API · `whatsapp familia-etapa1` y `whatsapp familia-etapa2` · Preparado: [ ] · Mandado: [ ]
 - **GA** · Google Ads · seguimiento cada dos días · Hecho: [ ]
 
 ## Miércoles 4 nov

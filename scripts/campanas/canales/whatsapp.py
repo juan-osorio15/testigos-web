@@ -8,6 +8,8 @@ eventalist-whatsapp-cuenta); de dónde salen: docs/campanas/README.md
 
 La configuración dice qué columna de la lista llena cada variable de la
 plantilla, en orden: "variables": ["codigo"] llena {{1}} con el código.
+"boton": "voucher" llena con esa columna el final de la URL del botón de
+enlace (el primero de la plantilla), para plantillas con URL dinámica.
 Las respuestas siguen llegando a Tevit, el chatbot; este canal solo envía.
 """
 
@@ -40,6 +42,7 @@ class WhatsApp:
         self.plantilla = config["plantilla"]
         self.idioma = config.get("idioma", "es")
         self.variables = config.get("variables", [])
+        self.boton = config.get("boton", "")
         self._token = ""
         self._waba = ""
         self._numero = ""
@@ -56,7 +59,7 @@ class WhatsApp:
         mensajes = []
         for d in destinatarios:
             valores = d.valores()
-            faltan = [v for v in self.variables if not valores.get(v)]
+            faltan = [v for v in [*self.variables, self.boton] if v and not valores.get(v)]
             if faltan:
                 raise SystemExit(f"La lista no trae {faltan} para la plantilla {self.plantilla}.")
             mensajes.append(Mensaje(d, [valores[v] for v in self.variables]))
@@ -76,10 +79,14 @@ class WhatsApp:
             "type": "template",
             "template": {"name": self.plantilla, "language": {"code": self.idioma}},
         }
+        componentes = []
         if mensaje.contenido:
-            cuerpo["template"]["components"] = [
-                {"type": "body", "parameters": [{"type": "text", "text": v} for v in mensaje.contenido]}
-            ]
+            componentes.append({"type": "body", "parameters": [{"type": "text", "text": v} for v in mensaje.contenido]})
+        if self.boton:
+            componentes.append({"type": "button", "sub_type": "url", "index": "0",
+                                "parameters": [{"type": "text", "text": mensaje.destinatario.valores()[self.boton]}]})
+        if componentes:
+            cuerpo["template"]["components"] = componentes
         identificador = self._llamar(f"{self.numero()}/messages", cuerpo)["messages"][0]["id"]
         time.sleep(1)
         return identificador

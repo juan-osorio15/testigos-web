@@ -5,7 +5,7 @@ Quien compró en la etapa 1 o en la etapa 2 recibe un código propio para que su
 Decisiones del titular (2026-11-01):
 
 - **4 usos por código** (cada boleta es un uso) y **vence el jueves 5 de noviembre** a las 11:59 p.m.
-- **Correo** con `campana.py` y **WhatsApp por broadcast de respond.io**.
+- **Correo** y **WhatsApp por la API de Meta**, los dos con `campana.py`. No por respond.io: un broadcast no deja poner el código de cada persona en la plantilla, y `boleta_de_interes` no sirve para eso porque Catalina lo lee en su prompt.
 - Esta campaña sí les escribe a los compradores: es la excepción a la regla de `../reglas.md`.
 
 Envío: martes 3 de noviembre (`../checklist-diario.md`). El lunes 2 es festivo.
@@ -27,9 +27,9 @@ Canales, con las mismas reglas que expirados: correo a todos salvo baja en el ba
 
 Crear `fa1_precio_para_los_tuyos` en WhatsApp Manager, campo por campo como dice [`whatsapp/README.md`](whatsapp/README.md). Tiene que quedar aprobada antes del martes.
 
-## Paso 2. Crear el campo en respond.io
+## Paso 2. Las llaves de WhatsApp en este Mac
 
-Settings → Contact Fields → Add Field: nombre `Voucher familia`, Field ID `voucher_familia`, tipo Text. Lo usa la plantilla para el código.
+`campana.py whatsapp` pide `WHATSAPP_TOKEN` y `WHATSAPP_WABA_ID` (de dónde salen: `docs/campanas/README.md`, "Llaves"). Si ya mandas EX e IN por la API desde otro equipo, se envía desde ahí.
 
 ## Paso 3. Crear los vouchers en el sandbox y probarlos
 
@@ -81,6 +81,8 @@ Los vouchers tienen que existir antes de que salga cualquier mensaje.
 - **WhatsApp**: [`whatsapp/README.md`](whatsapp/README.md).
 
 Si sabes de un comprador que pidió no recibir mensajes y no está marcado en el backend, sácalo con `--excluir su-correo-o-teléfono` en los dos canales.
+
+Los mensajes por la API no aparecen en la bandeja de respond.io, pero las respuestas sí le llegan a Catalina, como en EX e IN.
 
 ## Cómo saber cuántos lo usaron
 
