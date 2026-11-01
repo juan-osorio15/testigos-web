@@ -472,6 +472,8 @@ El presupuesto total (180.000 COP, incluidos los 49.730 ya gastados) y el estado
 
 ## Retargeting en Demand Gen (desde el 31 de octubre)
 
+**Pausada el 1 de noviembre, antes de arrancar, sin gasto.** Los públicos de GA4 no se llenan con días pasados: empiezan a contar desde que se crean. Para el 4 de noviembre las listas habrían tenido un par de cientos de personas, casi todas ya alcanzadas por el retargeting de Meta. Los públicos y la publicidad personalizada quedan activos para la próxima edición, donde el retargeting de Google se monta semanas antes. Lo de abajo queda como registro.
+
 Campaña aparte, `remarketing`, en YouTube, Discover y Gmail, solo para quien ya visitó el sitio y no compró. Plata nueva, aparte de Búsqueda (que sigue en 230.000): 80.000 COP de presupuesto total, del lunes 2 al jueves 5 de noviembre (20.000 diarios). Demand Gen pide mínimo 19.000 COP diarios; por eso no cupo la idea inicial de 30.000 sacados de Búsqueda. El titular autorizó el monto el 1 de noviembre y Claude la creó activa por la API, fuera del candado de `ads.py`, que sigue igual. Solo Colombia y español, en el grupo de anuncios.
 
 - **Públicos (GA4, creados el 31 de octubre):** "Visitantes sin compra 30 días" (`session_start`, excluye para siempre a quien hace `purchase`) y "Empezaron a pagar y no compraron" (`begin_checkout` sin `purchase`, sugerencia de GA4). Duración de 30 días. Llegan a Ads porque el 31 de octubre se habilitó la publicidad personalizada en el enlace GA4 y Ads (antes estaba inhabilitada). Solo entra quien aceptó publicidad en el aviso de cookies. Google pide 100 personas activas por lista para mostrar anuncios.

@@ -69,7 +69,6 @@ Desde hoy, revisar en Pretix que lo que nombra cada plantilla siga a la venta.
 ## Domingo 1 nov
 
 - **GA** · Google Ads · seguimiento cada dos días · Hecho: [ ]
-- **GR** · Google Ads · antes de que arranque `remarketing` (lunes 2): tamaño de las dos listas (100 activas para que salga) y anuncio aprobado · Hecho: [ ]
 - **FA** · familia · plantilla `fa1_precio_para_los_tuyos` creada en WhatsApp Manager, llaves de WhatsApp a mano y vouchers de prueba en el sandbox (`familia/README.md`, pasos 1 a 3) · Hecho: [ ]
 
 ## Martes 3 nov
@@ -89,7 +88,6 @@ Desde hoy, revisar en Pretix que lo que nombra cada plantilla siga a la venta.
 
 ## Miércoles 4 nov
 
-- **GR** · Google Ads · `remarketing`: gasto, clics y compras (corre hasta el jueves 5) · Hecho: [ ]
 - Compradores importados a respond.io (antes de los broadcasts) · Hecho: [ ]
 - **Expirados nuevos** · respond.io · Preparado: [ ] · Mandado: [ ]
 - **GV11** · grupos de Villa · Ana María Echeverri y las guerrillas · Preparado: [ ] · Mandado: [ ]
