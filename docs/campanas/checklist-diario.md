@@ -80,6 +80,7 @@ Desde hoy, revisar en Pretix que lo que nombra cada plantilla siga a la venta.
 - **RC7** · inactivos · Marta Ruiz y Guillermo González Uribe · Preparado: [ ] · Mandado: [ ]
 - **IN2** · interesados · API · mujeres periodistas · Preparado: [ ] · Mandado: [ ]
 - **EX2** · expirados · API · narcotráfico · Preparado: [ ] · Mandado: [ ]
+- Plantilla `ex3_cafe_del_domingo` creada en WhatsApp Manager (para EX3 del jueves) · Hecho: [ ]
 - **GA** · Google Ads · seguimiento cada dos días · Hecho: [ ]
 
 ## Miércoles 4 nov
@@ -95,6 +96,7 @@ Desde hoy, revisar en Pretix que lo que nombra cada plantilla siga a la venta.
 
 - **GV6** · grupos de Villa · hoy empiezan las charlas abiertas (antes de las 10:00 a.m.). La pieza (afiche general) tiene a Ricardo Ospina y a León Valencia: hace falta otra. · Preparado: [ ] · Mandado: [ ]
 - **LF11** · lista de Fernando · hoy empieza, con Ana María Echeverri (antes de las 10:00 a.m.) · Preparado: [ ] · Mandado: [ ]
+- **EX3** · expirados · API · café del domingo con Yolanda Ruiz y María Elvira Samper · Preparado: [ ] · Mandado: [ ]
 - **GA** · Google Ads · seguimiento cada dos días · Hecho: [ ]
 
 ## Viernes 6 nov

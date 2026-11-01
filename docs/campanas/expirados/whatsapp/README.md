@@ -10,6 +10,7 @@ Va por dos caminos: las plantillas semanales por la API de Meta, con `campana.py
 
 - **EX1** · martes 27 oct · plantilla `ex1_pedido_vencido`
 - **EX2** · martes 3 nov · plantilla `ex2_sabado_en_la_tarde` (Narcotráfico)
+- **EX3** · jueves 5 nov · plantilla `ex3_cafe_del_domingo` (Mujeres periodistas y conflicto). Habla de "este domingo": sirve de martes a sábado de esa semana, no antes.
 
 ## Antes del primer envío (una sola vez)
 
@@ -24,6 +25,7 @@ La plantilla anterior, `pedido_expirado_ayuda`, no se usa: nombra a Daniel Sampe
 1. Revisar que `scripts/campanas/config/expirados.json` tenga la plantilla de la semana:
    - EX1: `"plantilla": "ex1_pedido_vencido"`, `"variables": ["primer_nombre", "codigo"]`
    - EX2: `"plantilla": "ex2_sabado_en_la_tarde"`, `"variables": ["primer_nombre"]`
+   - EX3: `"plantilla": "ex3_cafe_del_domingo"`, `"variables": ["primer_nombre"]`
 2. Ver a quién le llegaría:
    ```
    python3 scripts/campanas/campana.py lista expirados
@@ -87,6 +89,26 @@ Esa conversación entra en la boleta de medio día del sábado en la tarde, de $
 - Pie: `Para no recibir más mensajes, responde BAJA.`
 - Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=expirados&utm_content=plantilla-sabado-tarde`
 - Botón de respuesta rápida **Quiero ayuda**.
+
+## EX3 · `ex3_cafe_del_domingo`
+
+Más aspiracional: la escena del fin de semana primero, la conversación en el centro, la boleta al final. Variable `{{1}}`: primer nombre (`primer_nombre`; ejemplo para Meta: `Ana`).
+
+```
+Hola, {{1}}. Te escribimos de Testigos de la Memoria (Eventalist S.A.S.).
+
+Este domingo podrías estar tomándote un café en la plaza de Villa de Leyva, todavía pensando en lo que acabas de escuchar: Yolanda Ruiz y María Elvira Samper contando, a pocos metros de ti, cómo fue cubrir el conflicto colombiano siendo mujeres.
+
+Es el domingo 8 de noviembre a las 11:00 a.m., en la Hospedería Duruelo, y al final puedes hacerles tu pregunta.
+
+Tu reserva anterior se venció, pero todavía hay cupo. Esa mañana entra en la boleta de medio día del domingo, de $90.000.
+
+¿Te ayudamos a reservar? Escríbenos por aquí.
+```
+
+- Pie: `Para no recibir más mensajes, responde BAJA.`
+- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=expirados&utm_content=plantilla-cafe-domingo`
+- Botón de respuesta rápida **Quiero reservar**.
 
 ## Plantillas anteriores (ya no se usan)
 
