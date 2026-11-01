@@ -16,7 +16,8 @@ Pretix con la lista que saca `campana.py vouchers <campaña>`.
   salvo baja en el backend; WhatsApp solo con autorización vigente.
 
 Parámetros: boleta (id de src/data/event.ts), etapa (1 o 2), prefijo,
-campana_backend.
+campana_backend. La config lleva además vence, que solo usa
+`campana.py vouchers --revisar`.
 """
 
 from __future__ import annotations
@@ -88,7 +89,7 @@ def armar(evento: str, parametros: dict, excluir: set[str]) -> Resultado:
         voucher = f"{prefijo}-{suyos[-1].codigo}"
         destinatarios.append(Destinatario(
             saludo=saludo(nombre), nombre=nombre, correo=correo, whatsapp=telefono.lstrip("+"),
-            variables={"voucher": voucher, "enlace_voucher": enlace(evento, voucher), "pase": pase},
+            variables={"voucher": voucher, "enlace_voucher": enlace(evento, voucher), "pase": pase, "precio": str(precio)},
             detalle={"pedidos": " ".join(p.codigo for p in suyos), "compra": f"{suyos[-1].creado:%Y-%m-%d %H:%M}",
                      "boletas_del_pase": str(sum(1 for p in suyos for x in p.posiciones if califica(x)))},
         ))
@@ -106,7 +107,8 @@ def armar(evento: str, parametros: dict, excluir: set[str]) -> Resultado:
         resumen.append(f"Excluidos a mano (--excluir): {a_mano}")
     prueba = f"{prefijo}-PRUEBA"
     return Resultado(destinatarios, resumen,
-                     variables_titular={"voucher": prueba, "enlace_voucher": enlace(evento, prueba), "pase": pase})
+                     variables_titular={"voucher": prueba, "enlace_voucher": enlace(evento, prueba), "pase": pase,
+                                       "precio": str(precio)})
 
 
 def fechas_de(etapa: int) -> tuple[str | None, str]:

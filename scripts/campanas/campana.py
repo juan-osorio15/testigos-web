@@ -11,7 +11,7 @@ Uso:
     python3 scripts/campanas/campana.py correo interesados [--prueba j.a.oso15@gmail.com] [--enviar]
     python3 scripts/campanas/campana.py whatsapp interesados [--prueba 57300...] [--enviar]
     python3 scripts/campanas/campana.py respondio expirados [--salida ~/Downloads/x.csv]
-    python3 scripts/campanas/campana.py vouchers familia-etapa1
+    python3 scripts/campanas/campana.py vouchers familia-etapa1 [--revisar]
     python3 scripts/campanas/campana.py registro
 
 lista arma la lista con los datos de este momento y la guarda en
@@ -36,7 +36,10 @@ A cada etiqueta se le pega la fecha del día (expirados-23102026).
 
 vouchers arma la lista e imprime los códigos de voucher de la campaña, uno
 por línea, para pegarlos en Pretix (Vouchers → Crear varios). Solo para
-audiencias que dan un voucher por persona (familia).
+audiencias que dan un voucher por persona (familia). Con --revisar, después de
+crearlos, los lee de Pretix (los que llevan la etiqueta de la campaña) y dice
+si falta o sobra alguno o si alguno quedó con otro producto, precio, usos o
+vencimiento.
 """
 
 from __future__ import annotations
@@ -61,7 +64,8 @@ import reglas  # noqa: E402
 from audiencias import audiencia, excluidos  # noqa: E402
 from canales import ErrorCanal, canal  # noqa: E402
 from comun import BOGOTA, CONFIG, DATOS  # noqa: E402
-from hechos import leer as hechos  # noqa: E402
+from fuentes import pretix  # noqa: E402
+from hechos import boleta as boleta_de, leer as hechos  # noqa: E402
 from verificar import revisar_correo  # noqa: E402
 
 # Columna que dice qué tan reciente es cada persona, por audiencia (--dias).
@@ -250,6 +254,43 @@ def imprimir_vouchers(nombre: str, config: dict, args: argparse.Namespace) -> No
     print("\n".join(codigos))
 
 
+def revisar_vouchers(nombre: str, config: dict, args: argparse.Namespace) -> None:
+    """Compara los vouchers creados en Pretix con los que da la audiencia y con la config de la campaña."""
+    reales = [d for d in armar_lista(nombre, config, args) if d.tipo == "real" and d.variables.get("voucher")]
+    if not reales:
+        sys.exit(f"La campaña {nombre} no da vouchers (su audiencia no tiene la variable voucher).")
+    esperados = {d.variables["voucher"] for d in reales}
+    precio = int(reales[0].variables["precio"])
+    producto = boleta_de(config["parametros"]["boleta"])["productoPretix"]
+    vence = config["parametros"]["vence"]
+    productos = pretix.leer_productos(config["evento"])
+    creados = pretix.leer_vouchers(config["evento"], nombre)
+    codigos = {v["code"] for v in creados}
+
+    problemas = [f"Falta en Pretix: {c}" for c in sorted(esperados - codigos)]
+    problemas += [f"Sobra en Pretix (no es de nadie en la lista de hoy): {c}" for c in sorted(codigos - esperados)]
+    for v in sorted(creados, key=lambda v: v["code"]):
+        mal = []
+        if productos.get(v["item"]) != producto or v["variation"] or v["quota"]:
+            mal.append(f"producto {productos.get(v['item'], 'ninguno')} en vez de {producto}")
+        if v["price_mode"] != "set" or round(float(v["value"] or 0)) != precio:
+            mal.append(f"precio {v['price_mode']} {v['value']} en vez de fijar {precio}")
+        if v["max_usages"] != 4 or v["min_usages"] != 1:
+            mal.append(f"usos {v['min_usages']} a {v['max_usages']} en vez de 1 a 4")
+        hasta = v["valid_until"] and f"{datetime.fromisoformat(v['valid_until']).astimezone(BOGOTA):%Y-%m-%d %H:%M}"
+        if hasta != vence:
+            mal.append(f"vence {hasta or 'nunca'} en vez de {vence}")
+        mal += [campo for campo in ("block_quota", "allow_ignore_quota", "show_hidden_items") if v[campo]]
+        if v["budget"]:
+            mal.append(f"presupuesto {v['budget']}")
+        problemas += [f"{v['code']}: {', '.join(mal)}"] if mal else []
+
+    print(f"\n{len(creados)} vouchers con la etiqueta {nombre} en {config['evento']}; la lista da {len(esperados)}.")
+    print("\n".join(problemas) if problemas else f"Todos bien: {producto}, {precio}, 4 usos, vencen {vence}.")
+    if problemas:
+        sys.exit(1)
+
+
 def resumen_registro(nombre: str | None) -> None:
     """Cuántos mensajes salieron, por campaña, canal, día y tipo. Sin datos de personas."""
     conteo = Counter(
@@ -275,6 +316,8 @@ def main() -> None:
     parser.add_argument("--saltar", type=int, help="correo y whatsapp: no mandar a los primeros N pendientes")
     parser.add_argument("--maximo", type=int, help="correo y whatsapp: mandar solo a los primeros N pendientes (por tandas)")
     parser.add_argument("--enviar", action="store_true", help="Enviar de verdad (sin esto solo se muestra)")
+    parser.add_argument("--revisar", action="store_true",
+                        help="vouchers: comparar los ya creados en Pretix con la lista y la config")
     parser.add_argument("--ignorar-horario", action="store_true",
                         help="Enviar fuera del horario de la Ley 2300 (decisión explícita del titular)")
     args = parser.parse_args()
@@ -290,7 +333,7 @@ def main() -> None:
     elif args.accion == "respondio":
         exportar_respondio(args.campana, config, args)
     elif args.accion == "vouchers":
-        imprimir_vouchers(args.campana, config, args)
+        (revisar_vouchers if args.revisar else imprimir_vouchers)(args.campana, config, args)
     else:
         enviar(args.campana, config, args.accion, args)
 

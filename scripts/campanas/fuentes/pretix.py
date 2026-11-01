@@ -92,6 +92,16 @@ def leer_productos(evento: str) -> dict[int, str]:
     return productos
 
 
+def leer_vouchers(evento: str, etiqueta: str) -> list[dict]:
+    """Los vouchers con esa etiqueta, tal como los da la API (code, max_usages, valid_until, item, price_mode...)."""
+    vouchers, url = [], f"{api(evento)}/vouchers/?tag={etiqueta}"
+    while url:
+        pagina = pedir_json(url, cabeceras(), f"Pretix (vouchers de {evento})")
+        vouchers += pagina["results"]
+        url = pagina["next"]
+    return vouchers
+
+
 def datos_de(pedidos: list[Pedido], estados: set[str]) -> set[str]:
     """Correos y teléfonos de los pedidos en esos estados."""
     return {p.correo for p in pedidos if p.estado in estados and p.correo} | {

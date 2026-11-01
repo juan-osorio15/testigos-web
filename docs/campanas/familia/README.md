@@ -31,31 +31,9 @@ Canales, con las mismas reglas que expirados: correo a todos salvo baja en el ba
 
 (Era guardar las llaves de la API de Meta; ya no hace falta.)
 
-## Paso 3. Crear los vouchers en el sandbox y probarlos
+## Paso 3. Pasado: sin prueba en el sandbox
 
-Primero en `testigos-sandbox`. Los pedidos reales no están ahí, así que basta con un código de prueba por grupo.
-
-1. Entrar a `https://pretix.eventalist.co/control/` con la cuenta de Eventalist y abrir `testigos-sandbox`.
-2. Ir a Vouchers → "Crear varios vouchers nuevos" (Create multiple new vouchers).
-3. Llenar:
-   - Códigos (Codes): `FAMILIA-PRUEBA`.
-   - Usos máximos (Maximum usages): `4`.
-   - Válido hasta (Valid until): jueves 5 de noviembre de 2026, 11:59 p.m.
-   - Producto (Product): solo **Pase Completo**.
-   - Efecto en el precio (Price effect): "Fijar el precio del producto en" (Set product price to) `310000`.
-   - Etiqueta (Tag): `familia-etapa1`.
-   - Comentario (Comment): `Familia etapa 1, docs/campanas/familia/README.md`.
-   - Sin marcar: reservar cupo (Reserve ticket from quota), saltar el cupo (Allow to bypass quota), mostrar productos ocultos (Shows hidden products) y enviar los vouchers por correo.
-4. Guardar.
-5. Repetir con código `FAMILIA-PRUEB2`, producto **Pase Fin de Semana**, precio `240000` y etiqueta `familia-etapa2`.
-
-Probar con Wompi de pruebas, con una captura en cada caso:
-
-1. Abrir `https://pretix.eventalist.co/eventalist/testigos-sandbox/redeem?voucher=FAMILIA-PRUEBA`: el Pase Completo sale a 310.000.
-2. Con el mismo código, 4 boletas: todas a 310.000.
-3. Una quinta con el código: Pretix no la deja.
-4. Con el código, otra boleta (Sábado en la tarde): no aplica.
-5. Una compra completa con pago de prueba: la orden queda pagada y el correo de Pretix muestra el precio del voucher.
+Lo que hace Pretix con un voucher está en su código ([`https://github.com/pretix/pretix`](https://github.com/pretix/pretix), `src/pretix/base/models/vouchers.py`, revisado el 2026-11-01): cada boleta del carrito es un uso y no pasa de "Número máximo de usos"; después de "Válido hasta" el código deja de servir; "Establecer el precio en" fija ese precio; con un producto elegido solo sirve para ese producto; y `/redeem?voucher=` abre la tienda con el código puesto. Lo que el código no puede saber es si los vouchers quedaron bien escritos en nuestra tienda: eso lo revisa `vouchers --revisar` en el paso 4, contra la API.
 
 ## Paso 4. Martes 3: crear los vouchers reales
 
@@ -67,9 +45,26 @@ Probar con Wompi de pruebas, con una captura en cada caso:
    python3 scripts/campanas/campana.py vouchers familia-etapa2
    ```
 
-2. En `testigos-memoria`, Vouchers → "Crear varios vouchers nuevos", pegar los códigos de `familia-etapa1` en Códigos (uno por línea) y llenar lo mismo del paso 3 (4 usos, 5 de noviembre, Pase Completo, 310.000, etiqueta `familia-etapa1`). Guardar.
-3. Lo mismo con los de `familia-etapa2` (Pase Fin de Semana, 240.000, etiqueta `familia-etapa2`).
-4. Abrir uno de los enlaces sin pagar para ver el precio, y vaciar el carrito.
+2. Entrar a `https://pretix.eventalist.co/control/`, abrir `testigos-memoria` e ir a Vales → "Crear múltiples vales de compra nuevos" (en inglés, Vouchers → "Create multiple new vouchers").
+3. Llenar con los códigos de `familia-etapa1`:
+   - Códigos: los que imprimió el comando, uno por línea.
+   - Número máximo de usos: `4`. Usos mínimos: `1`, como viene.
+   - Válido hasta: jueves 5 de noviembre de 2026, 11:59 p.m.
+   - Producto: solo **Pase Completo**.
+   - Efecto en el precio: "Establecer el precio en". Valor del vale: `310000`.
+   - Etiqueta: `familia-etapa1`, exacta: es como la encuentra la revisión.
+   - Comentario: `Familia etapa 1, docs/campanas/familia/README.md`.
+   - Sin marcar ni llenar: reservar entrada con cargo a la cuota, permitir omitir la cuota, mostrar productos ocultos, presupuesto máximo de descuento y enviar los vales por correo.
+4. Guardar y repetir con los de `familia-etapa2`: Pase Fin de Semana, `240000`, etiqueta `familia-etapa2`.
+5. Revisar que quedaron bien:
+
+   ```
+   python3 scripts/campanas/campana.py vouchers familia-etapa1 --revisar
+   python3 scripts/campanas/campana.py vouchers familia-etapa2 --revisar
+   ```
+
+   Cada uno tiene que terminar en "Todos bien". Si dice que falta, sobra o quedó mal alguno, se corrige en Pretix y se vuelve a correr.
+6. Abrir uno de los enlaces para ver el precio, sin pagar, y vaciar el carrito.
 
 `FAMILIA-PRUEBA` no se crea en producción: es el código que les llega a las filas del equipo en las pruebas.
 

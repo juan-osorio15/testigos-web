@@ -4,7 +4,8 @@
   "parametros": {
     "boleta": "fin-de-semana",
     "etapa": 2,
-    "prefijo": "FAMILIA"
+    "prefijo": "FAMILIA",
+    "vence": "2026-11-05 23:59"
   },
   "canales": {
     "correo": {
