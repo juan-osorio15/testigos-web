@@ -77,7 +77,7 @@ Desde hoy, revisar en Pretix que lo que nombra cada plantilla siga a la venta.
 - Expirados importados a respond.io, **sin broadcast** (les llega EX2) · Hecho: [ ]
 - **GV5** · grupos de Villa · negociaciones de paz, con Marisol Gómez y María Alejandra Villamizar · Preparado: [ ] · Mandado: [ ]
 - **LF9** · lista de Fernando · Martha Soto · Preparado: [ ] · Mandado: [ ]
-- **RC7** · inactivos · Marta Ruiz y Guillermo González Uribe · Preparado: [ ] · Mandado: [ ]
+- **RC9** · inactivos · últimos días, con el afiche de las caras (reemplaza a RC7). Plantilla `rc9_ultimos_dias` aprobada en Meta y compradores importados antes · Preparado: [ ] · Mandado: [ ]
 - **IN2** · interesados · API · mujeres periodistas · Preparado: [ ] · Mandado: [ ]
 - **EX2** · expirados · API · narcotráfico · Preparado: [ ] · Mandado: [ ]
 - Plantilla `ex3_cafe_del_domingo` creada en WhatsApp Manager (para EX3 del jueves) · Hecho: [ ]

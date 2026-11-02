@@ -14,7 +14,8 @@ Cada plantilla tiene una sola idea (una conversación del programa o el recorrid
 - **RC4** · jueves 29 oct · último día del pase de fin de semana a $240.000. **No se envía:** la reemplaza CD3 ([`../../cierre-descuento/`](../../cierre-descuento/)), que llega a todos los contactos sin compra
 - **RC5** · viernes 30 oct · Marisol Gómez
 - **RC6** · sábado 31 oct (de 8:00 a.m. a 3:00 p.m.) · Luz María Sierra y Martha Soto
-- **RC7** · martes 3 nov · Marta Ruiz y Guillermo González Uribe
+- **RC7** · martes 3 nov · Marta Ruiz y Guillermo González Uribe. **No se envía:** la reemplaza RC9 (titular, 2026-11-02).
+- **RC9** · martes 3 nov · últimos días, con todos los nombres y los temas
 - **RC8** · miércoles 4 nov · mañana empieza
 
 El domingo 1 y el lunes 2 (festivo) no se envía.
@@ -157,6 +158,32 @@ El pase de fin de semana sigue con descuento por tiempo limitado, y también est
 - Botón de respuesta rápida **Sí, ayúdame**.
 - Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc7-magnicidios-victimas_boletas`
 - Botón de enlace **Ver hoteles** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc7-magnicidios-victimas_hospedaje#hospedaje`
+
+## RC9 · martes 3 de noviembre · `rc9_ultimos_dias`
+
+Reemplaza a RC7 (titular, 2026-11-02). Es el mismo texto que se le mandó a Fernando ese día, para audiencia amplia: la urgencia primero, después los nombres más conocidos y todos los temas, y al final los precios. **Excepción a las demás RC:** lleva encabezado de imagen, el afiche con las caras del titular (`WhatsApp Image 2026-11-02 at 11.01.16.jpeg`), que se sube al crear la plantilla y otra vez en el broadcast. Si Meta no la aprueba, se crea `rc9_ultimos_dias_v2` sin encabezado. Eventalist S.A.S. va en el pie y no al inicio.
+
+Antes del broadcast, importar a respond.io el CSV de `respondio compradores` para que quien compró quede como Customer y salga del segmento.
+
+```
+Este jueves empieza Testigos de la Memoria y quedan pocos días para conseguir tu boleta.
+
+Daniel Samper Pizano, Yolanda Ruiz, María Elvira Samper, Fidel Cano, Cecilia Orozco, Luz María Sierra, Martha Soto, Marta Ruiz y María Alejandra Villamizar, entre otros periodistas, cuentan en persona lo que les tocó cubrir de frente, y puedes hacerles preguntas.
+
+El Bogotazo y el Frente Nacional, el surgimiento de las guerrillas, lo que pasó en las mesas del Caguán y La Habana, el narcotráfico y el paramilitarismo, las reelecciones de Uribe y Santos, y lo que fue ser mujer periodista en medio del conflicto.
+
+Del 5 al 8 de noviembre en Villa de Leyva. El aforo es limitado.
+Boleta de medio día: $90.000
+Pase de fin de semana: $255.000, con descuento por tiempo limitado
+Pase completo: $340.000
+
+¿Te ayudamos a escoger tu boleta?
+```
+
+- Encabezado: imagen (el afiche con las caras).
+- Pie: `Eventalist S.A.S. · Responde BAJA para no recibir más`
+- Botón de respuesta rápida **Sí, ayúdame**.
+- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc9-ultimos-dias_boletas`
 
 ## RC8 · miércoles 4 de noviembre · `rc8_manana_empieza_v2`
 
