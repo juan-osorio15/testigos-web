@@ -7,69 +7,8 @@ Lo que toca cada día hasta el evento, una pieza por línea. Se marca con una X 
 
 Los textos, las piezas y los pasos están en la carpeta de cada campaña (`<campaña>/correo/` y `<campaña>/whatsapp/`); las reglas, en `reglas.md`. Cuando una campaña nueva o un cambio de calendario toca un día, se actualiza aquí en el mismo cambio.
 
-- **Horario de la Ley 2300:** lunes a viernes de 7:00 a.m. a 7:00 p.m., sábado de 8:00 a.m. a 3:00 p.m. Domingo 1 y lunes 2 de noviembre (festivo), nada.
+- **Horario de la Ley 2300:** lunes a viernes de 7:00 a.m. a 7:00 p.m., sábado de 8:00 a.m. a 3:00 p.m.
 - **Un WhatsApp por persona al día** (titular, 2026-10-27): entre la API y respond.io, a nadie le llegan dos el mismo día, salvo a los interesados. Si dos campañas caen el mismo día, gana CD, después EX y después RC. El correo va aparte.
-
-## Martes 27 oct
-
-- **GV9** · grupos de Villa · las reelecciones · Preparado: [X] · Mandado: [x]
-- **LF4** · lista de Fernando · Marta Ruiz · Preparado: [X] · Mandado: [x]
-- **RC2** · inactivos · Fidel Cano y Cecilia Orozco · Preparado: [X] · Mandado: [ ]
-- **CD1 correo** · cierre de la etapa 2 · expirados (14) y, con el cupo que quede, los primeros 75 de toda la base de interesados (unos 310 con correo): `--maximo 75` · Preparado: [ ] · Mandado: [ ]
-- **CD1 WhatsApp** · cierre de la etapa 2 · respond.io · Preparado: [ ] · Mandado: [ ]
-- **IN1** · interesados · API · Preparado: [ ] · Mandado: [ ]
-- **EX1** · expirados · API · Preparado: [ ] · Mandado: [ ]
-
-## Miércoles 28 oct
-
-- Compradores importados a respond.io (antes de los broadcasts) · Hecho: [ ]
-- Expirados importados a respond.io, **sin broadcast** (les llega CD2) · Hecho: [ ]
-- **GV3** · grupos de Villa · Marta Ruiz · Preparado: [ ] · Mandado: [X]
-- **LF5** · lista de Fernando · María Elvira Samper · Preparado: [ ] · Mandado: [X]
-- **CD2 correo expirados** · cierre de la etapa 2 · `cierre-descuento-2-expirados` · Preparado: [ ] · Mandado: [X]
-- **CD2 carta de Fernando** · cierre de la etapa 2 en su voz, a toda la base de interesados en un solo envío (plan pago de Resend): `cierre-descuento-2-carta` · Preparado: [ ] · Mandado: [X]
-- **CD2 WhatsApp** · cierre de la etapa 2 · respond.io · Preparado: [ ] · Mandado: [X]
-
-RC3 no se envía: a los inactivos les llega CD2.
-
-## Jueves 29 oct · último día de la etapa 2
-
-- Compradores importados a respond.io (antes de los broadcasts) · Hecho: [ ]
-- Expirados importados a respond.io, **sin broadcast** (les llega CD3) · Hecho: [ ]
-- **GV8** · grupos de Villa · el recorrido completo. La pieza (afiche general) tiene a Ricardo Ospina y a León Valencia: hace falta otra. · Preparado: [ ] · Mandado: [ ]
-- **LF6** · lista de Fernando · magnicidios y víctimas · Preparado: [ ] · Mandado: [ ]
-- **CD3 correo** · cierre de la etapa 2 · expirados y los siguientes de la base de interesados: `--saltar` con lo que ya salió en CD1 y CD2 · Preparado: [ ] · Mandado: [ ]
-- **CD3 WhatsApp** · cierre de la etapa 2 · respond.io · Preparado: [ ] · Mandado: [ ]
-
-RC4 no se envía: la reemplaza CD3.
-
-## Viernes 30 oct
-
-Desde hoy, revisar en Pretix que lo que nombra cada plantilla siga a la venta.
-
-- Compradores importados a respond.io (antes de los broadcasts) · Hecho: [ ]
-- **Expirados nuevos** · respond.io · Preparado: [X] · Mandado: [ ]
-- **EX correo** · expirados · `correo expirados` (expirado-texto.html, sin precios) · Preparado: [X] · Mandado: [X]
-- **GV4** · grupos de Villa · el narcotráfico · Preparado: [ ] · Mandado: [ ]
-- **LF7** · lista de Fernando · Cecilia Orozco · Preparado: [ ] · Mandado: [ ]
-- **RC5** · inactivos · Marisol Gómez · Preparado: [ ] · Mandado: [ ]
-- **Carta de Fernando** · primera tanda, con el cupo del día. Se pospuso del 27: el cupo de Resend se fue en el cierre · Preparado: [ ] · Mandado: [ ]
-- **GA** · Google Ads · seguimiento cada dos días · Hecho: [ ]
-
-## Sábado 31 oct · antes de las 3:00 p.m.
-
-- Compradores importados a respond.io (antes de los broadcasts) · Hecho: [ ]
-- **Expirados nuevos** · respond.io · Preparado: [ ] · Mandado: [ ]
-- **GV10** · grupos de Villa · magnicidios y víctimas · Preparado: [ ] · Mandado: [ ]
-- **LF8** · lista de Fernando · Luz María Sierra · Preparado: [ ] · Mandado: [ ]
-- **GV12** · grupos de Villa · llega María Alejandra Villamizar (después de GV10) · Preparado: [ ] · Mandado: [ ]
-- **LF13** · lista de Fernando · llega María Alejandra Villamizar (después de LF8) · Preparado: [ ] · Mandado: [ ]
-- **RC6** · inactivos · Luz María Sierra y Martha Soto · Preparado: [ ] · Mandado: [ ]
-
-## Domingo 1 nov
-
-- **GA** · Google Ads · seguimiento cada dos días · Hecho: [ ]
-- **FA** · familia · plantilla `fa1_precio_para_los_tuyos` aprobada (`familia/README.md`, paso 1) · Hecho: [ ]
 
 ## Martes 3 nov
 
