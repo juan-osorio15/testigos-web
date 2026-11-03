@@ -21,6 +21,7 @@ Grupos de WhatsApp de planes y eventos de Villa de Leyva donde ya estamos. Una p
 - **GV10** · sábado 31 oct · magnicidios y víctimas
 - **GV12** · sábado 31 oct · llega María Alejandra Villamizar
 - **GV5** · martes 3 nov · el Bogotazo, con Daniel Samper Pizano y Darío Restrepo
+- **GV13** · martes 3 nov · últimos días, con el afiche de las caras (después de GV5)
 - **GV11** · miércoles 4 nov · Ana María Echeverri y las guerrillas
 - **GV6** · jueves 5 nov · hoy empiezan las charlas abiertas
 - **GV7** · viernes 6 nov · mujeres periodistas: hoy empieza
@@ -190,6 +191,26 @@ Boleta de medio día del viernes en la tarde: $90.000, o el pase completo, con t
 
 Boletas en la página:
 https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=tarjeta-daniel-samper-pizano
+
+¿Dudas? Escríbannos:
+https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
+```
+
+## GV13 · martes 3 de noviembre (después de GV5)
+
+Pedido por el titular el 2026-11-03, con el afiche de las caras de ese día. Es la promoción general: los nombres más conocidos y el evento completo, sin una conversación en particular.
+
+**Pieza:** `GV13.jpg` (afiche de las caras: "Últimos días para comprar tus entradas", del titular, 2026-11-03)
+
+```
+Este jueves empieza Testigos de la Memoria y son los últimos días para conseguir boleta.
+
+Daniel Samper Pizano, Yolanda Ruiz, María Elvira Samper, Fidel Cano, Cecilia Orozco y otros periodistas que cubrieron de frente la historia reciente de Colombia van a estar aquí, en la Hospedería Duruelo, del viernes 6 al domingo 8 de noviembre. Cuentan lo que vieron y responden preguntas. El aforo es limitado.
+
+Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuento.
+
+Boletas en la página:
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiche-caras_ultimos-dias
 
 ¿Dudas? Escríbannos:
 https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva

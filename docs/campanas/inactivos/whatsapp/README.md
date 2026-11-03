@@ -161,7 +161,7 @@ El pase de fin de semana sigue con descuento por tiempo limitado, y también est
 
 ## RC9 · martes 3 de noviembre · `rc9_ultimos_dias`
 
-Reemplaza a RC7 (titular, 2026-11-02). Es el mismo texto que se le mandó a Fernando ese día, para audiencia amplia: la urgencia primero, después los nombres más conocidos y todos los temas, y al final los precios. **Excepción a las demás RC:** lleva encabezado de imagen, el afiche con las caras del titular (`WhatsApp Image 2026-11-02 at 11.01.16.jpeg`), que se sube al crear la plantilla y otra vez en el broadcast. Si Meta no la aprueba, se crea `rc9_ultimos_dias_v2` sin encabezado. Eventalist S.A.S. va en el pie y no al inicio.
+Reemplaza a RC7 (titular, 2026-11-02). Es el mismo texto que se le mandó a Fernando ese día, para audiencia amplia: la urgencia primero, después los nombres más conocidos y todos los temas, y al final los precios. **Excepción a las demás RC:** lleva encabezado de imagen, el afiche con las caras del titular. La plantilla se creó con el del 2026-11-02 (`WhatsApp Image 2026-11-02 at 11.01.16.jpeg`); en el broadcast se sube el del 2026-11-03, `piezas/RC9.jpg` ("Últimos días para comprar tus entradas"), por decisión del titular. Si Meta no la aprueba, se crea `rc9_ultimos_dias_v2` sin encabezado. Eventalist S.A.S. va en el pie y no al inicio.
 
 Antes del broadcast, importar a respond.io el CSV de `respondio compradores` para que quien compró quede como Customer y salga del segmento.
 
