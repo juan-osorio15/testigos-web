@@ -20,7 +20,7 @@ Grupos de WhatsApp de planes y eventos de Villa de Leyva donde ya estamos. Una p
 - **GV4** · viernes 30 oct · el narcotráfico
 - **GV10** · sábado 31 oct · magnicidios y víctimas
 - **GV12** · sábado 31 oct · llega María Alejandra Villamizar
-- **GV5** · martes 3 nov · negociaciones de paz, con Marisol Gómez y María Alejandra Villamizar
+- **GV5** · martes 3 nov · el Bogotazo, con Daniel Samper Pizano y Darío Restrepo
 - **GV11** · miércoles 4 nov · Ana María Echeverri y las guerrillas
 - **GV6** · jueves 5 nov · hoy empiezan las charlas abiertas
 - **GV7** · viernes 6 nov · mujeres periodistas: hoy empieza
@@ -177,17 +177,19 @@ https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en
 
 ## GV5 · martes 3 de noviembre
 
-**Pieza:** `GV5.png` (afiche de Negociaciones de paz con Marisol Gómez y María Alejandra Villamizar, 2026-10-31)
+Antes era negociaciones de paz; el titular lo cambió el 2026-11-03 porque ese tema ya salió mucho. El Bogotazo no había tenido mensaje propio en los grupos. Va con la boleta del viernes en la tarde, que es la que cubre esta conversación (el pase de fin de semana no la incluye).
+
+**Pieza:** `GV5.jpg` (la tarjeta de Daniel Samper Pizano en el sitio, `public/og/panelistas/daniel-samper-pizano-v1.jpg`)
 
 ```
-¿Qué pasó de verdad en las mesas del Caguán y de La Habana? Lo conversan dos personas que las vieron de cerca: Marisol Gómez, que cubrió esas negociaciones durante 25 años y escribió “La historia secreta del proceso de paz”, y María Alejandra Villamizar, que se sentó en una mesa de paz del lado del Gobierno, como delegada en la negociación con el ELN.
+¿Por qué la muerte de un solo hombre pudo encender a todo un país? El 9 de abril de 1948 mataron a Jorge Eliécer Gaitán en Bogotá, y después vinieron años de violencia entre liberales y conservadores, el gobierno militar de Rojas Pinilla y el Frente Nacional. Lo conversan Daniel Samper Pizano, que creó la Unidad Investigativa de El Tiempo y trabajó ahí medio siglo, y Darío Restrepo, que dirigió durante veinte años el sistema informativo de Citytv.
 
-Es este sábado a las 11:00 a.m. en la Hospedería Duruelo. El aforo es limitado.
+Es este viernes 6 de noviembre a las 3:30 p.m., en la Hospedería Duruelo. El aforo es limitado.
 
-Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuento.
+Boleta de medio día del viernes en la tarde: $90.000, o el pase completo, con todas las conversaciones.
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiche-negociaciones-paz
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=tarjeta-daniel-samper-pizano
 
 ¿Dudas? Escríbannos:
 https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva

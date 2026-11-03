@@ -24,7 +24,7 @@ No hay envíos los domingos ni el lunes 2 de noviembre (festivo). Los sábados, 
 - **LF8** · sábado 31 oct · Luz María Sierra
 - **LF13** · sábado 31 oct · llega María Alejandra Villamizar
 - **LF9** · martes 3 nov · Martha Soto
-- **LF10** · miércoles 4 nov · Marisol Gómez y María Alejandra Villamizar
+- **LF10** · miércoles 4 nov · mañana, el documental de Sady González
 - **LF11** · jueves 5 nov · hoy empieza, con Ana María Echeverri
 - **LF12** · viernes 6 nov · hoy abrimos, con las mujeres periodistas del domingo
 
@@ -206,17 +206,19 @@ https://wa.me/573239236021?text=Hola%2C%20Fernando%20me%20cont%C3%B3%20de%20Test
 
 ## LF10 · miércoles 4 de noviembre
 
-**Pieza:** `LF10.png` (afiche de Negociaciones de paz con las dos, 2026-10-31). Una sola: `LF10-1` a `LF10-3` son de Ricardo Ospina y no se mandan.
+Antes era negociaciones de paz; el titular lo cambió el 2026-11-03 porque ese tema ya salió mucho, y pidió uno distinto al de GV5 (el Bogotazo). Es la charla abierta del jueves: entrada libre, y al final el pase para las conversaciones.
+
+**Pieza:** `LF10.jpg` (la tarjeta de Guillermo González Uribe en el sitio, `public/og/panelistas/guillermo-gonzalez-v1.jpg`). `LF10-1` a `LF10-3` son de Ricardo Ospina y no se mandan.
 
 ```
-Marisol Gómez pasó 25 años cubriendo las negociaciones con las Farc, del Caguán a La Habana. María Alejandra Villamizar se sentó en una mesa de paz del lado del Gobierno, como delegada en la negociación con el ELN. Yo les preguntaría qué pasa en esas mesas que nunca llega a los titulares.
+Mañana a las 3:00 p.m., en la Casa Museo Antonio Nariño, proyectamos "Sady González, una luz en la memoria", el documental sobre el fotógrafo que retrató la Bogotá de los años cuarenta y cincuenta, y que estaba ahí con su cámara el 9 de abril de 1948. Nos acompaña Guillermo González Uribe, que lo codirigió con Margarita Carrillo. Yo le preguntaría qué muestra una fotografía que no alcanza a contar la crónica escrita.
 
-Es este sábado a las 11:00 a.m., en Duruelo, y todavía hay cupo.
+La entrada es libre, como en todas las charlas abiertas.
 
-Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuento.
+Y del viernes al domingo, las conversaciones en la Hospedería Duruelo. Boleta de medio día: $90.000, o el pase de fin de semana, que está en descuento.
 
 Boletas en la página:
-https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=afiche-negociaciones-paz
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=tarjeta-guillermo-gonzalez
 
 ¿Dudas? Escriban aquí:
 https://wa.me/573239236021?text=Hola%2C%20Fernando%20me%20cont%C3%B3%20de%20Testigos%20de%20la%20Memoria

@@ -12,9 +12,9 @@ Los textos, las piezas y los pasos están en la carpeta de cada campaña (`<camp
 
 ## Martes 3 nov
 
-- Compradores importados a respond.io (antes de los broadcasts) · Hecho: [ ]
-- Expirados importados a respond.io, **sin broadcast** (les llega EX2) · Hecho: [ ]
-- **GV5** · grupos de Villa · negociaciones de paz, con Marisol Gómez y María Alejandra Villamizar · Preparado: [ ] · Mandado: [ ]
+- Compradores importados a respond.io (antes de los broadcasts) · Hecho: [X]
+- Expirados importados a respond.io, **sin broadcast** (les llega EX2) · Hecho: [X]
+- **GV5** · grupos de Villa · el Bogotazo, con Daniel Samper Pizano y Darío Restrepo (reemplaza a negociaciones de paz) · Preparado: [ ] · Mandado: [ ]
 - **LF9** · lista de Fernando · Martha Soto · Preparado: [ ] · Mandado: [ ]
 - **RC9** · inactivos · últimos días, con el afiche de las caras (reemplaza a RC7). Plantilla `rc9_ultimos_dias` aprobada en Meta y compradores importados antes · Preparado: [ ] · Mandado: [ ]
 - **IN2** · interesados · API · mujeres periodistas · Preparado: [ ] · Mandado: [ ]
@@ -30,7 +30,7 @@ Los textos, las piezas y los pasos están en la carpeta de cada campaña (`<camp
 - Compradores importados a respond.io (antes de los broadcasts) · Hecho: [ ]
 - **Expirados nuevos** · respond.io · Preparado: [ ] · Mandado: [ ]
 - **GV11** · grupos de Villa · Ana María Echeverri y las guerrillas · Preparado: [ ] · Mandado: [ ]
-- **LF10** · lista de Fernando · Marisol Gómez y María Alejandra Villamizar · Preparado: [ ] · Mandado: [ ]
+- **LF10** · lista de Fernando · mañana, el documental de Sady González (reemplaza a negociaciones de paz) · Preparado: [ ] · Mandado: [ ]
 - **RC8** · inactivos · mañana empieza · Preparado: [ ] · Mandado: [ ]
 
 ## Jueves 5 nov
