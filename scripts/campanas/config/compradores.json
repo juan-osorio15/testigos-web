@@ -3,7 +3,7 @@
   "audiencia": "compradores",
   "parametros": {},
   "respondio": {
-    "tags": ["compradores"],
+    "tags": ["comprador"],
     "lifecycle": "Customer",
     "baja": true
   },
