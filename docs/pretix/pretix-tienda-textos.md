@@ -364,7 +364,7 @@ Decisiones:
 Para las personas que llevan credencial colgada: panelistas, staff e invitados. Sigue la
 pieza de la diseñadora (pensada para asistentes) con los mismos colores: bloque
 principal de color con la categoría en píldora arriba a la izquierda y el
-cuadro crema con las comillas en la esquina; el nombre grande y el cargo
+cuadro crema con las comillas en la esquina; el nombre grande
 debajo; abajo, crema con el QR y el código del pedido, y terracota con los
 datos prácticos (Hospedería Duruelo, Villa de Leyva, fechas y el sitio). El
 crema del QR sube 5 mm más que el terracota, como en la pieza original: dos
@@ -385,7 +385,7 @@ Archivos en `brand/pretix/`:
 | Archivo | Para qué |
 |---|---|
 | `escarapela-panelista-fondo.pdf`, `escarapela-staff-fondo.pdf`, `escarapela-invitados-fondo.pdf` | Botón "Upload PDF as background" del layout de cada categoría. Llevan bloques, píldora, comillas, la píldora vacía del código y los datos fijos, con la fuente Archivo embebida. |
-| `escarapela-layout.json` | Botón `</>` del editor: reemplazar todo el código por este. Es el mismo para todas las categorías. Datos variables: nombre, cargo, QR y código del pedido, en Open Sans y tinta. |
+| `escarapela-layout.json` | Botón `</>` del editor: reemplazar todo el código por este. Es el mismo para todas las categorías. Datos variables: nombre, QR y código del pedido, en Open Sans y tinta. |
 | `escarapela/build.mjs` y `escarapela/make.sh` | Fuente del diseño. `sh brand/pretix/escarapela/make.sh` regenera los PDF, el JSON y las vistas previas de todas las categorías; con un argumento (`panelista`, `staff` o `invitados`) solo esa. Los colores por categoría están en `PRESETS`, al inicio de `build.mjs`. Necesita Google Chrome. |
 | `lib.mjs` | Lo común a boleta y escarapela (colores, cajas, vista previa). |
 
@@ -393,8 +393,8 @@ Cómo se llena en pretix:
 
 - Un layout de escarapela por categoría, cada uno con su PDF de fondo y el
   mismo JSON, asignado a su producto (Badges → Badge layouts → "Assign to products").
-- El cargo sale del campo *Company* del asistente (en el layout, `attendee_company`).
-  Se escribe como en el sitio: `Directora · El Colombiano`, `Periodista · excomisionada de la Verdad`.
+- Solo lleva el nombre del asistente (`attendee_name`): sin cargo ni medio. Basta
+  con que el producto pida el nombre del asistente.
 - Las escarapelas se generan desde un pedido: un producto gratuito y oculto
   por categoría ("Panelista", "Staff", "Ingreso invitados") con un pedido por persona, o un solo
   pedido con varias posiciones. La escarapela se descarga desde el detalle
@@ -406,8 +406,8 @@ Decisiones:
 
 - La categoría va fija en el fondo, no como dato variable: así sale en Archivo,
   en la píldora, y no en Open Sans.
-- El nombre va a 30 pt con autoajuste y pegado al cargo: "María Fernanda
-  Gómez" ocupa dos líneas; algo más largo baja a tres o se encoge.
+- El nombre va a 30 pt con autoajuste, al pie del bloque de color: "María
+  Fernanda Gómez" ocupa dos líneas; algo más largo baja a tres o se encoge.
 - El sitio se escribe `testigosdelamemoria.com`, que es el dominio real; la
   pieza de la diseñadora decía `.co`.
 

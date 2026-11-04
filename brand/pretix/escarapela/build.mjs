@@ -6,7 +6,7 @@
 // Formato A6 vertical (105 × 148 mm), el mismo de la boleta, de la plantilla
 // por defecto de pretix y del porta-escarapela A6 corriente. Sigue la pieza de
 // la diseñadora: bloque principal de color con la categoría en píldora, el
-// cuadro crema con las comillas en la esquina, el nombre grande y el cargo;
+// cuadro crema con las comillas en la esquina, el nombre grande;
 // abajo, crema con el QR y el código del pedido, y terracota con los datos.
 //
 // La categoría cambia el rótulo y los colores (ver PRESETS):
@@ -52,9 +52,8 @@ const Q = { x: 0, y: 97, w: 45, h: 51 };           // crema: QR y código del pe
 const D = { x: 45, y: 102, w: 60, h: 46 };         // datos prácticos (terracota u oliva, según la categoría)
 
 /* --- Elementos dinámicos de pretix (sobre el fondo) --- */
-// El nombre va pegado al cargo, con el aire arriba. Un nombre largo baja a
-// dos o tres líneas y, si aún no cabe, se encoge. El cargo y el medio van en el
-// campo Company de pretix: "Periodista · El Espectador".
+// Solo el nombre, sin cargo ni medio: abajo del bloque de color, con el aire
+// arriba. Un nombre largo baja a dos o tres líneas y, si aún no cabe, se encoge.
 const qrSize = 24;
 const qrLeft = Q.x + (Q.w - qrSize) / 2;
 const qrTop = Q.y + 7;
@@ -63,8 +62,7 @@ const pillLeft = Q.x + (Q.w - pill.w) / 2;
 const pillTop = qrTop + qrSize + 5;
 
 const elements = [
-  text('attendee_name', 'María Fernanda Gómez', { left: M, top: 27, width: PAGE_W - 2 * M, height: 46, size: 30, bold: true, valign: 'bottom', lineheight: 1.0 }),
-  text('attendee_company', 'Periodista · El Espectador', { left: M, top: 75, width: PAGE_W - 2 * M, height: 12, size: 11 }),
+  text('attendee_name', 'María Fernanda Gómez', { left: M, top: 27, width: PAGE_W - 2 * M, height: 60, size: 30, bold: true, valign: 'bottom', lineheight: 1.0 }),
   barcode('secret', { left: qrLeft, top: qrTop, size: qrSize }),
   text('order', 'A1B2C', { left: pillLeft, top: pillTop, width: pill.w, height: pill.h, size: 7, bold: true, align: 'center', valign: 'middle' }),
 ];
