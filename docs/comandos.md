@@ -89,7 +89,7 @@ Regenera el fondo en PDF y el `layout.json` de la boleta (`brand/pretix/`). Desp
 
 Regenera los fondos y el `layout.json` de las escarapelas de las tres categorías. Después se suben a Pretix a mano.
 
-- `npm run escarapela -- panelista`, `-- staff` o `-- prensa`: solo esa categoría (se pueden poner varias).
+- `npm run escarapela -- panelista`, `-- staff` o `-- invitados`: solo esa categoría (se pueden poner varias).
 - `CHROME=/ruta/a/chrome npm run escarapela`: otra ruta de Chrome (sirve igual para `boleta`, `og` y `og:portada`).
 
 ### `security add-generic-password -a "$USER" -s eventalist-pretix -w`

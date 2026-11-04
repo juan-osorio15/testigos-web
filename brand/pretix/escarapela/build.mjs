@@ -25,7 +25,7 @@ const ciudad = hechos().evento.ciudad.split(',')[0];
 const PRESETS = {
   panelista: { label: 'Panelista', main: C.olive, data: C.terracotta },
   staff: { label: 'Staff', main: C.terracotta, data: C.olive },
-  prensa: { label: 'Prensa', main: C.sky, data: C.terracotta },
+  invitados: { label: 'Invitados', main: C.sky, data: C.terracotta },
 };
 const slug = process.argv[2] || 'panelista';
 const preset = PRESETS[slug];

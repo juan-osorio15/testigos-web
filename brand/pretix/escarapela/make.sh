@@ -4,7 +4,7 @@
 set -e
 cd "$(dirname "$0")"
 CH="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
-for CAT in ${@:-panelista staff prensa}; do
+for CAT in ${@:-panelista staff invitados}; do
   SLUG=$(node build.mjs "$CAT")
   "$CH" --headless=new --disable-gpu --allow-file-access-from-files --no-pdf-header-footer \
     --print-to-pdf="$PWD/../escarapela-$SLUG-fondo.pdf" "file://$PWD/fondo.html" 2>/dev/null

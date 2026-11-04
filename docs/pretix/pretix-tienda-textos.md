@@ -361,7 +361,7 @@ Decisiones:
 
 ## Escarapela en PDF (Badges → Badge layouts)
 
-Para las personas que llevan credencial colgada: panelistas, staff y prensa. Sigue la
+Para las personas que llevan credencial colgada: panelistas, staff e invitados. Sigue la
 pieza de la diseñadora (pensada para asistentes) con los mismos colores: bloque
 principal de color con la categoría en píldora arriba a la izquierda y el
 cuadro crema con las comillas en la esquina; el nombre grande y el cargo
@@ -378,15 +378,15 @@ Cada categoría cambia solo el rótulo y los colores de dos bloques:
 |---|---|---|
 | Panelista | oliva | terracota |
 | Staff | terracota, el color más reconocible de la marca | oliva, para no fundirse con el principal |
-| Prensa | cielo | terracota |
+| Invitados | cielo | terracota |
 
 Archivos en `brand/pretix/`:
 
 | Archivo | Para qué |
 |---|---|
-| `escarapela-panelista-fondo.pdf`, `escarapela-staff-fondo.pdf`, `escarapela-prensa-fondo.pdf` | Botón "Upload PDF as background" del layout de cada categoría. Llevan bloques, píldora, comillas, la píldora vacía del código y los datos fijos, con la fuente Archivo embebida. |
+| `escarapela-panelista-fondo.pdf`, `escarapela-staff-fondo.pdf`, `escarapela-invitados-fondo.pdf` | Botón "Upload PDF as background" del layout de cada categoría. Llevan bloques, píldora, comillas, la píldora vacía del código y los datos fijos, con la fuente Archivo embebida. |
 | `escarapela-layout.json` | Botón `</>` del editor: reemplazar todo el código por este. Es el mismo para todas las categorías. Datos variables: nombre, cargo, QR y código del pedido, en Open Sans y tinta. |
-| `escarapela/build.mjs` y `escarapela/make.sh` | Fuente del diseño. `sh brand/pretix/escarapela/make.sh` regenera los PDF, el JSON y las vistas previas de todas las categorías; con un argumento (`panelista`, `staff` o `prensa`) solo esa. Los colores por categoría están en `PRESETS`, al inicio de `build.mjs`. Necesita Google Chrome. |
+| `escarapela/build.mjs` y `escarapela/make.sh` | Fuente del diseño. `sh brand/pretix/escarapela/make.sh` regenera los PDF, el JSON y las vistas previas de todas las categorías; con un argumento (`panelista`, `staff` o `invitados`) solo esa. Los colores por categoría están en `PRESETS`, al inicio de `build.mjs`. Necesita Google Chrome. |
 | `lib.mjs` | Lo común a boleta y escarapela (colores, cajas, vista previa). |
 
 Cómo se llena en pretix:
@@ -396,7 +396,7 @@ Cómo se llena en pretix:
 - El cargo sale del campo *Company* del asistente (en el layout, `attendee_company`).
   Se escribe como en el sitio: `Directora · El Colombiano`, `Periodista · excomisionada de la Verdad`.
 - Las escarapelas se generan desde un pedido: un producto gratuito y oculto
-  por categoría ("Panelista", "Staff", "Prensa") con un pedido por persona, o un solo
+  por categoría ("Panelista", "Staff", "Ingreso invitados") con un pedido por persona, o un solo
   pedido con varias posiciones. La escarapela se descarga desde el detalle
   del pedido ("Download badge") o en lote desde Orders → Export → "Attendee badges".
 - El QR es el mismo código secreto de la boleta: la escarapela también sirve
