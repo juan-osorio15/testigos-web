@@ -38,3 +38,16 @@ python3 scripts/campanas/campana.py correo carta-fernando --maximo 80 --enviar  
 ```
 
 Cada vez que se corre con `--enviar` sigue con los siguientes, sin repetir a quien ya la recibió. La tanda se ajusta a lo que quede del día: 100 menos lo que ya salió (las pruebas también cuentan).
+
+## Últimos días (4 de noviembre de 2026)
+
+La misma voz de la carta, a la misma base: `carta-fernando-ultimos-dias`, unos 300 correos en un solo envío, con Resend en plan pago. Dice "este fin de semana" y no da ningún día ni fecha de inicio, a propósito (titular, 2026-11-04): el foco son las boletas pagas, y quien oye "jueves" piensa que no alcanza porque trabaja. Sin precios: nombra las boletas de medio día y lo demás queda en la página.
+
+- Configuración: `scripts/campanas/config/carta-fernando-ultimos-dias.json`. Plantilla: `scripts/campanas/plantillas/carta-fernando-ultimos-dias.html`. Asunto: "Ya es este fin de semana".
+- Medición: `utm_source=email&utm_medium=email&utm_campaign=lista-fernando&utm_content=correo-carta_ultimos-dias`.
+
+```sh
+python3 scripts/campanas/campana.py correo carta-fernando-ultimos-dias                                          # vista previa
+python3 scripts/campanas/campana.py correo carta-fernando-ultimos-dias --prueba j.a.oso15@gmail.com --enviar  # prueba
+python3 scripts/campanas/campana.py correo carta-fernando-ultimos-dias --enviar                                 # envío real
+```

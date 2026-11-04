@@ -33,6 +33,7 @@ Los textos, las piezas y los pasos están en la carpeta de cada campaña (`<camp
 - **GV11** · grupos de Villa · Ana María Echeverri y las guerrillas · Preparado: [ ] · Mandado: [ ]
 - **LF10** · lista de Fernando · mañana, el documental de Sady González (reemplaza a negociaciones de paz) · Preparado: [ ] · Mandado: [ ]
 - **RC8** · inactivos · mañana empieza · Preparado: [ ] · Mandado: [ ]
+- **Carta de Fernando, últimos días** · correo · `correo carta-fernando-ultimos-dias`, sin día ni fecha de inicio (`lista-fernando/correo/README.md`) · Preparado: [ ] · Mandado: [ ]
 
 ## Jueves 5 nov
 
