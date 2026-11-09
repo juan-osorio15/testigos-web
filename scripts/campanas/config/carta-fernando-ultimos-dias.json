@@ -1,5 +1,5 @@
 {
-  "descripcion": "Últimos días para conseguir boleta, en la voz de la carta de Fernando Cordovez, a toda la base de interesados con correo autorizado (sus contactos y los inscritos del sitio). Sin días de la semana ni fechas: \"este fin de semana\", porque el foco son las boletas pagas y el jueves ahuyenta a quien trabaja. Plan en docs/campanas/lista-fernando/correo/README.md.",
+  "descripcion": "Últimos días para conseguir boleta, en la voz de la carta de Fernando Cordovez, a toda la base de interesados con correo autorizado (sus contactos y los inscritos del sitio). Sin días de la semana ni fechas: \"este fin de semana\", porque el foco son las boletas pagas y el jueves ahuyenta a quien trabaja. Plan en git show 685932c:docs/campanas/lista-fernando/correo/README.md.",
   "audiencia": "interesados",
   "parametros": {
     "origen": ["referral", "website"],

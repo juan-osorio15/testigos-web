@@ -1,7 +1,7 @@
 """Quien compró un pase en una etapa, para darle a su familia el mismo precio.
 
 Cada persona recibe un voucher de Pretix propio con ese precio para ese
-pase (docs/campanas/familia/README.md). El voucher se crea a mano en
+pase (git show 685932c:docs/campanas/familia/README.md). El voucher se crea a mano en
 Pretix con la lista que saca `campana.py vouchers <campaña>`.
 
 - Entra quien tiene un pedido pagado con ese pase, hecho dentro de las

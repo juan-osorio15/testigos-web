@@ -1,5 +1,5 @@
 {
-  "descripcion": "Quien compró el pase completo en la etapa 1: un voucher propio para que su familia lo compre al mismo precio. Correo con campana.py y WhatsApp uno por uno desde respond.io. Pasos en docs/campanas/familia/README.md.",
+  "descripcion": "Quien compró el pase completo en la etapa 1: un voucher propio para que su familia lo compre al mismo precio. Correo con campana.py y WhatsApp uno por uno desde respond.io. Pasos en git show 685932c:docs/campanas/familia/README.md.",
   "audiencia": "familia",
   "parametros": {
     "boleta": "pase-completo",

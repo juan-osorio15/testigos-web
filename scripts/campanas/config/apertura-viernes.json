@@ -1,5 +1,5 @@
 {
-  "descripcion": "Aviso de servicio del viernes 6 de noviembre: abrimos puertas a las 2:00 p.m. en la Hospedería Duruelo. Solo a quien tiene pase completo o boleta del viernes en la tarde. Pasos en docs/campanas/compradores/README.md.",
+  "descripcion": "Aviso de servicio del viernes 6 de noviembre: abrimos puertas a las 2:00 p.m. en la Hospedería Duruelo. Solo a quien tiene pase completo o boleta del viernes en la tarde. Pasos en git show 685932c:docs/campanas/compradores/README.md.",
   "audiencia": "compradores_boleta",
   "parametros": {
     "productos": ["Pase Completo", "Viernes Tarde"]

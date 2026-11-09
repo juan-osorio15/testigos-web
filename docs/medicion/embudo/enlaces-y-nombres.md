@@ -83,12 +83,12 @@ Campañas en uso (el equipo agrega aquí las suyas):
 - `expirados`: correos y WhatsApp a pedidos vencidos.
 - `interesados`: correo y WhatsApp a quien pidió aviso de las boletas de medio día en el sitio (desde el 19 de octubre).
 - `buscador`: anuncios de Búsqueda en Google (prueba del 16 de octubre al 7 de noviembre de 2026).
-- `remarketing`: Demand Gen de Google (YouTube, Discover, Gmail) a quien visitó el sitio y no compró (desde el 31 de octubre de 2026). Plan en `docs/campanas/google-ads/README.md`.
+- `remarketing`: Demand Gen de Google (YouTube, Discover, Gmail) a quien visitó el sitio y no compró (desde el 31 de octubre de 2026). Plan en `git show 685932c:docs/campanas/google-ads/README.md`.
 - `recuperacion`: broadcasts de respond.io a conversaciones de Catalina que se cerraron sin compra (desde el 26 de octubre de 2026), y los enlaces que da Catalina a quien responde.
 - `soporte-tecnico`: enlaces que comparte por WhatsApp el soporte técnico; el contenido es quien lo comparte (`juan`; desde el 6 de noviembre de 2026).
-- `apertura-puertas`: avisos de servicio a compradores con el horario de puertas (desde el 7 de noviembre de 2026). Pasos en `docs/campanas/compradores/README.md`.
+- `apertura-puertas`: avisos de servicio a compradores con el horario de puertas (desde el 7 de noviembre de 2026). Pasos en `git show 685932c:docs/campanas/compradores/README.md`.
 - `pase-fin-semana-release`: lanzamiento del pase de fin de semana (desde el 23 de octubre de 2026; primer enlace, el mensaje del chatbot `combo-fin-de-semana`).
-- `cierre-descuento`: correos, broadcasts de respond.io y publicaciones en grupos de los tres últimos días de la etapa 2 (27 al 29 de octubre de 2026). Plan en `docs/campanas/cierre-descuento/README.md`.
+- `cierre-descuento`: correos, broadcasts de respond.io y publicaciones en grupos de los tres últimos días de la etapa 2 (27 al 29 de octubre de 2026). Plan en `git show 685932c:docs/campanas/cierre-descuento/README.md`.
 - `historias-diarias`: historias diarias de Instagram que hace Paula, la diseñadora, todas con el mismo enlace y `utm_content=paula-disenadora` (desde el 26 de octubre de 2026).
 - `sexta-gratis`: compra 5 boletas del mismo tipo y la sexta es gratis, máximo una por orden (en estudio desde el 30 de octubre de 2026). Configuración y enlaces en `docs/pretix/descuento-sexta-gratis.md`.
 
@@ -143,7 +143,7 @@ Anuncio de cada grupo:
 - `periodismo`: `https://testigosdelamemoria.com/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=periodismo`
 - `panelistas`: `https://testigosdelamemoria.com/panelistas/daniel-samper-pizano/?utm_source=google&utm_medium=paid_search&utm_campaign=buscador&utm_content=panelistas`
 
-Las URL de las palabras con página propia y de los nueve sitelinks están completas en `docs/campanas/google-ads/README.md`, sección "Anuncios".
+Las URL de las palabras con página propia y de los nueve sitelinks están completas en `git show 685932c:docs/campanas/google-ads/README.md`, sección "Anuncios".
 
 Para el ensayo antes de lanzar se abre a mano la URL con `utm_source=prueba` en vez de `google`, por ejemplo:
 `https://testigosdelamemoria.com/?utm_source=prueba&utm_medium=paid_search&utm_campaign=buscador&utm_content=plan-villa-de-leyva`

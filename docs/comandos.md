@@ -42,7 +42,7 @@ Arma el CSV de importación de respond.io en `~/Downloads`, solo con quien autor
 
 ### `python3 scripts/campanas/campana.py vouchers <campaña>`
 
-Imprime los códigos de voucher de la campaña, uno por línea, para pegarlos en Pretix (Vales → Crear múltiples vales de compra nuevos). Solo para las campañas que dan un voucher por persona: `familia-etapa1` y `familia-etapa2` (`docs/campanas/familia/README.md`).
+Imprime los códigos de voucher de la campaña, uno por línea, para pegarlos en Pretix (Vales → Crear múltiples vales de compra nuevos). Solo para las campañas que dan un voucher por persona: `familia-etapa1` y `familia-etapa2` (`git show 685932c:docs/campanas/familia/README.md`).
 
 - `--revisar`: después de crearlos, lee de Pretix los vouchers con la etiqueta de la campaña y dice si falta o sobra alguno, o si alguno quedó con otro producto, precio, usos o vencimiento (`vence` en la config). Sale con error si hay algo mal.
 - `--excluir`: igual que en `lista`.

@@ -1,5 +1,5 @@
 {
-  "descripcion": "Ya empezaron las charlas abiertas y todavía hay tiempo de conseguir boleta para los conversatorios, en la voz de la carta de Fernando Cordovez, a toda la base de interesados con correo autorizado (sus contactos y los inscritos del sitio). Plan en docs/campanas/lista-fernando/correo/README.md.",
+  "descripcion": "Ya empezaron las charlas abiertas y todavía hay tiempo de conseguir boleta para los conversatorios, en la voz de la carta de Fernando Cordovez, a toda la base de interesados con correo autorizado (sus contactos y los inscritos del sitio). Plan en git show 685932c:docs/campanas/lista-fernando/correo/README.md.",
   "audiencia": "interesados",
   "parametros": {
     "origen": ["referral", "website"],

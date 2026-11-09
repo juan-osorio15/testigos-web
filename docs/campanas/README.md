@@ -1,64 +1,79 @@
 # Campañas
 
-Todo lo que se le escribe a la gente para vender Testigos de la Memoria: correos, WhatsApp y anuncios. Este documento dice cómo está organizado, qué campañas hay y cómo funciona `scripts/campanas/campana.py`, el comando que arma las listas y envía.
+Lo que se le escribió a la gente para vender Testigos de la Memoria (del 12 de octubre al 8 de noviembre de 2026): qué vendió, qué aprendimos y la herramienta que arma las listas y envía (`scripts/campanas/campana.py`). Es el punto de partida para el próximo evento.
 
-## Cómo está organizado
-
-Primero la campaña, después el medio. Una campaña es una iniciativa con su público y su objetivo (por ejemplo, quien dejó vencer un pedido); el medio es por dónde le llega (correo o WhatsApp).
+Los calendarios, los textos de cada día y los planes de cada campaña de este evento están en el historial de git, hasta el commit `685932c` (`git show 685932c:docs/campanas/grupos-villa/whatsapp/README.md`, por ejemplo).
 
 ```
 docs/campanas/
-  README.md             este documento: índice y la herramienta
-  checklist-diario.md   lo que toca cada día, de todas las campañas
-  reglas.md             cómo se escribe y cómo se manda, para todas
-  configuracion.md      llaves y permisos, una sola vez
-  <campaña>/
-    README.md           el plan: a quién, por qué, qué permite la política, cómo se mide
-    correo/README.md    plantilla, asunto y comandos
-    whatsapp/README.md  calendario, plantillas o textos, y cómo se manda
-    whatsapp/piezas/    las imágenes (no se suben al repo)
-  historial/            documentos que ya no se usan, como referencia
+  README.md            este documento: la regla, los resultados, las lecciones y la herramienta
+  ejemplos.md          las piezas que mejor funcionaron, con su texto
+  ejemplos/            sus imágenes
+  checklist-diario.md  cómo se arma el día sin que las campañas se pisen
+  reglas.md            cómo se escribe y cómo se manda
+  configuracion.md     llaves y permisos, una sola vez
 ```
 
-Una campaña de un solo medio no tiene plan aparte: todo está en el README de su medio. Google Ads es a la vez campaña y medio, y tiene un solo README.
+## La regla que ordena todo
 
-## Las campañas
+**Un solo contenido por canal para cada público en un mismo día.** Si a una persona le llegan varios WhatsApp de venta desde el mismo número, es fácil que bloquee o reporte; con unos cuantos bloqueos baja la calidad del número y Meta deja de entregar las plantillas de marketing. Lo mismo, en menor medida, con el correo y Promociones de Gmail.
 
-- [`cierre-descuento/`](cierre-descuento/) · **CD** · los tres últimos días de la etapa 2 (27 al 29 de octubre), a quien no ha comprado. Correo y WhatsApp (respond.io).
-- [`expirados/`](expirados/) · **EX** · quien empezó una compra, dejó vencer la reserva y nunca compró. Correo y WhatsApp (API de Meta e importación a respond.io).
-- [`interesados/`](interesados/) · **IN** · quien pidió en el sitio que le avisáramos de las boletas de medio día. Correo y WhatsApp (API de Meta).
-- [`inactivos/`](inactivos/) · **RC** · quien le escribió a Catalina, dejó cerrar la conversación y no compró. WhatsApp (respond.io), una plantilla por día hasta el evento.
-- [`grupos-villa/`](grupos-villa/) · **GV** · grupos de planes y eventos de Villa de Leyva. WhatsApp, publicado a mano.
-- [`lista-fernando/`](lista-fernando/) · **LF** · los contactos de Fernando Cordovez, en su voz. WhatsApp (él lo reenvía) y correo desde su dirección: la carta conversacional a sus contactos del backend, desde el 27 de octubre.
-- [`familia/`](familia/) · quien compró el pase completo en la etapa 1 o el de fin de semana en la etapa 2: un voucher de Pretix propio para que su familia compre al mismo precio. Correo y WhatsApp (uno por uno desde respond.io), el martes 3 de noviembre.
-- [`compradores/`](compradores/) · avisos de servicio a quien ya compró, según la boleta que tiene: la apertura de puertas del viernes 6 de noviembre. Correo y WhatsApp (respond.io).
-- [`google-ads/`](google-ads/) · anuncios de Búsqueda en Google (`buscador`).
+La excepción son los avisos de servicio importantes cerca del evento (horario de puertas, un cambio de sede o de hora) a quien ya compró: no venden y la persona los necesita.
 
-En [`historial/`](historial/): los borradores de plantillas de WhatsApp de ventas del 19 de octubre, que no se usaron, y el prompt con que se pidió al backend la lectura de contactos.
+De ahí sale lo demás: **pocas campañas, y cada público tiene una sola campaña dueña en cada canal.** En este evento llegamos a nueve campañas a la vez, con reglas de prioridad para decidir cuál ganaba cuando dos caían el mismo día. El checklist tenía diez o doce tareas diarias, era fácil que una pisara a otra y después no se podía saber cuál había movido la venta.
 
-## Por qué así (plan del 22 de octubre)
+## Lo que vendió
 
-Para las dos últimas semanas antes del evento:
+Dos fuentes, las dos de Pretix, que miden cosas distintas:
 
-1. **Volver a escribirles, ahora también por WhatsApp, a quienes ya conocen el evento:** interesados del sitio, pedidos vencidos y conversaciones con Catalina sin compra.
-2. **Llegar a público nuevo de la zona:** los grupos de Villa de Leyva y los contactos de Fernando Cordovez.
-3. **Que todo termine en una conversación con Catalina**, que resuelve dudas y lleva a la compra.
-4. **Contenido distinto en cada envío**, con presión que crece con el tiempo sin volverse insistente.
-5. **Saber qué funciona:** cada campaña y cada pieza tienen su propio enlace.
+- **Ventas por campaña** (la página del plugin en Pretix): el último enlace con UTM por el que entró el navegador que pagó. Sirve para comparar piezas que se comparten con enlace (pauta, grupos, biografías).
+- **Compró después de recibirlo**: cruce de quién recibió cada correo de `campana.py` con quién pagó después, por correo o teléfono. No prueba que el mensaje causara la compra, pero dice qué públicos respondían. No cubre lo que salió por respond.io ni lo publicado a mano, porque ahí no queda quién lo recibió.
 
-Lo que aprendimos en los informes:
+### Por enlace (ventas por campaña)
 
-- **Boyacá tiene la mayor intención de compra:** 26 clics en Comprar por cada 100 personas, frente a 5 en Bogotá. Por eso se apuesta por la gente de la zona.
-- **Las boletas de medio día ya son la mayoría de la venta semanal.** Para alguien que vive en Villa de Leyva son la forma más fácil de venir.
-- **Las colaboraciones funcionan:** el video con influencers fue lo más visto, y los de la nueva línea (historia y Casa Boutique) superaron a los anteriores. Se usan en los grupos y en la lista de Fernando.
-- **Una fecha límite mueve la venta:** el 12 de octubre, último día del pase a precio de etapa 1, fue el mejor día de ventas. Por eso existe `cierre-descuento`.
-- **Quien pulsa Comprar casi siempre termina.** El trabajo de los mensajes es llevar a la gente a la conversación y al botón.
+De los 177 pedidos pagados, 47 traen campaña (12,4 millones). Los otros 130 no, por tres razones: 44 son de antes del 16 de octubre, cuando la tienda todavía no guardaba la campaña; 46 se crearon en Pretix sin pasar por el sitio (escarapelas y venta en puerta del 6 al 8 de noviembre), y 42 pasaron por el sitio sin UTM, 24 de ellos desde una búsqueda en Google. Quien recibe un mensaje y después busca el nombre del evento en Google, o lo abre en otro aparato, queda sin campaña. **Estas cifras son un piso: que una campaña tenga cero aquí no quiere decir que no vendió.**
 
-## Pendientes
+- **Pauta de Meta** (Facebook e Instagram): 15 pagados, 4,8 millones. Solo el anuncio del pase completo de la recta final (`ventas_recta-final_c1_c2`, `c1_pase-completo_ad`): 7 pagados, 2,5 millones. Es la pieza que más vendió.
+- **Grupos de Villa de Leyva** (`grupos-villa`, publicado a mano): 8 pagados, 1,8 millones. Vendieron tres piezas: la llegada de María Alejandra Villamizar (4 pedidos, los 4 pagados), el afiche de las caras de "últimos días" (3) y un afiche del sábado en la tarde (1). Las demás, una charla por pieza, no tienen ventas por enlace.
+- **Biografía de Instagram** (`permanente`, `bio`): 5 pagados, 1,4 millones.
+- **Enlaces que da el chatbot** (`permanente` desde WhatsApp y `pase-fin-semana-release`): 6 pagados, 1,2 millones. Aquí caen también las ventas de quien respondió una plantilla de otra campaña: Catalina le da su propio enlace.
+- **Enlace `ultimos-dias` con el afiche de las caras**, por WhatsApp: 5 pagados, 0,7 millones. No quedó escrito dónde se publicó.
+- **Soporte técnico por WhatsApp** a una persona que se quedó trabada pagando: 1 pagado, 0,6 millones.
+- **Correo de aviso a interesados**, el de diseño con precio y botón: 2 pagados, 0,5 millones.
+- **Inactivos** (respond.io): 1 pagado, 0,4 millones, y fue RC9, la de últimos días con todos los nombres y el afiche de las caras. RC1 a RC8, una charla por plantilla, sin ventas por enlace.
+- **Google Ads, Búsqueda**: 1 pagado, 0,2 millones, con un presupuesto de 230.000 COP.
+- **Historias de Instagram** de la diseñadora: 1 pagado, 0,2 millones.
 
-- [ ] **Videos** (historia, Casa Boutique y, cuando exista, Relato): cuando lleguen, cada uno entra en lugar de la siguiente publicación de GV y LF que todavía no haya salido, con el mismo número (`GV3.mp4` en vez de `GV3.png`).
-- [ ] **El afiche general tiene a Ricardo Ospina y a León Valencia.** Hace falta una versión sin ellos para `GV6`, `GV8` y `LF1`.
-- [ ] **Pase de fin de semana en LF:** en GV ya está (`GV8`); falta en la lista de Fernando.
+### Por persona (compró después de recibirlo)
+
+- **Expirados** (quien dejó vencer un pedido), unas 14 personas: 6 compraron después del correo de cierre de etapa del 27 de octubre (2,4 millones), y entre los tres correos propios de expirados, 3 de 13. Es el público que más responde, con diferencia.
+- **Interesados del sitio**, el aviso de que abrieron las boletas de medio día: 4 de 18 compraron después (0,7 millones).
+- **Lista amplia** (interesados del sitio y contactos de Fernando, unas 309 personas), con los correos de cierre de etapa: 7 compraron después (1,2 millones), un 2 %.
+- **Cartas de Fernando** de los días del evento, unas 300 personas: 1 compra después de cada una.
+- **Familia** (el código para que la familia del comprador comprara a su mismo precio): 40 vales creados y **ninguno se usó**.
+
+## Lo que aprendimos
+
+1. **Lo general vendió más que lo particular.** Con pocos datos, pero igual en grupos, inactivos y pauta: vendieron las piezas con las caras y todos los nombres, la noticia (llega María Alejandra Villamizar) y la fecha límite. Las piezas de una sola charla casi no tienen ventas por enlace. Para el próximo evento conviene probarlo a propósito, con la misma audiencia y dos piezas, antes de volverlo regla.
+2. **La pauta de Meta es el canal medido que más vende**, y lo que más funcionó fue un anuncio simple del pase completo en la recta final.
+3. **Quien ya intentó comprar es el mejor público.** Expirados respondió a casi todo. Vale la pena escribirles pronto, con lo que les faltó (el enlace, el método de pago, ayuda) y con una persona detrás. Una conversación de soporte vendió lo mismo que una campaña entera.
+4. **Los correos que vendieron llevaban precio y botón**: el aviso a interesados y el cierre de etapa. Los conversacionales, sin precio ni botón, no tienen ventas medidas y aun así caían en Promociones. La causa más probable de Promociones es el dominio nuevo, no el texto.
+5. **Una campaña por cada iniciativa del titular se volvió inmanejable.** Nueve campañas, tres herramientas de envío (campana.py, respond.io y a mano) y un checklist de diez tareas al día. Lo de la regla de arriba.
+6. **Las plantillas de Meta sin imagen se aprueban sin problema; con imagen, a veces sí y a veces no.** Se crean al menos un día antes, y una aprobada no se edita.
+7. **El retargeting de Google necesita semanas:** los públicos de GA4 no se llenan con días pasados. Se arma al abrir la venta, no al final.
+8. **Medir desde el primer día y con UTM en todo enlace**, también en los que da el chatbot y en los de soporte. Los vales con código sí se pueden medir sin UTM: en Pretix, Vales, por etiqueta.
+9. **Familia no funcionó.** Un precio especial para la familia de quien ya compró, cuatro días antes del evento, no movió a nadie.
+
+## Para el próximo evento
+
+Pocas campañas, cada una con su público y su canal, para que se puedan manejar y medir:
+
+- **Pauta** (Meta, y Google si se monta temprano): el público nuevo. Las piezas generales, con las caras.
+- **Calientes**: quien dejó vencer un pedido, se inscribió en el sitio o le escribió al chatbot y no compró. Un solo público y una sola secuencia por WhatsApp, con el correo como segundo canal. Expirados primero.
+- **Comunidad local y aliados** (grupos del pueblo, listas de los organizadores): publicado a mano, una pieza por día como máximo.
+- **Compradores**: solo avisos de servicio.
+
+Y los momentos que movieron la venta: el lanzamiento, cada cambio de etapa (la fecha límite), la llegada de un invitado nuevo y los últimos días.
 
 ## La herramienta: `campana.py`
 
@@ -108,25 +123,6 @@ python3 scripts/campanas/campana.py registro
 
 Si un envío falla por la persona (un número sin WhatsApp), queda anotado como fallido y sigue con los demás. Si falla por la llave, la plantilla o el límite diario de Resend (100 correos en el plan gratis), se detiene: se corrige y se vuelve a correr el mismo comando, que sigue con los que faltan.
 
-### Preguntas de reunión
-
-Cada una se responde con un comando, sin enviar nada. Leer las últimas líneas que imprime. Si el comando pide `npm run build`, correrlo primero.
-
-- ¿Cuántos expirados no han comprado?
-  `python3 scripts/campanas/campana.py lista expirados`
-- ¿Cuántos expiraron en la última semana y siguen sin comprar?
-  `python3 scripts/campanas/campana.py lista expirados --dias 7`
-- ¿Cuántos interesados del sitio no han comprado?
-  `python3 scripts/campanas/campana.py lista interesados`
-- ¿Cuántos se inscribieron en la última semana?
-  `python3 scripts/campanas/campana.py lista interesados --dias 7`
-- ¿A cuántos les falta el correo de una campaña?
-  `python3 scripts/campanas/campana.py correo expirados` (la línea "mensajes por correo listos")
-- ¿Cuántos mensajes salieron y cuándo?
-  `python3 scripts/campanas/campana.py registro` (por día, campaña, canal y tipo)
-
-La lista completa, con el detalle de cada persona, queda en el CSV que indica la línea "Personas en la lista".
-
 ### Llaves
 
 Las de Pretix, el backend, Resend y WhatsApp están en el llavero. Cómo se sacan y dónde se guardan: [`configuracion.md`](configuracion.md).
@@ -136,7 +132,7 @@ Las de Pretix, el backend, Resend y WhatsApp están en el llavero. Cómo se saca
 1. Si la gente sale de una fuente que ya existe con reglas que ya existen (por ejemplo, interesados de otro evento): copiar `config/interesados.json` con otro nombre y cambiar los parámetros y las plantillas. El evento y la campaña del backend salen de la fuente; solo se ponen en la configuración (`"evento"`, `"parametros": {"campana_backend": ...}`) si la campaña es de otro evento. No hay código que escribir.
 2. Si las reglas son nuevas (por ejemplo, compradores de una franja para ofrecerles el pase): un módulo en `audiencias/` con una función `armar(evento, parametros, excluir)` que devuelve un `Resultado`, y registrarlo en `audiencias/__init__.py`.
 3. Si los datos salen de un sistema nuevo: un módulo en `fuentes/` que devuelva registros con `correo` y `telefono` normalizados.
-4. La carpeta de la campaña en `docs/campanas/<campaña>/`, con su plan y un README por medio (ver "Cómo está organizado"). La plantilla de correo en `scripts/campanas/plantillas/`, según `reglas.md`. La de WhatsApp, a aprobación de Meta.
+4. Su plan corto en este README: a quién, por qué canal, qué días y con qué UTM, y comprobar que ese público no tenga ya otra campaña en ese canal. La plantilla de correo en `scripts/campanas/plantillas/`, según `reglas.md`. La de WhatsApp, a aprobación de Meta.
 5. La campaña de UTM en `docs/medicion/embudo/enlaces-y-nombres.md` el mismo día.
 6. Sus días en `checklist-diario.md`.
 7. Antes del envío real: `lista`, la vista previa y la prueba al titular.
