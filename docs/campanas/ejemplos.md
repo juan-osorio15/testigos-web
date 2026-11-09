@@ -6,7 +6,7 @@ La pieza que más vendió no está aquí: el anuncio del pase completo de la rec
 
 ## El afiche de las caras: últimos días
 
-Grupos de Villa de Leyva (3 pagados por enlace) y, con el mismo afiche en el encabezado, la plantilla de inactivos RC9 (1 pagado, la única de su campaña). Es la promoción general: la fecha, todos los nombres conocidos y los temas, sin una charla en particular. Imagen: [`ejemplos/afiche-caras-ultimos-dias.jpg`](ejemplos/afiche-caras-ultimos-dias.jpg).
+Lo que más funcionó, fuera de la pauta: el enlace `ultimos-dias` que se armó de afán con este afiche (5 pagados), los grupos de Villa de Leyva (3) y, con el mismo afiche en el encabezado, la plantilla de inactivos RC9 (1, la única de su campaña). Es lo de siempre: las caras, claras, y la urgencia de "últimos días", con todos los nombres conocidos y sin una charla en particular. Imagen: [`ejemplos/afiche-caras-ultimos-dias.jpg`](ejemplos/afiche-caras-ultimos-dias.jpg).
 
 Para grupos (publicado a mano, el 3 de noviembre):
 
@@ -40,6 +40,28 @@ Pase completo: $340.000
 
 ¿Te ayudamos a escoger tu boleta?
 ```
+
+Plantilla de Meta `pase_finde_05_11_2026` (RC10, jueves 5 de noviembre), la última que se aprobó: el mismo afiche en el encabezado, sin variables. Es lo mismo en corto: las caras, "este sábado y domingo", los temas, el precio del pase y las otras opciones al final.
+
+```
+Este sábado y domingo, en Villa de Leyva, todavía puedes escuchar en persona a quienes cubrieron de frente la historia de Colombia.
+
+Yolanda Ruiz, María Elvira Samper, Fidel Cano, Cecilia Orozco, Luz María Sierra, Martha Soto y Marta Ruiz, entre otros periodistas, cuentan lo que vivieron, y puedes hacerles preguntas.
+
+Las guerrillas, el Caguán y La Habana, el narcotráfico y el paramilitarismo, las reelecciones de Uribe y Santos, los magnicidios y las víctimas, y las mujeres periodistas en el conflicto.
+
+Pase de fin de semana: $255.000, con descuento. Seis conversatorios, desde el sábado a las 9:00 a.m. El aforo es limitado.
+
+Si vienes de fuera, tenemos hoteles aliados con descuentos para asistentes.
+
+Si solo quieres algunos conversatorios, boleta de medio día: $90.000. Si puedes el viernes a las 3:00 p.m., el pase completo ($340.000) suma el Bogotazo con Daniel Samper Pizano. Las charlas abiertas en la Casa Museo Antonio Nariño, hasta el viernes en la mañana, son de entrada libre.
+
+¿Te ayudamos a escoger?
+```
+
+- Pie: `Eventalist S.A.S. · Responde BAJA para no recibir más`
+- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc10-este-fin-de-semana_boletas`
+- Botón de enlace **Ver hoteles** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc10-este-fin-de-semana_hospedaje#hospedaje`
 
 ## La noticia: llega una invitada
 

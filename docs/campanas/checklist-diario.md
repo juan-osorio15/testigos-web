@@ -1,8 +1,8 @@
 # Checklist diario
 
-**A cada público le llega como máximo un contenido por canal al día.** Varios WhatsApp de venta desde el mismo número terminan en bloqueos, bajan la calidad del número y Meta deja de entregar las plantillas. La única excepción son los avisos de servicio importantes cerca del evento (horario de puertas, un cambio) a quien ya compró.
+**Una comunicación por canal a cada persona, y un par de días entre intentos.** Varios WhatsApp de venta desde el mismo número terminan en bloqueos, bajan la calidad del número y Meta deja de entregar las plantillas. Se rompe solo con una razón: los avisos de servicio a quien ya compró (horario de puertas, un cambio) o los últimos días antes de un cierre o del evento.
 
-Por eso el checklist se arma por público y por canal, no por campaña. Si una campaña nueva quiere un público y un canal que ya tienen dueño ese día, se mueve de día o reemplaza a la otra. No se suman.
+Por eso el checklist se arma por público y por canal, no por campaña. Si una campaña nueva quiere un público y un canal que ya tienen un mensaje en esos días, se mueve o reemplaza al otro. No se suman.
 
 Se actualiza en el mismo cambio que cree una campaña o mueva un calendario. Las X las pone el titular.
 

@@ -10,13 +10,13 @@ docs/campanas/
   ejemplos.md          las piezas que mejor funcionaron, con su texto
   ejemplos/            sus imágenes
   checklist-diario.md  cómo se arma el día sin que las campañas se pisen
-  reglas.md            cómo se escribe y cómo se manda
+  reglas.md            guías de cómo se escribe y cómo se manda
   configuracion.md     llaves y permisos, una sola vez
 ```
 
 ## La regla que ordena todo
 
-**Un solo contenido por canal para cada público en un mismo día.** Si a una persona le llegan varios WhatsApp de venta desde el mismo número, es fácil que bloquee o reporte; con unos cuantos bloqueos baja la calidad del número y Meta deja de entregar las plantillas de marketing. Lo mismo, en menor medida, con el correo y Promociones de Gmail.
+**Una comunicación por canal a cada persona, y un par de días entre intentos.** En la recta final llegamos a una diaria porque empezamos tarde; en el próximo evento se empieza con más tiempo. Si a una persona le llegan varios WhatsApp de venta desde el mismo número, es fácil que bloquee o reporte; con unos cuantos bloqueos baja la calidad del número y Meta deja de entregar las plantillas de marketing. Lo mismo, en menor medida, con el correo y Promociones de Gmail.
 
 La excepción son los avisos de servicio importantes cerca del evento (horario de puertas, un cambio de sede o de hora) a quien ya compró: no venden y la persona los necesita.
 
@@ -37,7 +37,7 @@ De los 177 pedidos pagados, 47 traen campaña (12,4 millones). Los otros 130 no,
 - **Grupos de Villa de Leyva** (`grupos-villa`, publicado a mano): 8 pagados, 1,8 millones. Vendieron tres piezas: la llegada de María Alejandra Villamizar (4 pedidos, los 4 pagados), el afiche de las caras de "últimos días" (3) y un afiche del sábado en la tarde (1). Las demás, una charla por pieza, no tienen ventas por enlace.
 - **Biografía de Instagram** (`permanente`, `bio`): 5 pagados, 1,4 millones.
 - **Enlaces que da el chatbot** (`permanente` desde WhatsApp y `pase-fin-semana-release`): 6 pagados, 1,2 millones. Aquí caen también las ventas de quien respondió una plantilla de otra campaña: Catalina le da su propio enlace.
-- **Enlace `ultimos-dias` con el afiche de las caras**, por WhatsApp: 5 pagados, 0,7 millones. No quedó escrito dónde se publicó.
+- **Enlace `ultimos-dias` con el afiche de las caras**, por WhatsApp: 5 pagados, 0,7 millones. Se armó de afán el 3 de noviembre y fue de lo más efectivo.
 - **Soporte técnico por WhatsApp** a una persona que se quedó trabada pagando: 1 pagado, 0,6 millones.
 - **Correo de aviso a interesados**, el de diseño con precio y botón: 2 pagados, 0,5 millones.
 - **Inactivos** (respond.io): 1 pagado, 0,4 millones, y fue RC9, la de últimos días con todos los nombres y el afiche de las caras. RC1 a RC8, una charla por plantilla, sin ventas por enlace.
@@ -54,12 +54,12 @@ De los 177 pedidos pagados, 47 traen campaña (12,4 millones). Los otros 130 no,
 
 ## Lo que aprendimos
 
-1. **Lo general vendió más que lo particular.** Con pocos datos, pero igual en grupos, inactivos y pauta: vendieron las piezas con las caras y todos los nombres, la noticia (llega María Alejandra Villamizar) y la fecha límite. Las piezas de una sola charla casi no tienen ventas por enlace. Para el próximo evento conviene probarlo a propósito, con la misma audiencia y dos piezas, antes de volverlo regla.
+1. **Lo que vendió fue lo de siempre: las caras, claras, y la urgencia de "últimos días".** El afiche de las caras vendió en grupos, en inactivos y por su propio enlace; la noticia de una invitada nueva, también. Las piezas de una sola charla casi no tienen ventas por enlace. Simple gana.
 2. **La pauta de Meta es el canal medido que más vende**, y lo que más funcionó fue un anuncio simple del pase completo en la recta final.
 3. **Quien ya intentó comprar es el mejor público.** Expirados respondió a casi todo. Vale la pena escribirles pronto, con lo que les faltó (el enlace, el método de pago, ayuda) y con una persona detrás. Una conversación de soporte vendió lo mismo que una campaña entera.
 4. **Los correos que vendieron llevaban precio y botón**: el aviso a interesados y el cierre de etapa. Los conversacionales, sin precio ni botón, no tienen ventas medidas y aun así caían en Promociones. La causa más probable de Promociones es el dominio nuevo, no el texto.
-5. **Una campaña por cada iniciativa del titular se volvió inmanejable.** Nueve campañas, tres herramientas de envío (campana.py, respond.io y a mano) y un checklist de diez tareas al día. Lo de la regla de arriba.
-6. **Las plantillas de Meta sin imagen se aprueban sin problema; con imagen, a veces sí y a veces no.** Se crean al menos un día antes, y una aprobada no se edita.
+5. **Nueve campañas a la vez se volvió inmanejable**, con tres herramientas de envío (campana.py, respond.io y a mano) y un checklist de diez tareas al día. Empezamos tarde y compensamos con más mensajes; lo de la regla de arriba.
+6. **Las plantillas de Meta con la imagen de las caras vendieron, pero Meta las aprueba a veces sí y a veces no.** Se crean al menos un día antes, con una versión sin imagen de respaldo, y una aprobada no se edita.
 7. **El retargeting de Google necesita semanas:** los públicos de GA4 no se llenan con días pasados. Se arma al abrir la venta, no al final.
 8. **Medir desde el primer día y con UTM en todo enlace**, también en los que da el chatbot y en los de soporte. Los vales con código sí se pueden medir sin UTM: en Pretix, Vales, por etiqueta.
 9. **Familia no funcionó.** Un precio especial para la familia de quien ya compró, cuatro días antes del evento, no movió a nadie.
