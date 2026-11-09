@@ -61,6 +61,46 @@ function rango(a, b) {
 }
 
 /**
+ * Líneas por periodo con el nombre y la cifra al final de cada serie.
+ * series: [{ nombre, clase, valores }] (null: ese periodo no se dibuja);
+ * clase da el color en plantilla.css; las marcas siguen a la identidad, no al orden.
+ */
+export function lineas({ periodos, series, formato = entero, ancho = 356, alto = 300 }) {
+  const top = 14, bottom = 28, left = 34, right = 116;
+  const max = Math.max(1, ...series.flatMap((s) => s.valores.filter((v) => v != null)));
+  const inicio = Math.min(...series.map((s) => s.valores.findIndex((v) => v != null)));
+  const x = (i) => left + ((i - inicio) / Math.max(1, periodos.length - 1 - inicio)) * (ancho - left - right);
+  const y = (v) => alto - bottom - (v / max) * (alto - top - bottom);
+  // Separa las etiquetas de un mismo costado para que no se monten.
+  const acomodar = (items) => {
+    const orden = [...items].sort((a, b) => a.y - b.y);
+    for (let k = 1; k < orden.length; k++) orden[k].y = Math.max(orden[k].y, orden[k - 1].y + 15);
+    const exceso = orden.at(-1).y - (alto - bottom + 4);
+    if (exceso > 0) { orden.at(-1).y -= exceso; for (let k = orden.length - 2; k >= 0; k--) orden[k].y = Math.min(orden[k].y, orden[k + 1].y - 15); }
+    return orden;
+  };
+  let svg = `<svg class="lineas" viewBox="0 0 ${ancho} ${alto}" width="${ancho}" height="${alto}" role="img">`;
+  svg += `<line class="base" x1="${left}" x2="${ancho - right}" y1="${alto - bottom}" y2="${alto - bottom}"/>`;
+  for (let i = inicio; i < periodos.length; i++) {
+    svg += `<line class="grid" x1="${x(i)}" x2="${x(i)}" y1="${top}" y2="${alto - bottom}"/><text class="eje" x="${x(i)}" y="${alto - 10}" text-anchor="middle">${esc(periodos[i])}</text>`;
+  }
+  for (const s of series) {
+    const puntos = s.valores.map((v, i) => (v == null ? null : [x(i), y(v), v, i])).filter(Boolean);
+    svg += `<polyline class="serie ${s.clase}" points="${puntos.map((p) => `${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ')}"/>`;
+    for (const p of puntos) svg += `<circle class="punto ${s.clase}" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="5"><title>${esc(s.nombre)}, ${esc(periodos[p[3]])}: ${esc(formato(p[2]))}</title></circle>`;
+    // La serie destacada lleva también la cifra de los puntos intermedios.
+    if (s.destacar) for (const p of puntos.slice(1, -1)) svg += `<text class="cifra-linea" x="${p[0].toFixed(1)}" y="${(p[1] - 10).toFixed(1)}" text-anchor="middle">${esc(formato(p[2]))}</text>`;
+  }
+  const extremos = (lado) => acomodar(series.map((s) => {
+    const i = lado === 'fin' ? s.valores.length - 1 : s.valores.findIndex((v) => v != null);
+    return { s, v: s.valores[i], y: y(s.valores[i]) + 4, x: x(i) };
+  }));
+  for (const e of extremos('inicio')) svg += `<text class="cifra-linea" x="${e.x - 9}" y="${e.y}" text-anchor="end">${esc(formato(e.v))}</text>`;
+  for (const e of extremos('fin')) svg += `<text class="cifra-linea" x="${e.x + 9}" y="${e.y}">${esc(formato(e.v))}<tspan class="nombre-linea" dx="5">${esc(e.s.nombre)}</tspan></text>`;
+  return svg + '</svg>';
+}
+
+/**
  * Tabla con barra en la columna principal. cols: [{ titulo, clave, tipo:
  * 'txt' | 'num' | 'barra', formato }]. Filas con `grupo: true` van en negrita;
  * con `tenue: true`, atenuadas; con `sangria: true`, indentadas.

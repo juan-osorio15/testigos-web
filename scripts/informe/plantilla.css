@@ -102,6 +102,43 @@ body { font-family: var(--sans); color: var(--ink); font-variant-numeric: tabula
 #anuncios .tabla td.txt:first-child { white-space: normal; width: 34%; line-height: 1.25; }
 #anuncios .tabla td { padding-top: 8px; padding-bottom: 8px; }
 
+/* ---------- Tendencia en líneas ----------
+   Tres series de marca y una neutra punteada; cada línea lleva su nombre al
+   final, así que el color nunca es la única pista. */
+.dos-lineas { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.panel-linea .et { color: var(--brick); padding-bottom: 6px; border-bottom: 2px solid var(--ink); margin-bottom: 8px; }
+.lineas { display: block; width: 100%; height: auto; overflow: visible; }
+.lineas .grid { stroke: var(--ink-08); stroke-width: 1; }
+.lineas .base { stroke: var(--ink); stroke-width: 1.5; }
+.lineas .eje { font: 600 10.5px var(--sans); fill: var(--ink-60); }
+.lineas .serie { fill: none; stroke-width: 2; stroke-linejoin: round; }
+.lineas .punto { stroke: var(--cream); stroke-width: 2; }
+.lineas .cifra-linea { font: 800 12px var(--sans); fill: var(--ink); }
+.lineas .nombre-linea { font-weight: 600; font-size: 10.5px; fill: var(--ink-60); }
+.serie.pauta { stroke: var(--terracotta); } .punto.pauta, .muestra.pauta { fill: var(--terracotta); background: var(--terracotta); }
+.serie.redes { stroke: var(--brick); } .punto.redes, .muestra.redes { fill: var(--brick); background: var(--brick); }
+.serie.google { stroke: var(--olive); } .punto.google, .muestra.google { fill: var(--olive); background: var(--olive); }
+.serie.directo { stroke: var(--ink-60); stroke-dasharray: 4 4; } .punto.directo, .muestra.directo { fill: var(--ink-60); background: var(--ink-60); }
+.leyenda { display: flex; flex-wrap: wrap; gap: 18px; font-size: 12.5px; font-weight: 600; }
+.leyenda span { display: inline-flex; align-items: center; gap: 6px; }
+.muestra { display: inline-block; width: 16px; height: 3px; }
+
+/* ---------- Anuncios ---------- */
+.tarjetas { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.tarjeta img { display: block; width: 100%; aspect-ratio: 16 / 11; object-fit: cover; object-position: top; }
+.tarjeta .t { font-size: 15px; font-weight: 800; line-height: 1.2; margin-top: 8px; }
+.tarjeta .d { font-size: 13px; color: var(--ink-60); margin-top: 2px; }
+.tarjeta .dato { font-size: 13px; font-weight: 800; color: var(--brick); margin-top: 4px; }
+#piezas .tabla { font-size: 14px; }
+#piezas .tabla td { padding: 5px 10px; }
+#piezas .tabla td:first-child { padding-left: 0; }
+#campanas .tabla { font-size: 15px; }
+#campanas .tabla th { padding-left: 6px; padding-right: 6px; }
+#campanas .tabla td { padding-left: 6px; padding-right: 6px; }
+#campanas .tabla td.txt { white-space: normal; line-height: 1.25; width: 27%; }
+#campanas .tabla td.barra { width: 24%; }
+#plan .pieza img { height: auto; align-self: flex-start; }
+
 /* ---------- Recorrido ---------- */
 .pasos { flex: 1; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 2px; align-items: end; min-height: 0; }
 .paso { display: flex; flex-direction: column; height: 100%; padding: 0 10px 0 0; }
@@ -156,6 +193,10 @@ body { font-family: var(--sans); color: var(--ink); font-variant-numeric: tabula
 .cierre-lista { list-style: none; counter-reset: n; display: flex; flex-direction: column; gap: 22px; }
 .cierre-lista li { counter-increment: n; display: grid; grid-template-columns: 44px 1fr; font-size: 22px; line-height: 1.38; font-weight: 600; }
 .cierre-lista li::before { content: counter(n); font-family: var(--serif); font-style: italic; font-size: 28px; line-height: 1; }
+.cierre.denso .aprendimos { padding: 44px 60px; }
+.cierre.denso h2 { margin-bottom: 20px; }
+.cierre.denso .cierre-lista { gap: 16px; }
+.cierre.denso .aprendimos .cierre-lista li { font-size: 21px; line-height: 1.32; }
 .pasos-siguientes .cierre-lista { margin-top: 26px; }
 .pasos-siguientes .cierre-lista li { font-size: 19px; font-weight: 500; }
 

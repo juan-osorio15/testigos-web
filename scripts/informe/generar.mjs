@@ -15,7 +15,7 @@ import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { leerGa4, leerMeta, leerPretix } from './leer.mjs';
-import { pasos, ritmoDiario, tabla } from './graficos.mjs';
+import { lineas, pasos, ritmoDiario, tabla } from './graficos.mjs';
 import { entero, esc, fechaCorta, fechaLarga, periodo, pct, pesos, texto } from './formato.mjs';
 import { CHROME, hechos } from '../lib/hechos.mjs';
 
@@ -299,7 +299,7 @@ function diapositiva(id, { eyebrow, pregunta, cuerpo, fuente, cifras = [] }) {
   return { id, html: (n) => `
 <section class="slide contenido${cs.length ? '' : ' sin-cifras'}" id="${id}">
   <div class="datos">
-    <p class="eyebrow">${String(n).padStart(2, '0')} · ${esc(eyebrow)}</p>
+    <p class="eyebrow">${String(n).padStart(2, '0')} · ${esc(d.eyebrow ?? eyebrow)}</p>
     <h2>${esc(d.pregunta ?? pregunta)}</h2>
     <div class="cuerpo">${cuerpo}</div>
     <p class="fuente">${esc(fuente)}</p>
@@ -327,13 +327,20 @@ if (ventas) {
         { titulo: 'Boletas', clave: 'boletas', tipo: 'barra', formato: entero },
         { titulo: 'Valor', clave: 'valor', tipo: 'num', formato: pesos },
       ],
-      filas: [...ventas.productos, { nombre: 'Total', precio: '', boletas: ventas.boletas, valor: ventas.valor, grupo: true }],
-      nota: `${entero(ventas.pedidos)} pedidos pagados. Valor de las boletas sin las comisiones de la tienda.${Object.keys(ventas.otros).length ? ` Además: ${Object.entries(ventas.otros).map(([k, v]) => `${v} ${k}`).join(', ')}.` : ''}`,
+      // Con sumarComisiones, el total es lo que pagaron los compradores.
+      filas: [
+        ...ventas.productos,
+        ...(C.sumarComisiones ? [{ nombre: 'Comisiones de la tienda', precio: '', boletas: '', valor: ventas.comisiones }] : []),
+        { nombre: 'Total', precio: '', boletas: ventas.boletas, valor: ventas.valor + (C.sumarComisiones ? ventas.comisiones : 0), grupo: true },
+      ],
+      nota: `${entero(ventas.pedidos)} pedidos pagados.${C.sumarComisiones ? '' : ' Valor de las boletas sin las comisiones de la tienda.'}${Object.keys(ventas.otros).length ? ` Además: ${Object.entries(ventas.otros).map(([k, v]) => `${v} ${k}`).join(', ')}.` : ''}`,
     }),
     fuente: `Fuente: Pretix, pedidos pagados del ${periodo({ desde: ventas.desde, hasta: ventas.hasta })}`,
     cifras: [
       { valor: entero(ventas.boletas), etiqueta: 'boletas vendidas' },
-      { valor: pesos(ventas.valor), etiqueta: 'en boletas' },
+      C.sumarComisiones
+        ? { valor: pesos(ventas.valor + ventas.comisiones), etiqueta: 'vendidos, con comisiones' }
+        : { valor: pesos(ventas.valor), etiqueta: 'en boletas' },
     ],
   }));
 
@@ -431,7 +438,8 @@ if (pauta) {
       filas.push({ ...a, resultados: a.resultados || null, costo: a.resultados ? a.gasto / a.resultados : null, sangria: true });
     }
   }
-  slides.push(diapositiva('pauta', {
+  // Con unirPautaYCampanas, la pauta va dentro de la diapositiva de campañas.
+  if (!C.unirPautaYCampanas) slides.push(diapositiva('pauta', {
     eyebrow: 'Pauta en Meta',
     pregunta: '¿Qué consiguió cada peso invertido en anuncios?',
     cuerpo: tabla({
@@ -505,7 +513,35 @@ if (lectura) {
   }));
 }
 
-if (canalesM) {
+// Tendencia de canales: compara esta semana con los informes anteriores.
+// C.tendenciaCanales: { informes: carpetas hermanas en orden, grupos: { serie: canales de GA4 } }.
+const TC = C.tendenciaCanales;
+if (TC && canales) {
+  const leerCanales = (carpeta) => {
+    const base = join(dir, '..', carpeta, 'datos');
+    for (const f of readdirSync(base).filter((x) => x.endsWith('.csv'))) {
+      const r = leerGa4(join(base, f));
+      if (r?.tipo === 'canales') return r;
+    }
+    throw new Error(`sin tabla de canales en ${carpeta}`);
+  };
+  const semanas = [...TC.informes.map(leerCanales), canales];
+  const ocultos = new Set(C.ocultarCanales ?? []);
+  const corto = ({ desde, hasta }) => (desde.slice(5, 7) === hasta.slice(5, 7) ? `${Number(desde.slice(8))}-${fechaCorta(hasta)}` : `${fechaCorta(desde)}-${fechaCorta(hasta)}`);
+  const periodos = semanas.map((s) => corto(s.periodo));
+  const suma = (s, canalesGrupo, k) => s.filas.filter((f) => canalesGrupo.includes(f.dims[0])).reduce((t, f) => t + (f[k] ?? 0), 0);
+  const serie = (g, valor) => ({ nombre: g.nombre, clase: g.clase, destacar: g.destacar, valores: semanas.map(valor) });
+  const nuevos = TC.grupos.map((g) => serie(g, (s) => suma(s, g.canales, 'nuevos') / s.filas.filter((f) => !ocultos.has(f.dims[0])).reduce((t, f) => t + (f.nuevos ?? 0), 0)));
+  const comprar = TC.grupos.map((g) => serie(g, (s, i) => (i < (TC.comprarDesde ?? 0) ? null : suma(s, g.canales, 'comprar'))));
+  const leyenda = `<div class="leyenda">${TC.grupos.map((g) => `<span><i class="muestra ${g.clase}"></i>${esc(g.nombre)}</span>`).join('')}</div>`;
+  const panel = (titulo, g) => `<div class="panel-linea"><p class="et">${esc(titulo)}</p>${g}</div>`;
+  slides.push(diapositiva('canales', {
+    eyebrow: 'Canales de adquisición',
+    pregunta: '¿Cómo ha cambiado el canal por el que llega la gente?',
+    cuerpo: `${leyenda}<div class="dos-lineas">${panel('Parte de las personas nuevas', lineas({ periodos, series: nuevos, formato: pct }))}${panel('Clics en Comprar', lineas({ periodos, series: comprar }))}</div><p class="nota">${esc(TC.nota ?? '')}</p>`,
+    fuente: `Fuente: Google Analytics, informes del ${periodo({ desde: semanas[0].periodo.desde, hasta: semanas.at(-1).periodo.hasta })}. Solo quienes aceptaron las cookies`,
+  }));
+} else if (canalesM) {
   slides.push(diapositiva('canales', {
     eyebrow: 'Canales de adquisición',
     pregunta: '¿Por dónde llega la gente?',
@@ -540,7 +576,59 @@ if (recorrido) {
   }));
 }
 
-if (campanasM) {
+// Anuncios que más sirvieron, de toda la pauta: la API de Meta da cifras por
+// anuncio desde el primer día y las piezas son recortes en datos/.
+const PT = C.piezasTop;
+if (PT) {
+  const tarjeta = (x) => `<li class="tarjeta"><img src="${incrustar(x.foto)}" alt="${esc(x.titulo)}"><p class="t">${esc(x.titulo)}</p><p class="d">${esc(x.publico)}</p><p class="dato">${entero(x.clics)} clics en Comprar · ${pesos(x.gasto / x.clics)} cada uno</p></li>`;
+  slides.push(diapositiva('piezas', {
+    eyebrow: 'Anuncios',
+    pregunta: '¿Qué anuncios funcionaron mejor?',
+    cuerpo: `<ul class="tarjetas">${PT.tarjetas.map(tarjeta).join('')}</ul>` + tabla({
+      cols: [
+        { titulo: 'En contraste', clave: 'nombre', tipo: 'txt' },
+        { titulo: 'Inversión', clave: 'gasto', tipo: 'num', formato: pesos },
+        { titulo: 'Clics en Comprar', clave: 'clics', tipo: 'num', formato: entero },
+        { titulo: 'Cada uno', clave: 'costo', tipo: 'num', formato: pesos },
+      ],
+      filas: PT.contraste.map((f) => ({ ...f, costo: f.clics ? f.gasto / f.clics : null })),
+    }),
+    fuente: `Fuente: Meta, Administrador de anuncios, ${periodo(PT.periodo)}. Clics en Comprar según el píxel`,
+  }));
+}
+
+if (campanasM && C.unirPautaYCampanas) {
+  const U = C.unirPautaYCampanas;
+  const clics = (camps) => campanasM.lista.filter((g) => camps.includes(g.camp)).reduce((t, g) => t + g.comprar, 0);
+  const res = (v, f) => {
+    if (!f.indicador) return '·';
+    const [uno, varios] = RESULTADOS[f.indicador] ?? ['resultado', 'resultados'];
+    return `${entero(v)} ${v === 1 ? uno : varios}`;
+  };
+  const filas = pauta.lista.map((g) => ({
+    nombre: nombre(g.camp), gasto: g.gasto, resultados: g.resultados, indicador: g.indicador,
+    costo: g.resultados ? g.gasto / g.resultados : null,
+    comprar: U.sinSitio?.includes(g.camp) ? null : clics([g.camp]),
+  }));
+  for (const x of U.sinPauta ?? []) filas.push({ nombre: x.nombre, gasto: null, resultados: null, costo: null, comprar: clics(x.campanas) });
+  slides.push(diapositiva('campanas', {
+    eyebrow: 'Campañas y pauta',
+    pregunta: '¿Qué consiguió cada campaña y qué trajo cada peso?',
+    cuerpo: tabla({
+      cols: [
+        { titulo: 'Campaña', clave: 'nombre', tipo: 'txt' },
+        { titulo: 'Inversión', clave: 'gasto', tipo: 'barra', formato: pesos },
+        { titulo: 'Resultado en Meta', clave: 'resultados', tipo: 'num', formato: res },
+        { titulo: 'Por resultado', clave: 'costo', tipo: 'num', formato: pesos },
+        { titulo: 'Clics en Comprar', clave: 'comprar', tipo: 'num', formato: entero },
+      ],
+      filas,
+      nota: C.notaPauta,
+    }),
+    fuente: `Fuente: Meta, Administrador de anuncios, y Google Analytics, ${periodo(campanasM.periodo)}`,
+    cifras: [{ valor: pesos(pauta.gasto), etiqueta: 'invertidos' }],
+  }));
+} else if (campanasM) {
   const filas = [];
   // Con ocultarTenues, las campañas y piezas con muy pocas visitas no se
   // muestran (la campaña sigue sumando las suyas), para que la tabla quepa.
@@ -574,7 +662,7 @@ if (campanasM) {
 // Cierre y anexo.
 const lista = (xs) => `<ol class="cierre-lista">${(xs ?? []).map((x) => `<li>${texto(x)}</li>`).join('')}</ol>`;
 const cierre = (n) => `
-<section class="slide cierre" id="cierre">
+<section class="slide cierre${(C.conclusiones?.length ?? 0) > 4 ? ' denso' : ''}" id="cierre">
   <div class="aprendimos"><p class="eyebrow">${String(n).padStart(2, '0')} · En resumen</p><h2>Lo que aprendimos</h2>${lista(C.conclusiones)}</div>
   <div class="pasos-siguientes"><p class="eyebrow">Siguientes pasos</p>${lista(C.siguientes)}</div>
 </section>`;
@@ -599,7 +687,9 @@ const portada = `
 
 const cuerpo = [portada];
 let n = 2;
-for (const s of slides.filter(Boolean)) cuerpo.push(s.html(n++));
+// C.orden: ids de las diapositivas, si no van en el orden en que se arman.
+const enOrden = C.orden ? C.orden.map((id) => slides.find((s) => s?.id === id)) : slides;
+for (const s of enOrden.filter(Boolean)) cuerpo.push(s.html(n++));
 cuerpo.push(cierre(n++));
 if (C.comoLeer?.length) cuerpo.push(anexo(n++));
 
