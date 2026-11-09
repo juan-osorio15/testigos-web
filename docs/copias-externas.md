@@ -16,7 +16,7 @@ Antes de pegar un texto que vive en el repo: `npm run build` y `npm run verifica
 - **Qué tiene**: la ficha (hechos) y el prompt (comportamiento). Los precios no: los consulta en vivo en la tienda.
 - **Copia en el repo**: `docs/chatbot/ficha_testigos_de_la_memoria_v*.md` y `docs/chatbot/prompt_v*.md`, la versión más alta de cada uno. `docs/chatbot/legacy/` no se usa.
 - **Cambia si cambia**: sesiones, panelistas, sedes, etapas, hoteles, políticas, canales.
-- **Último pegado**: por confirmar (ficha v8 del 2026-11-01 con los códigos FAMILIA, que incluye lo de la v7 con María Alejandra Villamizar, pendiente de pegar; prompt v5 del 2026-10-26).
+- **Último pegado**: ficha v4 en el chatbot (confirmado por el titular el 2026-11-02). Pendientes de pegar: ficha v9 del 2026-11-02 (sexta gratis, códigos FAMILIA, María Alejandra Villamizar) y prompt v6 del 2026-11-02 (sexta gratis en descuentos y objeciones).
 
 ## Plantillas de WhatsApp en Meta
 
