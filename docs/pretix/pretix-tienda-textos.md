@@ -361,16 +361,14 @@ Decisiones:
 
 ## Escarapela en PDF (Badges → Badge layouts)
 
-Para las personas que llevan credencial colgada: panelistas, staff e invitados. Sigue la
-pieza de la diseñadora (pensada para asistentes) con los mismos colores: bloque
-principal de color con la categoría en píldora arriba a la izquierda y el
-cuadro crema con las comillas en la esquina; el nombre grande
-debajo; abajo, crema con el QR y el código del pedido, y terracota con los
-datos prácticos (Hospedería Duruelo, Villa de Leyva, fechas y el sitio). El
-crema del QR sube 5 mm más que el terracota, como en la pieza original: dos
-planos superpuestos, no una grilla (ver `brand/formula-visual.md`). Mismo
-formato A6 vertical (105 × 148 mm) de la boleta, de la plantilla por defecto de
-pretix y del porta-escarapela A6 corriente.
+Para las personas que llevan credencial colgada: panelistas, staff e invitados.
+Bloque principal de color con la categoría en píldora arriba a la izquierda, el
+logo completo y el nombre grande debajo; abajo, un crema pequeño con el logo de
+Conexión Zaquencipa en tinta, y terracota con los datos prácticos (Hospedería
+Duruelo, Villa de Leyva, fechas y el sitio). El crema sube 5 mm más que el
+terracota: dos planos superpuestos, no una grilla (ver `brand/formula-visual.md`).
+Mismo formato A6 vertical (105 × 148 mm) de la boleta, de la plantilla por defecto
+de pretix y del porta-escarapela A6 corriente.
 
 Cada categoría cambia solo el rótulo y los colores de dos bloques:
 
@@ -380,34 +378,38 @@ Cada categoría cambia solo el rótulo y los colores de dos bloques:
 | Staff | terracota, el color más reconocible de la marca | oliva, para no fundirse con el principal |
 | Invitados | cielo | terracota |
 
+Invitados es la excepción: se imprimen 60 iguales, sin nombre y sin la palabra
+de la categoría. El logo completo crece y se centra en el bloque de color. Su PDF se imprime directo y no pasa por pretix.
+
 Archivos en `brand/pretix/`:
 
 | Archivo | Para qué |
 |---|---|
-| `escarapela-panelista-fondo.pdf`, `escarapela-staff-fondo.pdf`, `escarapela-invitados-fondo.pdf` | Botón "Upload PDF as background" del layout de cada categoría. Llevan bloques, píldora, comillas, la píldora vacía del código y los datos fijos, con la fuente Archivo embebida. |
-| `escarapela-layout.json` | Botón `</>` del editor: reemplazar todo el código por este. Es el mismo para todas las categorías. Datos variables: nombre, QR y código del pedido, en Open Sans y tinta. |
+| `escarapela-panelista-fondo.pdf`, `escarapela-staff-fondo.pdf` | Botón "Upload PDF as background" del layout de cada categoría. Llevan bloques, píldora, los dos logos y los datos fijos, con la fuente Archivo embebida. |
+| `escarapela-invitados-fondo.pdf` | La escarapela completa: se manda a imprimir tal cual, 60 copias. |
+| `escarapela-layout.json` | Botón `</>` del editor: reemplazar todo el código por este. Es el mismo para panelista y staff. Único dato variable: el nombre, en Open Sans y tinta. |
 | `escarapela/build.mjs` y `escarapela/make.sh` | Fuente del diseño. `sh brand/pretix/escarapela/make.sh` regenera los PDF, el JSON y las vistas previas de todas las categorías; con un argumento (`panelista`, `staff` o `invitados`) solo esa. Los colores por categoría están en `PRESETS`, al inicio de `build.mjs`. Necesita Google Chrome. |
 | `lib.mjs` | Lo común a boleta y escarapela (colores, cajas, vista previa). |
 
 Cómo se llena en pretix:
 
-- Un layout de escarapela por categoría, cada uno con su PDF de fondo y el
+- Un layout de escarapela para panelista y otro para staff, cada uno con su PDF de fondo y el
   mismo JSON, asignado a su producto (Badges → Badge layouts → "Assign to products").
 - Solo lleva el nombre del asistente (`attendee_name`): sin cargo ni medio. Basta
   con que el producto pida el nombre del asistente.
 - Las escarapelas se generan desde un pedido: un producto gratuito y oculto
-  por categoría ("Panelista", "Staff", "Ingreso invitados") con un pedido por persona, o un solo
+  por categoría ("Panelista", "Staff") con un pedido por persona, o un solo
   pedido con varias posiciones. La escarapela se descarga desde el detalle
   del pedido ("Download badge") o en lote desde Orders → Export → "Attendee badges".
-- El QR es el mismo código secreto de la boleta: la escarapela también sirve
-  para el control de entrada si hace falta.
+- Las escarapelas no llevan QR: se entra a la vista y no suman en las listas de
+  check-in. El QR sigue en la boleta.
 
 Decisiones:
 
 - La categoría va fija en el fondo, no como dato variable: así sale en Archivo,
   en la píldora, y no en Open Sans.
-- El nombre va a 30 pt con autoajuste, al pie del bloque de color: "María
-  Fernanda Gómez" ocupa dos líneas; algo más largo baja a tres o se encoge.
+- El nombre va a 35 pt con autoajuste, al pie del bloque de color: un nombre
+  largo baja a tres líneas y, si aún no cabe, se encoge.
 - El sitio se escribe `testigosdelamemoria.com`, que es el dominio real; la
   pieza de la diseñadora decía `.co`.
 

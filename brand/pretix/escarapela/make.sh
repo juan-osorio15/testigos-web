@@ -11,6 +11,9 @@ for CAT in ${@:-panelista staff invitados}; do
   "$CH" --headless=new --disable-gpu --allow-file-access-from-files --window-size=397,560 --force-device-scale-factor=2 \
     --screenshot="$PWD/preview-$SLUG.png" "file://$PWD/preview.html" 2>/dev/null
   echo "listo: brand/pretix/escarapela-$SLUG-fondo.pdf"
+  # Invitados no lleva datos variables: su layout vacío no pisa el de los demás.
+  if [ "$CAT" != invitados ]; then
+    cp layout.json ../escarapela-layout.json
+    echo "listo: brand/pretix/escarapela-layout.json"
+  fi
 done
-cp layout.json ../escarapela-layout.json
-echo "listo: brand/pretix/escarapela-layout.json"

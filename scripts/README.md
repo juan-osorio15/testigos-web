@@ -24,6 +24,6 @@ Chrome: las que capturan HTML usan Google Chrome en su ruta de macOS; otra ruta 
 ## Boleta y escarapela de Pretix
 
 - `npm run boleta`: fondo en PDF y `layout.json` de la boleta (`brand/pretix/`). La sede y las fechas salen de la fuente.
-- `npm run escarapela -- [panelista|staff|prensa]`: lo mismo para las escarapelas.
+- `npm run escarapela -- [panelista|staff|invitados]`: lo mismo para las escarapelas.
 
 Después de regenerarlas hay que subirlas a Pretix a mano (ver `docs/copias-externas.md`).
