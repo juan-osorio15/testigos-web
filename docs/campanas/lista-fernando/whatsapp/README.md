@@ -26,6 +26,8 @@ No hay envíos los domingos ni el lunes 2 de noviembre (festivo). Los sábados, 
 - **LF9** · martes 3 nov · Martha Soto
 - **LF10** · miércoles 4 nov · mañana, el documental de Sady González
 - **LF11** · jueves 5 nov · hoy empieza, con Ana María Echeverri
+- **LF14** · jueves 5 nov (después de LF11) o viernes 6 nov · este fin de semana, con el afiche de las caras
+- **LF15** · viernes 6 nov (en la mañana) · hoy, Daniel Samper Pizano y Darío Restrepo
 - **LF12** · viernes 6 nov · hoy abrimos, con las mujeres periodistas del domingo
 
 ---
@@ -239,6 +241,48 @@ Boletas en la página:
 https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=carrusel-ana-maria-echeverri
 
 ¿Dudas? Escriban aquí:
+https://wa.me/573239236021?text=Hola%2C%20Fernando%20me%20cont%C3%B3%20de%20Testigos%20de%20la%20Memoria
+```
+
+## LF14 · jueves 5 o viernes 6 de noviembre (antes, confirmar en Pretix que sigue habiendo boletas)
+
+Pedido por el titular el 2026-11-05: la versión en la voz de Fernando de RC10, con el pase de fin de semana de protagonista. No dice "hoy" ni "mañana", así que sirve los dos días.
+
+**Pieza:** `LF14.jpg` (afiche de las caras, el mismo de RC10)
+
+```
+Este sábado y domingo van a estar en Villa de Leyva Yolanda Ruiz, María Elvira Samper, Fidel Cano, Cecilia Orozco, Luz María Sierra, Martha Soto y Marta Ruiz, entre otros periodistas, contando lo que les tocó cubrir de frente y respondiendo preguntas. Todavía están a tiempo de venir.
+
+Pase de fin de semana: $255.000, con descuento. Seis conversatorios en la Hospedería Duruelo, desde el sábado a las 9:00 a.m. El aforo es limitado.
+
+Si solo quieren algunos conversatorios, boleta de medio día: $90.000. Si pueden el viernes a las 3:00 p.m., el pase completo ($340.000) suma el Bogotazo con Daniel Samper Pizano. Las charlas abiertas en la Casa Museo Antonio Nariño, hasta el viernes en la mañana, son de entrada libre.
+
+Boletas en la página:
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=afiche-caras_este-fin-de-semana
+
+¿Dudas? Escriban aquí:
+https://wa.me/573239236021?text=Hola%2C%20Fernando%20me%20cont%C3%B3%20de%20Testigos%20de%20la%20Memoria
+```
+
+## LF15 · viernes 6 de noviembre (en la mañana; antes, confirmar en Pretix que sigue habiendo boletas)
+
+Pedido por el titular el 2026-11-06, para quien todavía puede comprar y llegar esa tarde. Primero la urgencia y el antojo; el fin de semana, después.
+
+**Pieza:** `LF15.png` (afiche del Bogotazo, `Charlas_Afiches/afiche_bogotazo.png`)
+
+```
+Hoy es el conversatorio de Daniel Samper Pizano aquí en Villa de Leyva. No se pierdan la oportunidad de preguntarle lo que siempre quisieron saber.
+
+Con Darío Restrepo va a hablar de cómo la muerte de un solo hombre pudo encender a todo un país, de qué pesó más en el Frente Nacional, si la paz o el reparto del poder, y de cómo se contaba la noticia cuando los propios periódicos tenían color político.
+
+Es a las 3:30 p.m. en la Hospedería Duruelo. El aforo es limitado. Boleta del viernes en la tarde: $90.000.
+
+Y si hoy no pueden, el sábado y el domingo siguen Yolanda Ruiz, María Elvira Samper, Fidel Cano, Cecilia Orozco y Luz María Sierra, entre otros. Pase de fin de semana: $255.000, con descuento.
+
+Boletas en la página:
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=aliados&utm_campaign=lista-fernando&utm_content=afiche-bogotazo_hoy
+
+¿Dudas? Escriban aquí y se la dejan lista:
 https://wa.me/573239236021?text=Hola%2C%20Fernando%20me%20cont%C3%B3%20de%20Testigos%20de%20la%20Memoria
 ```
 

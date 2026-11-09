@@ -6,7 +6,7 @@
 
 Arma la lista con los datos del momento y dice cuántos quedaron y cuántos salieron y por qué. No envía nada.
 
-- Campañas: `expirados`, `interesados`, `compradores`, `agenda-fernando`, `carta-fernando`, `cierre-descuento-2-carta`, `familia-etapa1`, `familia-etapa2`.
+- Campañas: `expirados`, `interesados`, `compradores`, `agenda-fernando`, `carta-fernando`, `cierre-descuento-2-carta`, `familia-etapa1`, `familia-etapa2`, `apertura-sabado-domingo`.
 - `--dias N`: solo las personas de los últimos N días.
 - `--excluir correo-o-telefono`: deja a alguien por fuera (se puede repetir).
 
@@ -87,7 +87,7 @@ Regenera el fondo en PDF y el `layout.json` de la boleta (`brand/pretix/`). Desp
 
 ### `npm run escarapela`
 
-Regenera los fondos y el `layout.json` de las escarapelas de las tres categorías. Después se suben a Pretix a mano.
+Regenera los fondos de las escarapelas de las tres categorías y el `layout.json` de panelista y staff. Esos dos se suben a Pretix a mano; el PDF de invitados se imprime directo.
 
 - `npm run escarapela -- panelista`, `-- staff` o `-- invitados`: solo esa categoría (se pueden poner varias).
 - `CHROME=/ruta/a/chrome npm run escarapela`: otra ruta de Chrome (sirve igual para `boleta`, `og` y `og:portada`).

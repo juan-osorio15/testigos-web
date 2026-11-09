@@ -24,6 +24,8 @@ Grupos de WhatsApp de planes y eventos de Villa de Leyva donde ya estamos. Una p
 - **GV13** · martes 3 nov · últimos días, con el afiche de las caras (después de GV5)
 - **GV11** · miércoles 4 nov · Ana María Echeverri y las guerrillas
 - **GV6** · jueves 5 nov · hoy empiezan las charlas abiertas
+- **GV14** · jueves 5 nov (después de GV6) o viernes 6 nov · este fin de semana, con el afiche de las caras
+- **GV15** · viernes 6 nov (en la mañana) · hoy, Daniel Samper Pizano y Darío Restrepo
 - **GV7** · viernes 6 nov · mujeres periodistas: hoy empieza
 
 El domingo 1 y el lunes 2 (festivo) no se publica.
@@ -249,6 +251,48 @@ Boletas en la página:
 https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiche-general_charlas-abiertas
 
 ¿Dudas? Escríbannos:
+https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
+```
+
+## GV14 · jueves 5 o viernes 6 de noviembre (antes, confirmar en Pretix que sigue habiendo boletas)
+
+Pedido por el titular el 2026-11-05: la versión para grupos de RC10, con el pase de fin de semana de protagonista. No dice "hoy" ni "mañana", así que sirve los dos días.
+
+**Pieza:** `GV14.jpg` (afiche de las caras, el mismo de RC10)
+
+```
+Este sábado y domingo, aquí en Villa de Leyva, todavía pueden escuchar en persona a quienes cubrieron de frente la historia de Colombia: Yolanda Ruiz, María Elvira Samper, Fidel Cano, Cecilia Orozco, Luz María Sierra, Martha Soto y Marta Ruiz, entre otros periodistas. Cuentan lo que vivieron y responden preguntas.
+
+Pase de fin de semana: $255.000, con descuento. Seis conversatorios en la Hospedería Duruelo, desde el sábado a las 9:00 a.m. El aforo es limitado.
+
+Si solo quieren algunos conversatorios, boleta de medio día: $90.000. Si pueden el viernes a las 3:00 p.m., el pase completo ($340.000) suma el Bogotazo con Daniel Samper Pizano. Las charlas abiertas en la Casa Museo Antonio Nariño, hasta el viernes en la mañana, son de entrada libre.
+
+Boletas en la página:
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiche-caras_este-fin-de-semana
+
+¿Dudas? Escríbannos:
+https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
+```
+
+## GV15 · viernes 6 de noviembre (en la mañana; antes, confirmar en Pretix que sigue habiendo boletas)
+
+Pedido por el titular el 2026-11-06, para el público de Villa de Leyva que todavía puede comprar y venir esa tarde. Primero la urgencia y el antojo; el fin de semana, después.
+
+**Pieza:** `GV15.png` (afiche del Bogotazo, `Charlas_Afiches/afiche_bogotazo.png`)
+
+```
+Hoy es el conversatorio de Daniel Samper Pizano aquí en Villa de Leyva. No se pierdan la oportunidad de preguntarle lo que siempre quisieron saber.
+
+Con Darío Restrepo va a hablar de cómo la muerte de un solo hombre pudo encender a todo un país, de qué pesó más en el Frente Nacional, si la paz o el reparto del poder, y de cómo se contaba la noticia cuando los propios periódicos tenían color político. Daniel creó la Unidad Investigativa de El Tiempo y trabajó ahí medio siglo; Darío dirigió durante veinte años el sistema informativo de Citytv.
+
+Es a las 3:30 p.m. en la Hospedería Duruelo. El aforo es limitado. Boleta del viernes en la tarde: $90.000.
+
+Y si hoy no pueden, el sábado y el domingo siguen Yolanda Ruiz, María Elvira Samper, Fidel Cano, Cecilia Orozco y Luz María Sierra, entre otros. Pase de fin de semana: $255.000, con descuento.
+
+Boletas en la página:
+https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=grupos-villa&utm_content=afiche-bogotazo_hoy
+
+¿Dudas? Escríbannos y se la dejamos lista:
 https://wa.me/573239236021?text=Hola%2C%20vi%20Testigos%20de%20la%20Memoria%20en%20un%20grupo%20de%20Villa%20de%20Leyva
 ```
 

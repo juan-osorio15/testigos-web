@@ -1,0 +1,21 @@
+{
+  "descripcion": "Hoy, viernes 6 de noviembre a las 3:30 p.m., el conversatorio del Bogotazo con Daniel Samper Pizano y Darío Restrepo, en la voz de la carta de Fernando Cordovez, a toda la base de interesados con correo autorizado (sus contactos y los inscritos del sitio). Plan en docs/campanas/lista-fernando/correo/README.md.",
+  "audiencia": "interesados",
+  "parametros": {
+    "origen": ["referral", "website"],
+    "desde": "2026-09-09",
+    "motivos": {
+      "referral": "Te escribimos porque estás entre los contactos de Fernando Cordovez o de Conexión Zaquencipá.",
+      "website": "Te escribimos porque pediste información en testigosdelamemoria.com."
+    }
+  },
+  "canales": {
+    "correo": {
+      "activo": true,
+      "plantilla": "carta-fernando-hoy-daniel.html",
+      "asunto": "Hoy a las 3:30",
+      "remitente": "Fernando Cordovez <direccion@testigosdelamemoria.com>",
+      "responder_a": "manager@eventalist.co"
+    }
+  }
+}

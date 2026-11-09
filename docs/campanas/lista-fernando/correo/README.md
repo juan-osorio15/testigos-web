@@ -51,3 +51,29 @@ python3 scripts/campanas/campana.py correo carta-fernando-ultimos-dias          
 python3 scripts/campanas/campana.py correo carta-fernando-ultimos-dias --prueba j.a.oso15@gmail.com --enviar  # prueba
 python3 scripts/campanas/campana.py correo carta-fernando-ultimos-dias --enviar                                 # envío real
 ```
+
+## Ya empezó (5 de noviembre de 2026)
+
+La misma voz y la misma base: `carta-fernando-ya-empezo`. Abre con las charlas abiertas, que ya empezaron, y con que todavía hay tiempo de conseguir boleta para los conversatorios (titular, 2026-11-05). Dice que Daniel Samper Pizano está el viernes, para que nadie compre el pase de fin de semana esperando verlo. Sin precios.
+
+- Configuración: `scripts/campanas/config/carta-fernando-ya-empezo.json`. Plantilla: `scripts/campanas/plantillas/carta-fernando-ya-empezo.html`. Asunto: "Ya empezó".
+- Medición: `utm_source=email&utm_medium=email&utm_campaign=lista-fernando&utm_content=correo-carta_ya-empezo`.
+
+```sh
+python3 scripts/campanas/campana.py correo carta-fernando-ya-empezo                                          # vista previa
+python3 scripts/campanas/campana.py correo carta-fernando-ya-empezo --prueba j.a.oso15@gmail.com --enviar  # prueba
+python3 scripts/campanas/campana.py correo carta-fernando-ya-empezo --enviar                                 # envío real
+```
+
+## Hoy, con Daniel Samper Pizano (6 de noviembre de 2026)
+
+La misma voz y la misma base: `carta-fernando-hoy-daniel`. Solo sirve ese viernes, antes de las 3:30 p.m. Primero la urgencia y el antojo del conversatorio del Bogotazo, pensado para quien puede llegar a Villa de Leyva esa misma tarde, y después el fin de semana (titular, 2026-11-06). **Excepción:** además del logo lleva el afiche del Bogotazo (`scripts/campanas/plantillas/afiche-bogotazo.png`). Sin precios.
+
+- Configuración: `scripts/campanas/config/carta-fernando-hoy-daniel.json`. Plantilla: `scripts/campanas/plantillas/carta-fernando-hoy-daniel.html`. Asunto: "Hoy a las 3:30".
+- Medición: `utm_source=email&utm_medium=email&utm_campaign=lista-fernando&utm_content=correo-carta_hoy-daniel`.
+
+```sh
+python3 scripts/campanas/campana.py correo carta-fernando-hoy-daniel                                          # vista previa
+python3 scripts/campanas/campana.py correo carta-fernando-hoy-daniel --prueba j.a.oso15@gmail.com --enviar  # prueba
+python3 scripts/campanas/campana.py correo carta-fernando-hoy-daniel --enviar                                 # envío real
+```

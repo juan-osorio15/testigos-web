@@ -1,0 +1,19 @@
+{
+  "descripcion": "Aviso de servicio del viernes 6 de noviembre: abrimos puertas a las 2:00 p.m. en la Hospedería Duruelo. Solo a quien tiene pase completo o boleta del viernes en la tarde. Pasos en docs/campanas/compradores/README.md.",
+  "audiencia": "compradores_boleta",
+  "parametros": {
+    "productos": ["Pase Completo", "Viernes Tarde"]
+  },
+  "respondio": {
+    "tags": ["apertura-viernes"]
+  },
+  "canales": {
+    "correo": {
+      "activo": true,
+      "plantilla": "apertura-viernes.html",
+      "asunto": "Hoy abrimos puertas a las 2:00 p.m.",
+      "remitente": "Testigos de la Memoria <direccion@testigosdelamemoria.com>",
+      "responder_a": "manager@eventalist.co"
+    }
+  }
+}

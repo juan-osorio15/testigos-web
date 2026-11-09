@@ -17,6 +17,8 @@ Cada plantilla tiene una sola idea (una conversación del programa o el recorrid
 - **RC7** · martes 3 nov · Marta Ruiz y Guillermo González Uribe. **No se envía:** la reemplaza RC9 (titular, 2026-11-02).
 - **RC9** · martes 3 nov · últimos días, con todos los nombres y los temas
 - **RC8** · miércoles 4 nov · mañana empieza
+- **RC10** · jueves 5 nov, apenas Meta la apruebe (si no alcanza, viernes 6 en la mañana) · este fin de semana, con el pase de fin de semana de protagonista
+- **RC11** · viernes 6 nov, antes de las 3:30 p.m. · hoy, Daniel Samper Pizano y Darío Restrepo. Solo si RC10 no salió hoy
 
 El domingo 1 y el lunes 2 (festivo) no se envía.
 
@@ -203,3 +205,53 @@ Para los conversatorios en Duruelo todavía hay cupo: el pase completo desde el 
 - Botón de respuesta rápida **Sí, ayúdame**.
 - Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc8-manana-empieza_boletas`
 - Botón de enlace **Ver hoteles** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc8-manana-empieza_hospedaje#hospedaje`
+
+## RC10 · jueves 5 o viernes 6 de noviembre · `rc10_este_fin_de_semana`
+
+El reloj no cuenta hasta el inicio del evento sino hasta el fin de semana, porque la mayoría no puede ir un jueves o un viernes (titular, 2026-11-05). Por eso solo nombra a los periodistas del sábado y el domingo: Daniel Samper Pizano está únicamente el viernes y queda ligado al pase completo. El texto no dice "hoy" ni "mañana", así que sirve los dos días. **Excepción a las demás RC:** lleva encabezado de imagen, el afiche de las caras (`piezas/RC10.jpg`, el mismo de RC9). Si Meta no la aprueba a tiempo, se crea `rc10_este_fin_de_semana_v2` sin encabezado. Eventalist S.A.S. va en el pie y no al inicio.
+
+Antes del broadcast, confirmar en Pretix que el pase sigue a la venta y a este precio, e importar a respond.io el CSV de `respondio compradores`.
+
+```
+Este sábado y domingo, en Villa de Leyva, todavía puedes escuchar en persona a quienes cubrieron de frente la historia de Colombia.
+
+Yolanda Ruiz, María Elvira Samper, Fidel Cano, Cecilia Orozco, Luz María Sierra, Martha Soto y Marta Ruiz, entre otros periodistas, cuentan lo que vivieron, y puedes hacerles preguntas.
+
+Las guerrillas, el Caguán y La Habana, el narcotráfico y el paramilitarismo, las reelecciones de Uribe y Santos, los magnicidios y las víctimas, y las mujeres periodistas en el conflicto.
+
+Pase de fin de semana: $255.000, con descuento. Seis conversatorios, desde el sábado a las 9:00 a.m. El aforo es limitado.
+
+Si vienes de fuera, tenemos hoteles aliados con descuentos para asistentes.
+
+Si solo quieres algunos conversatorios, boleta de medio día: $90.000. Si puedes el viernes a las 3:00 p.m., el pase completo ($340.000) suma el Bogotazo con Daniel Samper Pizano. Las charlas abiertas en la Casa Museo Antonio Nariño, hasta el viernes en la mañana, son de entrada libre.
+
+¿Te ayudamos a escoger?
+```
+
+- Encabezado: imagen (el afiche con las caras).
+- Pie: `Eventalist S.A.S. · Responde BAJA para no recibir más`
+- Botón de respuesta rápida **Sí, ayúdame**.
+- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc10-este-fin-de-semana_boletas`
+- Botón de enlace **Ver hoteles** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc10-este-fin-de-semana_hospedaje#hospedaje`
+
+## RC11 · viernes 6 de noviembre · `rc11_hoy_daniel_samper`
+
+Pedida por el titular el 2026-11-06 para vender la boleta del viernes en la tarde el mismo día; es el texto de GV15 en plantilla. Solo sirve hoy y antes de las 3:30 p.m. Categoría Marketing, idioma español (`es`), sin encabezado y sin variables. Eventalist S.A.S. va en el pie.
+
+Antes del broadcast, confirmar en Pretix que sigue habiendo boletas e importar a respond.io el CSV de `respondio compradores`. Un WhatsApp por persona al día: si RC10 ya salió hoy, RC11 no va a ese segmento.
+
+```
+Hoy a las 3:30 p.m., en Villa de Leyva, es el conversatorio de Daniel Samper Pizano. No te pierdas la oportunidad de preguntarle lo que siempre quisiste saber.
+
+Con Darío Restrepo va a hablar de cómo la muerte de un solo hombre pudo encender a todo un país, de qué pesó más en el Frente Nacional, si la paz o el reparto del poder, y de cómo se contaba la noticia cuando los propios periódicos tenían color político.
+
+Es en la Hospedería Duruelo. El aforo es limitado. Boleta del viernes en la tarde: $90.000.
+
+Y si hoy no puedes, el sábado y el domingo siguen Yolanda Ruiz, María Elvira Samper, Fidel Cano, Cecilia Orozco y Luz María Sierra, entre otros. Pase de fin de semana: $255.000, con descuento.
+
+¿Te ayudamos con tu boleta?
+```
+
+- Pie: `Eventalist S.A.S. · Responde BAJA para no recibir más`
+- Botón de respuesta rápida **Sí, ayúdame**.
+- Botón de enlace **Ver boletas** → `https://testigosdelamemoria.com/?utm_source=whatsapp&utm_medium=mensaje&utm_campaign=recuperacion&utm_content=plantilla-rc11-hoy-daniel-samper_boletas`

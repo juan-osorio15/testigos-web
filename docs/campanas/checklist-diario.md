@@ -40,17 +40,29 @@ Los textos, las piezas y los pasos están en la carpeta de cada campaña (`<camp
 - **GV6** · grupos de Villa · hoy empiezan las charlas abiertas (antes de las 10:00 a.m.). La pieza (afiche general) tiene a Ricardo Ospina y a León Valencia: hace falta otra. · Preparado: [ ] · Mandado: [ ]
 - **LF11** · lista de Fernando · hoy empieza, con Ana María Echeverri (antes de las 10:00 a.m.) · Preparado: [ ] · Mandado: [ ]
 - **EX3** · expirados · API · café del domingo con Yolanda Ruiz y María Elvira Samper · Preparado: [ ] · Mandado: [ ]
+- **RC10** · inactivos · este fin de semana, con el afiche de las caras (`inactivos/whatsapp/piezas/RC10.jpg`). Plantilla `rc10_este_fin_de_semana` aprobada en Meta, Pretix confirmado y compradores importados antes. Si no alcanza hoy, sale el viernes en la mañana · Preparado: [ ] · Mandado: [ ]
+- **Carta de Fernando, ya empezó** · correo · `correo carta-fernando-ya-empezo` (`lista-fernando/correo/README.md`) · Preparado: [ ] · Mandado: [ ]
+- **GV14** · grupos de Villa · este fin de semana, con el afiche de las caras. Si no alcanza hoy, sale el viernes · Preparado: [ ] · Mandado: [ ]
+- **LF14** · lista de Fernando · este fin de semana, con el afiche de las caras. Si no alcanza hoy, sale el viernes · Preparado: [ ] · Mandado: [ ]
 - **GA** · Google Ads · seguimiento cada dos días · Hecho: [ ]
 
 ## Viernes 6 nov
 
 Antes, confirmar en Pretix que sigue habiendo boletas.
 
+- **Apertura de puertas, correo** · compradores del viernes · `correo apertura-viernes` (`compradores/README.md`), antes de las 2:00 p.m. · Preparado: [ ] · Mandado: [ ]
+- **Apertura de puertas, WhatsApp** · compradores del viernes · plantilla `apertura_viernes_puertas` aprobada en Meta y CSV de `respondio apertura-viernes` importado, antes de las 2:00 p.m. · Preparado: [ ] · Mandado: [ ]
+- **RC11** · inactivos · hoy, Daniel Samper Pizano y Darío Restrepo. Plantilla `rc11_hoy_daniel_samper` aprobada en Meta y compradores importados antes; antes de las 3:30 p.m. y solo si RC10 no salió hoy · Preparado: [ ] · Mandado: [ ]
+- **GV15** · grupos de Villa · hoy, Daniel Samper Pizano y Darío Restrepo · Preparado: [ ] · Mandado: [ ]
+- **LF15** · lista de Fernando · hoy, Daniel Samper Pizano y Darío Restrepo · Preparado: [ ] · Mandado: [ ]
+- **Carta de Fernando, hoy con Daniel** · correo · `correo carta-fernando-hoy-daniel` (`lista-fernando/correo/README.md`), antes de las 3:30 p.m. · Preparado: [ ] · Mandado: [ ]
 - **GV7** · grupos de Villa · mujeres periodistas: hoy empieza · Preparado: [ ] · Mandado: [ ]
 - **LF12** · lista de Fernando · las mujeres periodistas del domingo · Preparado: [ ] · Mandado: [ ]
 
 ## Sábado 7 nov
 
+- **Apertura de puertas, correo** · todo comprador · `correo apertura-sabado-domingo` (`compradores/README.md`) · Preparado: [ ] · Mandado: [ ]
+- **Apertura de puertas, WhatsApp** · todo comprador · plantilla `apertura_sabado_domingo_puertas` aprobada en Meta y CSV de `respondio apertura-sabado-domingo` importado · Preparado: [ ] · Mandado: [ ]
 - **GA** · Google Ads · seguimiento final: cuánto gastó y qué vendió cada palabra · Hecho: [ ]
 
 ---
