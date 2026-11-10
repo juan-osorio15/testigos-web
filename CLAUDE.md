@@ -9,7 +9,7 @@ El sitio está en producción y vende. Ningún cambio puede romper la tienda, el
 - **Hechos del evento** (fechas, sesiones, panelistas, boletas, precios, etapas, sedes, aforo): `src/data/`. Qué sesiones cubre cada boleta: `src/data/boletas.ts`.
 - **Integraciones e identificadores** (tienda, backend, medición, contacto, fechas legales): `src/config.ts`.
 - **Para lo que no lee TypeScript**: `npm run build` exporta todo en `dist/datos/evento.json`. Los scripts lo leen con `scripts/lib/hechos.py` y se detienen si es más viejo que la fuente. Nunca copiar un precio, un slug o una URL en un script o una plantilla.
-- **Chatbot**: `docs/chatbot/`, dos archivos que se versionan por separado: la ficha (`ficha_*_vN.md`, los hechos) y el prompt (`prompt_vN.md`, el comportamiento). Vale la versión más alta. `docs/chatbot/legacy/` no se usa.
+- **Chatbot**: `docs/chatbot/`, dos archivos que se versionan por separado: la ficha (`ficha_*_vN.md`, los hechos) y el prompt (`prompt_vN.md`, el comportamiento). Vale la versión más alta; las anteriores están en git.
 - **Textos de Pretix**: `docs/pretix/pretix-tienda-textos.md`. Pretix no se centraliza: todo pedido de textos para Pretix obliga a cotejarlos con `src/data/` antes de redactar.
 - **Lo publicado fuera del repo**: `docs/copias-externas.md`. Al cambiar un hecho, recorrerla.
 

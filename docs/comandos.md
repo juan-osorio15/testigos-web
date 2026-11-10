@@ -6,7 +6,7 @@
 
 Arma la lista con los datos del momento y dice cuántos quedaron y cuántos salieron y por qué. No envía nada.
 
-- Campañas: `expirados`, `interesados`, `compradores`, `agenda-fernando`, `carta-fernando`, `cierre-descuento-2-carta`, `familia-etapa1`, `familia-etapa2`, `apertura-sabado-domingo`.
+- Campañas: `expirados`, `interesados`, `compradores`. Las de una sola vez de 2026 (cartas de Fernando, cierre de etapa, familia, apertura de puertas) se borraron; sus configuraciones están en git (`git show f1f047c:scripts/campanas/config/`).
 - `--dias N`: solo las personas de los últimos N días.
 - `--excluir correo-o-telefono`: deja a alguien por fuera (se puede repetir).
 
@@ -42,7 +42,7 @@ Arma el CSV de importación de respond.io en `~/Downloads`, solo con quien autor
 
 ### `python3 scripts/campanas/campana.py vouchers <campaña>`
 
-Imprime los códigos de voucher de la campaña, uno por línea, para pegarlos en Pretix (Vales → Crear múltiples vales de compra nuevos). Solo para las campañas que dan un voucher por persona: `familia-etapa1` y `familia-etapa2` (`git show 685932c:docs/campanas/familia/README.md`).
+Imprime los códigos de voucher de la campaña, uno por línea, para pegarlos en Pretix (Vales → Crear múltiples vales de compra nuevos). Solo para las campañas que dan un voucher por persona. En 2026 fue familia, que no vendió (`git show 685932c:docs/campanas/familia/README.md`).
 
 - `--revisar`: después de crearlos, lee de Pretix los vouchers con la etiqueta de la campaña y dice si falta o sobra alguno, o si alguno quedó con otro producto, precio, usos o vencimiento (`vence` en la config). Sale con error si hay algo mal.
 - `--excluir`: igual que en `lista`.

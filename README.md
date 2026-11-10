@@ -29,6 +29,5 @@ Las demás herramientas (informe, imágenes para compartir, boleta y escarapela 
 - `docs/README.md`: qué hay en cada carpeta de `docs/`.
 - `docs/proyecto/punto-de-partida.md`: qué es este repo y su filosofía.
 - `specs/`: una carpeta por feature, con su spec, su plan y sus decisiones (Clarifications).
-- Estado vivo de la medición: `docs/medicion/embudo/estado.md`. Pendientes del titular de la feature 002: `docs/proyecto/pendientes-002.md`.
 
 Las reglas de trabajo para agentes están en `CLAUDE.md`.

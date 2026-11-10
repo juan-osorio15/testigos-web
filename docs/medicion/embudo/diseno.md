@@ -1,7 +1,7 @@
 # Embudo de venta por campaña · diseño
 
 Fecha: 2026-10-06. Estado: versión 2, tras la revisión de los agentes de `pretix-wompi` y `eventalist-backend` contra su código. **Esta carpeta es la fuente de verdad de los cambios en los tres repos**: cualquier cambio de contrato o de alcance se hace aquí primero y después en cada repo.
-Reemplaza la decisión del 2026-09-17 que retiró la capa de servidor (`docs/medicion/archivo-2027/`): el titular quiere que este evento deje lista la plantilla profesional de medición y retargeting para los siguientes.
+Reemplaza la decisión del 2026-09-17 que retiró la capa de servidor (en git: `git show f1f047c:docs/medicion/archivo-2027/`): el titular quiere que este evento deje lista la plantilla profesional de medición y retargeting para los siguientes.
 
 ## La meta del titular: un informe para decidir
 
@@ -35,8 +35,8 @@ Y poder actuar sobre los pasos 4 y 5:
 
 ## Lo que se decidió y por qué
 
-- **Un plugin de Pretix hace el trabajo de servidor** (`pretix-eventalist-tracking`, en el repo `pretix-wompi`, al lado del plugin de Wompi). Envía directamente a GA4 (Measurement Protocol) y a Meta (Conversions API) usando los workers y el programador que ya corren en la instancia. Se activa y configura por evento desde el panel: para otro evento basta con activarlo y poner sus ID. Prompt: `prompt-pretix.md`.
-- **El backend de Eventalist recibe una foto del estado de cada pedido** cada vez que cambia, en un endpoint nuevo y autenticado, y la guarda en `apps/marketing` (la misma base de `MarketingContact` y `Campaign` que alimenta el formulario de interesados), con la etapa de compra de cada persona. Las autorizaciones pasan a un historial propio (`ContactConsent`) que sirve para la tienda, el formulario y las importaciones. No habla con Meta ni con Google. Prompt: `prompt-backend.md`.
+- **Un plugin de Pretix hace el trabajo de servidor** (`pretix-eventalist-tracking`, en el repo `pretix-wompi`, al lado del plugin de Wompi). Envía directamente a GA4 (Measurement Protocol) y a Meta (Conversions API) usando los workers y el programador que ya corren en la instancia. Se activa y configura por evento desde el panel: para otro evento basta con activarlo y poner sus ID. Prompt, en git: `git show f1f047c:docs/medicion/embudo/prompt-pretix.md`.
+- **El backend de Eventalist recibe una foto del estado de cada pedido** cada vez que cambia, en un endpoint nuevo y autenticado, y la guarda en `apps/marketing` (la misma base de `MarketingContact` y `Campaign` que alimenta el formulario de interesados), con la etapa de compra de cada persona. Las autorizaciones pasan a un historial propio (`ContactConsent`) que sirve para la tienda, el formulario y las importaciones. No habla con Meta ni con Google. Prompt, en git: `git show f1f047c:docs/medicion/embudo/prompt-backend.md`.
 - **Seguridad de los pagos**: el plugin nunca puede deshacer la confirmación de un pago (Pretix avisa del pago dentro de su transacción y no atrapa errores de los plugins). Es la primera regla y la primera prueba del plugin.
 - **Antes del plugin, dos PR propios en `pretix-wompi`**: subir pretix a 2026.5.4 (la 2026.5.1 desplegada tiene una vulnerabilidad crítica) y recuperar el barrido de respaldo de Wompi, que hoy no confirma pagos si el webhook falla.
 - **El sitio** entrega al widget la campaña de la visita y los identificadores de GA4 y Meta, y separa los dos eventos de navegador del embudo. Detalle abajo.
@@ -105,7 +105,7 @@ Al terminar se escribe `docs/medicion/embudo/guia-informes-y-publicos.md`, en le
 
 ## Orden de entrega
 
-En qué punto va cada repo: `estado.md` (cada repo actualiza su sección).
+El estado de cada repo durante Testigos 2026 está en git: `git show f1f047c:docs/medicion/embudo/estado.md`.
 
 0. Titular (paso a paso en `titular/evento-sandbox.md`): crear en Pretix el evento `testigos-sandbox` (no existía; verificado desde el servidor el 2026-10-06): clonar `testigos-memoria`, modo prueba, sin enlazarlo desde ningún sitio; en su configuración de Wompi, ambiente de pruebas y las cuatro llaves de prueba; en el ambiente de pruebas de Wompi, registrar `https://pretix.eventalist.co/_wompi/webhook/` como URL de eventos (la de producción no se toca); una compra de prueba con la tarjeta 4242. Sin este evento no se puede probar nada: ni el PR del barrido, ni el plugin, ni el sitio.
 1. `pretix-wompi`: PR de pretix 2026.5.4 y PR del barrido de Wompi (independientes de todo lo demás; van primero porque son riesgos de hoy).

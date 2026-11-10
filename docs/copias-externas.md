@@ -14,7 +14,7 @@ Antes de pegar un texto que vive en el repo: `npm run build` y `npm run verifica
 ## Chatbot (respond.io: WhatsApp, Instagram y Facebook)
 
 - **Qué tiene**: la ficha (hechos) y el prompt (comportamiento). Los precios no: los consulta en vivo en la tienda.
-- **Copia en el repo**: `docs/chatbot/ficha_testigos_de_la_memoria_v*.md` y `docs/chatbot/prompt_v*.md`, la versión más alta de cada uno. `docs/chatbot/legacy/` no se usa.
+- **Copia en el repo**: `docs/chatbot/ficha_testigos_de_la_memoria_v*.md` y `docs/chatbot/prompt_v*.md`, la versión más alta de cada uno.
 - **Cambia si cambia**: sesiones, panelistas, sedes, etapas, hoteles, políticas, canales.
 - **Último pegado**: ficha v4 en el chatbot (confirmado por el titular el 2026-11-02). Pendientes de pegar: ficha v9 del 2026-11-02 (sexta gratis, códigos FAMILIA, María Alejandra Villamizar) y prompt v6 del 2026-11-02 (sexta gratis en descuentos y objeciones).
 

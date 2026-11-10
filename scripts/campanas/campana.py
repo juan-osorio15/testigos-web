@@ -11,7 +11,7 @@ Uso:
     python3 scripts/campanas/campana.py correo interesados [--prueba j.a.oso15@gmail.com] [--enviar]
     python3 scripts/campanas/campana.py whatsapp interesados [--prueba 57300...] [--enviar]
     python3 scripts/campanas/campana.py respondio expirados [--salida ~/Downloads/x.csv]
-    python3 scripts/campanas/campana.py vouchers familia-etapa1 [--revisar]
+    python3 scripts/campanas/campana.py vouchers <campaña> [--revisar]
     python3 scripts/campanas/campana.py registro
 
 lista arma la lista con los datos de este momento y la guarda en

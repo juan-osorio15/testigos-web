@@ -55,7 +55,7 @@ La tabla de arriba no se amplía; este panelista va en lista.
 - Redes enlazadas: X @ricarospina y su página de autor en Blu Radio. Instagram @ricarospina probable, no enlazado. Facebook y LinkedIn sin verificar.
 - Foto: retrato oficial de Blu Radio (650 × 466, a color, fondo gris; crédito "Foto Blu Radio"); recorte propio a 4:3 (621 × 466). Pedirle una foto en alta.
 - No está en el afiche: va de último en el carrusel y fuera de la escalera de caras del hero.
-- Informe en docs/evento/investigaciones/ricardo-ospina.md.
+- Informe en git: `git show f1f047c:docs/evento/investigaciones/ricardo-ospina.md`.
 
 ## Fotos
 

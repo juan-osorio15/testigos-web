@@ -13,7 +13,7 @@ facturación, montos de puja y activar campañas. Si una operación lo toca,
 no se manda nada.
 
 Credenciales: las de gcloud, suplantando a claude-lector (ver
-docs/medicion/embudo/estado.md, "Cómo mirar"). Sin developer token: Google
+docs/comandos.md). Sin developer token: Google
 lo retiró el 9 de septiembre de 2026.
 """
 

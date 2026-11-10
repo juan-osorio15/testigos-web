@@ -166,7 +166,7 @@ Para el ensayo antes de lanzar se abre a mano la URL con `utm_source=prueba` en 
 
 ### Chatbot
 
-`docs/chatbot/legacy/system-prompt-atencion.md` y `docs/chatbot/legacy/chatbot-conocimiento.md` llevan la versión de un solo prompt para los dos canales. **El chatbot desplegado sigue con los enlaces anteriores hasta que se copien el prompt y la base de conocimiento en su plataforma.**
+Los enlaces que da el chatbot van en la ficha y el prompt vigentes de `docs/chatbot/` (la versión más alta), con estos UTM.
 
 Un solo prompt para Instagram y WhatsApp:
 

@@ -2,7 +2,7 @@
 
 Para el titular. Junta en un solo orden lo que hay que publicar en los tres repos y lo que se configura
 a mano en Pretix, Railway, Neon, GA4 y Meta. El detalle técnico de cada repo sigue en su sección de
-`estado.md`. Si algo de aquí choca con `diseno.md`, manda `diseno.md`.
+`estado.md` (en git, `git show f1f047c:docs/medicion/embudo/estado.md`). Si algo de aquí choca con `diseno.md`, manda `diseno.md`.
 
 Fecha: 2026-10-08. Completa: los otros dos repos respondieron todas las preguntas (tercera tanda de
 `estado.md`). Lo único abierto es trabajo del backend, no una duda: la exportación de pedidos con UTM
